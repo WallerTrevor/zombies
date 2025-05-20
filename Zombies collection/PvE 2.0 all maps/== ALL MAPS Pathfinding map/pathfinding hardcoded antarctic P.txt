@@ -1,0 +1,766 @@
+settings
+{
+	lobby
+	{
+		Max Team 1 Players: 4
+		Max Team 2 Players: 0
+	}
+
+	modes
+	{
+		Control
+		{
+			enabled maps
+			{
+				Antarctic Peninsula 972777519512068153 972777519512068154
+			}
+		}
+
+		Escort
+		{
+			enabled maps
+			{
+			}
+		}
+
+		Flashpoint
+		{
+			enabled maps
+			{
+			}
+		}
+
+		Hybrid
+		{
+			enabled maps
+			{
+			}
+		}
+
+		Push
+		{
+			enabled maps
+			{
+			}
+		}
+
+		General
+		{
+			Limit Roles: 1 Tank 2 Offense 2 Support
+		}
+	}
+
+	extensions
+	{
+		Spawn More Dummy Bots
+	}
+}
+
+variables
+{
+	global:
+		0: pfLoadedMap_nodes
+		1: pfLoadedMap_neighbors
+		2: pfIterationsThisTick
+		3: pfExecOwner
+		4: i
+
+	player:
+		0: pfWait
+		1: pfDestination
+		2: pfPlayerAttributes
+		3: pfAttributes
+		4: pfSavedTarget
+		5: pfIsPathfinding
+		6: pfCurrentNodeIndex
+		7: pfWalkingToPosition
+		8: pfPath
+		9: pfStartTime
+		10: pfWalkingFromPosition
+		11: pfActiveNode
+		12: pfStuckOnNode
+		13: pfWasBroadcasted
+		14: pfIsStuck
+		15: goal
+		16: scores_gScore
+		17: scores_fScore
+		18: scores_parent
+		19: scores_nodeIndex
+		20: open
+		21: checkedNode
+		22: iter
+		23: current
+		24: currentInExistingPath
+		25: broadcastTo
+		26: neighbor
+		27: neighborI
+		28: scoreIndex
+		29: score
+}
+
+subroutines
+{
+	0: pfTick
+	1: pfUpdateNodeMeta
+	2: pfWalkToDestination
+	3: pfProgressEventPlayer
+	4: pfRecalibrate
+	5: pfLookAtDestination
+}
+
+rule("spawn bot")
+{
+	event
+	{
+		Ongoing - Each Player;
+		All;
+		All;
+	}
+
+	conditions
+	{
+		Is Button Held(Event Player, Button(Interact)) == True;
+	}
+
+	actions
+	{
+		Create Dummy Bot(Hero(Reinhardt), Team 2, -1, Event Player, Vector(0, 0, 0));
+	}
+}
+
+rule("set position")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		disabled Is Button Held(Event Player, Button(Crouch)) == True;
+	}
+
+	actions
+	{
+		All Living Players(Team 2).pfDestination = Position Of(Host Player);
+		Wait(0.110, Ignore Condition);
+		Loop;
+	}
+}
+
+rule("Rule 18")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 2;
+		All;
+	}
+
+	actions
+	{
+		Start Facing(Event Player, First Of(All Living Players(Team 1)), 100, To World, Direction and Turn Rate);
+	}
+}
+
+rule("Rule 19")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 2;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, First Of(All Living Players(Team 1))) < 2;
+	}
+
+	actions
+	{
+		Start Holding Button(Event Player, Button(Primary Fire));
+	}
+}
+
+rule("Rule 19")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 2;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, First Of(All Living Players(Team 1))) >= 2;
+	}
+
+	actions
+	{
+		Stop Holding Button(Event Player, Button(Primary Fire));
+	}
+}
+
+rule("Rule 21")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 2;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, First Of(All Living Players(Team 1))) >= 10;
+	}
+
+	actions
+	{
+		Set Move Speed(Event Player, 200);
+	}
+}
+
+rule("Rule 21")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 2;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, First Of(All Living Players(Team 1))) <= 6;
+	}
+
+	actions
+	{
+		Set Move Speed(Event Player, 100);
+	}
+}
+
+rule("【PF Core】Prepare loaded map")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	actions
+	{
+		Wait Until(Global.pfLoadedMap_nodes, 9999);
+		For Global Variable(i, 0, Count Of(Global.pfLoadedMap_nodes), 1);
+			Global.pfLoadedMap_nodes[Global.i] = Vector(X Component Of(Global.pfLoadedMap_nodes[Global.i]), Round To Integer(Y Component Of(
+				Global.pfLoadedMap_nodes[Global.i]), Down) + Global.i / 1000 * (Y Component Of(Global.pfLoadedMap_nodes[Global.i])
+				< 0 ? -1 : 1), Z Component Of(Global.pfLoadedMap_nodes[Global.i]));
+		End;
+	}
+}
+
+rule("【PF Core】Select next pathfinder")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	conditions
+	{
+		(!Entity Exists(Global.pfExecOwner) || Global.pfExecOwner == Null) == True;
+		Is True For Any(All Players(All Teams), Current Array Element.pfWait) == True;
+	}
+
+	actions
+	{
+		Global.pfExecOwner = First Of(Sorted Array(Filtered Array(All Players(All Teams), Current Array Element.pfWait),
+			Current Array Element.pfWait));
+		Wait(0.016, Ignore Condition);
+		Loop If Condition Is True;
+	}
+}
+
+rule("【PF Core Subroutine】☞ Tick")
+{
+	event
+	{
+		Subroutine;
+		pfTick;
+	}
+
+	actions
+	{
+		Global.pfIterationsThisTick -= 1;
+		If(Global.pfIterationsThisTick <= 0);
+			Wait(0.016, Ignore Condition);
+			Wait Until(Max(Server Load Average, Server Load) < 255, 0.250);
+			"This determines the pathfinding budget for the current tick."
+			Global.pfIterationsThisTick = (Max(Server Load Average, Server Load) < 230) + (Max(Server Load Average, Server Load) < 180)
+				* 2 + 1;
+		End;
+	}
+}
+
+rule("【PF Core Subroutine】☞ Update node meta")
+{
+	event
+	{
+		Subroutine;
+		pfUpdateNodeMeta;
+	}
+
+	actions
+	{
+		If(Event Player.pfCurrentNodeIndex != -1);
+			Event Player.pfActiveNode = Event Player.pfCurrentNodeIndex;
+		End;
+		If(Event Player.pfStuckOnNode == 1);
+			Event Player.pfStuckOnNode = 0;
+		End;
+		"Update the pathfinding start time."
+		Event Player.pfStartTime = Total Time Elapsed;
+		Event Player.pfWalkingFromPosition = Position Of(Event Player);
+	}
+}
+
+rule("☆【PF Core Subroutine】☞ Walk to destination")
+{
+	event
+	{
+		Subroutine;
+		pfWalkToDestination;
+	}
+
+	actions
+	{
+		Start Throttle In Direction(Event Player, Direction Towards(Position Of(Event Player), Event Player.pfWalkingToPosition),
+			Event Player.pfWalkingToPosition && (Event Player.pfCurrentNodeIndex != -1 || Distance Between(Position Of(Event Player),
+			Event Player.pfWalkingToPosition) > 0.400), To World, Replace existing throttle, Direction and Magnitude);
+	}
+}
+
+rule("【PF Core】Update & Execute")
+{
+	event
+	{
+		Ongoing - Each Player;
+		All;
+		All;
+	}
+
+	conditions
+	{
+		Event Player.pfDestination == True;
+		Distance Between(Event Player, Event Player.pfDestination) > 4;
+		(!Event Player.pfSavedTarget || Distance Between(Event Player.pfDestination, Event Player.pfSavedTarget) > 5) == True;
+	}
+
+	actions
+	{
+		"Ensure that a map is loaded."
+		If(!Global.pfLoadedMap_nodes);
+			Log To Inspector(Custom String("Error: Attempted to pathfind player {0} without a loaded map.", Event Player));
+			Abort;
+		End;
+		Event Player.pfWait = Total Time Elapsed;
+		Event Player.pfWasBroadcasted = False;
+		Wait Until(Global.pfExecOwner == Event Player || Event Player.pfWasBroadcasted, 9999);
+		"Update saved destination"
+		Event Player.pfSavedTarget = Event Player.pfDestination;
+		If(!Event Player.pfWasBroadcasted);
+			Event Player.goal = Round To Integer(Absolute Value(Y Component Of(First Of(Sorted Array(Array Slice(Sorted Array(
+				Global.pfLoadedMap_nodes, Distance Between(Current Array Element, Event Player.pfSavedTarget)), 0, 5), !Is In Line of Sight(
+				Current Array Element + Vector(0, 2, 0), Event Player.pfSavedTarget + Vector(0, 2, 0), Barriers Do Not Block LOS)))))
+				* 1000 % 1000, Down);
+			Call Subroutine(pfTick);
+			If(Event Player.pfIsPathfinding && Event Player.pfCurrentNodeIndex != -1);
+				Event Player.pfActiveNode = Event Player.pfCurrentNodeIndex;
+			Else;
+				Event Player.pfActiveNode = Round To Integer(Absolute Value(Y Component Of(First Of(Sorted Array(Array Slice(Sorted Array(
+					Global.pfLoadedMap_nodes, Distance Between(Current Array Element, Position Of(Event Player))), 0, 5), !Is In Line of Sight(
+					Current Array Element + Vector(0, 2, 0), Position Of(Event Player) + Vector(0, 2, 0), Barriers Do Not Block LOS)))))
+					* 1000 % 1000, Down);
+				Call Subroutine(pfTick);
+			End;
+			Event Player.scores_gScore = Array(0);
+			Event Player.scores_fScore = Array(0);
+			Event Player.scores_parent = Array(-1);
+			Event Player.scores_nodeIndex = Array(Event Player.goal);
+			Event Player.open = Array(0);
+			Event Player.checkedNode = Event Player.pfActiveNode;
+			Event Player.iter = 0;
+			While(Count Of(Event Player.open) || Event Player.iter > 30);
+				"The index of the current node in `scores`."
+				Event Player.current = First Of(Sorted Array(Event Player.open, Event Player.scores_fScore[Current Array Element]));
+				If(Event Player.checkedNode != Event Player.pfActiveNode);
+					Event Player.checkedNode = Index Of Array Value(Event Player.scores_nodeIndex, Event Player.pfActiveNode);
+					If(Event Player.checkedNode != -1);
+						Event Player.current = Event Player.checkedNode;
+						Event Player.checkedNode = -2;
+					Else;
+						Event Player.checkedNode = Event Player.pfActiveNode;
+					End;
+				End;
+				Event Player.currentInExistingPath = Index Of Array Value(Event Player.pfPath,
+					Event Player.scores_nodeIndex[Event Player.current]);
+				"If the goal was found, reconstruct the path."
+				If(
+					Event Player.scores_nodeIndex[Event Player.current] == Event Player.pfActiveNode || Event Player.checkedNode == -2 || Event Player.currentInExistingPath != -1);
+					If(Event Player.currentInExistingPath == -1);
+						Event Player.pfPath = Empty Array;
+					Else;
+						Event Player.pfPath = Array Slice(Event Player.pfPath, 0, Event Player.currentInExistingPath);
+					End;
+					While(Event Player.current != -1);
+						Modify Player Variable(Event Player, pfPath, Append To Array, Event Player.scores_nodeIndex[Event Player.current]);
+						Event Player.current = Event Player.scores_parent[Event Player.current];
+					End;
+					Modify Player Variable(Event Player, pfPath, Append To Array, Array(-1));
+					Event Player.broadcastTo = Filtered Array(Players Within Radius(Position Of(Event Player) + Up, 4, All Teams, Off),
+						Current Array Element != Event Player && Current Array Element.pfWait && Distance Between(Current Array Element.pfDestination,
+						Event Player.pfDestination) < 4 && Current Array Element.pfPlayerAttributes == Event Player.pfPlayerAttributes);
+					Event Player.broadcastTo.pfPath = Event Player.pfPath;
+					Event Player.broadcastTo.pfWasBroadcasted = True;
+					Skip(27);
+				End;
+				Modify Player Variable(Event Player, open, Remove From Array By Value, Event Player.current);
+				"Check each neighbor to the current node."
+				For Player Variable(Event Player, neighbor, 0, Count Of(
+					Global.pfLoadedMap_neighbors[Event Player.scores_nodeIndex[Event Player.current]]), 1);
+					"The neighbor index to be used like `pfLoadedMap.nodes[neighborI]`."
+					Event Player.neighborI = First Of(
+						Global.pfLoadedMap_neighbors[Event Player.scores_nodeIndex[Event Player.current]][Event Player.neighbor]);
+					Event Player.scoreIndex = Index Of Array Value(Event Player.scores_nodeIndex, Event Player.neighborI);
+					"Ensure that the path to the neighbor is enabled."
+					If(Count Of(Global.pfLoadedMap_neighbors[Event Player.scores_nodeIndex[Event Player.current]][Event Player.neighbor][1])
+						== 0 || Is True For Any(
+						Global.pfLoadedMap_neighbors[Event Player.scores_nodeIndex[Event Player.current]][Event Player.neighbor][1], Array Contains(
+						Event Player.pfPlayerAttributes, Current Array Element)));
+						Event Player.score = Event Player.scores_gScore[Event Player.current] + Distance Between(
+							Global.pfLoadedMap_nodes[Event Player.scores_nodeIndex[Event Player.current]],
+							Global.pfLoadedMap_nodes[Event Player.neighborI]);
+						"Get neighbor index in scores.\r\nIf -1, the neighbor was not added to the score list yet."
+						If(Event Player.scoreIndex == -1);
+							Modify Player Variable(Event Player, open, Append To Array, Count Of(Event Player.scores_gScore));
+							Modify Player Variable(Event Player, scores_gScore, Append To Array, Event Player.score);
+							Modify Player Variable(Event Player, scores_fScore, Append To Array, Event Player.score + Distance Between(
+								Global.pfLoadedMap_nodes[Event Player.neighborI], Global.pfLoadedMap_nodes[Event Player.pfActiveNode]) * 20);
+							Modify Player Variable(Event Player, scores_parent, Append To Array, Event Player.current);
+							Modify Player Variable(Event Player, scores_nodeIndex, Append To Array, Event Player.neighborI);
+						Else If(Event Player.score < Event Player.scores_gScore[Event Player.scoreIndex]);
+							Event Player.scores_gScore[Event Player.scoreIndex] = Event Player.score;
+							Event Player.scores_fScore[Event Player.scoreIndex] = Event Player.score + Distance Between(
+								Global.pfLoadedMap_nodes[Event Player.neighborI], Global.pfLoadedMap_nodes[Event Player.pfActiveNode]) * 20;
+							Event Player.scores_parent[Event Player.scoreIndex] = Event Player.current;
+							Event Player.scores_nodeIndex[Event Player.scoreIndex] = Event Player.neighborI;
+							If(!Array Contains(Event Player.open, Event Player.scoreIndex));
+								Modify Player Variable(Event Player, open, Append To Array, Event Player.scoreIndex);
+							End;
+						End;
+					End;
+					Call Subroutine(pfTick);
+				End;
+				Event Player.iter += 1;
+			End;
+			Global.pfExecOwner = Null;
+		End;
+		If(Count Of(Event Player.pfPath));
+			Event Player.pfIsPathfinding = True;
+			Event Player.pfCurrentNodeIndex = First Of(Event Player.pfPath);
+			Event Player.pfWalkingToPosition = Global.pfLoadedMap_nodes[Event Player.pfCurrentNodeIndex];
+			Call Subroutine(pfUpdateNodeMeta);
+			Call Subroutine(pfWalkToDestination);
+		End;
+		Event Player.pfWait = Null;
+		Wait(2, Ignore Condition);
+		Loop If Condition Is True;
+	}
+}
+
+rule("【PF Core Subroutine】☞ Progress event player")
+{
+	event
+	{
+		Subroutine;
+		pfProgressEventPlayer;
+	}
+
+	actions
+	{
+		If(Count Of(Event Player.pfPath) == 0);
+			Skip(10);
+		End;
+		"Pop the current path."
+		Modify Player Variable(Event Player, pfPath, Remove From Array By Index, 0);
+		"Update the current pathfind attributes."
+		If(Count Of(Event Player.pfPath) && First Of(Event Player.pfPath) != -1);
+			"Any rules watching these with the matching condition will activate."
+			Event Player.pfAttributes = Last Of(First Of(Filtered Array(Global.pfLoadedMap_neighbors[First Of(Event Player.pfPath)], First Of(
+				Current Array Element) == Event Player.pfCurrentNodeIndex)));
+		Else;
+			Event Player.pfAttributes = Empty Array;
+		End;
+		"Go to the next node in the path."
+		Event Player.pfCurrentNodeIndex = First Of(Event Player.pfPath);
+		"Set the position that the player is currently walking towards."
+		Event Player.pfWalkingToPosition = Event Player.pfCurrentNodeIndex == -1 ? (Distance Between(Event Player.pfDestination,
+			Event Player.pfSavedTarget) <= 4 ? Event Player.pfDestination : Position Of(Event Player))
+			: Global.pfLoadedMap_nodes[Event Player.pfCurrentNodeIndex];
+		Call Subroutine(pfUpdateNodeMeta);
+	}
+}
+
+rule("【PF Core】Node reached")
+{
+	event
+	{
+		Ongoing - Each Player;
+		All;
+		All;
+	}
+
+	conditions
+	{
+		Event Player.pfIsPathfinding == True;
+		Event Player.pfWalkingToPosition == True;
+		Distance Between(Position Of(Event Player) * Vector(1, Empty Array, 1), Event Player.pfWalkingToPosition * Vector(1, Empty Array,
+			1)) <= 0.400;
+		Absolute Value(Y Component Of(Position Of(Event Player)) - Y Component Of(Event Player.pfWalkingToPosition)) <= 1.500;
+		Count Of(Event Player.pfPath) > 0;
+		Event Player.pfCurrentNodeIndex != -1;
+	}
+
+	actions
+	{
+		Call Subroutine(pfProgressEventPlayer);
+		Wait(0.200, Ignore Condition);
+		Loop If Condition Is True;
+	}
+}
+
+rule("【PF Core】Stop throttle when pfDestination is reset")
+{
+	event
+	{
+		Ongoing - Each Player;
+		All;
+		All;
+	}
+
+	conditions
+	{
+		Event Player.pfIsPathfinding == True;
+		Event Player.pfDestination == Null;
+	}
+
+	actions
+	{
+		Stop Throttle In Direction(Event Player);
+		Event Player.pfIsPathfinding = False;
+		Event Player.pfSavedTarget = Null;
+	}
+}
+
+rule("【PF Core Subroutine】☞ Recalibrate")
+{
+	event
+	{
+		Subroutine;
+		pfRecalibrate;
+	}
+
+	actions
+	{
+		Stop Throttle In Direction(Event Player);
+		Event Player.pfCurrentNodeIndex = -1;
+		Event Player.pfSavedTarget = Null;
+		Event Player.pfIsPathfinding = False;
+		Event Player.pfWalkingToPosition = Position Of(Event Player);
+	}
+}
+
+rule("【PF Core】Insurance")
+{
+	event
+	{
+		Ongoing - Each Player;
+		All;
+		All;
+	}
+
+	conditions
+	{
+		Event Player.pfIsPathfinding == True;
+		Event Player.pfWalkingToPosition == True;
+	}
+
+	actions
+	{
+		"Recalibrate"
+		If(Distance Between((Event Player.pfWalkingFromPosition + Event Player.pfWalkingToPosition) / 2, Event Player) > (Distance Between(
+			Event Player.pfWalkingFromPosition, Event Player.pfWalkingToPosition) + 2) * 1.200);
+			Call Subroutine(pfRecalibrate);
+		"Smooth step"
+		Else If(Count Of(Event Player.pfPath) == 2 && Distance Between(Event Player, Event Player.pfSavedTarget) < Distance Between(
+				Event Player.pfWalkingToPosition, Event Player.pfSavedTarget) && Is In Line of Sight(Position Of(Event Player) + Vector(0,
+				0.250, 0), Event Player.pfSavedTarget + Vector(0, 0.250, 0), Barriers Do Not Block LOS));
+			Call Subroutine(pfProgressEventPlayer);
+		"Recovery"
+		Else If((Distance Between(Event Player, Event Player.pfWalkingToPosition) > 0.250 && Event Player.pfIsStuck) || (Distance Between(
+				Event Player.pfWalkingFromPosition, Event Player.pfWalkingToPosition) - 4.950 * (Total Time Elapsed - Event Player.pfStartTime)
+				< 0 && !Has Status(Event Player, Rooted) && !Has Status(Event Player, Frozen) && !Has Status(Event Player, Asleep)
+				&& !Has Status(Event Player, Knocked Down) && !Has Status(Event Player, Stunned)));
+			If(Event Player.pfCurrentNodeIndex == -1);
+				Event Player.pfWalkingToPosition = Null;
+			Else If(Event Player.pfStuckOnNode - 2 == Event Player.pfCurrentNodeIndex);
+				Log To Inspector(Custom String("Pathfinder {0} struggled to reach node {1} at {2}. Try adjusting your map in the editor.",
+					Event Player, Event Player.pfCurrentNodeIndex, Global.pfLoadedMap_nodes[Event Player.pfCurrentNodeIndex]));
+				Teleport(Event Player, Event Player.pfWalkingToPosition);
+			Else;
+				Event Player.pfStuckOnNode = Event Player.pfCurrentNodeIndex + 2;
+				Call Subroutine(pfRecalibrate);
+			End;
+		"Shift destination"
+		Else If(
+				Event Player.pfWalkingToPosition != Event Player.pfDestination && Event Player.pfCurrentNodeIndex == -1 && Distance Between(
+				Event Player.pfSavedTarget, Event Player.pfDestination) < 5 && Is In Line of Sight(Event Player.pfSavedTarget + Up,
+				Event Player.pfDestination + Up, Barriers Do Not Block LOS));
+			Event Player.pfWalkingToPosition = Event Player.pfDestination;
+		End;
+		Wait(2, Ignore Condition);
+		Loop If Condition Is True;
+	}
+}
+
+rule("【PF Core】Check throttle")
+{
+	event
+	{
+		Ongoing - Each Player;
+		All;
+		All;
+	}
+
+	conditions
+	{
+		Event Player.pfIsPathfinding == True;
+		Magnitude Of(Velocity Of(Event Player)) < 3;
+	}
+
+	actions
+	{
+		Wait(2.100, Abort When False);
+		Event Player.pfIsStuck = True;
+		Wait Until(!Event Player.pfWalkingToPosition || !Event Player.pfIsPathfinding || Magnitude Of(Velocity Of(Event Player)) >= 3,
+			9999);
+		Event Player.pfIsStuck = False;
+	}
+}
+
+rule("☆【PF Core Subroutine】☞ Look at destination")
+{
+	event
+	{
+		Subroutine;
+		pfLookAtDestination;
+	}
+
+	actions
+	{
+		"Calling this subroutine will make the player look to the point they are walking towards."
+		Start Facing(Event Player, Direction Towards(Eye Position(Event Player) * (Distance Between(Position Of(Event Player),
+			Event Player.pfWalkingToPosition) < 3 ? Vector(1, Empty Array, 1) : Vector(1, 1, 1)), (
+			Event Player.pfWalkingToPosition + Vector(0, 1.500, 0)) * (Distance Between(Position Of(Event Player),
+			Event Player.pfWalkingToPosition) < 3 ? Vector(1, Empty Array, 1) : Vector(1, 1, 1))), 500, To World, Direction and Turn Rate);
+	}
+}
+
+rule("【Map】Antarctic Peninsula (nodes)")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	conditions
+	{
+		Current Map == Map(Antarctic Peninsula);
+	}
+// this needs data compression
+	actions
+	{
+		Global.pfLoadedMap_nodes = Array(Vector(210.390, -10.030, -239.110), Vector(247.910, -13.320, -220.510), Vector(258.830, -14.680,
+			-222.370), Vector(265.600, -15, -230.280), Vector(284.110, -12.750, -226.270), Vector(302.500, -15, -229.720), Vector(316.400,
+			-13.720, -218.670), Vector(352.890, -10.390, -237.270), Vector(281.510, -12, -200.600), Vector(286.290, -13.500, -188.440),
+			Vector(291.750, -13, -231.210), Vector(282.370, -11.090, -261.170), Vector(234.260, -11.360, -247.750), Vector(265.440, -13,
+			-250.120), Vector(268.670, -12, -257.530), Vector(299.700, -12, -257.090), Vector(302.620, -13, -249.620), Vector(342.210,
+			-10.030, -246.320), Vector(311.310, -14.390, -210.570), Vector(260.570, -14.690, -205.170), Vector(355.860, 45.180, 174.880),
+			Vector(326.740, 43.370, 175.580), Vector(290.220, 39.730, 187.410), Vector(270.230, 42.700, 190.270), Vector(244.230, 39.730,
+			185.200), Vector(219.210, 43.130, 178.170), Vector(191.670, 44.930, 173.130), Vector(217.630, 43.510, 161.580), Vector(318.830,
+			43.650, 161.060), Vector(296.410, 43.630, 151.860), Vector(290.280, 41.580, 165.950), Vector(269.920, 39.780, 161.970), Vector(
+			247.630, 41.730, 164.990), Vector(245.390, 43.590, 152.190), Vector(240.150, 39.750, 182.910), Vector(294.570, 40.820,
+			179.700), Vector(-73.640, -151.500, -16.800), Vector(-100.990, -152.190, -16.550), Vector(-95.050, -155.430, 18.420), Vector(
+			-59.410, -154.500, 74.450), Vector(-96.080, -155.430, 100.620), Vector(-100.460, -152.580, 135.360), Vector(-72.440, -151.430,
+			136.060), Vector(-60.630, -151.500, 3.850), Vector(-60.030, -153.500, 17.650), Vector(-81.450, -159.500, 75.490), Vector(
+			-100.740, -157.580, 44.220), Vector(-101.040, -157.580, 75.640), Vector(-58.870, -153.500, 102.100), Vector(-59.650, -151.500,
+			115.510), Vector(-114.030, -155.500, 95.600), Vector(-113.650, -152.480, 83.020), Vector(-104.990, -152.500, 60.070), Vector(
+			-114.340, -152.480, 34.640), Vector(-113.320, -155.500, 24.070), Vector(-58.860, -154.500, 46.150), Vector(-58.570, -154.500,
+			59.880), Vector(-73.850, -154.520, 60.090), Vector(-96.840, -152.430, 63.700), Vector(-89.760, -152.500, 63.230), Vector(
+			-109.720, -152.500, 64.010), Vector(-82.110, -159.500, 44.070), Vector(-81.900, -160.410, 59.320), Vector(-111.660, -160.500,
+			63.380));
+	}
+}
+
+rule("【Map】Antarctic Peninsula (neighbors)")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	conditions
+	{
+		Current Map == Map(Antarctic Peninsula);
+	}
+// this needs data compression
+	actions
+	{
+		Global.pfLoadedMap_neighbors = Array(Array(Array(1, Empty Array), Array(12, Empty Array)), Array(Array(2, Empty Array), Array(0,
+			Empty Array), Array(19, Empty Array)), Array(Array(3, Empty Array), Array(1, Empty Array)), Array(Array(4, Empty Array), Array(
+			2, Empty Array)), Array(Array(5, Empty Array), Array(3, Empty Array), Array(8, Empty Array), Array(10, Empty Array)), Array(
+			Array(6, Empty Array), Array(4, Empty Array)), Array(Array(7, Empty Array), Array(5, Empty Array), Array(18, Empty Array)),
+			Array(Array(6, Empty Array), Array(17, Empty Array)), Array(Array(4, Empty Array), Array(9, Empty Array)), Array(Array(8,
+			Empty Array), Array(18, Empty Array), Array(19, Empty Array)), Array(Array(4, Empty Array), Array(11, Empty Array)), Array(
+			Array(10, Empty Array), Array(14, Empty Array), Array(-1, Empty Array), Array(15, Empty Array)), Array(Array(0, Empty Array),
+			Array(13, Empty Array)), Array(Array(12, Empty Array), Array(14, Empty Array)), Array(Array(13, Empty Array), Array(11,
+			Empty Array)), Array(Array(11, Empty Array), Array(16, Empty Array)), Array(Array(15, Empty Array), Array(17, Empty Array)),
+			Array(Array(16, Empty Array), Array(7, Empty Array)), Array(Array(9, Empty Array), Array(6, Empty Array)), Array(Array(1,
+			Empty Array), Array(9, Empty Array)), Array(Array(21, Empty Array)), Array(Array(20, Empty Array), Array(22, Empty Array),
+			Array(28, Empty Array)), Array(Array(21, Empty Array), Array(23, Empty Array), Array(35, Empty Array)), Array(Array(22,
+			Empty Array), Array(24, Empty Array)), Array(Array(23, Empty Array), Array(25, Empty Array), Array(34, Empty Array)), Array(
+			Array(24, Empty Array), Array(26, Empty Array), Array(27, Empty Array)), Array(Array(25, Empty Array)), Array(Array(25,
+			Empty Array), Array(33, Empty Array)), Array(Array(21, Empty Array), Array(29, Empty Array)), Array(Array(28, Empty Array),
+			Array(30, Empty Array)), Array(Array(29, Empty Array), Array(31, Empty Array), Array(35, Empty Array)), Array(Array(30,
+			Empty Array), Array(32, Empty Array)), Array(Array(31, Empty Array), Array(33, Empty Array), Array(34, Empty Array)), Array(
+			Array(32, Empty Array), Array(27, Empty Array)), Array(Array(32, Empty Array), Array(24, Empty Array)), Array(Array(30,
+			Empty Array), Array(22, Empty Array)), Array(Array(37, Empty Array), Array(43, Empty Array)), Array(Array(36, Empty Array),
+			Array(38, Empty Array)), Array(Array(37, Empty Array), Array(44, Empty Array), Array(46, Empty Array), Array(54, Empty Array)),
+			Array(Array(45, Empty Array), Array(56, Empty Array)), Array(Array(41, Empty Array), Array(47, Empty Array), Array(48,
+			Empty Array), Array(50, Empty Array)), Array(Array(40, Empty Array), Array(42, Empty Array)), Array(Array(41, Empty Array),
+			Array(49, Empty Array)), Array(Array(36, Empty Array), Array(44, Empty Array)), Array(Array(43, Empty Array), Array(38,
+			Empty Array)), Array(Array(39, Empty Array), Array(47, Empty Array), Array(62, Empty Array)), Array(Array(38, Empty Array),
+			Array(61, Empty Array)), Array(Array(40, Empty Array), Array(45, Empty Array)), Array(Array(49, Empty Array), Array(40,
+			Empty Array)), Array(Array(42, Empty Array), Array(48, Empty Array)), Array(Array(40, Empty Array), Array(51, Empty Array)),
+			Array(Array(50, Empty Array), Array(52, Empty Array)), Array(Array(51, Empty Array), Array(53, Empty Array), Array(58,
+			Empty Array), Array(60, Empty Array)), Array(Array(52, Empty Array), Array(54, Empty Array)), Array(Array(53, Empty Array),
+			Array(38, Empty Array)), Array(Array(56, Empty Array)), Array(Array(55, Empty Array), Array(39, Empty Array), Array(57,
+			Empty Array)), Array(Array(56, Empty Array)), Array(Array(52, Empty Array), Array(59, Empty Array)), Array(Array(58,
+			Empty Array)), Array(Array(52, Empty Array)), Array(Array(46, Empty Array), Array(62, Empty Array)), Array(Array(61,
+			Empty Array), Array(45, Empty Array), Array(63, Empty Array)), Array(Array(62, Empty Array)));
+	}
+}

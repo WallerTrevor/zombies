@@ -1,0 +1,2966 @@
+settings
+{
+	main
+	{
+		Description: "playable zombies and heros survive as long as they can!"
+		Mode Name: "Zombies Versus mode"
+	}
+
+	lobby
+	{
+		Allow Players Who Are In Queue: Yes
+		Map Rotation: After A Game
+		Max Spectators: 12
+		Max Team 1 Players: 4
+		Max Team 2 Players: 4
+		Return To Lobby: Never
+		Use Experimental Update If Available: Yes
+	}
+
+	modes
+	{
+		Skirmish
+		{
+			enabled maps
+			{
+				King's Row 0
+				King's Row Winter 0
+			}
+		}
+
+		General
+		{
+			Allow Hero Switching: Off
+			Enemy Health Bars: Off
+			Game Mode Start: Immediately
+			Health Pack Respawn Time Scalar: 50%
+			Hero Limit: Off
+			Kill Cam: Off
+			Kill Feed: Off
+			Respawn As Random Hero: On
+			Spawn Health Packs: Enabled
+		}
+	}
+
+	heroes
+	{
+		Team 1
+		{
+			Health: 50%
+			Movement Speed: 115%
+			Spawn With Ultimate Ready: On
+
+			Brigitte
+			{
+				Barrier Shield Cooldown Time: 50%
+				Damage Dealt: 150%
+				Healing Dealt: 150%
+				Health: 45%
+				Repair Pack Cooldown Time: 50%
+				Shield Bash Cooldown Time: 50%
+				Shield Bash Knockback Scalar: 300%
+				Whip Shot Cooldown Time: 50%
+				Whip Shot Knockback Scalar: 200%
+			}
+
+			Doomfist
+			{
+				Damage Dealt: 120%
+				Health: 40%
+				No Ammunition Requirement: On
+				Power Block Cooldown Time: 50%
+				Rocket Punch Cooldown Time: 50%
+				Seismic Slam Cooldown Time: 50%
+			}
+
+			Echo
+			{
+				Flight Cooldown Time: 500%
+				Focusing Beam Cooldown Time: 50%
+				Glide: Off
+			}
+
+			Genji
+			{
+				Damage Dealt: 125%
+			}
+
+			Moira
+			{
+				Biotic Orb Cooldown Time: 25%
+				Fade Cooldown Time: 200%
+				Healing Dealt: 150%
+			}
+
+			Reinhardt
+			{
+				Barrier Field Recharge Rate: 500%
+				Charge Cooldown Time: 50%
+				Damage Dealt: 200%
+				Fire Strike Cooldown Time: 10%
+				Healing Received: 250%
+				Health: 30%
+			}
+
+			Sombra
+			{
+				Ammunition Clip Size Scalar: 150%
+				Damage Dealt: 200%
+				Hack Cooldown Time: 25%
+				Translocator Cooldown Time: 75%
+				Virus: Off
+			}
+
+			Symmetra
+			{
+				Damage Dealt: 63%
+				Sentry Turret Cooldown Time: 200%
+			}
+
+			Torbjörn
+			{
+				Damage Dealt: 70%
+				Deploy Turret Cooldown Time: 500%
+			}
+
+			Winston
+			{
+				Barrier Projector Cooldown Time: 20%
+				Damage Received: 105%
+				Health: 30%
+				Jump Pack: Off
+				Jump Pack Knockback Scalar: 400%
+				Jump Vertical Speed: 80%
+				Primal Rage Melee Knockback Scalar: 300%
+				Ultimate Ability Primal Rage: Off
+			}
+		}
+
+		Team 2
+		{
+			Jump Vertical Speed: 200%
+			Movement Speed: 95%
+
+			Brigitte
+			{
+				Barrier Shield Cooldown Time: 50%
+				Damage Dealt: 70%
+				Healing Dealt: 40%
+				Health: 45%
+				Movement Speed: 75%
+				Repair Pack Cooldown Time: 50%
+				Shield Bash Knockback Scalar: 300%
+				Ultimate Generation - Combat Rally: 500%
+				Ultimate Generation Rally: 500%
+				Whip Shot Knockback Scalar: 300%
+			}
+
+			Doomfist
+			{
+				Damage Dealt: 120%
+				No Ammunition Requirement: On
+				Power Block Cooldown Time: 50%
+				Rocket Punch Cooldown Time: 50%
+				Seismic Slam Cooldown Time: 50%
+			}
+
+			Echo
+			{
+				Flight Cooldown Time: 500%
+				Focusing Beam Cooldown Time: 50%
+			}
+
+			Genji
+			{
+				Damage Dealt: 66%
+				Deflect: Off
+				Health: 500%
+				Infinite Ultimate Duration: On
+				Movement Speed: 79%
+				Spawn With Ultimate Ready: On
+			}
+
+			Moira
+			{
+				Biotic Orb: Off
+				Damage Dealt: 250%
+				Fade Cooldown Time: 200%
+				Healing Dealt: 150%
+				Health: 500%
+				Movement Speed: 110%
+				Primary Fire: Off
+				Secondary Fire: Off
+				Ultimate Ability Coalescence: Off
+			}
+
+			Reinhardt
+			{
+				Barrier Field: Off
+				Charge Knockback Scalar: 300%
+				Damage Dealt: 65%
+				Fire Strike Cooldown Time: 10%
+				Health: 125%
+				Rocket Hammer Knockback Scalar: 200%
+				Ultimate Generation - Combat Earthshatter: 500%
+				Ultimate Generation Earthshatter: 165%
+			}
+
+			Sombra
+			{
+				Ammunition Clip Size Scalar: 150%
+				Damage Dealt: 200%
+				Hack Cooldown Time: 25%
+				Translocator Cooldown Time: 75%
+			}
+
+			Symmetra
+			{
+				Damage Dealt: 70%
+				Sentry Turret Cooldown Time: 200%
+			}
+
+			Torbjörn
+			{
+				Damage Dealt: 89%
+				Deploy Turret: Off
+				Movement Gravity: 80%
+				Movement Speed: 85%
+				Overload Cooldown Time: 40%
+				Overload Duration Scalar: 500%
+				Ultimate Generation - Combat Molten Core: 500%
+				Ultimate Generation Molten Core: 220%
+				Weapons Enabled: Forge Hammer Only
+			}
+
+			Winston
+			{
+				Ammunition Clip Size Scalar: 25%
+				Barrier Projector: Off
+				Damage Dealt: 235%
+				Damage Received: 105%
+				Infinite Ultimate Duration: On
+				Jump Pack: Off
+				Jump Pack Knockback Scalar: 400%
+				Movement Speed: 79%
+				Primal Rage Melee Knockback Scalar: 25%
+				Spawn With Ultimate Ready: On
+				Ultimate Duration: 500%
+			}
+		}
+
+		General
+		{
+			Ultimate Generation: 10%
+			Ultimate Generation - Combat: 0%
+			Ultimate Generation - Passive: 0%
+
+			Ana
+			{
+				Biotic Grenade Cooldown Time: 50%
+				Damage Dealt: 130%
+				Healing Dealt: 150%
+				Sleep Dart Cooldown Time: 0%
+			}
+
+			Ashe
+			{
+				Coach Gun Cooldown Time: 35%
+				Damage Dealt: 125%
+				Dynamite Cooldown Time: 50%
+			}
+
+			Baptiste
+			{
+				Ammunition Clip Size Scalar: 50%
+				Damage Dealt: 130%
+				Healing Dealt: 150%
+				Regenerative Burst Cooldown Time: 25%
+			}
+
+			Bastion
+			{
+				Ammunition Clip Size Scalar: 35%
+				Damage Dealt: 150%
+			}
+
+			Cassidy
+			{
+				Ammunition Clip Size Scalar: 116%
+				Combat Roll Cooldown Time: 35%
+				Damage Dealt: 30%
+				Health: 45%
+				Ultimate Ability Deadeye: Off
+			}
+
+			D.Va
+			{
+				Boosters Cooldown Time: 200%
+				Healing Received: 50%
+				Health: 25%
+			}
+
+			Hanzo
+			{
+				Damage Dealt: 150%
+				Lunge Cooldown Time: 50%
+				Lunge Distance Scalar: 200%
+				Sonic Arrow Cooldown Time: 50%
+				Storm Arrows Cooldown Time: 50%
+				Storm Arrows Quantity: 6
+			}
+
+			Junkrat
+			{
+				Concussion Mine Cooldown Time: 50%
+				Concussion Mine Knockback Scalar: 25%
+				Damage Dealt: 250%
+				Frag Launcher Knockback Scalar: 25%
+				Steel Trap Cooldown Time: 25%
+				Ultimate Duration: 25%
+			}
+
+			Lúcio
+			{
+				Ammunition Clip Size Scalar: 300%
+				Amp It Up Cooldown Time: 25%
+				Damage Dealt: 500%
+				Healing Dealt: 250%
+				Movement Speed: 110%
+				Soundwave Cooldown Time: 200%
+			}
+
+			Mei
+			{
+				Ammunition Clip Size Scalar: 50%
+				Damage Dealt: 250%
+				Secondary Fire: Off
+				Weapon Freeze Duration Scalar: 20%
+				Weapon Freeze Minimum: 0%
+				Weapon Freeze Rate Scalar: 0%
+			}
+
+			Mercy
+			{
+				Ammunition Clip Size Scalar: 50%
+				Damage Dealt: 350%
+				Healing Dealt: 150%
+				Resurrect Cooldown Time: 0%
+				Ultimate Generation - Combat Valkyrie: 0%
+				Ultimate Generation - Passive Valkyrie: 0%
+				Ultimate Generation Valkyrie: 10%
+			}
+
+			Orisa
+			{
+				Energy Javelin Cooldown Time: 50%
+				Fortify Cooldown Time: 75%
+				Healing Received: 50%
+				Health: 34%
+				Javelin Spin Cooldown Time: 25%
+			}
+
+			Pharah
+			{
+				Ammunition Clip Size Scalar: 200%
+				Concussive Blast Cooldown Time: 50%
+				Damage Dealt: 250%
+				Hover Jets: Off
+				Hover Jets Vertical Speed Scalar: 25%
+			}
+
+			Reaper
+			{
+				Ammunition Clip Size Scalar: 250%
+				Damage Dealt: 175%
+				Shadow Step Cooldown Time: 20%
+				Wraith Form Cooldown Time: 50%
+			}
+
+			Roadhog
+			{
+				Chain Hook Cooldown Time: 0%
+				Damage Dealt: 130%
+				Healing Received: 33%
+				Health: 25%
+			}
+
+			Sigma
+			{
+				Accretion Cooldown Time: 25%
+				Accretion Knockback Scalar: 300%
+				Damage Dealt: 300%
+				Experimental Barrier Cooldown Time: 0%
+				Experimental Barrier Recharge Rate: 300%
+				Healing Received: 50%
+				Health: 38%
+				Kinetic Grasp Cooldown Time: 0%
+			}
+
+			Soldier: 76
+			{
+				Ammunition Clip Size Scalar: 82%
+			}
+
+			Tracer
+			{
+				Ammunition Clip Size Scalar: 200%
+				Health: 67%
+			}
+
+			Widowmaker
+			{
+				Damage Dealt: 150%
+				Grappling Hook Cooldown Time: 35%
+				Health: 58%
+				Venom Mine Cooldown Time: 0%
+			}
+
+			Wrecking Ball
+			{
+				Damage Dealt: 150%
+				Grappling Claw Cooldown Time: 250%
+				Healing Received: 50%
+				Health: 25%
+			}
+
+			Zarya
+			{
+				Ammunition Clip Size Scalar: 200%
+				Damage Dealt: 250%
+				Healing Received: 50%
+				Health: 38%
+				Particle Barrier Cooldown Time: 40%
+				Projected Barrier Cooldown Time: 40%
+			}
+
+			Zenyatta
+			{
+				Healing Dealt: 150%
+			}
+
+			enabled heroes
+			{
+				Brigitte
+				Genji
+				Moira
+				Reinhardt
+				Torbjörn
+				Winston
+			}
+		}
+	}
+
+	extensions
+	{
+		Spawn More Dummy Bots
+	}
+}
+
+variables
+{
+	global:
+		0: roundnumber
+		1: numberofzombies
+		13: powerconnected
+		18: Died
+		26: gamestarted
+		27: minutes
+		28: seconds
+		29: milliseconds
+
+	player:
+		0: points
+		10: healthmax
+		11: dmgmaniac
+		14: InfoCooldown
+		17: HideHints
+		28: Pack
+		31: revived
+}
+
+rule("Setup")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	actions
+	{
+		Global.roundnumber = 0;
+		Global.numberofzombies = 0;
+		Global.C = 0;
+		Global.P = 0;
+		Global.Q = Empty Array;
+		Modify Global Variable(Q, Append To Array, Hero(D.Va));
+		Modify Global Variable(Q, Append To Array, Hero(Orisa));
+		Modify Global Variable(Q, Append To Array, Hero(Reinhardt));
+		Modify Global Variable(Q, Append To Array, Hero(Roadhog));
+		Modify Global Variable(Q, Append To Array, Hero(Sigma));
+		Modify Global Variable(Q, Append To Array, Hero(Winston));
+		Modify Global Variable(Q, Append To Array, Hero(Wrecking Ball));
+		Modify Global Variable(Q, Append To Array, Hero(Zarya));
+		Global.T = Empty Array;
+		Global.Y = Empty Array;
+		disabled Modify Global Variable(Y, Append To Array, Vector(-23.738, 22.631, -120.650));
+		Create HUD Text(All Players(Team 1), String("Round {0}", Global.roundnumber), Null, Null, Top, 0, Color(Red), Color(Red), Color(
+			Red), Visible To and String, Visible Always);
+		Create HUD Text(All Players(Team 1), String("{0} {1}", Global.numberofzombies, String("Enemies")), Null, Null, Right, 0, Color(
+			Red), Color(Red), Color(Red), Visible To and String, Visible Always);
+		Global.O = False;
+		Global.M[0] = Vector(500, 25, 500);
+		Global.M[1] = Vector(500, 25, 500);
+		Global.M[2] = Vector(500, 25, 500);
+		Global.M[3] = Vector(500, 25, 500);
+		Global.M[4] = Vector(500, 25, 500);
+		Global.M[5] = Vector(500, 25, 500);
+		Create Effect(All Players(Team 1), Orb, Color(White), Global.M[0], 1, Visible To Position and Radius);
+		Create Effect(All Players(Team 1), Orb, Color(Yellow), Global.M[1], 1, Visible To Position and Radius);
+		Create Effect(All Players(Team 1), Orb, Color(Green), Global.M[2], 1, Visible To Position and Radius);
+		Create Effect(All Players(Team 1), Orb, Color(Sky Blue), Global.M[3], 0.100, None);
+		Create Effect(All Players(Team 1), Orb, Color(Red), Global.M[4], 1, Position and Radius);
+		Create Effect(All Players(Team 1), Orb, Color(Orange), Global.M[5], 1, Position and Radius);
+		Create HUD Text(Filtered Array(All Players(Team 1), Current Array Element.S[1] == 1), Custom String("Double Points!"), Null, Null,
+			Top, 1, Color(Yellow), Color(White), Color(White), Visible To and String, Visible Never);
+		Create HUD Text(Filtered Array(All Players(Team 1), Current Array Element.S[2] == 1), Custom String("SLOW-MO"), Null, Null, Top, 1,
+			Color(Green), Color(White), Color(White), Visible To and String, Visible Never);
+		Create HUD Text(Filtered Array(All Players(Team 1), Current Array Element.S[4] == 1), Custom String("Insta-Kill!"), Null, Null,
+			Top, 1, Color(Red), Color(White), Color(White), Visible To and String, Visible Never);
+		Create HUD Text(Filtered Array(All Players(Team 1), Current Array Element.S[0] == 1), Custom String("Ultimate MAYHEM"), Null, Null,
+			Top, 1, Color(White), Color(White), Color(White), Visible To and String, Visible Never);
+		Create HUD Text(Filtered Array(All Players(Team 1), Current Array Element.S[5] == 1), String("Healing"), Null, Null, Top, 1, Color(
+			Orange), Color(White), Color(White), Visible To and String, Visible Never);
+		Create HUD Text(Filtered Array(All Players(Team 1), Current Array Element.S[3] == 1), String("Freezing"), Null, Null, Top, 1,
+			Color(Sky Blue), Color(White), Color(White), Visible To and String, Visible Never);
+		Create HUD Text(All Players(All Teams), Custom String("Website: workshop.codes/z-remastered"), Null, Null, Top, 0, Color(White),
+			Color(White), Color(White), Visible To and String, Default Visibility);
+		Disable Built-In Game Mode Respawning(All Players(All Teams));
+	}
+}
+
+rule("round change")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	conditions
+	{
+		Global.numberofzombies <= 0;
+		Global.O == False;
+		Global.gamestarted == 1;
+	}
+
+	actions
+	{
+		Destroy All Dummy Bots;
+		Wait(0.250, Ignore Condition);
+		Global.roundnumber += 1;
+		Global.Z = 1;
+		Set Ultimate Charge(All Players(Team 1), 100);
+		Big Message(All Players(All Teams), String("Round {0}", Global.roundnumber));
+		Global.P = 0;
+		All Dead Players(Team 1).Pack = 0;
+		Clear Status(All Dead Players(Team 1), Burning);
+		All Dead Players(Team 1).dmgmaniac = 100;
+		Teleport(All Dead Players(Team 1), Nearest Walkable Position(Random Value In Array(All Living Players(Team 1)) + Vector(
+			Random Integer(-5, 5), 0, Random Integer(-5, 5))));
+		Start Forcing Player To Be Hero(All Dead Players(Team 1), Hero(Cassidy));
+		Resurrect(All Dead Players(Team 1));
+		Global.Died[0] = Vector(500, 0, 500);
+		Global.Died[1] = Vector(500, 0, 500);
+		Global.Died[2] = Vector(500, 0, 500);
+		Global.Died[3] = Vector(500, 0, 500);
+		All Players(Team 1).InfoCooldown = 0;
+		All Players(Team 1).P = 0;
+		All Players(Team 1).Q = 0;
+		All Players(Team 1).HideHints = 0;
+		disabled Wait(0.100, Ignore Condition);
+		disabled Respawn(Players In Slot(0, Team 2));
+		disabled Wait(0.100, Ignore Condition);
+		disabled Respawn(Players In Slot(1, Team 2));
+		disabled Wait(0.100, Ignore Condition);
+		disabled Respawn(Players In Slot(2, Team 2));
+		disabled Wait(0.100, Ignore Condition);
+		disabled Respawn(Players In Slot(3, Team 2));
+		disabled Wait(0.016, Ignore Condition);
+		disabled Respawn(Players In Slot(4, Team 2));
+		disabled Wait(0.100, Ignore Condition);
+		disabled Respawn(Players In Slot(5, Team 2));
+		Set Status(All Living Players(Team 1), Null, Phased Out, 2);
+	}
+}
+
+rule("Set Round Kills")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	conditions
+	{
+		Global.Z == 1;
+		Global.O == False;
+	}
+
+	actions
+	{
+		Global.numberofzombies = 6 + Global.roundnumber * 2;
+		Wait(1, Ignore Condition);
+		Global.Z = 0;
+	}
+}
+
+rule("Unlimited Time")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	conditions
+	{
+		Match Time < 3000;
+		Global.O == False;
+	}
+
+	actions
+	{
+		Set Match Time(3599);
+		Disable Built-In Game Mode Announcer;
+	}
+}
+
+rule("Defeat")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	conditions
+	{
+		Is True For All(All Players(Team 1), Is Dead(Current Array Element)) == True;
+		Has Spawned(All Players(Team 1)) == True;
+		Number Of Players(Team 1) > 0;
+	}
+
+	actions
+	{
+		Wait(1.500, Ignore Condition);
+		Abort If Condition Is False;
+		Declare Team Victory(Team 2);
+		Wait(2, Ignore Condition);
+		Restart Match;
+	}
+}
+
+rule("Spawn brigs wave 1- 5")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	conditions
+	{
+		Global.numberofzombies >= 4;
+		Has Spawned(All Players(Team 1)) == True;
+		Global.roundnumber >= 1;
+		Global.roundnumber / 1 < Absolute Value(6);
+	}
+
+	actions
+	{
+		Wait(9, Abort When False);
+		Communicate(Random Value In Array(All Living Players(Team 1)), Countdown);
+		Wait(3, Ignore Condition);
+		Communicate(Random Value In Array(All Living Players(Team 1)), Incoming);
+		Wait(0.800, Ignore Condition);
+		Create Dummy Bot(Hero(Brigitte), Team 2, -1, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(0.800, Ignore Condition);
+		Create Dummy Bot(Hero(Brigitte), Team 2, -1, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(0.800, Ignore Condition);
+		Create Dummy Bot(Hero(Brigitte), Team 2, -1, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(0.800, Ignore Condition);
+		Create Dummy Bot(Hero(Brigitte), Team 2, -1, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(0.800, Ignore Condition);
+		Create Dummy Bot(Hero(Brigitte), Team 2, -1, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(0.800, Ignore Condition);
+		Create Dummy Bot(Hero(Brigitte), Team 2, -1, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(0.800, Ignore Condition);
+		Create Dummy Bot(Hero(Brigitte), Team 2, -1, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(0.800, Ignore Condition);
+		Create Dummy Bot(Hero(Brigitte), Team 2, -1, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Skip If(Number Of Players(Team 1) > 3, 20);
+		Create Dummy Bot(Hero(Brigitte), Team 2, -1, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(0.800, Ignore Condition);
+		Create Dummy Bot(Hero(Brigitte), Team 2, -1, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		disabled Skip If(Number Of Players(Team 1) > 2, 20);
+		disabled Create Dummy Bot(Hero(Brigitte), Team 2, -1, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		disabled Wait(0.800, Ignore Condition);
+		disabled Create Dummy Bot(Hero(Brigitte), Team 2, -1, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		disabled Wait(0.800, Ignore Condition);
+		disabled Create Dummy Bot(Hero(Brigitte), Team 2, -1, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		disabled Skip If(Number Of Players(Team 1) > 1, 20);
+		disabled Wait(0.800, Ignore Condition);
+		disabled Create Dummy Bot(Hero(Brigitte), Team 2, -1, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		disabled Wait(0.800, Ignore Condition);
+		disabled Create Dummy Bot(Hero(Brigitte), Team 2, -1, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		disabled Wait(0.800, Ignore Condition);
+		disabled Create Dummy Bot(Hero(Brigitte), Team 2, -1, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		disabled Wait(0.800, Ignore Condition);
+		disabled Create Dummy Bot(Hero(Brigitte), Team 2, -1, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		disabled Wait(0.800, Ignore Condition);
+		disabled Create Dummy Bot(Hero(Brigitte), Team 2, -1, Random Value In Array(Global.Y), Vector(0, 0, 0));
+	}
+}
+
+rule("respawn bots")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	conditions
+	{
+		Number Of Living Players(Team 2) < Global.numberofzombies;
+		Global.numberofzombies >= 1;
+		disabled Global.roundnumber > 1;
+	}
+
+	actions
+	{
+		Respawn(Random Value In Array(All Dead Players(Team 2)));
+		Wait(1, Abort When False);
+		Loop If Condition Is True;
+	}
+}
+
+rule("Monkey Kill (Global Var B) (InstaUlt Powerup)")
+{
+	event
+	{
+		Player Died;
+		Team 2;
+		Slot 0;
+	}
+
+	actions
+	{
+		Event Player.B = Random Integer(1, 50);
+		Skip If(Event Player.B != 1, 1);
+		Global.M[0] = Nearest Walkable Position(Event Player) + Vector(0, 0.500, 0);
+		disabled Destroy Effect(Event Player.C);
+		disabled Create Effect(All Players(All Teams), Orb, Color(White), Nearest Walkable Position(Event Player) + Vector(0, 0.500, 0), 1,
+			Visible To);
+		disabled Event Player.C = Last Created Entity;
+		Set Ultimate Charge(Event Player, 0);
+		disabled Destroy Dummy Bot(Team 2, 0);
+	}
+}
+
+rule("Monkey Kill (Global Var B) (slowmotion Powerup)")
+{
+	event
+	{
+		Player Died;
+		Team 2;
+		Slot 2;
+	}
+
+	actions
+	{
+		Event Player.B = Random Integer(1, 30);
+		Skip If(Event Player.B != 1, 1);
+		Global.M[2] = Nearest Walkable Position(Event Player) + Vector(0, 0.500, 0);
+		disabled Destroy Effect(Event Player.C);
+		disabled Create Effect(All Players(All Teams), Orb, Color(Green), Nearest Walkable Position(Event Player) + Vector(0, 0.500, 0), 1,
+			Visible To);
+		disabled Event Player.C = Last Created Entity;
+		Set Ultimate Charge(Event Player, 0);
+		disabled Destroy Dummy Bot(Team 2, 2);
+	}
+}
+
+rule("Bot health")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 2;
+		All;
+	}
+
+	actions
+	{
+		Set Max Health(Event Player, 65 + 8 * Number Of Players(Team 1) + Global.roundnumber / (3.300 - Number Of Players(Team 1) / 8) * (
+			Global.roundnumber / (3.300 - Number Of Players(Team 1) / 8)));
+		Set Damage Received(Event Player, 110 - Global.roundnumber);
+	}
+}
+
+rule("Bots Move Toward Players")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 2;
+		All;
+	}
+
+	conditions
+	{
+		Global.O == False;
+		True == Is Dummy Bot(Event Player);
+	}
+
+	actions
+	{
+		Start Forcing Throttle(Event Player, 1, 1, 0, 1, 0, 1);
+		disabled Wait(6, Ignore Condition);
+		disabled Start Forcing Throttle(Event Player, 1, 1, 0, 1, 1, 1);
+		disabled Wait(0.500, Ignore Condition);
+		disabled Start Throttle In Direction(Event Player, Left, 1, To Player, Replace existing throttle, Direction and Magnitude);
+		disabled Wait(0.500, Ignore Condition);
+		disabled Stop Throttle In Direction(Event Player);
+		disabled Loop;
+	}
+}
+
+rule("Bots Face Nearest Player")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 2;
+		All;
+	}
+
+	conditions
+	{
+		Global.O == False;
+		True == Is Dummy Bot(Event Player);
+	}
+
+	actions
+	{
+		Start Facing(Event Player, Direction Towards(Eye Position(Event Player), Eye Position(First Of(Sorted Array(Filtered Array(
+			All Living Players(Team 1), Current Array Element.T == 0), Distance Between(Event Player, Current Array Element))))), 200,
+			To World, Direction and Turn Rate);
+		disabled Set Facing(Event Player, Direction Towards(Eye Position(Event Player), Eye Position(Closest Player To(Eye Position(First Of(
+			Sorted Array(Filtered Array(All Living Players(Team 1), Current Array Element.T == 0), Distance Between(Event Player,
+			Current Array Element)))), Team 1))), To World);
+		disabled Wait(30, Ignore Condition);
+		disabled Loop;
+	}
+}
+
+rule("Unstuck Bots")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 2;
+		All;
+	}
+
+	conditions
+	{
+		Horizontal Speed Of(Event Player) < 0.850;
+		Is Alive(Event Player) == True;
+		Has Status(Event Player, Hacked) == False;
+		Distance Between(Event Player, Closest Player To(Event Player, Team 1)) > 2;
+		Has Status(Event Player, Knocked Down) != True;
+		Has Status(Event Player, Frozen) != True;
+		Has Status(Event Player, Asleep) != True;
+		Has Status(Event Player, Stunned) != True;
+		Is Dummy Bot(Event Player) == True;
+	}
+
+	actions
+	{
+		disabled Wait(0.100, Ignore Condition);
+		disabled Press Button(Event Player, Button(Jump));
+		disabled Wait(1, Ignore Condition);
+		disabled Wait(1, Abort When False);
+		disabled Start Forcing Throttle(Event Player, 0, 0, 1, 1, 1, 1);
+		disabled Wait(1, Ignore Condition);
+		disabled Start Forcing Throttle(Event Player, 1, 1, 0, 1, 0, 1);
+		disabled Wait(1, Ignore Condition);
+		Wait(1.500, Abort When False);
+		Teleport(Event Player, Random Value In Array(Global.Y));
+		disabled Event Player.points = 0;
+	}
+}
+
+rule("Bots Attack if Near")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 2;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Closest Player To(Event Player, Team 1)) < 1.800;
+		Global.O == False;
+		True == Is Dummy Bot(Event Player);
+	}
+
+	actions
+	{
+		Wait(0.350, Abort When False);
+		Start Holding Button(Event Player, Button(Primary Fire));
+	}
+}
+
+rule("Bots Dont Attack if Not Near")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 2;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Closest Player To(Event Player, Team 1)) >= 1.800;
+		Is Firing Primary(Event Player) == True;
+		Is Using Ultimate(Event Player) == False;
+		True == Is Dummy Bot(Event Player);
+	}
+
+	actions
+	{
+		Stop Holding Button(Event Player, Button(Primary Fire));
+		Set Ability 2 Enabled(Event Player, True);
+	}
+}
+
+rule("Bots AutoUlt")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 2;
+		All;
+	}
+
+	conditions
+	{
+		Ultimate Charge Percent(Event Player) == 100;
+		Is Dummy Bot(Event Player) != True;
+	}
+
+	actions
+	{
+		Press Button(Event Player, Button(Ultimate));
+		Wait(5, Abort When False);
+		Loop If Condition Is True;
+	}
+}
+
+rule("Bots Ult Jump/Attack")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 2;
+		All;
+	}
+
+	conditions
+	{
+		Is Using Ultimate(Event Player) == True;
+		Is Dummy Bot(Event Player) == True;
+	}
+
+	actions
+	{
+		Start Holding Button(Event Player, Button(Primary Fire));
+		Wait(2, Ignore Condition);
+		Loop If Condition Is True;
+	}
+}
+
+rule("Bots Under Player")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 2;
+		All;
+	}
+
+	conditions
+	{
+		Vertical Facing Angle Of(Event Player) < -10;
+		Global.O == False;
+		Speed Of(Event Player) < 0.950;
+		Distance Between(Event Player, Closest Player To(Event Player, Team 1)) > 1;
+		Has Status(Event Player, Hacked) != True;
+		Has Status(Event Player, Knocked Down) != True;
+		Has Status(Event Player, Frozen) != True;
+		Has Status(Event Player, Asleep) != True;
+		Has Status(Event Player, Stunned) != True;
+		Is Dummy Bot(Event Player) == True;
+	}
+
+	actions
+	{
+		Apply Impulse(Event Player, World Vector Of(Vector(Random Integer(-10, 10), 0, Random Integer(-10, 10)), Event Player, Rotation),
+			25, To World, Cancel Contrary Motion);
+		Wait(0.500, Abort When False);
+		Apply Impulse(Event Player, Up, 25, To World, Cancel Contrary Motion);
+	}
+}
+
+rule("Bots Jump Out of Crater")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 2;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Vector(135.664, -6.485, -41.649)) < 40;
+	}
+
+	actions
+	{
+		Press Button(Event Player, Button(Ability 1));
+	}
+}
+
+rule("Get out of Spawn")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Is In Spawn Room(Event Player) == True;
+	}
+
+	actions
+	{
+		Teleport(Event Player, Vector(-27, 1, -5));
+		Wait(5, Abort When False);
+		Loop If Condition Is True;
+	}
+}
+
+rule("Get out of Spawn Bots")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 2;
+		All;
+	}
+
+	conditions
+	{
+		Is In Spawn Room(Event Player) == True;
+	}
+
+	actions
+	{
+		Teleport(Event Player, Random Value In Array(Global.Y));
+	}
+}
+
+rule("SpawnPoints Array Add Area 1")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	conditions
+	{
+		Distance Between(Vector(-6.230, -0.110, 7.150), Closest Player To(Vector(-6.230, -0.110, 7.150), Team 1)) <= 23;
+	}
+
+	actions
+	{
+		Modify Global Variable(Y, Append To Array, Vector(10.650, 6.468, 0.768));
+		Modify Global Variable(Y, Append To Array, Vector(18.271, 6.455, 17.526));
+		Modify Global Variable(Y, Append To Array, Vector(-33.812, 0.344, 17.955));
+		Modify Global Variable(Y, Append To Array, Vector(-28.138, 6.455, 0.838));
+	}
+}
+
+rule("SpawnPoints Array Remove Area 1")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	conditions
+	{
+		Distance Between(Vector(-6.230, -0.110, 7.150), Closest Player To(Vector(-6.230, -0.110, 7.150), Team 1)) > 23;
+	}
+
+	actions
+	{
+		Modify Global Variable(Y, Remove From Array By Value, Vector(10.650, 6.468, 0.768));
+		Modify Global Variable(Y, Remove From Array By Value, Vector(18.271, 6.455, 17.526));
+		Modify Global Variable(Y, Remove From Array By Value, Vector(-33.812, 0.344, 17.955));
+		Modify Global Variable(Y, Remove From Array By Value, Vector(-28.138, 6.455, 0.838));
+	}
+}
+
+rule("SpawnPoints Array Add Area 2")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	conditions
+	{
+		Distance Between(Vector(2.440, 0.060, -31.420), Closest Player To(Vector(2.440, 0.060, -31.420), Team 1)) <= 20.500;
+	}
+
+	actions
+	{
+		Modify Global Variable(Y, Append To Array, Vector(7.059, 6.690, -28.235));
+		Modify Global Variable(Y, Append To Array, Vector(-15.281, 1.455, -52.249));
+		Modify Global Variable(Y, Append To Array, Vector(8.981, 6.528, -15.899));
+		Modify Global Variable(Y, Append To Array, Vector(-14.988, 6.455, -45.021));
+	}
+}
+
+rule("SpawnPoints Array Remove Area 2")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	conditions
+	{
+		Distance Between(Vector(2.440, 0.060, -31.420), Closest Player To(Vector(2.440, 0.060, -31.420), Team 1)) > 20.500;
+	}
+
+	actions
+	{
+		Modify Global Variable(Y, Remove From Array By Value, Vector(7.059, 6.690, -28.235));
+		Modify Global Variable(Y, Remove From Array By Value, Vector(-15.281, 1.455, -52.249));
+		Modify Global Variable(Y, Remove From Array By Value, Vector(8.981, 6.528, -15.899));
+		Modify Global Variable(Y, Remove From Array By Value, Vector(-14.988, 6.455, -45.021));
+	}
+}
+
+rule("SpawnPoints Array Add Area 3")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	conditions
+	{
+		Distance Between(Vector(-30.610, 0.060, -32.360), Closest Player To(Vector(-30.610, 0.060, -32.360), Team 1)) <= 23.500;
+	}
+
+	actions
+	{
+		Modify Global Variable(Y, Append To Array, Vector(-26.980, 10, -17.954));
+		Modify Global Variable(Y, Append To Array, Vector(-16.791, 0.605, -25.427));
+		Modify Global Variable(Y, Append To Array, Vector(-29.713, 9.455, -14.434));
+		Modify Global Variable(Y, Append To Array, Vector(-33.844, 9.455, -34.489));
+	}
+}
+
+rule("SpawnPoints Array Remove Area 3")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	conditions
+	{
+		Distance Between(Vector(-30.610, 0.060, -32.360), Closest Player To(Vector(-30.610, 0.060, -32.360), Team 1)) > 23.500;
+	}
+
+	actions
+	{
+		Modify Global Variable(Y, Remove From Array By Value, Vector(-26.980, 10, -17.954));
+		Modify Global Variable(Y, Remove From Array By Value, Vector(-16.791, 0.605, -25.427));
+		Modify Global Variable(Y, Remove From Array By Value, Vector(-29.713, 9.455, -14.434));
+		Modify Global Variable(Y, Remove From Array By Value, Vector(-33.844, 9.455, -34.489));
+	}
+}
+
+rule("SpawnPoints Array Add Area 4a")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	conditions
+	{
+		Distance Between(Vector(-71.900, 0, -30.450), Closest Player To(Vector(-71.900, 0, -30.450), Team 1)) <= 24.500;
+	}
+
+	actions
+	{
+		Modify Global Variable(Y, Append To Array, Vector(-56.677, 0.438, -29.706));
+		Modify Global Variable(Y, Append To Array, Vector(-49.369, 2.561, -51.655));
+		Modify Global Variable(Y, Append To Array, Vector(-65.743, 0.655, -34.102));
+		Modify Global Variable(Y, Append To Array, Vector(-93.234, 7.607, -5.554));
+		Modify Global Variable(Y, Append To Array, Vector(-81.476, 5.202, -43.811));
+		Modify Global Variable(Y, Append To Array, Vector(-80.345, 6.784, -14.622));
+		Modify Global Variable(Y, Append To Array, Vector(-72.214, 5, -34.558));
+	}
+}
+
+rule("SpawnPoints Array Remove Area 4a")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	conditions
+	{
+		Distance Between(Vector(-71.900, 0, -30.450), Closest Player To(Vector(-71.900, 0, -30.450), Team 1)) > 24.500;
+	}
+
+	actions
+	{
+		Modify Global Variable(Y, Remove From Array By Value, Vector(-56.677, 0.438, -29.706));
+		Modify Global Variable(Y, Remove From Array By Value, Vector(-49.369, 2.561, -51.655));
+		Modify Global Variable(Y, Remove From Array By Value, Vector(-65.743, 0.655, -34.102));
+		Modify Global Variable(Y, Remove From Array By Value, Vector(-93.234, 7.607, -5.554));
+		Modify Global Variable(Y, Remove From Array By Value, Vector(-81.476, 5.202, -43.811));
+		Modify Global Variable(Y, Remove From Array By Value, Vector(-80.345, 6.784, -14.622));
+		Modify Global Variable(Y, Remove From Array By Value, Vector(-72.214, 5, -34.558));
+	}
+}
+
+rule("SpawnPoints Array Add Area 5")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	conditions
+	{
+		Distance Between(Vector(-83.940, 0.720, 2.320), Closest Player To(Vector(-83.940, 0.720, 2.320), Team 1)) <= 16;
+	}
+
+	actions
+	{
+		Modify Global Variable(Y, Append To Array, Vector(-97.646, 7.422, -6.207));
+		Modify Global Variable(Y, Append To Array, Vector(-78.929, 0.561, 7.588));
+		Modify Global Variable(Y, Append To Array, Vector(-69.604, 0.450, 1.936));
+	}
+}
+
+rule("SpawnPoints Array Remove Area 5")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	conditions
+	{
+		Distance Between(Vector(-83.940, 0.720, 2.320), Closest Player To(Vector(-83.940, 0.720, 2.320), Team 1)) > 16;
+	}
+
+	actions
+	{
+		Modify Global Variable(Y, Remove From Array By Value, Vector(-97.646, 7.422, -6.207));
+		Modify Global Variable(Y, Remove From Array By Value, Vector(-78.929, 0.561, 7.588));
+		Modify Global Variable(Y, Remove From Array By Value, Vector(-69.604, 0.450, 1.936));
+	}
+}
+
+rule("SpawnPoints Array Add Area 6")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	conditions
+	{
+		Distance Between(Vector(-131.420, -1.500, 12.970), Closest Player To(Vector(-131.420, -1.500, 12.970), Team 1)) <= 34;
+		Global.C > 3;
+	}
+
+	actions
+	{
+		Modify Global Variable(Y, Append To Array, Vector(-115.865, 1.526, -18.571));
+		Modify Global Variable(Y, Append To Array, Vector(-130.990, -1.380, 28.040));
+		Modify Global Variable(Y, Append To Array, Vector(-134.240, 6.940, 29.830));
+		Modify Global Variable(Y, Append To Array, Vector(-153.330, -3.200, 32.440));
+		Modify Global Variable(Y, Append To Array, Vector(-161.210, 0.070, 4.730));
+		Modify Global Variable(Y, Append To Array, Vector(-133.588, -0.474, 11.947));
+		Modify Global Variable(Y, Append To Array, Vector(-123.522, 1.526, -11.854));
+	}
+}
+
+rule("SpawnPoints Array Remove Area 6")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	conditions
+	{
+		Distance Between(Vector(-131.420, -1.500, 12.970), Closest Player To(Vector(-131.420, -1.500, 12.970), Team 1)) > 34;
+	}
+
+	actions
+	{
+		Modify Global Variable(Y, Remove From Array By Value, Vector(-115.865, 1.526, -18.571));
+		Modify Global Variable(Y, Remove From Array By Value, Vector(-130.990, -1.380, 28.040));
+		Modify Global Variable(Y, Remove From Array By Value, Vector(-134.240, 6.940, 29.830));
+		Modify Global Variable(Y, Remove From Array By Value, Vector(-153.330, -3.200, 32.440));
+		Modify Global Variable(Y, Remove From Array By Value, Vector(-161.210, 0.070, 4.730));
+		Modify Global Variable(Y, Remove From Array By Value, Vector(-133.588, -0.474, 11.947));
+		Modify Global Variable(Y, Remove From Array By Value, Vector(-123.522, 1.526, -11.854));
+	}
+}
+
+rule("Disable Respawn")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Has Spawned(Event Player) == True;
+	}
+
+	actions
+	{
+		Disable Built-In Game Mode Respawning(Event Player);
+		Event Player.F = False;
+		Event Player.H = 1;
+	}
+}
+
+rule("Initiate Health, Damage, and Healing Variables")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Has Spawned(Event Player) == True;
+		Event Player.healthmax == 0;
+	}
+
+	actions
+	{
+		Event Player.healthmax = 50;
+		Event Player.dmgmaniac = 100;
+		Event Player.M = 100;
+	}
+}
+
+rule("Health, Damage, and Healing HUD")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Global.powerconnected == 1;
+	}
+
+	actions
+	{
+		Create HUD Text(Event Player, String("{0} : {1} : {2}", String("{0} {1}", Custom String("Lives"), Event Player.revived), String(
+			"{0} {1}", String("Damage"), Event Player.dmgmaniac), String("{0} {1}", String("Heal"), Event Player.M)), Null, Null, Right,
+			-1, Color(Blue), Color(Lime Green), Color(Lime Green), Visible To and String, Default Visibility);
+	}
+}
+
+rule("Revive Player 1")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Global.Died[0]) <= 4;
+		Event Player != Players In Slot(0, Team 1);
+		Is Alive(Event Player) == True;
+	}
+
+	actions
+	{
+		Event Player.C = Players In Slot(0, Team 1);
+		Chase Player Variable Over Time(Players In Slot(0, Team 1), C, 4, 2 + Global.P * 2, Destination and Duration);
+		Wait(2 + Global.P * 2, Abort When False);
+		Teleport(Players In Slot(0, Team 1), Event Player);
+		Resurrect(Players In Slot(0, Team 1));
+		Global.P += 1;
+		disabled Wait(0.250, Ignore Condition);
+		Play Effect(All Players(All Teams), Buff Explosion Sound, Color(Yellow), Global.Died[0], 4);
+		Play Effect(All Players(All Teams), Good Pickup Effect, Color(White), Players In Slot(0, Team 1), 100);
+		Global.Died[0] = Vector(500, 0, 500);
+		Event Player.points += 100 * Event Player.H;
+		Skip If(Event Player.H != 1, 1);
+		Small Message(Event Player, String("{0} + {1}", String(""), String("{0} {1}", 100, String("Points"))));
+		Skip If(Event Player.H == 1, 1);
+		Small Message(Event Player, String("{0} + {1}", String(""), String("{0} {1}", 300, String("Points"))));
+		All Players(Team 1).InfoCooldown = 0;
+		Global.R += 100 * Event Player.H;
+		Set Status(Players In Slot(0, Team 1), Null, Phased Out, 5);
+		Set Max Health(Players In Slot(0, Team 1), 100);
+	}
+}
+
+rule("Cancel Revive Player 1")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Global.Died[0]) > 4;
+		Event Player != Players In Slot(0, Team 1);
+	}
+
+	actions
+	{
+		Players In Slot(0, Team 1).C = 0;
+		Stop Chasing Player Variable(Players In Slot(0, Team 1), C);
+	}
+}
+
+rule("Revive Player 2")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Global.Died[1]) <= 4;
+		Event Player != Players In Slot(1, Team 1);
+		Is Alive(Event Player) == True;
+	}
+
+	actions
+	{
+		Event Player.C = Players In Slot(1, Team 1);
+		Chase Player Variable Over Time(Players In Slot(1, Team 1), C, 4, 2 + Global.P * 2, Destination and Duration);
+		Wait(2 + Global.P * 2, Abort When False);
+		Teleport(Players In Slot(1, Team 1), Event Player);
+		Resurrect(Players In Slot(1, Team 1));
+		Global.P += 1;
+		disabled Wait(0.250, Ignore Condition);
+		Play Effect(All Players(All Teams), Good Explosion, Color(Yellow), Global.Died[1], 4);
+		Play Effect(All Players(All Teams), Buff Explosion Sound, Color(White), Players In Slot(1, Team 1), 100);
+		Global.Died[1] = Vector(500, 0, 500);
+		Event Player.points += 100 * Event Player.H;
+		Skip If(Event Player.H != 1, 1);
+		Small Message(Event Player, String("{0} + {1}", String(""), String("{0} {1}", 100, String("Points"))));
+		Skip If(Event Player.H == 1, 1);
+		Small Message(Event Player, String("{0} + {1}", String(""), String("{0} {1}", 300, String("Points"))));
+		All Players(Team 1).P = 0;
+		Global.R += 100 * Event Player.H;
+		Set Status(Players In Slot(1, Team 1), Null, Phased Out, 5);
+		Set Max Health(Players In Slot(1, Team 1), 100);
+	}
+}
+
+rule("Cancel Revive Player 2")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Global.Died[1]) > 4;
+		Event Player != Players In Slot(1, Team 1);
+	}
+
+	actions
+	{
+		Players In Slot(1, Team 1).C = 0;
+		Stop Chasing Player Variable(Players In Slot(1, Team 1), C);
+	}
+}
+
+rule("Revive Player 3")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Global.Died[2]) <= 4;
+		Event Player != Players In Slot(2, Team 1);
+		Is Alive(Event Player) == True;
+	}
+
+	actions
+	{
+		Event Player.C = Players In Slot(2, Team 1);
+		Chase Player Variable Over Time(Players In Slot(2, Team 1), C, 4, 2 + Global.P * 2, Destination and Duration);
+		Wait(2 + Global.P * 2, Abort When False);
+		Teleport(Players In Slot(2, Team 1), Event Player);
+		Resurrect(Players In Slot(2, Team 1));
+		Global.P += 1;
+		disabled Wait(0.250, Ignore Condition);
+		Play Effect(All Players(All Teams), Good Explosion, Color(Yellow), Global.Died[2], 4);
+		Play Effect(All Players(All Teams), Buff Explosion Sound, Color(White), Players In Slot(2, Team 1), 100);
+		Global.Died[2] = Vector(500, 0, 500);
+		Event Player.points += 100 * Event Player.H;
+		Skip If(Event Player.H != 1, 1);
+		Small Message(Event Player, String("{0} + {1}", String(""), String("{0} {1}", 100, String("Points"))));
+		Skip If(Event Player.H == 1, 1);
+		Small Message(Event Player, String("{0} + {1}", String(""), String("{0} {1}", 300, String("Points"))));
+		All Players(Team 1).Q = 0;
+		Global.R += 100 * Event Player.H;
+		Set Status(Players In Slot(2, Team 1), Null, Phased Out, 5);
+		Set Max Health(Players In Slot(2, Team 1), 100);
+	}
+}
+
+rule("Cancel Revive Player 3")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Global.Died[2]) > 4;
+		Event Player != Players In Slot(2, Team 1);
+	}
+
+	actions
+	{
+		Players In Slot(2, Team 1).C = 0;
+		Stop Chasing Player Variable(Players In Slot(2, Team 1), C);
+	}
+}
+
+rule("Revive Player 4")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Global.Died[3]) <= 4;
+		Event Player != Players In Slot(3, Team 1);
+		Is Alive(Event Player) == True;
+	}
+
+	actions
+	{
+		Event Player.C = Players In Slot(3, Team 1);
+		Chase Player Variable Over Time(Players In Slot(3, Team 1), C, 4, 2 + Global.P * 2, Destination and Duration);
+		Wait(2 + Global.P * 2, Abort When False);
+		Teleport(Players In Slot(3, Team 1), Event Player);
+		Resurrect(Players In Slot(3, Team 1));
+		Global.P += 1;
+		disabled Wait(0.250, Ignore Condition);
+		Play Effect(All Players(All Teams), Good Explosion, Color(Yellow), Global.Died[3], 4);
+		Play Effect(All Players(All Teams), Buff Explosion Sound, Color(White), Players In Slot(3, Team 1), 100);
+		Global.Died[3] = Vector(500, 0, 500);
+		Event Player.points += 100 * Event Player.H;
+		Skip If(Event Player.H != 1, 1);
+		Small Message(Event Player, String("{0} + {1}", String(""), String("{0} {1}", 100, String("Points"))));
+		Skip If(Event Player.H == 1, 1);
+		Small Message(Event Player, String("{0} + {1}", String(""), String("{0} {1}", 300, String("Points"))));
+		All Players(Team 1).HideHints = 0;
+		Global.R += 100 * Event Player.H;
+		Set Status(Players In Slot(3, Team 1), Null, Invincible, 5);
+		Set Max Health(Players In Slot(3, Team 1), 100);
+	}
+}
+
+rule("Cancel Revive Player 4")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Global.Died[3]) > 4;
+		Event Player != Players In Slot(3, Team 1);
+	}
+
+	actions
+	{
+		Players In Slot(3, Team 1).C = 0;
+		Stop Chasing Player Variable(Players In Slot(3, Team 1), C);
+	}
+}
+
+rule("Revive Effects")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	actions
+	{
+		Create Effect(All Players(All Teams), Ring, Color(Purple), Global.Died[0], 4, Visible To Position and Radius);
+		disabled Create In-World Text(Filtered Array(All Players(Team 1), Current Array Element.InfoCooldown == 1), String("{0} {1}", String(
+			"Resurrect"), Hero Icon String(Hero Of(Players In Slot(0, Team 1)))), Global.Died[0], 1, Do Not Clip,
+			Visible To Position and String, Color(White), Default Visibility);
+		Create Effect(All Players(All Teams), Sphere, Color(White), Global.Died[0], Players In Slot(0, Team 1).C,
+			Visible To Position and Radius);
+		Create Effect(All Players(All Teams), Ring, Color(Green), Global.Died[1], 4, Visible To Position and Radius);
+		disabled Create In-World Text(Filtered Array(All Players(Team 1), Current Array Element.P == 1), String("{0} {1}", String("Resurrect"),
+			Hero Icon String(Hero Of(Players In Slot(1, Team 1)))), Global.Died[1], 1, Do Not Clip, Visible To Position and String, Color(
+			White), Default Visibility);
+		Create Effect(All Players(All Teams), Sphere, Color(White), Global.Died[1], Players In Slot(1, Team 1).C,
+			Visible To Position and Radius);
+		Create Effect(All Players(All Teams), Ring, Color(Orange), Global.Died[2], 4, Visible To Position and Radius);
+		disabled Create In-World Text(Filtered Array(All Players(Team 1), Current Array Element.Q == 1), String("{0} {1}", String("Resurrect"),
+			Hero Icon String(Hero Of(Players In Slot(2, Team 1)))), Global.Died[2], 1, Do Not Clip, Visible To Position and String, Color(
+			White), Default Visibility);
+		Create Effect(All Players(All Teams), Sphere, Color(White), Global.Died[2], Players In Slot(2, Team 1).C,
+			Visible To Position and Radius);
+		Create Effect(All Players(All Teams), Ring, Color(Turquoise), Global.Died[3], 4, Visible To Position and Radius);
+		disabled Create In-World Text(Filtered Array(All Players(Team 1), Current Array Element.HideHints == 1), String("{0} {1}", String(
+			"Resurrect"), Hero Icon String(Hero Of(Players In Slot(3, Team 1)))), Global.Died[3], 1, Do Not Clip,
+			Visible To Position and String, Color(White), Default Visibility);
+		Create Effect(All Players(All Teams), Sphere, Color(White), Global.Died[3], Players In Slot(3, Team 1).C,
+			Visible To Position and Radius);
+		Create In-World Text(All Players(All Teams), Custom String("ReKt LAL"), Global.Died[0], 3, Clip Against Surfaces,
+			Visible To Position and String, Color(White), Default Visibility);
+		Create In-World Text(All Players(All Teams), Custom String("OOf"), Global.Died[1], 3, Clip Against Surfaces,
+			Visible To Position and String, Color(White), Default Visibility);
+		Create In-World Text(All Players(All Teams), Custom String("2 GUD 4 ME"), Global.Died[2], 3, Clip Against Surfaces,
+			Visible To Position and String, Color(White), Default Visibility);
+		Create In-World Text(All Players(All Teams), Custom String("HEP MEH"), Global.Died[3], 3, Clip Against Surfaces,
+			Visible To Position and String, Color(White), Default Visibility);
+	}
+}
+
+rule("Player Respawn, Move Revive Effect")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Is Alive(Event Player) == True;
+	}
+
+	actions
+	{
+		Global.Died[Slot Of(Event Player)] = Vector(500, 0, 500);
+	}
+}
+
+rule("Pickup slowmotion")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Global.M[2]) <= 1.500;
+		All Players(Team 1).G[2] == False;
+		Global.roundnumber >= 1;
+	}
+
+	actions
+	{
+		Global.M[2] = Vector(500, 25, 500);
+		All Players(Team 1).G[2] = True;
+		All Players(Team 1).S[2] = 1;
+		Big Message(All Players(All Teams), String("{0} {1} {2}", String("Slower"), String("Time"), String("-> {0}", String("{0} sec",
+			10))));
+		Set Slow Motion(50);
+		disabled Create HUD Text(All Players(All Teams), String("Speed"), Null, Null, Top, 1, Color(Green), Color(White), Color(White),
+			Visible To and String, Default Visibility);
+		disabled All Players(Team 1).I[2] = Last Text ID;
+		Wait(5, Ignore Condition);
+		Set Slow Motion(100);
+		All Players(Team 1).G[2] = False;
+		disabled Destroy HUD Text(All Players(Team 1).I[2]);
+		All Players(Team 1).S[2] = 0;
+	}
+}
+
+rule("Empty Global Var UVW")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	conditions
+	{
+		Global.C == 4;
+		Global.D == 1;
+	}
+
+	actions
+	{
+		Global.W = Empty Array;
+		disabled Global.X = Empty Array;
+		Global.V = Empty Array;
+		Global.U = Empty Array;
+	}
+}
+
+rule("Spawn Blockers")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Global.roundnumber == 1;
+	}
+
+	actions
+	{
+		Create Effect(All Players(Team 1), Sphere, Color(Red), Vector(-98.375, 2.299, -31.485), 6, Visible To Position and Radius);
+		Create Effect(All Players(Team 1), Sphere, Color(Red), Vector(-71.235, 1.450, -52.386), 5, Visible To Position and Radius);
+	}
+}
+
+rule("Spawn Blocker Effect A")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Vector(-98.375, 2.299, -31.485)) <= 6.500;
+	}
+
+	actions
+	{
+		Teleport(Event Player, Vector(-83.967, 1.347, -24.774));
+	}
+}
+
+rule("Spawn Blocker Effect B")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Vector(-71.235, 1.450, -52.386)) <= 5;
+	}
+
+	actions
+	{
+		Teleport(Event Player, Vector(-61.903, 0.856, -48.146));
+	}
+}
+
+rule("Spawn Blocker Effect C")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Vector(-162.793, 1.729, 12.898)) <= 2;
+	}
+
+	actions
+	{
+		Teleport(Event Player, Vector(-159.210, 1.080, 12.338));
+	}
+}
+
+rule("Spawn Blocker Effect D")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Vector(-164.359, 1.430, 5.378)) <= 2;
+	}
+
+	actions
+	{
+		Teleport(Event Player, Vector(-159.675, 1.080, 6.641));
+	}
+}
+
+rule("Spawn Blocker Effect E")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Vector(-156.662, 1.078, 48.117)) <= 2;
+	}
+
+	actions
+	{
+		Teleport(Event Player, Vector(-152.042, 0.840, 47.075));
+	}
+}
+
+rule("spawned in points")
+{
+	event
+	{
+		Ongoing - Each Player;
+		All;
+		All;
+	}
+
+	conditions
+	{
+		Has Spawned(Event Player) == True;
+		disabled Global.gamestarted == 1;
+	}
+
+	actions
+	{
+		Wait(3, Ignore Condition);
+		Event Player.points += Workshop Setting Integer(Custom String("Points"), Custom String("Points all players"), 300, 0, 9999999, 0)
+			* Global.roundnumber + Workshop Setting Integer(Custom String("points"), Custom String("more points"), 0, 0, 9999999, 0);
+	}
+}
+
+rule("heal over time effect")
+{
+	event
+	{
+		Player Took Damage;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		All Living Players(Team 1) == True;
+	}
+
+	actions
+	{
+		Wait(2, Ignore Condition);
+		Start Heal Over Time(Event Player, Event Player, 3, Event Player.M / 4 + 8);
+		Wait(5, Ignore Condition);
+	}
+}
+
+rule("rien use ability")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 2;
+		Reinhardt;
+	}
+
+	conditions
+	{
+		Is Moving(Event Player) == True;
+		Global.roundnumber / 1 >= Absolute Value(21);
+	}
+
+	actions
+	{
+		Press Button(Event Player, Button(Ability 1));
+	}
+}
+
+rule("torb use ability")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 2;
+		Torbjörn;
+	}
+
+	conditions
+	{
+		Is Moving(Event Player) == True;
+		Global.roundnumber / 1 >= Absolute Value(15);
+	}
+
+	actions
+	{
+		Press Button(Event Player, Button(Ability 2));
+		Wait(5, Ignore Condition);
+		Loop;
+	}
+}
+
+rule("is hacked")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 2;
+		All;
+	}
+
+	conditions
+	{
+		Has Status(Event Player, Hacked) == True;
+	}
+
+	actions
+	{
+		Set Move Speed(Event Player, 0);
+		Set Primary Fire Enabled(Event Player, False);
+		Set Status(Event Player, Null, Burning, 4);
+		Start Damage Over Time(Event Player, Null, 10, 60);
+		Disallow Button(Event Player, Button(Jump));
+	}
+}
+
+rule("rien use ability 2")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 2;
+		Reinhardt;
+	}
+
+	conditions
+	{
+		Is Moving(Event Player) == True;
+		Global.roundnumber / 1 >= Absolute Value(26);
+	}
+
+	actions
+	{
+		Press Button(Event Player, Button(Ability 2));
+	}
+}
+
+rule("is not hacked")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 2;
+		All;
+	}
+
+	conditions
+	{
+		Has Status(Event Player, Hacked) == False;
+	}
+
+	actions
+	{
+		Set Move Speed(Event Player, 100);
+		Set Primary Fire Enabled(Event Player, True);
+	}
+}
+
+rule("spawn brigs and torbs 6 - 10")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	conditions
+	{
+		Has Spawned(All Players(Team 1)) == True;
+		Global.roundnumber / 1 >= Absolute Value(6);
+		Global.roundnumber / 1 <= Absolute Value(10);
+		Global.numberofzombies >= 4;
+	}
+
+	actions
+	{
+		Wait(9, Abort When False);
+		Communicate(Random Value In Array(All Living Players(Team 1)), Countdown);
+		Wait(3, Abort When False);
+		Communicate(Random Value In Array(All Living Players(Team 1)), Incoming);
+		Wait(0.500, Ignore Condition);
+		Create Dummy Bot(Hero(Torbjörn), Team 2, -1, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(0.500, Ignore Condition);
+		Create Dummy Bot(Hero(Brigitte), Team 2, -1, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(0.500, Ignore Condition);
+		Create Dummy Bot(Hero(Torbjörn), Team 2, -1, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(0.500, Ignore Condition);
+		Create Dummy Bot(Hero(Brigitte), Team 2, -1, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(0.500, Ignore Condition);
+		Create Dummy Bot(Hero(Torbjörn), Team 2, -1, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(0.500, Ignore Condition);
+		Create Dummy Bot(Hero(Brigitte), Team 2, -1, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(0.500, Ignore Condition);
+		Create Dummy Bot(Hero(Torbjörn), Team 2, -1, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(0.500, Ignore Condition);
+		Create Dummy Bot(Hero(Brigitte), Team 2, -1, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Skip If(Number Of Players(Team 1) > 3, 30);
+		Wait(0.500, Ignore Condition);
+		Create Dummy Bot(Hero(Torbjörn), Team 2, -1, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(0.500, Ignore Condition);
+		Create Dummy Bot(Hero(Brigitte), Team 2, -1, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(0.500, Ignore Condition);
+		Create Dummy Bot(Hero(Torbjörn), Team 2, -1, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(0.500, Ignore Condition);
+		Create Dummy Bot(Hero(Brigitte), Team 2, -1, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Skip If(Number Of Players(Team 1) > 2, 30);
+		Wait(0.500, Ignore Condition);
+		Create Dummy Bot(Hero(Torbjörn), Team 2, -1, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(0.500, Ignore Condition);
+		Create Dummy Bot(Hero(Brigitte), Team 2, -1, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Skip If(Number Of Players(Team 1) > 1, 30);
+		Wait(0.500, Ignore Condition);
+		Create Dummy Bot(Hero(Torbjörn), Team 2, -1, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(0.500, Ignore Condition);
+		disabled Create Dummy Bot(Hero(Brigitte), Team 2, -1, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		disabled Wait(0.500, Ignore Condition);
+		disabled Create Dummy Bot(Hero(Torbjörn), Team 2, -1, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		disabled Wait(0.500, Ignore Condition);
+		disabled Create Dummy Bot(Hero(Brigitte), Team 2, -1, Random Value In Array(Global.Y), Vector(0, 0, 0));
+	}
+}
+
+rule("Spawn torbs 11 - 15")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	conditions
+	{
+		Has Spawned(All Players(Team 1)) == True;
+		Global.roundnumber / 1 >= Absolute Value(11);
+		Global.roundnumber / 1 < Absolute Value(16);
+		Global.numberofzombies >= 4;
+	}
+
+	actions
+	{
+		Wait(9, Abort When False);
+		Communicate(Random Value In Array(All Living Players(Team 1)), Countdown);
+		Wait(3, Abort When False);
+		Communicate(Random Value In Array(All Living Players(Team 1)), Incoming);
+		Wait(0.500, Ignore Condition);
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Torbjörn), Team 2, 0, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Torbjörn), Team 2, 1, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Torbjörn), Team 2, 2, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Torbjörn), Team 2, 3, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Torbjörn), Team 2, 4, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Torbjörn), Team 2, 5, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Torbjörn), Team 2, 6, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Torbjörn), Team 2, 7, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Skip If(Number Of Players(Team 1) > 3, 30);
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Torbjörn), Team 2, 8, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Torbjörn), Team 2, 9, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Skip If(Number Of Players(Team 1) > 2, 30);
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Torbjörn), Team 2, 10, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Torbjörn), Team 2, 11, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Skip If(Number Of Players(Team 1) > 1, 30);
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Torbjörn), Team 2, 12, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Torbjörn), Team 2, 13, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		disabled Wait(1, Ignore Condition);
+		disabled Create Dummy Bot(Hero(Torbjörn), Team 2, 14, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		disabled Wait(1, Ignore Condition);
+		disabled Create Dummy Bot(Hero(Torbjörn), Team 2, 15, Random Value In Array(Global.Y), Vector(0, 0, 0));
+	}
+}
+
+rule("spawn torb rien brig 16 - 20")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	conditions
+	{
+		Has Spawned(All Players(Team 1)) == True;
+		Global.roundnumber / 1 >= Absolute Value(16);
+		Global.roundnumber / 1 < Absolute Value(21);
+		Global.numberofzombies >= 4;
+	}
+
+	actions
+	{
+		Wait(9, Abort When False);
+		Communicate(Random Value In Array(All Living Players(Team 1)), Countdown);
+		Wait(3, Abort When False);
+		Communicate(Random Value In Array(All Living Players(Team 1)), Incoming);
+		Wait(0.500, Ignore Condition);
+		Create Dummy Bot(Hero(Torbjörn), Team 2, 0, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Reinhardt), Team 2, 1, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Torbjörn), Team 2, 2, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Reinhardt), Team 2, 3, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Brigitte), Team 2, 4, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Reinhardt), Team 2, 5, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Brigitte), Team 2, 4, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Reinhardt), Team 2, 5, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Reinhardt), Team 2, 6, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Torbjörn), Team 2, 7, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Skip If(Number Of Players(Team 1) > 3, 30);
+		Wait(0.500, Ignore Condition);
+		Create Dummy Bot(Hero(Torbjörn), Team 2, 8, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Reinhardt), Team 2, 9, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Skip If(Number Of Players(Team 1) > 2, 30);
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Torbjörn), Team 2, 10, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Reinhardt), Team 2, 11, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Skip If(Number Of Players(Team 1) > 1, 30);
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Brigitte), Team 2, 12, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Reinhardt), Team 2, 13, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		disabled Wait(1, Ignore Condition);
+		disabled Create Dummy Bot(Hero(Brigitte), Team 2, 14, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		disabled Wait(1, Ignore Condition);
+		disabled Create Dummy Bot(Hero(Reinhardt), Team 2, 15, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		disabled Wait(1, Ignore Condition);
+		disabled Create Dummy Bot(Hero(Reinhardt), Team 2, 16, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		disabled Wait(1, Ignore Condition);
+		disabled Create Dummy Bot(Hero(Torbjörn), Team 2, 17, Random Value In Array(Global.Y), Vector(0, 0, 0));
+	}
+}
+
+rule("brig use whip shot")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 2;
+		Brigitte;
+	}
+
+	conditions
+	{
+		Global.roundnumber / 1 >= Absolute Value(16);
+		Distance Between(Event Player, Closest Player To(Event Player, Team 1)) < 3;
+	}
+
+	actions
+	{
+		Press Button(Event Player, Button(Ability 1));
+		Wait(6, Ignore Condition);
+		Loop;
+	}
+}
+
+rule("hammond stop grapple")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		Wrecking Ball;
+	}
+
+	conditions
+	{
+		Is Button Held(Event Player, Button(Secondary Fire)) == True;
+	}
+
+	actions
+	{
+		Wait(4, Ignore Condition);
+		Abort If Condition Is False;
+		Set Status(Event Player, Null, Hacked, 6);
+	}
+}
+
+rule("server 24/7 rule to restart if everyone left")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	conditions
+	{
+		Number Of Players(Team 1) == 0;
+		Number Of Players(Team 2) > 0;
+	}
+
+	actions
+	{
+		Declare Team Victory(Team 2);
+		Wait(2, Ignore Condition);
+		Restart Match;
+	}
+}
+
+rule("wave >1 warning")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Is Hero Being Played(Hero(Cassidy), Team 1) == Hero Of(Event Player);
+		Global.roundnumber > 1;
+	}
+
+	actions
+	{
+		Abort If(Hero Of(Event Player) != Hero(Cassidy));
+		Wait(0.250, Ignore Condition);
+		Big Message(Event Player, Custom String("WARNING: SWITCH OFF MCCREE - LOW DAMAGE CAPABILITY"));
+		Wait(30, Ignore Condition);
+		Loop If Condition Is True;
+	}
+}
+
+rule("round won sound effect")
+{
+	event
+	{
+		Ongoing - Each Player;
+		All;
+		All;
+	}
+
+	conditions
+	{
+		Global.Z <= 0;
+	}
+
+	actions
+	{
+		Play Effect(All Players(All Teams), Ring Explosion Sound, Color(White), Event Player, 80);
+	}
+}
+
+rule("start button effect")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	conditions
+	{
+		Global.gamestarted == 0;
+	}
+
+	actions
+	{
+		Create In-World Text(All Players(All Teams), Custom String("START (all players must stand on)"), Vector(-27.186, 0.466, 0.843), 1,
+			Clip Against Surfaces, Visible To Position and String, Color(White), Default Visibility);
+		Create Effect(All Players(All Teams), Cloud, Color(White), Vector(-27.186, 0.466, 0.843), 1, Visible To Position and Radius);
+	}
+}
+
+rule("start button control")
+{
+	event
+	{
+		Ongoing - Each Player;
+		All;
+		All;
+	}
+
+	conditions
+	{
+		Global.gamestarted == 0;
+		All Players(Team 1) == Players Within Radius(Vector(-27.186, 0.466, 0.843), 2, Team 1, Off);
+	}
+
+	actions
+	{
+		Global.gamestarted = 1;
+	}
+}
+
+rule("start boundry 1")
+{
+	event
+	{
+		Ongoing - Each Player;
+		All;
+		All;
+	}
+
+	conditions
+	{
+		Global.gamestarted == 0;
+		Players Within Radius(Vector(-21.598, 0.335, -4.825), 3, All Teams, Off) == True;
+	}
+
+	actions
+	{
+		Apply Impulse(Event Player, Vector(-27.149, 0.437, -4.648), 50, To World, Cancel Contrary Motion);
+	}
+}
+
+rule("start boundry 2")
+{
+	event
+	{
+		Ongoing - Each Player;
+		All;
+		All;
+	}
+
+	conditions
+	{
+		Global.gamestarted == 0;
+		Players Within Radius(Vector(-26.097, 0.319, 11.031), 3, All Teams, Off) == True;
+	}
+
+	actions
+	{
+		Apply Impulse(Event Player, Vector(-24.981, 2.097, -8.495), 50, To World, Cancel Contrary Motion);
+	}
+}
+
+rule("start boundry 3")
+{
+	event
+	{
+		Ongoing - Each Player;
+		All;
+		All;
+	}
+
+	conditions
+	{
+		Global.gamestarted == 0;
+		Players Within Radius(Vector(-23.134, 0.719, 4.636), 3, All Teams, Off) == True;
+	}
+
+	actions
+	{
+		Apply Impulse(Event Player, Vector(-28.844, 0.523, 5.113), 50, To World, Cancel Contrary Motion);
+	}
+}
+
+rule("Rule 210")
+{
+	event
+	{
+		Ongoing - Each Player;
+		All;
+		All;
+	}
+
+	actions
+	{
+		Disable Built-In Game Mode Music;
+		Disable Kill Feed(Event Player);
+		Disable Built-In Game Mode Announcer;
+		disabled Disable Scoreboard(Event Player);
+		Disable Nameplates(All Living Players(Team 2), Event Player);
+		Stop Forcing Player Outlines(All Players(Team 2), Event Player);
+	}
+}
+
+rule("disable unimportant features")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	actions
+	{
+		Disable Game Mode HUD(Event Player);
+		Disable Game Mode In-World UI(Event Player);
+		disabled Disable Hero HUD(Event Player);
+		Disable Nameplates(Event Player, All Players(All Teams));
+		Disable Inspector Recording;
+		Disable Messages(Event Player);
+	}
+}
+
+rule("Monkey Kill (Global Var B) ALL SLOTS")
+{
+	event
+	{
+		Player Died;
+		Team 2;
+		All;
+	}
+
+	actions
+	{
+		Event Player.B = Random Integer(1, 50);
+		Skip If(Event Player.B != 1, 1);
+		Global.M[0] = Nearest Walkable Position(Event Player) + Vector(0, 0.500, 0);
+		Set Ultimate Charge(Event Player, 0);
+		Wait(0.200, Ignore Condition);
+		Global.numberofzombies -= 1;
+		Skip If(Global.numberofzombies < Number Of Living Players(Team 2), 1);
+		Respawn(Event Player);
+	}
+}
+
+rule("ZOMBIE spawn little winston rien 21 - 25")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	conditions
+	{
+		Has Spawned(All Players(Team 1)) == True;
+		Global.roundnumber / 1 >= Absolute Value(21);
+		Global.roundnumber / 1 < Absolute Value(26);
+	}
+
+	actions
+	{
+		Wait(2, Ignore Condition);
+		Create Dummy Bot(Hero(Winston), Team 2, 0, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Reinhardt), Team 2, 1, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Winston), Team 2, 2, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Reinhardt), Team 2, 3, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Winston), Team 2, 4, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Reinhardt), Team 2, 5, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Winston), Team 2, 4, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Reinhardt), Team 2, 5, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Reinhardt), Team 2, 6, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Winston), Team 2, 7, Random Value In Array(Global.Y), Vector(0, 0, 0));
+	}
+}
+
+rule("Spawn rien genji 26 - 30")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	conditions
+	{
+		Has Spawned(All Players(Team 1)) == True;
+		Global.roundnumber / 1 >= Absolute Value(26);
+		Global.roundnumber / 1 < Absolute Value(30);
+	}
+
+	actions
+	{
+		Wait(9, Abort When False);
+		Communicate(Random Value In Array(All Living Players(Team 1)), Countdown);
+		Wait(3, Abort When False);
+		Communicate(Random Value In Array(All Living Players(Team 1)), Incoming);
+		Wait(0.500, Ignore Condition);
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Genji), Team 2, 0, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Reinhardt), Team 2, 1, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Genji), Team 2, 2, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Reinhardt), Team 2, 3, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Genji), Team 2, 4, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Reinhardt), Team 2, 5, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Genji), Team 2, 6, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Reinhardt), Team 2, 7, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Skip If(Number Of Players(Team 1) > 3, 30);
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Genji), Team 2, 0, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Reinhardt), Team 2, 1, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Genji), Team 2, 2, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Reinhardt), Team 2, 3, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Skip If(Number Of Players(Team 1) > 2, 30);
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Genji), Team 2, 4, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Reinhardt), Team 2, 5, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Genji), Team 2, 6, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Reinhardt), Team 2, 7, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Skip If(Number Of Players(Team 1) > 1, 30);
+	}
+}
+
+rule("spawn winston genji 31- 35")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	conditions
+	{
+		Has Spawned(All Players(Team 1)) == True;
+		Global.roundnumber / 1 >= Absolute Value(31);
+		Global.roundnumber / 1 < Absolute Value(35);
+	}
+
+	actions
+	{
+		Wait(9, Abort When False);
+		Communicate(Random Value In Array(All Living Players(Team 1)), Countdown);
+		Wait(3, Abort When False);
+		Communicate(Random Value In Array(All Living Players(Team 1)), Incoming);
+		Wait(0.500, Ignore Condition);
+		Create Dummy Bot(Hero(Winston), Team 2, 0, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Genji), Team 2, 1, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Winston), Team 2, 2, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Genji), Team 2, 3, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Winston), Team 2, 4, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Genji), Team 2, 5, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Winston), Team 2, 6, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Genji), Team 2, 7, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Skip If(Number Of Players(Team 1) > 3, 30);
+		Wait(0.500, Ignore Condition);
+		Create Dummy Bot(Hero(Winston), Team 2, 8, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Genji), Team 2, 9, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Skip If(Number Of Players(Team 1) > 2, 30);
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Winston), Team 2, 10, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Genji), Team 2, 11, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Skip If(Number Of Players(Team 1) > 1, 30);
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Winston), Team 2, 12, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Genji), Team 2, 13, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		disabled Wait(1, Ignore Condition);
+		disabled Create Dummy Bot(Hero(Winston), Team 2, 14, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		disabled Wait(1, Ignore Condition);
+		disabled Create Dummy Bot(Hero(Genji), Team 2, 15, Random Value In Array(Global.Y), Vector(0, 0, 0));
+	}
+}
+
+rule("Spawn moira genji 31 - infinite (for now)")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	conditions
+	{
+		Has Spawned(All Players(Team 1)) == True;
+		Global.roundnumber / 1 >= Absolute Value(35);
+		disabled Global.roundnumber / 1 < Absolute Value(35);
+	}
+
+	actions
+	{
+		Wait(9, Abort When False);
+		Communicate(Random Value In Array(All Living Players(Team 1)), Countdown);
+		Wait(3, Abort When False);
+		Communicate(Random Value In Array(All Living Players(Team 1)), Incoming);
+		Wait(0.500, Ignore Condition);
+		Create Dummy Bot(Hero(Genji), Team 2, 0, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Moira), Team 2, 1, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Genji), Team 2, 2, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Moira), Team 2, 3, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Genji), Team 2, 4, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Moira), Team 2, 5, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Genji), Team 2, 6, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Moira), Team 2, 7, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Skip If(Number Of Players(Team 1) > 3, 30);
+		Wait(0.500, Ignore Condition);
+		Create Dummy Bot(Hero(Genji), Team 2, 8, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Moira), Team 2, 9, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Skip If(Number Of Players(Team 1) > 2, 30);
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Genji), Team 2, 10, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Moira), Team 2, 11, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Skip If(Number Of Players(Team 1) > 1, 30);
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Genji), Team 2, 12, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Moira), Team 2, 13, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		disabled Wait(1, Ignore Condition);
+		disabled Create Dummy Bot(Hero(Genji), Team 2, 14, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		disabled Wait(1, Ignore Condition);
+		disabled Create Dummy Bot(Hero(Moira), Team 2, 15, Random Value In Array(Global.Y), Vector(0, 0, 0));
+	}
+}
+
+rule("Zombie set genji always has ult")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 2;
+		Genji;
+	}
+
+	conditions
+	{
+		Has Spawned(Event Player) == True;
+	}
+
+	actions
+	{
+		Set Ultimate Charge(Event Player, 100);
+	}
+}
+
+rule("set zen ult to phase out")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		Zenyatta;
+	}
+
+	conditions
+	{
+		Is Using Ultimate(Event Player) == True;
+	}
+
+	actions
+	{
+		Set Status(Event Player, Null, Phased Out, 6);
+	}
+}
+
+rule("Remove bots when player joins mid round 2")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	conditions
+	{
+		Number Of Players(Team 1) == 2;
+	}
+
+	actions
+	{
+		Destroy Dummy Bot(Team 2, 17);
+		Destroy Dummy Bot(Team 2, 16);
+		Destroy Dummy Bot(Team 2, 15);
+		Destroy Dummy Bot(Team 2, 14);
+	}
+}
+
+rule("Remove bots when player joins mid round 3")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	conditions
+	{
+		Number Of Players(Team 1) == 3;
+	}
+
+	actions
+	{
+		Destroy Dummy Bot(Team 2, 17);
+		Destroy Dummy Bot(Team 2, 16);
+		Destroy Dummy Bot(Team 2, 15);
+		Destroy Dummy Bot(Team 2, 14);
+		Destroy Dummy Bot(Team 2, 13);
+		Destroy Dummy Bot(Team 2, 12);
+		Destroy Dummy Bot(Team 2, 11);
+		Destroy Dummy Bot(Team 2, 10);
+	}
+}
+
+rule("Remove bots when player joins mid round 4")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	conditions
+	{
+		Number Of Players(Team 1) == 4;
+	}
+
+	actions
+	{
+		Destroy Dummy Bot(Team 2, 17);
+		Destroy Dummy Bot(Team 2, 16);
+		Destroy Dummy Bot(Team 2, 15);
+		Destroy Dummy Bot(Team 2, 14);
+		Destroy Dummy Bot(Team 2, 13);
+		Destroy Dummy Bot(Team 2, 12);
+		Destroy Dummy Bot(Team 2, 11);
+		Destroy Dummy Bot(Team 2, 10);
+		Destroy Dummy Bot(Team 2, 9);
+		Destroy Dummy Bot(Team 2, 8);
+	}
+}
+
+rule("set Torb zombie features zombie")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 2;
+		Torbjörn;
+	}
+
+	actions
+	{
+		Start Scaling Player(Event Player, 1.500, True);
+		Start Modifying Hero Voice Lines(Event Player, 0.500, True);
+	}
+}
+
+rule("zombie players Rule 271")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 2;
+		All;
+	}
+
+	conditions
+	{
+		Has Spawned(Event Player) == True;
+		Is Dummy Bot(Event Player) != True;
+	}
+
+	actions
+	{
+		Set Move Speed(Event Player, 80);
+	}
+}
+
+rule("timer hud")
+{
+	event
+	{
+		Ongoing - Each Player;
+		All;
+		All;
+	}
+
+	actions
+	{
+		Create HUD Text(Event Player, Custom String("{0}:{1}:{2}", Global.minutes, Global.seconds, Global.milliseconds), Null, Null, Top,
+			0, Color(White), Color(White), Color(White), Visible To and String, Default Visibility);
+	}
+}
+
+rule("Rule 236")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	conditions
+	{
+		Global.seconds >= 60;
+	}
+
+	actions
+	{
+		Global.minutes += 1;
+		Global.seconds = 0;
+	}
+}
+
+rule("Rule 236")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	conditions
+	{
+		Global.milliseconds >= 1000;
+	}
+
+	actions
+	{
+		Global.seconds += 1;
+		Global.milliseconds = 0;
+	}
+}
+
+rule("Rule 236")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	conditions
+	{
+		Global.milliseconds < 1000;
+		Global.gamestarted == 1;
+	}
+
+	actions
+	{
+		Global.milliseconds += 142;
+		Wait(0.143, Ignore Condition);
+		Loop;
+	}
+}

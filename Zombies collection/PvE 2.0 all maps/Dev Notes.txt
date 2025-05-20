@@ -1,0 +1,184 @@
+- Need to fix anything with comments
+- need easter egg created
+- need objectives completed
+- pack a punch: no longer carries between buying a new hero
+- achivements
+- 4 perks max until downed with a hud icon for each perk
+- firesale (all mystery box locations active at once, and only cost 10 points to buy new hero)
+- buying same hero again for ammo cost half the amount, and pack a punch'd hero's cost more with a small message that tells the player how much their ammo costs
+- buying the ending lets you start the game with pack a punch with what ever hero you beat the game with.
+- pathfinding system
+
+hero buy locations need to carefully demonstrate that the player is able to buy a follower or that same hero for themselves.
+
+perk buy doesnt work
+lots of in world text appear during starting screen
+followers ult and attack without targets
+followers get dropped when hero switching (crouch and F)
+followers count as players during solo play (make it so if the player goes downed they lose their follower)
+melee sometimes double swings - need to just do "damage(victim) when "is meleeing" to remove the delay
+somehow managed to get negative points (probably bastion trap)
+followers have global.T 0 (need global.T 1)
+player can exit spawn during setup phase (set teleport away from spawns to only work with global.start 1)
+some followers get stuck in ult animation (lucio and more)
+
+perks showing without connecting power
+
+buying a door didnt buy it (might be due to follower system activating first when it shouldnt happen at all)
+
+some effects dont load in (needs a simple optimized way of designing each zones effects)
+
+hero ability "reloads" dont work properly, like cassidy roll doesnt remove .5 magazines
+
+door effects dont delete when purchased
+
+make sure door system doesnt effect followers
+
+wall positions arent right size or spot
+
+challenge waves dont seem to activate consistantly and seem to last more than 1 wave
+
+need to set it so walls have a condition for if is not(!) dummy bot
+
+set points to scale with a chase variable, might need a 2nd rule that chases, while the main give points rule modifies a first variable(or index), and the 2nd variable would just be a visual
+
+bots spawning inside either team 1 or 2's spawn room
+
+need to remove effect on player that died and wasnt revived like pack a punch or anything else attached
+
+let followers have pack a punch too, when holding reload over pack a punch
+
+revive might be good to have it so players revive circle dissapears after enough time
+
+need to use data compression for arrays, and set it up so that it works well with soft restart
+
+maybe include a toggle some how to show third person - but make sure its accurate to crosshair -- maybe holding melee for x time 
+
+set connect power to only spawn in player zone that they are currently in
+
+a menu while playing?
+
+add in a hud to show what your stats are when playing in XP mode. and show Hud when player is holding jump
+- defence, attack, speed, health, clip size, max magazines, max number of ultimates,
+
+make sure followers dont use any of the player variables and waste resources
+
+maybe introduce workshop inspector tools to use while hosting the server afk in spectator. and collect analytics over what players do.
+==potential things to store==
+- what perks are bought the most often
+- how many doors are bought per game
+- how often are objectives used
+- how often do players win
+- how often do players play each role (tank support dps)
+- how often someone is afk and gets auto kicked
+- average play time
+- success rate against boss's 
+- how often  each gamemode settings and Difficulty are used
+- how many new games have started
+- average duration of a round (till soft restart and new round)
+- highest round achieved
+- average round achieved
+- how often easter egg completed
+- what round most often lost at or players most often leave at
+-
+== set all this to be only shown for host player in spectator == 
+== server can only last for 4 hours 30 minutes, restarting game resets this timer. - need to gather data for 4 hours then output to inspector, then restart server after 4 hours 15 minutes ==
+
+introduce an auto afk kick system
+
+need to design the soft restart system to function right
+- stores what heroes they bought that game
+- resets doors and removes all perks and effects on player
+- manages time properly with rule(Time manager)
+
+
+- need to introduce a perk machine that gives a random perk with icon similar to new mystery box
+
+- need to introduce better caption system
+
+Difficulty settings
+- modify all "workshop setting" settings, and remove them from their respective page, then have it so that easy normal and hard get their respective features
+
+    - EASY 
+- have armor system - armor breaks slowly
+- slow bot reaction time
+- dont randomize array for hero buy, and perks
+- player revives dont disappear
+- 36 zomnics a wave max
+- melee does a stun
+-
+-
+    - NORMAL 
+- have armor system - armor breaks faster
+- medium bot reaction time
+- dont randomize array for hero buy, and perks
+- player revives dissapear after 60 seconds
+- 52 zomnics a wave max
+- melee does not stun
+-
+    - HARD
+- remove armor system
+- fast bot reaction time
+- do randomize array for hero buy, and perks
+- player revives dissapear after 30 seconds
+- scaling number of zomnics per wave? or just 72 max
+- melee does not stun
+-
+
+
+include data compression for all arrays
+include only 1 vector for all doors then use math to calculate the other 3 points
+
+make a new trap on zones without bastion trap and make them use beam effects that electricute bots
+
+
+=== In mainlogic
+
+Get rid of most if not all the workshop settings on line 660
+No need for comment on line 719
+Check if Easter egg name plates conflicts with line 739
+Delete line 749
+Compress data and loop in rule on line 753
+Need for loop in rule on line 789
+Not sure to change rule on line 1091
+Is true for any in rule on line 1114
+Is true for any in rule on line 1219
+Use a for loop in rule on line 1326
+Need to check if greater than 4 on line 134
+Duplicate rule on line 1605
+
+=== In eventhandling247
+
+Need to check for if all players left do a soft restart, or if servers close to ending hard restart server early
+Move the other "add points to late joined" rules as well to be here
+Find any other "player joined" rules that are relevant 
+
+===== Buynonfollower things
+Does line 159 need hero radius variable?
+Check for stability issues with rule on line 173
+Remove or change perk on line 514
+Error on price on line 535
+Conflicting variable on line 568 and 572 and 577
+
+===== Arrays
+One of the follower mystery box locations is in a spawn room
+
+
+==== Ammo system
+For Hanzo you could wait until false when he is holding primary fire and is not holding secondary fire
+On line 44 reins fire strike re enables?
+
+==== Pack a punch 
+Might be able to use data compression for lines 47 and 51
+
+
+
+=========== Path to 1.0.0 =====================
+
+get walls done 
+- needs data compression and my own door designing tool done 
+- optimize effects per zone, 1,2,3 atlest for doors, and maybe all effects
+fix all playing elements to work 
+get all zomnics balanced atleast ones for directors addition
+- leave directors addition as default, then setting for brig and torb, and leave random (all hero) for a later update
+leave easter egg for later update
