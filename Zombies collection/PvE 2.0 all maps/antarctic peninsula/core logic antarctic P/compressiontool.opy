@@ -1,8 +1,3 @@
-rule "Dev Decompressed hud":
-    hudHeader(localPlayer, "firstpos {0} secondpos {1} firstpos2 {2}".format(firstpos[0], secondpos[0], firstpoint2[0]), HudPosition.LEFT, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
-    hudHeader(localPlayer, "allpos {0} alldir {1} secondpoint2 {2}".format(AllPos[0], AllDir[0], secondpoint2[0]), HudPosition.LEFT, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
-
-
 def DecompressString():
     @Name "Decompress string"
     

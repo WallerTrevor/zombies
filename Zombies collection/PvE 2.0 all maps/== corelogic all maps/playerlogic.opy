@@ -499,7 +499,7 @@ rule "393 POINTS Omnic kill (final hit (could probably make this one rule))":
     if eventPlayer.isMeleeing() == false:
         if eventWasCriticalHit == false:
             eventPlayer.points += 50 + eventPlayer.heropoints * eventPlayer.H
-            chaseAtRate(eventPlayer.points2, (evalOnce(eventPlayer.points) + 0) * eventPlayer.H, 250q)
+            chaseAtRate(eventPlayer.points2, (evalOnce(eventPlayer.points) + 0) * eventPlayer.H, 250)
             if eventPlayer.H != 1:
                 goto lbl_0
             if eventPlayer.H == 1:

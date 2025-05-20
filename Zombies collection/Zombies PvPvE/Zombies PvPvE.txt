@@ -2480,7 +2480,8 @@ rule("Rule 210")
 		Disable Built-In Game Mode Announcer;
 		disabled Disable Scoreboard(Event Player);
 		Disable Nameplates(All Living Players(Team 2), Event Player);
-		Stop Forcing Player Outlines(All Players(Team 2), Event Player);
+		eventPlayer.startForcingOutlineFor(getPlayers(Team.1), true, rgb(random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)))
+
 	}
 }
 

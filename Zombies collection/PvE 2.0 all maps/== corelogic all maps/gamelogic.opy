@@ -380,7 +380,6 @@ rule "88 disable vanilla features":
     disableAnnouncer()
     #getAllPlayers().disableScoreboard()
     getLivingPlayers(Team.2).disableNameplatesFor(getPlayers(Team.1))
-    getAllPlayers().stopForcingOutlineFor(getAllPlayers())
     #disableInspector()
     disableScoring()
     disableGamemodeCompletion()

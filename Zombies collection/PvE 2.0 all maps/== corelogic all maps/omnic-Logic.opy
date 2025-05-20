@@ -4,6 +4,7 @@ rule "137  get out of spawn bots(buggy effect)":
     @Condition eventPlayer.isAlive() == true
     @Condition eventPlayer.isInSpawnRoom() == true
     
+       eventPlayer.startForcingOutlineFor(getPlayers(Team.1), true, rgb(random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)))
     eventPlayer.teleport(nearestWalkablePosition(directionFromAngles(random.uniform(0, 360), random.uniform(-3, 3)) * random.uniform(10, 20) + getLivingPlayers(Team.1)[0].getPosition()))
     wait(1)
     createEffect(getAllPlayers(), Effect.BAD_AURA, Color.BLACK, evalOnce(eventPlayer.getPosition()) + vect(0, 1.5, 0), 1, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
