@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Overwatch Script Source Code</title>
+  <style>
+    body {
+      background-color: #282c34; /* Darker shade of gray */
+      color: #ffffff; /* Light gray for better contrast */
+    }
+
+    .anti-crash { color: #ff5555; } /* Slightly desaturated red */
+    .arrays { color: #50fa7b; } /* Lighter green */
+    .boss1 { color: #569cd6; } /* Slightly desaturated blue */
+    .boss2 { color: #f0c674; } /* Yellow */
+    .boss3 { color: #9b59b6; } /* Purple */
+    .dev-tools { color: #ff7f50; } /* Orange */
+    .easter-egg { color: #87cefa; } /* Light blue */
+    .followers { color: #ffb3b3; } /* Pink */
+    .game-logic { color: #66CDAA; } /* Light green */
+    .map-effects { color: #FFA500; } /* Orange */
+    .nonworkshop-code { color: #ff5555; } /* Slightly desaturated red */
+    .omnic-logic { color: #50fa7b; } /* Lighter green */
+    .pack-a-punch { color: #569cd6; } /* Slightly desaturated blue */
+    .player-effects { color: #f0c674; } /* Yellow */
+    .purchase-nonfollower-stuff { color: #9b59b6; } /* Purple */
+    .script-section2 { color: #ff7f50; } /* Orange */
+    .storytelling { color: #87cefa; } /* Light blue */
+    .user-interface { color: #ffb3b3; } /* Pink */
+  </style>
+</head>
+<body>
+  <h1>Overwatch Script Source Code</h1>
+  <p>This webpage displays the combined source code from multiple text files.</p>
+  <hr>
+  <button onclick="copyAll()">Copy All to Clipboard</button>
+  <script>
+    function loadFile(filePath, className) {
+      const xhr = new XMLHttpRequest();
+      xhr.open('GET', filePath, true);
+      xhr.onload = function() {
+        if (xhr.status === 200) {
+          const content = xhr.responseText;
+          const codeElement = document.createElement('pre');
+          codeElement.classList.add(className);
+          codeElement.textContent = content;
+          document.body.appendChild(codeElement);
+        } else {
+          console.error('Error loading file:', filePath);
+        }
+      };
+      xhr.send();
+    }
+
+    const filesToLoad = [
+    { file: 'bosses/boss1.txt', class: 'boss1' },
+    { file: 'bosses/boss2.txt', class: 'boss2' },
+    { file: 'bosses/boss3.txt', class: 'boss3' },
+    { file: 'corelogic/OmnicLogic/omnic-Logic.txt', class: 'omnic-logic' },
+    { file: 'corelogic/OmnicLogic/wave-Boss-Logic.txt', class: 'omnic-wave' },
+    { file: 'corelogic/survivorLogic/ammosystem.txt', class: 'ammo-system' },
+    { file: 'corelogic/survivorlogic/pack-a-punch.txt', class: 'pack-a-punch' },
+    { file: 'corelogic/survivorLogic/followers.txt', class: 'followers' },
+    { file: 'corelogic/survivorLogic/perkLogic.txt', class: 'perk-logic' },
+    { file: 'corelogic/survivorlogic/playerLogic.txt', class: 'player-logic' },
+    { file: 'corelogic/anti-Crash.txt', class: 'anti-crash' },
+    { file: 'corelogic/arrays.txt', class: 'arrays' },
+    { file: 'corelogic/Dev-tools.txt', class: 'dev-tools' },
+    { file: 'corelogic/Eventhandling247server.txt', class: 'event-handling' },
+    { file: 'corelogic/GameLogic.txt', class: 'game-logic' },
+    { file: 'corelogic/mysterybox.txt', class: 'mystery-box' },
+    { file: 'corelogic/purchase-nonfollower-Stuff.txt', class: 'purchase-nonfollower-stuff' },
+    { file: 'corelogic/Subroutines.txt', class: 'subroutines' },
+    { file: 'corelogic/workshopsettings.txt', class: 'workshop-settings' },
+    { file: 'corelogic/XPsystem.txt', class: 'xp-system' },
+    { file: 'effects/Mapeffects.txt', class: 'map-effects' },
+    { file: 'effects/Player-Effects.txt', class: 'player-effects' },
+    { file: 'effects/userinterface.txt', class: 'user-interface' },
+    { file: 'story/easteregg.txt', class: 'easter-egg' },
+    { file: 'story/Storytelling.txt', class: 'storytelling' }
+];
+
+let allCode = ""; 
+
+filesToLoad.forEach(file => {
+  loadFile(file.file, file.class);
+});
+
+function copyAll() {
+  allCode = ""; // Clear previous code
+
+  // Get all <pre> elements
+  const codeElements = document.querySelectorAll('pre');
+
+  codeElements.forEach(element => {
+    allCode += element.textContent + "\n"; // Append content with newline
+  });
+
+  // Copy to clipboard
+  navigator.clipboard.writeText(allCode)
+    .then(() => {
+      alert("Code copied to clipboard!");
+    })
+    .catch(err => {
+      console.error("Error copying to clipboard:", err);
+    });
+}
+</script>
+
+</body>
+</html>
