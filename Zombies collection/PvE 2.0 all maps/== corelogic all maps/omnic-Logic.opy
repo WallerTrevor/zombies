@@ -262,34 +262,34 @@ rule "519 Spawn wave director":
 
 
 rule "520 OMNIC hero array list":
-    hero[0] = Hero.ANA
-    hero[1] = Hero.ASHE
-    hero[2] = Hero.BAPTISTE
-    hero[3] = Hero.BASTION
-    hero[4] = Hero.BRIGITTE
-    hero[5] = Hero.CASSIDY
-    hero[6] = Hero.DVA
-    hero[7] = Hero.DOOMFIST
-    hero[8] = Hero.ECHO
-    hero[9] = Hero.GENJI
-    hero[10] = Hero.HANZO
-    hero[11] = Hero.ILLARI
-    hero[12] = Hero.JUNKER_QUEEN
-    hero[13] = Hero.JUNKRAT
-    hero[14] = Hero.KIRIKO
-    hero[15] = Hero.LIFEWEAVER
-    hero[16] = Hero.LUCIO
-    hero[17] = Hero.MAUGA
-    hero[18] = Hero.MEI
-    hero[19] = Hero.MERCY
-    hero[20] = Hero.MOIRA
+    hero[0] = Hero.LUCIO
+    hero[1] = Hero.HANZO
+    hero[2] = Hero.ZENYATTA
+    hero[3] = Hero.SOLDIER
+    hero[4] = Hero.MERCY
+    hero[5] = Hero.PHARAH
+    hero[6] = Hero.JUNKRAT
+    hero[7] = Hero.SYMMETRA
+    hero[8] = Hero.DOOMFIST
+    hero[9] = Hero.BAPTISTE
+    hero[10] = Hero.BASTION
+    hero[11] = Hero.REAPER
+    hero[12] = Hero.GENJI
+    hero[13] = Hero.ASHE
+    hero[14] = Hero.ZARYA
+    hero[15] = Hero.ROADHOG
+    hero[16] = Hero.DVA
+    hero[17] = Hero.BRIGITTE
+    hero[18] = Hero.REINHARDT
+    hero[19] = Hero.TORBJORN
+    hero[20] = Hero.SIGMA
     hero[21] = Hero.ORISA
-    hero[22] = Hero.PHARAH
-    hero[23] = Hero.RAMATTRA
+    hero[22] = Hero.MOIRA
+    hero[23] = Hero.MEI
     hero[24] = Hero.REAPER
     hero[25] = Hero.REINHARDT
     hero[26] = Hero.ROADHOG
-    hero[27] = Hero.SIGMA
+    hero[27] = Hero.MAUGA
     hero[28] = Hero.SOJOURN
     hero[29] = Hero.SOLDIER
     hero[30] = Hero.SOMBRA
@@ -319,7 +319,7 @@ rule "559 stop throttle omnics":
     eventPlayer.stopForcingThrottle()
 
 
-rule "435 OMNIC ALL heros (excluding wave boss)":
+rule "435 basic OMNIC ALL heros":
     @Event eachPlayer
     @Team 2
     @Condition distance(eventPlayer, getClosestPlayer(eventPlayer, Team.1)) < 10
@@ -677,9 +677,9 @@ rule "417 OMNIC torb use ability":
 rule "419 OMNIC set winston always has ult":
     @Event eachPlayer
     @Team 2
-    @Condition eventPlayer.getHero() == Hero.WINSTON or Hero.GENJI
+    @Condition eventPlayer.getHero() in [Hero.WINSTON, Hero.GENJI]
     @Condition eventPlayer.isMoving() == true
-    
+
     eventPlayer.setUltCharge(100)
 
 

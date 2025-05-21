@@ -1,7 +1,6 @@
 def herobuy1250():
     @Name "242 Rule 426 subroutine hero buy 1250"
     
-    if eventPlayer.points > 1250:
         eventPlayer.points -= 1250
         playEffect(eventPlayer, DynamicEffect.MOIRA_FADE_DISAPPEAR_SOUND, Color.WHITE, eventPlayer, 70)
         wait(0.25)
@@ -11,14 +10,11 @@ def herobuy1250():
         eventPlayer.XPlevel = false
         eventPlayer.xp = false
         lbl_0:
-    elif eventPlayer.points < 1250:
-        smallMessage(eventPlayer, "Come back when you've got some money buddy!")
 
 
 def herobuy1750():
     @Name "243 Rule 427 subroutine hero buy1750"
     
-    if eventPlayer.points > 1750:
         playEffect(getAllPlayers(), DynamicEffect.RING_EXPLOSION, Color.PURPLE, eventPlayer, 10)
         playEffect(getAllPlayers(), DynamicEffect.MOIRA_FADE_DISAPPEAR_SOUND, Color.PURPLE, eventPlayer, 70)
         eventPlayer.points -= 1000 + 750
@@ -29,15 +25,13 @@ def herobuy1750():
         eventPlayer.XPlevel = false
         eventPlayer.xp = false
         lbl_0:
-    elif eventPlayer.points < 1750:
-        smallMessage(eventPlayer, "Come back when you've got some money buddy!")
 
 
 def heroswap():
     @Name "hero swap subroutine"
     
     eventPlayer.preloadHero(eventPlayer.heroswap[eventPlayer.swapvar[0]])
-    #could simplify this further by using less variable names
+    #need to switch this for overpy extended variables
     eventPlayer.herohp[eventPlayer.swapvar[1]] = eventPlayer.getHealth()
     eventPlayer.ultcharge[eventPlayer.swapvar[1]] = eventPlayer.currentultcharge
     eventPlayer.abilitycooldown[eventPlayer.swapvar[2]] = eventPlayer.getAbilityCooldown(Button.ABILITY_1)

@@ -105,12 +105,12 @@ rule "202 Purchase Follower action":
     @Team 1
     @Condition eventPlayer.isHoldingButton(Button.RELOAD) == true
     #is heroradius variable needed?
-    @Condition any([distance(player, eventPlayer) < heroradius[i] for player, i in herobuyrandomized]) == true
+    @Condition any([distance(player, eventPlayer) < heroradius[i] for player, i in buyheros]) == true
     
     #can be simplified further to be a total subroutine for each
     wait(1, Wait.ABORT_WHEN_FALSE)
     #lucio
-    if distance(eventPlayer, herobuyrandomized[0]) < 2:
+    if distance(eventPlayer, buyheros[0]) < 2:
         if eventPlayer.points >= 1000:
             eventPlayer.followerbuy = Hero.LUCIO
             wait()
@@ -119,7 +119,7 @@ rule "202 Purchase Follower action":
         elif eventPlayer.points < 1000:
             smallMessage(eventPlayer, "  {0} The beat drops, but the wallet doesn't.".format(heroIcon(Hero.RAMATTRA)))
         #hanzo
-    elif distance(eventPlayer, herobuyrandomized[1]) < 2:
+    elif distance(eventPlayer, buyheros[1]) < 2:
         if eventPlayer.points >= 1250:
             eventPlayer.followerbuy = Hero.HANZO
             wait()
@@ -128,7 +128,7 @@ rule "202 Purchase Follower action":
         elif eventPlayer.points < 1250:
             smallMessage(eventPlayer, "  {0}You require more points to fuel the dragon's fury.".format(heroIcon(Hero.RAMATTRA)))
         #zenyatta
-    elif distance(eventPlayer, herobuyrandomized[2]) < 2:
+    elif distance(eventPlayer, buyheros[2]) < 2:
         if eventPlayer.points >= 1000:
             eventPlayer.followerbuy = Hero.ZENYATTA
             wait()
@@ -137,7 +137,7 @@ rule "202 Purchase Follower action":
         elif eventPlayer.points < 1000:
             smallMessage(eventPlayer, "  {0} your emptiness hinders our path to enlightenment.".format(heroIcon(Hero.RAMATTRA)))
         #soldier 76
-    elif distance(eventPlayer, herobuyrandomized[3]) < 2:
+    elif distance(eventPlayer, buyheros[3]) < 2:
         if eventPlayer.points >= 1000:
             eventPlayer.followerbuy = Hero.SOLDIER
             wait()
@@ -146,7 +146,7 @@ rule "202 Purchase Follower action":
         elif eventPlayer.points < 1000:
             smallMessage(eventPlayer, "  {0} Your mission requires adequate funding, soldier.".format(heroIcon(Hero.RAMATTRA)))
         #mercy
-    elif distance(eventPlayer, herobuyrandomized[4]) < 2:
+    elif distance(eventPlayer, buyheros[4]) < 2:
         if eventPlayer.points >= 1000:
             eventPlayer.followerbuy = Hero.MERCY
             wait()
@@ -155,7 +155,7 @@ rule "202 Purchase Follower action":
         elif eventPlayer.points < 1000:
             smallMessage(eventPlayer, "  {0} Your reserves are depleted, angel.".format(heroIcon(Hero.RAMATTRA)))
         #pharah
-    elif distance(eventPlayer, herobuyrandomized[5]) < 2:
+    elif distance(eventPlayer, buyheros[5]) < 2:
         if eventPlayer.points >= 1000:
             eventPlayer.followerbuy = Hero.PHARAH
             wait()
@@ -164,7 +164,7 @@ rule "202 Purchase Follower action":
         elif eventPlayer.points < 1000:
             smallMessage(eventPlayer, "  {0} Refuel the jetpack with more points, commander.".format(heroIcon(Hero.RAMATTRA)))
         #junkrat
-    elif distance(eventPlayer, herobuyrandomized[6]) < 2:
+    elif distance(eventPlayer, buyheros[6]) < 2:
         if eventPlayer.points >= 1000:
             eventPlayer.followerbuy = Hero.JUNKRAT
             wait()
@@ -173,7 +173,7 @@ rule "202 Purchase Follower action":
         elif eventPlayer.points < 1000:
             smallMessage(eventPlayer, "  {0} Your explosive plans require more points.".format(heroIcon(Hero.RAMATTRA)))
         #symmetra
-    elif distance(eventPlayer, herobuyrandomized[7]) < 2:
+    elif distance(eventPlayer, buyheros[7]) < 2:
         if eventPlayer.points >= 1750:
             eventPlayer.followerbuy = Hero.SYMMETRA
             wait()
@@ -182,7 +182,7 @@ rule "202 Purchase Follower action":
         elif eventPlayer.points < 1750:
             smallMessage(eventPlayer, "  {0} Allocate more points for the realization of this vision.".format(heroIcon(Hero.RAMATTRA)))
         #doomfist
-    elif distance(eventPlayer, herobuyrandomized[8]) < 2:
+    elif distance(eventPlayer, buyheros[8]) < 2:
         if eventPlayer.points >= 1750:
             eventPlayer.followerbuy = Hero.DOOMFIST
             wait()
@@ -191,7 +191,7 @@ rule "202 Purchase Follower action":
         elif eventPlayer.points < 1750:
             smallMessage(eventPlayer, "  {0} Our path to dominance is blocked by insufficient funds.".format(heroIcon(Hero.RAMATTRA)))
         #baptiste
-    elif distance(eventPlayer, herobuyrandomized[9]) < 2:
+    elif distance(eventPlayer, buyheros[9]) < 2:
         if eventPlayer.points >= 1250:
             eventPlayer.followerbuy = Hero.BAPTISTE
             wait()
@@ -200,7 +200,7 @@ rule "202 Purchase Follower action":
         elif eventPlayer.points < 1250:
             smallMessage(eventPlayer, "  {0} To heal and protect, we require sustenance.".format(heroIcon(Hero.RAMATTRA)))
         #bastion
-    elif distance(eventPlayer, herobuyrandomized[10]) < 2:
+    elif distance(eventPlayer, buyheros[10]) < 2:
         if eventPlayer.points >= 1750:
             eventPlayer.followerbuy = Hero.BASTION
             wait()
@@ -209,7 +209,7 @@ rule "202 Purchase Follower action":
         elif eventPlayer.points < 1750:
             smallMessage(eventPlayer, "  {0} Boop beep boop?".format(heroIcon(Hero.RAMATTRA)))
         #reaper
-    elif distance(eventPlayer, herobuyrandomized[11]) < 2:
+    elif distance(eventPlayer, buyheros[11]) < 2:
         if eventPlayer.points >= 1000:
             eventPlayer.followerbuy = Hero.REAPER
             wait()
@@ -218,7 +218,7 @@ rule "202 Purchase Follower action":
         elif eventPlayer.points < 1000:
             smallMessage(eventPlayer, "  {0} Feed this darkness with more points.".format(heroIcon(Hero.RAMATTRA)))
         #genji
-    elif distance(eventPlayer, herobuyrandomized[12]) < 2:
+    elif distance(eventPlayer, buyheros[12]) < 2:
         if eventPlayer.points >= 1250:
             eventPlayer.followerbuy = Hero.GENJI
             wait()
@@ -227,7 +227,7 @@ rule "202 Purchase Follower action":
         elif eventPlayer.points < 1250:
             smallMessage(eventPlayer, "  {0} Your spirit is strong, but your balance is weak. Seek points.".format(heroIcon(Hero.RAMATTRA)))
         #ashe
-    elif distance(eventPlayer, herobuyrandomized[13]) < 2:
+    elif distance(eventPlayer, buyheros[13]) < 2:
         if eventPlayer.points >= 1250:
             eventPlayer.followerbuy = Hero.ASHE
             wait()
@@ -236,7 +236,7 @@ rule "202 Purchase Follower action":
         elif eventPlayer.points < 1250:
             smallMessage(eventPlayer, "  {0} This heist requires more capital, partner.".format(heroIcon(Hero.RAMATTRA)))
         #zarya
-    elif distance(eventPlayer, herobuyrandomized[14]) < 2:
+    elif distance(eventPlayer, buyheros[14]) < 2:
         if eventPlayer.points >= 1750:
             eventPlayer.followerbuy = Hero.ZARYA
             wait()
@@ -245,7 +245,7 @@ rule "202 Purchase Follower action":
         elif eventPlayer.points < 1750:
             smallMessage(eventPlayer, "  {0} Acquire more points to fuel your power.".format(heroIcon(Hero.RAMATTRA)))
         #roadhog
-    elif distance(eventPlayer, herobuyrandomized[15]) < 2:
+    elif distance(eventPlayer, buyheros[15]) < 2:
         if eventPlayer.points >= 1750:
             eventPlayer.followerbuy = Hero.ROADHOG
             wait()
@@ -254,7 +254,7 @@ rule "202 Purchase Follower action":
         elif eventPlayer.points < 1750:
             smallMessage(eventPlayer, "  {0} No scrap metal without points, you know?".format(heroIcon(Hero.RAMATTRA)))
         #dva
-    elif distance(eventPlayer, herobuyrandomized[16]) < 2:
+    elif distance(eventPlayer, buyheros[16]) < 2:
         if eventPlayer.points >= 1750:
             eventPlayer.followerbuy = Hero.DVA
             wait()
@@ -263,7 +263,7 @@ rule "202 Purchase Follower action":
         elif eventPlayer.points < 1750:
             smallMessage(eventPlayer, "  {0}  More points, or it's game over!".format(heroIcon(Hero.RAMATTRA)))
         #brig
-    elif distance(eventPlayer, herobuyrandomized[17]) < 2:
+    elif distance(eventPlayer, buyheros[17]) < 2:
         if eventPlayer.points >= 1750:
             eventPlayer.followerbuy = Hero.BRIGITTE
             wait()
@@ -272,7 +272,7 @@ rule "202 Purchase Follower action":
         elif eventPlayer.points < 1750:
             smallMessage(eventPlayer, "  {0} Father would be disappointed.".format(heroIcon(Hero.RAMATTRA)))
         #rein
-    elif distance(eventPlayer, herobuyrandomized[18]) < 2:
+    elif distance(eventPlayer, buyheros[18]) < 2:
         if eventPlayer.points >= 1750:
             eventPlayer.followerbuy = Hero.REINHARDT
             wait()
@@ -281,7 +281,7 @@ rule "202 Purchase Follower action":
         elif eventPlayer.points < 1750:
             smallMessage(eventPlayer, "  {0} Beer!".format(heroIcon(Hero.RAMATTRA)))
         #torb
-    elif distance(eventPlayer, herobuyrandomized[19]) < 2:
+    elif distance(eventPlayer, buyheros[19]) < 2:
         if eventPlayer.points >= 1750:
             eventPlayer.followerbuy = Hero.TORBJORN
             wait()
@@ -290,7 +290,7 @@ rule "202 Purchase Follower action":
         elif eventPlayer.points < 1750:
             smallMessage(eventPlayer, "  {0} My forge runs cold without fuel".format(heroIcon(Hero.RAMATTRA)))
         #sigma
-    elif distance(eventPlayer, herobuyrandomized[20]) < 2:
+    elif distance(eventPlayer, buyheros[20]) < 2:
         if eventPlayer.points >= 1750:
             eventPlayer.followerbuy = Hero.SIGMA
             wait()
@@ -299,7 +299,7 @@ rule "202 Purchase Follower action":
         elif eventPlayer.points < 1750:
             smallMessage(eventPlayer, "  {0} Our gravitational experiments require additional energy.".format(heroIcon(Hero.RAMATTRA)))
         #orisa
-    elif distance(eventPlayer, herobuyrandomized[21]) < 2:
+    elif distance(eventPlayer, buyheros[21]) < 2:
         if eventPlayer.points >= 1250:
             eventPlayer.followerbuy = Hero.ORISA
             wait()
@@ -308,7 +308,7 @@ rule "202 Purchase Follower action":
         elif eventPlayer.points < 1250:
             smallMessage(eventPlayer, "  {0} Your systems require upgrades.".format(heroIcon(Hero.RAMATTRA)))
         #moira
-    elif distance(eventPlayer, herobuyrandomized[22]) < 2:
+    elif distance(eventPlayer, buyheros[22]) < 2:
         if eventPlayer.points >= 1250:
             eventPlayer.followerbuy = Hero.MOIRA
             wait()
@@ -317,7 +317,7 @@ rule "202 Purchase Follower action":
         elif eventPlayer.points < 1250:
             smallMessage(eventPlayer, "  {0} Acquire more points for scientific advancement.".format(heroIcon(Hero.RAMATTRA)))
         #mei
-    elif distance(eventPlayer, herobuyrandomized[23]) < 2:
+    elif distance(eventPlayer, buyheros[23]) < 2:
         if eventPlayer.points >= 30000:
             eventPlayer.followerbuy = Hero.MEI
             wait()

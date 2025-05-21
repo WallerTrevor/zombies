@@ -110,6 +110,7 @@ globalvar extraVar 115
 #!define Maniac extraPlayerVar[13]
 #!define revived extraPlayerVar[14]
 #!define revivebought extraPlayerVar[15]
+#!define heroBuyMessTimer extraPlayerVar[16]
 
 playervar points 0
 playervar magazines 3
@@ -160,6 +161,7 @@ playervar swap 81
 playervar heropoints 82
 playervar extraPlayerVar 83
 playervar points2 84
+playervar allowedheroes 85
 #Subroutine names
 
 subroutine herobuy1250 0

@@ -105,6 +105,7 @@ rule "Dev Tool Show variables":
 rule "change waves":
     @Event eachPlayer
     @Condition eventPlayer.isHoldingButton(Button.INTERACT) == true
-
+    @Disabled
+    
     numberOfZombies = 1
     g += 1

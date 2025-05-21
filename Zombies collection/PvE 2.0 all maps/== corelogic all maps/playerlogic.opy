@@ -14,6 +14,8 @@ rule "55  starting hero set":
     @Event playerJoined
     
     eventPlayer.startForcingHero(Hero.CASSIDY)
+    eventPlayer.allowedheroes.append(eventPlayer.getHero())
+    
 
 
 rule "56  points loss for high roller":
@@ -91,6 +93,9 @@ rule "switch between 2 heros (needs ultimates, followers, ammo, systems working)
         eventPlayer.setAbilityCooldown(Button.ABILITY_2, eventPlayer.abilitycooldown[eventPlayer.swap[3]])
         eventPlayer.setAbilityCooldown(Button.SECONDARY_FIRE, eventPlayer.abilitycooldown[eventPlayer.swap[4]])
         eventPlayer.setUltCharge(eventPlayer.currentultcharge)
+        wait()
+        (getPlayersInSlot(eventPlayer.getSlot() + 4, Team.1)).attachTo(eventPlayer, vect(-0.5, 1.8, -0.2))
+        wait(0.1)
         playEffect(getAllPlayers(), DynamicEffect.MOIRA_FADE_DISAPPEAR, Color.WHITE, eventPlayer, 1)
         wait(1)
     elif getAverageServerLoad() >= 220:
@@ -174,12 +179,13 @@ rule "79 player died with maniac":
     eventPlayer.doublemag = false
     wait(0.1)
     eventPlayer.sprintburstperk = false
+    eventPlayer.setAllowedHeroes(eventPlayer.allowedheroes)
 
 
 rule "80 player died without maniac":
     @Event playerDied
     @Team 1
-    @Condition eventPlayer.Maniac == false
+    @Condition eventPlayer.Maniac == false #doesnt need 2 rules just for maniac
     
     Died[eventPlayer.getSlot()] = nearestWalkablePosition(eventPlayer)
     bigMessage(getAllPlayers(), l"{0} {1}".format(eventPlayer, l"{0}!".format(l"Down")))
@@ -197,6 +203,7 @@ rule "80 player died without maniac":
     wait(0.1)
     eventPlayer.sprintburstperk = false
     destroyDummy(Team.1, eventPlayer.getSlot() + 4)
+    eventPlayer.setAllowedHeroes(eventPlayer.allowedheroes)
 
 
 rule "81 Died Low points Bonus":
@@ -206,93 +213,6 @@ rule "81 Died Low points Bonus":
     @Condition roundnumber > 5
     
     eventPlayer.points = 1500
-
-
-rule "84 reloading all heros without doublemag":
-    @Event eachPlayer
-    @Team 1
-    #can be made into one rule with or without perk
-    @Condition eventPlayer.isReloading() == true
-    @Condition eventPlayer.doublemag == false
-    
-    eventPlayer.currentmagazines -= 1
-
-
-rule "89 out of ammo":
-    @Event eachPlayer
-    #can just have an if else statement for specific heros
-    @Condition eventPlayer.getHero() != Hero.MOIRA
-    @Condition eventPlayer.getHero() != Hero.MERCY
-    @Condition eventPlayer.getHero() != Hero.REINHARDT
-    @Condition eventPlayer.getHero() != Hero.BRIGITTE
-    @Condition eventPlayer.getHero() != Hero.TORBJORN
-    @Condition eventPlayer.getHero() != Hero.MEI
-    @Condition eventPlayer.isDummy() != true
-    
-    if eventPlayer.currentmagazines <= 0:
-        eventPlayer.setPrimaryFireEnabled(false)
-        eventPlayer.setSecondaryFireEnabled(false)
-
-
-rule "90 initialize ammo amount":
-    @Event eachPlayer
-    
-    eventPlayer.magazines[0] = 5
-    eventPlayer.magazines[1] = 5
-    eventPlayer.currentmagazines = eventPlayer.magazines[0]
-    eventPlayer.currentswap = false
-    eventPlayer.disallowButton(Button.CROUCH)
-    eventPlayer.ultcharge[0] = false
-    eventPlayer.ultcharge[1] = false
-    wait()
-    eventPlayer.currentultcharge = eventPlayer.ultcharge[0]
-    wait()
-    eventPlayer.setUltCharge(eventPlayer.ultcharge[0])
-
-
-rule "91 enable guns when they have ammo":
-    @Event eachPlayer
-    @Condition eventPlayer.currentmagazines > 0
-    @Condition eventPlayer.getHero() != Hero.MEI
-    
-    eventPlayer.setPrimaryFireEnabled(true)
-    eventPlayer.setSecondaryFireEnabled(true)
-
-
-rule "94 out of ammo moira":
-    @Event eachPlayer
-    @Hero moira
-    @Condition eventPlayer.currentmagazines <= 0
-    
-    eventPlayer.setSecondaryFireEnabled(false)
-
-
-rule "96 mercy disable gun if no ammo":
-    @Event eachPlayer
-    @Team 1
-    @Hero mercy
-    @Condition eventPlayer.getCurrentWeapon() == 2
-    @Condition eventPlayer.magazines <= 0
-    
-    eventPlayer.setWeapon(1)
-
-
-rule "97 torb disable gun if no ammo":
-    @Event eachPlayer
-    @Team 1
-    @Hero torbjorn
-    @Condition eventPlayer.getCurrentWeapon() == 1
-    @Condition eventPlayer.magazines <= 0
-    
-    eventPlayer.setWeapon(2)
-
-
-rule "98  reloading with doublemag":
-    @Event eachPlayer
-    @Condition eventPlayer.isReloading() == true
-    @Condition eventPlayer.doublemag == 1
-    
-    eventPlayer.currentmagazines -= 0.5
 
 
 rule "99  hero ultimate adjustments":
@@ -328,21 +248,6 @@ rule "99  hero ultimate adjustments":
         getLivingPlayers(Team.1).removeAllHealthPools()
 
 
-rule "103  remove less than zero issue on ammo":
-    @Event eachPlayer
-    @Condition eventPlayer.currentmagazines < 0
-    
-    eventPlayer.currentmagazines = false
-
-
-rule "104 fix reload disabled":
-    @Event eachPlayer
-    @Team 1
-    @Condition eventPlayer.getHero() != Hero.ASHE
-    
-    eventPlayer.allowButton(Button.RELOAD)
-
-
 rule "109 PERK player hit speed boost sprint burst":
     @Event playerTookDamage
     @Team 1
@@ -367,35 +272,12 @@ rule "110 player hit speed boost default":
     eventPlayer.setMoveSpeed(100)
 
 
-rule "113  ashe reload fix":
-    @Event eachPlayer
-    @Team 1
-    @Hero ashe
-    @Condition eventPlayer.isReloading() == true
-    
-    eventPlayer.setAmmo(0, 12)
-
-
-rule "115  ammo message force melee when out of ammo":
-    @Event eachPlayer
-    @Team 1
-    @Condition eventPlayer.currentmagazines == false
-    @Condition eventPlayer.isHoldingButton(Button.PRIMARY_FIRE) == true
-    
-    smallMessage(eventPlayer, "NO AMMO")
-    bigMessage(eventPlayer, "USE MELEE")
-    wait(5)
-    smallMessage(eventPlayer, "MELEE BONUS DAMAGE")
-    wait(5)
-    smallMessage(eventPlayer, "buy any hero for more ammo")
-
-
 rule "set allowed heros (wip)":
     @Event playerJoined
     @Disabled
     
     #this needs to store what heroes the player has purchased through their playthrough
-    eventPlayer.setAllowedHeroes(hero.slice(0, 0))
+    
 
 
 rule "126 healing dealt points":
@@ -417,30 +299,6 @@ rule "158 melee stun":
     eventPlayer.setStatusEffect(null, Status.STUNNED, 1)
 
 
-rule "161 life weiver no ammo":
-    @Event eachPlayer
-    @Team 1
-    @Hero lifeweaver
-    @Condition eventPlayer.currentmagazines == false
-    
-    #this doesnt seem to work, need to measure time instead of reloads
-    eventPlayer.disallowButton(Button.PRIMARY_FIRE)
-    eventPlayer.disallowButton(Button.SECONDARY_FIRE)
-
-
-rule "160 life weaver ammo":
-    @Event eachPlayer
-    @Team 1
-    @Hero lifeweaver
-    @Condition eventPlayer.isReloading() == false
-    @Condition eventPlayer.isHoldingButton(Button.SECONDARY_FIRE) == true
-    
-    eventPlayer.currentmagazines -= 0.025
-    wait(0.1)
-    if ruleCondition:
-        loop()
-
-
 rule "163 heal over time effect solo":
     @Event playerTookDamage
     @Team 1
@@ -458,15 +316,6 @@ rule "163 heal over time effect solo":
         wait(5, Wait.RESTART_WHEN_TRUE)
         eventPlayer.startHealingOverTime(eventPlayer, 3, 4 * eventPlayer.healvariable)
         eventPlayer.healovertime = getLastHealingOverTimeId()
-
-
-rule "171 no ammo force melee":
-    @Event eachPlayer
-    @Team 1
-    @Condition eventPlayer.magazines == false
-    @Condition (eventPlayer.isHoldingButton(Button.PRIMARY_FIRE) or eventPlayer.isHoldingButton(Button.SECONDARY_FIRE)) == true
-    
-    eventPlayer.forceButtonPress(Button.MELEE)
 
 
 rule "245 Rule 388 tank sheild":
@@ -510,6 +359,7 @@ rule "393 POINTS Omnic kill (final hit (could probably make this one rule))":
             eventPlayer.xp[eventPlayer.currentheroxp] += 5
         elif eventWasCriticalHit == true:
             eventPlayer.points += 100 + eventPlayer.heropoints * eventPlayer.H
+            chaseAtRate(eventPlayer.points2, (evalOnce(eventPlayer.points) + 0) * eventPlayer.H, 250)
             if eventPlayer.H != 1:
                 goto lbl_2
             if eventPlayer.H == 1:
@@ -520,6 +370,7 @@ rule "393 POINTS Omnic kill (final hit (could probably make this one rule))":
             eventPlayer.xp[eventPlayer.currentheroxp] += 10
     elif eventPlayer.isMeleeing() == true:
         eventPlayer.points += 130 + eventPlayer.heropoints * eventPlayer.H
+        chaseAtRate(eventPlayer.points2, (evalOnce(eventPlayer.points) + 0) * eventPlayer.H, 250)
         if eventPlayer.H != 1:
             goto lbl_4
         if eventPlayer.H == 1:

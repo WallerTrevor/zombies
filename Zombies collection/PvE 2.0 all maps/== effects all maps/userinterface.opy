@@ -286,3 +286,13 @@ rule "195 credits":
     getPlayers(Team.1).startCamera(vect(0, 0, 0), vect(0, 0, 0))
 
 
+rule "202 Purchase hero message":
+    @Event eachPlayer
+    @Team 1
+    @Condition eventPlayer.heroBuyMessTimer == false 
+    @Condition any([distance(player, eventPlayer) < heroradius[i] for player, i in buyheros]) == true
+
+    smallMessage(getAllPlayers(), "  {0} Press: {1} for Hero = {2}".format(heroIcon(Hero.ANA), inputBindingString(Button.INTERACT), "{0} Points -- Hold: {1} for follower = {2}".format(numberOfZombies, inputBindingString(Button.RELOAD), "{0} Points --- Ammo cost {1}".format(numberOfZombies, numberOfZombies))))
+    eventPlayer.heroBuyMessTimer = true
+    wait(5)
+    eventPlayer.heroBuyMessTimer = false

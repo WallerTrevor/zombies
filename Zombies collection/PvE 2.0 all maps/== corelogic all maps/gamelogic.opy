@@ -143,6 +143,7 @@ rule "6 Defeat (needs to be refined for soft restart)":
     start = false
     romanNcounter = 1
     g = false
+    
 
 rule "7 Disable Bot Respawn":
     @Event playerJoined
@@ -200,8 +201,7 @@ rule "26 Revive Player system":
     R += 100 * eventPlayer.H
     getPlayersInSlot(0, Team.1).setStatusEffect(null, Status.PHASED_OUT, 5)
     getPlayersInSlot(0, Team.1).setMaxHealth(100)
-    #dont need attach if player loses follower on downed
-    getPlayersInSlot(6, Team.1).attachTo(eventPlayer, vect(-0.5, 1.8, -0.2))
+
 
 
 rule "27 Cancel Revive all players":
@@ -323,7 +323,7 @@ rule "43 zone blockers (needs arrays)":
     @Condition getPlayersInRadius(vect(204.956, -7.585, -218.951), 2.5, Team.1) == true
     @Condition getPlayersInRadius(vect(-109.785, -151.582, 129.01), 2.5, Team.1) == true
     @Condition getPlayersInRadius(vect(196.085, -7.577, -239.357), 2.5, Team.1) == true
-    @Condition start == 1
+    @Condition outofpsawn == 1
     
     eventPlayer.teleport(vect(-93.817, -151.08, 135.029))
     eventPlayer.teleport(vect(-85.208, -152.021, 134.181))
