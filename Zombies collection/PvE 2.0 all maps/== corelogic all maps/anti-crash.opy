@@ -1,17 +1,17 @@
 rule "anticrash (not truely enjoyed by most developers but not too noticable for most players)":
-    @Condition getServerLoad() >= 200
+    @Condition getServerLoad() >= svrLdThreshold
     
-    setSlowMotion(70 + (((100 - 70) * (255 - getServerLoad())) / 255))
+    setSlowMotion(100 - ((100 - svrSlwThreshold) * (max(0, getServerLoad() - svrLdThreshold) / (255 - svrLdThreshold))))
 
 
 rule "anticrash":
-    @Condition getServerLoad() < 200
+    @Condition getServerLoad() < svrLdThreshold
     
     setSlowMotion(100)
 
 
 rule "148 Remove bots ANTI CRASH":
-    @Condition getAverageServerLoad() >= 240
+    @Condition getAverageServerLoad() >= svrLdThreshold
     @Disabled
     
     destroyDummy(Team.2, 17)

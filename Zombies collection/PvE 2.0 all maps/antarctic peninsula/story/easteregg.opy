@@ -278,13 +278,13 @@ rule "glitch in the system":
     
     wait(random.randint(120, 600), Wait.ABORT_WHEN_FALSE)
     romanNcounter += 12
-    wait(0.1)
+    wait(0.4)
     romanNcounter -= 12
-    wait(0.1)
+    wait(0.4)
     romanNcounter += 12
-    wait(0.1)
+    wait(0.4)
     romanNcounter -= 12
-    wait(0.1)
+    wait(0.4)
     if ruleCondition:
         loop()
 

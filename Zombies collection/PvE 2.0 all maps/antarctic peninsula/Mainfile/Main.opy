@@ -29,6 +29,8 @@
 #!define romanNcounter extraVar[27]
 #!define appenddoorsequencer extraVar[28]
 #!define dooreffectsequencer extraVar[29]
+#!define svrLdThreshold extraVar[30]
+#!define svrSlwThreshold extraVar[31]
 
 globalvar powerconnected 13
 globalvar Died 18

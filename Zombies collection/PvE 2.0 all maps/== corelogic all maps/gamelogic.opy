@@ -1,3 +1,39 @@
+rule "1 Setup":
+    roundnumber = 0
+    numberOfZombies = false
+    C = false
+    P = false
+    Q = []
+    T = []
+    Y = []
+    #Y.append(vect(-23.738, 22.631, -120.65))
+    #hudSubtext(getPlayers(Team.1), l"{0}: {1}".format(numberOfZombies, l"Enemies"), HudPosition.RIGHT, 0, Color.RED, HudReeval.VISIBILITY_AND_STRING, SpecVisibility.ALWAYS)
+    O = false
+    M[0] = vect(500, 25, 500)
+    M[1] = vect(500, 25, 500)
+    M[2] = vect(500, 25, 500)
+    M[3] = vect(500, 25, 500)
+    M[4] = vect(500, 25, 500)
+    M[5] = vect(500, 25, 500)
+    createEffect(getPlayers(Team.1), Effect.ORB, Color.WHITE, M[0], 1, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
+    createEffect(getPlayers(Team.1), Effect.ORB, Color.YELLOW, M[1], 1, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
+    createEffect(getPlayers(Team.1), Effect.ORB, Color.GREEN, M[2], 1, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
+    createEffect(getPlayers(Team.1), Effect.ORB, Color.VIOLET, M[3], 0.1, EffectReeval.NONE)
+    createEffect(getPlayers(Team.1), Effect.ORB, Color.RED, M[4], 1, EffectReeval.POSITION_AND_RADIUS)
+    createEffect(getPlayers(Team.1), Effect.ORB, Color.ORANGE, M[5], 1, EffectReeval.POSITION_AND_RADIUS)
+    hudText([player for player in getPlayers(Team.1) if player.S[1] == 1], "{0}".format(heroIcon(Hero.RAMATTRA)), null, " Double points!", HudPosition.TOP, 1, Color.WHITE, Color.WHITE, Color.ORANGE, HudReeval.VISIBILITY_AND_STRING, SpecVisibility.NEVER)
+    hudText([player for player in getPlayers(Team.1) if player.S[2] == 1], "{0}".format(heroIcon(Hero.RAMATTRA)), null, " Time Freeze", HudPosition.TOP, 1, Color.WHITE, Color.WHITE, Color.ORANGE, HudReeval.VISIBILITY_AND_STRING, SpecVisibility.NEVER)
+    hudText([player for player in getPlayers(Team.1) if player.S[4] == 1], "{0}".format(heroIcon(Hero.RAMATTRA)), null, " Insta-Kill!", HudPosition.TOP, 1, Color.WHITE, Color.WHITE, Color.ORANGE, HudReeval.VISIBILITY_AND_STRING, SpecVisibility.NEVER)
+    hudText([player for player in getPlayers(Team.1) if player.S[0] == 1], "{0}".format(heroIcon(Hero.RAMATTRA)), null, " Ultimate Mayhem!", HudPosition.TOP, 1, Color.WHITE, Color.WHITE, Color.ORANGE, HudReeval.VISIBILITY_AND_STRING, SpecVisibility.NEVER)
+    hudText([player for player in getPlayers(Team.1) if player.S[5] == 1], "{0}".format(heroIcon(Hero.RAMATTRA)), null, "Max Ammo!", HudPosition.TOP, 1, Color.WHITE, Color.WHITE, Color.ORANGE, HudReeval.VISIBILITY_AND_STRING, SpecVisibility.NEVER)
+    hudText([player for player in getPlayers(Team.1) if player.S[3] == 1], "{0}".format(heroIcon(Hero.RAMATTRA)), null, "Data Reset.", HudPosition.TOP, 1, Color.WHITE, Color.WHITE, Color.ORANGE, HudReeval.VISIBILITY_AND_STRING, SpecVisibility.NEVER)
+    appenddoorsequencer = []
+    dooreffectsequencer = []
+    teleportercolor = Color.BLUE
+    svrLdThreshold = 200 # this is the required serverload to start slowing down
+    svrSlwThreshold = 85 # at max serverload this is the lowest limit, try to be subtle
+    disableInspector()
+
 rule "2 round change":
     @Condition numberOfZombies <= 0
     @Condition O == false
@@ -6,6 +42,7 @@ rule "2 round change":
     for forindex in range(len(omnicspawn)):
         destroyDummy(Team.2, omnicspawn[forindex])
     roundnumber += 1
+        romanN = ["0", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", roundnumber, "0", "00110001", "00110010", "00110011", "00110100", "00110101", "00110110", "00110111", "00111000", "00111001", roundnumber]
     Z = 1
     getPlayers(Team.1).setUltCharge(100)
     bigMessage(getAllPlayers(), l"Round {0}".format(romanN[romanNcounter]))
@@ -29,10 +66,8 @@ rule "2 round change":
     getLivingPlayers(Team.1).setStatusEffect(null, Status.PHASED_OUT, 2)
     getPlayers(Team.1).Head_HP = 3
     chwaveinterval += 1
-    if roundnumber > 10:
-        goto lbl_0
-    romanNcounter += 1
-    lbl_0:
+    if roundnumber < 12:
+        romanNcounter += 1
     getPlayers(Team.1).ultcharge[0] = 100
     getPlayers(Team.1).ultcharge[1] = 100
 
@@ -42,14 +77,10 @@ rule "3 Set Round Kills":
     @Condition O == false
     
     #modify this based on difficulty
-    if roundnumber <= 12:
-        numberOfZombies = 12 + roundnumber * 2
+        numberOfZombies = 6 + roundnumber * 3
         wait(1)
         Z = false
-    elif roundnumber >= 13:
-        numberOfZombies = createWorkshopSettingInt("difficulty", "max zombies per wave", 72, 8, 100)
-        wait(1)
-        Z = false
+
 
 
 rule "5 Time manager":
@@ -107,9 +138,11 @@ rule "6 Defeat (needs to be refined for soft restart)":
         telespot = 103
     getPlayers(Team.1).resurrect()
     wait(2)
-    roundnumber = false
+    outofpsawn = false
+    roundnumber = 0
     start = false
-
+    romanNcounter = 1
+    g = false
 
 rule "7 Disable Bot Respawn":
     @Event playerJoined
@@ -134,40 +167,6 @@ rule "8 respawn bots":
     random.choice(getDeadPlayers(Team.2)).respawn()
     if ruleCondition:
         loop()
-
-
-rule "1 Setup":
-    roundnumber = false
-    numberOfZombies = false
-    C = false
-    P = false
-    Q = []
-    T = []
-    Y = []
-    #Y.append(vect(-23.738, 22.631, -120.65))
-    #hudSubtext(getPlayers(Team.1), l"{0}: {1}".format(numberOfZombies, l"Enemies"), HudPosition.RIGHT, 0, Color.RED, HudReeval.VISIBILITY_AND_STRING, SpecVisibility.ALWAYS)
-    O = false
-    M[0] = vect(500, 25, 500)
-    M[1] = vect(500, 25, 500)
-    M[2] = vect(500, 25, 500)
-    M[3] = vect(500, 25, 500)
-    M[4] = vect(500, 25, 500)
-    M[5] = vect(500, 25, 500)
-    createEffect(getPlayers(Team.1), Effect.ORB, Color.WHITE, M[0], 1, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
-    createEffect(getPlayers(Team.1), Effect.ORB, Color.YELLOW, M[1], 1, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
-    createEffect(getPlayers(Team.1), Effect.ORB, Color.GREEN, M[2], 1, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
-    createEffect(getPlayers(Team.1), Effect.ORB, Color.VIOLET, M[3], 0.1, EffectReeval.NONE)
-    createEffect(getPlayers(Team.1), Effect.ORB, Color.RED, M[4], 1, EffectReeval.POSITION_AND_RADIUS)
-    createEffect(getPlayers(Team.1), Effect.ORB, Color.ORANGE, M[5], 1, EffectReeval.POSITION_AND_RADIUS)
-    hudText([player for player in getPlayers(Team.1) if player.S[1] == 1], "{0}".format(heroIcon(Hero.RAMATTRA)), null, " Double points!", HudPosition.TOP, 1, Color.WHITE, Color.WHITE, Color.ORANGE, HudReeval.VISIBILITY_AND_STRING, SpecVisibility.NEVER)
-    hudText([player for player in getPlayers(Team.1) if player.S[2] == 1], "{0}".format(heroIcon(Hero.RAMATTRA)), null, " Time Freeze", HudPosition.TOP, 1, Color.WHITE, Color.WHITE, Color.ORANGE, HudReeval.VISIBILITY_AND_STRING, SpecVisibility.NEVER)
-    hudText([player for player in getPlayers(Team.1) if player.S[4] == 1], "{0}".format(heroIcon(Hero.RAMATTRA)), null, " Insta-Kill!", HudPosition.TOP, 1, Color.WHITE, Color.WHITE, Color.ORANGE, HudReeval.VISIBILITY_AND_STRING, SpecVisibility.NEVER)
-    hudText([player for player in getPlayers(Team.1) if player.S[0] == 1], "{0}".format(heroIcon(Hero.RAMATTRA)), null, " Ultimate Mayhem!", HudPosition.TOP, 1, Color.WHITE, Color.WHITE, Color.ORANGE, HudReeval.VISIBILITY_AND_STRING, SpecVisibility.NEVER)
-    hudText([player for player in getPlayers(Team.1) if player.S[5] == 1], "{0}".format(heroIcon(Hero.RAMATTRA)), null, "Max Ammo!", HudPosition.TOP, 1, Color.WHITE, Color.WHITE, Color.ORANGE, HudReeval.VISIBILITY_AND_STRING, SpecVisibility.NEVER)
-    hudText([player for player in getPlayers(Team.1) if player.S[3] == 1], "{0}".format(heroIcon(Hero.RAMATTRA)), null, "Data Reset.", HudPosition.TOP, 1, Color.WHITE, Color.WHITE, Color.ORANGE, HudReeval.VISIBILITY_AND_STRING, SpecVisibility.NEVER)
-    appenddoorsequencer = []
-    dooreffectsequencer = []
-    teleportercolor = Color.BLUE
 
 
 rule "26 Revive Player system":

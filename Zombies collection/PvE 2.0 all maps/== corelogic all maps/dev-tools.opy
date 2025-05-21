@@ -102,4 +102,9 @@ rule "use interact to give pack a punch (Dev testing)":
 rule "Dev Tool Show variables":
 #hudText(hostPlayer, "{0} - {1} - {2}".format(getServerLoad(), getAverageServerLoad(), " {0} A {1} B {2}".format(getPeakServerLoad(), A, "{0} C {1} D {2}".format(B, C, " {0} E {1} F {2}".format(null, null, null)))), E, F, HudPosition.TOP, 0, Color.WHITE, Color.WHITE, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
 
+rule "change waves":
+    @Event eachPlayer
+    @Condition eventPlayer.isHoldingButton(Button.INTERACT) == true
 
+    numberOfZombies = 1
+    g += 1
