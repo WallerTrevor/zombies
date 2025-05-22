@@ -109,3 +109,23 @@ rule "change waves":
     
     numberOfZombies = 1
     g += 1
+
+
+rule "force random hero":
+    @Event eachPlayer
+    @Condition eventPlayer.isHoldingButton(Button.INTERACT) == true
+    @Disabled
+
+    eventPlayer.startForcingHero(random.choice(getAllHeroes()))
+
+
+rule "Rule 243":
+    @Event eachPlayer
+    @Condition eventPlayer.isHoldingButton(Button.INTERACT) == true
+
+    eventPlayer.allowedheroes = [Hero.ANA]
+
+rule "Rule 244":
+    @Event eachPlayer
+    
+    hudHeader(getAllPlayers(), "{0} -- {1} --- {2}".format(eventPlayer.allowedheroes[0], eventPlayer.allowedheroes[1], eventPlayer.allowedheroes[2]), HudPosition.TOP, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)

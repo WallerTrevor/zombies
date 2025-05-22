@@ -30,9 +30,8 @@ rule "1 Setup":
     appenddoorsequencer = []
     dooreffectsequencer = []
     teleportercolor = Color.BLUE
-    svrLdThreshold = 200 # this is the required serverload to start slowing down
-    svrSlwThreshold = 85 # at max serverload this is the lowest limit, try to be subtle
     disableInspector()
+    #getAllPlayers.allowedheroes = [Hero.CASSIDY]
 
 rule "2 round change":
     @Condition numberOfZombies <= 0
@@ -388,6 +387,7 @@ rule "88 disable vanilla features":
     eventPlayer.F = false
     eventPlayer.H = 1
     #eventPlayer.disableTextChat()
+    eventPlayer.allowedheroes = [Hero.CASSIDY]
 
 
 rule "498 Rule 480 start screen":

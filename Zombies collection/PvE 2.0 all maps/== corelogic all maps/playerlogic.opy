@@ -13,7 +13,7 @@ rule "23 Initiate Health, Damage, and Healing Variables":
 rule "55  starting hero set":
     @Event playerJoined
     
-    eventPlayer.startForcingHero(Hero.CASSIDY)
+    eventPlayer.startForcingHero(Hero.ASHE)
     eventPlayer.allowedheroes.append(eventPlayer.getHero())
     
 
@@ -165,6 +165,7 @@ rule "79 player died with maniac":
     bigMessage(getAllPlayers(), "{0} {1}".format(eventPlayer, random.choice(diedphrase)))
     E[eventPlayer.getSlot()] = true
     eventPlayer.setMaxHealth(100)
+    eventPlayer.stopForcingCurrentHero()
     wait()
     eventPlayer.Jugg = false
     wait()
@@ -191,6 +192,7 @@ rule "80 player died without maniac":
     bigMessage(getAllPlayers(), l"{0} {1}".format(eventPlayer, l"{0}!".format(l"Down")))
     eventPlayer.setMaxHealth(100)
     E[eventPlayer.getSlot()] = true
+    eventPlayer.stopForcingCurrentHero()
     wait(0.1)
     eventPlayer.Jugg = false
     wait(0.1)

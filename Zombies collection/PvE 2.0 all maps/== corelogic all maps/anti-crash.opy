@@ -1,7 +1,7 @@
 rule "anticrash (not truely enjoyed by most developers but not too noticable for most players)":
     @Condition getServerLoad() >= svrLdThreshold
     
-    setSlowMotion(100 - ((100 - svrSlwThreshold) * (max(0, getServerLoad() - svrLdThreshold) / (255 - svrLdThreshold))))
+    stability(85, 200)
 
 
 rule "anticrash":
