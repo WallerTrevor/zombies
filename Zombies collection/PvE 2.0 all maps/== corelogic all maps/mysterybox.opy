@@ -13,6 +13,8 @@ rule "53  mystery box":
         eventPlayer.points -= 950
         eventPlayer.heroswap[eventPlayer.currentswap] = eventPlayer.getHero()
         eventPlayer.heroiconswap[eventPlayer.currentswap] = heroIcon(eventPlayer.getHero())
+        if eventPlayer.getHero() not in eventPlayer.allowedheroes:   
+            eventPlayer.allowedheroes.append(eventPlayer.getHero())
         #if ruleCondition:
         #            loop()
         eventPlayer.currentmagazines = 10

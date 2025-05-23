@@ -31,7 +31,6 @@ rule "1 Setup":
     dooreffectsequencer = []
     teleportercolor = Color.BLUE
     disableInspector()
-    #getAllPlayers.allowedheroes = [Hero.CASSIDY]
 
 rule "2 round change":
     @Condition numberOfZombies <= 0
@@ -387,8 +386,11 @@ rule "88 disable vanilla features":
     eventPlayer.F = false
     eventPlayer.H = 1
     #eventPlayer.disableTextChat()
-    eventPlayer.allowedheroes = [Hero.CASSIDY]
-
+    wait(4)
+    eventPlayer.allowedheroes = []
+    wait(4)
+    eventPlayer.allowedheroes.append(eventPlayer.getHero())
+    smallMessage(eventPlayer, "  action active")
 
 rule "498 Rule 480 start screen":
     @Event eachPlayer

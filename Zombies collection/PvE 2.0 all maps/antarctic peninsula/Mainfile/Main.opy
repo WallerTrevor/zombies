@@ -34,6 +34,7 @@
 #!define dooreffectsequencer extraVar[29]
 #!define svrLdThreshold extraVar[30]
 #!define svrSlwThreshold extraVar[31]
+#!define CameraDistanceFactor extraVar[32]
 
 globalvar powerconnected 13
 globalvar Died 18
@@ -114,6 +115,8 @@ globalvar extraVar 115
 #!define revived extraPlayerVar[14]
 #!define revivebought extraPlayerVar[15]
 #!define heroBuyMessTimer extraPlayerVar[16]
+#!define cameratoggle extraPlayerVar[17]
+
 
 playervar points 0
 playervar magazines 3
@@ -165,6 +168,8 @@ playervar heropoints 82
 playervar extraPlayerVar 83
 playervar points2 84
 playervar allowedheroes 85
+playervar cameravar1 86
+playervar cameravar2 87
 #Subroutine names
 
 subroutine herobuy1250 0

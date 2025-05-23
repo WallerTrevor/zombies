@@ -122,10 +122,25 @@ rule "force random hero":
 rule "Rule 243":
     @Event eachPlayer
     @Condition eventPlayer.isHoldingButton(Button.INTERACT) == true
-
+    @Disabled
     eventPlayer.allowedheroes = [Hero.ANA]
 
 rule "Rule 244":
     @Event eachPlayer
     
     hudHeader(getAllPlayers(), "{0} -- {1} --- {2}".format(eventPlayer.allowedheroes[0], eventPlayer.allowedheroes[1], eventPlayer.allowedheroes[2]), HudPosition.TOP, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
+
+rule "Rule 245":
+    @Event eachPlayer
+    @Condition eventPlayer.isHoldingButton(Button.INTERACT) == true
+    @Disabled
+    
+    eventPlayer.allowedheroes.append(eventPlayer.getHero())
+
+
+rule "Rule 245":
+    @Event eachPlayer
+    @Condition eventPlayer.isHoldingButton(Button.ULTIMATE) == true
+    @Disabled
+
+    eventPlayer.allowedheroes = []

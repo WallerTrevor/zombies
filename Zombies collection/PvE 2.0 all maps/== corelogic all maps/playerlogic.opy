@@ -14,7 +14,6 @@ rule "55  starting hero set":
     @Event playerJoined
     
     eventPlayer.startForcingHero(Hero.ASHE)
-    eventPlayer.allowedheroes.append(eventPlayer.getHero())
     
 
 
@@ -471,3 +470,43 @@ rule "soldier explosive rounds (could make this one rule)":
         loop()
 
 
+rule "third person camera accurate":
+    @Event eachPlayer
+    @Team 1
+    @Condition eventPlayer.cameratoggle == 1
+    
+    eventPlayer.cameravar1 = vect(0, 0, 0)
+    eventPlayer.startCamera(raycast(eventPlayer.getEyePosition(), eventPlayer.getEyePosition() + worldVector(eventPlayer.cameravar1, eventPlayer, Transform.ROTATION) + eventPlayer.getFacingDirection() * eventPlayer.cameravar2, getPlayers(Team.2), eventPlayer, false).getHitPosition(), raycast(eventPlayer.getEyePosition(), eventPlayer.getEyePosition() + eventPlayer.getFacingDirection() * eventPlayer.C, getPlayers(Team.2), eventPlayer, false).getHitPosition(), 40)
+
+
+rule "Camera 3rd person static":
+    @Event eachPlayer
+    @Condition eventPlayer.cameratoggle == 2
+    
+    eventPlayer.startCamera(raycast(eventPlayer.getEyePosition(), eventPlayer.getEyePosition() + worldVector(vect(-1, 0.55, -3), eventPlayer, Transform.ROTATION) + eventPlayer.getFacingDirection() * -4 * CameraDistanceFactor, null, eventPlayer, false).getHitPosition(), eventPlayer + eventPlayer.getFacingDirection() * 1000, 80)
+
+
+rule "third person accurate initialize":
+    @Event eachPlayer
+    @Condition eventPlayer.cameratoggle == 1
+    
+    eventPlayer.C = 200
+    chaseOverTime(eventPlayer.cameravar1, vect(-0.725, 0.3, 0), 0.05, ChaseTimeReeval.NONE)
+    chaseOverTime(eventPlayer.cameravar2, -1.25, 0.1, ChaseTimeReeval.NONE)
+
+
+rule "toggle camera toggle":
+    @Event eachPlayer
+    @Condition eventPlayer.isHoldingButton(Button.INTERACT) == true
+    @Condition eventPlayer.isHoldingButton(Button.RELOAD) == true
+    
+    if eventPlayer.cameratoggle == 2:
+        wait(1, Wait.ABORT_WHEN_FALSE)
+        eventPlayer.cameratoggle = false
+        eventPlayer.stopCamera()
+    elif eventPlayer.cameratoggle == false:
+        wait(1, Wait.ABORT_WHEN_FALSE)
+        eventPlayer.cameratoggle = 1
+    elif eventPlayer.cameratoggle == 1:
+        wait(1, Wait.ABORT_WHEN_FALSE)
+        eventPlayer.cameratoggle = 2

@@ -145,7 +145,8 @@ rule "202 Purchase hero action (needs purchase hero subroutine)":
             chaseAtRate(eventPlayer.points2, (evalOnce(eventPlayer.points) + 0) * eventPlayer.H, 250)
             playEffect(getPlayers(Team.1), DynamicEffect.BUFF_IMPACT_SOUND, Color.WHITE, eventPlayer, 70)
             (getPlayersInSlot(eventPlayer.getSlot() + 4, Team.1)).attachTo(eventPlayer, vect(-0.5, 1.8, -0.2))
-            eventPlayer.allowedheroes.append(eventPlayer.getHero())
+            if eventPlayer.getHero() not in eventPlayer.allowedheroes:   
+                eventPlayer.allowedheroes.append(eventPlayer.getHero())
             eventPlayer.currentmagazines = 10
             if eventPlayer.getHero() == Hero.LUCIO:
                 goto lbl_0
@@ -166,7 +167,8 @@ rule "202 Purchase hero action (needs purchase hero subroutine)":
             eventPlayer.heroiconswap[eventPlayer.currentswap] = heroIcon(Hero.HANZO)
             playEffect(getPlayers(Team.1), DynamicEffect.BUFF_IMPACT_SOUND, Color.WHITE, eventPlayer, 70)
             (getPlayersInSlot(eventPlayer.getSlot() + 4, Team.1)).attachTo(eventPlayer, vect(-0.5, 1.8, -0.2))
-            eventPlayer.allowedheroes.append(eventPlayer.getHero())
+            if eventPlayer.getHero() not in eventPlayer.allowedheroes:   
+                eventPlayer.allowedheroes.append(eventPlayer.getHero())
             if eventPlayer.getHero() == Hero.HANZO:
                 goto lbl_2
             eventPlayer.xp = eventPlayer.xparray[0]
@@ -182,7 +184,8 @@ rule "202 Purchase hero action (needs purchase hero subroutine)":
             eventPlayer.points -= 1000
             playEffect(getPlayers(Team.1), DynamicEffect.BUFF_IMPACT_SOUND, Color.WHITE, eventPlayer, 70)
             (getPlayersInSlot(eventPlayer.getSlot() + 4, Team.1)).attachTo(eventPlayer, vect(-0.5, 1.8, -0.2))
-            eventPlayer.allowedheroes.append(eventPlayer.getHero())
+           if eventPlayer.getHero() not in eventPlayer.allowedheroes:   
+                eventPlayer.allowedheroes.append(eventPlayer.getHero())
             wait(0.25)
             chaseAtRate(eventPlayer.points2, (evalOnce(eventPlayer.points) + 0) * eventPlayer.H, 250)
             eventPlayer.currentmagazines = 10
@@ -204,7 +207,8 @@ rule "202 Purchase hero action (needs purchase hero subroutine)":
             eventPlayer.heroiconswap[eventPlayer.currentswap] = heroIcon(Hero.SOLDIER)
             playEffect(getPlayers(Team.1), DynamicEffect.BUFF_IMPACT_SOUND, Color.WHITE, eventPlayer, 70)
             (getPlayersInSlot(eventPlayer.getSlot() + 4, Team.1)).attachTo(eventPlayer, vect(-0.5, 1.8, -0.2))
-            eventPlayer.allowedheroes.append(eventPlayer.getHero())
+           if eventPlayer.getHero() not in eventPlayer.allowedheroes:   
+                eventPlayer.allowedheroes.append(eventPlayer.getHero())
             eventPlayer.points -= 1000
             wait(0.25)
             chaseAtRate(eventPlayer.points2, (evalOnce(eventPlayer.points) + 0) * eventPlayer.H, 250)
@@ -227,7 +231,8 @@ rule "202 Purchase hero action (needs purchase hero subroutine)":
             eventPlayer.heroiconswap[eventPlayer.currentswap] = heroIcon(Hero.MERCY)
             playEffect(getPlayers(Team.1), DynamicEffect.BUFF_IMPACT_SOUND, Color.WHITE, eventPlayer, 70)
             (getPlayersInSlot(eventPlayer.getSlot() + 4, Team.1)).attachTo(eventPlayer, vect(-0.5, 1.8, -0.2))
-            eventPlayer.allowedheroes.append(eventPlayer.getHero())
+           if eventPlayer.getHero() not in eventPlayer.allowedheroes:   
+                eventPlayer.allowedheroes.append(eventPlayer.getHero())
             eventPlayer.points -= 1000
             wait(0.25)
             chaseAtRate(eventPlayer.points2, (evalOnce(eventPlayer.points) + 0) * eventPlayer.H, 250)
@@ -250,7 +255,8 @@ rule "202 Purchase hero action (needs purchase hero subroutine)":
             eventPlayer.heroiconswap[eventPlayer.currentswap] = heroIcon(Hero.PHARAH)
             playEffect(getPlayers(Team.1), DynamicEffect.BUFF_IMPACT_SOUND, Color.WHITE, eventPlayer, 70)
             (getPlayersInSlot(eventPlayer.getSlot() + 4, Team.1)).attachTo(eventPlayer, vect(-0.5, 1.8, -0.2))
-            eventPlayer.allowedheroes.append(eventPlayer.getHero())
+           if eventPlayer.getHero() not in eventPlayer.allowedheroes:   
+                eventPlayer.allowedheroes.append(eventPlayer.getHero())
             eventPlayer.points -= 1000
             wait(0.25)
             chaseAtRate(eventPlayer.points2, (evalOnce(eventPlayer.points) + 0) * eventPlayer.H, 250)
@@ -272,7 +278,8 @@ rule "202 Purchase hero action (needs purchase hero subroutine)":
             eventPlayer.heroswap[eventPlayer.currentswap] = Hero.JUNKRAT
             eventPlayer.heroiconswap[eventPlayer.currentswap] = heroIcon(Hero.JUNKRAT)
             (getPlayersInSlot(eventPlayer.getSlot() + 4, Team.1)).attachTo(eventPlayer, vect(-0.5, 1.8, -0.2))
-            eventPlayer.allowedheroes.append(eventPlayer.getHero())
+           if eventPlayer.getHero() not in eventPlayer.allowedheroes:   
+                eventPlayer.allowedheroes.append(eventPlayer.getHero())
             herobuy1250()
             chaseAtRate(eventPlayer.points2, (evalOnce(eventPlayer.points) + 0) * eventPlayer.H, 250)
         elif eventPlayer.points < 1000:
@@ -285,7 +292,8 @@ rule "202 Purchase hero action (needs purchase hero subroutine)":
             eventPlayer.heroiconswap[eventPlayer.currentswap] = heroIcon(Hero.SYMMETRA)
             eventPlayer.points -= 1000 + 750
             (getPlayersInSlot(eventPlayer.getSlot() + 4, Team.1)).attachTo(eventPlayer, vect(-0.5, 1.8, -0.2))
-            eventPlayer.allowedheroes.append(eventPlayer.getHero())
+           if eventPlayer.getHero() not in eventPlayer.allowedheroes:   
+                eventPlayer.allowedheroes.append(eventPlayer.getHero())
             wait(0.25)
             chaseAtRate(eventPlayer.points2, (evalOnce(eventPlayer.points) + 0) * eventPlayer.H, 250)
             eventPlayer.currentmagazines = 10
@@ -306,7 +314,8 @@ rule "202 Purchase hero action (needs purchase hero subroutine)":
             eventPlayer.heroswap[eventPlayer.currentswap] = Hero.DOOMFIST
             eventPlayer.heroiconswap[eventPlayer.currentswap] = heroIcon(Hero.DOOMFIST)
             (getPlayersInSlot(eventPlayer.getSlot() + 4, Team.1)).attachTo(eventPlayer, vect(-0.5, 1.8, -0.2))
-            eventPlayer.allowedheroes.append(eventPlayer.getHero())
+           if eventPlayer.getHero() not in eventPlayer.allowedheroes:   
+                eventPlayer.allowedheroes.append(eventPlayer.getHero())
             herobuy1750()
             chaseAtRate(eventPlayer.points2, (evalOnce(eventPlayer.points) + 0) * eventPlayer.H, 250)
         elif eventPlayer.points < 1750:
@@ -318,7 +327,8 @@ rule "202 Purchase hero action (needs purchase hero subroutine)":
             eventPlayer.heroswap[eventPlayer.currentswap] = Hero.BAPTISTE
             eventPlayer.heroiconswap[eventPlayer.currentswap] = heroIcon(Hero.BAPTISTE)
             (getPlayersInSlot(eventPlayer.getSlot() + 4, Team.1)).attachTo(eventPlayer, vect(-0.5, 1.8, -0.2))
-            eventPlayer.allowedheroes.append(eventPlayer.getHero())
+           if eventPlayer.getHero() not in eventPlayer.allowedheroes:   
+                eventPlayer.allowedheroes.append(eventPlayer.getHero())
             herobuy1250()
             chaseAtRate(eventPlayer.points2, (evalOnce(eventPlayer.points) + 0) * eventPlayer.H, 250)
         elif eventPlayer.points < 1250:
@@ -330,7 +340,8 @@ rule "202 Purchase hero action (needs purchase hero subroutine)":
             eventPlayer.heroswap[eventPlayer.currentswap] = Hero.BASTION
             eventPlayer.heroiconswap[eventPlayer.currentswap] = heroIcon(Hero.BASTION)
             (getPlayersInSlot(eventPlayer.getSlot() + 4, Team.1)).attachTo(eventPlayer, vect(-0.5, 1.8, -0.2))
-            eventPlayer.allowedheroes.append(eventPlayer.getHero())
+           if eventPlayer.getHero() not in eventPlayer.allowedheroes:   
+                eventPlayer.allowedheroes.append(eventPlayer.getHero())
             herobuy1750()
             chaseAtRate(eventPlayer.points2, (evalOnce(eventPlayer.points) + 0) * eventPlayer.H, 250)
         elif eventPlayer.points < 1750:
@@ -343,7 +354,8 @@ rule "202 Purchase hero action (needs purchase hero subroutine)":
             eventPlayer.heroiconswap[eventPlayer.currentswap] = heroIcon(Hero.REAPER)
             playEffect(getPlayers(Team.1), DynamicEffect.BUFF_IMPACT_SOUND, Color.WHITE, eventPlayer, 70)
             (getPlayersInSlot(eventPlayer.getSlot() + 4, Team.1)).attachTo(eventPlayer, vect(-0.5, 1.8, -0.2))
-            eventPlayer.allowedheroes.append(eventPlayer.getHero())
+           if eventPlayer.getHero() not in eventPlayer.allowedheroes:   
+                eventPlayer.allowedheroes.append(eventPlayer.getHero())
             eventPlayer.points -= 1000
             wait(0.25)
             chaseAtRate(eventPlayer.points2, (evalOnce(eventPlayer.points) + 0) * eventPlayer.H, 250)
@@ -365,7 +377,8 @@ rule "202 Purchase hero action (needs purchase hero subroutine)":
             eventPlayer.heroswap[eventPlayer.currentswap] = Hero.GENJI
             eventPlayer.heroiconswap[eventPlayer.currentswap] = heroIcon(Hero.GENJI)
             (getPlayersInSlot(eventPlayer.getSlot() + 4, Team.1)).attachTo(eventPlayer, vect(-0.5, 1.8, -0.2))
-            eventPlayer.allowedheroes.append(eventPlayer.getHero())
+           if eventPlayer.getHero() not in eventPlayer.allowedheroes:   
+                eventPlayer.allowedheroes.append(eventPlayer.getHero())
             herobuy1250()
             chaseAtRate(eventPlayer.points2, (evalOnce(eventPlayer.points) + 0) * eventPlayer.H, 250)
         elif eventPlayer.points < 1250:
@@ -377,7 +390,9 @@ rule "202 Purchase hero action (needs purchase hero subroutine)":
             eventPlayer.heroswap[eventPlayer.currentswap] = Hero.ASHE
             eventPlayer.heroiconswap[eventPlayer.currentswap] = heroIcon(Hero.ASHE)
             (getPlayersInSlot(eventPlayer.getSlot() + 4, Team.1)).attachTo(eventPlayer, vect(-0.5, 1.8, -0.2))
-            eventPlayer.allowedheroes.append(eventPlayer.getHero())
+           if eventPlayer.getHero() not in eventPlayer.allowedheroes:   
+                eventPlayer.allowedheroes.append(eventPlayer.getHero())
+
             herobuy1250()
             chaseAtRate(eventPlayer.points2, (evalOnce(eventPlayer.points) + 0) * eventPlayer.H, 250)
         elif eventPlayer.points < 1250:
@@ -389,7 +404,9 @@ rule "202 Purchase hero action (needs purchase hero subroutine)":
             eventPlayer.heroswap[eventPlayer.currentswap] = Hero.ZARYA
             eventPlayer.heroiconswap[eventPlayer.currentswap] = heroIcon(Hero.ZARYA)
             (getPlayersInSlot(eventPlayer.getSlot() + 4, Team.1)).attachTo(eventPlayer, vect(-0.5, 1.8, -0.2))
-            eventPlayer.allowedheroes.append(eventPlayer.getHero())
+           if eventPlayer.getHero() not in eventPlayer.allowedheroes:   
+                eventPlayer.allowedheroes.append(eventPlayer.getHero())
+
             herobuy1750()
             chaseAtRate(eventPlayer.points2, (evalOnce(eventPlayer.points) + 0) * eventPlayer.H, 250)
         elif eventPlayer.points < 1750:
@@ -401,7 +418,9 @@ rule "202 Purchase hero action (needs purchase hero subroutine)":
             eventPlayer.heroswap[eventPlayer.currentswap] = Hero.ROADHOG
             eventPlayer.heroiconswap[eventPlayer.currentswap] = heroIcon(Hero.ROADHOG)
             (getPlayersInSlot(eventPlayer.getSlot() + 4, Team.1)).attachTo(eventPlayer, vect(-0.5, 1.8, -0.2))
-            eventPlayer.allowedheroes.append(eventPlayer.getHero())
+           if eventPlayer.getHero() not in eventPlayer.allowedheroes:   
+                eventPlayer.allowedheroes.append(eventPlayer.getHero())
+
             herobuy1750()
             chaseAtRate(eventPlayer.points2, (evalOnce(eventPlayer.points) + 0) * eventPlayer.H, 250)
         elif eventPlayer.points < 1750:
@@ -413,7 +432,9 @@ rule "202 Purchase hero action (needs purchase hero subroutine)":
             eventPlayer.heroswap[eventPlayer.currentswap] = Hero.DVA
             eventPlayer.heroiconswap[eventPlayer.currentswap] = heroIcon(Hero.DVA)
             (getPlayersInSlot(eventPlayer.getSlot() + 4, Team.1)).attachTo(eventPlayer, vect(-0.5, 1.8, -0.2))
-            eventPlayer.allowedheroes.append(eventPlayer.getHero())
+           if eventPlayer.getHero() not in eventPlayer.allowedheroes:   
+                eventPlayer.allowedheroes.append(eventPlayer.getHero())
+
             eventPlayer.setUltEnabled(true)
             herobuy1750()
             chaseAtRate(eventPlayer.points2, (evalOnce(eventPlayer.points) + 0) * eventPlayer.H, 250)
@@ -426,7 +447,9 @@ rule "202 Purchase hero action (needs purchase hero subroutine)":
             eventPlayer.heroswap[eventPlayer.currentswap] = Hero.BRIGITTE
             eventPlayer.heroiconswap[eventPlayer.currentswap] = heroIcon(Hero.BRIGITTE)
             (getPlayersInSlot(eventPlayer.getSlot() + 4, Team.1)).attachTo(eventPlayer, vect(-0.5, 1.8, -0.2))
-            eventPlayer.allowedheroes.append(eventPlayer.getHero())
+           if eventPlayer.getHero() not in eventPlayer.allowedheroes:   
+                eventPlayer.allowedheroes.append(eventPlayer.getHero())
+
             herobuy1750()
             chaseAtRate(eventPlayer.points2, (evalOnce(eventPlayer.points) + 0) * eventPlayer.H, 250)
         elif eventPlayer.points < 1750:
@@ -438,7 +461,9 @@ rule "202 Purchase hero action (needs purchase hero subroutine)":
             eventPlayer.heroswap[eventPlayer.currentswap] = Hero.REINHARDT
             eventPlayer.heroiconswap[eventPlayer.currentswap] = heroIcon(Hero.REINHARDT)
             (getPlayersInSlot(eventPlayer.getSlot() + 4, Team.1)).attachTo(eventPlayer, vect(-0.5, 1.8, -0.2))
-            eventPlayer.allowedheroes.append(eventPlayer.getHero())
+           if eventPlayer.getHero() not in eventPlayer.allowedheroes:   
+                eventPlayer.allowedheroes.append(eventPlayer.getHero())
+
             herobuy1750()
             chaseAtRate(eventPlayer.points2, (evalOnce(eventPlayer.points) + 0) * eventPlayer.H, 250)
         elif eventPlayer.points < 1750:
@@ -450,7 +475,9 @@ rule "202 Purchase hero action (needs purchase hero subroutine)":
             eventPlayer.heroswap[eventPlayer.currentswap] = Hero.TORBJORN
             eventPlayer.heroiconswap[eventPlayer.currentswap] = heroIcon(Hero.TORBJORN)
             (getPlayersInSlot(eventPlayer.getSlot() + 4, Team.1)).attachTo(eventPlayer, vect(-0.5, 1.8, -0.2))
-            eventPlayer.allowedheroes.append(eventPlayer.getHero())
+           if eventPlayer.getHero() not in eventPlayer.allowedheroes:   
+                eventPlayer.allowedheroes.append(eventPlayer.getHero())
+
             herobuy1750()
             chaseAtRate(eventPlayer.points2, (evalOnce(eventPlayer.points) + 0) * eventPlayer.H, 250)
         elif eventPlayer.points < 1750:
@@ -462,7 +489,9 @@ rule "202 Purchase hero action (needs purchase hero subroutine)":
             eventPlayer.heroswap[eventPlayer.currentswap] = Hero.SIGMA
             eventPlayer.heroiconswap[eventPlayer.currentswap] = heroIcon(Hero.SIGMA)
             (getPlayersInSlot(eventPlayer.getSlot() + 4, Team.1)).attachTo(eventPlayer, vect(-0.5, 1.8, -0.2))
-            eventPlayer.allowedheroes.append(eventPlayer.getHero())
+           if eventPlayer.getHero() not in eventPlayer.allowedheroes:   
+                eventPlayer.allowedheroes.append(eventPlayer.getHero())
+
             herobuy1750()
             chaseAtRate(eventPlayer.points2, (evalOnce(eventPlayer.points) + 0) * eventPlayer.H, 250)
         elif eventPlayer.points < 1750:
@@ -474,7 +503,9 @@ rule "202 Purchase hero action (needs purchase hero subroutine)":
             eventPlayer.heroswap[eventPlayer.currentswap] = Hero.ORISA
             eventPlayer.heroiconswap[eventPlayer.currentswap] = heroIcon(Hero.ORISA)
             (getPlayersInSlot(eventPlayer.getSlot() + 4, Team.1)).attachTo(eventPlayer, vect(-0.5, 1.8, -0.2))
-            eventPlayer.allowedheroes.append(eventPlayer.getHero())
+           if eventPlayer.getHero() not in eventPlayer.allowedheroes:   
+                eventPlayer.allowedheroes.append(eventPlayer.getHero())
+
             herobuy1250()
             chaseAtRate(eventPlayer.points2, (evalOnce(eventPlayer.points) + 0) * eventPlayer.H, 250)
         elif eventPlayer.points < 1250:
@@ -486,7 +517,9 @@ rule "202 Purchase hero action (needs purchase hero subroutine)":
             eventPlayer.heroswap[eventPlayer.currentswap] = Hero.MOIRA
             eventPlayer.heroiconswap[eventPlayer.currentswap] = heroIcon(Hero.MOIRA)
             (getPlayersInSlot(eventPlayer.getSlot() + 4, Team.1)).attachTo(eventPlayer, vect(-0.5, 1.8, -0.2))
-            eventPlayer.allowedheroes.append(eventPlayer.getHero())
+           if eventPlayer.getHero() not in eventPlayer.allowedheroes:   
+                eventPlayer.allowedheroes.append(eventPlayer.getHero())
+
             herobuy1250()
             chaseAtRate(eventPlayer.points2, (evalOnce(eventPlayer.points) + 0) * eventPlayer.H, 250)
         elif eventPlayer.points < 1250:
@@ -498,7 +531,9 @@ rule "202 Purchase hero action (needs purchase hero subroutine)":
             eventPlayer.heroswap[eventPlayer.currentswap] = Hero.MEI
             eventPlayer.heroiconswap[eventPlayer.currentswap] = heroIcon(Hero.MEI)
             (getPlayersInSlot(eventPlayer.getSlot() + 4, Team.1)).attachTo(eventPlayer, vect(-0.5, 1.8, -0.2))
-            eventPlayer.allowedheroes.append(eventPlayer.getHero())
+           if eventPlayer.getHero() not in eventPlayer.allowedheroes:   
+                eventPlayer.allowedheroes.append(eventPlayer.getHero())
+
             playEffect(getPlayers(Team.1), DynamicEffect.BUFF_IMPACT_SOUND, Color.WHITE, eventPlayer, 70)
             eventPlayer.points -= 30000
             wait(0.25)
