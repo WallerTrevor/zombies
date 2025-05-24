@@ -22,3 +22,5 @@ rule "arrays":
     #does this even need an array?
     diedradius = compressed([4, 4, 4, 4])
 
+rule "520 hero buy and omnic spawner array list":
+    hero = [Hero.LUCIO, Hero.HANZO, Hero.ZENYATTA, Hero.SOLDIER, Hero.MERCY, Hero.PHARAH, Hero.JUNKRAT, Hero.SYMMETRA, Hero.DOOMFIST, Hero.BAPTISTE, Hero.BASTION, Hero.REAPER, Hero.GENJI, Hero.ASHE, Hero.ZARYA, Hero.ROADHOG, Hero.DVA, Hero.BRIGITTE, Hero.REINHARDT, Hero.TORBJORN, Hero.SIGMA, Hero.ORISA,Hero.MOIRA, Hero.MEI, Hero.REAPER, Hero.REINHARDT, Hero.ROADHOG, Hero.MAUGA, Hero.SOJOURN, Hero.SOLDIER, Hero.SOMBRA, Hero.SYMMETRA, Hero.TORBJORN, Hero.TRACER, Hero.WIDOWMAKER,  Hero.WINSTON, Hero.WRECKING_BALL, Hero.ZARYA, Hero.ZENYATTA]

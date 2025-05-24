@@ -260,49 +260,6 @@ rule "519 Spawn wave director":
         wavespawn()
 
 
-
-rule "520 OMNIC hero array list":
-    hero[0] = Hero.LUCIO
-    hero[1] = Hero.HANZO
-    hero[2] = Hero.ZENYATTA
-    hero[3] = Hero.SOLDIER
-    hero[4] = Hero.MERCY
-    hero[5] = Hero.PHARAH
-    hero[6] = Hero.JUNKRAT
-    hero[7] = Hero.SYMMETRA
-    hero[8] = Hero.DOOMFIST
-    hero[9] = Hero.BAPTISTE
-    hero[10] = Hero.BASTION
-    hero[11] = Hero.REAPER
-    hero[12] = Hero.GENJI
-    hero[13] = Hero.ASHE
-    hero[14] = Hero.ZARYA
-    hero[15] = Hero.ROADHOG
-    hero[16] = Hero.DVA
-    hero[17] = Hero.BRIGITTE
-    hero[18] = Hero.REINHARDT
-    hero[19] = Hero.TORBJORN
-    hero[20] = Hero.SIGMA
-    hero[21] = Hero.ORISA
-    hero[22] = Hero.MOIRA
-    hero[23] = Hero.MEI
-    hero[24] = Hero.REAPER
-    hero[25] = Hero.REINHARDT
-    hero[26] = Hero.ROADHOG
-    hero[27] = Hero.MAUGA
-    hero[28] = Hero.SOJOURN
-    hero[29] = Hero.SOLDIER
-    hero[30] = Hero.SOMBRA
-    hero[31] = Hero.SYMMETRA
-    hero[32] = Hero.TORBJORN
-    hero[33] = Hero.TRACER
-    hero[34] = Hero.WIDOWMAKER
-    hero[35] = Hero.WINSTON
-    hero[36] = Hero.WRECKING_BALL
-    hero[37] = Hero.ZARYA
-    hero[38] = Hero.ZENYATTA
-
-
 rule "wave director incramenter":
     @Condition roundnumber / 5 == floor(roundnumber / 5)
     @Condition spawntype == 3

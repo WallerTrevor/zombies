@@ -349,7 +349,7 @@ rule "393 POINTS Omnic kill (final hit (could probably make this one rule))":
     if eventPlayer.isMeleeing() == false:
         if eventWasCriticalHit == false:
             eventPlayer.points += 50 + eventPlayer.heropoints * eventPlayer.H
-            chaseAtRate(eventPlayer.points2, (evalOnce(eventPlayer.points) + 0) * eventPlayer.H, 250)
+            chaseAtRate(eventPlayer.points2, (evalOnce(eventPlayer.points) + 0) * eventPlayer.H, 1000)
             if eventPlayer.H != 1:
                 goto lbl_0
             if eventPlayer.H == 1:
@@ -360,7 +360,7 @@ rule "393 POINTS Omnic kill (final hit (could probably make this one rule))":
             eventPlayer.xp[eventPlayer.currentheroxp] += 5
         elif eventWasCriticalHit == true:
             eventPlayer.points += 100 + eventPlayer.heropoints * eventPlayer.H
-            chaseAtRate(eventPlayer.points2, (evalOnce(eventPlayer.points) + 0) * eventPlayer.H, 250)
+            chaseAtRate(eventPlayer.points2, (evalOnce(eventPlayer.points) + 0) * eventPlayer.H, 1000)
             if eventPlayer.H != 1:
                 goto lbl_2
             if eventPlayer.H == 1:
@@ -478,12 +478,11 @@ rule "third person camera accurate":
     eventPlayer.cameravar1 = vect(0, 0, 0)
     eventPlayer.startCamera(raycast(eventPlayer.getEyePosition(), eventPlayer.getEyePosition() + worldVector(eventPlayer.cameravar1, eventPlayer, Transform.ROTATION) + eventPlayer.getFacingDirection() * eventPlayer.cameravar2, getPlayers(Team.2), eventPlayer, false).getHitPosition(), raycast(eventPlayer.getEyePosition(), eventPlayer.getEyePosition() + eventPlayer.getFacingDirection() * eventPlayer.C, getPlayers(Team.2), eventPlayer, false).getHitPosition(), 40)
 
-
 rule "Camera 3rd person static":
     @Event eachPlayer
     @Condition eventPlayer.cameratoggle == 2
     
-    eventPlayer.startCamera(raycast(eventPlayer.getEyePosition(), eventPlayer.getEyePosition() + worldVector(vect(-1, 0.55, -3), eventPlayer, Transform.ROTATION) + eventPlayer.getFacingDirection() * -4 * CameraDistanceFactor, null, eventPlayer, false).getHitPosition(), eventPlayer + eventPlayer.getFacingDirection() * 1000, 80)
+    eventPlayer.startCamera(raycast(eventPlayer.getEyePosition(), eventPlayer.getEyePosition() + worldVector(vect(-1, 0.55, -3), eventPlayer, Transform.ROTATION) + eventPlayer.getFacingDirection() * -4 * CameraDistanceFactor, null, eventPlayer, false).getHitPosition(), eventPlayer + eventPlayer.getFacingDirection() * 1000, 300)
 
 
 rule "third person accurate initialize":
@@ -510,3 +509,6 @@ rule "toggle camera toggle":
     elif eventPlayer.cameratoggle == 1:
         wait(1, Wait.ABORT_WHEN_FALSE)
         eventPlayer.cameratoggle = 2
+
+rule "Camera 3rd person static crosshair":
+    createInWorldText(localPlayer if localPlayer.extraPlayerVar[17] == 2 else null, "+", raycast(localPlayer.getEyePosition(), localPlayer.getEyePosition() + localPlayer.getFacingDirection() * 999, getAllPlayers(), localPlayer, true).getHitPosition(), 1, Clip.NONE, WorldTextReeval.VISIBILITY_POSITION_AND_STRING)

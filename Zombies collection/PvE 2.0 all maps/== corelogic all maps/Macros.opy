@@ -1,3 +1,3 @@
 #personal macros
-macro stability(maxslow, serverload):
- setSlowMotion(100 - ((100 - maxslow) * (max(0, getServerLoad() - serverload) / (255 - serverload))))
+macro stability(maxslow, svrload):
+ setSlowMotion(100 - ((100 - maxslow) * (max(0, getServerLoad() - svrload) / (255 - svrload))))

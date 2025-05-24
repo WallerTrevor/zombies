@@ -127,6 +127,7 @@ rule "Rule 243":
 
 rule "Rule 244":
     @Event eachPlayer
+    @Disabled
     
     hudHeader(getAllPlayers(), "{0} -- {1} --- {2}".format(eventPlayer.allowedheroes[0], eventPlayer.allowedheroes[1], eventPlayer.allowedheroes[2]), HudPosition.TOP, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
 
