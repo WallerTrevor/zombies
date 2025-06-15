@@ -427,7 +427,7 @@ rule "497 start control":
     wait(0.25)
     start = 1
     aprilrng = random.randint(1, 100)
-    startlines = random.randint(0, 20)
+    startlines = random.randint(0, 8)
     eventPlayer.heroswap[0] = eventPlayer.getHero()
     rngbox2 = random.choice(Mysterylocations2)
     wait(1)
