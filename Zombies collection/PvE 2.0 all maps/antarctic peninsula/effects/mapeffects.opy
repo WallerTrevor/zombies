@@ -1,32 +1,7 @@
-rule "all the door effects loop (need to figure out how to manage which doors were bought and unload zones not currently in)":
-    @Condition dooreffectsequencer < 436
-    @Disabled
-    
-    #needs to have 3 zones with the map.
-    if impulseDoorArray[appenddoorsequencer] == false:
-        #create effect starting at 0 - 1
-        createBeam(getPlayers(Team.1), Beam.JUNKRAT_TRAP_CHAIN, Beameffectdoors[evalOnce(dooreffectsequencer)], Beameffectdoors[evalOnce(1 + dooreffectsequencer)], Color.RED, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
-        wait()
-        #append to allow the game to delete for later
-        doors[appenddoorsequencer].append(getLastCreatedEntity())
-        wait()
-        #the index to create the door at
-        dooreffectsequencer += 2
-        #the doors index itself, counted by 1 whole, while the door contains 2 effects. need to optimize so door is compatible with 1 and 2 effects with a toggle.
-        appenddoorsequencer += 1
-        if ruleCondition:
-            loop()
-    elif impulseDoorArray[appenddoorsequencer] == 1:
-        wait()
-        dooreffectsequencer += 2
-        appenddoorsequencer += 1
-        if ruleCondition:
-            loop()
-
-
 rule "all the effects (needs to be simplified and looped)":
     #@Condition start == 1
     #set all these to be some form of loop
+    #set all this to be array elements for each perk name, so it can easily be swapped with each map file
     createEffect(getAllPlayers(), Effect.RING, Color.WHITE, Vectordoorpositions[extraVar[12]], 3, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
     for forindex in range(len(3)):
         createEffect(getAllPlayers(), Effect.GOOD_AURA, teleportercolor, Vectordoorpositions[extraVar[12]], teleradiusef, EffectReeval.VISIBILITY)
@@ -80,3 +55,39 @@ rule "all the effects (needs to be simplified and looped)":
     for forindex in range(3):
         createInWorldText(getAllPlayers(), "Spawn boss: {0} : 15000 points".format(inputBindingString(Button.INTERACT)), bossbuypositions[indexofbosseffect], 1, Clip.SURFACES, WorldTextReeval.VISIBILITY)
         createEffect(getAllPlayers(), Effect.RING, Color.WHITE, bossbuypositions[indexofbosseffect], 1, EffectReeval.VISIBILITY)
+
+
+rule "488 button heald 1 teleporter (needs to be one rule)":
+    @Event eachPlayer
+    @Team 1
+    #need to fix this as the index for teleporter has changed
+    @Condition eventPlayer.isHoldingButton(Button.INTERACT) == true
+    @Condition getPlayersInRadius(Vectordoorpositions[101], 3, Team.1) == true
+    #@Condition any([distance(i, eventPlayer) < doorradius.slice(101, 103)[idx] for i, idx in Vectordoorpositions.slice(101, 103)]) == true
+    
+    if getLivingPlayers(Team.1) == getPlayersInRadius(Vectordoorpositions[101], 3, Team.1):
+        if teleporterwait == false:
+            #might need to not use destroy effect last created, and append every single one to array then delete all
+            createEffect(eventPlayer, Effect.ANA_NANO_BOOSTED, eventPlayer.getTeam(), eventPlayer, 1, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
+            zzz.append(getLastCreatedEntity())
+            #need a for loop needs 4 loops
+            createEffect(getAllPlayers(), Effect.WINSTON_TESLA_CANNON_TARGET, Color.BLACK, eventPlayer, 80, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
+            wait(0.25)
+            getPlayersInRadius(Vectordoorpositions[101], 5, Team.2).setStatusEffect([0], Status.STUNNED, 0.25)
+            destroyEffect(getLastCreatedEntity())
+            playEffect(getAllPlayers(), DynamicEffect.RING_EXPLOSION_SOUND, Color.WHITE, eventPlayer, 80)
+            wait(0.25)
+            kill(getPlayersInRadius(Vectordoorpositions[101], 5, Team.2), getLivingPlayers(Team.1)[0])
+            destroyEffect(getLastCreatedEntity())
+            getPlayers(Team.1).teleport(Vectordoorpositions[102])
+            botspawnzone = 1
+            teleporterwait = 1
+            teleportercolor = Color.RED
+            #needs to be set to current telespot
+            telespot = 102
+        elif teleporterwait > 0:
+            smallMessage(eventPlayer, "  {0} That machine is not a toy!".format(heroIcon(Hero.RAMATTRA)))
+            wait(4)
+    elif getLivingPlayers(Team.1) != getPlayersInRadius(Vectordoorpositions[101], 3, Team.1):
+        smallMessage(eventPlayer, "  You can't leave your friends behind!")
+        wait(4)

@@ -145,3 +145,75 @@ rule "Rule 245":
     @Disabled
 
     eventPlayer.allowedheroes = []
+
+rule "Toggle edit mode":
+    @Event eachPlayer
+    @Condition eventPlayer.isHoldingButton(Button.INTERACT) == true
+    
+    #toggle edit
+    eventPlayer.ToggleEdit = not eventPlayer.ToggleEdit
+    #prevent spamming
+    wait(0.25)
+
+
+rule "Enable edit mode":
+    @Event eachPlayer
+    @Team 1
+    @Condition eventPlayer.ToggleEdit == true
+    @Disabled
+    
+    setSlowMotion(10)
+    createDummy(eventPlayer.getHero(), Team.1, getNumberOfPlayers(Team.1) + 1, eventPlayer, eventPlayer.getFacingDirection())
+    #start noclipping from current position
+    eventPlayer.Noclip = eventPlayer.getEyePosition()
+    #disable controls
+    eventPlayer.setAbility1Enabled(false)
+    eventPlayer.setAbility2Enabled(false)
+    eventPlayer.setPrimaryFireEnabled(false)
+    eventPlayer.setSecondaryFireEnabled(false)
+    eventPlayer.setUltEnabled(false)
+    eventPlayer.setMeleeEnabled(false)
+    eventPlayer.setJumpEnabled(false)
+    #don't physically move
+    eventPlayer.setMoveSpeed(false)
+    #don't fall
+    eventPlayer.setGravity(false)
+    #make a camera from the noclip position and copy the player's facing direction
+    eventPlayer.startCamera(eventPlayer.Noclip, eventPlayer.Noclip + eventPlayer.getFacingDirection(), 128)
+    #take into account throttle, facing direction, jump, and crouch inputs to make a decent noclip  # chase the noclip's position
+    chaseAtRate(eventPlayer.Noclip, eventPlayer.Noclip + ((eventPlayer.getFacingDirection() * eventPlayer.getThrottle().z + worldVector(eventPlayer.getThrottle() * vect(true, false, false), eventPlayer, Transform.ROTATION) + (Vector.UP * (eventPlayer.isHoldingButton(Button.JUMP) - eventPlayer.isHoldingButton(Button.CROUCH)))) * 100), 28)
+    #wait for a bit so the player doesn't see where they are teleported to
+    wait(0.032)
+    #go to the sky
+    eventPlayer.teleport(Vector.UP * 10000)
+
+
+rule "Disable edit mode":
+    @Event eachPlayer
+    @Team 1
+    @Condition eventPlayer.isDummy() == false
+    @Condition eventPlayer.ToggleEdit == false
+    @Disabled
+
+    setSlowMotion(100)
+    destroyDummy(Team.1, getNumberOfPlayers(Team.1))
+    #save some server load
+    stopChasingVariable(eventPlayer.Noclip)
+    #subtract player's height from noclipPosition so that the camera is teleported to where the noclip camera was
+    eventPlayer.teleport(eventPlayer.Noclip - (eventPlayer.getEyePosition() - eventPlayer.getPosition()))
+    #return values to normal
+    eventPlayer.setGravity(100)
+    eventPlayer.setMoveSpeed(100)
+    #enable controls
+    eventPlayer.setAbility1Enabled(true)
+    eventPlayer.setAbility2Enabled(true)
+    eventPlayer.setPrimaryFireEnabled(true)
+    eventPlayer.setSecondaryFireEnabled(true)
+    eventPlayer.setUltEnabled(true)
+    eventPlayer.setMeleeEnabled(true)
+    eventPlayer.setJumpEnabled(true)
+    eventPlayer.setUltCharge(100)
+    #player is back in world, can use native player camera
+    eventPlayer.stopCamera()
+    #cancel momentum
+    eventPlayer.applyImpulse(eventPlayer.getVelocity() * -1, eventPlayer.getSpeed(), Relativity.TO_WORLD, Impulse.INCORPORATE_CONTRARY_MOTION)

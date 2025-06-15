@@ -143,45 +143,6 @@ rule "18 Get out of Spawn":
         telespot = 103
 
 
-rule "77 multiplayer extra life Perk":
-    @Event playerDied
-    @Team 1
-    @Condition eventPlayer.revived == 1
-    
-    #should set this to be a quick revive perk
-    eventPlayer.setStatusEffect(null, Status.KNOCKED_DOWN, 2)
-    eventPlayer.resurrect()
-    eventPlayer.setStatusEffect(null, Status.INVINCIBLE, 10)
-    eventPlayer.revived = false
-
-
-rule "79 player died with maniac":
-    @Event playerDied
-    @Team 1
-    @Condition eventPlayer.Maniac == 1
-    
-    Died[eventPlayer.getSlot()] = nearestWalkablePosition(eventPlayer)
-    bigMessage(getAllPlayers(), "{0} {1}".format(eventPlayer, random.choice(diedphrase)))
-    E[eventPlayer.getSlot()] = true
-    eventPlayer.setMaxHealth(100)
-    eventPlayer.stopForcingCurrentHero()
-    wait()
-    eventPlayer.Jugg = false
-    wait()
-    eventPlayer.healthmax = 50
-    eventPlayer.Maniac = false
-    wait()
-    eventPlayer.setDamageDealt(100)
-    eventPlayer.damagevariable = 100
-    wait()
-    eventPlayer.healvariable = 100
-    eventPlayer.setHealingDealt(100)
-    eventPlayer.doublemag = false
-    wait(0.1)
-    eventPlayer.sprintburstperk = false
-    eventPlayer.setAllowedHeroes(eventPlayer.allowedheroes)
-
-
 rule "80 player died without maniac":
     @Event playerDied
     @Team 1
@@ -247,17 +208,6 @@ rule "99  hero ultimate adjustments":
         getLivingPlayers(Team.1).addHealthPool(Health.NORMAL, 500, false, false)
         wait(10)
         getLivingPlayers(Team.1).removeAllHealthPools()
-
-
-rule "109 PERK player hit speed boost sprint burst":
-    @Event playerTookDamage
-    @Team 1
-    @Condition eventDamage == true
-    @Condition eventPlayer.sprintburstperk == 1
-    
-    eventPlayer.setMoveSpeed(180)
-    wait(1)
-    eventPlayer.setMoveSpeed(105)
 
 
 rule "110 player hit speed boost default":
@@ -490,7 +440,7 @@ rule "third person accurate initialize":
     @Condition eventPlayer.cameratoggle == 1
     
     eventPlayer.C = 200
-    chaseOverTime(eventPlayer.cameravar1, vect(-0.725, 0.3, 0), 0.05, ChaseTimeReeval.NONE)
+    chaseOverTime(eventPlayer.cameravar1, vect(0, 0.5, 0), 0.05, ChaseTimeReeval.NONE)
     chaseOverTime(eventPlayer.cameravar2, -1.25, 0.1, ChaseTimeReeval.NONE)
 
 
@@ -512,3 +462,16 @@ rule "toggle camera toggle":
 
 rule "Camera 3rd person static crosshair":
     createInWorldText(localPlayer if localPlayer.extraPlayerVar[17] == 2 else null, "+", raycast(localPlayer.getEyePosition(), localPlayer.getEyePosition() + localPlayer.getFacingDirection() * 999, getAllPlayers(), localPlayer, true).getHitPosition(), 1, Clip.NONE, WorldTextReeval.VISIBILITY_POSITION_AND_STRING)
+
+
+rule "Fix dva health":
+    @Event eachPlayer
+    @Condition eventPlayer.getHero() == Hero.DVA
+    
+    if eventPlayer.isInAlternateForm() == true:
+        eventPlayer.setMaxHealth(220)
+    elif eventPlayer.isInAlternateForm() == false:
+        eventPlayer.setMaxHealth(eventPlayer.healthmax)
+    waitUntil(eventPlayer.getHero() != Hero.DVA, 99999)
+    eventPlayer.setMaxHealth(100)
+    heal(eventPlayer, null, 1000)

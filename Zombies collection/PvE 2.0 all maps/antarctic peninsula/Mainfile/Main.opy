@@ -1,6 +1,3 @@
-
-
- 
 #Global variables
 #!define roundnumber extraVar[0]
 #!define numberOfZombies extraVar[1]
@@ -116,7 +113,7 @@ globalvar extraVar 115
 #!define revivebought extraPlayerVar[15]
 #!define heroBuyMessTimer extraPlayerVar[16]
 #!define cameratoggle extraPlayerVar[17]
-
+#!define ToggleEdit extraPlayerVar[18]
 
 playervar points 0
 playervar magazines 3
@@ -170,6 +167,7 @@ playervar points2 84
 playervar allowedheroes 85
 playervar cameravar1 86
 playervar cameravar2 87
+playervar Noclip 88
 #Subroutine names
 
 subroutine herobuy1250 0
@@ -196,7 +194,10 @@ subroutine DecompressString 12
 #!extension spawnMoreDummyBots
 #!extension projectiles
 
-#!include "../../== corelogic all maps/"
+#!include "../../== corelogic all maps/bot logic/"
+#!include "../../== corelogic all maps/general main/"
+#!include "../../== corelogic all maps/player main/"
+#!include "../../== corelogic all maps/tooling/"
 #!include "../../== effects all maps/"
 #!include "../bosses/"
 #!include "../core logic antarctic P/"

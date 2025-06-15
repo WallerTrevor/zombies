@@ -417,42 +417,6 @@ rule "498 Rule 480 start screen":
         loop()
 
 
-rule "488 button heald 1 teleporter (needs to be one rule)":
-    @Event eachPlayer
-    @Team 1
-    #need to fix this as the index for teleporter has changed
-    @Condition eventPlayer.isHoldingButton(Button.INTERACT) == true
-    @Condition getPlayersInRadius(Vectordoorpositions[101], 3, Team.1) == true
-    #@Condition any([distance(i, eventPlayer) < doorradius.slice(101, 103)[idx] for i, idx in Vectordoorpositions.slice(101, 103)]) == true
-    
-    if getLivingPlayers(Team.1) == getPlayersInRadius(Vectordoorpositions[101], 3, Team.1):
-        if teleporterwait == false:
-            #might need to not use destroy effect last created, and append every single one to array then delete all
-            createEffect(eventPlayer, Effect.ANA_NANO_BOOSTED, eventPlayer.getTeam(), eventPlayer, 1, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
-            zzz.append(getLastCreatedEntity())
-            #need a for loop needs 4 loops
-            createEffect(getAllPlayers(), Effect.WINSTON_TESLA_CANNON_TARGET, Color.BLACK, eventPlayer, 80, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
-            wait(0.25)
-            getPlayersInRadius(Vectordoorpositions[101], 5, Team.2).setStatusEffect([0], Status.STUNNED, 0.25)
-            destroyEffect(getLastCreatedEntity())
-            playEffect(getAllPlayers(), DynamicEffect.RING_EXPLOSION_SOUND, Color.WHITE, eventPlayer, 80)
-            wait(0.25)
-            kill(getPlayersInRadius(Vectordoorpositions[101], 5, Team.2), getLivingPlayers(Team.1)[0])
-            destroyEffect(getLastCreatedEntity())
-            getPlayers(Team.1).teleport(Vectordoorpositions[102])
-            botspawnzone = 1
-            teleporterwait = 1
-            teleportercolor = Color.RED
-            #needs to be set to current telespot
-            telespot = 102
-        elif teleporterwait > 0:
-            smallMessage(eventPlayer, "  {0} That machine is not a toy!".format(heroIcon(Hero.RAMATTRA)))
-            wait(4)
-    elif getLivingPlayers(Team.1) != getPlayersInRadius(Vectordoorpositions[101], 3, Team.1):
-        smallMessage(eventPlayer, "  You can't leave your friends behind!")
-        wait(4)
-
-
 rule "497 start control":
     @Event eachPlayer
     @Team 1
@@ -462,7 +426,11 @@ rule "497 start control":
     setspawn = random.randint(0, 5)
     wait(0.25)
     start = 1
-    wait(2)
+    aprilrng = random.randint(1, 100)
+    startlines = random.randint(0, 20)
+    eventPlayer.heroswap[0] = eventPlayer.getHero()
+    rngbox2 = random.choice(Mysterylocations2)
+    wait(1)
     roundnumber = createWorkshopSettingInt("Set Wave number", "Set starting wave", 1, 1, 100)
     enableMusic()
     rngbox = random.choice(mysterylocations)
@@ -472,10 +440,6 @@ rule "497 start control":
     getAllPlayers().stopCamera()
     wait(0.1)
     getAllPlayers().enableHeroHud()
-    aprilrng = random.randint(1, 100)
-    startlines = random.randint(0, 0)
-    eventPlayer.heroswap[0] = eventPlayer.getHero()
-    rngbox2 = random.choice(Mysterylocations2)
 
 
 rule "521 start screen message":
@@ -593,36 +557,6 @@ rule "192 Purchase trap":
         wait(4)
 
 
-rule "196 (effect) GOAL: omnic part collector":
-    @Disabled
-    
-    createEffect(getAllPlayers(), Effect.RING, Color.WHITE, vect(0, 0, 0), 1, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
-
-
-rule "197 GOAL: omnic part collector (players gather souls from omnics)":
-    @Disabled
-    
-    createEffect(getAllPlayers(), Effect.RING, Color.WHITE, vect(0, 0, 0), 1, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
-
-
-rule "198 GOAL: save little winstons (carry miniature winstons to a location)":
-    @Disabled
-    
-    createEffect(getAllPlayers(), Effect.RING, Color.WHITE, vect(0, 0, 0), 1, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
-
-
-rule "199 GOAL: gather 3 teleporter parts":
-    @Disabled
-    
-    createEffect(getAllPlayers(), Effect.RING, Color.WHITE, vect(0, 0, 0), 1, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
-
-
-rule "200 GOAL: The main easter egg":
-    @Disabled
-    
-    hudHeader(getAllPlayers(), "stay tuned...", HudPosition.LEFT, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
-
-
 rule "299 out of bounce boundry":
     @Event eachPlayer
     @Team 1
@@ -707,3 +641,27 @@ rule "bastion re enter turret mode (need to add cooldown reduction to seemlessly
     loop()
 
 
+rule "all the door effects loop (need to figure out how to manage which doors were bought and unload zones not currently in)":
+    @Condition dooreffectsequencer < 436
+    @Disabled
+    
+    #needs to have 3 zones with the map.
+    if impulseDoorArray[appenddoorsequencer] == false:
+        #create effect starting at 0 - 1
+        createBeam(getPlayers(Team.1), Beam.JUNKRAT_TRAP_CHAIN, Beameffectdoors[evalOnce(dooreffectsequencer)], Beameffectdoors[evalOnce(1 + dooreffectsequencer)], Color.RED, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
+        wait()
+        #append to allow the game to delete for later
+        doors[appenddoorsequencer].append(getLastCreatedEntity())
+        wait()
+        #the index to create the door at
+        dooreffectsequencer += 2
+        #the doors index itself, counted by 1 whole, while the door contains 2 effects. need to optimize so door is compatible with 1 and 2 effects with a toggle.
+        appenddoorsequencer += 1
+        if ruleCondition:
+            loop()
+    elif impulseDoorArray[appenddoorsequencer] == 1:
+        wait()
+        dooreffectsequencer += 2
+        appenddoorsequencer += 1
+        if ruleCondition:
+            loop()
