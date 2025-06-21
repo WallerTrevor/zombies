@@ -157,7 +157,7 @@ rule "202 Purchase hero action (needs purchase hero subroutine)":
             lbl_0:
             lbl_1:
         elif eventPlayer.points < 1000:
-            smallMessage(eventPlayer, "  {0} This melody requires a different kind of rhythm".format(heroIcon(hero[0])))
+            smallMessage(eventPlayer, "{0}".format(herobuymessages[0]))
         #hanzo
     elif distance(eventPlayer, buyheros[1]) < 2:
         if eventPlayer.points >= 1250:
@@ -174,7 +174,7 @@ rule "202 Purchase hero action (needs purchase hero subroutine)":
             eventPlayer.xp = eventPlayer.xparray[0]
             lbl_2:
         elif eventPlayer.points < 1250:
-            smallMessage(eventPlayer, "  {0} This path requires greater discipline".format(heroIcon(hero[1])))
+            smallMessage(eventPlayer, "{0}".format(herobuymessages[1]))
         #zenyatta
     elif distance(eventPlayer, buyheros[2]) < 2:
         if eventPlayer.points >= 1000:
@@ -198,7 +198,7 @@ rule "202 Purchase hero action (needs purchase hero subroutine)":
             lbl_3:
             lbl_4:
         elif eventPlayer.points < 1000:
-            smallMessage(eventPlayer, "  {0} Harmony requires a different balance".format(heroIcon(hero[2])))
+            smallMessage(eventPlayer, "{0}".format(herobuymessages[2]))
         #soldier 76
     elif distance(eventPlayer, buyheros[3]) < 2:
         if eventPlayer.points >= 1000:
@@ -222,7 +222,7 @@ rule "202 Purchase hero action (needs purchase hero subroutine)":
             lbl_5:
             lbl_6:
         elif eventPlayer.points < 1000:
-            smallMessage(eventPlayer, "  {0} This hero can't be bought on impulse! Earn it.".format(heroIcon(hero[3])))
+            smallMessage(eventPlayer, "{0}".format(herobuymessages[3]))
         #mercy
     elif distance(eventPlayer, buyheros[4]) < 2:
         if eventPlayer.points >= 1000:
@@ -246,7 +246,7 @@ rule "202 Purchase hero action (needs purchase hero subroutine)":
             lbl_7:
             lbl_8:
         elif eventPlayer.points < 1000:
-            smallMessage(eventPlayer, "  {0} You think you can afford a medical license?".format(heroIcon(hero[4])))
+            smallMessage(eventPlayer, "{0}".format(herobuymessages[4]))
         #pharah
     elif distance(eventPlayer, buyheros[5]) < 2:
         if eventPlayer.points >= 1000:
@@ -270,7 +270,7 @@ rule "202 Purchase hero action (needs purchase hero subroutine)":
             lbl_9:
             lbl_10:
         elif eventPlayer.points < 1000:
-            smallMessage(eventPlayer, "  {0} Come back when you're ready to fly.".format(heroIcon(hero[5])))
+            smallMessage(eventPlayer, "{0}".format(herobuymessages[5]))
         #junkrat
     elif distance(eventPlayer, buyheros[6]) < 2:
         if eventPlayer.points >= 1000:
@@ -283,7 +283,7 @@ rule "202 Purchase hero action (needs purchase hero subroutine)":
             herobuy1250()
             chaseAtRate(eventPlayer.points2, (evalOnce(eventPlayer.points) + 0) * eventPlayer.H, 1000)
         elif eventPlayer.points < 1000:
-            smallMessage(eventPlayer, "  {0} This hero needs a more... Explosive budget".format(heroIcon(hero[6])))
+            smallMessage(eventPlayer, "{0}".format(herobuymessages[6]))
         #symmetra
     elif distance(eventPlayer, buyheros[7]) < 2:
         if eventPlayer.points >= 1750:
@@ -306,7 +306,7 @@ rule "202 Purchase hero action (needs purchase hero subroutine)":
             lbl_11:
             lbl_12:
         elif eventPlayer.points < 1750:
-            smallMessage(eventPlayer, "  {0} This architect requires a stronger foundation".format(heroIcon(hero[7])))
+            smallMessage(eventPlayer, "{0}".format(herobuymessages[7]))
         #doomfist
     elif distance(eventPlayer, buyheros[8]) < 2:
         if eventPlayer.points >= 1750:
@@ -319,7 +319,7 @@ rule "202 Purchase hero action (needs purchase hero subroutine)":
             herobuy1750()
             chaseAtRate(eventPlayer.points2, (evalOnce(eventPlayer.points) + 0) * eventPlayer.H, 1000)
         elif eventPlayer.points < 1750:
-            smallMessage(eventPlayer, "  {0} This gauntlet wasn't built for free, you know!".format(heroIcon(hero[8])))
+            smallMessage(eventPlayer, "{0}".format(herobuymessages[8]))
         #baptiste
     elif distance(eventPlayer, buyheros[9]) < 2:
         if eventPlayer.points >= 1250:
@@ -332,7 +332,7 @@ rule "202 Purchase hero action (needs purchase hero subroutine)":
             herobuy1250()
             chaseAtRate(eventPlayer.points2, (evalOnce(eventPlayer.points) + 0) * eventPlayer.H, 1000)
         elif eventPlayer.points < 1250:
-            smallMessage(eventPlayer, "  {0} This hero needs a deeper well of empathy.".format(heroIcon(hero[9])))
+            smallMessage(eventPlayer, "{0}".format(herobuymessages[9]))
         #bastion
     elif distance(eventPlayer, buyheros[10]) < 2:
         if eventPlayer.points >= 1750:
@@ -345,7 +345,7 @@ rule "202 Purchase hero action (needs purchase hero subroutine)":
             herobuy1750()
             chaseAtRate(eventPlayer.points2, (evalOnce(eventPlayer.points) + 0) * eventPlayer.H, 1000)
         elif eventPlayer.points < 1750:
-            smallMessage(eventPlayer, "  {0} No, the bird doesn't come free.".format(heroIcon(hero[10])))
+            smallMessage(eventPlayer, "{0}".format(herobuymessages[10]))
         #reaper
     elif distance(eventPlayer, buyheros[11]) < 2:
         if eventPlayer.points >= 1000:
@@ -369,7 +369,7 @@ rule "202 Purchase hero action (needs purchase hero subroutine)":
             lbl_13:
             lbl_14:
         elif eventPlayer.points < 1000:
-            smallMessage(eventPlayer, "  {0} Death awaits... you, if you don't get some points!".format(heroIcon(hero[11])))
+            smallMessage(eventPlayer, "{0}".format(herobuymessages[11]))
         #genji
     elif distance(eventPlayer, buyheros[12]) < 2:
         if eventPlayer.points >= 1250:
@@ -382,7 +382,7 @@ rule "202 Purchase hero action (needs purchase hero subroutine)":
             herobuy1250()
             chaseAtRate(eventPlayer.points2, (evalOnce(eventPlayer.points) + 0) * eventPlayer.H, 1000)
         elif eventPlayer.points < 1250:
-            smallMessage(eventPlayer, "  {0} Well don't wait for a coupon. Start getting points!".format(heroIcon(hero[12])))
+            smallMessage(eventPlayer, "{0}".format(herobuymessages[12]))
         #ashe
     elif distance(eventPlayer, buyheros[13]) < 2:
         if eventPlayer.points >= 1250:
@@ -395,7 +395,7 @@ rule "202 Purchase hero action (needs purchase hero subroutine)":
             herobuy1250()
             chaseAtRate(eventPlayer.points2, (evalOnce(eventPlayer.points) + 0) * eventPlayer.H, 1000)
         elif eventPlayer.points < 1250:
-            smallMessage(eventPlayer, "  {0} This isn't the right iron for your holster.".format(heroIcon(hero[13])))
+            smallMessage(eventPlayer, "{0}".format(herobuymessages[13]))
         #zarya
     elif distance(eventPlayer, buyheros[14]) < 2:
         if eventPlayer.points >= 1750:
@@ -408,7 +408,7 @@ rule "202 Purchase hero action (needs purchase hero subroutine)":
             herobuy1750()
             chaseAtRate(eventPlayer.points2, (evalOnce(eventPlayer.points) + 0) * eventPlayer.H, 1000)
         elif eventPlayer.points < 1750:
-            smallMessage(eventPlayer, "  {0} You need a bigger heart to bear this power.".format(heroIcon(hero[14])))
+            smallMessage(eventPlayer, "{0}".format(herobuymessages[14]))
         #roadhog
     elif distance(eventPlayer, buyheros[15]) < 2:
         if eventPlayer.points >= 1750:
@@ -421,7 +421,7 @@ rule "202 Purchase hero action (needs purchase hero subroutine)":
             herobuy1750()
             chaseAtRate(eventPlayer.points2, (evalOnce(eventPlayer.points) + 0) * eventPlayer.H, 1000)
         elif eventPlayer.points < 1750:
-            smallMessage(eventPlayer, "  {0} This ain't your brand of brawl".format(heroIcon(hero[15])))
+            smallMessage(eventPlayer, "{0}".format(herobuymessages[15]))
         #dva
     elif distance(eventPlayer, buyheros[16]) < 2:
         if eventPlayer.points >= 1750:
@@ -435,7 +435,7 @@ rule "202 Purchase hero action (needs purchase hero subroutine)":
             herobuy1750()
             chaseAtRate(eventPlayer.points2, (evalOnce(eventPlayer.points) + 0) * eventPlayer.H, 1000)
         elif eventPlayer.points < 1750:
-            smallMessage(eventPlayer, "  {0} This is in fact, not easy mode.".format(heroIcon(hero[16])))
+            smallMessage(eventPlayer, "{0}".format(herobuymessages[16]))
         #brig
     elif distance(eventPlayer, buyheros[17]) < 2:
         if eventPlayer.points >= 1750:
@@ -448,7 +448,7 @@ rule "202 Purchase hero action (needs purchase hero subroutine)":
             herobuy1750()
             chaseAtRate(eventPlayer.points2, (evalOnce(eventPlayer.points) + 0) * eventPlayer.H, 1000)
         elif eventPlayer.points < 1750:
-            smallMessage(eventPlayer, "  {0} This armor doesn't come cheap!".format(heroIcon(hero[17])))
+            smallMessage(eventPlayer, "{0}".format(herobuymessages[17]))
         #rein
     elif distance(eventPlayer, buyheros[18]) < 2:
         if eventPlayer.points >= 1750:
@@ -461,7 +461,7 @@ rule "202 Purchase hero action (needs purchase hero subroutine)":
             herobuy1750()
             chaseAtRate(eventPlayer.points2, (evalOnce(eventPlayer.points) + 0) * eventPlayer.H, 1000)
         elif eventPlayer.points < 1750:
-            smallMessage(eventPlayer, "  {0} Honor demands courage... and more points. Now get to it!".format(heroIcon(hero[18])))
+            smallMessage(eventPlayer, "{0}".format(herobuymessages[18]))
         #torb
     elif distance(eventPlayer, buyheros[19]) < 2:
         if eventPlayer.points >= 1750:
@@ -474,7 +474,7 @@ rule "202 Purchase hero action (needs purchase hero subroutine)":
             herobuy1750()
             chaseAtRate(eventPlayer.points2, (evalOnce(eventPlayer.points) + 0) * eventPlayer.H, 1000)
         elif eventPlayer.points < 1750:
-            smallMessage(eventPlayer, "  {0} Seems like your hard work's not paying off.".format(heroIcon(hero[19])))
+            smallMessage(eventPlayer, "{0}".format(herobuymessages[19]))
         #sigma
     elif distance(eventPlayer, buyheros[20]) < 2:
         if eventPlayer.points >= 1750:
@@ -487,7 +487,7 @@ rule "202 Purchase hero action (needs purchase hero subroutine)":
             herobuy1750()
             chaseAtRate(eventPlayer.points2, (evalOnce(eventPlayer.points) + 0) * eventPlayer.H, 1000)
         elif eventPlayer.points < 1750:
-            smallMessage(eventPlayer, "  {0} The melody sounds like you're broke.".format(heroIcon(hero[20])))
+            smallMessage(eventPlayer, "{0}".format(herobuymessages[20]))
         #orisa
     elif distance(eventPlayer, buyheros[21]) < 2:
         if eventPlayer.points >= 1250:
@@ -500,7 +500,7 @@ rule "202 Purchase hero action (needs purchase hero subroutine)":
             herobuy1250()
             chaseAtRate(eventPlayer.points2, (evalOnce(eventPlayer.points) + 0) * eventPlayer.H, 1000)
         elif eventPlayer.points < 1250:
-            smallMessage(eventPlayer, "  {0} This protector needs more purpose... and points.".format(heroIcon(hero[21])))
+            smallMessage(eventPlayer, "{0}".format(herobuymessages[21]))
         #moira
     elif distance(eventPlayer, buyheros[22]) < 2:
         if eventPlayer.points >= 1250:
@@ -513,7 +513,7 @@ rule "202 Purchase hero action (needs purchase hero subroutine)":
             herobuy1250()
             chaseAtRate(eventPlayer.points2, (evalOnce(eventPlayer.points) + 0) * eventPlayer.H, 1000)
         elif eventPlayer.points < 1250:
-            smallMessage(eventPlayer, "  {0} This scientist demands a more curious mind!".format(heroIcon(hero[22])))
+            smallMessage(eventPlayer, "{0}".format(herobuymessages[22]))
         #mei
     elif distance(eventPlayer, buyheros[23]) < 2:
         if eventPlayer.points >= 30000:
@@ -538,7 +538,7 @@ rule "202 Purchase hero action (needs purchase hero subroutine)":
             lbl_15:
             lbl_16:
         elif eventPlayer.points < 30000:
-            smallMessage(eventPlayer, "  {0} No, this is not... A-mei-zing. Get points!".format(heroIcon(hero[23])))
+            smallMessage(eventPlayer, "{0}".format(herobuymessages[23]))
     #buy ending
     if distance(eventPlayer, vect(-101.303, -150.36, -17.831)) < 2:
         if eventPlayer.points >= 50000:

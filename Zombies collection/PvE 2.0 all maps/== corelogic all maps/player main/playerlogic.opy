@@ -13,7 +13,7 @@ rule "23 Initiate Health, Damage, and Healing Variables":
 rule "55  starting hero set":
     @Event playerJoined
     
-    eventPlayer.startForcingHero(Hero.ASHE)
+    eventPlayer.startForcingHero(Hero.WINSTON)
     
 
 
@@ -475,3 +475,12 @@ rule "Fix dva health":
     waitUntil(eventPlayer.getHero() != Hero.DVA, 99999)
     eventPlayer.setMaxHealth(100)
     heal(eventPlayer, null, 1000)
+
+rule "mercy overheal mechanic":
+    @Event playerReceivedHealing
+    @Condition healer.getHero() == Hero.MERCY
+    @Condition healee != healer
+
+    waitUntil(healee.getHealth() == healee.getMaxHealth(), 99999)
+    healee.addHealthPool(Health.NORMAL, healee.getMaxHealth() * 0.5, false, false)
+    healer.points += 50

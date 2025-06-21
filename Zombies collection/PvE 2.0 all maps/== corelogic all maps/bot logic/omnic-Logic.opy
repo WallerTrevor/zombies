@@ -216,10 +216,10 @@ rule "519 Spawn wave director":
     @Condition roundnumber / 1 >= abs(1)
     @Condition numberOfZombies >= 4
     @Condition isGameInProgress() == true
-    
+
     #needs a 3, for directors cut version, where each hero is on for 5 rounds then changes using a loop
     if spawntype == false:
-        g = 0
+        g = false
         #needs a lot more types as well, since there will be the new addition, random, and legacy from 1.0
         bossSpawn = [null]
         #needs a way to make it so more than 1 wave boss can be spawned at once as well
@@ -230,7 +230,7 @@ rule "519 Spawn wave director":
         wait(0.25)
         wavespawn()
     elif spawntype == 1:
-        g = 0
+        g = false
         wait(0.25)
         bossSpawn = [null]
         bot1spawn = [Hero.TORBJORN]
@@ -238,18 +238,18 @@ rule "519 Spawn wave director":
         wait(0.25)
         wavespawn()
     elif spawntype == 2:
-        g = 0
+        g = false
         wait(0.25)
         if roundnumber < 5:
             bossSpawn = null
-            bot1spawn = hero[random.randint(0, 38)]
-            bot2spawn = hero[random.randint(0, 38)]
+            bot1spawn = hero[random.randint(0, 37)]
+            bot2spawn = hero[random.randint(0, 37)]
             wait(0.25)
             wavespawn()
         elif roundnumber >= 5:
-            bossSpawn = hero[random.randint(0, 38)]
-            bot1spawn = hero[random.randint(0, 38)]
-            bot2spawn = hero[random.randint(0, 38)]
+            bossSpawn = hero[random.randint(0, 37)]
+            bot1spawn = hero[random.randint(0, 37)]
+            bot2spawn = hero[random.randint(0, 37)]
             wait(0.25)
             wavespawn()
     elif spawntype == 3:
@@ -258,14 +258,19 @@ rule "519 Spawn wave director":
         bot2spawn = [Hero.BRIGITTE, Hero.BRIGITTE, Hero.REINHARDT, Hero.WINSTON, Hero.GENJI, Hero.WINSTON, Hero.GENJI, Hero.BRIGITTE, Hero.HANZO, Hero.MAUGA, Hero.DVA, Hero.ECHO, Hero.SOMBRA]
         wait(0.25)
         wavespawn()
-
+    elif spawntype == 4:
+        wait(0.25)
+        totalrandomspawn()
 
 rule "wave director incramenter":
-    @Condition roundnumber / 5 == floor(roundnumber / 5)
     @Condition spawntype == 3
     @Condition roundnumber > 1
-    g += 1
+    @Condition roundnumber / 3 == floor(roundnumber / 3) #incrament every 3 rounds
 
+    if g >= 12:
+        g = 0
+    else:
+        g += 1
 
 rule "559 stop throttle omnics":
     @Event eachPlayer
@@ -276,7 +281,7 @@ rule "559 stop throttle omnics":
     eventPlayer.stopForcingThrottle()
 
 
-rule "435 basic OMNIC ALL heros":
+rule "435 basic OMNIC ALL heroes":
     @Event eachPlayer
     @Team 2
     @Condition distance(eventPlayer, getClosestPlayer(eventPlayer, Team.1)) < 10
@@ -489,7 +494,7 @@ rule "402 Omnic movespeed + health":
     @Team 2
     @Condition eventPlayer.hasSpawned() == true
     
-    eventPlayer.setMaxHealth(5 * roundnumber)
+    eventPlayer.setMaxHealth(15 * roundnumber)
     if roundnumber <= 6:
         eventPlayer.setMoveSpeed(52 + 8 * roundnumber)
     elif roundnumber > 6:

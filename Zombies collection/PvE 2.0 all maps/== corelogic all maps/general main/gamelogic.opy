@@ -40,7 +40,6 @@ rule "2 round change":
     for forindex in range(len(omnicspawn)):
         destroyDummy(Team.2, omnicspawn[forindex])
     roundnumber += 1
-        romanN = ["0", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", roundnumber, "0", "00110001", "00110010", "00110011", "00110100", "00110101", "00110110", "00110111", "00111000", "00111001", roundnumber]
     Z = 1
     getPlayers(Team.1).setUltCharge(100)
     bigMessage(getAllPlayers(), l"Round {0}".format(romanN[romanNcounter]))
@@ -358,7 +357,7 @@ rule "48 WORKSHOP SETTINGS":
     getPlayers(Team.1).setProjectileSpeed(createWorkshopSettingInt("fun", "projectile speed team 1", 100, 25, 500))
     getPlayers(Team.2).setProjectileGravity(createWorkshopSettingInt("fun", "projectile gravity team 2", 75, 25, 500))
     getPlayers(Team.2).setProjectileSpeed(createWorkshopSettingInt("fun", "projectile speed team 2", 50, 25, 500))
-    spawntype = createWorkshopSettingInt("difficulty", "zombie types -- brig= 0 torb= 1 random= 2 none/testing=3", 0, 0, 3)
+    spawntype = createWorkshopSettingInt("difficulty", "brig=0 torb=1 random=2 directed=3 totalrng=4", 4, 0, 4)
 
 
 rule "83 power challenge effects":
@@ -390,7 +389,6 @@ rule "88 disable vanilla features":
     eventPlayer.allowedheroes = []
     wait(4)
     eventPlayer.allowedheroes.append(eventPlayer.getHero())
-    smallMessage(eventPlayer, "  action active")
 
 rule "498 Rule 480 start screen":
     @Event eachPlayer
@@ -641,27 +639,3 @@ rule "bastion re enter turret mode (need to add cooldown reduction to seemlessly
     loop()
 
 
-rule "all the door effects loop (need to figure out how to manage which doors were bought and unload zones not currently in)":
-    @Condition dooreffectsequencer < 436
-    @Disabled
-    
-    #needs to have 3 zones with the map.
-    if impulseDoorArray[appenddoorsequencer] == false:
-        #create effect starting at 0 - 1
-        createBeam(getPlayers(Team.1), Beam.JUNKRAT_TRAP_CHAIN, Beameffectdoors[evalOnce(dooreffectsequencer)], Beameffectdoors[evalOnce(1 + dooreffectsequencer)], Color.RED, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
-        wait()
-        #append to allow the game to delete for later
-        doors[appenddoorsequencer].append(getLastCreatedEntity())
-        wait()
-        #the index to create the door at
-        dooreffectsequencer += 2
-        #the doors index itself, counted by 1 whole, while the door contains 2 effects. need to optimize so door is compatible with 1 and 2 effects with a toggle.
-        appenddoorsequencer += 1
-        if ruleCondition:
-            loop()
-    elif impulseDoorArray[appenddoorsequencer] == 1:
-        wait()
-        dooreffectsequencer += 2
-        appenddoorsequencer += 1
-        if ruleCondition:
-            loop()

@@ -75,83 +75,44 @@ def PaPsound():
 
 def wavespawn():
     @Name "518 spawn bots subroutine"
-    
-    #need a for loop
-    wait(9, Wait.ABORT_WHEN_FALSE)
-    random.choice(getLivingPlayers(Team.1)).communicate(Comms.COUNTDOWN)
-    wait(random.uniform(3, 4), Wait.ABORT_WHEN_FALSE)
-    random.choice(getLivingPlayers(Team.1)).communicate(Comms.INCOMING)
-    wait(0.5)
+
+    wavevoicecall()
     createDummy(bossSpawn[g], Team.2, 0, getSpawnPoints(Team.2))
     omnicspawn[0] = getPlayersInSlot(0, Team.2).getSlot()
-    wait(0.5)
-    createDummy(bot1spawn[g], Team.2, 1, getSpawnPoints(Team.2))
-    omnicspawn[1] = getPlayersInSlot(1, Team.2).getSlot()
-    wait(0.5)
-    createDummy(bot2spawn[g], Team.2, 2, getSpawnPoints(Team.2))
-    omnicspawn[2] = getPlayersInSlot(2, Team.2).getSlot()
-    wait(0.5)
-    createDummy(bot1spawn[g], Team.2, 3, getSpawnPoints(Team.2))
-    omnicspawn[3] = getPlayersInSlot(3, Team.2).getSlot()
-    wait(0.5)
-    createDummy(bot2spawn[g], Team.2, 4, getSpawnPoints(Team.2))
-    omnicspawn[4] = getPlayersInSlot(4, Team.2).getSlot()
-    wait(0.5)
-    createDummy(bot1spawn[g], Team.2, 5, getSpawnPoints(Team.2))
-    omnicspawn[5] = getPlayersInSlot(5, Team.2).getSlot()
-    if roundnumber < 5:
-        goto lbl_0
-    wait(0.5)
-    createDummy(bot2spawn[g], Team.2, 6, getSpawnPoints(Team.2))
-    omnicspawn[6] = getPlayersInSlot(6, Team.2).getSlot()
-    wait(0.5)
-    createDummy(bot1spawn[g], Team.2, 7, getSpawnPoints(Team.2))
-    omnicspawn[7] = getPlayersInSlot(7, Team.2).getSlot()
-    #if getNumberOfPlayers(Team.1) > 3:
-    #        goto lbl_1
-    if lesszomb == true:
-        goto lbl_2
-    wait(0.5)
-    createDummy(bot2spawn[g], Team.2, 8, getSpawnPoints(Team.2))
-    omnicspawn[8] = getPlayersInSlot(8, Team.2).getSlot()
-    wait(0.5)
-    createDummy(bot1spawn[g], Team.2, 9, getSpawnPoints(Team.2))
-    omnicspawn[9] = getPlayersInSlot(9, Team.2).getSlot()
-    wait(0.5)
-    createDummy(bot1spawn[g], Team.2, 10, getSpawnPoints(Team.2))
-    omnicspawn[10] = getPlayersInSlot(10, Team.2).getSlot()
-    wait(0.5)
-    createDummy(bot2spawn[g], Team.2, 11, getSpawnPoints(Team.2))
-    omnicspawn[11] = getPlayersInSlot(11, Team.2).getSlot()
-    #if getNumberOfPlayers(Team.1) > 2:
-    #        goto lbl_3
-    wait(0.5)
-    createDummy(bot1spawn[g], Team.2, 12, getSpawnPoints(Team.2))
-    omnicspawn[12] = getPlayersInSlot(12, Team.2).getSlot()
-    if roundnumber < 10:
-        goto lbl_4
-    wait(0.5)
-    createDummy(bot2spawn[g], Team.2, 13, getSpawnPoints(Team.2))
-    omnicspawn[13] = getPlayersInSlot(13, Team.2).getSlot()
-    #if getNumberOfPlayers(Team.1) > 1:
-    #        goto lbl_5
-    wait(0.5)
-    createDummy(bot1spawn[g], Team.2, 14, getSpawnPoints(Team.2))
-    omnicspawn[14] = getPlayersInSlot(14, Team.2).getSlot()
-    wait(0.5)
-    createDummy(bot2spawn[g], Team.2, 15, getSpawnPoints(Team.2))
-    omnicspawn[15] = getPlayersInSlot(15, Team.2).getSlot()
-    wait(0.5)
-    createDummy(bot1spawn[g], Team.2, 16, getSpawnPoints(Team.2))
-    lbl_1:
-    omnicspawn[16] = getPlayersInSlot(16, Team.2).getSlot()
-    wait(0.5)
-    createDummy(bot2spawn[g], Team.2, 17, getSpawnPoints(Team.2))
-    omnicspawn[17] = getPlayersInSlot(17, Team.2).getSlot()
-    lbl_0:
-    lbl_2:
-    lbl_3:
-    lbl_4:
-    lbl_5:
+    wait(0.5, Wait.ABORT_WHEN_FALSE)
+    setbotamount()
+    for forindex in range(1, botamount + 1, 2):    # Alternate spawning bot1 and bot2 in unique slots
+        createDummy(bot1spawn[g], Team.2, forindex, getSpawnPoints(Team.2))        # bot1 in slot forindex
+        omnicspawn[forindex] = getPlayersInSlot(forindex, Team.2).getSlot()
+        wait(0.75, Wait.ABORT_WHEN_FALSE)
+        if forindex + 1 <= botamount:        # bot2 in slot forindex + 1 (if within botamount)
+            createDummy(bot2spawn[g], Team.2, forindex + 1, getSpawnPoints(Team.2))
+            omnicspawn[forindex + 1] = getPlayersInSlot(forindex + 1, Team.2).getSlot()
+            wait(0.75, Wait.ABORT_WHEN_FALSE)
 
+def totalrandomspawn():
+    @Name "each bot will be random"
 
+    wavevoicecall()
+    setbotamount()
+    for forindex in range(0, botamount):
+        createDummy(hero[random.randint(0, 37)], Team.2, forindex, getSpawnPoints(Team.2))
+        omnicspawn[forindex] = getPlayersInSlot(forindex, Team.2).getSlot()
+        wait(0.75, Wait.ABORT_WHEN_FALSE)
+
+def wavevoicecall():
+    @Name "player voiceline call subroutine"
+
+    wait(9, Wait.ABORT_WHEN_FALSE)
+    random.choice(getLivingPlayers(Team.1)).communicate(Comms.COUNTDOWN)
+    wait(random.uniform(3.5, 4.5), Wait.ABORT_WHEN_FALSE)
+    random.choice(getLivingPlayers(Team.1)).communicate(Comms.INCOMING)
+    wait(0.5, Wait.ABORT_WHEN_FALSE)
+
+def setbotamount():
+    @Name "set bot amount subroutine"
+
+    if roundnumber < 17:    # Determine botamount based on roundnumber
+        botamount = 5 + roundnumber
+    else:
+        botamount = 17

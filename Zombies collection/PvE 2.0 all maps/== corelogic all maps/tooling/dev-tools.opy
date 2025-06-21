@@ -217,3 +217,27 @@ rule "Disable edit mode":
     eventPlayer.stopCamera()
     #cancel momentum
     eventPlayer.applyImpulse(eventPlayer.getVelocity() * -1, eventPlayer.getSpeed(), Relativity.TO_WORLD, Impulse.INCORPORATE_CONTRARY_MOTION)
+
+    
+rule "Rule 258":
+    hudHeader(getAllPlayers(), "{0}".format(firstpos[0]), HudPosition.LEFT, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
+    hudHeader(getAllPlayers(), "{0}".format(secondpos[0]), HudPosition.LEFT, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
+    hudHeader(getAllPlayers(), "{0}".format(firstpoint2[0]), HudPosition.LEFT, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
+    hudHeader(getAllPlayers(), "{0}".format(secondpoint2[0]), HudPosition.LEFT, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
+    hudHeader(getAllPlayers(), "{0}".format(AllDir[0]), HudPosition.LEFT, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
+    hudHeader(getAllPlayers(), "{0}".format(AllPos[0]), HudPosition.LEFT, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
+    hudHeader(getAllPlayers(), "{0}".format(Beameffectdoors[0]), HudPosition.LEFT, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
+    hudHeader(getAllPlayers(), "{0}".format(Beameffectdoors[1]), HudPosition.LEFT, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
+    hudHeader(getAllPlayers(), "{0}".format(Beameffectdoors[2]), HudPosition.LEFT, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
+    hudHeader(getAllPlayers(), "{0}".format(Beameffectdoors[3]), HudPosition.LEFT, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
+        hudHeader(getAllPlayers(), "{0}".format(firstpos[0]), HudPosition.LEFT, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
+    hudHeader(getAllPlayers(), "{0}".format(secondpos[1]), HudPosition.RIGHT, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
+    hudHeader(getAllPlayers(), "{0}".format(firstpoint2[1]), HudPosition.RIGHT, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
+    hudHeader(getAllPlayers(), "{0}".format(secondpoint2[1]), HudPosition.RIGHT, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
+    hudHeader(getAllPlayers(), "{0}".format(AllDir[1]), HudPosition.RIGHT, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
+    hudHeader(getAllPlayers(), "{0}".format(AllPos[1]), HudPosition.RIGHT, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
+    hudHeader(getAllPlayers(), "{0}".format(Beameffectdoors[4]), HudPosition.RIGHT, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
+    hudHeader(getAllPlayers(), "{0}".format(Beameffectdoors[5]), HudPosition.RIGHT, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
+    hudHeader(getAllPlayers(), "{0}".format(Beameffectdoors[6]), HudPosition.RIGHT, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
+    hudHeader(getAllPlayers(), "{0}".format(Beameffectdoors[7]), HudPosition.RIGHT, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
+    hudHeader(getAllPlayers(), "{0}".format(i), HudPosition.RIGHT, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)

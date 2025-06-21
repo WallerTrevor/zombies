@@ -32,6 +32,8 @@
 #!define svrLdThreshold extraVar[30]
 #!define svrSlwThreshold extraVar[31]
 #!define CameraDistanceFactor extraVar[32]
+#!define botamount extraVar[33]
+#!define doorLoopIndex extraVar[34]
 
 globalvar powerconnected 13
 globalvar Died 18
@@ -94,6 +96,8 @@ globalvar teleradiusef 111
 globalvar heroiconstring 112
 globalvar indexofbosseffect 113
 globalvar extraVar 115
+globalvar herobuymessages 116
+globalvar k 117
 
 #Player variables
 #!define doublemag extraPlayerVar[1]
@@ -182,6 +186,9 @@ subroutine heroswap 9
 subroutine PaPsound 10
 subroutine ParseNumber 11
 subroutine DecompressString 12
+subroutine totalrandomspawn 13
+subroutine wavevoicecall 14
+subroutine setbotamount 15
 #Activated extensions
 
 #!extension beamEffects
@@ -193,6 +200,7 @@ subroutine DecompressString 12
 #!extension playMoreEffects
 #!extension spawnMoreDummyBots
 #!extension projectiles
+
 
 #!include "../../== corelogic all maps/bot logic/"
 #!include "../../== corelogic all maps/general main/"

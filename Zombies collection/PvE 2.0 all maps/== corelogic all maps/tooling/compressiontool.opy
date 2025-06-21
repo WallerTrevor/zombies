@@ -3,6 +3,7 @@ def DecompressString():
     
     decompressed = [player.split(",") for player in compressedData]
     compressedData = []
+    wait()
     for i in range(len(decompressed)):
         compressedData.append(decompressed[i])
     decompressed = []
@@ -26,7 +27,9 @@ def DecompressString():
             ParseNumber()
             decompressed.append(param0)
     compressedData = null
-
+    smallMessage(getAllPlayers(), "Decompression complete")
+    Beameffectdoors = []
+    i = 0
 
 def ParseNumber():
     @Name "Parse number"
@@ -37,6 +40,8 @@ def ParseNumber():
     param3 = 0
     param4 = null
     for charIndex in range(strLen(compressedData[i])):
+        if i / 4 == floor(i / 4):
+            wait()
         param4 = compressedData[i].charAt(charIndex)
         if param4 == "-":
             param2 *= -1
@@ -55,54 +60,46 @@ def ParseNumber():
 
 rule "set arrays":
     numbers = "0123456789abcdef"
-    compressedData = "{0}".format("v132,0,304,4,4,90,1,5,5")
+    wait(1.0)
     DecompressString()
     doorscompresser = decompressed
 
 
-rule "use data from original point of door":
-    #Note: this '__for__' had no 'end' action.
-    if len(doorscompresser) > 0 and i < 0 or len(doorscompresser) <= 0 and i > 0:
-        #first point - bottom left
-        Beameffectdoors.append(doorscompresser[i])
-        #top right point
-        Beameffectdoors.append(doorscompresser[i] + ((directionFromAngles(doorscompresser[i + 3], 0)) * (doorscompresser[i + 2])) + (Vector.UP * (doorscompresser[i + 1])))
-        #top left point
-        Beameffectdoors.append(doorscompresser[i] + (Vector.UP * (doorscompresser[i + 2])))
-        #bottom right point
-        Beameffectdoors.append(doorscompresser[i] + ((directionFromAngles(doorscompresser[i + 3], 0)) * (doorscompresser[i + 2])))
-        #firstpos.append(doorscompresser[i])
-        #accounts for 2nd point using first point, angle and width.
-        #secondpos.append(doorscompresser[i] + ((directionFromAngles(doorscompresser[i + 3], 0)) * (doorscompresser[i + 2])))
-        #firstpoint2.append(doorscompresser[i] + Vector.UP * 1000)
-        #secondpoint2.append(doorscompresser[i] + (directionFromAngles((doorscompresser[i + 4]) * (doorscompresser[i + 3]), 0)) + Vector.UP * 1000)
-        #i += 1
-        #do something with width
-        #roundnumber = 0
-        #i += 1
-        #do something with height
-        #roundnumber = 0
-        #i += 1
-        #do something with angle
-        #roundnumber = 0
-        AllDir.append(directionFromAngles(doorscompresser[i + 3] + 90, 0))
-        #i += 1
-        #if doorscompresser[i] == 1:
-        #i += 1
-        #do something with width
-        #roundnumber = 0
-        #i += 1
-        #do something with height
-        #roundnumber = 0
-        #roundnumber = Vector.UP
-        #first point - bottom left
+rule "Make door arrays":
+    @Condition start == 1
+
+    while i < len(doorscompresser):
+        if i / 2 == floor(i / 2):
+            wait()
+        Beameffectdoors.append(doorscompresser[i])  # bottom left
+        Beameffectdoors.append(doorscompresser[i] + (directionFromAngles(doorscompresser[i + 3] - 90, 0) * doorscompresser[i + 1]) + (Vector.UP * doorscompresser[i + 2]))  # top right
+        Beameffectdoors.append(doorscompresser[i] + (Vector.UP * doorscompresser[i + 1]))  # top left
+        Beameffectdoors.append(doorscompresser[i] + (directionFromAngles(doorscompresser[i + 3] - 90, 0) * doorscompresser[i + 1]))  # bottom right
+        #if doorscompresser[i + 5] == 1: #if boolean is true, then don't use infinite height
         firstpos.append(doorscompresser[i])
-        #top right point
-        secondpos.append(doorscompresser[i] + ((directionFromAngles(doorscompresser[i + 3], 0)) * (doorscompresser[i + 2])) + (Vector.UP * (doorscompresser[i + 1])))
-        #top left point
-        firstpoint2.append(doorscompresser[i] + (Vector.UP * (doorscompresser[i + 2])))
-        #bottom right point
-        secondpoint2.append(doorscompresser[i] + ((directionFromAngles(doorscompresser[i + 3], 0)) * (doorscompresser[i + 2])))
-        AllPos.append((firstpos[i] + secondpos[i]) / 2)
+        secondpos.append(doorscompresser[i] + ((directionFromAngles(doorscompresser[i + 3] + 90, 0)) * (doorscompresser[i + 1])) + (Vector.UP * (doorscompresser[i + 2])))        #top right point
+        firstpoint2.append(doorscompresser[i] + (Vector.UP * (doorscompresser[i + 1])))        #top left point
+        secondpoint2.append(doorscompresser[i] + ((directionFromAngles(doorscompresser[i + 3] + 90, 0)) * (doorscompresser[i + 1])))        #bottom right point
+        AllPos.append((firstpos[doorLoopIndex] + secondpos[doorLoopIndex]) / 2)
+        AllDir.append(directionFromAngles(doorscompresser[i + 3] + 90, 0))
+        #else: #if boolean is false, then use infinite height
+            #firstpos.append(doorscompresser[i]) #bottom left, but this is for the collision logic
+            #wait()
+            #secondpos.append(doorscompresser[i] + ((directionFromAngles(doorscompresser[i + 3], 0)) * (doorscompresser[i + 2])))
+            #wait()
+            #firstpoint2.append(doorscompresser[i] + Vector.UP * 1000)
+            #wait()
+            #secondpoint2.append(doorscompresser[i] + (directionFromAngles((doorscompresser[i + 4]) * (doorscompresser[i + 3]), 0)) + Vector.UP * 1000)
+        # wait()
+            #AllPos.append((firstpos[doorLoopIndex] + secondpos[doorLoopIndex]) / 2)
+            #wait()
+            #AllDir.append(directionFromAngles(doorscompresser[i + 3] + 90, 0))
+        if doorscompresser[i + 5] == 1: #loop to the next door in compressed data
+            i += 7
+        else: 
+            i += 5
+        if i == len(doorscompresser) - 1:
+            smallMessage(getAllPlayers(), "Door arrays created")
+        doorLoopIndex += 1
 
 

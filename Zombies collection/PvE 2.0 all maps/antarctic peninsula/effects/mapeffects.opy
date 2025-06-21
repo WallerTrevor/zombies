@@ -17,7 +17,7 @@ rule "all the effects (needs to be simplified and looped)":
     wait(3)
     #mystery box
     createEffect(getAllPlayers(), Effect.RING, Color.PURPLE, rngbox, 2, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
-    createInWorldText(getAllPlayers(), "{0} Mystery box: 950 points".format(l"Buy"), rngbox, 1, Clip.SURFACES, WorldTextReeval.VISIBILITY_POSITION_AND_STRING, Color.PURPLE)
+    createInWorldText(getAllPlayers(), iconString(Icon.QUESTION_MARK), rngbox, 1, Clip.SURFACES, WorldTextReeval.VISIBILITY_POSITION_AND_STRING, Color.PURPLE)
     createEffect(getAllPlayers(), Effect.SPARKLES, Color.YELLOW, rngbox, 2, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
     createEffect(getAllPlayers(), Effect.SPHERE, Color.PURPLE, rngbox, 0.75, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
     createEffect(getAllPlayers(), Effect.RING, Color.TURQUOISE, perkbuyrandomized[0], 2, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
@@ -25,24 +25,24 @@ rule "all the effects (needs to be simplified and looped)":
     createIcon(getLivingPlayers(Team.1), perkbuyrandomized[0], Icon.BOLT, IconReeval.VISIBILITY_AND_POSITION, Color.YELLOW)
     powerconnected[1] = getLastCreatedText()
     createEffect(getAllPlayers(), Effect.RING, Color.RED, perkbuyrandomized[1], 1, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
-    createInWorldText(getAllPlayers(), "Juggernaut 100 {0}".format(l"{0}: {1}".format("", 2500)), perkbuyrandomized[1], 1, Clip.SURFACES, WorldTextReeval.VISIBILITY_POSITION_AND_STRING)
+    createInWorldText(getAllPlayers(), iconString(Icon.HEART), perkbuyrandomized[1], 1, Clip.SURFACES, WorldTextReeval.VISIBILITY_POSITION_AND_STRING)
     createEffect(getAllPlayers(), Effect.RING, Color.RED, perkbuyrandomized[2], 1.5, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
-    createInWorldText(getAllPlayers(), "Pack-a-Punch 100 {0}".format(l"{0}: {1}".format("", 5000)), perkbuyrandomized[2], 1, Clip.SURFACES, WorldTextReeval.VISIBILITY_POSITION_AND_STRING, Color.RED)
+    createInWorldText(getAllPlayers(), iconString(Icon.FIRE), perkbuyrandomized[2], 1, Clip.SURFACES, WorldTextReeval.VISIBILITY_POSITION_AND_STRING, Color.RED)
     createEffect(getAllPlayers(), Effect.RING, Color.BLUE, perkbuyrandomized[3], 1.5, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
-    createInWorldText(getAllPlayers(), "passive & healing dealt buff: 6000 points", perkbuyrandomized[3], 1, Clip.SURFACES, WorldTextReeval.VISIBILITY_POSITION_AND_STRING, Color.BLUE)
+    createInWorldText(getAllPlayers(), iconString(Icon.DIAMOND), perkbuyrandomized[3], 1, Clip.SURFACES, WorldTextReeval.VISIBILITY_POSITION_AND_STRING, Color.BLUE)
     createEffect(getAllPlayers(), Effect.RING, Color.ORANGE, perkbuyrandomized[4], 1.5, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
-    createInWorldText(getAllPlayers(), "Headshot maniac 50% to 400% {0}".format(l"{0}: {1}".format("", 4000)), perkbuyrandomized[4], 1, Clip.SURFACES, WorldTextReeval.VISIBILITY_POSITION_AND_STRING)
+    createInWorldText(getAllPlayers(), iconString(Icon.EYE), perkbuyrandomized[4], 1, Clip.SURFACES, WorldTextReeval.VISIBILITY_POSITION_AND_STRING)
     createEffect(getAllPlayers(), Effect.RING, Color.BLUE, perkbuyrandomized[5], 1.5, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
-    createInWorldText(getAllPlayers(), "Revive self (coop only): 4000 points", perkbuyrandomized[5], 1, Clip.SURFACES, WorldTextReeval.VISIBILITY_POSITION_AND_STRING, Color.BLUE)
-    createInWorldText(getAllPlayers(), "Double-mag {0}".format("{0} {1}".format(null, l"{0}: {1}".format("", 2000))), perkbuyrandomized[6], 1, Clip.SURFACES, WorldTextReeval.VISIBILITY_POSITION_AND_STRING)
+    createInWorldText(getAllPlayers(), iconString(Icon.HALO), perkbuyrandomized[5], 1, Clip.SURFACES, WorldTextReeval.VISIBILITY_POSITION_AND_STRING, Color.BLUE)
+    createInWorldText(getAllPlayers(), abilityIconString(Hero.CASSIDY, Button.ABILITY_1), perkbuyrandomized[6], 1, Clip.SURFACES, WorldTextReeval.VISIBILITY_POSITION_AND_STRING)
     createEffect(getAllPlayers(), Effect.RING, Color.BLUE, perkbuyrandomized[6], 1.5, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
-    createInWorldText(getAllPlayers(), "Sprint burst {0}".format("{0} {1}".format(null, l"{0}: {1}".format("", 2000))), perkbuyrandomized[7], 1, Clip.SURFACES, WorldTextReeval.VISIBILITY_POSITION_AND_STRING)
+    createInWorldText(getAllPlayers(), abilityIconString(Hero.SOLDIER, Button.ABILITY_1), perkbuyrandomized[7], 1, Clip.SURFACES, WorldTextReeval.VISIBILITY_POSITION_AND_STRING)
     createEffect(getAllPlayers(), Effect.RING, Color.BLUE, perkbuyrandomized[9], 1.5, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
-    createInWorldText(getAllPlayers(), "Omnic bomb {0}".format("{0} {1}".format(null, l"{0}: {1}".format("", 2500))), perkbuyrandomized[9], 1, Clip.SURFACES, WorldTextReeval.VISIBILITY_POSITION_AND_STRING)
+    createInWorldText(getAllPlayers(), abilityIconString(Hero.ASHE, Button.ABILITY_2), perkbuyrandomized[9], 1, Clip.SURFACES, WorldTextReeval.VISIBILITY_POSITION_AND_STRING)
     #needs values correct for each hero
     for forindex in range(len(buyheros)):
         createEffect(getAllPlayers(), Effect.RING, Color.PURPLE, buyheros[forindex], 2, EffectReeval.VISIBILITY)
-        createInWorldText(getAllPlayers(), heroIcon(hero[forindex]), vect(0, 1, 0) + buyheros[forindex], 2.25, Clip.SURFACES, WorldTextReeval.VISIBILITY, Color.BLUE)
+        createInWorldText(getAllPlayers(), heroIcon(hero[forindex]), Vector.UP + buyheros[forindex], 2.25, Clip.SURFACES, WorldTextReeval.VISIBILITY, Color.BLUE)
     wait(3)
     createInWorldText(getAllPlayers(), "Bastion Trap: press {0} {1}".format(inputBindingString(Button.INTERACT), l"{0}: {1}".format(heroIcon(Hero.BASTION), 1000)), vect(-83.763, -158.95, 64.107), 1, Clip.SURFACES, WorldTextReeval.VISIBILITY_POSITION_AND_STRING, Color.PURPLE)
     createEffect(getAllPlayers(), Effect.RING, Color.PURPLE, rngbox2, 2, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
@@ -55,6 +55,9 @@ rule "all the effects (needs to be simplified and looped)":
     for forindex in range(3):
         createInWorldText(getAllPlayers(), "Spawn boss: {0} : 15000 points".format(inputBindingString(Button.INTERACT)), bossbuypositions[indexofbosseffect], 1, Clip.SURFACES, WorldTextReeval.VISIBILITY)
         createEffect(getAllPlayers(), Effect.RING, Color.WHITE, bossbuypositions[indexofbosseffect], 1, EffectReeval.VISIBILITY)
+
+
+
 
 
 rule "488 button heald 1 teleporter (needs to be one rule)":
