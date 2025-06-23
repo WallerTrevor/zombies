@@ -34,6 +34,7 @@
 #!define CameraDistanceFactor extraVar[32]
 #!define botamount extraVar[33]
 #!define doorLoopIndex extraVar[34]
+#!define looping extraVar[35]
 
 globalvar powerconnected 13
 globalvar Died 18
@@ -98,7 +99,10 @@ globalvar indexofbosseffect 113
 globalvar extraVar 115
 globalvar herobuymessages 116
 globalvar k 117
-
+globalvar doorParams 118
+globalvar doorVectors 119
+globalvar v 120
+globalvar j 121
 #Player variables
 #!define doublemag extraPlayerVar[1]
 #!define sprintburstperk extraPlayerVar[2]

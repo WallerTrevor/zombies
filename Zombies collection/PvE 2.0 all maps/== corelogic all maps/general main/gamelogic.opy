@@ -101,7 +101,7 @@ rule "6 Defeat (needs to be refined for soft restart)":
     @Condition getPlayers(Team.1).hasSpawned() == true
     
     wait(2, Wait.ABORT_WHEN_FALSE)
-    setspawn = random.randint(0, 5)
+    setspawn = random.randint(0, 0)
     destroyAllDummies()
     getPlayers(Team.1).startCamera(vect(317.328, -25.644, -140.906), vect(320.513, -24.05, -134.612))
     destroyAllHudTexts()

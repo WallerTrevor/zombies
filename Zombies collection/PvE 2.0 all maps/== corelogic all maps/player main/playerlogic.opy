@@ -48,12 +48,17 @@ rule "58  Single player lives mechanic":
     eventPlayer.singlelives = eventPlayer.singlelives + 1
 
 
-rule "59 DAMAGE Melee does more damage":
-    @Event playerDealtDamage
-    @Team 1
-    @Condition eventPlayer.isMeleeing() == true
+rule "DAMAGE Melee does more damage": # this rule allows only the melee itself to do more damage, though its about the best you can get within workshop limits
+    @Event eachPlayer
+    @Condition eventPlayer.isHoldingButton(Button.MELEE) == true
     
-    damage(victim, eventPlayer, 150)
+    wait(0.05)
+    eventPlayer.setDamageDealt(350)
+    eventPlayer.allowButton(Button.MELEE) # the reason this is toggled, is to allow a few frames before the melee animation starts, so the damage can be applied
+    eventPlayer.forceButtonPress(Button.MELEE)
+    wait(0.5)
+    eventPlayer.setDamageDealt(eventPlayer.damagevariable)
+    eventPlayer.disallowButton(Button.MELEE) # i did try a direct set damage, but it was not working, so this is the best way to do it, as it allows the damage to be applied only for melee attacks
 
 
 rule "67 solo play mode effect":

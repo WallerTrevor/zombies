@@ -81,27 +81,48 @@ rule "Reset":
 
 
 rule "all the door effects loop (need to figure out how to manage which doors were bought and unload zones not currently in)":
-    @Condition dooreffectsequencer < 436
     @Condition start == 1
-    @Condition i >= 400
-
+    
     #needs to have 3 zones with the map.
-    if impulseDoorArray[appenddoorsequencer] == false:
-        #create effect starting at 0 - 1
-        createBeam(getPlayers(Team.1), Beam.JUNKRAT_TRAP_CHAIN, Beameffectdoors[evalOnce(dooreffectsequencer)], Beameffectdoors[evalOnce(1 + dooreffectsequencer)], Color.RED, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
-        wait()
-        #append to allow the game to delete for later
-        doors[appenddoorsequencer].append(getLastCreatedEntity())
-        wait()
-        #the index to create the door at
-        dooreffectsequencer += 2
-        #the doors index itself, counted by 1 whole, while the door contains 2 effects. need to optimize so door is compatible with 1 and 2 effects with a toggle.
-        appenddoorsequencer += 1
-        if ruleCondition:
-            loop()
-    elif impulseDoorArray[appenddoorsequencer] == 1:
-        wait()
-        dooreffectsequencer += 2
-        appenddoorsequencer += 1
-        if ruleCondition:
-            loop()
+    #if impulseDoorArray[appenddoorsequencer] == false:
+    #create effect starting at 0 - 1
+    i = 0
+    for i in range(len(doorVectors) * 4):  # 4 vectors per door
+        createBeam(getPlayers(Team.1), Beam.JUNKRAT_TRAP_CHAIN, Beameffectdoors[evalOnce(dooreffectsequencer)], Beameffectdoors[evalOnce(dooreffectsequencer + 1)], Color.RED, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
+        # wait(1)
+        # doors[appenddoorsequencer].append(getLastCreatedEntity())        #append to allow the game to delete for later
+        loopwait(i, 3)
+        dooreffectsequencer += 2  # move to the next pair for the next chain
+        appenddoorsequencer += 1        #the doors index itself, counted by 1 whole, while the door contains 2 effects. need to optimize so door is compatible with 1 and 2 effects with a toggle.
+#elif impulseDoorArray[appenddoorsequencer] == 1:
+
+rule "Make door arrays":
+
+    wait(1.0)
+    looping = 0
+    Beameffectdoors = []
+    while i < len(doorVectors):
+        loopwait(i, 2)
+        Beameffectdoors.append(doorVectors[i])  # bottom left
+        Beameffectdoors.append(doorVectors[i] + (directionFromAngles(doorParams[looping + 2] - 90, 0) * doorParams[looping]) + (Vector.UP * doorParams[looping + 1]))  # top right
+        Beameffectdoors.append(doorVectors[i] + (Vector.UP * doorParams[looping + 1]))  # top left
+        Beameffectdoors.append(doorVectors[i] + (directionFromAngles(doorParams[looping + 2] - 90, 0) * doorParams[looping]))  # bottom right
+        if doorParams[looping + 3] == 0: #if boolean is false, then use infinite height
+            firstpos.append(doorVectors[i]) #bottom left, but this is for the collision logic
+            secondpos.append(doorVectors[i] + (directionFromAngles(doorParams[looping + 2] - 90, 0) * doorParams[looping])) # use correct params for direction and length
+            firstpoint2.append(doorVectors[i] + Vector.UP * 1000)
+            secondpoint2.append(doorVectors[i] + (directionFromAngles(doorParams[looping + 2] - 90, 0) * doorParams[looping]) + Vector.UP * 1000)
+            AllPos.append((firstpos[i] + secondpos[i]) / 2)
+            AllDir.append(directionFromAngles(doorParams[looping + 2] - 90, 0))
+        elif doorParams[looping + 3] == 1: #if boolean is true, then use height params
+            firstpos.append(doorVectors[i])
+            secondpos.append(doorVectors[i] + (directionFromAngles(doorParams[looping + 2] - 90, 0) * doorParams[looping + 4]) + (Vector.UP * doorParams[looping + 5]))  # top right point
+            firstpoint2.append(doorVectors[i] + (Vector.UP * doorParams[looping + 5]))  # top left point
+            secondpoint2.append(doorVectors[i] + (directionFromAngles(doorParams[looping + 2] - 90, 0) * doorParams[looping + 4]))  # bottom right point
+            AllPos.append((firstpos[i] + secondpos[i]) / 2)
+            AllDir.append(directionFromAngles(doorParams[looping + 2] - 90, 0))
+        if doorParams[looping + 3] == 1:
+            looping += 6
+        else:
+            looping += 4
+        i += 1

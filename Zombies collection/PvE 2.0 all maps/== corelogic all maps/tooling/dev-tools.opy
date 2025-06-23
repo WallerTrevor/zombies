@@ -1,5 +1,5 @@
-rule "DEV door numbers":
-    @Disabled
+#rule "DEV door numbers":
+   # @Disabled
     
     #createInWorldText(getAllPlayers(), "1-2", Vectordoorpositions[0], 1, Clip.NONE, WorldTextReeval.VISIBILITY_POSITION_AND_STRING)
     #createInWorldText(getAllPlayers(), "3-4", Vectordoorpositions[1], 1, Clip.NONE, WorldTextReeval.VISIBILITY_POSITION_AND_STRING)
@@ -230,7 +230,7 @@ rule "Rule 258":
     hudHeader(getAllPlayers(), "{0}".format(Beameffectdoors[1]), HudPosition.LEFT, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
     hudHeader(getAllPlayers(), "{0}".format(Beameffectdoors[2]), HudPosition.LEFT, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
     hudHeader(getAllPlayers(), "{0}".format(Beameffectdoors[3]), HudPosition.LEFT, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
-        hudHeader(getAllPlayers(), "{0}".format(firstpos[0]), HudPosition.LEFT, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
+    hudHeader(getAllPlayers(), "{0}".format(firstpos[0]), HudPosition.LEFT, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
     hudHeader(getAllPlayers(), "{0}".format(secondpos[1]), HudPosition.RIGHT, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
     hudHeader(getAllPlayers(), "{0}".format(firstpoint2[1]), HudPosition.RIGHT, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
     hudHeader(getAllPlayers(), "{0}".format(secondpoint2[1]), HudPosition.RIGHT, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
