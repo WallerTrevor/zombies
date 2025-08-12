@@ -1,11 +1,369 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Zombies Gamemode</title>
+  <meta charset="UTF-8" />
+  <title>Overwatch Zombies — Zombie Survival</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Optional gaming fonts (safe to remove if you prefer system fonts) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Oxanium:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      /* Overwatch-ish palette */
+      --ow-orange:#f9a51a;
+      --ow-orange-2:#ffb547;
+      --ow-blue:#00a7e0;
+      --ow-dark:#0f1216;
+      --ow-dark-2:#161a21;
+      --ow-card:#151a22;
+      --ow-line:#232a34;
+      --ow-text:#e8edf2;
+      --ow-dim:#9aa3ad;
+      --shadow: 0 8px 30px rgba(0,0,0,.35);
+      --radius: 16px;
+      --gap: 22px;
+      --max: 1100px;
+    }
+
+    /* Reset-ish */
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--ow-dark);color:var(--ow-text)}
+    body{
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      line-height:1.6;
+      /* Give space for sticky nav */
+      padding-top: 74px;
+    }
+    h1,h2,h3{
+      font-family: Oxanium, Inter, sans-serif;
+      line-height:1.15;
+      letter-spacing:.3px;
+      margin:0 0 .6em;
+    }
+    h1{font-size: clamp(32px, 5vw, 54px);}
+    h2{font-size: clamp(22px, 3vw, 28px);}
+    a{color:var(--ow-blue);text-decoration:none}
+    a:hover{text-decoration:underline}
+
+    /* Sticky / glass nav */
+    .nav{
+      position:fixed; inset:0 0 auto 0; height:74px; z-index:9999;
+      display:flex; align-items:center; justify-content:center;
+      backdrop-filter: blur(10px);
+      background: linear-gradient(180deg, rgba(15,18,22,.75), rgba(15,18,22,.45));
+      border-bottom:1px solid var(--ow-line);
+    }
+    .nav__inner{
+      width:100%; max-width:var(--max); padding:0 16px;
+      display:flex; align-items:center; justify-content:space-between;
+      gap:16px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.5px;
+    }
+    .brand__logo{
+      width:34px; height:34px; border-radius:50%;
+      background: radial-gradient(90% 90% at 30% 30%, var(--ow-orange), #ff7a00);
+      box-shadow: inset 0 0 0 2px #111, 0 4px 12px rgba(0,0,0,.35);
+    }
+    .brand__name{color:#fff}
+    .nav__links{
+      display:flex; gap:18px; align-items:center; flex-wrap:wrap;
+    }
+    .chip{
+      color:#fff; font-weight:700; padding:10px 14px; border-radius:999px;
+      background:transparent; border:1px solid transparent;
+      transition:.2s transform ease, .2s background ease, .2s border-color ease;
+      text-decoration:none;
+    }
+    .chip:hover{transform:translateY(-1px)}
+    .chip--gold{
+      border-color:#2a2f39;
+      background: linear-gradient(180deg, #1b212a, #151a22);
+    }
+    .chip--gold:hover{
+      border-color: #3a414e;
+      background: linear-gradient(180deg, #202735, #161c25);
+    }
+    .chip--cta{
+      background: linear-gradient(180deg, var(--ow-orange), var(--ow-orange-2));
+      color:#111; box-shadow: 0 8px 20px rgba(249,165,26,.35);
+    }
+    .chip--cta:hover{transform:translateY(-1px) scale(1.02)}
+
+    /* Hero */
+    .hero{
+      position:relative; isolation:isolate;
+      border-bottom:1px solid var(--ow-line);
+      background:
+        radial-gradient(60% 60% at 70% 10%, rgba(249,165,26,.08), transparent 60%),
+        radial-gradient(40% 40% at 10% 10%, rgba(0,167,224,.08), transparent 60%),
+        linear-gradient(180deg, var(--ow-dark-2), var(--ow-dark));
+    }
+    .hero__bg{
+      position:absolute; inset:0; opacity:.14; pointer-events:none;
+      background: url('https://media.giphy.com/media/6FL4Fav7TAc8Kgrrxp/giphy.gif') center/cover no-repeat;
+      mix-blend: screen;
+      filter: saturate(1.1);
+    }
+    .wrap{max-width:var(--max); margin:0 auto; padding: clamp(28px,4vw,40px);}
+    .hero__content{padding: clamp(28px, 5vw, 72px) 0; display:grid; gap:18px}
+    .eyebrow{
+      display:inline-flex; align-items:center; gap:8px;
+      font-weight:800; letter-spacing:.3px; text-transform:uppercase; font-size:12px; color:var(--ow-dim);
+    }
+    .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--ow-orange)}
+    .hero__title{color:#fff}
+    .hero__kicker{color:var(--ow-dim); max-width: 60ch}
+    .hero__ctas{display:flex; gap:12px; flex-wrap:wrap; margin-top:4px}
+
+    .btn{
+      display:inline-flex; align-items:center; gap:10px;
+      padding:12px 16px; border-radius:12px; font-weight:800; border:1px solid transparent;
+      background:#1a2028; color:#fff; text-decoration:none; transition:.2s transform ease, .2s background ease, .2s box-shadow ease;
+    }
+    .btn:hover{transform:translateY(-1px)}
+    .btn--primary{
+      background: linear-gradient(180deg, var(--ow-orange), var(--ow-orange-2));
+      color:#111; box-shadow: 0 8px 18px rgba(249,165,26,.28);
+    }
+    .btn--ghost{border-color:#2c3340}
+    .btn svg{width:18px;height:18px}
+
+    /* Sections */
+    section{padding: clamp(26px, 5vw, 50px) 0; border-bottom:1px solid var(--ow-line)}
+
+    /* Card grid with overlay captions */
+    .grid{
+      display:grid; gap:var(--gap);
+      grid-template-columns: repeat(12, 1fr);
+    }
+    .card{
+      grid-column: span 12;
+      background: linear-gradient(180deg, #12161d, #0f141b);
+      border:1px solid var(--ow-line);
+      border-radius: var(--radius);
+      overflow:hidden;
+      box-shadow: var(--shadow);
+    }
+    @media(min-width:720px){
+      .card{grid-column: span 6;}
+    }
+    .media{
+      position:relative; aspect-ratio: 16/9; overflow:hidden; background:#000;
+    }
+    .media img{width:100%; height:100%; object-fit:cover; display:block; filter: contrast(1.05) saturate(1.05)}
+    .caption{
+      position:absolute; inset:auto 0 0 0;
+      display:flex; align-items:center; justify-content:center;
+      padding:10px 12px;
+      background: linear-gradient(180deg, transparent, rgba(0,0,0,.75));
+      color:#fff; font-weight:700; text-align:center;
+    }
+
+    /* Story / copy block */
+    .prose{
+      background: linear-gradient(180deg, #11161d, #0e131a);
+      border:1px solid var(--ow-line);
+      border-radius: var(--radius);
+      padding: clamp(18px, 3vw, 26px);
+      box-shadow: var(--shadow);
+      color: var(--ow-text);
+    }
+    .muted{color:var(--ow-dim)}
+
+    /* Boss fights -> responsive “table” cards */
+    .bosses{
+      display:grid; gap:var(--gap);
+      grid-template-columns: repeat(12, 1fr);
+    }
+    .boss{
+      grid-column: span 12;
+      background: var(--ow-card); border:1px solid var(--ow-line);
+      border-radius: 14px; padding:18px;
+      display:flex; align-items:center; justify-content:space-between; gap:14px;
+    }
+    @media(min-width:700px){
+      .boss{grid-column: span 6;}
+    }
+    .boss__name{font-weight:800}
+    .pill{
+      padding:6px 10px; border-radius:999px; font-size:12px; letter-spacing:.2px;
+      border:1px solid #2b3240; color:#c6cdd6; background:#121721;
+    }
+
+    /* Footer */
+    footer{
+      padding:40px 0; color:var(--ow-dim); text-align:center;
+    }
+
+    /* Nice image hover lift */
+    .media::after{
+      content:"";
+      position:absolute; inset:0;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.03);
+      pointer-events:none;
+    }
+    .card:hover .media img{transform: scale(1.03)}
+    .media img{transition: transform .35s ease}
+
+    /* Reduce motion */
+    @media (prefers-reduced-motion: reduce){
+      .card:hover .media img{transform:none}
+      .nav a:hover, .chip:hover, .btn:hover{transform:none}
+    }
+  </style>
 </head>
 <body>
-  <h1>Welcome to Zombies</h1>
-  <p>Overwatch Workshop gamemode details will go here.</p>
+
+  <!-- Sticky / glass nav -->
+  <header class="nav">
+    <div class="nav__inner">
+      <div class="brand">
+        <div class="brand__logo" aria-hidden="true"></div>
+        <div class="brand__name">Zombie Survival</div>
+      </div>
+      <nav class="nav__links" aria-label="Primary">
+        <a class="chip chip--gold" href="index.html">Home</a>
+        <a class="chip chip--gold" href="comics.html">Comics</a>
+        <a class="chip chip--gold" href="mapcodes.html">Map Codes</a>
+        <a class="chip chip--gold" href="wiki.html">Wiki</a>
+        <a class="chip chip--gold" href="credits.html">Credits</a>
+        <a class="chip chip--cta" href="Donations.html">Fund the Mode</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero__bg"></div>
+    <div class="wrap hero__content">
+      <div class="eyebrow"><span class="dot"></span> Overwatch Workshop Gamemode</div>
+      <h1 class="hero__title">Zombie Survival <span style="color:var(--ow-orange)">v0.7.8</span></h1>
+      <p class="hero__kicker">
+        Ramattra’s corrupted AI unleashes zomnics across three ruthless zones. Survive, buy new areas, roll the Mystery Box, and outsmart the trials.
+      </p>
+      <div class="hero__ctas">
+        <a class="btn btn--primary" href="https://workshop.codes/ZBWIKI" target="_blank" rel="noopener">
+          <!-- book icon -->
+          <svg viewBox="0 0 24 24" fill="none"><path d="M4 19a2 2 0 0 0 2 2h13v-2H6V5h13V3H6a2 2 0 0 0-2 2v14Z" fill="currentColor"/></svg>
+          Main Wiki
+        </a>
+        <a class="btn btn--ghost" href="https://forms.gle/TwTjHQBoodaD7mKC7" target="_blank" rel="noopener">
+          <!-- clipboard icon -->
+          <svg viewBox="0 0 24 24" fill="none"><path d="M9 3h6v2h4a1 1 0 0 1 1 1v13a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a1 1 0 0 1 1-1h4V3Z" stroke="currentColor" stroke-width="2"/><path d="M9 5h6" stroke="currentColor" stroke-width="2"/></svg>
+          Take the Survey
+        </a>
+        <a class="btn" href="mapcodes.html">
+          <!-- map icon -->
+          <svg viewBox="0 0 24 24" fill="none"><path d="M9 3 3 6v15l6-3 6 3 6-3V3l-6 3-6-3Z" stroke="currentColor" stroke-width="2"/></svg>
+          Map Codes
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- STORY -->
+  <section>
+    <div class="wrap">
+      <div class="prose">
+        <h2>Escape from Ramattra</h2>
+        <p class="muted">
+          Ramattra’s vision: eradicate the remnants of Overwatch and perfect an indestructible intelligence. Corrupted in a radiated Omnic temple, he lures heroes into isolated trials, forcing them to endure waves of cloned omnics. Cities lie empty; only pockets of life remain—glitches in his code might be your only way out.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES GRID -->
+  <section>
+    <div class="wrap">
+      <h2>Features & Zones</h2>
+      <div class="grid">
+
+        <article class="card">
+          <div class="media">
+            <img src="https://media.giphy.com/media/6FL4Fav7TAc8Kgrrxp/giphy.gif" alt="Zombies Intro">
+            <div class="caption">The Beginning of the Zombie Invasion</div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="media">
+            <img src="https://media.giphy.com/media/1orILgFaxFLgeaJmHT/giphy-downsized-large.gif" alt="Three Zones">
+            <div class="caption">Explore Three Unique Zones</div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="media">
+            <img src="https://media.giphy.com/media/1U854m8NclU8yYuRiR/giphy.gif" alt="Buyable Locations">
+            <div class="caption">50+ Buyable Locations — Hold Interact</div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="media">
+            <img src="https://media.giphy.com/media/YEvOqWmolhiNI4uExM/giphy.gif" alt="Follower System">
+            <div class="caption">Unique Hero Follower System (Box Teleports)</div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="media">
+            <img src="https://media.giphy.com/media/ZIYgKpnshuuB84teud/giphy.gif" alt="Mystery Box">
+            <div class="caption">Mystery Box — Chance for Wonder Weapons</div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="media">
+            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZm9kenJldWx3YXV5em1meGZneGYxcWUwZms2YzI5czQxY3psazF0eSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3l9rKc7IXYtxrXcETV/giphy-downsized-large.gif" alt="Power Connection">
+            <div class="caption">Careful When You Connect the Power</div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- BOSSES -->
+  <section>
+    <div class="wrap">
+      <h2>Main Boss Fights</h2>
+      <div class="bosses">
+        <div class="boss">
+          <div class="boss__name">Orisa</div>
+          <span class="pill">Tweaks: TBD</span>
+        </div>
+        <div class="boss">
+          <div class="boss__name">D.Va</div>
+          <span class="pill">Tweaks: TBD</span>
+        </div>
+        <div class="boss">
+          <div class="boss__name">Reinhardt</div>
+          <span class="pill">Tweaks: TBD</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="wrap">
+      <div>© <span id="y"></span> Zombie Survival • An Overwatch Workshop Gamemode</div>
+      <div style="margin-top:8px">
+        <a href="comics.html">Comics</a> •
+        <a href="mapcodes.html">Map Codes</a> •
+        <a href="wiki.html">Wiki</a> •
+        <a href="credits.html">Credits</a> •
+        <a href="Donations.html">Fund the Mode</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Year in footer
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
