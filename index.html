@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <title>Overwatch Zombies — Zombie Survival</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <!-- Optional gaming fonts (safe to remove if you prefer system fonts) -->
+  <!-- Optional gaming fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Oxanium:wght@400;700&display=swap" rel="stylesheet">
   <style>
     :root{
@@ -22,6 +22,7 @@
       --radius: 16px;
       --gap: 22px;
       --max: 1100px;
+      --nav-h: 74px;
     }
 
     /* Reset-ish */
@@ -30,8 +31,8 @@
     body{
       font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       line-height:1.6;
-      /* Give space for sticky nav */
-      padding-top: 74px;
+      /* Space for sticky nav */
+      padding-top: var(--nav-h);
     }
     h1,h2,h3{
       font-family: Oxanium, Inter, sans-serif;
@@ -46,7 +47,7 @@
 
     /* Sticky / glass nav */
     .nav{
-      position:fixed; inset:0 0 auto 0; height:74px; z-index:9999;
+      position:fixed; inset:0 0 auto 0; height:var(--nav-h); z-index:9999;
       display:flex; align-items:center; justify-content:center;
       backdrop-filter: blur(10px);
       background: linear-gradient(180deg, rgba(15,18,22,.75), rgba(15,18,22,.45));
@@ -66,6 +67,8 @@
       box-shadow: inset 0 0 0 2px #111, 0 4px 12px rgba(0,0,0,.35);
     }
     .brand__name{color:#fff}
+
+    /* Links (desktop) */
     .nav__links{
       display:flex; gap:18px; align-items:center; flex-wrap:wrap;
     }
@@ -74,6 +77,7 @@
       background:transparent; border:1px solid transparent;
       transition:.2s transform ease, .2s background ease, .2s border-color ease;
       text-decoration:none;
+      white-space:nowrap;
     }
     .chip:hover{transform:translateY(-1px)}
     .chip--gold{
@@ -89,6 +93,33 @@
       color:#111; box-shadow: 0 8px 20px rgba(249,165,26,.35);
     }
     .chip--cta:hover{transform:translateY(-1px) scale(1.02)}
+
+    /* Mobile nav toggle (checkbox hack, no JS) */
+    .nav__toggle{display:none}
+    .nav__btn{
+      display:none; /* shown on small screens */
+      width:42px;height:42px;border-radius:10px;border:1px solid #2b3240;
+      background:linear-gradient(180deg,#1b212a,#151a22);
+      color:#fff; align-items:center; justify-content:center;
+      cursor:pointer; transition:.2s transform ease;
+    }
+    .nav__btn:hover{transform:translateY(-1px)}
+    .nav__icon{width:22px;height:22px;display:block}
+
+    /* Mobile menu panel */
+    .nav__panel{
+      display:none;
+      position:fixed; top:var(--nav-h); left:0; right:0;
+      background:linear-gradient(180deg, #12161d, #0e131a);
+      border-bottom:1px solid var(--ow-line);
+      box-shadow: var(--shadow);
+      padding:12px 16px 16px;
+    }
+    .nav__panel .chip{
+      display:block; text-align:center; margin:8px 0; padding:12px 16px; font-size:16px;
+    }
+    /* Toggle behavior */
+    .nav__toggle:checked ~ .nav__panel{display:block;}
 
     /* Hero */
     .hero{
@@ -181,6 +212,7 @@
       background: var(--ow-card); border:1px solid var(--ow-line);
       border-radius: 14px; padding:18px;
       display:flex; align-items:center; justify-content:space-between; gap:14px;
+      flex-wrap:wrap;
     }
     @media(min-width:700px){
       .boss{grid-column: span 6;}
@@ -211,6 +243,16 @@
       .card:hover .media img{transform:none}
       .nav a:hover, .chip:hover, .btn:hover{transform:none}
     }
+
+    /* ====== MOBILE BREAKPOINT ====== */
+    @media (max-width: 920px){
+      /* Hide desktop links, show hamburger */
+      .nav__links{display:none}
+      .nav__btn{display:flex}
+
+      /* Make the brand shrink nicely */
+      .brand__name{font-size:15px}
+    }
   </style>
 </head>
 <body>
@@ -220,15 +262,36 @@
     <div class="nav__inner">
       <div class="brand">
         <div class="brand__logo" aria-hidden="true"></div>
-        <div class="brand__name">Zombie Survival</div>
+        <div class="brand__name">Overwatch: Zombies</div>
       </div>
+
+      <!-- Mobile toggle button -->
+      <label for="nav-toggle" class="nav__btn" aria-label="Open menu">
+        <!-- hamburger icon -->
+        <svg class="nav__icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M3 6h18v2H3V6Zm0 5h18v2H3v-2Zm0 5h18v2H3v-2Z"/>
+        </svg>
+      </label>
+      <input type="checkbox" id="nav-toggle" class="nav__toggle" aria-hidden="true">
+
+      <!-- Desktop links -->
       <nav class="nav__links" aria-label="Primary">
         <a class="chip chip--gold" href="index.html">Home</a>
         <a class="chip chip--gold" href="comics.html">Comics</a>
         <a class="chip chip--gold" href="mapcodes.html">Map Codes</a>
         <a class="chip chip--gold" href="wiki.html">Wiki</a>
         <a class="chip chip--gold" href="credits.html">Credits</a>
-        <a class="chip chip--cta" href="Donations.html">Fund the Mode</a>
+        <a class="chip chip--cta" href="Donations.html">Donations</a>
+      </nav>
+
+      <!-- Mobile dropdown panel -->
+      <nav class="nav__panel" aria-label="Mobile menu">
+        <a class="chip chip--gold" href="index.html" onclick="document.getElementById('nav-toggle').checked=false">Home</a>
+        <a class="chip chip--gold" href="comics.html" onclick="document.getElementById('nav-toggle').checked=false">Comics</a>
+        <a class="chip chip--gold" href="mapcodes.html" onclick="document.getElementById('nav-toggle').checked=false">Map Codes</a>
+        <a class="chip chip--gold" href="wiki.html" onclick="document.getElementById('nav-toggle').checked=false">Wiki</a>
+        <a class="chip chip--gold" href="credits.html" onclick="document.getElementById('nav-toggle').checked=false">Credits</a>
+        <a class="chip chip--cta" href="Donations.html" onclick="document.getElementById('nav-toggle').checked=false">Donations</a>
       </nav>
     </div>
   </header>
@@ -238,23 +301,20 @@
     <div class="hero__bg"></div>
     <div class="wrap hero__content">
       <div class="eyebrow"><span class="dot"></span> Overwatch Workshop Gamemode</div>
-      <h1 class="hero__title">Zombie Survival <span style="color:var(--ow-orange)">v0.7.8</span></h1>
+      <h1 class="hero__title">Zombies: Desecration <span style="color:var(--ow-orange)">v0.7.8</span></h1>
       <p class="hero__kicker">
         Ramattra’s corrupted AI unleashes zomnics across three ruthless zones. Survive, buy new areas, roll the Mystery Box, and outsmart the trials.
       </p>
       <div class="hero__ctas">
         <a class="btn btn--primary" href="https://workshop.codes/ZBWIKI" target="_blank" rel="noopener">
-          <!-- book icon -->
           <svg viewBox="0 0 24 24" fill="none"><path d="M4 19a2 2 0 0 0 2 2h13v-2H6V5h13V3H6a2 2 0 0 0-2 2v14Z" fill="currentColor"/></svg>
           Main Wiki
         </a>
         <a class="btn btn--ghost" href="https://forms.gle/TwTjHQBoodaD7mKC7" target="_blank" rel="noopener">
-          <!-- clipboard icon -->
           <svg viewBox="0 0 24 24" fill="none"><path d="M9 3h6v2h4a1 1 0 0 1 1 1v13a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a1 1 0 0 1 1-1h4V3Z" stroke="currentColor" stroke-width="2"/><path d="M9 5h6" stroke="currentColor" stroke-width="2"/></svg>
           Take the Survey
         </a>
         <a class="btn" href="mapcodes.html">
-          <!-- map icon -->
           <svg viewBox="0 0 24 24" fill="none"><path d="M9 3 3 6v15l6-3 6 3 6-3V3l-6 3-6-3Z" stroke="currentColor" stroke-width="2"/></svg>
           Map Codes
         </a>
@@ -266,7 +326,7 @@
   <section>
     <div class="wrap">
       <div class="prose">
-        <h2>Escape from Ramattra</h2>
+        <h2>Mission: Desecration</h2>
         <p class="muted">
           Ramattra’s vision: eradicate the remnants of Overwatch and perfect an indestructible intelligence. Corrupted in a radiated Omnic temple, he lures heroes into isolated trials, forcing them to endure waves of cloned omnics. Cities lie empty; only pockets of life remain—glitches in his code might be your only way out.
         </p>
@@ -279,7 +339,6 @@
     <div class="wrap">
       <h2>Features & Zones</h2>
       <div class="grid">
-
         <article class="card">
           <div class="media">
             <img src="https://media.giphy.com/media/6FL4Fav7TAc8Kgrrxp/giphy.gif" alt="Zombies Intro">
@@ -321,7 +380,6 @@
             <div class="caption">Careful When You Connect the Power</div>
           </div>
         </article>
-
       </div>
     </div>
   </section>
@@ -350,18 +408,27 @@
   <!-- FOOTER -->
   <footer>
     <div class="wrap">
-      <div>© <span id="y"></span> Zombie Survival • An Overwatch Workshop Gamemode</div>
+      <div>© <span id="y"></span> Zombie Survival • A Fan Made Overwatch Workshop Gamemode</div>
       <div style="margin-top:8px">
         <a href="comics.html">Comics</a> •
         <a href="mapcodes.html">Map Codes</a> •
         <a href="wiki.html">Wiki</a> •
         <a href="credits.html">Credits</a> •
-        <a href="Donations.html">Fund the Mode</a>
+        <a href="Donations.html">Donations</a> •
+        <a href="About.html">About Me</a>
       </div>
     </div>
   </footer>
 
   <script>
+    // Close mobile menu when resizing up (optional nicety)
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 920) {
+        const cb = document.getElementById('nav-toggle');
+        if (cb) cb.checked = false;
+      }
+    });
+
     // Year in footer
     document.getElementById('y').textContent = new Date().getFullYear();
   </script>
