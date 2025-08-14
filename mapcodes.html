@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Map Codes — Overwatch: Zombies</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Oxanium:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --ow-orange:#f9a51a;
+      --ow-orange-2:#ffb547;
+      --ow-blue:#00a7e0;
+      --ow-dark:#0f1216;
+      --ow-dark-2:#161a21;
+      --ow-card:#151a22;
+      --ow-line:#232a34;
+      --ow-text:#e8edf2;
+      --ow-dim:#9aa3ad;
+      --shadow: 0 8px 30px rgba(0,0,0,.35);
+      --radius: 16px;
+      --gap: 22px;
+      --max: 1100px;
+      --nav-h: 74px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--ow-dark);color:var(--ow-text)}
+    body{
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      line-height:1.6;
+      padding-top: var(--nav-h);
+    }
+    h1,h2,h3{
+      font-family: Oxanium, Inter, sans-serif;
+      line-height:1.15;
+      letter-spacing:.3px;
+      margin:0 0 .6em;
+    }
+    h1{font-size: clamp(32px, 5vw, 54px);}
+    h2{font-size: clamp(22px, 3vw, 28px);}
+    a{color:var(--ow-blue);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .muted{color:var(--ow-dim)}
+
+    /* Sticky glass nav + responsive hamburger */
+    .nav{
+      position:fixed; inset:0 0 auto 0; height:var(--nav-h); z-index:9999;
+      display:flex; align-items:center; justify-content:center;
+      backdrop-filter: blur(10px);
+      background: linear-gradient(180deg, rgba(15,18,22,.75), rgba(15,18,22,.45));
+      border-bottom:1px solid var(--ow-line);
+    }
+    .nav__inner{
+      width:100%; max-width:var(--max); padding:0 16px;
+      display:flex; align-items:center; justify-content:space-between; gap:16px;
+    }
+    .brand{display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.5px;}
+    .brand__logo{
+      width:34px; height:34px; border-radius:50%;
+      background: radial-gradient(90% 90% at 30% 30%, var(--ow-orange), #ff7a00);
+      box-shadow: inset 0 0 0 2px #111, 0 4px 12px rgba(0,0,0,.35);
+    }
+    .brand__name{color:#fff}
+
+    .nav__links{display:flex; gap:18px; align-items:center; flex-wrap:wrap;}
+    .chip{
+      color:#fff; font-weight:700; padding:10px 14px; border-radius:999px;
+      background:transparent; border:1px solid transparent;
+      transition:.2s transform ease, .2s background ease, .2s border-color ease;
+      text-decoration:none; white-space:nowrap;
+    }
+    .chip:hover{transform:translateY(-1px)}
+    .chip--gold{border-color:#2a2f39; background:linear-gradient(180deg,#1b212a,#151a22)}
+    .chip--gold:hover{border-color:#3a414e; background:linear-gradient(180deg,#202735,#161c25)}
+    .chip--cta{background:linear-gradient(180deg,var(--ow-orange),var(--ow-orange-2)); color:#111; box-shadow:0 8px 20px rgba(249,165,26,.35)}
+
+    .nav__toggle{display:none}
+    .nav__btn{
+      display:none; width:42px;height:42px;border-radius:10px;border:1px solid #2b3240;
+      background:linear-gradient(180deg,#1b212a,#151a22); color:#fff; align-items:center; justify-content:center;
+      cursor:pointer; transition:.2s transform ease;
+    }
+    .nav__btn:hover{transform:translateY(-1px)}
+    .nav__icon{width:22px;height:22px;display:block}
+    .nav__panel{
+      display:none; position:fixed; top:var(--nav-h); left:0; right:0;
+      background:linear-gradient(180deg,#12161d,#0e131a); border-bottom:1px solid var(--ow-line);
+      box-shadow:var(--shadow); padding:12px 16px 16px;
+    }
+    .nav__panel .chip{display:block; text-align:center; margin:8px 0; padding:12px 16px; font-size:16px}
+    .nav__toggle:checked ~ .nav__panel{display:block}
+
+    @media (max-width: 920px){
+      .nav__links{display:none}
+      .nav__btn{display:flex}
+      .brand__name{font-size:15px}
+    }
+
+    /* Shared layout */
+    .wrap{max-width:var(--max); margin:0 auto; padding: clamp(28px,4vw,40px);}
+    @media (max-width:600px){
+      .wrap{padding-left:48px; padding-right:48px;}
+    }
+    section{padding: clamp(26px, 5vw, 50px) 0; border-bottom:1px solid var(--ow-line)}
+
+    /* Hero banner */
+    .hero{
+      position:relative; isolation:isolate; border-bottom:1px solid var(--ow-line);
+      background:
+        radial-gradient(60% 60% at 70% 10%, rgba(249,165,26,.08), transparent 60%),
+        radial-gradient(40% 40% at 10% 10%, rgba(0,167,224,.08), transparent 60%),
+        linear-gradient(180deg, var(--ow-dark-2), var(--ow-dark));
+    }
+    .hero__bg{
+      position:absolute; inset:0; opacity:.12; pointer-events:none;
+      background: url('https://media.giphy.com/media/6FL4Fav7TAc8Kgrrxp/giphy.gif') center/cover no-repeat;
+      mix-blend: screen;
+    }
+    .hero__content{
+      padding: clamp(28px, 5vw, 72px);
+      padding-left: 48px; padding-right: 48px;
+      display: grid; gap: 18px;
+    }
+    .eyebrow{display:inline-flex; align-items:center; gap:8px; font-weight:800; text-transform:uppercase; font-size:12px; color:var(--ow-dim)}
+    .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--ow-orange)}
+
+    /* Toolbar */
+    .toolbar{
+      display:flex; gap:12px; align-items:center; flex-wrap:wrap;
+      background: linear-gradient(180deg,#11161d,#0e131a);
+      border:1px solid var(--ow-line); border-radius: var(--radius);
+      padding:12px 14px; box-shadow: var(--shadow);
+    }
+    .toolbar input[type="search"]{
+      flex:1 1 260px; min-width:180px;
+      background:#0f141b; border:1px solid #2b3240; color:#e8edf2;
+      border-radius:10px; padding:10px 12px; outline:none;
+    }
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:6px 10px; border-radius:999px; font-size:12px; letter-spacing:.2px;
+      border:1px solid #2b3240; color:#c6cdd6; background:#121721;
+      cursor:pointer; user-select:none;
+    }
+
+    /* Grid of map codes */
+    .grid{display:grid; gap:var(--gap); grid-template-columns:repeat(12,1fr)}
+    .card{
+      grid-column: span 12;
+      background: linear-gradient(180deg,#12161d,#0f141b);
+      border:1px solid var(--ow-line); border-radius:var(--radius);
+      overflow:hidden; box-shadow:var(--shadow);
+      display:flex; flex-direction:column;
+    }
+    @media(min-width:720px){ .card{grid-column: span 6} }
+    .card__body{padding:16px}
+    .meta{display:flex; gap:10px; flex-wrap:wrap; margin:6px 0 10px}
+
+    .media{position:relative; aspect-ratio: 16/9; overflow:hidden; background:#000}
+    .media img{width:100%; height:100%; object-fit:cover; display:block}
+    .caption{
+      position:absolute; inset:auto 0 0 0;
+      padding:10px 12px; text-align:center; color:#fff; font-weight:800;
+      background: linear-gradient(180deg, transparent, rgba(0,0,0,.75));
+    }
+
+    .btn{
+      display:inline-flex; align-items:center; gap:10px;
+      padding:12px 16px; border-radius:12px; font-weight:800; border:1px solid transparent;
+      background:#1a2028; color:#fff; text-decoration:none; transition:.2s transform ease, .2s background ease, .2s box-shadow ease;
+    }
+    .btn:hover{transform:translateY(-1px)}
+    .btn--primary{background:linear-gradient(180deg,var(--ow-orange),var(--ow-orange-2)); color:#111; box-shadow:0 8px 18px rgba(249,165,26,.28)}
+    .btn--ghost{border-color:#2c3340}
+
+    /* Toast */
+    .toast{
+      position:fixed; left:50%; transform:translateX(-50%);
+      bottom:18px; padding:10px 14px; border-radius:12px;
+      background:linear-gradient(180deg, #1b212a, #151a22);
+      border:1px solid #2b3240; color:#e8edf2; box-shadow:var(--shadow);
+      opacity:0; pointer-events:none; transition:opacity .2s ease, transform .2s ease;
+      z-index:999999;
+    }
+    .toast.show{opacity:1; transform:translateX(-50%) translateY(-4px)}
+    footer{padding:40px 0; color:var(--ow-dim); text-align:center}
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <header class="nav">
+    <div class="nav__inner">
+      <div class="brand">
+        <div class="brand__logo" aria-hidden="true"></div>
+        <div class="brand__name">Overwatch: Zombies</div>
+      </div>
+
+      <!-- Mobile toggle -->
+      <label for="nav-toggle" class="nav__btn" aria-label="Open menu">
+        <svg class="nav__icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M3 6h18v2H3V6Zm0 5h18v2H3v-2Zm0 5h18v2H3v-2Z"/>
+        </svg>
+      </label>
+      <input type="checkbox" id="nav-toggle" class="nav__toggle" aria-hidden="true">
+
+      <!-- Desktop links -->
+      <nav class="nav__links" aria-label="Primary">
+        <a class="chip chip--gold" href="index.html">Home</a>
+        <a class="chip chip--gold" href="comics.html">Comics</a>
+        <a class="chip chip--gold" href="mapcodes.html">Map Codes</a>
+        <a class="chip chip--gold" href="wiki.html">Wiki</a>
+        <a class="chip chip--gold" href="credits.html">Credits</a>
+        <a class="chip chip--cta"  href="Donations.html">Donations</a>
+      </nav>
+
+      <!-- Mobile panel -->
+      <nav class="nav__panel" aria-label="Mobile menu">
+        <a class="chip chip--gold" href="index.html"     onclick="document.getElementById('nav-toggle').checked=false">Home</a>
+        <a class="chip chip--gold" href="comics.html"    onclick="document.getElementById('nav-toggle').checked=false">Comics</a>
+        <a class="chip chip--gold" href="mapcodes.html"  onclick="document.getElementById('nav-toggle').checked=false">Map Codes</a>
+        <a class="chip chip--gold" href="wiki.html"      onclick="document.getElementById('nav-toggle').checked=false">Wiki</a>
+        <a class="chip chip--gold" href="credits.html"   onclick="document.getElementById('nav-toggle').checked=false">Credits</a>
+        <a class="chip chip--cta"  href="Donations.html" onclick="document.getElementById('nav-toggle').checked=false">Donations</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero__bg"></div>
+    <div class="wrap hero__content">
+      <div class="eyebrow"><span class="dot"></span> Play the Mode</div>
+      <h1>Map Codes</h1>
+      <p class="muted">Grab the latest Overwatch Workshop codes for each map/zone. Copy, share, and jump in with your squad.</p>
+    </div>
+  </section>
+
+  <!-- TOOLBAR -->
+  <section>
+    <div class="wrap">
+      <div class="toolbar">
+        <input id="search" type="search" placeholder="Search by map, zone, boss, tag…" aria-label="Search map codes">
+        <span class="pill" data-filter="all">All</span>
+        <span class="pill" data-filter="beginner">Beginner</span>
+        <span class="pill" data-filter="standard">Standard</span>
+        <span class="pill" data-filter="hard">Hard</span>
+        <span class="pill" data-filter="endgame">Endgame</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CODES GRID -->
+  <section>
+    <div class="wrap">
+      <div id="cards" class="grid">
+
+        <!-- CARD 1 -->
+        <article class="card" data-tags="standard urban orisa utilities">
+          <div class="media">
+            <img src="images/map-urban.jpg" alt="Urban District">
+            <div class="caption">Urban District — Utilities Sector</div>
+          </div>
+          <div class="card__body">
+            <h3>Urban District</h3>
+            <div class="meta">
+              <span class="pill">Standard</span>
+              <span class="pill">Boss: Orisa</span>
+              <span class="pill">v0.7.8</span>
+            </div>
+            <p class="muted">City core with fast rotations, power relays, and mid‑tier wave density. Great for new squads learning perks.</p>
+            <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px">
+              <button class="btn btn--primary" data-copy="ZB-URBN-778">Copy Code</button>
+              <a class="btn btn--ghost" href="https://workshop.codes/ZBWIKI" target="_blank" rel="noopener">Wiki</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- CARD 2 -->
+        <article class="card" data-tags="hard temple ramattra origins">
+          <div class="media">
+            <img src="images/map-temple.jpg" alt="Radiated Omnic Temple">
+            <div class="caption">Radiated Omnic Temple</div>
+          </div>
+          <div class="card__body">
+            <h3>Omnic Temple</h3>
+            <div class="meta">
+              <span class="pill">Hard</span>
+              <span class="pill">Boss: Ramattra</span>
+              <span class="pill">v0.7.8</span>
+            </div>
+            <p class="muted">Tight corridors, corrupted nodes, and unpredictable wave spikes. Bring a coordinated team.</p>
+            <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px">
+              <button class="btn btn--primary" data-copy="ZB-TMPL-778">Copy Code</button>
+              <a class="btn btn--ghost" href="https://workshop.codes/ZBWIKI" target="_blank" rel="noopener">Wiki</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- CARD 3 -->
+        <article class="card" data-tags="beginner docks reinhardt">
+          <div class="media">
+            <img src="images/map-docks.jpg" alt="Harbor Docks">
+            <div class="caption">Harbor Docks</div>
+          </div>
+          <div class="card__body">
+            <h3>Harbor Docks</h3>
+            <div class="meta">
+              <span class="pill">Beginner</span>
+              <span class="pill">Boss: Reinhardt</span>
+              <span class="pill">v0.7.8</span>
+            </div>
+            <p class="muted">Open sightlines and generous buyable areas. Strong starter map for perk/weapon flow.</p>
+            <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px">
+              <button class="btn btn--primary" data-copy="ZB-DOCK-778">Copy Code</button>
+              <a class="btn btn--ghost" href="https://workshop.codes/ZBWIKI" target="_blank" rel="noopener">Wiki</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- CARD 4 -->
+        <article class="card" data-tags="endgame arcology dva">
+          <div class="media">
+            <img src="images/map-arcology.jpg" alt="Arcology Spire">
+            <div class="caption">Arcology Spire</div>
+          </div>
+          <div class="card__body">
+            <h3>Arcology Spire</h3>
+            <div class="meta">
+              <span class="pill">Endgame</span>
+              <span class="pill">Boss: D.Va</span>
+              <span class="pill">v0.7.8</span>
+            </div>
+            <p class="muted">Vertical lanes, teleporter doors, and scaling elite variants. For squads chasing leaderboards.</p>
+            <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px">
+              <button class="btn btn--primary" data-copy="ZB-ARCO-778">Copy Code</button>
+              <a class="btn btn--ghost" href="https://workshop.codes/ZBWIKI" target="_blank" rel="noopener">Wiki</a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- TOAST -->
+  <div id="toast" class="toast" role="status" aria-live="polite">Copied!</div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="wrap">
+      <div>© <span id="y"></span> Zombie Survival • A Fan Made Overwatch Workshop Gamemode</div>
+      <div style="margin-top:8px">
+        <a href="index.html">Home</a> •
+        <a href="comics.html">Comics</a> •
+        <a href="mapcodes.html">Map Codes</a> •
+        <a href="wiki.html">Wiki</a> •
+        <a href="credits.html">Credits</a> •
+        <a href="Donations.html">Donations</a> •
+        <a href="about.html">About Me</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Close mobile menu if resized to desktop
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 920) {
+        const cb = document.getElementById('nav-toggle');
+        if (cb) cb.checked = false;
+      }
+    });
+
+    // Year in footer
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    // Copy buttons + toast
+    const toast = document.getElementById('toast');
+    function showToast(msg='Copied!') {
+      toast.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 1400);
+    }
+    document.querySelectorAll('[data-copy]').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const code = btn.getAttribute('data-copy');
+        try {
+          await navigator.clipboard.writeText(code);
+          showToast(`Copied: ${code}`);
+        } catch {
+          // Fallback
+          const ta = document.createElement('textarea');
+          ta.value = code; document.body.appendChild(ta);
+          ta.select(); document.execCommand('copy'); ta.remove();
+          showToast(`Copied: ${code}`);
+        }
+      });
+    });
+
+    // Dumb client-side filter (visual only)
+    const search = document.getElementById('search');
+    const cards = Array.from(document.querySelectorAll('#cards .card'));
+    function applyFilter() {
+      const q = (search.value || '').toLowerCase().trim();
+      cards.forEach(c => {
+        const hay = (c.innerText + ' ' + (c.dataset.tags || '')).toLowerCase();
+        c.style.display = hay.includes(q) ? '' : 'none';
+      });
+    }
+    search.addEventListener('input', applyFilter);
+
+    document.querySelectorAll('.pill[data-filter]').forEach(p => {
+      p.addEventListener('click', () => {
+        const f = p.getAttribute('data-filter');
+        if (f === 'all') {
+          search.value = '';
+        } else {
+          search.value = f;
+        }
+        applyFilter();
+      });
+    });
+  </script>
+</body>
+</html>
