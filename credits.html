@@ -4,7 +4,13 @@
   <meta charset="UTF-8" />
   <title>Credits — Overwatch: Zombies</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Favicon (replace with your own file path if needed) -->
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Oxanium:wght@400;700&display=swap" rel="stylesheet">
+
   <style>
     :root{
       --ow-orange:#f9a51a;
@@ -29,7 +35,10 @@
       font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       line-height:1.6;
       padding-top: var(--nav-h);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
+
     h1,h2,h3{
       font-family: Oxanium, Inter, sans-serif;
       line-height:1.15;
@@ -41,7 +50,7 @@
     a{color:var(--ow-blue);text-decoration:none}
     a:hover{text-decoration:underline}
 
-    /* Sticky glass nav + responsive hamburger */
+    /* ===== Nav (glass) ===== */
     .nav{
       position:fixed; inset:0 0 auto 0; height:var(--nav-h); z-index:9999;
       display:flex; align-items:center; justify-content:center;
@@ -65,21 +74,29 @@
     .chip{
       color:#fff; font-weight:700; padding:10px 14px; border-radius:999px;
       background:transparent; border:1px solid transparent;
-      transition:.2s transform ease, .2s background ease, .2s border-color ease;
-      text-decoration:none; white-space:nowrap;
+      /* Smooth, high‑FPS hover without hitbox shift */
+      transition: background .2s ease, border-color .2s ease, box-shadow .2s ease;
+      will-change: background, box-shadow;
+      text-decoration:none; white-space:nowrap; cursor:pointer;
     }
-    .chip:hover{transform:translateY(-1px)}
     .chip--gold{border-color:#2a2f39; background:linear-gradient(180deg,#1b212a,#151a22)}
-    .chip--gold:hover{border-color:#3a414e; background:linear-gradient(180deg,#202735,#161c25)}
-    .chip--cta{background:linear-gradient(180deg,var(--ow-orange),var(--ow-orange-2)); color:#111; box-shadow:0 8px 20px rgba(249,165,26,.35)}
+    .chip--gold:hover{border-color:#3a414e; background:linear-gradient(180deg,#202735,#161c25); box-shadow: 0 6px 14px rgba(0,0,0,.25)}
+    .chip--cta{
+      background:linear-gradient(180deg,var(--ow-orange),var(--ow-orange-2));
+      color:#111; box-shadow: 0 8px 20px rgba(249,165,26,.35);
+    }
+    .chip--cta:hover{box-shadow: 0 10px 26px rgba(249,165,26,.42)}
 
+    /* Mobile toggle (checkbox hack) */
     .nav__toggle{display:none}
     .nav__btn{
       display:none; width:42px;height:42px;border-radius:10px;border:1px solid #2b3240;
-      background:linear-gradient(180deg,#1b212a,#151a22); color:#fff; align-items:center; justify-content:center;
-      cursor:pointer; transition:.2s transform ease;
+      background:linear-gradient(180deg,#1b212a,#151a22); color:#fff;
+      align-items:center; justify-content:center; cursor:pointer;
+      transition: background .2s ease, box-shadow .2s ease;
+      will-change: background, box-shadow;
     }
-    .nav__btn:hover{transform:translateY(-1px)}
+    .nav__btn:hover{background:#1e2531; box-shadow: 0 6px 14px rgba(0,0,0,.25)}
     .nav__icon{width:22px;height:22px;display:block}
     .nav__panel{
       display:none; position:fixed; top:var(--nav-h); left:0; right:0;
@@ -89,20 +106,21 @@
     .nav__panel .chip{display:block; text-align:center; margin:8px 0; padding:12px 16px; font-size:16px}
     .nav__toggle:checked ~ .nav__panel{display:block}
 
-    @media (max-width: 920px){
+    /* Breakpoint updated to 1100px */
+    @media (max-width: 1100px){
       .nav__links{display:none}
       .nav__btn{display:flex}
       .brand__name{font-size:15px}
     }
 
-    /* Shared layout */
+    /* ===== Layout ===== */
     .wrap{max-width:var(--max); margin:0 auto; padding: clamp(28px,4vw,40px);}
     @media (max-width:600px){
       .wrap{padding-left:48px; padding-right:48px;}
     }
     section{padding: clamp(26px, 5vw, 50px) 0; border-bottom:1px solid var(--ow-line)}
 
-    /* Hero banner */
+    /* ===== Hero ===== */
     .hero{
       position:relative; isolation:isolate; border-bottom:1px solid var(--ow-line);
       background:
@@ -110,26 +128,21 @@
         radial-gradient(40% 40% at 10% 10%, rgba(0,167,224,.08), transparent 60%),
         linear-gradient(180deg, var(--ow-dark-2), var(--ow-dark));
     }
+    /* Use static bg image (no heavy GIFs) — replace with your own .webp if you want a texture */
     .hero__bg{
       position:absolute; inset:0; opacity:.12; pointer-events:none;
-      background: url('https://media.giphy.com/media/6FL4Fav7TAc8Kgrrxp/giphy.gif') center/cover no-repeat;
+      background: url('images/bg-texture.webp') center/cover no-repeat;
       mix-blend: screen;
     }
-    .hero__content{
-      padding: clamp(28px, 5vw, 72px);
-      padding-left: 48px;
-      padding-right: 48px;
-      display: grid;
-      gap: 18px;
-    }
+    .hero__content{padding: clamp(28px,5vw,72px); padding-left:48px; padding-right:48px; display:grid; gap:18px}
     .eyebrow{display:inline-flex; align-items:center; gap:8px; font-weight:800; text-transform:uppercase; font-size:12px; color:var(--ow-dim)}
     .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--ow-orange)}
 
-    /* Cards / grids */
+    /* ===== Cards & Grid ===== */
     .card{
       background: linear-gradient(180deg,#12161d,#0f141b);
       border:1px solid var(--ow-line); border-radius:var(--radius);
-      padding: clamp(18px,3vw,26px); box-shadow:var(--shadow);
+      padding: clamp(18px,3vw,26px); box-shadow: var(--shadow);
     }
     .grid{display:grid; gap:var(--gap); grid-template-columns:repeat(12,1fr)}
     .span-12{grid-column:span 12}
@@ -140,7 +153,25 @@
       display:inline-flex; align-items:center; gap:8px;
       padding:6px 10px; border-radius:999px; font-size:12px; letter-spacing:.2px;
       border:1px solid #2b3240; color:#c6cdd6; background:#121721;
+      /* Pills here are informational; no pointer cursor to avoid implying interactivity */
+      cursor: default;
     }
+
+    /* ===== Buttons (no transform hitbox shift) ===== */
+    .btn{
+      display:inline-flex; align-items:center; gap:10px;
+      padding:12px 16px; border-radius:12px; font-weight:800; border:1px solid #2c3340;
+      background:#1a2028; color:#fff; text-decoration:none;
+      transition: background .2s ease, box-shadow .2s ease, border-color .2s ease;
+      will-change: background, box-shadow, border-color;
+      cursor:pointer;
+    }
+    .btn:hover{background:#232b36; box-shadow:0 8px 18px rgba(0,0,0,.28); border-color:#384456}
+    .btn--primary{
+      background:linear-gradient(180deg,var(--ow-orange),var(--ow-orange-2));
+      color:#111; border-color:#e08f00;
+    }
+    .btn--primary:hover{box-shadow:0 10px 24px rgba(249,165,26,.4); border-color:#ffc766}
 
     footer{padding:40px 0; color:var(--ow-dim); text-align:center}
   </style>
@@ -169,18 +200,20 @@
         <a class="chip chip--gold" href="comics.html">Comics</a>
         <a class="chip chip--gold" href="mapcodes.html">Map Codes</a>
         <a class="chip chip--gold" href="wiki.html">Wiki</a>
+        <a class="chip chip--gold" href="survivor-radio.html">Survivor Radio</a>
         <a class="chip chip--gold" href="credits.html">Credits</a>
-        <a class="chip chip--cta"  href="Donations.html">Donations</a>
+        <a class="chip chip--cta"  href="donations.html">Donations</a>
       </nav>
 
       <!-- Mobile panel -->
       <nav class="nav__panel" aria-label="Mobile menu">
-        <a class="chip chip--gold" href="index.html"     onclick="document.getElementById('nav-toggle').checked=false">Home</a>
-        <a class="chip chip--gold" href="comics.html"    onclick="document.getElementById('nav-toggle').checked=false">Comics</a>
-        <a class="chip chip--gold" href="mapcodes.html"  onclick="document.getElementById('nav-toggle').checked=false">Map Codes</a>
-        <a class="chip chip--gold" href="wiki.html"      onclick="document.getElementById('nav-toggle').checked=false">Wiki</a>
-        <a class="chip chip--gold" href="credits.html"   onclick="document.getElementById('nav-toggle').checked=false">Credits</a>
-        <a class="chip chip--cta"  href="Donations.html" onclick="document.getElementById('nav-toggle').checked=false">Donations</a>
+        <a class="chip chip--gold" href="index.html"         onclick="document.getElementById('nav-toggle').checked=false">Home</a>
+        <a class="chip chip--gold" href="comics.html"        onclick="document.getElementById('nav-toggle').checked=false">Comics</a>
+        <a class="chip chip--gold" href="mapcodes.html"      onclick="document.getElementById('nav-toggle').checked=false">Map Codes</a>
+        <a class="chip chip--gold" href="wiki.html"          onclick="document.getElementById('nav-toggle').checked=false">Wiki</a>
+        <a class="chip chip--gold" href="survivor-radio.html"onclick="document.getElementById('nav-toggle').checked=false">Survivor Radio</a>
+        <a class="chip chip--gold" href="credits.html"       onclick="document.getElementById('nav-toggle').checked=false">Credits</a>
+        <a class="chip chip--cta"  href="donations.html"     onclick="document.getElementById('nav-toggle').checked=false">Donations</a>
       </nav>
     </div>
   </header>
@@ -195,15 +228,15 @@
     </div>
   </section>
 
-  <!-- CORE TEAM / ROLES -->
+  <!-- CORE TEAM -->
   <section>
     <div class="wrap">
       <div class="grid">
         <div class="card span-6">
           <h2>Core</h2>
-          <p><strong>Trevor “WallerTrevor”</strong> — Design, systems, scripting (Workshop/OverPy), balancing, web design/dev.</p>
+          <p><strong>Trevor W</strong> — Design, systems, scripting, balancing, web design/dev.</p>
           <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px">
-            <a class="btn" href="mailto:trey123we13@gmail.com">Contact</a>
+            <a class="btn btn--primary" href="mailto:trey123we13@gmail.com">Contact</a>
             <a class="btn" href="https://github.com/WallerTrevor" target="_blank" rel="noopener">GitHub</a>
             <a class="btn" href="https://workshop.codes/ZBWIKI" target="_blank" rel="noopener">Wiki</a>
           </div>
@@ -211,7 +244,7 @@
 
         <div class="card span-6">
           <h2>Community & Playtesting</h2>
-          <p class="muted">Huge thanks to early players for stress‑testing waves, reporting bugs, and suggesting perk/boss tweaks.</p>
+          <p class="muted">Huge thanks to early players for stress-testing waves, reporting bugs, and suggesting tweaks.</p>
           <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:6px">
             <span class="pill">Bug hunters</span>
             <span class="pill">Balance feedback</span>
@@ -223,55 +256,44 @@
     </div>
   </section>
 
-  <!-- TOOLS & ASSETS -->
+  <!-- CONTRIBUTORS: Music & Art -->
+  <section>
+    <div class="wrap">
+      <div class="grid">
+        <div class="card span-6">
+          <h2>Music</h2>
+          <p><strong>Rose.x</strong> — Composer and soundtrack contributor for Survivor’s Radio and in‑comic tracks.</p>
+          <a class="btn" href="https://www.youtube.com/@rose.x9530" target="_blank" rel="noopener">YouTube</a>
+        </div>
+
+        <div class="card span-6">
+          <h2>Art</h2>
+          <p><strong>HardcoreChewie</strong> — Comic panels, character art, and key images.</p>
+          <a class="btn" href="https://vgen.co/chewie42" target="_blank" rel="noopener">Portfolio</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TOOLS & THANKS -->
   <section>
     <div class="wrap">
       <div class="grid">
         <div class="card span-6">
           <h2>Tools</h2>
           <ul style="margin:0;padding-left:18px">
-            <li>Overwatch Workshop + OverPy</li>
-            <li>GitHub Pages (hosting), custom domain</li>
-            <li>HTML/CSS/JS (no framework) + Vite-ready structure</li>
-            <li>Design: Figma (layout, components)</li>
-            <li>Analytics: Plausible / Counter (privacy‑friendly)</li>
+            <li>Overwatch Workshop & OverPy</li>
+            <li>GitHub Pages (static hosting)</li>
+            <li>HTML / CSS / JavaScript</li>
           </ul>
         </div>
-
         <div class="card span-6">
           <h2>Media & UI</h2>
           <ul style="margin:0;padding-left:18px">
-            <li>Animated GIFs for feature banners (attributed where applicable)</li>
-            <li>Typefaces: Inter, Oxanium (Google Fonts)</li>
-            <li>Color system inspired by Overwatch palette (orange/blue on dark)</li>
+            <li>Typefaces: Inter, Oxanium</li>
+            <li>Palette: Overwatch‑inspired orange/blue</li>
           </ul>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SPECIAL THANKS -->
-  <section>
-    <div class="wrap">
-      <div class="card">
-        <h2>Special Thanks</h2>
-        <p class="muted">
-          Workshop communities on Reddit and Discord for tutorials, examples, and encouragement. Streamers and creators who showcased early builds and sent new players our way.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- LEGAL / DISCLAIMER -->
-  <section>
-    <div class="wrap">
-      <div class="card">
-        <h2>Fan Project Disclaimer</h2>
-        <p class="muted">
-          This is a fan‑made mode built within Overwatch’s Workshop and is not affiliated with or endorsed by Blizzard Entertainment.
-          Overwatch™, Ramattra, and all related trademarks and assets are the property of Blizzard Entertainment.
-          No commercial use is intended; donations (if any) support development time and hosting only and do not provide in‑game perks or advantages.
-        </p>
       </div>
     </div>
   </section>
@@ -285,8 +307,9 @@
         <a href="comics.html">Comics</a> •
         <a href="mapcodes.html">Map Codes</a> •
         <a href="wiki.html">Wiki</a> •
+        <a href="survivor-radio.html">Survivor Radio</a> •
         <a href="credits.html">Credits</a> •
-        <a href="Donations.html">Donations</a> •
+        <a href="donations.html">Donations</a> •
         <a href="about.html">About Me</a>
       </div>
     </div>
@@ -294,13 +317,13 @@
 
   <script>
     // Close mobile menu if resized to desktop
-    window.addEventListener('resize', () => {
-      if (window.innerWidth > 920) {
+    function closeMenuOnWiden() {
+      if (window.innerWidth > 1100) {
         const cb = document.getElementById('nav-toggle');
         if (cb) cb.checked = false;
       }
-    });
-    // Year in footer
+    }
+    window.addEventListener('resize', closeMenuOnWiden);
     document.getElementById('y').textContent = new Date().getFullYear();
   </script>
 </body>

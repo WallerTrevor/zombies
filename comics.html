@@ -4,9 +4,11 @@
   <meta charset="UTF-8" />
   <title>Comics — Overwatch: Zombies</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0f1216" />
+  <link rel="icon" href="favicon.ico">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Oxanium:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    :root {
+    :root{
       --ow-orange:#f9a51a;
       --ow-orange-2:#ffb547;
       --ow-blue:#00a7e0;
@@ -16,164 +18,201 @@
       --ow-line:#232a34;
       --ow-text:#e8edf2;
       --ow-dim:#9aa3ad;
-      --shadow: 0 8px 30px rgba(0,0,0,.35);
-      --radius: 16px;
-      --gap: 22px;
-      --max: 1100px;
-      --nav-h: 74px;
+      --shadow:0 8px 30px rgba(0,0,0,.35);
+      --radius:16px;
+      --gap:22px;
+      --max:1100px;
+      --nav-h:74px;
+
+      /* Button anim vars */
+      --btn-bg:#1a2028;
+      --btn-bg-hover:#222a34;
     }
-    * { box-sizing:border-box }
-    html,body { margin:0; padding:0; background:var(--ow-dark); color:var(--ow-text) }
-    body {
-      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--ow-dark);color:var(--ow-text)}
+    body{
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
       line-height:1.6;
-      padding-top: var(--nav-h);
+      padding-top:var(--nav-h);
     }
-    h1,h2,h3 {
-      font-family: Oxanium, Inter, sans-serif;
+    h1,h2,h3{
+      font-family:Oxanium,Inter,sans-serif;
       line-height:1.15;
       letter-spacing:.3px;
       margin:0 0 .6em;
     }
-    h1 { font-size: clamp(32px, 5vw, 54px); }
-    h2 { font-size: clamp(22px, 3vw, 28px); }
-    a { color:var(--ow-blue); text-decoration:none }
-    a:hover { text-decoration:underline }
+    h1{font-size:clamp(32px,5vw,54px)}
+    h2{font-size:clamp(22px,3vw,28px)}
+    a{color:var(--ow-blue);text-decoration:none}
+    a:hover{text-decoration:underline}
 
-    /* Nav */
-    .nav {
+    /* ===== NAV ===== */
+    .nav{
       position:fixed; inset:0 0 auto 0; height:var(--nav-h); z-index:9999;
       display:flex; align-items:center; justify-content:center;
-      backdrop-filter: blur(10px);
-      background: linear-gradient(180deg, rgba(15,18,22,.75), rgba(15,18,22,.45));
+      backdrop-filter:blur(10px);
+      background:linear-gradient(180deg,rgba(15,18,22,.75),rgba(15,18,22,.45));
       border-bottom:1px solid var(--ow-line);
     }
-    .nav__inner {
+    .nav__inner{
       width:100%; max-width:var(--max); padding:0 16px;
       display:flex; align-items:center; justify-content:space-between; gap:16px;
     }
-    .brand { display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.5px; }
-    .brand__logo {
+    .brand{display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.5px}
+    .brand__logo{
       width:34px; height:34px; border-radius:50%;
-      background: radial-gradient(90% 90% at 30% 30%, var(--ow-orange), #ff7a00);
-      box-shadow: inset 0 0 0 2px #111, 0 4px 12px rgba(0,0,0,.35);
+      background:radial-gradient(90% 90% at 30% 30%, var(--ow-orange), #ff7a00);
+      box-shadow:inset 0 0 0 2px #111, 0 4px 12px rgba(0,0,0,.35);
     }
-    .brand__name { color:#fff }
-    .nav__links { display:flex; gap:18px; align-items:center; flex-wrap:wrap; }
-    .chip {
+    .brand__name{color:#fff}
+
+    .nav__links{display:flex; gap:18px; align-items:center; flex-wrap:wrap}
+    .chip{
       color:#fff; font-weight:700; padding:10px 14px; border-radius:999px;
       background:transparent; border:1px solid transparent;
-      transition:.2s transform ease, .2s background ease, .2s border-color ease;
-      text-decoration:none; white-space:nowrap;
+      transition: background .25s ease, border-color .25s ease, transform .2s ease;
+      text-decoration:none; white-space:nowrap; will-change:transform;
     }
-    .chip:hover { transform:translateY(-1px) }
-    .chip--gold { border-color:#2a2f39; background:linear-gradient(180deg,#1b212a,#151a22) }
-    .chip--gold:hover { border-color:#3a414e; background:linear-gradient(180deg,#202735,#161c25) }
-    .chip--cta { background:linear-gradient(180deg,var(--ow-orange),var(--ow-orange-2)); color:#111; box-shadow:0 8px 20px rgba(249,165,26,.35) }
+    .chip:hover{transform:translateY(-1px)}
+    .chip--gold{border-color:#2a2f39;background:linear-gradient(180deg,#1b212a,#151a22)}
+    .chip--gold:hover{border-color:#3a414e;background:linear-gradient(180deg,#202735,#161c25)}
+    .chip--cta{
+      background:linear-gradient(180deg,var(--ow-orange),var(--ow-orange-2)); color:#111;
+      box-shadow:0 8px 20px rgba(249,165,26,.35);
+    }
 
-    .nav__toggle { display:none }
-    .nav__btn {
+    .nav__toggle{display:none}
+    .nav__btn{
       display:none; width:42px;height:42px;border-radius:10px;border:1px solid #2b3240;
-      background:linear-gradient(180deg,#1b212a,#151a22); color:#fff; align-items:center; justify-content:center;
-      cursor:pointer; transition:.2s transform ease;
+      background:linear-gradient(180deg,#1b212a,#151a22); color:#fff;
+      align-items:center; justify-content:center; cursor:pointer;
+      transition:transform .2s ease; will-change:transform;
     }
-    .nav__btn:hover { transform:translateY(-1px) }
-    .nav__icon { width:22px;height:22px;display:block }
-    .nav__panel {
+    .nav__btn:hover{transform:translateY(-1px)}
+    .nav__icon{width:22px;height:22px;display:block}
+
+    .nav__panel{
       display:none; position:fixed; top:var(--nav-h); left:0; right:0;
       background:linear-gradient(180deg,#12161d,#0e131a); border-bottom:1px solid var(--ow-line);
       box-shadow:var(--shadow); padding:12px 16px 16px;
     }
-    .nav__panel .chip { display:block; text-align:center; margin:8px 0; padding:12px 16px; font-size:16px }
-    .nav__toggle:checked ~ .nav__panel { display:block }
-    @media (max-width: 920px) {
-      .nav__links { display:none }
-      .nav__btn { display:flex }
-      .brand__name { font-size:15px }
+    .nav__panel .chip{display:block; text-align:center; margin:8px 0; padding:12px 16px; font-size:16px}
+    .nav__toggle:checked ~ .nav__panel{display:block}
+
+    /* switch to mobile at 1100px (was 920) */
+    @media (max-width:1100px){
+      .nav__links{display:none}
+      .nav__btn{display:flex}
+      .brand__name{font-size:15px}
     }
 
-    /* Layout */
-    .wrap { max-width:var(--max); margin:0 auto; padding: clamp(28px,4vw,40px); }
-    @media (max-width:600px) { .wrap { padding-left:48px; padding-right:48px; } }
-    section { padding: clamp(26px, 5vw, 50px) 0; border-bottom:1px solid var(--ow-line) }
+    /* ===== LAYOUT ===== */
+    .wrap{max-width:var(--max); margin:0 auto; padding:clamp(28px,4vw,40px)}
+    @media (max-width:600px){ .wrap{padding-left:48px; padding-right:48px} }
+    section{padding:clamp(26px,5vw,50px) 0; border-bottom:1px solid var(--ow-line)}
 
-    /* Hero */
-    .hero {
+    /* ===== HERO with lightweight video instead of GIF ===== */
+    .hero{
       position:relative; isolation:isolate; border-bottom:1px solid var(--ow-line);
-      background:
-        radial-gradient(60% 60% at 70% 10%, rgba(249,165,26,.08), transparent 60%),
-        radial-gradient(40% 40% at 10% 10%, rgba(0,167,224,.08), transparent 60%),
-        linear-gradient(180deg, var(--ow-dark-2), var(--ow-dark));
+      background:linear-gradient(180deg,var(--ow-dark-2),var(--ow-dark));
     }
-    .hero__bg {
-      position:absolute; inset:0; opacity:.12; pointer-events:none;
-      background: url('https://media.giphy.com/media/6FL4Fav7TAc8Kgrrxp/giphy.gif') center/cover no-repeat;
-      mix-blend: screen;
+    .hero__video{
+      position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+      filter:brightness(.45) blur(.5px);  /* darker/soft for text legibility */
+      pointer-events:none;
     }
-    .hero__content { padding: clamp(28px, 5vw, 72px); padding-left: 48px; padding-right: 48px; display: grid; gap: 18px; }
-    .eyebrow { display:inline-flex; align-items:center; gap:8px; font-weight:800; text-transform:uppercase; font-size:12px; color:var(--ow-dim) }
-    .eyebrow .dot { width:6px;height:6px;border-radius:50%;background:var(--ow-orange) }
+    .hero__content{
+      position:relative; /* above video */
+      padding:clamp(28px,5vw,72px); padding-left:48px; padding-right:48px;
+      display:grid; gap:18px;
+    }
+    .eyebrow{display:inline-flex; align-items:center; gap:8px; font-weight:800; text-transform:uppercase; font-size:12px; color:var(--ow-dim)}
+    .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--ow-orange)}
 
-    /* Toolbar */
-    .toolbar {
+    /* ===== TOOLBAR ===== */
+    .toolbar{
       display:flex; gap:12px; align-items:center; flex-wrap:wrap;
-      background: linear-gradient(180deg,#11161d,#0e131a);
-      border:1px solid var(--ow-line); border-radius: var(--radius);
-      padding:12px 14px; box-shadow: var(--shadow);
+      background:linear-gradient(180deg,#11161d,#0e131a);
+      border:1px solid var(--ow-line); border-radius:var(--radius);
+      padding:12px 14px; box-shadow:var(--shadow);
     }
-    .toolbar input[type="search"] {
+    .toolbar input[type="search"]{
       flex:1 1 240px; min-width:180px;
       background:#0f141b; border:1px solid #2b3240; color:#e8edf2;
       border-radius:10px; padding:10px 12px; outline:none;
     }
-    .pill {
+    .pill{
       display:inline-flex; align-items:center; gap:8px;
       padding:6px 10px; border-radius:999px; font-size:12px; letter-spacing:.2px;
       border:1px solid #2b3240; color:#c6cdd6; background:#121721;
-      cursor:pointer; user-select:none;
+      user-select:none; cursor:pointer;  /* interactive: cursor pointer */
     }
 
-    /* Cards */
-    .grid { display:grid; gap:var(--gap); grid-template-columns:repeat(12,1fr) }
-    .card {
-      grid-column: span 12;
-      background: linear-gradient(180deg,#12161d,#0f141b);
+    /* ===== CARDS / GRID ===== */
+    .grid{display:grid; gap:var(--gap); grid-template-columns:repeat(12,1fr)}
+    .card{
+      grid-column:span 12;
+      background:linear-gradient(180deg,#12161d,#0f141b);
       border:1px solid var(--ow-line); border-radius:var(--radius);
       overflow:hidden; box-shadow:var(--shadow);
       display:flex; flex-direction:column;
     }
-    @media(min-width:720px){ .card { grid-column: span 6 } }
-    .media { position:relative; aspect-ratio: 16/9; overflow:hidden; background:#000 }
-    .media img { width:100%; height:100%; object-fit:cover; display:block }
-    .caption {
+    @media (min-width:720px){ .card{grid-column:span 6} }
+
+    .media{position:relative; aspect-ratio:16/9; overflow:hidden; background:#000}
+    .media img{width:100%; height:100%; object-fit:cover; display:block; transition:transform .35s ease; will-change:transform}
+    .card:hover .media img{transform:scale(1.03)}
+    .caption{
       position:absolute; inset:auto 0 0 0;
       padding:10px 12px; text-align:center; color:#fff; font-weight:800;
-      background: linear-gradient(180deg, transparent, rgba(0,0,0,.75));
+      background:linear-gradient(180deg,transparent,rgba(0,0,0,.75));
     }
-    .card__body { padding:16px }
-    .meta { display:flex; gap:10px; flex-wrap:wrap; margin:6px 0 10px }
-    .btn {
+    .card__body{padding:16px}
+    .meta{display:flex; gap:10px; flex-wrap:wrap; margin:6px 0 10px}
+
+    /* ===== Buttons (detached hitbox + smooth bg) ===== */
+    .btn{
+      position:relative;
       display:inline-flex; align-items:center; gap:10px;
       padding:12px 16px; border-radius:12px; font-weight:800; border:1px solid transparent;
-      background:#1a2028; color:#fff; text-decoration:none; transition:.2s transform ease;
+      background:var(--btn-bg); color:#fff; text-decoration:none;
+      /* no transform on the element's box so hitbox stays still */
+      transition: box-shadow .25s ease, background-color .25s ease;
     }
-    .btn:hover { transform:translateY(-1px) }
-    .btn--primary { background:linear-gradient(180deg,var(--ow-orange),var(--ow-orange-2)); color:#111; box-shadow:0 8px 18px rgba(249,165,26,.28) }
+    .btn::after{
+      content:""; position:absolute; inset:0; border-radius:12px; pointer-events:none;
+      box-shadow:none; transition: box-shadow .25s ease;
+    }
+    .btn:hover{background:var(--btn-bg-hover)}
+    .btn:hover::after{box-shadow:0 8px 18px rgba(0,0,0,.25)}
+    .btn--primary{
+      --btn-bg: linear-gradient(180deg,var(--ow-orange),var(--ow-orange-2));
+      --btn-bg-hover: linear-gradient(180deg,#ffb73a,#ffc36a);
+      color:#111;
+    }
 
-    /* Lightbox */
-    .lightbox {
+    /* ===== Lightbox (JS toggled, keeps scroll) ===== */
+    .lightbox{
       position:fixed; inset:0; display:none; place-items:center; background:rgba(0,0,0,.75); z-index:99999;
       padding:20px;
     }
-    .lightbox img { max-width:min(1100px, 96vw); max-height:90vh; border-radius:12px; box-shadow:var(--shadow) }
-    .lightbox.active { display:grid }
-    .lightbox__close {
-      position:fixed; top:14px; right:14px; color:#fff; font-weight:800; font-size:18px; text-decoration:none;
+    .lightbox.active{display:grid}
+    .lightbox img{max-width:min(1100px,96vw); max-height:90vh; border-radius:12px; box-shadow:var(--shadow)}
+    .lightbox__close{
+      position:fixed; top:14px; right:14px; color:#fff; font-weight:800; font-size:18px;
       background:rgba(0,0,0,.6); padding:8px 10px; border-radius:10px; border:1px solid #2b3240;
       cursor:pointer;
     }
 
-    footer { padding:40px 0; color:var(--ow-dim); text-align:center }
+    footer{padding:40px 0; color:var(--ow-dim); text-align:center}
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce){
+      .card:hover .media img{transform:none}
+      .chip:hover, .nav__btn:hover{transform:none}
+      .hero__video{filter:brightness(.5)} /* keep still */
+    }
   </style>
 </head>
 <body>
@@ -186,34 +225,47 @@
         <div class="brand__name">Overwatch: Zombies</div>
       </div>
 
+      <!-- mobile toggle -->
       <label for="nav-toggle" class="nav__btn" aria-label="Open menu">
-        <svg class="nav__icon" viewBox="0 0 24 24" fill="currentColor"><path d="M3 6h18v2H3V6Zm0 5h18v2H3v-2Zm0 5h18v2H3v-2Z"/></svg>
+        <svg class="nav__icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M3 6h18v2H3V6Zm0 5h18v2H3v-2Zm0 5h18v2H3v-2Z"/>
+        </svg>
       </label>
-      <input type="checkbox" id="nav-toggle" class="nav__toggle">
+      <input type="checkbox" id="nav-toggle" class="nav__toggle" aria-hidden="true">
 
-      <nav class="nav__links">
+      <!-- desktop -->
+      <nav class="nav__links" aria-label="Primary">
         <a class="chip chip--gold" href="index.html">Home</a>
         <a class="chip chip--gold" href="comics.html">Comics</a>
         <a class="chip chip--gold" href="mapcodes.html">Map Codes</a>
+        <a class="chip chip--gold" href="survivor-radio.html">Survivor Radio</a>
         <a class="chip chip--gold" href="wiki.html">Wiki</a>
         <a class="chip chip--gold" href="credits.html">Credits</a>
-        <a class="chip chip--cta" href="Donations.html">Donations</a>
+        <a class="chip chip--cta"  href="donations.html">Donations</a>
       </nav>
 
-      <nav class="nav__panel">
+      <!-- mobile -->
+      <nav class="nav__panel" aria-label="Mobile menu">
         <a class="chip chip--gold" href="index.html" onclick="document.getElementById('nav-toggle').checked=false">Home</a>
         <a class="chip chip--gold" href="comics.html" onclick="document.getElementById('nav-toggle').checked=false">Comics</a>
         <a class="chip chip--gold" href="mapcodes.html" onclick="document.getElementById('nav-toggle').checked=false">Map Codes</a>
+        <a class="chip chip--gold" href="survivor-radio.html" onclick="document.getElementById('nav-toggle').checked=false">Survivor Radio</a>
         <a class="chip chip--gold" href="wiki.html" onclick="document.getElementById('nav-toggle').checked=false">Wiki</a>
         <a class="chip chip--gold" href="credits.html" onclick="document.getElementById('nav-toggle').checked=false">Credits</a>
-        <a class="chip chip--cta" href="Donations.html" onclick="document.getElementById('nav-toggle').checked=false">Donations</a>
+        <a class="chip chip--cta"  href="donations.html" onclick="document.getElementById('nav-toggle').checked=false">Donations</a>
       </nav>
     </div>
   </header>
 
   <!-- HERO -->
   <section class="hero">
-    <div class="hero__bg"></div>
+    <!-- Replace sources with your own small, loopable assets in your repo -->
+    <video class="hero__video" autoplay muted loop playsinline poster="media/hero-poster.webp">
+      <source src="media/hero.webm" type="video/webm">
+      <source src="media/hero.mp4" type="video/mp4">
+      <!-- Optional fallback could be a lightweight webp background via CSS -->
+    </video>
+
     <div class="wrap hero__content">
       <div class="eyebrow"><span class="dot"></span> Lore & Visual Storytelling</div>
       <h1>Comics</h1>
@@ -225,12 +277,12 @@
   <section>
     <div class="wrap">
       <div class="toolbar">
-        <input type="search" placeholder="Search issues, characters, locations…">
-        <span class="pill">All</span>
-        <span class="pill">Origins</span>
-        <span class="pill">Bosses</span>
-        <span class="pill">Zones</span>
-        <span class="pill">One‑shots</span>
+        <input type="search" placeholder="Search issues, characters, locations…" aria-label="Search comics (visual only)">
+        <span class="pill" role="button" tabindex="0">All</span>
+        <span class="pill" role="button" tabindex="0">Origins</span>
+        <span class="pill" role="button" tabindex="0">Bosses</span>
+        <span class="pill" role="button" tabindex="0">Zones</span>
+        <span class="pill" role="button" tabindex="0">One‑shots</span>
       </div>
     </div>
   </section>
@@ -240,16 +292,17 @@
     <div class="wrap">
       <div class="grid">
 
+        <!-- Card -->
         <article class="card">
           <div class="media">
-            <img src="comics/issue-01-cover.jpg" alt="Issue 01 cover — The First Signal">
+            <img src="comics/issue-01-cover.webp" alt="Issue 01 cover — The First Signal">
             <div class="caption">Issue #1 — The First Signal</div>
           </div>
           <div class="card__body">
             <div class="meta">
-              <span class="pill">Origins</span>
-              <span class="pill">Ramattra</span>
-              <span class="pill">Temple</span>
+              <span class="pill" aria-hidden="true">Origins</span>
+              <span class="pill" aria-hidden="true">Ramattra</span>
+              <span class="pill" aria-hidden="true">Temple</span>
             </div>
             <p class="muted">An anomalous frequency emanates from a radiated Omnic temple. Ramattra answers — and the code begins to rot.</p>
             <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px">
@@ -259,15 +312,16 @@
           </div>
         </article>
 
+        <!-- Card -->
         <article class="card">
           <div class="media">
-            <img src="comics/issue-02-cover.jpg" alt="Issue 02 cover — Steel and Silence">
+            <img src="comics/issue-02-cover.webp" alt="Issue 02 cover — Steel and Silence">
             <div class="caption">Issue #2 — Steel and Silence</div>
           </div>
           <div class="card__body">
             <div class="meta">
-              <span class="pill">Bosses</span>
-              <span class="pill">Orisa</span>
+              <span class="pill" aria-hidden="true">Bosses</span>
+              <span class="pill" aria-hidden="true">Orisa</span>
             </div>
             <p class="muted">The city is empty — except for the sentry that never sleeps.</p>
             <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px">
@@ -277,15 +331,16 @@
           </div>
         </article>
 
+        <!-- Card -->
         <article class="card">
           <div class="media">
-            <img src="comics/issue-03-cover.jpg" alt="Issue 03 cover — Power Lines">
+            <img src="comics/issue-03-cover.webp" alt="Issue 03 cover — Power Lines">
             <div class="caption">Issue #3 — Power Lines</div>
           </div>
           <div class="card__body">
             <div class="meta">
-              <span class="pill">Zones</span>
-              <span class="pill">Utilities Sector</span>
+              <span class="pill" aria-hidden="true">Zones</span>
+              <span class="pill" aria-hidden="true">Utilities Sector</span>
             </div>
             <p class="muted">Connecting the grid is easy. Surviving what wakes up… that’s the trick.</p>
             <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px">
@@ -299,20 +354,18 @@
     </div>
   </section>
 
-  <!-- LIGHTBOXES -->
+  <!-- LIGHTBOXES (scroll-safe, no hash) -->
   <div id="preview-1" class="lightbox" aria-modal="true" role="dialog">
     <button class="lightbox__close" aria-label="Close preview">✕</button>
-    <img src="comics/issue-01-preview.jpg" alt="Preview pages for Issue #1">
+    <img src="comics/issue-01-preview.webp" alt="Preview pages for Issue #1">
   </div>
-
   <div id="preview-2" class="lightbox" aria-modal="true" role="dialog">
     <button class="lightbox__close" aria-label="Close preview">✕</button>
-    <img src="comics/issue-02-preview.jpg" alt="Preview pages for Issue #2">
+    <img src="comics/issue-02-preview.webp" alt="Preview pages for Issue #2">
   </div>
-
   <div id="preview-3" class="lightbox" aria-modal="true" role="dialog">
     <button class="lightbox__close" aria-label="Close preview">✕</button>
-    <img src="comics/issue-03-preview.jpg" alt="Preview pages for Issue #3">
+    <img src="comics/issue-03-preview.webp" alt="Preview pages for Issue #3">
   </div>
 
   <!-- FOOTER -->
@@ -323,9 +376,10 @@
         <a href="index.html">Home</a> •
         <a href="comics.html">Comics</a> •
         <a href="mapcodes.html">Map Codes</a> •
+        <a href="survivor-radio.html">Survivor Radio</a> •
         <a href="wiki.html">Wiki</a> •
         <a href="credits.html">Credits</a> •
-        <a href="Donations.html">Donations</a> •
+        <a href="donations.html">Donations</a> •
         <a href="about.html">About Me</a>
       </div>
     </div>
@@ -333,48 +387,47 @@
 
   <script>
     // Open previews without changing URL/scroll
-    document.querySelectorAll('[data-preview]').forEach(btn => {
-      btn.addEventListener('click', e => {
+    document.querySelectorAll('[data-preview]').forEach(btn=>{
+      btn.addEventListener('click',e=>{
         e.preventDefault();
-        const id = btn.getAttribute('data-preview');
-        const box = document.getElementById(id);
-        if (box) box.classList.add('active');
+        const id=btn.getAttribute('data-preview');
+        const box=document.getElementById(id);
+        if(box) box.classList.add('active');
       });
     });
 
     // Close buttons
-    document.querySelectorAll('.lightbox__close').forEach(btn => {
-      btn.addEventListener('click', e => {
+    document.querySelectorAll('.lightbox__close').forEach(btn=>{
+      btn.addEventListener('click',e=>{
         e.preventDefault();
         btn.closest('.lightbox').classList.remove('active');
       });
     });
 
     // Click outside image closes preview
-    document.querySelectorAll('.lightbox').forEach(box => {
-      box.addEventListener('click', e => {
-        if (e.target === box) box.classList.remove('active');
+    document.querySelectorAll('.lightbox').forEach(box=>{
+      box.addEventListener('click',e=>{
+        if(e.target===box) box.classList.remove('active');
       });
     });
 
     // Esc key closes any open preview
-    document.addEventListener('keydown', e => {
-      if (e.key === 'Escape') {
-        document.querySelectorAll('.lightbox.active').forEach(box => box.classList.remove('active'));
+    document.addEventListener('keydown',e=>{
+      if(e.key==='Escape'){
+        document.querySelectorAll('.lightbox.active').forEach(box=>box.classList.remove('active'));
       }
     });
 
-    // Close mobile menu if resized to desktop
-    window.addEventListener('resize', () => {
-      if (window.innerWidth > 920) {
-        const cb = document.getElementById('nav-toggle');
-        if (cb) cb.checked = false;
+    // Close mobile menu if resized to desktop (1100px breakpoint)
+    window.addEventListener('resize',()=>{
+      if(window.innerWidth>1100){
+        const cb=document.getElementById('nav-toggle');
+        if(cb) cb.checked=false;
       }
     });
 
     // Year in footer
-    document.getElementById('y').textContent = new Date().getFullYear();
+    document.getElementById('y').textContent=new Date().getFullYear();
   </script>
 </body>
 </html>
-

@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Issue #1 — The First Signal | Comics</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Oxanium:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --ow-orange:#f9a51a; --ow-orange-2:#ffb547; --ow-blue:#00a7e0;
+      --ow-dark:#0f1216; --ow-dark-2:#161a21; --ow-card:#151a22;
+      --ow-line:#232a34; --ow-text:#e8edf2; --ow-dim:#9aa3ad;
+      --shadow: 0 8px 30px rgba(0,0,0,.35);
+      --radius: 16px; --gap: 22px; --max: 1100px;
+      --nav-h: 74px; --player-h: 70px;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;background:#000;color:var(--ow-text)}
+    body{
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      line-height:1.6;
+      padding-top:var(--nav-h);
+      padding-bottom:calc(var(--player-h) + 12px);
+      -webkit-user-select:none; -moz-user-select:none; user-select:none;
+      background: #000;
+    }
+    a{color:var(--ow-blue);text-decoration:none}
+    a:hover{text-decoration:underline}
+    h1,h2,h3{font-family:Oxanium,Inter,sans-serif;margin:0 0 .6em}
+
+    /* NAV (same style as the rest of the site) */
+    .nav{
+      position:fixed; inset:0 0 auto 0; height:var(--nav-h); z-index:9999;
+      display:flex; align-items:center; justify-content:center;
+      backdrop-filter: blur(10px);
+      background: linear-gradient(180deg, rgba(15,18,22,.85), rgba(15,18,22,.45));
+      border-bottom:1px solid var(--ow-line);
+    }
+    .nav__inner{width:100%; max-width:var(--max); padding:0 16px; display:flex; align-items:center; justify-content:space-between; gap:16px}
+    .brand{display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.5px}
+    .brand__logo{width:34px;height:34px;border-radius:50%;background:radial-gradient(90% 90% at 30% 30%,var(--ow-orange),#ff7a00);box-shadow:inset 0 0 0 2px #111,0 4px 12px rgba(0,0,0,.35)}
+    .brand__name{color:#fff}
+    .nav__links{display:flex; gap:18px; align-items:center; flex-wrap:wrap}
+    .chip{color:#fff;font-weight:700;padding:10px 14px;border-radius:999px;background:transparent;border:1px solid transparent;transition:.2s;white-space:nowrap}
+    .chip:hover{transform:translateY(-1px)}
+    .chip--gold{border-color:#2a2f39;background:linear-gradient(180deg,#1b212a,#151a22)}
+    .chip--gold:hover{border-color:#3a414e;background:linear-gradient(180deg,#202735,#161c25)}
+    .chip--cta{background:linear-gradient(180deg,var(--ow-orange),var(--ow-orange-2));color:#111;box-shadow:0 8px 20px rgba(249,165,26,.35)}
+    .nav__toggle{display:none}
+    .nav__btn{display:none;width:42px;height:42px;border-radius:10px;border:1px solid #2b3240;background:linear-gradient(180deg,#1b212a,#151a22);color:#fff;align-items:center;justify-content:center;cursor:pointer;transition:.2s}
+    .nav__btn:hover{transform:translateY(-1px)}
+    .nav__icon{width:22px;height:22px;display:block}
+    .nav__panel{display:none;position:fixed;top:var(--nav-h);left:0;right:0;background:linear-gradient(180deg,#12161d,#0e131a);border-bottom:1px solid var(--ow-line);box-shadow:var(--shadow);padding:12px 16px 16px}
+    .nav__panel .chip{display:block;text-align:center;margin:8px 0;padding:12px 16px;font-size:16px}
+    .nav__toggle:checked ~ .nav__panel{display:block}
+    @media (max-width:920px){.nav__links{display:none}.nav__btn{display:flex}.brand__name{font-size:15px}}
+
+    /* WRAP (used for small copy areas) */
+    .wrap{max-width:var(--max); margin:0 auto; padding: clamp(16px, 3vw, 24px)}
+    @media (max-width:600px){ .wrap{ padding-left:48px; padding-right:48px } }
+
+    /* VIEWER (TF2-like) */
+    .viewer{
+      position:relative;
+      width:100%;
+      height: calc(100vh - var(--nav-h) - var(--player-h) - 12px);
+      background:#000;
+      overflow:hidden;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      touch-action:manipulation;
+    }
+    .frame{
+      width:100%;
+      height:100%;
+      object-fit:contain;
+      background:#000;
+      user-select:none;
+      -webkit-user-drag:none;
+      image-rendering:auto;
+    }
+
+    /* Overlay controls (fullscreen + counter + hint) */
+    .overlay{
+      position:absolute; inset:0; pointer-events:none;
+      display:flex; align-items:flex-start; justify-content:space-between;
+      padding:10px;
+      background:linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,0) 28%);
+    }
+    .counter{
+      pointer-events:auto; align-self:flex-start;
+      font-weight:800; padding:6px 10px; border-radius:10px;
+      color:#fff; background:rgba(0,0,0,.45); border:1px solid #2b3240;
+    }
+    .fsbtn{
+      pointer-events:auto; width:38px;height:38px;border-radius:10px;border:1px solid #2b3240;
+      display:flex; align-items:center; justify-content:center;
+      color:#e8edf2; background:linear-gradient(180deg,#1b212a,#151a22);
+      cursor:pointer;
+    }
+    .hint{
+      position:absolute; left:50%; bottom:16px; transform:translateX(-50%);
+      pointer-events:none; color:var(--ow-dim); font-size:14px;
+      background:rgba(0,0,0,.45); border:1px solid #2b3240; border-radius:999px;
+      padding:6px 12px;
+    }
+
+    /* Info bar (downloads) */
+    .infobar{
+      background:linear-gradient(180deg,#11161d,#0e131a);
+      border-top:1px solid var(--ow-line);
+      color:var(--ow-dim);
+    }
+    .infobar .inner{
+      max-width:var(--max); margin:0 auto; padding:14px 16px;
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+    }
+    .btn{
+      display:inline-flex; align-items:center; gap:10px;
+      padding:10px 12px; border-radius:12px; font-weight:800; border:1px solid #2b3240;
+      background:#1a2028; color:#fff; text-decoration:none; cursor:pointer;
+    }
+    .btn:hover{ transform: translateY(-1px) }
+
+    /* Bottom audio (play/pause only) */
+    .player{
+      position:fixed; left:0; right:0; bottom:0; height:var(--player-h);
+      display:flex; align-items:center; justify-content:center; gap:12px;
+      border-top:1px solid var(--ow-line);
+      background:linear-gradient(180deg,#12161d,#0e131a);
+      z-index:9998; box-shadow:0 -8px 24px rgba(0,0,0,.25);
+      padding:10px 16px;
+    }
+    .playbtn{
+      width:52px; height:52px; border-radius:14px; border:none;
+      background:linear-gradient(180deg,var(--ow-orange),var(--ow-orange-2)); color:#111;
+      font-weight:900; cursor:pointer; box-shadow:0 8px 20px rgba(249,165,26,.35);
+      display:flex; align-items:center; justify-content:center; font-size:18px;
+    }
+    .trackmeta{
+      color:#e8edf2; font-weight:800; max-width:70ch; text-align:center;
+      white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+    }
+    .tracksub{ font-size:12px; color:var(--ow-dim) }
+
+    /* Fullscreen adjustments */
+    :fullscreen .viewer{ height:100vh }
+    :fullscreen .player{ display:none } /* player hidden in FS to maximize space */
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <header class="nav">
+    <div class="nav__inner">
+      <div class="brand">
+        <div class="brand__logo" aria-hidden="true"></div>
+        <div class="brand__name">Overwatch: Zombies</div>
+      </div>
+      <label for="nav-toggle" class="nav__btn" aria-label="Open menu">
+        <svg class="nav__icon" viewBox="0 0 24 24" fill="currentColor"><path d="M3 6h18v2H3V6Zm0 5h18v2H3v-2Zm0 5h18v2H3v-2Z"/></svg>
+      </label>
+      <input type="checkbox" id="nav-toggle" class="nav__toggle" aria-hidden="true">
+      <nav class="nav__links" aria-label="Primary">
+        <a class="chip chip--gold" href="../index.html">Home</a>
+        <a class="chip chip--gold" href="../comics.html">Comics</a>
+        <a class="chip chip--gold" href="../mapcodes.html">Map Codes</a>
+        <a class="chip chip--gold" href="../wiki.html">Wiki</a>
+        <a class="chip chip--gold" href="../credits.html">Credits</a>
+        <a class="chip chip--gold" href="../radio.html">Survivor’s Radio</a>
+        <a class="chip chip--cta"  href="../Donations.html">Donations</a>
+      </nav>
+      <nav class="nav__panel" aria-label="Mobile menu">
+        <a class="chip chip--gold" href="../index.html"   onclick="document.getElementById('nav-toggle').checked=false">Home</a>
+        <a class="chip chip--gold" href="../comics.html"  onclick="document.getElementById('nav-toggle').checked=false">Comics</a>
+        <a class="chip chip--gold" href="../mapcodes.html"onclick="document.getElementById('nav-toggle').checked=false">Map Codes</a>
+        <a class="chip chip--gold" href="../wiki.html"    onclick="document.getElementById('nav-toggle').checked=false">Wiki</a>
+        <a class="chip chip--gold" href="../credits.html" onclick="document.getElementById('nav-toggle').checked=false">Credits</a>
+        <a class="chip chip--gold" href="../radio.html"   onclick="document.getElementById('nav-toggle').checked=false">Survivor’s Radio</a>
+        <a class="chip chip--cta"  href="../Donations.html" onclick="document.getElementById('nav-toggle').checked=false">Donations</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- VIEWER -->
+  <main class="viewer" id="viewer" aria-label="Comic viewer">
+    <!-- Current frame image -->
+    <img id="frame" class="frame" alt="Comic page">
+
+    <!-- Overlay UI -->
+    <div class="overlay">
+      <div class="counter" id="counter">1 / 6</div>
+      <button class="fsbtn" id="fsBtn" aria-label="Toggle fullscreen">⤢</button>
+      <div class="hint">Click / Space: next • Shift+Space / ←: previous • F: fullscreen</div>
+    </div>
+  </main>
+
+  <!-- INFO BAR (download / back) -->
+  <div class="infobar">
+    <div class="inner">
+      <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+        <a class="btn" href="../comics.html">← Back to Comics</a>
+        <span class="muted">Issue #1 — The First Signal</span>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <!-- Replace with your real files -->
+        <a class="btn" href="../downloads/issue-01.pdf">Download PDF</a>
+        <a class="btn" href="../downloads/issue-01.cbz">Download CBZ</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- BOTTOM PLAYER (play/pause only) -->
+  <div class="player" role="region" aria-label="Issue soundtrack">
+    <button class="playbtn" id="playBtn" aria-label="Play soundtrack">▶</button>
+    <div class="trackmeta">
+      Issue #1 Soundtrack
+      <div class="tracksub">“The First Signal” — Ambient/Tension</div>
+    </div>
+  </div>
+
+  <!-- Audio -->
+  <audio id="audio" preload="metadata" src="../audio/issue01-theme.mp3"></audio>
+
+  <script>
+    // ====== CONFIG ======
+    // Replace with your own images (keep order)
+    const PAGES = [
+      "issue-01-page-01.jpg",
+      "issue-01-page-02.jpg",
+      "issue-01-page-03.jpg",
+      "issue-01-page-04.jpg",
+      "issue-01-page-05.jpg",
+      "issue-01-page-06.jpg"
+    ].map(p => p); // paths are relative to this file
+
+    // ====== ELEMENTS ======
+    const viewer  = document.getElementById('viewer');
+    const frame   = document.getElementById('frame');
+    const counter = document.getElementById('counter');
+    const fsBtn   = document.getElementById('fsBtn');
+
+    // ====== STATE ======
+    let idx = 0;
+
+    // ====== HELPERS ======
+    function setFrame(i){
+      idx = Math.max(0, Math.min(i, PAGES.length-1));
+      frame.src = PAGES[idx];
+      counter.textContent = (idx+1) + " / " + PAGES.length;
+      history.replaceState(null, "", "#"+(idx+1)); // allows refresh to keep page
+    }
+    function next(){ if (idx < PAGES.length-1) setFrame(idx+1); }
+    function prev(){ if (idx > 0) setFrame(idx-1); }
+
+    function enterFS(){
+      if (document.fullscreenElement) return;
+      document.documentElement.requestFullscreen?.();
+    }
+    function exitFS(){ document.exitFullscreen?.(); }
+    function toggleFS(){ document.fullscreenElement ? exitFS() : enterFS(); }
+
+    // ====== INIT (deep-link by hash #pageNum) ======
+    const initial = Math.max(1, Math.min(PAGES.length, parseInt(location.hash.replace("#",""))||1)) - 1;
+    setFrame(initial);
+
+    // ====== EVENTS ======
+    // Click anywhere on the viewer to advance (left 1/3 = previous, right 2/3 = next)
+    viewer.addEventListener('click', (e)=>{
+      const x = e.clientX / viewer.clientWidth;
+      if (x < 0.33) prev(); else next();
+    });
+
+    // Keyboard: Space/Right = next, Shift+Space/Left = prev, F = fullscreen, Esc = exit
+    document.addEventListener('keydown', (e)=>{
+      if (['INPUT','TEXTAREA'].includes(document.activeElement.tagName)) return;
+      if (e.code === 'Space'){
+        e.preventDefault();
+        e.shiftKey ? prev() : next();
+      } else if (e.code === 'ArrowRight'){ next(); }
+      else if (e.code === 'ArrowLeft'){ prev(); }
+      else if (e.key.toLowerCase() === 'f'){ toggleFS(); }
+      else if (e.key === 'Escape'){ exitFS(); }
+    });
+
+    fsBtn.addEventListener('click', (e)=>{ e.stopPropagation(); toggleFS(); });
+
+    // Keep mobile menu sane when resizing up
+    window.addEventListener('resize', ()=>{
+      if (window.innerWidth > 920){
+        const cb = document.getElementById('nav-toggle');
+        if (cb) cb.checked = false;
+      }
+    });
+
+    // ====== AUDIO (play/pause only) ======
+    const audio   = document.getElementById('audio');
+    const playBtn = document.getElementById('playBtn');
+
+    // Persist volume lightly (optional)
+    const savedVol = parseFloat(localStorage.getItem('issue_vol')||'0.9');
+    audio.volume = Math.max(0, Math.min(savedVol,1));
+    audio.addEventListener('volumechange', ()=> localStorage.setItem('issue_vol', audio.volume.toFixed(2)));
+
+    function updatePlayUI(){
+      if (audio.paused){ playBtn.textContent = '▶'; playBtn.setAttribute('aria-label','Play soundtrack'); }
+      else{ playBtn.textContent = '⏸'; playBtn.setAttribute('aria-label','Pause soundtrack'); }
+    }
+    playBtn.addEventListener('click', ()=>{
+      audio.paused ? audio.play().catch(()=>{}) : audio.pause();
+    });
+    audio.addEventListener('play', updatePlayUI);
+    audio.addEventListener('pause', updatePlayUI);
+    audio.addEventListener('ended', ()=>{ audio.currentTime = 0; updatePlayUI(); });
+
+    // Optional keyboard shortcut: M toggles music
+    document.addEventListener('keydown', (e)=>{
+      if (['INPUT','TEXTAREA'].includes(document.activeElement.tagName)) return;
+      if (e.key.toLowerCase() === 'm'){ playBtn.click(); }
+    });
+
+    // If you want music to auto-start when entering fullscreen (optional):
+    // document.addEventListener('fullscreenchange', ()=> { if (document.fullscreenElement && audio.paused) audio.play().catch(()=>{}); });
+
+    // Preload the next image for snappier nav
+    function preloadNext(){
+      const n = idx + 1;
+      if (n < PAGES.length){
+        const img = new Image();
+        img.src = PAGES[n];
+      }
+    }
+    frame.addEventListener('load', preloadNext);
+  </script>
+</body>
+</html>

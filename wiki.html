@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <title>Wiki — Overwatch: Zombies</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" href="images/favicon.png" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Oxanium:wght@400;700&display=swap" rel="stylesheet">
   <style>
     :root{
@@ -66,8 +67,8 @@
     .chip{
       color:#fff; font-weight:700; padding:10px 14px; border-radius:999px;
       background:transparent; border:1px solid transparent;
-      transition:.2s transform ease, .2s background ease, .2s border-color ease;
-      text-decoration:none; white-space:nowrap;
+      transition: .2s transform ease, .22s background-color ease, .22s border-color ease;
+      text-decoration:none; white-space:nowrap; will-change: transform;
     }
     .chip:hover{transform:translateY(-1px)}
     .chip--gold{border-color:#2a2f39; background:linear-gradient(180deg,#1b212a,#151a22)}
@@ -78,7 +79,7 @@
     .nav__btn{
       display:none; width:42px;height:42px;border-radius:10px;border:1px solid #2b3240;
       background:linear-gradient(180deg,#1b212a,#151a22); color:#fff; align-items:center; justify-content:center;
-      cursor:pointer; transition:.2s transform ease;
+      cursor:pointer; transition:.2s transform ease; will-change: transform;
     }
     .nav__btn:hover{transform:translateY(-1px)}
     .nav__icon{width:22px;height:22px;display:block}
@@ -90,7 +91,8 @@
     .nav__panel .chip{display:block; text-align:center; margin:8px 0; padding:12px 16px; font-size:16px}
     .nav__toggle:checked ~ .nav__panel{display:block}
 
-    @media (max-width: 920px){
+    /* Breakpoint now 1100px */
+    @media (max-width: 1100px){
       .nav__links{display:none}
       .nav__btn{display:flex}
       .brand__name{font-size:15px}
@@ -103,20 +105,18 @@
     }
     section{padding: clamp(26px, 5vw, 50px) 0; border-bottom:1px solid var(--ow-line)}
 
-    /* Hero */
+    /* Hero: video with dark overlay for readability */
     .hero{
       position:relative; isolation:isolate; border-bottom:1px solid var(--ow-line);
-      background:
-        radial-gradient(60% 60% at 70% 10%, rgba(249,165,26,.08), transparent 60%),
-        radial-gradient(40% 40% at 10% 10%, rgba(0,167,224,.08), transparent 60%),
-        linear-gradient(180deg, var(--ow-dark-2), var(--ow-dark));
+      background: linear-gradient(180deg, var(--ow-dark-2), var(--ow-dark));
     }
-    .hero__bg{
-      position:absolute; inset:0; opacity:.12; pointer-events:none;
-      background: url('https://media.giphy.com/media/6FL4Fav7TAc8Kgrrxp/giphy.gif') center/cover no-repeat;
-      mix-blend: screen;
+    .hero__media{
+      position:absolute; inset:0; overflow:hidden; pointer-events:none;
+      filter: blur(1.5px) brightness(.65); /* darker + slight blur */
     }
+    .hero__media video, .hero__media img{width:100%; height:100%; object-fit:cover; display:block}
     .hero__content{
+      position:relative;
       padding: clamp(28px, 5vw, 72px);
       padding-left: 48px; padding-right: 48px;
       display: grid; gap: 18px;
@@ -144,7 +144,7 @@
       .wiki-layout{grid-template-columns: 260px 1fr;}
     }
     @media(max-width:1019px){
-      .toc{display:none} /* hides sticky TOC on narrow screens; links remain in hero */
+      .toc{display:none}
     }
 
     /* Cards / grids */
@@ -158,11 +158,15 @@
       border:1px solid var(--ow-line); border-radius:var(--radius);
       padding: clamp(18px,3vw,26px); box-shadow:var(--shadow);
     }
+
+    /* Pills */
     .pill{
       display:inline-flex; align-items:center; gap:8px;
       padding:6px 10px; border-radius:999px; font-size:12px; letter-spacing:.2px;
       border:1px solid #2b3240; color:#c6cdd6; background:#121721;
     }
+    .pill--btn{cursor:pointer; user-select:none; transition:.2s background-color ease, .2s border-color ease}
+    .pill--btn:hover{background:#18202a; border-color:#384353}
 
     /* Toolbar (search + quick filters) */
     .toolbar{
@@ -183,6 +187,17 @@
     summary{cursor:pointer; font-weight:800}
     summary::-webkit-details-marker{display:none}
     summary:focus{outline:2px solid #2b3240; border-radius:8px}
+
+    /* Buttons */
+    .btn{
+      display:inline-flex; align-items:center; gap:10px;
+      padding:12px 16px; border-radius:12px; font-weight:800; border:1px solid transparent;
+      background:#1a2028; color:#fff; text-decoration:none;
+      transition:.2s transform ease, .22s background-color ease, .22s box-shadow ease; will-change: transform;
+    }
+    .btn:hover{transform:translateY(-1px)}
+    .btn--primary{background:linear-gradient(180deg,var(--ow-orange),var(--ow-orange-2)); color:#111; box-shadow:0 8px 18px rgba(249,165,26,.28)}
+    .btn--ghost{border-color:#2c3340}
 
     footer{padding:40px 0; color:var(--ow-dim); text-align:center}
   </style>
@@ -210,26 +225,33 @@
         <a class="chip chip--gold" href="index.html">Home</a>
         <a class="chip chip--gold" href="comics.html">Comics</a>
         <a class="chip chip--gold" href="mapcodes.html">Map Codes</a>
+        <a class="chip chip--gold" href="survivor-radio.html">Survivor Radio</a>
         <a class="chip chip--gold" href="wiki.html">Wiki</a>
         <a class="chip chip--gold" href="credits.html">Credits</a>
-        <a class="chip chip--cta"  href="Donations.html">Donations</a>
+        <a class="chip chip--cta"  href="donations.html">Donations</a>
       </nav>
 
       <!-- Mobile panel -->
       <nav class="nav__panel" aria-label="Mobile menu">
-        <a class="chip chip--gold" href="index.html"     onclick="document.getElementById('nav-toggle').checked=false">Home</a>
-        <a class="chip chip--gold" href="comics.html"    onclick="document.getElementById('nav-toggle').checked=false">Comics</a>
-        <a class="chip chip--gold" href="mapcodes.html"  onclick="document.getElementById('nav-toggle').checked=false">Map Codes</a>
-        <a class="chip chip--gold" href="wiki.html"      onclick="document.getElementById('nav-toggle').checked=false">Wiki</a>
-        <a class="chip chip--gold" href="credits.html"   onclick="document.getElementById('nav-toggle').checked=false">Credits</a>
-        <a class="chip chip--cta"  href="Donations.html" onclick="document.getElementById('nav-toggle').checked=false">Donations</a>
+        <a class="chip chip--gold" href="index.html"           onclick="document.getElementById('nav-toggle').checked=false">Home</a>
+        <a class="chip chip--gold" href="comics.html"          onclick="document.getElementById('nav-toggle').checked=false">Comics</a>
+        <a class="chip chip--gold" href="mapcodes.html"        onclick="document.getElementById('nav-toggle').checked=false">Map Codes</a>
+        <a class="chip chip--gold" href="survivor-radio.html"  onclick="document.getElementById('nav-toggle').checked=false">Survivor Radio</a>
+        <a class="chip chip--gold" href="wiki.html"            onclick="document.getElementById('nav-toggle').checked=false">Wiki</a>
+        <a class="chip chip--gold" href="credits.html"         onclick="document.getElementById('nav-toggle').checked=false">Credits</a>
+        <a class="chip chip--cta"  href="donations.html"       onclick="document.getElementById('nav-toggle').checked=false">Donations</a>
       </nav>
     </div>
   </header>
 
   <!-- HERO -->
   <section class="hero">
-    <div class="hero__bg"></div>
+    <div class="hero__media" aria-hidden="true">
+      <!-- Replace sources/poster paths with your assets, or keep only the poster -->
+      <video autoplay muted loop playsinline poster="images/hero-poster.webp">
+        <source src="videos/hero.webm" type="video/webm">
+      </video>
+    </div>
     <div class="wrap hero__content">
       <div class="eyebrow"><span class="dot"></span> Documentation</div>
       <h1>Wiki</h1>
@@ -254,11 +276,11 @@
     <div class="wrap">
       <div class="toolbar">
         <input id="search" type="search" placeholder="Search the wiki… perks, bosses, zones, terms" aria-label="Search wiki">
-        <span class="pill" data-q="perks">Perks</span>
-        <span class="pill" data-q="boss">Bosses</span>
-        <span class="pill" data-q="weapon">Weapons</span>
-        <span class="pill" data-q="zone">Zones</span>
-        <span class="pill" data-q="code">Code</span>
+        <span class="pill pill--btn" data-q="perks">Perks</span>
+        <span class="pill pill--btn" data-q="boss">Bosses</span>
+        <span class="pill pill--btn" data-q="weapon">Weapons</span>
+        <span class="pill pill--btn" data-q="zone">Zones</span>
+        <span class="pill pill--btn" data-q="code">Code</span>
       </div>
     </div>
   </section>
@@ -280,8 +302,8 @@
         <small>Tip: use <strong>Ctrl/⌘+F</strong> to find anything fast.</small>
       </aside>
 
-      <!-- MAIN WIKI CONTENT -->
-      <div id="content">
+      <!-- MAIN WIKI CONTENT (now flex column with gap, no per-card margins) -->
+      <div id="content" style="display:flex;flex-direction:column;gap:var(--gap)">
 
         <!-- OVERVIEW -->
         <div id="overview" class="card" data-text="overview basics intro objective loop waves perks mystery box buy areas power connect">
@@ -298,7 +320,7 @@
         </div>
 
         <!-- GETTING STARTED -->
-        <div id="getting-started" class="card" style="margin-top:var(--gap)" data-text="getting started how to play controls buy interact revive ping team guide">
+        <div id="getting-started" class="card" data-text="getting started how to play controls buy interact revive ping team guide">
           <h2>Getting Started</h2>
           <ol style="margin:0;padding-left:18px">
             <li><strong>Load a code</strong> from <a href="mapcodes.html">Map Codes</a> and start a custom game.</li>
@@ -310,7 +332,7 @@
         </div>
 
         <!-- PERKS -->
-        <div id="perks" class="card" style="margin-top:var(--gap)" data-text="perks stamina juggernaut quick revive double tap cooldown mobility health damage utility">
+        <div id="perks" class="card" data-text="perks stamina juggernaut quick revive double tap cooldown mobility health damage utility">
           <h2>Perks</h2>
           <div class="grid">
             <div class="span-6">
@@ -345,7 +367,7 @@
         </div>
 
         <!-- WONDER WEAPONS -->
-        <div id="wonder-weapons" class="card" style="margin-top:var(--gap)" data-text="wonder weapon rare box legendary elemental crowd control burst aoe">
+        <div id="wonder-weapons" class="card" data-text="wonder weapon rare box legendary elemental crowd control burst aoe">
           <h2>Wonder Weapons</h2>
           <p class="muted">Rare pulls from the Mystery Box that redefine your kit: big crowd control, burst, or utility spikes. Save resources for perks before high‑rolling.</p>
           <ul style="margin:0;padding-left:18px">
@@ -356,7 +378,7 @@
         </div>
 
         <!-- ZONES -->
-        <div id="zones" class="card" style="margin-top:var(--gap)" data-text="zones maps routes buyable areas loops power relays teleporters doors">
+        <div id="zones" class="card" data-text="zones maps routes buyable areas loops power relays teleporters doors">
           <h2>Zones & Routes</h2>
           <div class="grid">
             <div class="span-6">
@@ -399,7 +421,7 @@
         </div>
 
         <!-- BOSSES -->
-        <div id="bosses" class="card" style="margin-top:var(--gap)" data-text="bosses mechanics phases telegraphs counters stagger dps check">
+        <div id="bosses" class="card" data-text="bosses mechanics phases telegraphs counters stagger dps check">
           <h2>Bosses</h2>
           <div class="grid">
             <div class="span-6">
@@ -426,7 +448,7 @@
         </div>
 
         <!-- FAQ -->
-        <div id="faq" class="card" style="margin-top:var(--gap)" data-text="faq questions bugs performance perks box codes difficulty">
+        <div id="faq" class="card" data-text="faq questions bugs performance perks box codes difficulty">
           <h2>FAQ</h2>
           <details open>
             <summary>Do donations unlock in‑game benefits?</summary>
@@ -443,7 +465,7 @@
         </div>
 
         <!-- CHANGELOG -->
-        <div id="changelog" class="card" style="margin-top:var(--gap)" data-text="changelog patch notes version balance fixes">
+        <div id="changelog" class="card" data-text="changelog patch notes version balance fixes">
           <h2>Changelog</h2>
           <details open>
             <summary>v0.7.8</summary>
@@ -474,9 +496,10 @@
         <a href="index.html">Home</a> •
         <a href="comics.html">Comics</a> •
         <a href="mapcodes.html">Map Codes</a> •
+        <a href="survivor-radio.html">Survivor Radio</a> •
         <a href="wiki.html">Wiki</a> •
         <a href="credits.html">Credits</a> •
-        <a href="Donations.html">Donations</a> •
+        <a href="donations.html">Donations</a> •
         <a href="about.html">About Me</a>
       </div>
     </div>
@@ -485,7 +508,7 @@
   <script>
     // Close mobile menu if resized to desktop
     window.addEventListener('resize', () => {
-      if (window.innerWidth > 920) {
+      if (window.innerWidth > 1100) {
         const cb = document.getElementById('nav-toggle');
         if (cb) cb.checked = false;
       }
@@ -494,7 +517,7 @@
     // Year in footer
     document.getElementById('y').textContent = new Date().getFullYear();
 
-    // Simple search/filter: hides cards that don't match
+    // Simple search/filter: hides cards that don't match (uses text + data-text)
     const search = document.getElementById('search');
     const contentEl = document.getElementById('content');
     const filterable = Array.from(contentEl.querySelectorAll('.card'));
@@ -506,14 +529,14 @@
       });
     }
     search.addEventListener('input', applyFilter);
-    document.querySelectorAll('.toolbar .pill[data-q]').forEach(p => {
+    document.querySelectorAll('.toolbar .pill--btn[data-q]').forEach(p => {
       p.addEventListener('click', () => {
         search.value = p.getAttribute('data-q');
         applyFilter();
       });
     });
 
-    // Smooth anchor scrolling (nice touch, still works without)
+    // Smooth anchor scrolling
     document.querySelectorAll('a[href^="#"]').forEach(a => {
       a.addEventListener('click', (e) => {
         const id = a.getAttribute('href').slice(1);

@@ -66,8 +66,9 @@
     .chip{
       color:#fff; font-weight:700; padding:10px 14px; border-radius:999px;
       background:transparent; border:1px solid transparent;
-      transition:.2s transform ease, .2s background ease, .2s border-color ease;
+      transition: background .25s ease, border-color .25s ease, transform .2s ease;
       text-decoration:none; white-space:nowrap;
+      will-change: transform;
     }
     .chip:hover{transform:translateY(-1px)}
     .chip--gold{border-color:#2a2f39; background:linear-gradient(180deg,#1b212a,#151a22)}
@@ -78,7 +79,7 @@
     .nav__btn{
       display:none; width:42px;height:42px;border-radius:10px;border:1px solid #2b3240;
       background:linear-gradient(180deg,#1b212a,#151a22); color:#fff; align-items:center; justify-content:center;
-      cursor:pointer; transition:.2s transform ease;
+      cursor:pointer; transition:.2s transform ease; will-change: transform;
     }
     .nav__btn:hover{transform:translateY(-1px)}
     .nav__icon{width:22px;height:22px;display:block}
@@ -90,7 +91,8 @@
     .nav__panel .chip{display:block; text-align:center; margin:8px 0; padding:12px 16px; font-size:16px}
     .nav__toggle:checked ~ .nav__panel{display:block}
 
-    @media (max-width: 920px){
+    /* New breakpoint at 1100px */
+    @media (max-width: 1100px){
       .nav__links{display:none}
       .nav__btn{display:flex}
       .brand__name{font-size:15px}
@@ -103,23 +105,23 @@
     }
     section{padding: clamp(26px, 5vw, 50px) 0; border-bottom:1px solid var(--ow-line)}
 
-    /* Hero banner */
+    /* Hero banner (video, not GIF) */
     .hero{
       position:relative; isolation:isolate; border-bottom:1px solid var(--ow-line);
-      background:
-        radial-gradient(60% 60% at 70% 10%, rgba(249,165,26,.08), transparent 60%),
-        radial-gradient(40% 40% at 10% 10%, rgba(0,167,224,.08), transparent 60%),
-        linear-gradient(180deg, var(--ow-dark-2), var(--ow-dark));
+      background: linear-gradient(180deg, var(--ow-dark-2), var(--ow-dark));
     }
-    .hero__bg{
-      position:absolute; inset:0; opacity:.12; pointer-events:none;
-      background: url('https://media.giphy.com/media/6FL4Fav7TAc8Kgrrxp/giphy.gif') center/cover no-repeat;
-      mix-blend: screen;
+    .hero__bgVid{
+      position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:.35; filter:blur(0.6px) brightness(.9);
+      z-index:-1;
     }
+    .hero__overlay{position:absolute; inset:0; background: radial-gradient(60% 60% at 70% 10%, rgba(249,165,26,.10), transparent 60%), radial-gradient(40% 40% at 10% 10%, rgba(0,167,224,.10), transparent 60%);}
     .hero__content{
       padding: clamp(28px, 5vw, 72px);
       padding-left: 48px; padding-right: 48px;
       display: grid; gap: 18px;
+    }
+    @media (prefers-reduced-motion: reduce){
+      .hero__bgVid{display:none}
     }
     .eyebrow{display:inline-flex; align-items:center; gap:8px; font-weight:800; text-transform:uppercase; font-size:12px; color:var(--ow-dim)}
     .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--ow-orange)}
@@ -167,10 +169,17 @@
     .btn{
       display:inline-flex; align-items:center; gap:10px;
       padding:12px 16px; border-radius:12px; font-weight:800; border:1px solid transparent;
-      background:#1a2028; color:#fff; text-decoration:none; transition:.2s transform ease, .2s background ease, .2s box-shadow ease;
+      background:#1a2028; color:#fff; text-decoration:none;
+      transition: transform .2s ease, box-shadow .2s ease, background-position .3s ease, background-color .2s ease;
+      will-change: transform;
+      cursor: pointer;
+      background-size:200% 100%; background-position:0% 0%;
     }
-    .btn:hover{transform:translateY(-1px)}
-    .btn--primary{background:linear-gradient(180deg,var(--ow-orange),var(--ow-orange-2)); color:#111; box-shadow:0 8px 18px rgba(249,165,26,.28)}
+    .btn:hover{transform:translateY(-1px); background-position:100% 0%}
+    .btn--primary{
+      background-image: linear-gradient(90deg,var(--ow-orange),var(--ow-orange-2));
+      color:#111; box-shadow:0 8px 18px rgba(249,165,26,.28)
+    }
     .btn--ghost{border-color:#2c3340}
 
     /* Toast */
@@ -183,6 +192,7 @@
       z-index:999999;
     }
     .toast.show{opacity:1; transform:translateX(-50%) translateY(-4px)}
+
     footer{padding:40px 0; color:var(--ow-dim); text-align:center}
   </style>
 </head>
@@ -210,25 +220,31 @@
         <a class="chip chip--gold" href="comics.html">Comics</a>
         <a class="chip chip--gold" href="mapcodes.html">Map Codes</a>
         <a class="chip chip--gold" href="wiki.html">Wiki</a>
+        <a class="chip chip--gold" href="survivor-radio.html">Survivor Radio</a>
         <a class="chip chip--gold" href="credits.html">Credits</a>
-        <a class="chip chip--cta"  href="Donations.html">Donations</a>
+        <a class="chip chip--cta"  href="donations.html">Donations</a>
       </nav>
 
       <!-- Mobile panel -->
       <nav class="nav__panel" aria-label="Mobile menu">
-        <a class="chip chip--gold" href="index.html"     onclick="document.getElementById('nav-toggle').checked=false">Home</a>
-        <a class="chip chip--gold" href="comics.html"    onclick="document.getElementById('nav-toggle').checked=false">Comics</a>
-        <a class="chip chip--gold" href="mapcodes.html"  onclick="document.getElementById('nav-toggle').checked=false">Map Codes</a>
-        <a class="chip chip--gold" href="wiki.html"      onclick="document.getElementById('nav-toggle').checked=false">Wiki</a>
-        <a class="chip chip--gold" href="credits.html"   onclick="document.getElementById('nav-toggle').checked=false">Credits</a>
-        <a class="chip chip--cta"  href="Donations.html" onclick="document.getElementById('nav-toggle').checked=false">Donations</a>
+        <a class="chip chip--gold" href="index.html"          onclick="document.getElementById('nav-toggle').checked=false">Home</a>
+        <a class="chip chip--gold" href="comics.html"         onclick="document.getElementById('nav-toggle').checked=false">Comics</a>
+        <a class="chip chip--gold" href="mapcodes.html"       onclick="document.getElementById('nav-toggle').checked=false">Map Codes</a>
+        <a class="chip chip--gold" href="wiki.html"           onclick="document.getElementById('nav-toggle').checked=false">Wiki</a>
+        <a class="chip chip--gold" href="survivor-radio.html" onclick="document.getElementById('nav-toggle').checked=false">Survivor Radio</a>
+        <a class="chip chip--gold" href="credits.html"        onclick="document.getElementById('nav-toggle').checked=false">Credits</a>
+        <a class="chip chip--cta"  href="donations.html"      onclick="document.getElementById('nav-toggle').checked=false">Donations</a>
       </nav>
     </div>
   </header>
 
   <!-- HERO -->
-  <section class="hero">
-    <div class="hero__bg"></div>
+  <section class="hero" aria-label="Hero">
+    <video class="hero__bgVid" autoplay muted loop playsinline poster="images/hero-poster.jpg">
+      <source src="media/hero-loop.webm" type="video/webm">
+      <source src="media/hero-loop.mp4" type="video/mp4">
+    </video>
+    <div class="hero__overlay" aria-hidden="true"></div>
     <div class="wrap hero__content">
       <div class="eyebrow"><span class="dot"></span> Play the Mode</div>
       <h1>Map Codes</h1>
@@ -270,7 +286,7 @@
             </div>
             <p class="muted">City core with fast rotations, power relays, and mid‑tier wave density. Great for new squads learning perks.</p>
             <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px">
-              <button class="btn btn--primary" data-copy="ZB-URBN-778">Copy Code</button>
+              <button class="btn btn--primary" data-copy="ZB-URBN-778" aria-label="Copy code ZB-URBN-778">Copy Code</button>
               <a class="btn btn--ghost" href="https://workshop.codes/ZBWIKI" target="_blank" rel="noopener">Wiki</a>
             </div>
           </div>
@@ -291,7 +307,7 @@
             </div>
             <p class="muted">Tight corridors, corrupted nodes, and unpredictable wave spikes. Bring a coordinated team.</p>
             <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px">
-              <button class="btn btn--primary" data-copy="ZB-TMPL-778">Copy Code</button>
+              <button class="btn btn--primary" data-copy="ZB-TMPL-778" aria-label="Copy code ZB-TMPL-778">Copy Code</button>
               <a class="btn btn--ghost" href="https://workshop.codes/ZBWIKI" target="_blank" rel="noopener">Wiki</a>
             </div>
           </div>
@@ -312,7 +328,7 @@
             </div>
             <p class="muted">Open sightlines and generous buyable areas. Strong starter map for perk/weapon flow.</p>
             <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px">
-              <button class="btn btn--primary" data-copy="ZB-DOCK-778">Copy Code</button>
+              <button class="btn btn--primary" data-copy="ZB-DOCK-778" aria-label="Copy code ZB-DOCK-778">Copy Code</button>
               <a class="btn btn--ghost" href="https://workshop.codes/ZBWIKI" target="_blank" rel="noopener">Wiki</a>
             </div>
           </div>
@@ -333,7 +349,7 @@
             </div>
             <p class="muted">Vertical lanes, teleporter doors, and scaling elite variants. For squads chasing leaderboards.</p>
             <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px">
-              <button class="btn btn--primary" data-copy="ZB-ARCO-778">Copy Code</button>
+              <button class="btn btn--primary" data-copy="ZB-ARCO-778" aria-label="Copy code ZB-ARCO-778">Copy Code</button>
               <a class="btn btn--ghost" href="https://workshop.codes/ZBWIKI" target="_blank" rel="noopener">Wiki</a>
             </div>
           </div>
@@ -355,17 +371,18 @@
         <a href="comics.html">Comics</a> •
         <a href="mapcodes.html">Map Codes</a> •
         <a href="wiki.html">Wiki</a> •
+        <a href="survivor-radio.html">Survivor Radio</a> •
         <a href="credits.html">Credits</a> •
-        <a href="Donations.html">Donations</a> •
+        <a href="donations.html">Donations</a> •
         <a href="about.html">About Me</a>
       </div>
     </div>
   </footer>
 
   <script>
-    // Close mobile menu if resized to desktop
+    // Close mobile menu if resized to desktop (new 1100 breakpoint)
     window.addEventListener('resize', () => {
-      if (window.innerWidth > 920) {
+      if (window.innerWidth > 1100) {
         const cb = document.getElementById('nav-toggle');
         if (cb) cb.checked = false;
       }
@@ -397,7 +414,7 @@
       });
     });
 
-    // Dumb client-side filter (visual only)
+    // Simple search filter (visual only)
     const search = document.getElementById('search');
     const cards = Array.from(document.querySelectorAll('#cards .card'));
     function applyFilter() {
@@ -409,14 +426,11 @@
     }
     search.addEventListener('input', applyFilter);
 
+    // Tag pills
     document.querySelectorAll('.pill[data-filter]').forEach(p => {
       p.addEventListener('click', () => {
         const f = p.getAttribute('data-filter');
-        if (f === 'all') {
-          search.value = '';
-        } else {
-          search.value = f;
-        }
+        search.value = (f === 'all') ? '' : f;
         applyFilter();
       });
     });

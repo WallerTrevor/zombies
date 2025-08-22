@@ -4,7 +4,11 @@
   <meta charset="UTF-8" />
   <title>Donations — Overwatch: Zombies</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Oxanium:wght@400;700&display=swap" rel="stylesheet">
+  <!-- Favicon (put a favicon.ico or .png in your repo root) -->
+  <link rel="icon" href="favicon.ico" />
+
   <style>
     :root{
       --ow-orange:#f9a51a;
@@ -49,6 +53,7 @@
       backdrop-filter: blur(10px);
       background: linear-gradient(180deg, rgba(15,18,22,.75), rgba(15,18,22,.45));
       border-bottom:1px solid var(--ow-line);
+      -webkit-backface-visibility:hidden; backface-visibility:hidden;
     }
     .nav__inner{
       width:100%; max-width:var(--max); padding:0 16px;
@@ -66,21 +71,27 @@
     .chip{
       color:#fff; font-weight:700; padding:10px 14px; border-radius:999px;
       background:transparent; border:1px solid transparent;
-      transition:.2s transform ease, .2s background ease, .2s border-color ease;
+      transition: background .25s ease, border-color .25s ease, box-shadow .25s ease;
       text-decoration:none; white-space:nowrap;
+      will-change: background, box-shadow;
+      cursor:pointer;
     }
-    .chip:hover{transform:translateY(-1px)}
+    .chip:hover{box-shadow:0 6px 16px rgba(0,0,0,.25)}
     .chip--gold{border-color:#2a2f39; background:linear-gradient(180deg,#1b212a,#151a22)}
     .chip--gold:hover{border-color:#3a414e; background:linear-gradient(180deg,#202735,#161c25)}
-    .chip--cta{background:linear-gradient(180deg,var(--ow-orange),var(--ow-orange-2)); color:#111; box-shadow:0 8px 20px rgba(249,165,26,.35)}
+    .chip--cta{
+      background:linear-gradient(180deg,var(--ow-orange),var(--ow-orange-2)); color:#111;
+      box-shadow:0 8px 20px rgba(249,165,26,.35)
+    }
 
     .nav__toggle{display:none}
     .nav__btn{
       display:none; width:42px;height:42px;border-radius:10px;border:1px solid #2b3240;
       background:linear-gradient(180deg,#1b212a,#151a22); color:#fff; align-items:center; justify-content:center;
-      cursor:pointer; transition:.2s transform ease;
+      cursor:pointer; transition: box-shadow .2s ease;
+      will-change: box-shadow;
     }
-    .nav__btn:hover{transform:translateY(-1px)}
+    .nav__btn:hover{box-shadow:0 6px 16px rgba(0,0,0,.25)}
     .nav__icon{width:22px;height:22px;display:block}
     .nav__panel{
       display:none; position:fixed; top:var(--nav-h); left:0; right:0;
@@ -90,7 +101,8 @@
     .nav__panel .chip{display:block; text-align:center; margin:8px 0; padding:12px 16px; font-size:16px}
     .nav__toggle:checked ~ .nav__panel{display:block}
 
-    @media (max-width: 920px){
+    /* Increase breakpoint to 1100px per your request */
+    @media (max-width: 1100px){
       .nav__links{display:none}
       .nav__btn{display:flex}
       .brand__name{font-size:15px}
@@ -103,20 +115,24 @@
     }
     section{padding: clamp(26px, 5vw, 50px) 0; border-bottom:1px solid var(--ow-line)}
 
-    /* Hero banner */
+    /* Hero banner: video (no heavy GIF), with dark + blur overlay for legibility */
     .hero{
       position:relative; isolation:isolate; border-bottom:1px solid var(--ow-line);
-      background:
-        radial-gradient(60% 60% at 70% 10%, rgba(249,165,26,.08), transparent 60%),
-        radial-gradient(40% 40% at 10% 10%, rgba(0,167,224,.08), transparent 60%),
-        linear-gradient(180deg, var(--ow-dark-2), var(--ow-dark));
+      background:linear-gradient(180deg, var(--ow-dark-2), var(--ow-dark));
+      overflow:hidden;
     }
-    .hero__bg{
-      position:absolute; inset:0; opacity:.12; pointer-events:none;
-      background: url('https://media.giphy.com/media/6FL4Fav7TAc8Kgrrxp/giphy.gif') center/cover no-repeat;
-      mix-blend: screen;
+    .hero__video{
+      position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:.55; filter: blur(2px);
+      /* Place a lightweight looped video at /media/hero.webm (and mp4 fallback) */
+    }
+    .hero__bgTint{
+      position:absolute; inset:0; background:
+        radial-gradient(60% 60% at 70% 10%, rgba(249,165,26,.10), transparent 60%),
+        radial-gradient(40% 40% at 10% 10%, rgba(0,167,224,.10), transparent 60%);
+      pointer-events:none;
     }
     .hero__content{
+      position:relative;
       padding: clamp(28px, 5vw, 72px);
       padding-left: 48px; padding-right: 48px;
       display: grid; gap: 18px;
@@ -136,19 +152,29 @@
       padding: clamp(18px,3vw,26px); box-shadow:var(--shadow);
     }
 
+    /* Buttons — no transform-jank; animate background & shadow instead */
     .btn{
       display:inline-flex; align-items:center; gap:10px;
       padding:12px 16px; border-radius:12px; font-weight:800; border:1px solid transparent;
-      background:#1a2028; color:#fff; text-decoration:none; transition:.2s transform ease, .2s background ease, .2s box-shadow ease;
+      background:#1a2028; color:#fff; text-decoration:none;
+      transition: background-position .25s ease, box-shadow .25s ease, border-color .25s ease;
+      background-image:linear-gradient(180deg, rgba(255,255,255,0), rgba(255,255,255,0));
+      background-size:200% 200%; background-position:50% 0%;
+      will-change: background-position, box-shadow;
+      cursor:pointer;
     }
-    .btn:hover{transform:translateY(-1px)}
-    .btn--primary{background:linear-gradient(180deg,var(--ow-orange),var(--ow-orange-2)); color:#111; box-shadow:0 8px 18px rgba(249,165,26,.28)}
+    .btn:hover{box-shadow:0 8px 18px rgba(0,0,0,.28); background-position:50% 100%}
+    .btn--primary{
+      background-image: linear-gradient(180deg,var(--ow-orange),var(--ow-orange-2));
+      color:#111;
+    }
     .btn--ghost{border-color:#2c3340}
 
     .pill{
       display:inline-flex; align-items:center; gap:8px;
       padding:6px 10px; border-radius:999px; font-size:12px; letter-spacing:.2px;
       border:1px solid #2b3240; color:#c6cdd6; background:#121721;
+      /* informational only here; no pointer cursor to avoid misleading interactivity */
     }
 
     /* Toast */
@@ -189,25 +215,33 @@
         <a class="chip chip--gold" href="comics.html">Comics</a>
         <a class="chip chip--gold" href="mapcodes.html">Map Codes</a>
         <a class="chip chip--gold" href="wiki.html">Wiki</a>
+        <a class="chip chip--gold" href="survivor-radio.html">Survivor Radio</a>
         <a class="chip chip--gold" href="credits.html">Credits</a>
-        <a class="chip chip--cta"  href="Donations.html">Donations</a>
+        <a class="chip chip--cta"  href="donations.html">Donations</a>
       </nav>
 
       <!-- Mobile panel -->
       <nav class="nav__panel" aria-label="Mobile menu">
-        <a class="chip chip--gold" href="index.html"     onclick="document.getElementById('nav-toggle').checked=false">Home</a>
-        <a class="chip chip--gold" href="comics.html"    onclick="document.getElementById('nav-toggle').checked=false">Comics</a>
-        <a class="chip chip--gold" href="mapcodes.html"  onclick="document.getElementById('nav-toggle').checked=false">Map Codes</a>
-        <a class="chip chip--gold" href="wiki.html"      onclick="document.getElementById('nav-toggle').checked=false">Wiki</a>
-        <a class="chip chip--gold" href="credits.html"   onclick="document.getElementById('nav-toggle').checked=false">Credits</a>
-        <a class="chip chip--cta"  href="Donations.html" onclick="document.getElementById('nav-toggle').checked=false">Donations</a>
+        <a class="chip chip--gold" href="index.html"           onclick="document.getElementById('nav-toggle').checked=false">Home</a>
+        <a class="chip chip--gold" href="comics.html"          onclick="document.getElementById('nav-toggle').checked=false">Comics</a>
+        <a class="chip chip--gold" href="mapcodes.html"        onclick="document.getElementById('nav-toggle').checked=false">Map Codes</a>
+        <a class="chip chip--gold" href="wiki.html"            onclick="document.getElementById('nav-toggle').checked=false">Wiki</a>
+        <a class="chip chip--gold" href="survivor-radio.html"  onclick="document.getElementById('nav-toggle').checked=false">Survivor Radio</a>
+        <a class="chip chip--gold" href="credits.html"         onclick="document.getElementById('nav-toggle').checked=false">Credits</a>
+        <a class="chip chip--cta"  href="donations.html"       onclick="document.getElementById('nav-toggle').checked=false">Donations</a>
       </nav>
     </div>
   </header>
 
   <!-- HERO -->
   <section class="hero">
-    <div class="hero__bg"></div>
+    <!-- Lightweight self-hosted video (add these files to your repo; falls back gracefully if missing) -->
+    <video class="hero__video" autoplay muted loop playsinline poster="media/hero-poster.webp">
+      <source src="media/hero.webm" type="video/webm" />
+      <source src="media/hero.mp4"  type="video/mp4" />
+    </video>
+    <div class="hero__bgTint"></div>
+
     <div class="wrap hero__content">
       <div class="eyebrow"><span class="dot"></span> Support Development</div>
       <h1>Donations</h1>
@@ -217,10 +251,8 @@
         Donations don’t grant in‑game perks or advantages.
       </p>
       <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:6px">
-        <!-- TODO: replace with your real links -->
-        <a class="btn btn--primary" href="https://paypal.me/yourname" target="_blank" rel="noopener">Donate via PayPal</a>
-        <a class="btn" href="https://ko-fi.com/yourname" target="_blank" rel="noopener">Ko‑fi</a>
-        <a class="btn" href="https://github.com/sponsors/yourname" target="_blank" rel="noopener">GitHub Sponsors</a>
+        <a class="btn btn--primary" href="https://paypal.me/trevorw1998">Donate via PayPal</a>
+        <a class="btn" href="https://patreon.com/Mightydog">Patreon</a>
       </div>
     </div>
   </section>
@@ -263,9 +295,7 @@
           <h3>One‑Time</h3>
           <p class="muted">Perfect for a quick “thanks” after a great session.</p>
           <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px">
-            <!-- TODO: replace with your real links -->
-            <a class="btn btn--primary" href="https://paypal.me/yourname" target="_blank" rel="noopener">PayPal</a>
-            <a class="btn" href="https://ko-fi.com/yourname" target="_blank" rel="noopener">Ko‑fi</a>
+            <a class="btn btn--primary" href="https://paypal.me/trevorw1998">PayPal</a>
           </div>
         </div>
 
@@ -273,19 +303,18 @@
           <h3>Monthly</h3>
           <p class="muted">Help stabilize development time and hosting with a recurring contribution.</p>
           <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px">
-            <!-- TODO: replace with your real link -->
-            <a class="btn btn--primary" href="https://github.com/sponsors/yourname" target="_blank" rel="noopener">GitHub Sponsors</a>
+            <a class="btn btn--primary" href="https://patreon.com/Mightydog">Patreon</a>
           </div>
         </div>
 
-        <div class="card span-12">
+        <div class="card span-12" id="contact">
           <h3>Direct via Email</h3>
           <p class="muted">
             Prefer to coordinate directly? Email me and we’ll sort it out:
             <code id="donation-email">trey123we13@gmail.com</code>
           </p>
           <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px">
-            <button class="btn" id="copy-email">Copy Email</button>
+            <button class="btn" id="copy-email" type="button">Copy Email</button>
             <a class="btn btn--ghost" href="mailto:trey123we13@gmail.com">Open Mail</a>
           </div>
         </div>
@@ -344,17 +373,18 @@
         <a href="comics.html">Comics</a> •
         <a href="mapcodes.html">Map Codes</a> •
         <a href="wiki.html">Wiki</a> •
+        <a href="survivor-radio.html">Survivor Radio</a> •
         <a href="credits.html">Credits</a> •
-        <a href="Donations.html">Donations</a> •
+        <a href="donations.html">Donations</a> •
         <a href="about.html">About Me</a>
       </div>
     </div>
   </footer>
 
   <script>
-    // Close mobile menu if resized to desktop
+    // Close mobile menu if resized to desktop (updated breakpoint 1100px)
     window.addEventListener('resize', () => {
-      if (window.innerWidth > 920) {
+      if (window.innerWidth > 1100) {
         const cb = document.getElementById('nav-toggle');
         if (cb) cb.checked = false;
       }
@@ -370,18 +400,21 @@
       toast.classList.add('show');
       setTimeout(() => toast.classList.remove('show'), 1400);
     }
-    document.getElementById('copy-email').addEventListener('click', async () => {
-      const email = document.getElementById('donation-email').textContent.trim();
-      try {
-        await navigator.clipboard.writeText(email);
-        showToast(`Copied: ${email}`);
-      } catch {
-        const ta = document.createElement('textarea');
-        ta.value = email; document.body.appendChild(ta);
-        ta.select(); document.execCommand('copy'); ta.remove();
-        showToast(`Copied: ${email}`);
-      }
-    });
+    const copyBtn = document.getElementById('copy-email');
+    if (copyBtn) {
+      copyBtn.addEventListener('click', async () => {
+        const email = document.getElementById('donation-email').textContent.trim();
+        try {
+          await navigator.clipboard.writeText(email);
+          showToast(`Copied: ${email}`);
+        } catch {
+          const ta = document.createElement('textarea');
+          ta.value = email; document.body.appendChild(ta);
+          ta.select(); document.execCommand('copy'); ta.remove();
+          showToast(`Copied: ${email}`);
+        }
+      });
+    }
   </script>
 </body>
 </html>
