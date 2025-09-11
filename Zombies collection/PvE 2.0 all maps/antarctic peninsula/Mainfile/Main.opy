@@ -122,6 +122,7 @@ globalvar j 121
 #!define heroBuyMessTimer extraPlayerVar[16]
 #!define cameratoggle extraPlayerVar[17]
 #!define ToggleEdit extraPlayerVar[18]
+#!define doorNotif extraPlayerVar[19]
 
 playervar points 0
 playervar magazines 3
@@ -193,6 +194,7 @@ subroutine DecompressString 12
 subroutine totalrandomspawn 13
 subroutine wavevoicecall 14
 subroutine setbotamount 15
+subroutine getoutofspawn 16
 #Activated extensions
 
 #!extension beamEffects

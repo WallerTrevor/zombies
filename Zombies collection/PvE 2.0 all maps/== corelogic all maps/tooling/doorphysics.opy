@@ -26,13 +26,17 @@ rule "Initial Player":
 rule "Collision Logic":
     @Event eachPlayer
     @Team 1
-    @Condition eventPlayer.hasSpawned() == true
-    @Disabled
-
+    @Condition eventPlayer.isAlive() == true
+    @Condition start == 1
+    
     eventPlayer.lastsavedpos = (eventPlayer.getEyePosition() + eventPlayer.getPosition()) / 2
-    wait(getAverageServerLoad() / 255 * (0.34 - 0.032) + 0.032)
+    wait(getAverageServerLoad() / 255 * (0.34 - 0.032) - 90.032)
+    #wait()
     eventPlayer.closestwall = [player for player, i in AllPos if distance(AllPos[i], eventPlayer) <= distance(AllPos[i], firstpos[i]) or eventPlayer.active_wall[i] == 1 or dotProduct(directionTowards(player, eventPlayer.lastsavedpos), AllDir[i]) > 0 != (dotProduct(directionTowards(player, eventPlayer), AllDir[i]) > 0)]
     for eventPlayer.x_ in range(len(eventPlayer.closestwall)):
+        if Wall_ID[z] == 0:
+            eventPlayer.active_wall[z] = 0
+            eventPlayer.setMoveSpeed(100) #needs to use gamemode wide movement speed, when player gets perks
         z = AllPos.index(eventPlayer.closestwall[eventPlayer.x_])
         if Wall_ID[z] == 1 or Wall_ID[z] == 3 or Wall_ID[z] == 5:
             if firstpos[z].y >= eventPlayer.getPosition().y and firstpos[z].y <= (eventPlayer.getEyePosition() + vect([], 0.2, [])).y:
@@ -64,13 +68,27 @@ rule "Collision Logic":
                         eventPlayer.disableEnvironmentCollision(false)
                 if Wall_ID[z] == 1:
                     eventPlayer.applyImpulse(directionTowards(eventPlayer.filterpos, eventPlayer.fullbodypos) * vect(1, [], 1), 1, Relativity.TO_WORLD, Impulse.CANCEL_CONTRARY_MOTION)
+                    if eventPlayer.doorNotif == 0:
+                        eventPlayer.doorNotif = 1
+                    if eventPlayer.isHoldingButton(Button.INTERACT) and eventPlayer.points >= 1000:
+                        eventPlayer.points -= 1000
+                        Wall_ID[z] = 0
+                        eventPlayer.active_wall[z] = 0
+                        smallMessage(eventPlayer, "  Door bought!")
+                        eventPlayer.doorNotif = 0
+                        destroyEffect(doors[z + z])
+                        destroyEffect(doors[z + z + 1])
+                        chaseAtRate(eventPlayer.points2, (evalOnce(eventPlayer.points) + 0) * eventPlayer.H, 1000)
+                        wait()
+                        eventPlayer.setMoveSpeed(100)
                     eventPlayer.setMoveSpeed(100 - ((dotProduct(directionTowards(eventPlayer.getEyePosition(), eventPlayer.getEyePosition() + worldVector(eventPlayer.getThrottle(), eventPlayer, Transform.ROTATION)), directionTowards(eventPlayer.filterpos, eventPlayer.fullbodypos) * -1)) * 100))
                 elif Wall_ID[z] == 3:
                     eventPlayer.applyImpulse(directionTowards(eventPlayer.filterpos, eventPlayer.fullbodypos), eventPlayer.getSpeed() + eventPlayer.getSpeed(), Relativity.TO_WORLD, Impulse.CANCEL_CONTRARY_MOTION)
             else:
                 eventPlayer.active_wall[z] = 0
                 eventPlayer.setMoveSpeed(100) #needs to use gamemode wide movement speed, when player gets perks
-    loop()
+    if ruleCondition:
+        loop()
 
 
 rule "Reset":
@@ -81,16 +99,16 @@ rule "Reset":
 
 
 rule "all the door effects loop (need to figure out how to manage which doors were bought and unload zones not currently in)":
-    @Condition start == 1
-    
+
     #needs to have 3 zones with the map.
     #if impulseDoorArray[appenddoorsequencer] == false:
     #create effect starting at 0 - 1
     i = 0
+    wait(10)
     for i in range(len(doorVectors) * 4):  # 4 vectors per door
         createBeam(getPlayers(Team.1), Beam.JUNKRAT_TRAP_CHAIN, Beameffectdoors[evalOnce(dooreffectsequencer)], Beameffectdoors[evalOnce(dooreffectsequencer + 1)], Color.RED, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
         # wait(1)
-        # doors[appenddoorsequencer].append(getLastCreatedEntity())        #append to allow the game to delete for later
+        doors[appenddoorsequencer].append(getLastCreatedEntity())        #append to allow the game to delete for later
         loopwait(i, 3)
         dooreffectsequencer += 2  # move to the next pair for the next chain
         appenddoorsequencer += 1        #the doors index itself, counted by 1 whole, while the door contains 2 effects. need to optimize so door is compatible with 1 and 2 effects with a toggle.
@@ -109,20 +127,31 @@ rule "Make door arrays":
         Beameffectdoors.append(doorVectors[i] + (directionFromAngles(doorParams[looping + 2] - 90, 0) * doorParams[looping]))  # bottom right
         if doorParams[looping + 3] == 0: #if boolean is false, then use infinite height
             firstpos.append(doorVectors[i]) #bottom left, but this is for the collision logic
-            secondpos.append(doorVectors[i] + (directionFromAngles(doorParams[looping + 2] - 90, 0) * doorParams[looping])) # use correct params for direction and length
-            firstpoint2.append(doorVectors[i] + Vector.UP * 1000)
-            secondpoint2.append(doorVectors[i] + (directionFromAngles(doorParams[looping + 2] - 90, 0) * doorParams[looping]) + Vector.UP * 1000)
-            AllPos.append((firstpos[i] + secondpos[i]) / 2)
-            AllDir.append(directionFromAngles(doorParams[looping + 2] - 90, 0))
+            secondpos.append(doorVectors[i] + (directionFromAngles(doorParams[looping + 2] - 90, 0) * doorParams[looping]) + (Vector.UP * 50))  # top right point
+            firstpoint2.append(doorVectors[i] + Vector.UP * 50) # top left point, but use infinite height
+            secondpoint2.append(doorVectors[i] + (directionFromAngles(doorParams[looping + 2] - 90, 0) * doorParams[looping]) + Vector.UP * 100) # bottom right point, but use infinite height
+            AllPos.append((firstpos[i] + secondpos[i]) / 2) # the center position of the door for collision logic
+            AllDir.append(directionFromAngles(doorParams[looping + 2] + 180, 0)) #the direction the door is facing for collision logic
         elif doorParams[looping + 3] == 1: #if boolean is true, then use height params
-            firstpos.append(doorVectors[i])
+            firstpos.append(doorVectors[i]) #bottom left
             secondpos.append(doorVectors[i] + (directionFromAngles(doorParams[looping + 2] - 90, 0) * doorParams[looping + 4]) + (Vector.UP * doorParams[looping + 5]))  # top right point
             firstpoint2.append(doorVectors[i] + (Vector.UP * doorParams[looping + 5]))  # top left point
             secondpoint2.append(doorVectors[i] + (directionFromAngles(doorParams[looping + 2] - 90, 0) * doorParams[looping + 4]))  # bottom right point
-            AllPos.append((firstpos[i] + secondpos[i]) / 2)
-            AllDir.append(directionFromAngles(doorParams[looping + 2] - 90, 0))
+            AllPos.append((firstpos[i] + secondpos[i]) / 2) #center position of the door for collision logic
+            AllDir.append(directionFromAngles(doorParams[looping + 2] + 180, 0)) #the direction the door is facing for collision logic
         if doorParams[looping + 3] == 1:
             looping += 6
         else:
             looping += 4
         i += 1
+
+rule "Reset door notif":
+    @Event eachPlayer
+    @Condition eventPlayer.doorNotif == 1
+
+    smallMessage(eventPlayer, "  Hold {0} to buy door - cost: 1000".format(inputBindingString(Button.INTERACT)))
+    wait(4)
+    eventPlayer.doorNotif = 0
+    wait(0.5)
+    if ruleCondition:
+        loop()

@@ -200,6 +200,210 @@
     .btn--ghost{border-color:#2c3340}
 
     footer{padding:40px 0; color:var(--ow-dim); text-align:center}
+  /* ===== HERO BUTTONS / ICON GRID: fully responsive, no overlap ===== */
+  .hb__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(56px, 1fr));
+    gap: 10px;
+    width: 100%;
+  }
+
+  .hb__element {
+    display: grid;
+    place-items: center;
+    width: 100%;
+    aspect-ratio: 1 / 1;               /* perfect squares */
+    margin: 0;
+    padding: 0 !important;
+    border-radius: 10px;
+    overflow: hidden;                   /* no spill */
+    background: #131820;
+    border: 1px solid #232a34;
+    contain: content;                   /* safer transforms */
+  }
+
+  .hb__element img {
+    width: 44px;
+    height: 44px;
+    object-fit: cover;
+    border-radius: 8px !important;
+  }
+
+  .hb__element:hover {                  /* lighter hover scale */
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(0,0,0,.22);
+  }
+
+  .item__description .tabs__item--active {
+    transform: none;                    /* no big jump when active */
+    box-shadow: 0 0 0 2px #d55b16 inset;
+    z-index: 1;
+  }
+
+  /* Content area that shows the selected hero details */
+  .hb__content {
+    display: block;
+    width: 100%;
+    border-radius: 14px;
+    background: #1f2326;
+    box-shadow:
+      0 2px 1px rgba(0, 0, 0, .1),
+      0 4px 2px rgba(0, 0, 0, .1),
+      0 8px 4px rgba(0, 0, 0, .1);
+    overflow: clip;
+  }
+
+  /* If you embed iframes in tabs, keep them fluid */
+  .hb__content .tabs-content iframe {
+    width: 100%;
+    height: min(72vh, 760px);
+    border: 0;
+  }
+
+  /* Orientation tweaks no longer hard-code column counts;
+    keep them, but let auto-fit handle most layouts */
+  @media (orientation: landscape) {
+    .hb--responsive .hb__body {
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: row !important;
+      row-gap: 20px;
+    }
+    .hb--responsive .hb__body > *:first-child {
+      margin-right: .5rem !important;
+      margin-bottom: 0 !important;
+    }
+  }
+
+  @media (orientation: portrait) {
+    .hb--responsive .hb__body {
+      flex-direction: column !important;
+      row-gap: 16px;
+    }
+  }
+
+  /* Buttons: better hover perf + natural background animation */
+  .chip, .btn, .nav__btn {
+    will-change: transform;
+    transition:
+      transform .20s ease,
+      background-color .22s ease,
+      border-color .22s ease,
+      box-shadow .22s ease;
+  }
+  .chip:hover, .btn:hover, .nav__btn:hover {
+    transform: translateY(-1px);
+  }
+
+  /* Pills that look clickable should be clickable */
+  .pill, .pill--btn { cursor: pointer; }
+
+  /* Wiki content column uses gap (not per-card margins) – if not already */
+  #content { display: flex; flex-direction: column; gap: var(--gap); }
+
+  /* Sticky TOC remains, but ensure no overlap on narrower desktops */
+  @media (min-width: 1020px) {
+    .wiki-layout { grid-template-columns: 280px 1fr; }
+  }
+  
+  /* --- HERO DIRECTORY --- */
+  .hero-dir {
+    display:grid;
+    gap:22px;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 1020px){
+    .hero-dir{ grid-template-columns: 340px 1fr; }
+  }
+
+  .hero-dir__list {
+    background: linear-gradient(180deg,#11161d,#0e131a);
+    border:1px solid #232a34;
+    border-radius:16px; box-shadow:0 8px 30px rgba(0,0,0,.35);
+    padding:14px;
+  }
+  .hero-dir__search {
+    display:flex; gap:10px; margin-bottom:12px; flex-wrap:wrap;
+  }
+  .hero-dir__search input[type="search"]{
+    flex:1 1 160px; min-width:150px;
+    background:#0f141b; border:1px solid #2b3240; color:#e8edf2;
+    border-radius:10px; padding:10px 12px; outline:none;
+  }
+
+  /* hero pill grid */
+  .hero-grid {
+    display:grid;
+    gap:10px;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  }
+
+  .hero-pill {
+    display:flex; align-items:center; gap:10px;
+    border:1px solid #2b3240; border-radius:12px;
+    background:#121721; padding:8px 10px;
+    cursor:pointer; user-select:none; text-align:left;
+    transition:.2s background-color ease, .2s border-color ease, .2s transform ease;
+    will-change: transform;
+  }
+  .hero-pill:hover{ background:#18202a; border-color:#384353; transform: translateY(-1px); }
+  .hero-pill__icon{
+    width:28px; height:28px; border-radius:50%;
+    background:#0f141b; display:grid; place-items:center; font-size:12px; color:#9aa3ad;
+    flex:0 0 28px; overflow:hidden;
+  }
+  .hero-pill__name{
+    font-weight:700; color:#e8edf2; font-size:14px; line-height:1.2;
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+  }
+
+  /* detail panel */
+  .hero-dir__detail {
+    background: linear-gradient(180deg,#12161d,#0f141b);
+    border:1px solid #232a34;
+    border-radius:16px; box-shadow:0 8px 30px rgba(0,0,0,.35);
+    padding: clamp(16px, 2.2vw, 24px);
+  }
+  .hero-head{
+    display:flex; align-items:center; gap:14px; margin-bottom:12px; flex-wrap:wrap;
+  }
+  .hero-head__icon{
+    width:48px; height:48px; border-radius:50%; background:#0f141b; display:grid; place-items:center;
+    font-size:14px; color:#9aa3ad; overflow:hidden;
+  }
+  .hero-head__name{ font-family:Oxanium, Inter, sans-serif; font-size:22px; margin:0; }
+  .muted{ color:#9aa3ad }
+
+  /* stat/table blocks */
+  .stat-cards{
+    display:grid; gap:12px; grid-template-columns:repeat(12,1fr); margin-top:12px;
+  }
+  .stat-card{
+    grid-column: span 12;
+    background:#10151d; border:1px solid #2b3240; border-radius:12px; padding:12px;
+  }
+  @media (min-width:720px){
+    .stat-card.span-6{ grid-column: span 6; }
+  }
+  .stat-card h4{ margin:0 0 8px; font-size:15px }
+  .kv{
+    display:grid; grid-template-columns: 1fr auto; gap:6px; align-items:center;
+    font-size:14px; padding:6px 0; border-bottom:1px dashed #2b3240;
+  }
+  .kv:last-child{ border-bottom:0 }
+  .kv b{ color:#e8edf2 }
+  .kv code{ color:#d6dee7; background:#0f141b; padding:2px 6px; border-radius:8px; border:1px solid #2b3240 }
+
+  /* chips */
+  .pill{ display:inline-flex; align-items:center; gap:8px;
+    padding:6px 10px; border-radius:999px; font-size:12px; letter-spacing:.2px;
+    border:1px solid #2b3240; color:#c6cdd6; background:#121721; }
+
+  /* reduce-motion nicety */
+  @media (prefers-reduced-motion: reduce){
+    .hero-pill:hover{ transform:none }
+  }
+
   </style>
 </head>
 <body>
@@ -331,40 +535,171 @@
           </ol>
         </div>
 
-        <!-- PERKS -->
-        <div id="perks" class="card" data-text="perks stamina juggernaut quick revive double tap cooldown mobility health damage utility">
-          <h2>Perks</h2>
-          <div class="grid">
-            <div class="span-6">
-              <details open>
-                <summary>Juggernaut — Survivability</summary>
-                <p class="muted">Increases effective health and stagger resistance. Ideal first pick for new squads.</p>
-              </details>
-              <details>
-                <summary>Quick Revive — Support</summary>
-                <p class="muted">Faster revive channel and brief DR after successful revives.</p>
-              </details>
-              <details>
-                <summary>Double Tap — Damage</summary>
-                <p class="muted">Boosts primary damage and select abilities. Synergizes with high‑rate heroes.</p>
-              </details>
-            </div>
-            <div class="span-6">
-              <details>
-                <summary>Stamina — Mobility</summary>
-                <p class="muted">Sprint/speed bonuses and reduced slow effects for kiting.</p>
-              </details>
-              <details>
-                <summary>Utility Perk — Tech</summary>
-                <p class="muted">Cooldown reduction and interaction speed ups (box/doors).</p>
-              </details>
-              <details>
-                <summary>Specialist — Build‑dependent</summary>
-                <p class="muted">Unique synergies for specific heroes (when applicable).</p>
-              </details>
-            </div>
-          </div>
-        </div>
+<h3 id="perk-expansion" style="margin-top:8px">Perk Details (Tiers)</h3>
+<div class="card" style="overflow:auto">
+  <table style="width:100%; border-collapse:collapse">
+    <thead>
+      <tr>
+        <th style="text-align:left; padding:8px; border-bottom:1px solid var(--ow-line)">Perk</th>
+        <th style="text-align:left; padding:8px; border-bottom:1px solid var(--ow-line)">Base Effect</th>
+        <th style="text-align:left; padding:8px; border-bottom:1px solid var(--ow-line)">Tier Bonuses (max T3)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="padding:8px">Juggernaut</td>
+        <td style="padding:8px">Gain double health</td>
+        <td style="padding:8px">+25 temp HP after 10s no damage per tier</td>
+      </tr>
+      <tr>
+        <td style="padding:8px">Sprint Burst</td>
+        <td style="padding:8px">Stronger sprint when hit by enemy</td>
+        <td style="padding:8px">+2.5% MS + extra 5% on hit per tier</td>
+      </tr>
+      <tr>
+        <td style="padding:8px">Healing Dealt & Regen</td>
+        <td style="padding:8px">Greatly increases healing dealt</td>
+        <td style="padding:8px">Regen delay −20% per tier</td>
+      </tr>
+      <tr>
+        <td style="padding:8px">Double-Mag</td>
+        <td style="padding:8px">Reloading consumes ½ a magazine</td>
+        <td style="padding:8px">10% (T1) → 30% (T3) chance reload uses no ammo</td>
+      </tr>
+      <tr>
+        <td style="padding:8px">Quick Revive</td>
+        <td style="padding:8px">Self-revive in solo; faster revives in co-op</td>
+        <td style="padding:8px">Stacks in solo; revive time −15% per tier</td>
+      </tr>
+      <tr>
+        <td style="padding:8px">Headshot Maniac</td>
+        <td style="padding:8px">HS ramp up damage; body shots ramp down</td>
+        <td style="padding:8px">Higher ceiling & floor per tier</td>
+      </tr>
+      <tr>
+        <td style="padding:8px">Pack-a-Punch</td>
+        <td style="padding:8px">Unlocks extra abilities + bonus damage</td>
+        <td style="padding:8px">+100% extra damage per tier (show HUD badge)</td>
+      </tr>
+      <tr>
+        <td style="padding:8px">Electric Cherry</td>
+        <td style="padding:8px">Shock AoE on reload</td>
+        <td style="padding:8px">+30% radius per tier</td>
+      </tr>
+      <tr>
+        <td style="padding:8px">Bandolier Bandit</td>
+        <td style="padding:8px">Increased ammo stock</td>
+        <td style="padding:8px">More stock per tier</td>
+      </tr>
+      <tr>
+        <td style="padding:8px">PHD Flopper</td>
+        <td style="padding:8px">Fall-damage slam explodes for high damage</td>
+        <td style="padding:8px">Higher damage per tier</td>
+      </tr>
+      <tr>
+        <td style="padding:8px">Follower’s Enchantment</td>
+        <td style="padding:8px">Follower swaps heroes every 60s</td>
+        <td style="padding:8px">−10s per tier</td>
+      </tr>
+      <tr>
+        <td style="padding:8px">Second Wind</td>
+        <td style="padding:8px">Temp HP regen burst on elimination</td>
+        <td style="padding:8px">Faster regen per tier</td>
+      </tr>
+      <tr>
+        <td style="padding:8px">Banker’s Luck</td>
+        <td style="padding:8px">Each round: −5% to +15% points delta</td>
+        <td style="padding:8px">+2.5% to the positive bound per tier</td>
+      </tr>
+      <tr>
+        <td style="padding:8px">Pack Rat</td>
+        <td style="padding:8px">Increase max monkey grenades</td>
+        <td style="padding:8px">+1 per tier</td>
+      </tr>
+      <tr>
+        <td style="padding:8px">Ultimate Stacker</td>
+        <td style="padding:8px">Hold multiple ult charges</td>
+        <td style="padding:8px">+1 charge per tier</td>
+      </tr>
+      <tr>
+        <td style="padding:8px">Bullet Broker</td>
+        <td style="padding:8px">Reload spends points instead of ammo</td>
+        <td style="padding:8px">−100 points cost per tier</td>
+      </tr>
+      <tr>
+        <td style="padding:8px">Time Warden</td>
+        <td style="padding:8px">1×/round: hold interact 3s to slow time 10s</td>
+        <td style="padding:8px">+2s duration per tier; lower CD</td>
+      </tr>
+      <tr>
+        <td style="padding:8px">Space Warden</td>
+        <td style="padding:8px">Hold interact 3s to random-teleport ≤40m</td>
+        <td style="padding:8px">Lower cooldown per tier</td>
+      </tr>
+      <tr>
+        <td style="padding:8px">Glass Cannon</td>
+        <td style="padding:8px">Half max HP; increased damage +5% MS</td>
+        <td style="padding:8px">More damage +2% MS per tier</td>
+      </tr>
+      <tr>
+        <td style="padding:8px">Insta Reload</td>
+        <td style="padding:8px">Instantly refills clip on reload</td>
+        <td style="padding:8px">Also refills HP bar; +25 points per tier</td>
+      </tr>
+      <tr>
+        <td style="padding:8px">Pack Leader</td>
+        <td style="padding:8px">Buff ally damage at your expense</td>
+        <td style="padding:8px">Higher ally buff per tier</td>
+      </tr>
+      <tr>
+        <td style="padding:8px">Slow ’n Steady</td>
+        <td style="padding:8px">−10% MS; melee stuns longer</td>
+        <td style="padding:8px">−2.5% MS for +0.5s stun per tier</td>
+      </tr>
+      <tr>
+        <td style="padding:8px">Door Man</td>
+        <td style="padding:8px">Doors 10% cheaper</td>
+        <td style="padding:8px">Then +25%, then +50%</td>
+      </tr>
+      <tr>
+        <td style="padding:8px">Mystery Man</td>
+        <td style="padding:8px">Box won’t teleport once (consumes perk)</td>
+        <td style="padding:8px">+1 non-teleport use per tier (lose a tier each use)</td>
+      </tr>
+      <tr>
+        <td style="padding:8px">Twisted Cowboy</td>
+        <td style="padding:8px">Body shots cause weak explosions</td>
+        <td style="padding:8px">Explosion damage ↑ per tier</td>
+      </tr>
+      <tr>
+        <td style="padding:8px">Omnic Technician</td>
+        <td style="padding:8px">Shows next zombie type</td>
+        <td style="padding:8px">More intel (e.g., HP) per tier</td>
+      </tr>
+      <tr>
+        <td style="padding:8px">Speed Runner</td>
+        <td style="padding:8px">2× movement speed between rounds</td>
+        <td style="padding:8px">+50% per tier</td>
+      </tr>
+      <tr>
+        <td style="padding:8px">Biker’s Tequila</td>
+        <td style="padding:8px">Summon a bike; run over zombies</td>
+        <td style="padding:8px">Bike HP ↑ + 50% more dmg per tier</td>
+      </tr>
+      <tr>
+        <td style="padding:8px">Faulty Augment</td>
+        <td style="padding:8px">Replace HP with decaying overhealth (start 25 +25 per final blow)</td>
+        <td style="padding:8px">+10 per final blow per tier</td>
+      </tr>
+      <tr>
+        <td style="padding:8px">Fairy Exchange</td>
+        <td style="padding:8px">Ride follower’s shoulder; insta-kill for 10s (60s CD)</td>
+        <td style="padding:8px">+5s duration per tier</td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="muted" style="margin-top:10px">All perks are one-time purchases unless the player dies. Max tier is 3.</p>
+</div>
 
         <!-- WONDER WEAPONS -->
         <div id="wonder-weapons" class="card" data-text="wonder weapon rare box legendary elemental crowd control burst aoe">
@@ -376,6 +711,51 @@
             <li><strong>Tuning:</strong> Expect iteration; check the <a href="#changelog">Changelog</a> for balance notes.</li>
           </ul>
         </div>
+  <section id="heroes" class="wrap">
+    <h2>Survivor Changes</h2>
+    <p class="muted">Every hero has Zombies-specific tuning plus a unique <strong>Pack-A-Punch</strong> upgrade. Use the search or pick a hero.</p>
+
+    <div class="hero-dir">
+      <!-- LEFT: hero list -->
+      <aside class="hero-dir__list">
+        <div class="hero-dir__search">
+          <input id="heroSearch" type="search" placeholder="Search heroes…">
+          <span class="pill">DPS & Supports start at 100 HP • Tanks 150 HP</span>
+        </div>
+
+        <div id="heroGrid" class="hero-grid" aria-live="polite"></div>
+      </aside>
+
+      <!-- RIGHT: hero details -->
+      <article class="hero-dir__detail" id="heroDetail" aria-live="polite">
+        <div class="hero-head">
+          <div class="hero-head__icon" id="heroIcon">OW</div>
+          <h3 class="hero-head__name" id="heroName">Select a hero</h3>
+        </div>
+
+        <div class="stat-cards">
+          <div class="stat-card span-6">
+            <h4>Core Tweaks</h4>
+            <div id="coreTweaks">
+              <div class="kv"><b>—</b><code>—</code></div>
+            </div>
+          </div>
+
+          <div class="stat-card span-6">
+            <h4>Pack-A-Punch</h4>
+            <div id="papTweaks">
+              <div class="kv"><b>—</b><code>—</code></div>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <h4>Notes</h4>
+            <p id="heroNotes" class="muted">Tip: pack-a-punch unlocks extra power per hero; find the bench to upgrade.</p>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
 
         <!-- ZONES -->
         <div id="zones" class="card" data-text="zones maps routes buyable areas loops power relays teleporters doors">
@@ -548,6 +928,441 @@
         }
       });
     });
-  </script>
+    /* Minimal icon initials — swap with images if you want */
+    const iconFor = (name) => (name.split(' ').map(w => w[0]).join('').slice(0,2)).toUpperCase();
+
+    /* Data assembled from your settings + notes; extend freely.
+      Units are shown exactly as provided (%, cooldown wording, etc.). */
+    const HEROES = [
+      // ---- General note (applies to all) ----
+      { name:"All Heroes", role:"all",
+        core: [
+          ["Starting HP", "DPS/Support 100 • Tank 150"]
+        ],
+        pap: [
+          ["Pack-A-Punch", "Unlocks extra ability and bonus damage (varies by hero)"]
+        ],
+        notes: "Global baselines for Zombies mode."
+      },
+
+      // ---- Support examples from your settings & table ----
+      { name:"Ana", role:"support",
+        core: [
+          ["Damage Dealt", "300%"],
+          ["Biotic Grenade Cooldown", "50%"],
+          ["Sleep Dart Cooldown", "0%"]
+        ],
+        pap: [
+          ["Nano Boost", "Gives target teammate insta-kill (PAP)"]
+        ]
+      },
+      { name:"Baptiste", role:"support",
+        core: [
+          ["Damage Dealt","160%"],
+          ["Healing Dealt","150%"],
+          ["Regenerative Burst Cooldown","25%"],
+          ["Clip Size Scalar","50%"]
+        ],
+        pap: [
+          ["Regenerative Burst","Also grants extra temporary HP to self"]
+        ]
+      },
+      { name:"Brigitte", role:"support",
+        core: [
+          ["Healing Dealt","40%"],
+          ["Barrier Shield Cooldown","50%"],
+          ["Repair Pack Cooldown","50%"],
+          ["Shield Bash Cooldown","50%"]
+        ],
+        pap: [
+          ["Rally (Ult)","1.5× larger aura + +1000 temp HP; Shield Bash knocks down"]
+        ]
+      },
+      { name:"Kiriko", role:"support",
+        core: [
+          ["Damage Dealt","150%"]
+        ],
+        pap: [
+          ["Kitsune Rush","Enemies slow inside your rush field"]
+        ]
+      },
+      { name:"Lúcio", role:"support",
+        core: [
+          ["Healing Dealt","250%"]
+        ],
+        pap: [
+          ["Sound Barrier","All enemies in radius are rooted on cast"]
+        ]
+      },
+      { name:"Moira", role:"support",
+        core: [
+          ["Healing Dealt","150%"],
+          ["Damage Dealt","150%"],
+          ["Fade Cooldown","200%"],
+          ["Biotic Orb Cooldown","25%"],
+          ["Health","50%"]
+        ],
+        pap: [
+          ["—","(design TBD)"]
+        ]
+      },
+      { name:"Zenyatta", role:"support",
+        core: [
+          ["Damage Dealt","150%"],
+          ["Healing Dealt","150%"]
+        ],
+        pap: [
+          ["—","(design TBD)"]
+        ]
+      },
+
+      // ---- Damage from settings/table ----
+      { name:"Ashe", role:"damage",
+        core: [
+          ["Damage Dealt","125%"],
+          ["Coach Gun Cooldown","35%"],
+          ["Dynamite Cooldown","50%"]
+        ],
+        pap: [
+          ["Headshots","Apply burn damage"]
+        ]
+      },
+      { name:"Cassidy", role:"damage",
+        core: [
+          ["Combat Roll Cooldown","35%"],
+          ["Flashbang Cooldown","15%"],
+          ["Notes","Roll refills half a magazine"]
+        ],
+        pap: [
+          ["Rounds","Explosive rounds"],
+          ["Deadeye","Low gravity if you jump right before using it"]
+        ],
+        notes: "Starting hero — weaker early, huge payoff when PAP’d."
+      },
+      { name:"Echo", role:"damage",
+        core: [
+          ["Focusing Beam Cooldown","50%"],
+          ["Flight Cooldown","500%"]
+        ],
+        pap: [
+          ["Volley","Explosive volley shoots homing rockets"]
+        ]
+      },
+      { name:"Genji", role:"damage",
+        core: [
+          ["Damage Dealt","40%"]
+        ],
+        pap: [
+          ["Dragonblade","Sword swipes launch fire strikes"]
+        ]
+      },
+      { name:"Hanzo", role:"damage",
+        core: [
+          ["Damage Dealt","300%"],
+          ["Sonic Arrow Cooldown","50%"],
+          ["Storm Arrows Cooldown","50%"],
+          ["Storm Arrows Quantity","6"]
+        ],
+        pap: [
+          ["Storm Arrows","Knock enemies down ~8s"]
+        ]
+      },
+      { name:"Junkrat", role:"damage",
+        core: [
+          ["Damage Dealt","250%"],
+          ["Concussion Mine Cooldown","50%"],
+          ["Steel Trap Cooldown","25%"],
+          ["Concussion/Frag Knockback","25%"],
+          ["Ult Duration","25%"]
+        ],
+        pap: [
+          ["RIP-Tire","User is phased (invuln) during ult"],
+          ["Explosives","~4× blast radius"]
+        ]
+      },
+      { name:"Mei", role:"damage",
+        core: [
+          ["Damage Dealt","500%"],
+          ["Clip Size Scalar","300%"],
+          ["Cryo-Freeze Cooldown","75%"],
+          ["Ice Wall Cooldown","25%"],
+          ["Freeze Stacking","Enabled"],
+          ["Health","40%"],
+          ["Min Freeze","100%"]
+        ],
+        pap: [
+          ["—","(design TBD)"]
+        ]
+      },
+      { name:"Pharah", role:"damage",
+        core: [
+          ["Damage Dealt","250%"],
+          ["Clip Size Scalar","200%"],
+          ["Concussive Blast Cooldown","50%"],
+          ["Hover Charge Rate","5%"],
+          ["Jump Jet Cooldown","300%"]
+        ],
+        pap: [
+          ["—","(design TBD)"]
+        ]
+      },
+      { name:"Reaper", role:"damage",
+        core: [
+          ["Shadow Step Cooldown","50%"]
+        ],
+        pap: [
+          ["—","(design TBD)"]
+        ]
+      },
+      { name:"Soldier: 76", role:"damage",
+        core: [
+          ["Clip Size Scalar","82%"]
+        ],
+        pap: [
+          ["—","(design TBD)"]
+        ]
+      },
+      { name:"Sombra", role:"damage",
+        core: [
+          ["Clip Size Scalar","150%"],
+          ["Damage Dealt","200%–250% (team variants)"],
+          ["Hack Cooldown","25%"],
+          ["Translocator Cooldown","75%"],
+          ["Virus Cooldown","300%"],
+          ["Projectile Speed","10%"]
+        ],
+        pap: [
+          ["—","(design TBD)"]
+        ]
+      },
+      { name:"Symmetra", role:"damage",
+        core: [
+          ["Damage Dealt","70%"],
+          ["Sentry Turret Cooldown","200%"]
+        ],
+        pap: [
+          ["—","(design TBD)"]
+        ]
+      },
+      { name:"Torbjörn", role:"damage",
+        core: [
+          ["Damage Dealt","70%"],
+          ["Deploy Turret Cooldown","25%"],
+          ["Overload Cooldown","40%"],
+          ["Ult Gen (Molten Core)","220%"]
+        ],
+        pap: [
+          ["Molten Core","Super-stacking lava output (design expand)"]
+        ]
+      },
+      { name:"Tracer", role:"damage",
+        core: [
+          ["Damage Dealt","260%"],
+          ["Health","67%"]
+        ],
+        pap: [
+          ["—","(design TBD)"]
+        ]
+      },
+      { name:"Widowmaker", role:"damage",
+        core: [
+          ["Damage Dealt","500%"],
+          ["Grappling Hook Cooldown","35%"],
+          ["Health","58%"],
+          ["Venom Mine Cooldown","0%"]
+        ],
+        pap: [
+          ["—","(design TBD)"]
+        ]
+      },
+
+      // ---- Tanks from settings/table ----
+      { name:"D.Va", role:"tank",
+        core: [
+          ["Health","26% (team 1) / 26% (team 2 mech)"],
+          ["Boosters Cooldown","200%"],
+          ["Self-Destruct","Disabled (Team 1 Ult)"],
+          ["Notes","Gains an ability shield after using ‘shield’ ability (design note)"]
+        ],
+        pap: [
+          ["Micro Missiles","Fires big rockets that deal massive damage"],
+          ["Deploy","+100 HP when deploying shield"]
+        ]
+      },
+      { name:"Doomfist", role:"tank",
+        core: [
+          ["Damage Dealt","60%"],
+          ["Health","40% (team1) / 250% (team2)"],
+          ["No Ammo Requirement","On"],
+          ["Power Block/Rocket Punch/Seismic Slam CD","50%"]
+        ],
+        pap: [
+          ["Seismic Slam","Knocks down enemies"]
+        ]
+      },
+      { name:"Junker Queen", role:"tank",
+        core: [
+          ["Health","50%"],
+          ["Healing Received","50%"],
+          ["Projectile Speed","15%"]
+        ],
+        pap: [
+          ["Jagged Blade / Axe","Axe swing roots enemies ~4s"]
+        ]
+      },
+      { name:"Orisa", role:"tank",
+        core: [
+          ["Damage Dealt","20%"],
+          ["Health","32%–34%"],
+          ["Javelin Spin CD","25%"],
+          ["Energy Javelin/Fortify CD","50% / 75%"],
+          ["Projectile Speed","10%"]
+        ],
+        pap: [
+          ["—","(design TBD)"]
+        ]
+      },
+      { name:"Ramattra", role:"tank",
+        core: [
+          ["Health","40%–50%"],
+          ["Nemesis Form CD","0%"],
+          ["Healing Received","50%"]
+        ],
+        pap: [
+          ["—","(design TBD)"]
+        ]
+      },
+      { name:"Reinhardt", role:"tank",
+        core: [
+          ["Health","27%–25%"],
+          ["Damage Dealt","65%"],
+          ["Charge CD","50%"],
+          ["Fire Strike CD","10%"],
+          ["Barrier Field Recharge","300%"],
+          ["Earthshatter Gen","165% (+combat variants)"]
+        ],
+        pap: [
+          ["—","(design TBD)"]
+        ]
+      },
+      { name:"Roadhog", role:"tank",
+        core: [
+          ["Health","23%–20%"],
+          ["Damage Dealt","105% (team1) / 50% (team2)"],
+          ["Chain Hook CD","0%"],
+          ["Healing Received","33%"]
+        ],
+        pap: [
+          ["—","(design TBD)"]
+        ]
+      },
+      { name:"Sigma", role:"tank",
+        core: [
+          ["Health","32%–38%"],
+          ["Damage Dealt","420%"],
+          ["Accretion Knockback","300% (CD 25% team2)"],
+          ["Barrier: CD / Recharge","0% / 300%"],
+          ["Kinetic Grasp CD","0% (team2)"]
+        ],
+        pap: [
+          ["—","(design TBD)"]
+        ]
+      },
+      { name:"Winston", role:"tank",
+        core: [
+          ["Health","32%–10%"],
+          ["Damage Dealt","70%"],
+          ["Barrier Projector","20% CD (team1) / Disabled (team2)"],
+          ["Jump Vertical Speed","80%"],
+          ["Ult Duration","500% (team2)"]
+        ],
+        pap: [
+          ["—","(design TBD)"]
+        ]
+      },
+      { name:"Wrecking Ball", role:"tank",
+        core: [
+          ["Health","24%–25%"],
+          ["Damage Dealt","200%"],
+          ["Grappling Claw CD","250%"],
+          ["Healing Received","50%"],
+          ["Movement Speed","50% (team2)"]
+        ],
+        pap: [
+          ["—","(design TBD)"]
+        ]
+      },
+      { name:"Zarya", role:"tank",
+        core: [
+          ["Health","38%"],
+          ["Damage Dealt","420%"],
+          ["Clip Size Scalar","200%"],
+          ["Particle / Projected Barrier CD","40% / 40%"],
+          ["Spawn with Ultimate","Enabled (team1)"]
+        ],
+        pap: [
+          ["—","(design TBD)"]
+        ]
+      }
+    ];
+
+    /* ---- UI wiring ---- */
+    const grid = document.getElementById('heroGrid');
+    const detail = {
+      icon:  document.getElementById('heroIcon'),
+      name:  document.getElementById('heroName'),
+      core:  document.getElementById('coreTweaks'),
+      pap:   document.getElementById('papTweaks'),
+      notes: document.getElementById('heroNotes')
+    };
+
+    function renderList(list){
+      grid.innerHTML = '';
+      list.forEach(h=>{
+        const item = document.createElement('button');
+        item.className = 'hero-pill';
+        item.type = 'button';
+        item.setAttribute('data-name', h.name);
+
+        const icon = document.createElement('div');
+        icon.className = 'hero-pill__icon';
+        icon.textContent = iconFor(h.name);
+
+        const label = document.createElement('div');
+        label.className = 'hero-pill__name';
+        label.textContent = h.name;
+
+        item.appendChild(icon);
+        item.appendChild(label);
+        item.addEventListener('click', ()=> showHero(h.name));
+        grid.appendChild(item);
+      });
+    }
+
+    function rowsFrom(arr){
+      if(!arr || !arr.length){ return '<div class="kv"><b>—</b><code>—</code></div>'; }
+      return arr.map(([k,v]) => `<div class="kv"><b>${k}</b><code>${v}</code></div>`).join('');
+    }
+
+    function showHero(name){
+      const h = HEROES.find(x=>x.name===name);
+      if(!h) return;
+      detail.icon.textContent = iconFor(h.name);
+      detail.name.textContent = h.name;
+      detail.core.innerHTML = rowsFrom(h.core);
+      detail.pap.innerHTML  = rowsFrom(h.pap);
+      detail.notes.textContent = h.notes || '—';
+    }
+
+    const search = document.getElementById('heroSearch');
+    search.addEventListener('input', e=>{
+      const q = e.target.value.trim().toLowerCase();
+      const list = !q ? HEROES : HEROES.filter(h=>h.name.toLowerCase().includes(q) || (h.role||'').includes(q));
+      renderList(list);
+    });
+
+    renderList(HEROES);
+    showHero("All Heroes");
+    </script>
 </body>
 </html>

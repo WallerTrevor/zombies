@@ -1,13 +1,11 @@
 rule "anticrash on":
     @Condition getServerLoad() >= 150
-    @Disabled
     
-    stability(85, 150)
+    stability(90, 150)
 
 
 rule "anticrash off":
     @Condition getServerLoad() < 150
-    @Disabled
 
     setSlowMotion(100)
 

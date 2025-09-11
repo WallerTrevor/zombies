@@ -13,26 +13,7 @@ rule "23 Initiate Health, Damage, and Healing Variables":
 rule "55  starting hero set":
     @Event playerJoined
     
-    eventPlayer.startForcingHero(Hero.WINSTON)
-    
-
-
-rule "56  points loss for high roller":
-    @Event playerDied
-    @Team 1
-    @Condition eventPlayer.points >= 3000
-    
-    eventPlayer.points -= eventPlayer.points * 0.2
-    eventPlayer.points = ceil(eventPlayer.points)
-
-
-rule "57  death points loss":
-    @Event playerDied
-    @Team 1
-    @Condition eventPlayer.points >= 1000
-    
-    eventPlayer.points -= 200 * eventPlayer.H
-    eventPlayer.points = ceil(eventPlayer.points)
+    eventPlayer.startForcingHero(Hero.CASSIDY)
 
 
 rule "58  Single player lives mechanic":
@@ -114,38 +95,8 @@ rule "18 Get out of Spawn":
     @Condition eventPlayer.isInSpawnRoom() == true
     @Condition outofpsawn == 1
     
-    #should be able to make this a subroutine
     wait(1)
-    if setspawn == false:
-        eventPlayer.teleport(vect(-63.355, -148.766, -17.141))
-        botspawnzone = false
-        startForcingSpawn(Team.ALL, 1)
-        telespot = 101
-    elif setspawn == 1:
-        eventPlayer.teleport(vect(-65.701, -150.372, 136.652))
-        botspawnzone = false
-        startForcingSpawn(Team.ALL, 1)
-        telespot = 101
-    elif setspawn == 2:
-        eventPlayer.teleport(vect(354.63, 46.375, 181.943))
-        botspawnzone = 1
-        startForcingSpawn(Team.ALL, 0)
-        telespot = 102
-    elif setspawn == 3:
-        eventPlayer.teleport(vect(185.152, 46.154, 185.661))
-        botspawnzone = 1
-        startForcingSpawn(Team.ALL, 0)
-        telespot = 102
-    elif setspawn == 4:
-        eventPlayer.teleport(vect(367.509, -8.358, -241.533))
-        botspawnzone = 2
-        startForcingSpawn(Team.ALL, 2)
-        telespot = 103
-    elif setspawn == 5:
-        eventPlayer.teleport(vect(200.42, -8.412, -242.411))
-        botspawnzone = 2
-        startForcingSpawn(Team.ALL, 2)
-        telespot = 103
+    getoutofspawn()
 
 
 rule "80 player died without maniac":

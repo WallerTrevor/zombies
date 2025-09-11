@@ -30,7 +30,7 @@ rule "1 Setup":
     appenddoorsequencer = []
     dooreffectsequencer = []
     teleportercolor = Color.BLUE
-    disableInspector()
+    #disableInspector()
 
 rule "2 round change":
     @Condition numberOfZombies <= 0
@@ -101,38 +101,15 @@ rule "6 Defeat (needs to be refined for soft restart)":
     @Condition getPlayers(Team.1).hasSpawned() == true
     
     wait(2, Wait.ABORT_WHEN_FALSE)
-    setspawn = random.randint(0, 0)
+    setspawn = random.randint(0, 5)
     destroyAllDummies()
     getPlayers(Team.1).startCamera(vect(317.328, -25.644, -140.906), vect(320.513, -24.05, -134.612))
     destroyAllHudTexts()
     destroyAllEffects()
+    #delete players credit card and reset points
     wait(4)
     goToAssembleHeroes()
-    #might be able to make this a subroutine
-    if setspawn == false:
-        getPlayers(Team.1).teleport(vect(-63.355, -148.766, -17.141))
-        startForcingSpawn(Team.ALL, 1)
-        telespot = 101
-    elif setspawn == 1:
-        getPlayers(Team.1).teleport(vect(-65.701, -150.372, 136.652))
-        startForcingSpawn(Team.ALL, 1)
-        telespot = 101
-    elif setspawn == 2:
-        getPlayers(Team.1).teleport(vect(354.63, 46.375, 181.943))
-        startForcingSpawn(Team.ALL, 0)
-        telespot = 102
-    elif setspawn == 3:
-        getPlayers(Team.1).teleport(vect(185.152, 46.154, 185.661))
-        startForcingSpawn(Team.ALL, 0)
-        telespot = 102
-    elif setspawn == 4:
-        getPlayers(Team.1).teleport(vect(367.509, -8.358, -241.533))
-        startForcingSpawn(Team.ALL, 2)
-        telespot = 103
-    elif setspawn == 5:
-        getPlayers(Team.1).teleport(vect(200.42, -8.412, -242.411))
-        startForcingSpawn(Team.ALL, 2)
-        telespot = 103
+    getoutofspawn()
     getPlayers(Team.1).resurrect()
     wait(2)
     outofpsawn = false
@@ -357,7 +334,7 @@ rule "48 WORKSHOP SETTINGS":
     getPlayers(Team.1).setProjectileSpeed(createWorkshopSettingInt("fun", "projectile speed team 1", 100, 25, 500))
     getPlayers(Team.2).setProjectileGravity(createWorkshopSettingInt("fun", "projectile gravity team 2", 75, 25, 500))
     getPlayers(Team.2).setProjectileSpeed(createWorkshopSettingInt("fun", "projectile speed team 2", 50, 25, 500))
-    spawntype = createWorkshopSettingInt("difficulty", "brig=0 torb=1 random=2 directed=3 totalrng=4", 4, 0, 4)
+    spawntype = createWorkshopSettingInt("difficulty", "brig=0 torb=1 random=2 directed=3 totalrng=4", 5, 0, 5)
 
 
 rule "83 power challenge effects":
@@ -421,7 +398,7 @@ rule "497 start control":
     @Condition start == false
     @Condition eventPlayer.isHoldingButton(Button.JUMP) == true
     
-    setspawn = random.randint(0, 5)
+    setspawn = random.randint(1, 1)
     wait(0.25)
     start = 1
     aprilrng = random.randint(1, 100)

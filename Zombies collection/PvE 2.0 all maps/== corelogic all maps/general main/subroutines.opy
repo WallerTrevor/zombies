@@ -116,3 +116,37 @@ def setbotamount():
         botamount = 5 + roundnumber
     else:
         botamount = 17
+
+def getoutofspawn():
+    @Name "out of spawn subroutine"
+
+    if setspawn == false:
+        eventPlayer.teleport(vect(-63.355, -148.766, -17.141)) #zone 1
+        botspawnzone = false
+        startForcingSpawn(Team.ALL, 1)
+        telespot = 101
+    elif setspawn == 1:
+        eventPlayer.teleport(vect(-65.701, -150.372, 136.652)) #zone 1-2 start of doors
+        botspawnzone = false
+        startForcingSpawn(Team.ALL, 1)
+        telespot = 101
+    elif setspawn == 2:
+        eventPlayer.teleport(vect(354.63, 46.375, 181.943)) #zone 2
+        botspawnzone = 1
+        startForcingSpawn(Team.ALL, 0)
+        telespot = 102
+    elif setspawn == 3:
+        eventPlayer.teleport(vect(185.152, 46.154, 185.661)) #zone 2-1
+        botspawnzone = 1
+        startForcingSpawn(Team.ALL, 0)
+        telespot = 102
+    elif setspawn == 4:
+        eventPlayer.teleport(vect(367.509, -8.358, -241.533)) #zone 3
+        botspawnzone = 2
+        startForcingSpawn(Team.ALL, 2)
+        telespot = 103
+    elif setspawn == 5:
+        eventPlayer.teleport(vect(200.42, -8.412, -242.411)) #zone 3-1
+        botspawnzone = 2
+        startForcingSpawn(Team.ALL, 2)
+        telespot = 103
