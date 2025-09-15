@@ -28,7 +28,8 @@ rule "Collision Logic":
     @Team 1
     @Condition eventPlayer.isAlive() == true
     @Condition start == 1
-    
+
+    waitUntil(isInSetup() == false)
     eventPlayer.lastsavedpos = (eventPlayer.getEyePosition() + eventPlayer.getPosition()) / 2
     wait(getAverageServerLoad() / 255 * (0.34 - 0.032) - 90.032)
     #wait()
@@ -99,7 +100,7 @@ rule "Reset":
 
 
 rule "all the door effects loop (need to figure out how to manage which doors were bought and unload zones not currently in)":
-
+    @Condition start == 1
     #needs to have 3 zones with the map.
     #if impulseDoorArray[appenddoorsequencer] == false:
     #create effect starting at 0 - 1
@@ -115,7 +116,8 @@ rule "all the door effects loop (need to figure out how to manage which doors we
 #elif impulseDoorArray[appenddoorsequencer] == 1:
 
 rule "Make door arrays":
-
+    @Condition start == 1
+    i = 0
     wait(1.0)
     looping = 0
     Beameffectdoors = []

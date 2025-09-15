@@ -691,7 +691,6 @@ rule("【Map】Antarctic Peninsula (nodes)")
 	{
 		Current Map == Map(Antarctic Peninsula);
 	}
-// this needs data compression
 	actions
 	{
 		Global.pfLoadedMap_nodes = Array(Vector(210.390, -10.030, -239.110), Vector(247.910, -13.320, -220.510), Vector(258.830, -14.680,
@@ -727,7 +726,6 @@ rule("【Map】Antarctic Peninsula (neighbors)")
 	{
 		Current Map == Map(Antarctic Peninsula);
 	}
-// this needs data compression
 	actions
 	{
 		Global.pfLoadedMap_neighbors = Array(Array(Array(1, Empty Array), Array(12, Empty Array)), Array(Array(2, Empty Array), Array(0,

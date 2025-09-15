@@ -30,7 +30,8 @@ rule "1 Setup":
     appenddoorsequencer = []
     dooreffectsequencer = []
     teleportercolor = Color.BLUE
-    #disableInspector()
+    disableInspector()
+
 
 rule "2 round change":
     @Condition numberOfZombies <= 0
@@ -112,10 +113,12 @@ rule "6 Defeat (needs to be refined for soft restart)":
     getoutofspawn()
     getPlayers(Team.1).resurrect()
     wait(2)
+    bankPoints += getPlayers(Team.1).points
     outofpsawn = false
     roundnumber = 0
     start = false
     romanNcounter = 1
+    getPlayers(Team.1).points = 0
     g = false
     
 
@@ -397,8 +400,8 @@ rule "497 start control":
     @Team 1
     @Condition start == false
     @Condition eventPlayer.isHoldingButton(Button.JUMP) == true
-    
-    setspawn = random.randint(1, 1)
+
+    setspawn = random.randint(0, 5)
     wait(0.25)
     start = 1
     aprilrng = random.randint(1, 100)
@@ -415,6 +418,8 @@ rule "497 start control":
     getAllPlayers().stopCamera()
     wait(0.1)
     getAllPlayers().enableHeroHud()
+    getAllPlayers().points = 500
+    getAllPlayers().points2 = getAllPlayers().points
 
 
 rule "521 start screen message":

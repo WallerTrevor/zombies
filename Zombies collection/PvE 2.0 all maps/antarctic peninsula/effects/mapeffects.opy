@@ -1,5 +1,5 @@
 rule "all the effects (needs to be simplified and looped)":
-    #@Condition start == 1
+    @Condition start == 1
     #set all these to be some form of loop
     #set all this to be array elements for each perk name, so it can easily be swapped with each map file
     createEffect(getAllPlayers(), Effect.RING, Color.WHITE, Vectordoorpositions[extraVar[12]], 3, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)

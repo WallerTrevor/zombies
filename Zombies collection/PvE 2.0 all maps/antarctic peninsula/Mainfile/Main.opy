@@ -35,6 +35,9 @@
 #!define botamount extraVar[33]
 #!define doorLoopIndex extraVar[34]
 #!define looping extraVar[35]
+#!define ramPoints extraVar[36]
+#!define bankTier extraVar[37]
+#!define bankPoints extraVar[38]
 
 globalvar powerconnected 13
 globalvar Died 18
@@ -123,6 +126,9 @@ globalvar j 121
 #!define cameratoggle extraPlayerVar[17]
 #!define ToggleEdit extraPlayerVar[18]
 #!define doorNotif extraPlayerVar[19]
+#!define creditTier extraPlayerVar[20]
+#!define depNotif extraPlayerVar[21]
+#!define withdrawNotif extraPlayerVar[22]
 
 playervar points 0
 playervar magazines 3

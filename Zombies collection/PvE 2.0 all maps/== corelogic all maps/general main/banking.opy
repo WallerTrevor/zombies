@@ -1,48 +1,153 @@
 rule "56  points loss for high roller":
     @Event playerDied
     @Team 1
-    @Condition eventPlayer.points >= 3000
     
-    eventPlayer.points -= eventPlayer.points * 0.2
+    bankPoints += eventPlayer.points * 0.25
+    eventPlayer.points -= eventPlayer.points * 0.3
     eventPlayer.points = ceil(eventPlayer.points)
 
 
-rule "57  death points loss":
-    @Event playerDied
-    @Team 1
-    @Condition eventPlayer.points >= 1000
-    
-    eventPlayer.points -= 200 * eventPlayer.H
-    eventPlayer.points = ceil(eventPlayer.points)
 
-
-rule "global debt to ramattra - tracker":
-#need points to be tracked for all purchase events
-#perhaps create a way to track numbers beyond workshop limits
 
 rule "global bank system":
-#NEED TO BETA TEST THIS IDEA FIRST BEFORE IMPLEMENTING THE REST OF THE IDEAS
-# BETA TEST INCLUDES: THE BANK ONLY, AND THE TIER 1 BANK ACCOUNT, NOTHING ELSE.
-#need to track points for all player deaths and for all deposits and withdrawals
-#needs set location (easy, normal), but also random when on hard mode
-#tier 1 will have a yield of .5% per round, and a fee of 0, and a withdrawal fee of 100
-#tier 2 will have a yield of 2% per round, and a fee of 5000 and a withdrawal fee of 200
-#tier 3 will have a yield of 3% per round, and a fee of 10000 and a withdrawal fee of 250
+    createEffect(getAllPlayers(), Effect.RING, Color.YELLOW, vect(270.637, 38.147, 176.339), 1, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
+    createInWorldText(getAllPlayers(), "Property damage: ${0}".format(extraVar[36]), vect(270.637, 38.147, 176.339), 1, Clip.SURFACES, WorldTextReeval.VISIBILITY_POSITION_AND_STRING, Color.YELLOW)
+    createEffect(getAllPlayers(), Effect.RING, Color.RED, vect(275.586, 38.147, 177.222), 1, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
+    createInWorldText(getAllPlayers(), "Bank: {0} Points".format(extraVar[38]), vect(275.586, 38.147, 177.222), 1, Clip.SURFACES, WorldTextReeval.VISIBILITY_POSITION_AND_STRING)
+    createEffect(getAllPlayers(), Effect.RING, Color.RED, vect(273.277, 38.147, 176.182), 1, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
+    createInWorldText(getAllPlayers(), iconString(Icon.ARROW_UP), vect(273.277, 38.147, 176.182), 1, Clip.SURFACES, WorldTextReeval.VISIBILITY_POSITION_AND_STRING)
+    createEffect(getAllPlayers(), Effect.RING, Color.RED, vect(277.261, 38.147, 178.713), 1, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
+    createInWorldText(getAllPlayers(), iconString(Icon.ARROW_DOWN), vect(277.261, 38.147, 178.713), 1, Clip.SURFACES, WorldTextReeval.VISIBILITY_POSITION_AND_STRING)
+    createEffect(getAllPlayers(), Effect.RING, Color.BLUE, vect(299.653, -14.545, -222.024), 1, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
+    createInWorldText(getAllPlayers(), abilityIconString(Hero.KIRIKO, Button.PRIMARY_FIRE), vect(299.653, -14.545, -222.024), 2.25, Clip.SURFACES, WorldTextReeval.VISIBILITY_POSITION_AND_STRING)
 
-#rule "global bank withdraw button":
-# make interact key incrament up, crouch to decrament, and jump to confirm withdrawl
+rule "global bank interest gain every round":
+    @Condition numberOfZombies <= 0
+    @Condition bankPoints > 0
+    @Condition start == 1
 
-#rule "global bank deposit button":
-# make interact key incrament up, crouch to decrament, and jump to confirm deposit
+    if bankTier == 0:
+        bankPoints += bankPoints * 0.005
+    elif bankTier == 1:
+        bankPoints += bankPoints * 0.02
+    elif bankTier == 2:
+        bankPoints += bankPoints * 0.03
+
+rule "global bank tier upgrade":
+    @Event eachPlayer
+    @Condition eventPlayer.isAlive() == true
+    @Condition distance(eventPlayer, vect(275.586, 38.147, 177.222)) < 1
+    @Condition eventPlayer.isHoldingButton(Button.INTERACT) == true
+    @Condition bankTier < 2
+
+    if bankTier == 0:
+        if bankPoints >= 5000:
+            bankPoints -= 5000
+            bankTier = 2
+            smallMessage(getAllPlayers(), "  You have permanently upgraded your bank to tier 2")
+            playEffect(getAllPlayers(), DynamicEffect.BUFF_EXPLOSION_SOUND, Color.WHITE, eventPlayer, 70)
+        else:
+            smallMessage(getAllPlayers(), "  You need 5000 points in the bank to upgrade!")
+    elif bankTier == 1:
+        if bankPoints >= 10000:
+            bankPoints -= 10000
+            bankTier = 2
+            smallMessage(getAllPlayers(), "  You have permanently upgraded your bank to tier 3")
+            playEffect(getAllPlayers(), DynamicEffect.BUFF_EXPLOSION_SOUND, Color.WHITE, eventPlayer, 70)
+        else:
+            smallMessage(getAllPlayers(), "  You need 10000 points in the bank to upgrade!")
+
+rule "global bank withdraw button":
+    @Event eachPlayer
+    @Condition eventPlayer.isAlive() == true
+    @Condition distance(eventPlayer, vect(273.277, 38.147, 176.182)) < 1
+    @Condition eventPlayer.isHoldingButton(Button.INTERACT) == true
+
+    if getServerLoad() < 235:
+        if bankPoints >= 250:
+            bankPoints -= 250
+            eventPlayer.points += 250
+            wait(getAverageServerLoad() / 255 * (0.34 - 0.16) - 90.032)
+            if eventPlayer.withdrawNotif == 0:
+                eventPlayer.withdrawNotif = 1
+            if ruleCondition:
+                loop()
+        else:
+            smallMessage(eventPlayer, "  The bank is out of funds!")
+    else:
+        smallMessage(eventPlayer, "{0} Error: {1} Bank closed! (--ANTICRASHSYS--)".format(heroIcon(Hero.RAMATTRA), random.randint(10, 1000)))
+
+rule "global bank deposit button":
+    @Event eachPlayer
+    @Condition eventPlayer.isAlive() == true
+    @Condition distance(eventPlayer, vect(277.261, 38.147, 178.713)) < 1
+    @Condition eventPlayer.isHoldingButton(Button.INTERACT) == true
+
+    if getServerLoad() < 235:
+        if eventPlayer.points >= 200:
+            bankPoints += 200
+            eventPlayer.points -= 200
+            if eventPlayer.depNotif == 0:
+                eventPlayer.depNotif = 1
+            wait(getAverageServerLoad() / 255 * (0.34 - 0.16) - 90.032)
+            if ruleCondition:
+                loop()
+        else:
+            smallMessage(eventPlayer, "  You don't have enough points to deposit!")
+    else:
+        smallMessage(eventPlayer, "{0} Error: {1} Bank closed! (--ANTICRASHSYS--)".format(heroIcon(Hero.RAMATTRA), random.randint(10, 1000)))
 
 
-#rule "global bank buy upgrade":
-# put interact key to buy upgrade here
+rule "property damage easter egg":
+    @Event eachPlayer
+    @Condition eventPlayer.isAlive() == true
+    @Condition distance(eventPlayer, vect(270.637, 38.147, 176.339)) < 1
+    @Condition eventPlayer.isHoldingButton(Button.INTERACT) == true
 
-#rule "global bank upgrade effect":
-# put upgrade effect in the effects folder of the map specific folder
+    smallMessage(eventPlayer, "  You have caused ${0} damage to my army!".format(ramPoints))
 
-#rule "credit card system":
+
+rule "credit card system":
+    @Event eachPlayer
+    @Condition eventPlayer.isAlive() == true
+    @Condition distance(eventPlayer, vect(299.653, -14.545, -222.024)) < 1
+    @Condition eventPlayer.isHoldingButton(Button.INTERACT) == true
+    @Condition eventPlayer.creditTier < 3
+    if getServerLoad() < 235:
+        if eventPlayer.creditTier == 0:
+            if eventPlayer.points >= 1000:
+                eventPlayer.points -= 1000
+                eventPlayer.creditTier = 1
+                smallMessage(eventPlayer, "  You bought a credit card, your credit card is now tier 1")
+                wait(4)
+                smallMessage(eventPlayer, "  Hold spacebar to see credit card details")
+                #need sound effect
+            else:
+                smallMessage(eventPlayer, "  You need 1000 points buy a credit card!")
+        elif eventPlayer.creditTier == 1:
+            if eventPlayer.points >= 2000:
+                eventPlayer.points -= 2000
+                eventPlayer.creditTier = 2
+                #need sound effect
+                smallMessage(eventPlayer, "  Your credit card is now tier 2")
+                wait(4)
+                smallMessage(eventPlayer, "  Hold spacebar to see credit card details")
+            else:
+                smallMessage(eventPlayer, "  You need 2000 points to upgrade!")
+        elif eventPlayer.creditTier == 2:
+            if eventPlayer.points >= 4000:
+                eventPlayer.points -= 4000
+                eventPlayer.creditTier = 3
+                #need sound effect
+                smallMessage(eventPlayer, "  Your credit card is now tier 3")
+                wait(4)
+                smallMessage(eventPlayer, "  Hold spacebar to see credit card details")
+            else:
+                smallMessage(eventPlayer, "  You need 4000 points to upgrade!")
+                #needs a hud icon to show current credit card tier, preferrably in the top right corner
+    else:
+        smallMessage(getAllPlayers(), "{0} Error: {1} Credit card machine is closed! (--ANTICRASHSYS--)".format(heroIcon(Hero.RAMATTRA), random.randint(10, 1000)))
+
 # allow player points to go negative up to a certain limit
 #needs hud element to show current credit card tier in a color, and the rest when player holds spacebar: current debt, current APR, current fee per round, and one time fee for next upgrade
 #tier 1 will allow -2000 points, have a APR of 30% per round, and a fee of 0 points per round, and a one time fee of 1000 points
@@ -58,3 +163,26 @@ rule "global bank system":
 
 
 #rule "credit card":
+
+
+rule "Reset deposit notif":
+    @Event eachPlayer
+    @Condition eventPlayer.depNotif == 1
+
+    smallMessage(eventPlayer, "  Hold {0} to deposit 200 Points".format(inputBindingString(Button.INTERACT)))
+    wait(4)
+    eventPlayer.depNotif = 0
+    wait(0.5)
+    if ruleCondition:
+        loop()
+
+rule "Reset withdraw notif":
+    @Event eachPlayer
+    @Condition eventPlayer.withdrawNotif == 1
+
+    smallMessage(eventPlayer, "  Hold {0} to withdraw 250 Points".format(inputBindingString(Button.INTERACT)))
+    wait(4)
+    eventPlayer.withdrawNotif = 0
+    wait(0.5)
+    if ruleCondition:
+        loop()

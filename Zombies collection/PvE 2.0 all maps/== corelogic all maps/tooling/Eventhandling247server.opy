@@ -2,9 +2,11 @@ rule "68 player joined invincible":
     @Event playerJoined
     @Team 1
     @Condition eventPlayer.hasSpawned() == true
-    
+    @Condition start == 1
+
     eventPlayer.setStatusEffect(null, Status.PHASED_OUT, 30)
-    eventPlayer.points = 500
+    #eventPlayer.points = 500
+    eventPlayer.points2 = eventPlayer.points
 
 rule "120  Remove bots when players join":
     #simplify and test this more to see how much is needed with anti crash enabled

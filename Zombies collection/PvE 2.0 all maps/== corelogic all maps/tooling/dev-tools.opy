@@ -81,161 +81,166 @@
 #     createInWorldText(getAllPlayers(), "79", firstpos[78], 1, Clip.NONE, WorldTextReeval.VISIBILITY_POSITION_AND_STRING)
 #     createInWorldText(getAllPlayers(), "80", firstpos[79], 1, Clip.NONE, WorldTextReeval.VISIBILITY_POSITION_AND_STRING)
 
-rule "use interact to give pack a punch (Dev testing)":
-    @Event eachPlayer
-    @Condition eventPlayer.isHoldingButton(Button.INTERACT) == true
-    @Disabled
+# rule "use interact to give pack a punch (Dev testing)":
+#     @Event eachPlayer
+#     @Condition eventPlayer.isHoldingButton(Button.INTERACT) == true
+#     @Disabled
+#     
+#     eventPlayer.Packapunch = 1
+
+
+# rule "Dev Tool Show variables":
+# #hudText(hostPlayer, "{0} - {1} - {2}".format(getServerLoad(), getAverageServerLoad(), " {0} A {1} B {2}".format(getPeakServerLoad(), A, "{0} C {1} D {2}".format(B, C, " {0} E {1} F {2}".format(null, null, null)))), E, F, HudPosition.TOP, 0, Color.WHITE, Color.WHITE, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
+
+# rule "change waves":
+#     @Event eachPlayer
+#     @Condition eventPlayer.isHoldingButton(Button.INTERACT) == true
+#     @Disabled
+#     
+#     numberOfZombies = 1
+#     g += 1
+
+
+# rule "force random hero":
+#     @Event eachPlayer
+#     @Condition eventPlayer.isHoldingButton(Button.INTERACT) == true
+#     @Disabled
+# 
+#     eventPlayer.startForcingHero(random.choice(getAllHeroes()))
+
+
+# rule "Rule 243":
+#     @Event eachPlayer
+#     @Condition eventPlayer.isHoldingButton(Button.INTERACT) == true
+#     @Disabled
+#     eventPlayer.allowedheroes = [Hero.ANA]
+
+# rule "Rule 244":
+#     @Event eachPlayer
+#     @Disabled
+#     
+#     hudHeader(getAllPlayers(), "{0} -- {1} --- {2}".format(eventPlayer.allowedheroes[0], eventPlayer.allowedheroes[1], eventPlayer.allowedheroes[2]), HudPosition.TOP, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
+
+# rule "Rule 245":
+#     @Event eachPlayer
+#     @Condition eventPlayer.isHoldingButton(Button.INTERACT) == true
+#     @Disabled
+#     
+#     eventPlayer.allowedheroes.append(eventPlayer.getHero())
+
+
+# rule "Rule 245":
+#     @Event eachPlayer
+#     @Condition eventPlayer.isHoldingButton(Button.ULTIMATE) == true
+#     @Disabled
+# 
+#     eventPlayer.allowedheroes = []
+
+# rule "Toggle edit mode":
+#     @Event eachPlayer
+#     @Condition eventPlayer.isHoldingButton(Button.INTERACT) == true
+#     
+#     #toggle edit
+#     eventPlayer.ToggleEdit = not eventPlayer.ToggleEdit
+#     #prevent spamming
+#     wait(0.25)
+
+
+# rule "Enable edit mode":
+#     @Event eachPlayer
+#     @Team 1
+#     @Condition eventPlayer.ToggleEdit == true
+#     @Disabled
+#     
+#     setSlowMotion(10)
+#     createDummy(eventPlayer.getHero(), Team.1, getNumberOfPlayers(Team.1) + 1, eventPlayer, eventPlayer.getFacingDirection())
+#     #start noclipping from current position
+#     eventPlayer.Noclip = eventPlayer.getEyePosition()
+#     #disable controls
+#     eventPlayer.setAbility1Enabled(false)
+#     eventPlayer.setAbility2Enabled(false)
+#     eventPlayer.setPrimaryFireEnabled(false)
+#     eventPlayer.setSecondaryFireEnabled(false)
+#     eventPlayer.setUltEnabled(false)
+#     eventPlayer.setMeleeEnabled(false)
+#     eventPlayer.setJumpEnabled(false)
+#     #don't physically move
+#     eventPlayer.setMoveSpeed(false)
+#     #don't fall
+#     eventPlayer.setGravity(false)
+#     #make a camera from the noclip position and copy the player's facing direction
+#     eventPlayer.startCamera(eventPlayer.Noclip, eventPlayer.Noclip + eventPlayer.getFacingDirection(), 128)
+#     #take into account throttle, facing direction, jump, and crouch inputs to make a decent noclip  # chase the noclip's position
+#     chaseAtRate(eventPlayer.Noclip, eventPlayer.Noclip + ((eventPlayer.getFacingDirection() * eventPlayer.getThrottle().z + worldVector(eventPlayer.getThrottle() * vect(true, false, false), eventPlayer, Transform.ROTATION) + (Vector.UP * (eventPlayer.isHoldingButton(Button.JUMP) - eventPlayer.isHoldingButton(Button.CROUCH)))) * 100), 28)
+#     #wait for a bit so the player doesn't see where they are teleported to
+#     wait(0.032)
+#     #go to the sky
+#     eventPlayer.teleport(Vector.UP * 10000)
+
+
+# rule "Disable edit mode":
+#     @Event eachPlayer
+#     @Team 1
+#     @Condition eventPlayer.isDummy() == false
+#     @Condition eventPlayer.ToggleEdit == false
+#     @Disabled
+#
+#     setSlowMotion(100)
+#     destroyDummy(Team.1, getNumberOfPlayers(Team.1))
+#     #save some server load
+#     stopChasingVariable(eventPlayer.Noclip)
+#     #subtract player's height from noclipPosition so that the camera is teleported to where the noclip camera was
+#     eventPlayer.teleport(eventPlayer.Noclip - (eventPlayer.getEyePosition() - eventPlayer.getPosition()))
+#     #return values to normal
+#     eventPlayer.setGravity(100)
+#     eventPlayer.setMoveSpeed(100)
+#     #enable controls
+#     eventPlayer.setAbility1Enabled(true)
+#     eventPlayer.setAbility2Enabled(true)
+#     eventPlayer.setPrimaryFireEnabled(true)
+#     eventPlayer.setSecondaryFireEnabled(true)
+#     eventPlayer.setUltEnabled(true)
+#     eventPlayer.setMeleeEnabled(true)
+#     eventPlayer.setJumpEnabled(true)
+#     eventPlayer.setUltCharge(100)
+#     #player is back in world, can use native player camera
+#     eventPlayer.stopCamera()
+#     #cancel momentum
+#     eventPlayer.applyImpulse(eventPlayer.getVelocity() * -1, eventPlayer.getSpeed(), Relativity.TO_WORLD, Impulse.INCORPORATE_CONTRARY_MOTION)
+
     
-    eventPlayer.Packapunch = 1
+# rule "Rule 258":
+#     @Disabled
+#     
+#     hudHeader(getAllPlayers(), "{0}".format(firstpos[0]), HudPosition.LEFT, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
+#     hudHeader(getAllPlayers(), "{0}".format(secondpos[0]), HudPosition.LEFT, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
+#     hudHeader(getAllPlayers(), "{0}".format(firstpoint2[0]), HudPosition.LEFT, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
+#     hudHeader(getAllPlayers(), "{0}".format(secondpoint2[0]), HudPosition.LEFT, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
+#     hudHeader(getAllPlayers(), "{0}".format(AllDir[0]), HudPosition.LEFT, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
+#     hudHeader(getAllPlayers(), "{0}".format(AllPos[0]), HudPosition.LEFT, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
+#     hudHeader(getAllPlayers(), "{0}".format(Beameffectdoors[0]), HudPosition.LEFT, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
+#     hudHeader(getAllPlayers(), "{0}".format(Beameffectdoors[1]), HudPosition.LEFT, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
+#     hudHeader(getAllPlayers(), "{0}".format(Beameffectdoors[2]), HudPosition.LEFT, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
+#     hudHeader(getAllPlayers(), "{0}".format(Beameffectdoors[3]), HudPosition.LEFT, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
+#     hudHeader(getAllPlayers(), "{0}".format(firstpos[0]), HudPosition.LEFT, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
+#     hudHeader(getAllPlayers(), "{0}".format(secondpos[1]), HudPosition.RIGHT, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
+#     hudHeader(getAllPlayers(), "{0}".format(firstpoint2[1]), HudPosition.RIGHT, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
+#     hudHeader(getAllPlayers(), "{0}".format(secondpoint2[1]), HudPosition.RIGHT, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
+#     hudHeader(getAllPlayers(), "{0}".format(AllDir[1]), HudPosition.RIGHT, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
+#     hudHeader(getAllPlayers(), "{0}".format(AllPos[1]), HudPosition.RIGHT, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
+#     hudHeader(getAllPlayers(), "{0}".format(Beameffectdoors[4]), HudPosition.RIGHT, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
+#     hudHeader(getAllPlayers(), "{0}".format(Beameffectdoors[5]), HudPosition.RIGHT, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
+#     hudHeader(getAllPlayers(), "{0}".format(Beameffectdoors[6]), HudPosition.RIGHT, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
+#     hudHeader(getAllPlayers(), "{0}".format(Beameffectdoors[7]), HudPosition.RIGHT, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
+#     hudHeader(getAllPlayers(), "{0}".format(i), HudPosition.RIGHT, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
 
+#rule "Rule 258":
+#   @Disabled
+#    
+#    wait(10)
+#    getPlayers(Team.1).points = 100000000
 
-rule "Dev Tool Show variables":
-#hudText(hostPlayer, "{0} - {1} - {2}".format(getServerLoad(), getAverageServerLoad(), " {0} A {1} B {2}".format(getPeakServerLoad(), A, "{0} C {1} D {2}".format(B, C, " {0} E {1} F {2}".format(null, null, null)))), E, F, HudPosition.TOP, 0, Color.WHITE, Color.WHITE, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
-
-rule "change waves":
-    @Event eachPlayer
-    @Condition eventPlayer.isHoldingButton(Button.INTERACT) == true
-    @Disabled
-    
-    numberOfZombies = 1
-    g += 1
-
-
-rule "force random hero":
-    @Event eachPlayer
-    @Condition eventPlayer.isHoldingButton(Button.INTERACT) == true
-    @Disabled
-
-    eventPlayer.startForcingHero(random.choice(getAllHeroes()))
-
-
-rule "Rule 243":
-    @Event eachPlayer
-    @Condition eventPlayer.isHoldingButton(Button.INTERACT) == true
-    @Disabled
-    eventPlayer.allowedheroes = [Hero.ANA]
-
-rule "Rule 244":
-    @Event eachPlayer
-    @Disabled
-    
-    hudHeader(getAllPlayers(), "{0} -- {1} --- {2}".format(eventPlayer.allowedheroes[0], eventPlayer.allowedheroes[1], eventPlayer.allowedheroes[2]), HudPosition.TOP, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
-
-rule "Rule 245":
-    @Event eachPlayer
-    @Condition eventPlayer.isHoldingButton(Button.INTERACT) == true
-    @Disabled
-    
-    eventPlayer.allowedheroes.append(eventPlayer.getHero())
-
-
-rule "Rule 245":
-    @Event eachPlayer
-    @Condition eventPlayer.isHoldingButton(Button.ULTIMATE) == true
-    @Disabled
-
-    eventPlayer.allowedheroes = []
-
-rule "Toggle edit mode":
-    @Event eachPlayer
-    @Condition eventPlayer.isHoldingButton(Button.INTERACT) == true
-    
-    #toggle edit
-    eventPlayer.ToggleEdit = not eventPlayer.ToggleEdit
-    #prevent spamming
-    wait(0.25)
-
-
-rule "Enable edit mode":
-    @Event eachPlayer
-    @Team 1
-    @Condition eventPlayer.ToggleEdit == true
-    @Disabled
-    
-    setSlowMotion(10)
-    createDummy(eventPlayer.getHero(), Team.1, getNumberOfPlayers(Team.1) + 1, eventPlayer, eventPlayer.getFacingDirection())
-    #start noclipping from current position
-    eventPlayer.Noclip = eventPlayer.getEyePosition()
-    #disable controls
-    eventPlayer.setAbility1Enabled(false)
-    eventPlayer.setAbility2Enabled(false)
-    eventPlayer.setPrimaryFireEnabled(false)
-    eventPlayer.setSecondaryFireEnabled(false)
-    eventPlayer.setUltEnabled(false)
-    eventPlayer.setMeleeEnabled(false)
-    eventPlayer.setJumpEnabled(false)
-    #don't physically move
-    eventPlayer.setMoveSpeed(false)
-    #don't fall
-    eventPlayer.setGravity(false)
-    #make a camera from the noclip position and copy the player's facing direction
-    eventPlayer.startCamera(eventPlayer.Noclip, eventPlayer.Noclip + eventPlayer.getFacingDirection(), 128)
-    #take into account throttle, facing direction, jump, and crouch inputs to make a decent noclip  # chase the noclip's position
-    chaseAtRate(eventPlayer.Noclip, eventPlayer.Noclip + ((eventPlayer.getFacingDirection() * eventPlayer.getThrottle().z + worldVector(eventPlayer.getThrottle() * vect(true, false, false), eventPlayer, Transform.ROTATION) + (Vector.UP * (eventPlayer.isHoldingButton(Button.JUMP) - eventPlayer.isHoldingButton(Button.CROUCH)))) * 100), 28)
-    #wait for a bit so the player doesn't see where they are teleported to
-    wait(0.032)
-    #go to the sky
-    eventPlayer.teleport(Vector.UP * 10000)
-
-
-rule "Disable edit mode":
-    @Event eachPlayer
-    @Team 1
-    @Condition eventPlayer.isDummy() == false
-    @Condition eventPlayer.ToggleEdit == false
-    @Disabled
-
-    setSlowMotion(100)
-    destroyDummy(Team.1, getNumberOfPlayers(Team.1))
-    #save some server load
-    stopChasingVariable(eventPlayer.Noclip)
-    #subtract player's height from noclipPosition so that the camera is teleported to where the noclip camera was
-    eventPlayer.teleport(eventPlayer.Noclip - (eventPlayer.getEyePosition() - eventPlayer.getPosition()))
-    #return values to normal
-    eventPlayer.setGravity(100)
-    eventPlayer.setMoveSpeed(100)
-    #enable controls
-    eventPlayer.setAbility1Enabled(true)
-    eventPlayer.setAbility2Enabled(true)
-    eventPlayer.setPrimaryFireEnabled(true)
-    eventPlayer.setSecondaryFireEnabled(true)
-    eventPlayer.setUltEnabled(true)
-    eventPlayer.setMeleeEnabled(true)
-    eventPlayer.setJumpEnabled(true)
-    eventPlayer.setUltCharge(100)
-    #player is back in world, can use native player camera
-    eventPlayer.stopCamera()
-    #cancel momentum
-    eventPlayer.applyImpulse(eventPlayer.getVelocity() * -1, eventPlayer.getSpeed(), Relativity.TO_WORLD, Impulse.INCORPORATE_CONTRARY_MOTION)
-
-    
-rule "Rule 258":
-    @Disabled
-    
-    hudHeader(getAllPlayers(), "{0}".format(firstpos[0]), HudPosition.LEFT, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
-    hudHeader(getAllPlayers(), "{0}".format(secondpos[0]), HudPosition.LEFT, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
-    hudHeader(getAllPlayers(), "{0}".format(firstpoint2[0]), HudPosition.LEFT, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
-    hudHeader(getAllPlayers(), "{0}".format(secondpoint2[0]), HudPosition.LEFT, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
-    hudHeader(getAllPlayers(), "{0}".format(AllDir[0]), HudPosition.LEFT, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
-    hudHeader(getAllPlayers(), "{0}".format(AllPos[0]), HudPosition.LEFT, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
-    hudHeader(getAllPlayers(), "{0}".format(Beameffectdoors[0]), HudPosition.LEFT, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
-    hudHeader(getAllPlayers(), "{0}".format(Beameffectdoors[1]), HudPosition.LEFT, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
-    hudHeader(getAllPlayers(), "{0}".format(Beameffectdoors[2]), HudPosition.LEFT, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
-    hudHeader(getAllPlayers(), "{0}".format(Beameffectdoors[3]), HudPosition.LEFT, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
-    hudHeader(getAllPlayers(), "{0}".format(firstpos[0]), HudPosition.LEFT, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
-    hudHeader(getAllPlayers(), "{0}".format(secondpos[1]), HudPosition.RIGHT, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
-    hudHeader(getAllPlayers(), "{0}".format(firstpoint2[1]), HudPosition.RIGHT, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
-    hudHeader(getAllPlayers(), "{0}".format(secondpoint2[1]), HudPosition.RIGHT, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
-    hudHeader(getAllPlayers(), "{0}".format(AllDir[1]), HudPosition.RIGHT, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
-    hudHeader(getAllPlayers(), "{0}".format(AllPos[1]), HudPosition.RIGHT, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
-    hudHeader(getAllPlayers(), "{0}".format(Beameffectdoors[4]), HudPosition.RIGHT, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
-    hudHeader(getAllPlayers(), "{0}".format(Beameffectdoors[5]), HudPosition.RIGHT, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
-    hudHeader(getAllPlayers(), "{0}".format(Beameffectdoors[6]), HudPosition.RIGHT, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
-    hudHeader(getAllPlayers(), "{0}".format(Beameffectdoors[7]), HudPosition.RIGHT, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
-    hudHeader(getAllPlayers(), "{0}".format(i), HudPosition.RIGHT, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
-
-rule "Rule 258":
-    @Disabled
-    
-    wait(10)
-    getPlayers(Team.1).points = 100000000
+#rule "Rule 259":
+#    @Event eachPlayer
+#
+#    hudHeader(eventPlayer, "points: {0} Points2 {1}".format(eventPlayer.points, eventPlayer.points2), HudPosition.TOP, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING) 

@@ -1,7 +1,7 @@
 rule "anticrash on":
     @Condition getServerLoad() >= 150
     
-    stability(90, 150)
+    stability(93, 150)
 
 
 rule "anticrash off":

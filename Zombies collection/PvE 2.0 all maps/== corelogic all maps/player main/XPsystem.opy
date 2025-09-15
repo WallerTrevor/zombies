@@ -3,6 +3,7 @@ rule "516 rounds add points and XP":
     @Team 1
     @Condition roundnumber >= 1
     @Condition createWorkshopSettingBool("difficulty", "Each round adds XP and points in co-op", true) == true
+    @Disabled
     
     #modify these to scale based off difficulty
     eventPlayer.xp += 30

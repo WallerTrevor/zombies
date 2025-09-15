@@ -61,7 +61,7 @@ rule "switch between 2 heros (needs ultimates, followers, ammo, systems working)
     @Condition eventPlayer.isHoldingButton(Button.CROUCH) == true
     @Condition eventPlayer.isAlive() == true
     
-    if getAverageServerLoad() < 220:
+    if getServerLoad() < 245:
         playEffect(getAllPlayers(), DynamicEffect.MOIRA_FADE_DISAPPEAR_SOUND, Color.WHITE, eventPlayer, 200)
         eventPlayer.removeAllHealthPools()
         if eventPlayer.currentswap == false:
@@ -83,8 +83,8 @@ rule "switch between 2 heros (needs ultimates, followers, ammo, systems working)
         wait(0.1)
         playEffect(getAllPlayers(), DynamicEffect.MOIRA_FADE_DISAPPEAR, Color.WHITE, eventPlayer, 1)
         wait(1)
-    elif getAverageServerLoad() >= 220:
-        smallMessage(getAllPlayers(), "{0} Error: {1} Not on my watch! (--anticrashsys--)".format(heroIcon(Hero.RAMATTRA), random.randint(10, 1000)))
+    else:
+        smallMessage(eventPlayer, "{0} Error: {1} Not on my watch! (--ANTICRASHSYS--)".format(heroIcon(Hero.RAMATTRA), random.randint(10, 1000)))
         wait(6)
 
 
@@ -255,6 +255,7 @@ rule "393 POINTS Omnic kill (final hit (could probably make this one rule))":
     if eventPlayer.isMeleeing() == false:
         if eventWasCriticalHit == false:
             eventPlayer.points += 50 + eventPlayer.heropoints * eventPlayer.H
+            ramPoints +=50 + eventPlayer.heropoints * eventPlayer.H
             chaseAtRate(eventPlayer.points2, (evalOnce(eventPlayer.points) + 0) * eventPlayer.H, 1000)
             if eventPlayer.H != 1:
                 goto lbl_0
@@ -266,6 +267,7 @@ rule "393 POINTS Omnic kill (final hit (could probably make this one rule))":
             eventPlayer.xp[eventPlayer.currentheroxp] += 5
         elif eventWasCriticalHit == true:
             eventPlayer.points += 100 + eventPlayer.heropoints * eventPlayer.H
+            ramPoints +=100 + eventPlayer.heropoints * eventPlayer.H
             chaseAtRate(eventPlayer.points2, (evalOnce(eventPlayer.points) + 0) * eventPlayer.H, 1000)
             if eventPlayer.H != 1:
                 goto lbl_2
@@ -277,6 +279,7 @@ rule "393 POINTS Omnic kill (final hit (could probably make this one rule))":
             eventPlayer.xp[eventPlayer.currentheroxp] += 10
     elif eventPlayer.isMeleeing() == true:
         eventPlayer.points += 130 + eventPlayer.heropoints * eventPlayer.H
+        ramPoints +=130 + eventPlayer.heropoints * eventPlayer.H
         chaseAtRate(eventPlayer.points2, (evalOnce(eventPlayer.points) + 0) * eventPlayer.H, 250)
         if eventPlayer.H != 1:
             goto lbl_4
@@ -302,6 +305,7 @@ rule "396 POINTS Omnic kill (elimination)":
         elif eventPlayer.getHero() in getTankHeroes() == true:
             eventPlayer.heropoints = 10
         eventPlayer.points += 40 + eventPlayer.heropoints * eventPlayer.H
+        ramPoints +=80 + eventPlayer.heropoints * eventPlayer.H
         if eventPlayer.H != 1:
             goto lbl_0
         if eventPlayer.H == 1:
@@ -318,6 +322,7 @@ rule "396 POINTS Omnic kill (elimination)":
         elif eventPlayer.getHero() in getTankHeroes() == true:
             eventPlayer.heropoints = 20
         eventPlayer.points += 80 + eventPlayer.heropoints * eventPlayer.H
+        ramPoints +=80 + eventPlayer.heropoints * eventPlayer.H
         if eventPlayer.H != 1:
             goto lbl_2
         if eventPlayer.H == 1:
