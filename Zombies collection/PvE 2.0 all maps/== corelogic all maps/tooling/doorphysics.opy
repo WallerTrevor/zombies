@@ -9,7 +9,7 @@ rule "Initial Global":
     z = []
     Wall_ID = []
     g_beamType = []
-
+    doors = []
 
 rule "Initial Player":
     @Event eachPlayer
@@ -28,11 +28,16 @@ rule "Collision Logic":
     @Team 1
     @Condition eventPlayer.isAlive() == true
     @Condition start == 1
+    @Condition eventPlayer.isDummy() == false
+    #@Disabled
 
-    waitUntil(isInSetup() == false)
+    if teleporterused == 1:
+        wait(1)
+    if outofpsawn == 0:
+        waitUntil(outofpsawn == 1)
+        wait(1.5)
     eventPlayer.lastsavedpos = (eventPlayer.getEyePosition() + eventPlayer.getPosition()) / 2
-    wait(getAverageServerLoad() / 255 * (0.34 - 0.032) - 90.032)
-    #wait()
+    wait(0.16 + 0.32 * (getPeakServerLoad() / 255) + (eventPlayer.getSlot() * 0.016))    #wait()
     eventPlayer.closestwall = [player for player, i in AllPos if distance(AllPos[i], eventPlayer) <= distance(AllPos[i], firstpos[i]) or eventPlayer.active_wall[i] == 1 or dotProduct(directionTowards(player, eventPlayer.lastsavedpos), AllDir[i]) > 0 != (dotProduct(directionTowards(player, eventPlayer), AllDir[i]) > 0)]
     for eventPlayer.x_ in range(len(eventPlayer.closestwall)):
         if Wall_ID[z] == 0:
@@ -71,14 +76,15 @@ rule "Collision Logic":
                     eventPlayer.applyImpulse(directionTowards(eventPlayer.filterpos, eventPlayer.fullbodypos) * vect(1, [], 1), 1, Relativity.TO_WORLD, Impulse.CANCEL_CONTRARY_MOTION)
                     if eventPlayer.doorNotif == 0:
                         eventPlayer.doorNotif = 1
-                    if eventPlayer.isHoldingButton(Button.INTERACT) and eventPlayer.points >= 1000:
-                        eventPlayer.points -= 1000
+                    if eventPlayer.isHoldingButton(Button.INTERACT) and eventPlayer.points >= 1000 - eventPlayer.creditcardlimit:
+                        playEffect(getAllPlayers(), DynamicEffect.GOOD_EXPLOSION, Color.WHITE, AllPos[z], 50) 
+                        eventPlayer.points -= 1000 * eventPlayer.cashback
+                        destroyEffect(doors[z + z])
+                        destroyEffect(doors[z + z + 1])
                         Wall_ID[z] = 0
                         eventPlayer.active_wall[z] = 0
                         smallMessage(eventPlayer, "  Door bought!")
                         eventPlayer.doorNotif = 0
-                        destroyEffect(doors[z + z])
-                        destroyEffect(doors[z + z + 1])
                         chaseAtRate(eventPlayer.points2, (evalOnce(eventPlayer.points) + 0) * eventPlayer.H, 1000)
                         wait()
                         eventPlayer.setMoveSpeed(100)
@@ -98,23 +104,6 @@ rule "Reset":
     
     eventPlayer.enableEnvironmentCollision()
 
-
-rule "all the door effects loop (need to figure out how to manage which doors were bought and unload zones not currently in)":
-    @Condition start == 1
-    #needs to have 3 zones with the map.
-    #if impulseDoorArray[appenddoorsequencer] == false:
-    #create effect starting at 0 - 1
-    i = 0
-    wait(10)
-    for i in range(len(doorVectors) * 4):  # 4 vectors per door
-        createBeam(getPlayers(Team.1), Beam.JUNKRAT_TRAP_CHAIN, Beameffectdoors[evalOnce(dooreffectsequencer)], Beameffectdoors[evalOnce(dooreffectsequencer + 1)], Color.RED, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
-        # wait(1)
-        doors[appenddoorsequencer].append(getLastCreatedEntity())        #append to allow the game to delete for later
-        loopwait(i, 3)
-        dooreffectsequencer += 2  # move to the next pair for the next chain
-        appenddoorsequencer += 1        #the doors index itself, counted by 1 whole, while the door contains 2 effects. need to optimize so door is compatible with 1 and 2 effects with a toggle.
-#elif impulseDoorArray[appenddoorsequencer] == 1:
-
 rule "Make door arrays":
     @Condition start == 1
     i = 0
@@ -131,7 +120,7 @@ rule "Make door arrays":
             firstpos.append(doorVectors[i]) #bottom left, but this is for the collision logic
             secondpos.append(doorVectors[i] + (directionFromAngles(doorParams[looping + 2] - 90, 0) * doorParams[looping]) + (Vector.UP * 50))  # top right point
             firstpoint2.append(doorVectors[i] + Vector.UP * 50) # top left point, but use infinite height
-            secondpoint2.append(doorVectors[i] + (directionFromAngles(doorParams[looping + 2] - 90, 0) * doorParams[looping]) + Vector.UP * 100) # bottom right point, but use infinite height
+            secondpoint2.append(doorVectors[i] + (directionFromAngles(doorParams[looping + 2] - 90, 0) * doorParams[looping])) # bottom right point, but use infinite height (why does this use infinite height?)
             AllPos.append((firstpos[i] + secondpos[i]) / 2) # the center position of the door for collision logic
             AllDir.append(directionFromAngles(doorParams[looping + 2] + 180, 0)) #the direction the door is facing for collision logic
         elif doorParams[looping + 3] == 1: #if boolean is true, then use height params
@@ -147,6 +136,7 @@ rule "Make door arrays":
             looping += 4
         i += 1
 
+
 rule "Reset door notif":
     @Event eachPlayer
     @Condition eventPlayer.doorNotif == 1
@@ -157,3 +147,22 @@ rule "Reset door notif":
     wait(0.5)
     if ruleCondition:
         loop()
+
+rule "destroy all door effects on teleporter use":
+   @Condition teleporterused == 1
+
+    for i in range(doorZoneStart, doorZoneEnd):
+        destroyEffect(doors[i * 2])
+        destroyEffect(doors[i * 2 + 1])
+
+rule "set zonestart zoneend":
+    @Condition teleporterused == 1
+    if telespot == 0:
+        doorZoneStart = 0
+        doorZoneEnd = 38
+    elif telespot == 1:
+        doorZoneStart = 39
+        doorZoneEnd = 67
+    elif telespot == 2:
+        doorZoneStart = 68
+        doorZoneEnd = 89

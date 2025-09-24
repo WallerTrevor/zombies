@@ -1,32 +1,3 @@
-def herobuy1250():
-    @Name "242 Rule 426 subroutine hero buy 1250"
-    
-        eventPlayer.points -= 1250
-        playEffect(eventPlayer, DynamicEffect.MOIRA_FADE_DISAPPEAR_SOUND, Color.WHITE, eventPlayer, 70)
-        wait(0.25)
-        eventPlayer.currentmagazines = 10
-        if experiencesystem == true:
-            goto lbl_0
-        eventPlayer.XPlevel = false
-        eventPlayer.xp = false
-        lbl_0:
-
-
-def herobuy1750():
-    @Name "243 Rule 427 subroutine hero buy1750"
-    
-        playEffect(getAllPlayers(), DynamicEffect.RING_EXPLOSION, Color.PURPLE, eventPlayer, 10)
-        playEffect(getAllPlayers(), DynamicEffect.MOIRA_FADE_DISAPPEAR_SOUND, Color.PURPLE, eventPlayer, 70)
-        eventPlayer.points -= 1000 + 750
-        wait(0.25)
-        eventPlayer.currentmagazines = 10
-        if experiencesystem == false:
-            goto lbl_0
-        eventPlayer.XPlevel = false
-        eventPlayer.xp = false
-        lbl_0:
-
-
 def heroswap():
     @Name "hero swap subroutine"
     
@@ -112,41 +83,89 @@ def wavevoicecall():
 def setbotamount():
     @Name "set bot amount subroutine"
 
-    if roundnumber < 17:    # Determine botamount based on roundnumber
+    if roundnumber < (5 + (getNumberOfPlayers(Team.1) - 1) * 3): # this needs to be done so that it hot swaps while players leave and join
         botamount = 5 + roundnumber
     else:
-        botamount = 17
+        botamount = 17 - ((getNumberOfPlayers(Team.1) - 1) * 3)
+        if botamount < 1:
+            botamount = 1
 
 def getoutofspawn():
     @Name "out of spawn subroutine"
 
-    if setspawn == false:
-        eventPlayer.teleport(vect(-63.355, -148.766, -17.141)) #zone 1
-        botspawnzone = false
-        startForcingSpawn(Team.ALL, 1)
-        telespot = 101
+    if setspawn == false: #this can be a for loop and array
+        eventPlayer.teleport(vect(-63.355, -148.766, -17.141)) #zone 1 need to label which of these is which
+        zone1()
+        makedoors()
     elif setspawn == 1:
-        eventPlayer.teleport(vect(-65.701, -150.372, 136.652)) #zone 1-2 start of doors
-        botspawnzone = false
-        startForcingSpawn(Team.ALL, 1)
-        telespot = 101
+        eventPlayer.teleport(vect(-65.701, -150.372, 136.652)) #zone 1-1
+        zone1()
+        makedoors()
     elif setspawn == 2:
         eventPlayer.teleport(vect(354.63, 46.375, 181.943)) #zone 2
-        botspawnzone = 1
-        startForcingSpawn(Team.ALL, 0)
-        telespot = 102
+        zone2()
+        makedoors()
     elif setspawn == 3:
         eventPlayer.teleport(vect(185.152, 46.154, 185.661)) #zone 2-1
-        botspawnzone = 1
-        startForcingSpawn(Team.ALL, 0)
-        telespot = 102
+        zone2()
+        makedoors()
     elif setspawn == 4:
         eventPlayer.teleport(vect(367.509, -8.358, -241.533)) #zone 3
-        botspawnzone = 2
-        startForcingSpawn(Team.ALL, 2)
-        telespot = 103
+        zone3()
+        makedoors()
     elif setspawn == 5:
         eventPlayer.teleport(vect(200.42, -8.412, -242.411)) #zone 3-1
-        botspawnzone = 2
-        startForcingSpawn(Team.ALL, 2)
-        telespot = 103
+        zone3()
+        makedoors()
+
+def packapunchbuy():
+    @Name "pack a punch buy subroutine"
+    eventPlayer.magazines = 50
+    eventPlayer.points -= 5000 * eventPlayer.cashback
+    eventPlayer.damagevariable = eventPlayer.papDamageTier
+    wait(0.25)
+    smallMessage(eventPlayer, "  you now get (+{0}%) damage with this hero".format(eventPlayer.papTier))
+    eventPlayer.setDamageDealt(eventPlayer.damagevariable)
+    createEffect(getPlayers(Team.1), Effect.BAPTISTE_IMMORTALITY_FIELD_PROTECTED, Color.WHITE, eventPlayer, 1)
+    eventPlayer.Packapunch = eventPlayer.papTier
+    perkbuyanimation()
+
+def zone1():
+    @Name "zone 1 subroutine"
+
+    startForcingSpawn(Team.ALL, 1)
+    telespot = 0
+    doorZoneStart = 0
+    doorZoneEnd = 38
+
+def zone2():
+    @Name "zone 2 subroutine"
+
+    startForcingSpawn(Team.ALL, 0)
+    telespot = 1
+    doorZoneStart = 39
+    doorZoneEnd = 67
+
+
+def zone3():
+    @Name "zone 3 subroutine"
+
+    startForcingSpawn(Team.ALL, 2)
+    telespot = 2
+    doorZoneStart = 68
+    doorZoneEnd = 89
+
+def makedoors():
+    @Name "make the door effects"
+
+    if telespot == 1 or telespot == 2:
+        for doorindexsequencer in range(0, doorZoneStart * 2):
+            doors[doorindexsequencer] = null
+    wait(3)
+    for dooreffectsequencer in range(doorZoneStart, doorZoneEnd):
+        createBeam(getPlayers(Team.1), Beam.JUNKRAT_TRAP_CHAIN, Beameffectdoors[evalOnce(dooreffectsequencer * 4)], Beameffectdoors[evalOnce(dooreffectsequencer * 4 + 1)], Color.RED, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
+        doors[dooreffectsequencer * 2] = getLastCreatedEntity()        #append to allow the game to delete for later
+        createBeam(getPlayers(Team.1), Beam.JUNKRAT_TRAP_CHAIN, Beameffectdoors[evalOnce(dooreffectsequencer * 4 + 2)], Beameffectdoors[evalOnce(dooreffectsequencer * 4 + 3)], Color.RED, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
+        doors[dooreffectsequencer * 2 + 1] = getLastCreatedEntity()        #append to allow the game to delete for later
+        if not (dooreffectsequencer % 3): wait()
+    

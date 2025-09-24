@@ -290,9 +290,13 @@ rule "202 Purchase hero message":
     @Event eachPlayer
     @Team 1
     @Condition eventPlayer.heroBuyMessTimer == false 
-    @Condition any([distance(player, eventPlayer) < heroradius[i] for player, i in buyheros]) == true
+    @Condition any([distance(player, eventPlayer) < 2 for player, m in buyheros]) == true
 
-    smallMessage(getAllPlayers(), "  {0} Press: {1} for Hero = {2}".format(heroIcon(Hero.ANA), inputBindingString(Button.INTERACT), "{0} Points -- Hold: {1} for follower = {2}".format(numberOfZombies, inputBindingString(Button.RELOAD), "{0} Points --- Ammo cost {1}".format(numberOfZombies, numberOfZombies))))
-    eventPlayer.heroBuyMessTimer = true
-    wait(5)
-    eventPlayer.heroBuyMessTimer = false
+    for i in range(len(buyheros)):
+        if distance(eventPlayer, buyheros[i]) < 2:
+            wait(0.1)
+            smallMessage(eventPlayer, "  {0} Press: {1} for Hero = {2}".format(heroIcon(hero[i]), inputBindingString(Button.INTERACT), "{0} Points -- Hold: {1} for follower = {2}".format(herobuycosts[i], inputBindingString(Button.RELOAD), "{0} Points --- Ammo cost {1}".format(herobuycosts[i] / 3, herobuycosts[i] / 2))))
+            eventPlayer.heroBuyMessTimer = true
+            wait(5)
+            eventPlayer.heroBuyMessTimer = false
+            break

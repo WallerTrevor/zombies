@@ -15,7 +15,6 @@ rule "55  starting hero set":
     
     eventPlayer.startForcingHero(Hero.CASSIDY)
 
-
 rule "58  Single player lives mechanic":
     @Event playerDied
     @Team 1
@@ -131,7 +130,7 @@ rule "81 Died Low points Bonus":
     @Condition roundnumber > 5
     
     eventPlayer.points = 1500
-
+    eventPlayer.points2 = 1500
 
 rule "99  hero ultimate adjustments":
     @Event eachPlayer
@@ -193,6 +192,7 @@ rule "126 healing dealt points":
     @Condition healee != healer
     
     healer.points += 20
+    healer.points2 += 20
     wait(0.25)
 
 
@@ -445,3 +445,15 @@ rule "mercy overheal mechanic":
     waitUntil(healee.getHealth() == healee.getMaxHealth(), 99999)
     healee.addHealthPool(Health.NORMAL, healee.getMaxHealth() * 0.5, false, false)
     healer.points += 50
+
+rule "slowmo camera final blow":
+    @Event playerDealtFinalBlow
+    @Team 1
+    @Condition numberOfZombies <= 1
+    @Condition rngCamera == 1
+
+    getAllPlayers().startCamera(vect(evalOnce(random.randint(-3, 4)), 0, evalOnce(random.randint(-3, 4))) + victim.getEyePosition(), victim.getEyePosition())
+    setSlowMotion(25)
+    wait(1.5)
+    setSlowMotion(100)
+    getAllPlayers().stopCamera()

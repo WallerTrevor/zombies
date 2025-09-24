@@ -23,12 +23,10 @@
 #!define chwaveinterval extraVar[21]
 #!define aprilrng extraVar[22]
 #!define spawntype extraVar[23]
-#!define botspawnzone extraVar[24]
 #!define Bosssequencer extraVar[25]
 #!define outofpsawn extraVar[26]
 #!define romanNcounter extraVar[27]
 #!define appenddoorsequencer extraVar[28]
-#!define dooreffectsequencer extraVar[29]
 #!define svrLdThreshold extraVar[30]
 #!define svrSlwThreshold extraVar[31]
 #!define CameraDistanceFactor extraVar[32]
@@ -38,12 +36,28 @@
 #!define ramPoints extraVar[36]
 #!define bankTier extraVar[37]
 #!define bankPoints extraVar[38]
+#!define doorZoneStart extraVar[39]
+#!define doorZoneEnd extraVar[40]
+#!define teleporterused extraVar[41]
+#!define indx extraVar[42]
+#!define poweron extraVar[43]
+#!define powerconnected extraVar[44]
+#!define doors extraVar[45]
+#!define impulseDoorArray extraVar[46]
+#!define omnicspawn extraVar[47]
+#!define teleportercolor extraVar[48]
+#!define firstpos extraVar[49]
+#!define secondpos extraVar[50]
+#!define firstpoint2 extraVar[56]
+#!define secondpoint2 extraVar[57]
+#!define AllDir extraVar[58]
+#!define AllPos extraVar[59]
+#!define rngCamera extraVar[60]
+#!define cutscene extraVar[61]
+#!define text_shown extraVar[62]
 
-globalvar powerconnected 13
 globalvar Died 18
 globalvar Vectordoorpositions 21
-globalvar doors 26
-globalvar impulseDoorArray 27
 globalvar hero 36
 globalvar buyheros 43
 globalvar buyperks 44
@@ -52,12 +66,13 @@ globalvar mysterylocations 47
 globalvar rngbox 48
 globalvar rngbox2 50
 globalvar Mysterylocations2 52
-globalvar omnicspawn 53
 globalvar bossSpawn 54
 globalvar bot1spawn 55
 globalvar bot2spawn 56
 globalvar setspawn 60
 globalvar aprilquotes 61
+globalvar perkcosts 62
+globalvar perkmessages 63
 globalvar Beameffectdoors 65
 globalvar heroradius 71
 globalvar diedradius 72
@@ -66,46 +81,31 @@ globalvar bossbuypositions 74
 globalvar herobuyrandomized 75
 globalvar perkbuyrandomized 76
 globalvar romanN 78
-globalvar teleportercolor 80
 globalvar forindex 82
 globalvar forindex2 83
 globalvar zzz 84
 globalvar diedphrase 85
 globalvar diedtext 86
-globalvar firstpos 87
-globalvar secondpos 88
-globalvar firstpoint2 89
-globalvar AllPos 90
-globalvar AllDir 91
-globalvar secondpoint2 92
-globalvar decompressed 93
-globalvar compressedData 94
 globalvar i 95
-globalvar scratch 96
-globalvar param0 97
-globalvar param1 98
-globalvar param2 99
-globalvar colors 100
-globalvar numbers 101
-globalvar param3 102
-globalvar param4 103
-globalvar charIndex 104
-globalvar doorscompresser 105
+globalvar Dialogue_Text 96
+globalvar Character_Nr 97
 globalvar second 106
 globalvar z 107
 globalvar Wall_ID 108
 globalvar g_beamType 109
 globalvar is_Grounded 110
 globalvar teleradiusef 111
-globalvar heroiconstring 112
 globalvar indexofbosseffect 113
 globalvar extraVar 115
 globalvar herobuymessages 116
-globalvar k 117
 globalvar doorParams 118
 globalvar doorVectors 119
-globalvar v 120
-globalvar j 121
+globalvar herobuycosts 122
+globalvar dooreffectsequencer 123
+globalvar teleporterpositions 124
+globalvar followerbuyMsg 125
+globalvar doorindexsequencer 126
+globalvar hudappend 127
 #Player variables
 #!define doublemag extraPlayerVar[1]
 #!define sprintburstperk extraPlayerVar[2]
@@ -129,6 +129,14 @@ globalvar j 121
 #!define creditTier extraPlayerVar[20]
 #!define depNotif extraPlayerVar[21]
 #!define withdrawNotif extraPlayerVar[22]
+#!define papTier extraPlayerVar[23]
+#!define papDamageTier extraPlayerVar[24]
+#!define heroBuyIndex extraPlayerVar[25]
+#!define herocost extraPlayerVar[26]
+#!define herobuycost extraPlayerVar[27]
+#!define creditcardlimit extraPlayerVar[28]
+#!define cashback extraPlayerVar[29]
+#!define botspawned extraPlayerVar[30]
 
 playervar points 0
 playervar magazines 3
@@ -183,6 +191,8 @@ playervar allowedheroes 85
 playervar cameravar1 86
 playervar cameravar2 87
 playervar Noclip 88
+playervar idx 89
+playervar perk 90
 #Subroutine names
 
 subroutine herobuy1250 0
@@ -201,6 +211,11 @@ subroutine totalrandomspawn 13
 subroutine wavevoicecall 14
 subroutine setbotamount 15
 subroutine getoutofspawn 16
+subroutine packapunchbuy 17
+subroutine zone1 18
+subroutine zone2 19
+subroutine zone3 20
+subroutine makedoors 21
 #Activated extensions
 
 #!extension beamEffects
@@ -212,6 +227,7 @@ subroutine getoutofspawn 16
 #!extension playMoreEffects
 #!extension spawnMoreDummyBots
 #!extension projectiles
+
 
 
 #!include "../../== corelogic all maps/bot logic/"

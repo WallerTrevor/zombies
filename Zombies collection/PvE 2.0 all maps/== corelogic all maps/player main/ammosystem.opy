@@ -5,49 +5,49 @@ rule "105 specific hero ammo and double mag":
     
     if eventPlayer.isHoldingButton(Button.SECONDARY_FIRE):
         if eventPlayer.getHero() == Hero.MOIRA:
-            if eventPlayer.extraPlayerVar[1] == false:
+            if eventPlayer.perk[5] == false:
                 eventPlayer.currentmagazines -= 0.05
                 wait(0.25)
                 if ruleCondition:
                     loop()
-            elif eventPlayer.extraPlayerVar[1] == 1:
+            elif eventPlayer.perk[5] == 1:
                 eventPlayer.currentmagazines -= 0.025
                 wait(0.25)
                 if ruleCondition:
                     loop()
     if eventPlayer.isHoldingButton(Button.PRIMARY_FIRE):
         if eventPlayer.getHero() == Hero.DOOMFIST:
-            if eventPlayer.extraPlayerVar[1] == false:
+            if eventPlayer.perk[5] == false:
                 eventPlayer.currentmagazines -= 0.25
                 wait(0.25)
                 if ruleCondition:
                     loop()
         elif eventPlayer.getHero() == Hero.DVA:
             if eventPlayer.isInAlternateForm() == false:
-                if eventPlayer.extraPlayerVar[1] == false:
+                if eventPlayer.perk[5] == false:
                     eventPlayer.currentmagazines -= 0.05
                     wait(0.15)
                     if ruleCondition:
                         loop()
-                elif eventPlayer.extraPlayerVar[1] == 1:
+                elif eventPlayer.perk[5] == 1:
                     eventPlayer.currentmagazines -= 0.025
                     wait(0.125)
                     if ruleCondition:
                         loop()
         elif eventPlayer.getHero() == Hero.HANZO:
-            if eventPlayer.extraPlayerVar[1] == false:
+            if eventPlayer.perk[5] == false:
                 eventPlayer.currentmagazines -= 0.25
-            elif eventPlayer.extraPlayerVar[1] == 1:
+            elif eventPlayer.perk[5] == 1:
                     eventPlayer.currentmagazines -= 0.125
         elif eventPlayer.getHero() == Hero.SIGMA:
-            if eventPlayer.extraPlayerVar[1] == false:
+            if eventPlayer.perk[5] == false:
                 eventPlayer.currentmagazines -= 0.050
                 wait(0.1)
                 eventPlayer.currentmagazines -= 0.050
                 wait(1.5)
                 if ruleCondition:
                     loop()
-            elif eventPlayer.extraPlayerVar[1] == 1:
+            elif eventPlayer.perk[5] == 1:
                 eventPlayer.currentmagazines -= 0.025
                 wait(0.1)
                 eventPlayer.currentmagazines -= 0.025
@@ -73,9 +73,9 @@ rule "105 specific hero ammo and double mag":
 
     elif eventPlayer.getHero() == Hero.REINHARDT:
         if eventPlayer.isUsingAbility2():
-            if eventPlayer.extraPlayerVar[1] == false:
+            if eventPlayer.perk[5] == false:
                 eventPlayer.currentmagazines -= 0.25
-            elif eventPlayer.extraPlayerVar[1] == 1:
+            elif eventPlayer.perk[5] == 1:
                 eventPlayer.currentmagazines -= 0.125
 
 
@@ -148,9 +148,10 @@ rule "89 out of ammo":
     @Condition eventPlayer.isDummy() != true
     @Condition eventPlayer.currentmagazines <= 0
     
-        eventPlayer.setPrimaryFireEnabled(false)
-        eventPlayer.setSecondaryFireEnabled(false)
-
+    eventPlayer.setPrimaryFireEnabled(false)
+    eventPlayer.setSecondaryFireEnabled(false)
+    eventPlayer.disallowButton(Button.PRIMARY_FIRE)
+    eventPlayer.disallowButton(Button.SECONDARY_FIRE)
 
 rule "90 initialize ammo amount":
     @Event eachPlayer
@@ -175,7 +176,8 @@ rule "91 enable guns when they have ammo":
     
     eventPlayer.setPrimaryFireEnabled(true)
     eventPlayer.setSecondaryFireEnabled(true)
-
+    eventPlayer.allowButton(Button.PRIMARY_FIRE)
+    eventPlayer.allowButton(Button.SECONDARY_FIRE)  
 
 rule "94 out of ammo moira":
     @Event eachPlayer

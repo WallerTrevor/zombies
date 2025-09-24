@@ -6,6 +6,7 @@ rule "1 Setup":
     Q = []
     T = []
     Y = []
+    hudappend = []
     #Y.append(vect(-23.738, 22.631, -120.65))
     #hudSubtext(getPlayers(Team.1), l"{0}: {1}".format(numberOfZombies, l"Enemies"), HudPosition.RIGHT, 0, Color.RED, HudReeval.VISIBILITY_AND_STRING, SpecVisibility.ALWAYS)
     O = false
@@ -31,6 +32,7 @@ rule "1 Setup":
     dooreffectsequencer = []
     teleportercolor = Color.BLUE
     disableInspector()
+    Difficulty = createWorkshopSettingInt("difficulty", "difficulty", 1, 1, 4)
 
 
 rule "2 round change":
@@ -38,6 +40,7 @@ rule "2 round change":
     @Condition O == false
     @Condition start == 1
     
+    wait(0.16)
     for forindex in range(len(omnicspawn)):
         destroyDummy(Team.2, omnicspawn[forindex])
     roundnumber += 1
@@ -68,7 +71,7 @@ rule "2 round change":
         romanNcounter += 1
     getPlayers(Team.1).ultcharge[0] = 100
     getPlayers(Team.1).ultcharge[1] = 100
-
+    rngCamera = random.randint(1, 5)
 
 rule "3 Set Round Kills":
     @Condition Z == 1
@@ -118,10 +121,13 @@ rule "6 Defeat (needs to be refined for soft restart)":
     roundnumber = 0
     start = false
     romanNcounter = 1
+    poweron = 0
     getPlayers(Team.1).points = 0
     g = false
+    restartMatch() #comment this out later
+    getPlayers(Team.1).creditcardlimit = 0
+    getPlayers(Team.1).creditTier = 0
     
-
 rule "7 Disable Bot Respawn":
     @Event playerJoined
     @Team 2
@@ -325,7 +331,7 @@ rule "48 WORKSHOP SETTINGS":
     zombspeed = createWorkshopSettingBool("difficulty", "zombies speed varies", true)
     zombstrafe = createWorkshopSettingInt("difficulty", "zombies strafe", 1, 0, 1)
     zombjump = createWorkshopSettingInt("difficulty", "zombies jump", 1, 0, 1)
-    experiencesystem = createWorkshopSettingBool("fun", "experience system", true)
+    experiencesystem = createWorkshopSettingBool("fun", "experience system", false)
     if experiencesystem == false:
         goto lbl_0
     eventPlayer.setAbility1Enabled(false)
@@ -337,7 +343,7 @@ rule "48 WORKSHOP SETTINGS":
     getPlayers(Team.1).setProjectileSpeed(createWorkshopSettingInt("fun", "projectile speed team 1", 100, 25, 500))
     getPlayers(Team.2).setProjectileGravity(createWorkshopSettingInt("fun", "projectile gravity team 2", 75, 25, 500))
     getPlayers(Team.2).setProjectileSpeed(createWorkshopSettingInt("fun", "projectile speed team 2", 50, 25, 500))
-    spawntype = createWorkshopSettingInt("difficulty", "brig=0 torb=1 random=2 directed=3 totalrng=4", 5, 0, 5)
+    spawntype = createWorkshopSettingInt("difficulty", "brig=0 torb=1 random=2 directed=3 totalrng=4", 3, 0, 5)
 
 
 rule "83 power challenge effects":
@@ -401,7 +407,7 @@ rule "497 start control":
     @Condition start == false
     @Condition eventPlayer.isHoldingButton(Button.JUMP) == true
 
-    setspawn = random.randint(0, 5)
+    setspawn = random.randint(2, 2)
     wait(0.25)
     start = 1
     aprilrng = random.randint(1, 100)
@@ -420,7 +426,7 @@ rule "497 start control":
     getAllPlayers().enableHeroHud()
     getAllPlayers().points = 500
     getAllPlayers().points2 = getAllPlayers().points
-
+    getAllPlayers().cashback = 1
 
 rule "521 start screen message":
     @Event eachPlayer
@@ -487,6 +493,8 @@ rule "143 DIFFICULTY damage resistance":
         eventPlayer.setDamageReceived(50)
     elif Difficulty == 3:
         eventPlayer.setDamageReceived(100)
+    elif Difficulty == 4:
+        eventPlayer.setDamageReceived(200)
 
 
 rule "159 workshop setting explosive rounds(could add a cheats menu somewhere)":

@@ -1,4 +1,4 @@
-rule "68 player joined invincible":
+rule "68 player joined invincible": #need less rules like this one, and more centralized
     @Event playerJoined
     @Team 1
     @Condition eventPlayer.hasSpawned() == true
@@ -7,7 +7,8 @@ rule "68 player joined invincible":
     eventPlayer.setStatusEffect(null, Status.PHASED_OUT, 30)
     #eventPlayer.points = 500
     eventPlayer.points2 = eventPlayer.points
-
+    eventPlayer.cashback = 1
+    
 rule "120  Remove bots when players join":
     #simplify and test this more to see how much is needed with anti crash enabled
     if getNumberOfPlayers(Team.1) == 2:

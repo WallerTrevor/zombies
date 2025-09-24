@@ -6,13 +6,10 @@ rule "137  get out of spawn bots(buggy effect)":
     
     eventPlayer.startForcingOutlineFor(getPlayers(Team.1), true, rgb(random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)))
     eventPlayer.teleport(nearestWalkablePosition(directionFromAngles(random.uniform(0, 360), random.uniform(-3, 3)) * random.uniform(10, 20) + getLivingPlayers(Team.1)[0].getPosition()))
+
     wait(1)
     createEffect(getAllPlayers(), Effect.BAD_AURA, Color.BLACK, evalOnce(eventPlayer.getPosition()) + vect(0, 1.5, 0), 1, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
     createEffect(getAllPlayers(), Effect.BAD_AURA_SOUND, Color.WHITE, evalOnce(eventPlayer.getPosition()), 100, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
-    eventPlayer.setStatusEffect(null, Status.ROOTED, 1)
-    eventPlayer.setInvisibility(Invis.ALL)
-    wait(1)
-    eventPlayer.setInvisibility(Invis.NONE)
     wait(3)
     destroyEffect(getLastCreatedEntity())
     #i dont think doing it twice works need to append
@@ -24,9 +21,9 @@ rule "15 Unstuck Bots(buggy effect)":
     @Team 2
     @Condition isInLoS(eventPlayer, getLivingPlayers(Team.1)[0]) == false
     @Condition eventPlayer.isAlive() == true
+    @Condition eventPlayer.isInSpawnRoom() == false
     @Condition eventPlayer.hasStatus(Status.HACKED) or eventPlayer.hasStatus(Status.KNOCKED_DOWN) or eventPlayer.hasStatus(Status.FROZEN) or eventPlayer.hasStatus(Status.ASLEEP) or eventPlayer.hasStatus(Status.STUNNED) == false
     #@Condition distance(eventPlayer, getClosestPlayer(eventPlayer, Team.1)) > 2.5
-    @Condition eventPlayer.idlebot == 1
     
     wait(2.5, Wait.ABORT_WHEN_FALSE)
     #eventPlayer.teleport(random.choice(Y))
@@ -47,9 +44,8 @@ rule "16 Jump If Far Away From Player":
     @Condition distance(eventPlayer, getClosestPlayer(eventPlayer, Team.1)) > random.randint(5, 20)
     @Condition O == false
     #idle bots would be great in concept, its meant to feel like L4D2
-    @Condition idlebots == false
     @Condition eventPlayer.getHorizontalSpeed() < 0.7
-    
+
     if zombjump == false:
         goto lbl_0
     #if powerconnected == 1:
@@ -286,7 +282,7 @@ rule "435 basic OMNIC ALL heroes":
     @Team 2
     @Condition distance(eventPlayer, getClosestPlayer(eventPlayer, Team.1)) < 10
     @Condition eventPlayer.getSlot() != getPlayersInSlot(0, Team.2)
-    
+
     #needs to be seperate rules as this is very limited conditions
     if eventPlayer.getHero() == Hero.ROADHOG:
         eventPlayer.forceButtonPress(Button.ABILITY_2)
@@ -428,8 +424,7 @@ rule "137  bots too far away":
     @Condition distance(eventPlayer, (sorted([player for player in getLivingPlayers(Team.1) if eventPlayer.T < 2]))[0]) > 25
     
     #good to keep but might need bigger radius when implementing pathfinding
-    wait(0.5, Wait.ABORT_WHEN_FALSE)
-    #also might need to set to ongoing - global, and just teleport them one at a time
+    wait(6.0 + (eventPlayer.getSlot() * 0.032), Wait.ABORT_WHEN_FALSE) # good to make this 5+ seconds for teleporter maps
     eventPlayer.teleport(nearestWalkablePosition(directionFromAngles(random.uniform(0, 360), random.uniform(-3, 3)) * random.uniform(10, 20) + getLivingPlayers(Team.1)[0].getPosition()))
 
 
@@ -438,8 +433,7 @@ rule "164 OMNIC brigg hold sheild":
     @Team 2
     @Hero brigitte
     @Condition distance(eventPlayer, getClosestPlayer(eventPlayer, Team.1)) >= 15
-    @Condition idlebots == false
-    
+
     if powerconnected == 1:
         goto lbl_0
     if roundnumber < 10:
@@ -457,38 +451,6 @@ rule "165 OMNIC brigg hold sheild":
     
     eventPlayer.stopForcingButton(Button.SECONDARY_FIRE)
 
-
-rule "183 Rule 303 bots spawn idle":
-    @Event eachPlayer
-    @Team 2
-    @Condition eventPlayer.hasSpawned() == true
-    @Condition idlebots == true
-    
-    #eventPlayer.idlebot = 1
-    eventPlayer.stopForcingThrottle()
-
-
-rule "184 zombies move if player close":
-    @Event eachPlayer
-    @Team 2
-    @Condition distance(eventPlayer, getClosestPlayer(eventPlayer, Team.1)) < 6
-    @Condition idlebots == true
-    
-    eventPlayer.idlebot = 1
-    eventPlayer.startForcingThrottle(1, 1, 0, 1, 0, 1)
-    eventPlayer.communicate(Comms.HELLO)
-
-
-rule "185 zombie took damage start moving":
-    @Event playerTookDamage
-    @Team 2
-    @Condition eventPlayer.idlebot == false
-    @Condition idlebots == true
-    
-    eventPlayer.idlebot = 1
-    eventPlayer.startForcingThrottle(1, 1, 0, 1, 0, 1)
-
-
 rule "402 Omnic movespeed + health":
     @Event eachPlayer
     @Team 2
@@ -505,9 +467,8 @@ rule "407 OMNIC Bots Move Toward Players":
     @Event eachPlayer
     @Team 2
     @Condition O == false
-    @Condition idlebots == false
     @Condition distance(eventPlayer, getClosestPlayer(eventPlayer, Team.1)) >= 1.75
-    
+
     eventPlayer.startForcingThrottle(1, 1, 0, 1, 0, 1)
     if zombstrafe == false:
         goto lbl_0
@@ -533,7 +494,6 @@ rule "408 OMNIC Bots Face Nearest Player":
     @Team 2
     #@Condition eventPlayer.hasSpawned() == true
     @Condition O == false
-    
     #if eventPlayer == Team.2:
     eventPlayer.startFacing(directionTowards(eventPlayer.getEyePosition(), sorted([player for player in getLivingPlayers(Team.1) if player.T == false], lambda i: distance(eventPlayer, i))[0].getEyePosition()), 400)
     #elif eventPlayer == Team.1:
@@ -546,7 +506,6 @@ rule "409 OMNIC Bots Attack if Near":
     @Condition distance(eventPlayer, getClosestPlayer(eventPlayer, Team.1)) < 1.8
     @Condition O == false
     @Condition eventPlayer.getHero() == Hero.TORBJORN or Hero.BRIGITTE or Hero.WINSTON or Hero.GENJI or Hero.RAMATTRA or Hero.REAPER or Hero.REINHARDT
-    
     wait(createWorkshopSettingFloat("difficulty", "zombie reaction time", 0.35, 0, 1), Wait.ABORT_WHEN_FALSE)
     eventPlayer.startForcingButton(Button.PRIMARY_FIRE)
 
@@ -558,7 +517,6 @@ rule "410 OMNIC Bots Dont Attack if Not Near":
     @Condition eventPlayer.isFiringPrimaryFire() == true
     @Condition eventPlayer.isUsingUltimate() == false
     @Condition eventPlayer.getHero() == Hero.TORBJORN or Hero.BRIGITTE or Hero.WINSTON or Hero.GENJI or Hero.RAMATTRA or Hero.REAPER or Hero.REINHARDT
-    
     eventPlayer.stopForcingButton(Button.PRIMARY_FIRE)
     eventPlayer.setAbility2Enabled(true)
 

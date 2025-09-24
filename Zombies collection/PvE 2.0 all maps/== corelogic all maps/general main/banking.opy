@@ -104,7 +104,7 @@ rule "property damage easter egg":
     @Condition distance(eventPlayer, vect(270.637, 38.147, 176.339)) < 1
     @Condition eventPlayer.isHoldingButton(Button.INTERACT) == true
 
-    smallMessage(eventPlayer, "  You have caused ${0} damage to my army!".format(ramPoints))
+    smallMessage(eventPlayer, "  {0} You have caused ${1} damage to my army!".format(heroIcon(Hero.RAMATTRA), (ramPoints)))
 
 
 rule "credit card system":
@@ -117,19 +117,25 @@ rule "credit card system":
         if eventPlayer.creditTier == 0:
             if eventPlayer.points >= 1000:
                 eventPlayer.points -= 1000
+                chaseAtRate(eventPlayer.points2, (evalOnce(eventPlayer.points)), 1000)
                 eventPlayer.creditTier = 1
                 smallMessage(eventPlayer, "  You bought a credit card, your credit card is now tier 1")
+                eventPlayer.creditcardlimit = 2000
+                eventPlayer.cashback = 0.99
                 wait(4)
-                smallMessage(eventPlayer, "  Hold spacebar to see credit card details")
+                smallMessage(eventPlayer, "  Hold spacebar to see credit card details") 
                 #need sound effect
             else:
                 smallMessage(eventPlayer, "  You need 1000 points buy a credit card!")
         elif eventPlayer.creditTier == 1:
             if eventPlayer.points >= 2000:
                 eventPlayer.points -= 2000
+                chaseAtRate(eventPlayer.points2, (evalOnce(eventPlayer.points)), 1000)
                 eventPlayer.creditTier = 2
                 #need sound effect
                 smallMessage(eventPlayer, "  Your credit card is now tier 2")
+                eventPlayer.creditcardlimit = 10000
+                eventPlayer.cashback = 0.95
                 wait(4)
                 smallMessage(eventPlayer, "  Hold spacebar to see credit card details")
             else:
@@ -137,9 +143,12 @@ rule "credit card system":
         elif eventPlayer.creditTier == 2:
             if eventPlayer.points >= 4000:
                 eventPlayer.points -= 4000
+                chaseAtRate(eventPlayer.points2, (evalOnce(eventPlayer.points)), 1000)
                 eventPlayer.creditTier = 3
                 #need sound effect
                 smallMessage(eventPlayer, "  Your credit card is now tier 3")
+                eventPlayer.creditcardlimit = 20000
+                eventPlayer.cashback = 0.9
                 wait(4)
                 smallMessage(eventPlayer, "  Hold spacebar to see credit card details")
             else:
@@ -148,21 +157,26 @@ rule "credit card system":
     else:
         smallMessage(getAllPlayers(), "{0} Error: {1} Credit card machine is closed! (--ANTICRASHSYS--)".format(heroIcon(Hero.RAMATTRA), random.randint(10, 1000)))
 
-# allow player points to go negative up to a certain limit
+
+rule "credit card interest":
+    @Event eachPlayer
+    @Condition eventPlayer.points < 0
+    @Condition numberOfZombies < 1
+
+    if eventPlayer.creditTier == 1:
+        eventPlayer.points += eventPlayer.points * 0.3
+        chaseAtRate(eventPlayer.points2, (evalOnce(eventPlayer.points)), 1000)
+        smallMessage(eventPlayer, "  You have incurred {0} interest on your credit card.".format(eventPlayer.points * 0.3))
+    elif eventPlayer.creditTier == 2:
+        eventPlayer.points += eventPlayer.points * 0.2
+        chaseAtRate(eventPlayer.points2, (evalOnce(eventPlayer.points)), 1000)
+        smallMessage(eventPlayer, "  You have incurred {0} interest on your credit card.".format(eventPlayer.points * 0.2))
+    elif eventPlayer.creditTier == 3:
+        eventPlayer.points += eventPlayer.points * 0.15
+        chaseAtRate(eventPlayer.points2, (evalOnce(eventPlayer.points)), 1000)
+        smallMessage(eventPlayer, "  You have incurred {0} interest on your credit card.".format(eventPlayer.points * 0.15))
+
 #needs hud element to show current credit card tier in a color, and the rest when player holds spacebar: current debt, current APR, current fee per round, and one time fee for next upgrade
-#tier 1 will allow -2000 points, have a APR of 30% per round, and a fee of 0 points per round, and a one time fee of 1000 points
-#tier 2 will allow -10000 points have a APR of 20% per round, and a fee of 100 points per round, and a one time fee of 2000 points
-#tier 3 will allow -20000 points have a APR of 15% per round, and a fee of 200 points per round, and a one time fee of 4000 points
-
-#rule "credit card buy upgrade":
-
-
-#rule "credit card upgrade effect":
-
-#rule "credit card every round fee if negative":
-
-
-#rule "credit card":
 
 
 rule "Reset deposit notif":
