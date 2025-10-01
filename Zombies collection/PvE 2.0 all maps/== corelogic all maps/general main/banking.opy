@@ -2,7 +2,7 @@ rule "56  points loss for high roller":
     @Event playerDied
     @Team 1
     
-    bankPoints += eventPlayer.points * 0.25
+    bankPoints += eventPlayer.points * 0.20
     eventPlayer.points -= eventPlayer.points * 0.3
     eventPlayer.points = ceil(eventPlayer.points)
 
@@ -63,7 +63,7 @@ rule "global bank withdraw button":
     @Condition distance(eventPlayer, vect(273.277, 38.147, 176.182)) < 1
     @Condition eventPlayer.isHoldingButton(Button.INTERACT) == true
 
-    if getServerLoad() < 235:
+    if getServerLoad() < 245:
         if bankPoints >= 250:
             bankPoints -= 250
             eventPlayer.points += 250
@@ -83,7 +83,7 @@ rule "global bank deposit button":
     @Condition distance(eventPlayer, vect(277.261, 38.147, 178.713)) < 1
     @Condition eventPlayer.isHoldingButton(Button.INTERACT) == true
 
-    if getServerLoad() < 235:
+    if getServerLoad() < 245:
         if eventPlayer.points >= 200:
             bankPoints += 200
             eventPlayer.points -= 200
@@ -113,7 +113,7 @@ rule "credit card system":
     @Condition distance(eventPlayer, vect(299.653, -14.545, -222.024)) < 1
     @Condition eventPlayer.isHoldingButton(Button.INTERACT) == true
     @Condition eventPlayer.creditTier < 3
-    if getServerLoad() < 235:
+    if getServerLoad() < 245:
         if eventPlayer.creditTier == 0:
             if eventPlayer.points >= 1000:
                 eventPlayer.points -= 1000

@@ -33,7 +33,10 @@ rule "1 Setup":
     teleportercolor = Color.BLUE
     disableInspector()
     Difficulty = createWorkshopSettingInt("difficulty", "difficulty", 1, 1, 4)
-
+    Died[0] = vect(500, 0, 500)
+    Died[1] = vect(500, 0, 500)
+    Died[2] = vect(500, 0, 500)
+    Died[3] = vect(500, 0, 500)
 
 rule "2 round change":
     @Condition numberOfZombies <= 0
@@ -116,7 +119,7 @@ rule "6 Defeat (needs to be refined for soft restart)":
     getoutofspawn()
     getPlayers(Team.1).resurrect()
     wait(2)
-    bankPoints += getPlayers(Team.1).points
+    bankPoints += getPlayers(Team.1).points * 0.75
     outofpsawn = false
     roundnumber = 0
     start = false
@@ -152,59 +155,6 @@ rule "8 respawn bots":
     if ruleCondition:
         loop()
 
-
-rule "26 Revive Player system":
-    @Event eachPlayer
-    @Team 1
-    #might rebuild downed system to have players be unkillable
-    @Condition distance(eventPlayer, Died[0]) <= 4
-    #and only stay alive for 25 seconds then dissapear
-    @Condition eventPlayer != getPlayersInSlot(0, Team.1)
-    #then lose their hero and will need to rebuild spectator cam
-    @Condition eventPlayer.isAlive() == true
-    @Condition eventPlayer.isDummy() == false
-    @Condition any([distance(player, eventPlayer) < diedradius[i] for player, i in Died]) == true
-    
-    eventPlayer.C = getPlayersInSlot(0, Team.1)
-    chaseOverTime(getPlayersInSlot(0, Team.1).C, 4, 2 + P * 2)
-    wait(2 + P * 2, Wait.ABORT_WHEN_FALSE)
-    getPlayersInSlot(0, Team.1).teleport(eventPlayer)
-    getPlayersInSlot(0, Team.1).resurrect()
-    P += 1
-    #wait(0.25)
-    Died[0] = vect(500, 0, 500)
-    eventPlayer.points += 100 * eventPlayer.H
-    if eventPlayer.H != 1:
-        goto lbl_0
-    if eventPlayer.H == 1:
-        goto lbl_1
-    lbl_0:
-    getPlayers(Team.1).InfoCooldown = false
-    lbl_1:
-    R += 100 * eventPlayer.H
-    getPlayersInSlot(0, Team.1).setStatusEffect(null, Status.PHASED_OUT, 5)
-    getPlayersInSlot(0, Team.1).setMaxHealth(100)
-
-
-
-rule "27 Cancel Revive all players":
-    @Event eachPlayer
-    @Team 1
-    #work in progress
-    @Condition any([distance(player, eventPlayer) > diedradius[i] for player, i in Died]) == true
-    @Condition eventPlayer != getPlayersInSlot(0, Team.1)
-    
-    getPlayersInSlot(0, Team.1).C = false
-    stopChasingVariable(getPlayersInSlot(0, Team.1).C)
-
-
-rule "35 Player Respawn, Move Revive Effect":
-    @Event eachPlayer
-    @Team 1
-    @Condition eventPlayer.isAlive() == true
-    
-    #might want to delete downed effect instead of move
-    Died[eventPlayer.getSlot()] = vect(500, 0, 500)
 
 
 rule "36 Pickup perk drops(should be able to write this as one rule)":
@@ -407,11 +357,11 @@ rule "497 start control":
     @Condition start == false
     @Condition eventPlayer.isHoldingButton(Button.JUMP) == true
 
-    setspawn = random.randint(2, 2)
+    setspawn = random.randint(0, 5)
     wait(0.25)
     start = 1
     aprilrng = random.randint(1, 100)
-    startlines = random.randint(0, 8)
+    startlines = random.randint(0, 29)
     eventPlayer.heroswap[0] = eventPlayer.getHero()
     rngbox2 = random.choice(Mysterylocations2)
     wait(1)

@@ -16,7 +16,7 @@ rule "229 buy perks and power activate":
     @Condition any([distance(player, eventPlayer) < heroradius[i] for player, i in buyperks]) == true
 
 
-    if getServerLoad() < 235:
+    if getServerLoad() < 245:
         for i in range(len(buyperks)):
             if distance(eventPlayer, buyperks[i]) < 2 and i != 6:
                 if poweron == 1:
@@ -69,7 +69,7 @@ rule "202 Purchase hero actions":
     @Condition eventPlayer.isHoldingButton(Button.INTERACT) == true
     @Condition any([distance(eventPlayer, buyheros[i]) < heroradius[0]])  == true
 
-    if getServerLoad() < 235:
+    if getServerLoad() < 245:
         for eventPlayer.idx in range(len(buyheros)):
             if distance(eventPlayer, buyheros[eventPlayer.idx]) < 2:
                 if eventPlayer.getHero() == hero[eventPlayer.idx]:
@@ -78,6 +78,7 @@ rule "202 Purchase hero actions":
                         wait(0.25)
                         chaseAtRate(eventPlayer.points2, (evalOnce(eventPlayer.points) + 0) * eventPlayer.H, herobuycosts[eventPlayer.idx])
                         eventPlayer.currentmagazines = 10
+                        smallMessage(eventPlayer, "  {0} Magazines refilled!".format(heroIcon(hero[eventPlayer.idx])))
                         break  # Stop after the first match
                     else: 
                         if eventPlayer.currentmagazines >= 10:
@@ -114,7 +115,13 @@ rule "202 Purchase hero actions":
                 if eventPlayer.points >= 50000:
                     setSlowMotion(40)
                     wait(2)
-                    declareTeamVictory(Team.1)
+                    setSlowMotion(100)
+                    eventPlayer.points -= 50000 * eventPlayer.cashback
+                    chaseAtRate(eventPlayer.points2, (evalOnce(eventPlayer.points) + 0) * eventPlayer.H, 50000)
+                    smallMessage(eventPlayer, "  {0} You really thought this was going to end?".format(heroIcon(Hero.RAMATTRA)))
+                    kill(getAllPlayers())
+                    wait(0.1)
+                    #sudo code: give player tier 3 pack a punch on hero for all runs from then on. and then soft restart
                 elif eventPlayer.points < 50000:
                     smallMessage(eventPlayer, "  {0} HA, good luck escaping...".format(heroIcon(Hero.RAMATTRA)))
     else:

@@ -104,7 +104,7 @@ rule "80 player died without maniac":
     @Condition eventPlayer.Maniac == false #doesnt need 2 rules just for maniac
     
     Died[eventPlayer.getSlot()] = nearestWalkablePosition(eventPlayer)
-    bigMessage(getAllPlayers(), l"{0} {1}".format(eventPlayer, l"{0}!".format(l"Down")))
+    bigMessage(getAllPlayers(), "{0}{1}".format(eventPlayer, random.choice(diedphrase)))
     eventPlayer.setMaxHealth(100)
     E[eventPlayer.getSlot()] = true
     eventPlayer.stopForcingCurrentHero()
@@ -425,7 +425,7 @@ rule "Camera 3rd person static crosshair":
     createInWorldText(localPlayer if localPlayer.extraPlayerVar[17] == 2 else null, "+", raycast(localPlayer.getEyePosition(), localPlayer.getEyePosition() + localPlayer.getFacingDirection() * 999, getAllPlayers(), localPlayer, true).getHitPosition(), 1, Clip.NONE, WorldTextReeval.VISIBILITY_POSITION_AND_STRING)
 
 
-rule "Fix dva health":
+rule "Fix dva health": #buggy
     @Event eachPlayer
     @Condition eventPlayer.getHero() == Hero.DVA
     
@@ -457,3 +457,62 @@ rule "slowmo camera final blow":
     wait(1.5)
     setSlowMotion(100)
     getAllPlayers().stopCamera()
+
+    
+rule "26 Revive Player system":
+    @Event eachPlayer
+    @Team 1
+    #might rebuild downed system to have players be unkillable
+    @Condition distance(eventPlayer, Died[i]) <= 4
+    #and only stay alive for 25 seconds then dissapear
+    @Condition eventPlayer != getPlayersInSlot(i, Team.1)
+    #then lose their hero and will need to rebuild spectator cam
+    @Condition eventPlayer.isAlive() == true
+    @Condition eventPlayer.isDummy() == false
+    @Condition any([distance(player, eventPlayer) < diedradius[i] for player, i in Died]) == true
+    
+    for i in range(len(Died)):
+        if distance(eventPlayer, Died[i]) <= diedradius[i]:
+            eventPlayer.C = getPlayersInSlot(i, Team.1)
+            chaseOverTime(getPlayersInSlot(i, Team.1).C, 4, 2 + P * 2)
+            wait(2 + P * 2, Wait.ABORT_WHEN_FALSE)
+            getPlayersInSlot(i, Team.1).teleport(eventPlayer)
+            getPlayersInSlot(i, Team.1).resurrect()
+            P += 1
+            #wait(0.25)
+            Died[i] = vect(500, 0, 500)
+            eventPlayer.points += 100 * eventPlayer.H
+            chaseAtRate(eventPlayer.points2, (evalOnce(eventPlayer.points) * eventPlayer.H), 1000)
+            if eventPlayer.H != 1:
+                goto lbl_0
+            if eventPlayer.H == 1:
+                goto lbl_1
+            lbl_0:
+            getPlayers(Team.1).InfoCooldown = false
+            lbl_1:
+            R += 100 * eventPlayer.H
+            getPlayersInSlot(i, Team.1).setStatusEffect(null, Status.PHASED_OUT, 5)
+            getPlayersInSlot(i, Team.1).setMaxHealth(100)
+            break
+
+
+
+
+rule "27 Cancel Revive all players":
+    @Event eachPlayer
+    @Team 1
+    #work in progress
+    @Condition any([distance(player, eventPlayer) > diedradius[i] for player, i in Died]) == true
+    @Condition eventPlayer != getPlayersInSlot(i, Team.1)
+    
+    getPlayersInSlot(i, Team.1).C = false
+    stopChasingVariable(getPlayersInSlot(i, Team.1).C)
+
+
+rule "35 Player Respawn, Move Revive Effect":
+    @Event eachPlayer
+    @Team 1
+    @Condition eventPlayer.isAlive() == true
+    
+    #might want to delete downed effect instead of move
+    Died[eventPlayer.getSlot()] = vect(500, 0, 500)

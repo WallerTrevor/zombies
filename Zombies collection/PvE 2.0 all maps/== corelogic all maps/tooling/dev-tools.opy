@@ -294,3 +294,12 @@ rule "hud for door effect appending":
      hudHeader(eventPlayer, "doors: {0} {1} {2}".format(doors[75], doors[76], doors[77]), HudPosition.TOP, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
      hudHeader(eventPlayer, "doors: {0} {1} {2}".format(doors[78], doors[79], doors[80]), HudPosition.TOP, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
 */
+/*
+rule "create dummy bot":
+    @Event eachPlayer
+    @Condition eventPlayer.isHoldingButton(Button.INTERACT) == true
+    #@Disabled
+
+    createDummy(Hero.CASSIDY, Team.1, 1, eventPlayer, eventPlayer.getFacingDirection())
+    wait(0.25)
+*/

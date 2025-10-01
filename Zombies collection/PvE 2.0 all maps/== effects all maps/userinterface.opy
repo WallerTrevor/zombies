@@ -16,21 +16,21 @@ rule "toggle perk info":
 
 rule "perk info expanded":
     @Event eachPlayer
+    @Team 1
     @Condition eventPlayer.perkinfo == 2
-    
+
+    for i in range(len(eventPlayer.Perkui)):
+        hudText(eventPlayer, "{0}".format(eventPlayer.perkicon[i]), "Perk", "Perk info:", HudPosition.LEFT, 3, eventPlayer.perkcolor[i], eventPlayer.perkcolor[i], Color.WHITE, HudReeval.VISIBILITY_SORT_ORDER_AND_COLOR)
+        eventPlayer.Perkui.append(getLastCreatedText())
+    for i in range(0, 3 - (len(eventPlayer.Perkui) - 1), 1):
+        hudText(eventPlayer, null, "\n", null, HudPosition.LEFT, 3, Color.GREEN, Color.SKY_BLUE, Color.WHITE, HudReeval.VISIBILITY_AND_STRING) #this adds blank lines if less than 4 perks
+        eventPlayer.Perkui.append(getLastCreatedText())
     #these need to have an array of details with info for each perk
-    hudText(eventPlayer, "{0}".format(iconString(Icon.CLUB)), "Increased health", "juggernaut", HudPosition.LEFT, 3, Color.ORANGE, Color.ORANGE, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
-    eventPlayer.Perkui.append(getLastCreatedText())
-    hudText(eventPlayer, "{0}".format(iconString(Icon.DIAMOND)), "increased damage", "Pack-a-Punch", HudPosition.LEFT, 3, Color.SKY_BLUE, Color.ORANGE, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
-    eventPlayer.Perkui.append(getLastCreatedText())
-    hudText(eventPlayer, "{0}".format(iconString(Icon.BOLT)), "speed increased", "sprint boost", HudPosition.LEFT, 3, Color.RED, Color.ORANGE, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
-    eventPlayer.Perkui.append(getLastCreatedText())
-    hudText(eventPlayer, "{0}".format(iconString(Icon.HEART)), "increased healing", "Field Medic", HudPosition.LEFT, 3, Color.RED, Color.ORANGE, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
-    eventPlayer.Perkui.append(getLastCreatedText())
 
 
 rule "perk delete":
     @Event eachPlayer
+    @Team 1
     @Condition eventPlayer.perkinfo == 1
     
     destroyHudText(eventPlayer.Perkui[len(eventPlayer.Perkui) - 1])
@@ -52,14 +52,12 @@ rule "perk info simplified":
         goto lbl_0
     wait(9)
     lbl_0:
-    hudHeader(eventPlayer, "{0}".format(iconString(Icon.CLUB)), HudPosition.LEFT, 3, Color.ORANGE, HudReeval.VISIBILITY_AND_STRING)
-    eventPlayer.Perkui.append(getLastCreatedText())
-    hudHeader(eventPlayer, "{0}".format(iconString(Icon.DIAMOND)), HudPosition.LEFT, 3, Color.SKY_BLUE, HudReeval.VISIBILITY_AND_STRING)
-    eventPlayer.Perkui.append(getLastCreatedText())
-    hudHeader(eventPlayer, "{0}".format(iconString(Icon.BOLT)), HudPosition.LEFT, 3, Color.RED, HudReeval.VISIBILITY_AND_STRING)
-    eventPlayer.Perkui.append(getLastCreatedText())
-    hudHeader(eventPlayer, "{0}".format(iconString(Icon.HEART)), HudPosition.LEFT, 3, Color.RED, HudReeval.VISIBILITY_AND_STRING)
-    eventPlayer.Perkui.append(getLastCreatedText())
+    for i in range(len(eventPlayer.Perkui)):
+        hudHeader(eventPlayer, "{0}".format(eventPlayer.Perkui[i]), HudPosition.LEFT, 3, eventPlayer.perkcolor[i], HudReeval.VISIBILITY_SORT_ORDER_AND_COLOR)
+        eventPlayer.Perkui.append(getLastCreatedText())
+    for i in range(0, 3 - (len(eventPlayer.Perkui) - 1), 1):
+        hudText(eventPlayer, null, "\n", null, HudPosition.LEFT, 3, Color.GREEN, Color.SKY_BLUE, Color.WHITE, HudReeval.VISIBILITY_AND_STRING) #this adds blank lines if less than 4 perks
+        eventPlayer.Perkui.append(getLastCreatedText())
     hudSubheader(eventPlayer, " \n\n", HudPosition.LEFT, 6, Color.GREEN, HudReeval.VISIBILITY, SpecVisibility.NEVER)
     eventPlayer.Perkui.append(getLastCreatedText())
 
@@ -223,39 +221,36 @@ rule "Info UI":
     eventPlayer.UI = 1
 
 
-rule "all the effects (each player) (and huds)":
-    @Event eachPlayer
-    @Team 1
+
+rule "all the effects (local player huds)":
     @Condition start == 1
-    
     #if experiencesystem == 1:
-    #progressBarHud(eventPlayer, eventPlayer.xp[eventPlayer.currentheroxp], "current level {0}".format(eventPlayer.XPlevel[eventPlayer.currentheroxp]), HudPosition.TOP, 0, Color.GREEN, Color.BLUE, ProgressHudReeval.VALUES)
+    #   progressBarHud(eventPlayer, eventPlayer.xp[eventPlayer.currentheroxp], "current level {0}".format(eventPlayer.XPlevel[eventPlayer.currentheroxp]), HudPosition.TOP, 0, Color.GREEN, Color.BLUE, ProgressHudReeval.VALUES)
+    wait(4)
     Died[0] = vect(500, 0, 500)
     Died[1] = vect(500, 0, 500)
     Died[2] = vect(500, 0, 500)
     Died[3] = vect(500, 0, 500)
-    wait(9)
+    wait(4)
     if not ruleCondition:
         return
-    hudSubtext(eventPlayer, "lives used: {0}".format(eventPlayer.singlelives), HudPosition.RIGHT, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
-    hudSubheader(eventPlayer, " \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", HudPosition.RIGHT, 1, Color.GREEN, HudReeval.VISIBILITY, SpecVisibility.NEVER)
-    hudSubheader(eventPlayer, " \n\n", HudPosition.RIGHT, 6, Color.GREEN, HudReeval.VISIBILITY, SpecVisibility.NEVER)
-    hudSubtext(eventPlayer, "Magazines {0}".format(eventPlayer.currentmagazines), HudPosition.RIGHT, 7, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
-    hudText(eventPlayer, "", null, "{0} : {1} : {2}".format(heroIcon(getPlayersInSlot(0, Team.1).getHero()), getPlayersInSlot(0, Team.1), getPlayersInSlot(0, Team.1).points2), HudPosition.RIGHT, 5, Color.WHITE, Color.WHITE, Color.RED, HudReeval.VISIBILITY_AND_STRING)
-    hudText(eventPlayer, "", null, "{0} : {1} : {2}".format(heroIcon(getPlayersInSlot(1, Team.1).getHero()), getPlayersInSlot(1, Team.1), getPlayersInSlot(1, Team.1).points2), HudPosition.RIGHT, 5, Color.WHITE, Color.WHITE, Color.BLUE, HudReeval.VISIBILITY_AND_STRING)
-    hudText(eventPlayer, "", null, "{0} : {1} : {2}".format(heroIcon(getPlayersInSlot(2, Team.1).getHero()), getPlayersInSlot(2, Team.1), getPlayersInSlot(2, Team.1).points2), HudPosition.RIGHT, 5, Color.WHITE, Color.WHITE, Color.GREEN, HudReeval.VISIBILITY_AND_STRING)
-    hudText(eventPlayer, "", null, "{0} : {1} : {2}".format(heroIcon(getPlayersInSlot(3, Team.1).getHero()), getPlayersInSlot(3, Team.1), getPlayersInSlot(3, Team.1).points2), HudPosition.RIGHT, 5, Color.WHITE, Color.WHITE, Color.ORANGE, HudReeval.VISIBILITY_AND_STRING)
-    hudSubheader(eventPlayer, " \n\n", HudPosition.RIGHT, 8, Color.GREEN, HudReeval.VISIBILITY, SpecVisibility.NEVER)
-    hudSubtext(eventPlayer, "Heroes {0} {1}  {2}".format(eventPlayer.heroiconswap[0], eventPlayer.heroiconswap[1], inputBindingString(Button.CROUCH)), HudPosition.RIGHT, 9, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
-    hudSubtext(eventPlayer, "Follower: {0}".format(heroIcon((getPlayersInSlot(eventPlayer.getSlot() + 4, Team.1)).getHero())), HudPosition.LEFT, 5, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
-    hudSubheader(eventPlayer, " \n\n", HudPosition.LEFT, 4, Color.GREEN, HudReeval.VISIBILITY, SpecVisibility.NEVER)
-    hudSubtext(eventPlayer, "                                                                             {0}".format(romanN[romanNcounter]), HudPosition.LEFT, 7, Color.ORANGE, HudReeval.VISIBILITY_AND_STRING)
-    hudSubheader(eventPlayer, " \n\n", HudPosition.LEFT, 6, Color.GREEN, HudReeval.VISIBILITY, SpecVisibility.NEVER)
-    hudSubheader(eventPlayer, " \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", HudPosition.LEFT, 1, Color.GREEN, HudReeval.VISIBILITY, SpecVisibility.NEVER)
-    hudSubheader(eventPlayer, "workshop.codes/ap-zombies \n Code:T5M30", HudPosition.LEFT, -1, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
-    hudSubheader(eventPlayer, " \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", HudPosition.TOP, 1, Color.GREEN, HudReeval.VISIBILITY, SpecVisibility.NEVER)
+    hudSubtext(localPlayer, "lives used: {0}".format(localPlayer.singlelives), HudPosition.RIGHT, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
 
-
+    hudSubtext(localPlayer, "Magazines {0}".format(localPlayer.currentmagazines), HudPosition.RIGHT, 7, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
+    hudSubheader(localPlayer, " \n\n", HudPosition.RIGHT, 8, Color.GREEN, HudReeval.VISIBILITY, SpecVisibility.NEVER)
+    hudSubtext(localPlayer, "Heroes {0} {1}  {2}".format(localPlayer.heroiconswap[0], localPlayer.heroiconswap[1], inputBindingString(Button.CROUCH)), HudPosition.RIGHT, 9, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
+    hudSubtext(localPlayer, "Follower: {0}".format(heroIcon((getPlayersInSlot(localPlayer.getSlot() + 4, Team.1)).getHero())), HudPosition.LEFT, 5, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
+    hudSubtext(localPlayer, "                                                                             {0}".format(romanN[romanNcounter]), HudPosition.LEFT, 7, Color.ORANGE, HudReeval.VISIBILITY_AND_STRING)
+    hudSubheader(localPlayer, " \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", HudPosition.RIGHT, 1, Color.GREEN, HudReeval.VISIBILITY, SpecVisibility.NEVER)
+    hudSubheader(localPlayer, " \n\n", HudPosition.RIGHT, 6, Color.GREEN, HudReeval.VISIBILITY, SpecVisibility.NEVER)
+    hudSubheader(localPlayer, " \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", HudPosition.TOP, 1, Color.GREEN, HudReeval.VISIBILITY, SpecVisibility.NEVER)
+    hudSubheader(localPlayer, "workshop.codes/ap-zombies \n Code:T5M30 \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", HudPosition.LEFT, 1, Color.GREEN, HudReeval.VISIBILITY, SpecVisibility.NEVER)
+    hudSubheader(localPlayer, " \n\n", HudPosition.LEFT, 6, Color.GREEN, HudReeval.VISIBILITY, SpecVisibility.NEVER)
+    hudSubheader(localPlayer, " \n\n", HudPosition.LEFT, 4, Color.GREEN, HudReeval.VISIBILITY, SpecVisibility.NEVER)
+    hudText(localPlayer, "", null, "{0} : {1} : {2}".format(heroIcon(getPlayersInSlot(0, Team.1).getHero()), getPlayersInSlot(0, Team.1), getPlayersInSlot(0, Team.1).points2), HudPosition.RIGHT, 5, Color.WHITE, Color.WHITE, Color.RED, HudReeval.VISIBILITY_AND_STRING)
+    hudText(localPlayer, "", null, "{0} : {1} : {2}".format(heroIcon(getPlayersInSlot(1, Team.1).getHero()), getPlayersInSlot(1, Team.1), getPlayersInSlot(1, Team.1).points2), HudPosition.RIGHT, 5, Color.WHITE, Color.WHITE, Color.BLUE, HudReeval.VISIBILITY_AND_STRING)
+    hudText(localPlayer, "", null, "{0} : {1} : {2}".format(heroIcon(getPlayersInSlot(2, Team.1).getHero()), getPlayersInSlot(2, Team.1), getPlayersInSlot(2, Team.1).points2), HudPosition.RIGHT, 5, Color.WHITE, Color.WHITE, Color.GREEN, HudReeval.VISIBILITY_AND_STRING)
+    hudText(localPlayer, "", null, "{0} : {1} : {2}".format(heroIcon(getPlayersInSlot(3, Team.1).getHero()), getPlayersInSlot(3, Team.1), getPlayersInSlot(3, Team.1).points2), HudPosition.RIGHT, 5, Color.WHITE, Color.WHITE, Color.ORANGE, HudReeval.VISIBILITY_AND_STRING)
 rule "193 achivements logic":
     @Disabled
     @Delimiter

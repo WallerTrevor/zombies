@@ -105,7 +105,7 @@ rule "202 Purchase Follower action":
     @Team 1
     @Condition eventPlayer.isHoldingButton(Button.RELOAD) == true
     #is heroradius variable needed?
-    @Condition any([distance(player, eventPlayer) < heroradius[i] for player, i in buyheros]) == true
+    @Condition any([distance(player, eventPlayer) < 2 for player, i in buyheros]) == true
     
     wait(1, Wait.ABORT_WHEN_FALSE)
 

@@ -37,7 +37,7 @@ rule "Collision Logic":
         waitUntil(outofpsawn == 1)
         wait(1.5)
     eventPlayer.lastsavedpos = (eventPlayer.getEyePosition() + eventPlayer.getPosition()) / 2
-    wait(0.16 + 0.32 * (getPeakServerLoad() / 255) + (eventPlayer.getSlot() * 0.016))    #wait()
+    wait(0.16 + 0.32 * (getPeakServerLoad() / 255) + (eventPlayer.getSlot() * 0.016))    #this might need to be a different amount of wait, just keep testing
     eventPlayer.closestwall = [player for player, i in AllPos if distance(AllPos[i], eventPlayer) <= distance(AllPos[i], firstpos[i]) or eventPlayer.active_wall[i] == 1 or dotProduct(directionTowards(player, eventPlayer.lastsavedpos), AllDir[i]) > 0 != (dotProduct(directionTowards(player, eventPlayer), AllDir[i]) > 0)]
     for eventPlayer.x_ in range(len(eventPlayer.closestwall)):
         if Wall_ID[z] == 0:
@@ -78,6 +78,7 @@ rule "Collision Logic":
                         eventPlayer.doorNotif = 1
                     if eventPlayer.isHoldingButton(Button.INTERACT) and eventPlayer.points >= 1000 - eventPlayer.creditcardlimit:
                         playEffect(getAllPlayers(), DynamicEffect.GOOD_EXPLOSION, Color.WHITE, AllPos[z], 50) 
+                        playEffect(getAllPlayers(), DynamicEffect.LUCIO_SOUND_BARRIER_CAST_SOUND, Color.WHITE, AllPos[z], 100)
                         eventPlayer.points -= 1000 * eventPlayer.cashback
                         destroyEffect(doors[z + z])
                         destroyEffect(doors[z + z + 1])

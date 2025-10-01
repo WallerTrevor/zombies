@@ -243,8 +243,12 @@ rule "115  ammo message force melee when out of ammo":
     @Team 1
     @Condition eventPlayer.currentmagazines == false
     @Condition eventPlayer.isHoldingButton(Button.PRIMARY_FIRE) == true
-    
-    smallMessage(eventPlayer, "  NO AMMO")
+
+    for i in range(len(hero)):
+        if eventPlayer.getHero() == hero[i]:
+            wait(0.1)
+            smallMessage(eventPlayer, "  {0} {1}".format(heroIcon(hero[i]), noammostrings[i]))
+            break
     bigMessage(eventPlayer, "  USE MELEE")
     wait(5)
     smallMessage(eventPlayer, "  MELEE BONUS DAMAGE")

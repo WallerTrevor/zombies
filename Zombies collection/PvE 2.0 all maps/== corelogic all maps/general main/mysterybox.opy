@@ -4,7 +4,7 @@ rule "53  mystery box":
     @Condition eventPlayer.isHoldingButton(Button.INTERACT) == true
     @Condition distance(eventPlayer, rngbox) <= 2
     
-    if getServerLoad() < 235:
+    if getServerLoad() < 245:
         if eventPlayer.points > 950 - eventPlayer.creditcardlimit:
             playEffect(getPlayers(Team.1), DynamicEffect.BUFF_IMPACT_SOUND, Color.WHITE, eventPlayer, 70)
             eventPlayer.startForcingHero(random.choice(random.shuffle(getAllHeroes()))[0])

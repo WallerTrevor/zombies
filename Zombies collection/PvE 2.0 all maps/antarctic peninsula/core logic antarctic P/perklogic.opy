@@ -61,7 +61,7 @@ rule "109 PERK player hit speed boost sprint burst":
         eventPlayer.setMoveSpeed(110)
 
 
-rule "79 player died with maniac":
+rule "79 player died with maniac": #dont need 2 rules for maniac
     @Event playerDied
     @Team 1
     @Condition eventPlayer.perk[3] == 1

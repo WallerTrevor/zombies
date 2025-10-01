@@ -86,6 +86,7 @@ globalvar forindex2 83
 globalvar zzz 84
 globalvar diedphrase 85
 globalvar diedtext 86
+globalvar noammostrings 87
 globalvar i 95
 globalvar Dialogue_Text 96
 globalvar Character_Nr 97
@@ -193,6 +194,8 @@ playervar cameravar2 87
 playervar Noclip 88
 playervar idx 89
 playervar perk 90
+playervar perkicon 91
+playervar perkcolor 92
 #Subroutine names
 
 subroutine herobuy1250 0
