@@ -1,4 +1,8 @@
 #Global variables
+<<<<<<< HEAD
+=======
+
+>>>>>>> e5aeb79 (Sync local changes)
 #!define roundnumber extraVar[0]
 #!define numberOfZombies extraVar[1]
 #!define Difficulty extraVar[2]
@@ -55,6 +59,12 @@
 #!define rngCamera extraVar[60]
 #!define cutscene extraVar[61]
 #!define text_shown extraVar[62]
+<<<<<<< HEAD
+=======
+#!define costmultiplier extraVar[63]
+#!define doormade extraVar[64]
+#!define roundpointmultiplier extraVar[65]
+>>>>>>> e5aeb79 (Sync local changes)
 
 globalvar Died 18
 globalvar Vectordoorpositions 21
@@ -107,7 +117,14 @@ globalvar teleporterpositions 124
 globalvar followerbuyMsg 125
 globalvar doorindexsequencer 126
 globalvar hudappend 127
+<<<<<<< HEAD
 #Player variables
+=======
+
+
+#Player variables
+
+>>>>>>> e5aeb79 (Sync local changes)
 #!define doublemag extraPlayerVar[1]
 #!define sprintburstperk extraPlayerVar[2]
 #!define healthmax extraPlayerVar[3]
@@ -196,6 +213,11 @@ playervar idx 89
 playervar perk 90
 playervar perkicon 91
 playervar perkcolor 92
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> e5aeb79 (Sync local changes)
 #Subroutine names
 
 subroutine herobuy1250 0
@@ -219,6 +241,11 @@ subroutine zone1 18
 subroutine zone2 19
 subroutine zone3 20
 subroutine makedoors 21
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> e5aeb79 (Sync local changes)
 #Activated extensions
 
 #!extension beamEffects
@@ -231,7 +258,11 @@ subroutine makedoors 21
 #!extension spawnMoreDummyBots
 #!extension projectiles
 
+<<<<<<< HEAD
 
+=======
+#Import files
+>>>>>>> e5aeb79 (Sync local changes)
 
 #!include "../../== corelogic all maps/bot logic/"
 #!include "../../== corelogic all maps/general main/"

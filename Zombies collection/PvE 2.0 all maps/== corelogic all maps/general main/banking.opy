@@ -26,12 +26,22 @@ rule "global bank interest gain every round":
     @Condition bankPoints > 0
     @Condition start == 1
 
+<<<<<<< HEAD
     if bankTier == 0:
         bankPoints += bankPoints * 0.005
     elif bankTier == 1:
         bankPoints += bankPoints * 0.02
     elif bankTier == 2:
         bankPoints += bankPoints * 0.03
+=======
+    wait(0.16)
+    if bankTier == 0:
+        bankPoints += bankPoints * 0.015
+    elif bankTier == 1:
+        bankPoints += bankPoints * 0.03
+    elif bankTier == 2:
+        bankPoints += bankPoints * 0.04
+>>>>>>> e5aeb79 (Sync local changes)
 
 rule "global bank tier upgrade":
     @Event eachPlayer

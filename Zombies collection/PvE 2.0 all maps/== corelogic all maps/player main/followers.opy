@@ -112,12 +112,21 @@ rule "202 Purchase Follower action":
     # Loop through all heroes
     for i in range(len(hero)):
         if distance(eventPlayer, buyheros[i]) < 2:
+<<<<<<< HEAD
             if eventPlayer.points >= herobuycosts[i] / 3 - eventPlayer.creditcardlimit:
                 eventPlayer.followerbuy = hero[i]
                 wait()
                 followerbuy()
                 eventPlayer.points -= herobuycosts[i] / 3
                 eventPlayer.points2 -= herobuycosts[i] / 3
+=======
+            if eventPlayer.points >= round(herobuycosts[i] / 3 * costmultiplier - eventPlayer.creditcardlimit):
+                eventPlayer.followerbuy = hero[i]
+                wait()
+                followerbuy()
+                eventPlayer.points -= round(herobuycosts[i] / 3 * costmultiplier)
+                eventPlayer.points2 -= round(herobuycosts[i] / 3 * costmultiplier)
+>>>>>>> e5aeb79 (Sync local changes)
             else:
                 smallMessage(eventPlayer,"  {0} {1}".format(heroIcon(hero[i]), followerbuyMsg[i]))
             break
@@ -128,9 +137,15 @@ rule "241  follower mystery box":
     @Team 1
     @Condition eventPlayer.isHoldingButton(Button.INTERACT) == true
     @Condition distance(eventPlayer, rngbox2) <= 2
+<<<<<<< HEAD
     @Condition eventPlayer.points >= 950 - eventPlayer.creditcardlimit
     
     if eventPlayer.points > 950 - eventPlayer.creditcardlimit:
+=======
+    @Condition eventPlayer.points >= round(950 * costmultiplier - eventPlayer.creditcardlimit)
+    
+    if eventPlayer.points > round(950 - eventPlayer.creditcardlimit):
+>>>>>>> e5aeb79 (Sync local changes)
         if eventPlayer.emotebox < 1:
             eventPlayer.emotebox = 1
             eventPlayer.communicate(Comms.EMOTE_UP)
@@ -143,7 +158,12 @@ rule "241  follower mystery box":
         (eventPlayer.getSlot() + 4).startScalingSize(0.2)
         (eventPlayer.getSlot() + 4).startModifyingVoicelinePitch(1.3)
         #eventPlayer.resurrect()
+<<<<<<< HEAD
         eventPlayer.points -= 950
+=======
+        eventPlayer.points -= round(950 * costmultiplier)
+        chaseAtRate(eventPlayer.points2, (evalOnce(eventPlayer.points) + 0) * eventPlayer.H, 2500)
+>>>>>>> e5aeb79 (Sync local changes)
         #if ruleCondition:
         #            loop()
         eventPlayer.magazines = 10
