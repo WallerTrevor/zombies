@@ -1,0 +1,1368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Wiki — Overwatch: Zombies</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" href="images/favicon.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Oxanium:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --ow-orange:#f9a51a;
+      --ow-orange-2:#ffb547;
+      --ow-blue:#00a7e0;
+      --ow-dark:#0f1216;
+      --ow-dark-2:#161a21;
+      --ow-card:#151a22;
+      --ow-line:#232a34;
+      --ow-text:#e8edf2;
+      --ow-dim:#9aa3ad;
+      --shadow: 0 8px 30px rgba(0,0,0,.35);
+      --radius: 16px;
+      --gap: 22px;
+      --max: 1100px;
+      --nav-h: 74px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--ow-dark);color:var(--ow-text)}
+    body{
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      line-height:1.6;
+      padding-top: var(--nav-h);
+    }
+    h1,h2,h3{
+      font-family: Oxanium, Inter, sans-serif;
+      line-height:1.15;
+      letter-spacing:.3px;
+      margin:0 0 .6em;
+    }
+    h1{font-size: clamp(32px, 5vw, 54px);}
+    h2{font-size: clamp(22px, 3vw, 28px);}
+    a{color:var(--ow-blue);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .muted{color:var(--ow-dim)}
+
+    /* Sticky glass nav + responsive hamburger */
+    .nav{
+      position:fixed; inset:0 0 auto 0; height:var(--nav-h); z-index:9999;
+      display:flex; align-items:center; justify-content:center;
+      backdrop-filter: blur(10px);
+      background: linear-gradient(180deg, rgba(15,18,22,.75), rgba(15,18,22,.45));
+      border-bottom:1px solid var(--ow-line);
+    }
+    .nav__inner{
+      width:100%; max-width:var(--max); padding:0 16px;
+      display:flex; align-items:center; justify-content:space-between; gap:16px;
+    }
+    .brand{display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.5px;}
+    .brand__logo{
+      width:34px; height:34px; border-radius:50%;
+      background: radial-gradient(90% 90% at 30% 30%, var(--ow-orange), #ff7a00);
+      box-shadow: inset 0 0 0 2px #111, 0 4px 12px rgba(0,0,0,.35);
+    }
+    .brand__name{color:#fff}
+
+    .nav__links{display:flex; gap:18px; align-items:center; flex-wrap:wrap;}
+    .chip{
+      color:#fff; font-weight:700; padding:10px 14px; border-radius:999px;
+      background:transparent; border:1px solid transparent;
+      transition: .2s transform ease, .22s background-color ease, .22s border-color ease;
+      text-decoration:none; white-space:nowrap; will-change: transform;
+    }
+    .chip:hover{transform:translateY(-1px)}
+    .chip--gold{border-color:#2a2f39; background:linear-gradient(180deg,#1b212a,#151a22)}
+    .chip--gold:hover{border-color:#3a414e; background:linear-gradient(180deg,#202735,#161c25)}
+    .chip--cta{background:linear-gradient(180deg,var(--ow-orange),var(--ow-orange-2)); color:#111; box-shadow:0 8px 20px rgba(249,165,26,.35)}
+
+    .nav__toggle{display:none}
+    .nav__btn{
+      display:none; width:42px;height:42px;border-radius:10px;border:1px solid #2b3240;
+      background:linear-gradient(180deg,#1b212a,#151a22); color:#fff; align-items:center; justify-content:center;
+      cursor:pointer; transition:.2s transform ease; will-change: transform;
+    }
+    .nav__btn:hover{transform:translateY(-1px)}
+    .nav__icon{width:22px;height:22px;display:block}
+    .nav__panel{
+      display:none; position:fixed; top:var(--nav-h); left:0; right:0;
+      background:linear-gradient(180deg,#12161d,#0e131a); border-bottom:1px solid var(--ow-line);
+      box-shadow:var(--shadow); padding:12px 16px 16px;
+    }
+    .nav__panel .chip{display:block; text-align:center; margin:8px 0; padding:12px 16px; font-size:16px}
+    .nav__toggle:checked ~ .nav__panel{display:block}
+
+    /* Breakpoint now 1100px */
+    @media (max-width: 1100px){
+      .nav__links{display:none}
+      .nav__btn{display:flex}
+      .brand__name{font-size:15px}
+    }
+
+    /* Shared layout */
+    .wrap{max-width:var(--max); margin:0 auto; padding: clamp(28px,4vw,40px);}
+    @media (max-width:600px){
+      .wrap{padding-left:48px; padding-right:48px;}
+    }
+    section{padding: clamp(26px, 5vw, 50px) 0; border-bottom:1px solid var(--ow-line)}
+
+    /* Hero: video with dark overlay for readability */
+    .hero{
+      position:relative; isolation:isolate; border-bottom:1px solid var(--ow-line);
+      background: linear-gradient(180deg, var(--ow-dark-2), var(--ow-dark));
+    }
+    .hero__media{
+      position:absolute; inset:0; overflow:hidden; pointer-events:none;
+      filter: blur(1.5px) brightness(.65); /* darker + slight blur */
+    }
+    .hero__media video, .hero__media img{width:100%; height:100%; object-fit:cover; display:block}
+    .hero__content{
+      position:relative;
+      padding: clamp(28px, 5vw, 72px);
+      padding-left: 48px; padding-right: 48px;
+      display: grid; gap: 18px;
+    }
+    .eyebrow{display:inline-flex; align-items:center; gap:8px; font-weight:800; text-transform:uppercase; font-size:12px; color:var(--ow-dim)}
+    .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--ow-orange)}
+
+    /* Layout: content + sticky TOC */
+    .wiki-layout{
+      display:grid; gap:var(--gap);
+      grid-template-columns: 1fr;
+    }
+    .toc{
+      position:sticky; top:calc(var(--nav-h) + 16px);
+      align-self:start;
+      background: linear-gradient(180deg,#11161d,#0e131a);
+      border:1px solid var(--ow-line); border-radius:var(--radius);
+      padding:14px; box-shadow:var(--shadow);
+    }
+    .toc h3{margin-top:0}
+    .toc a{display:block; padding:6px 8px; border-radius:10px; color:#cfd6de; text-decoration:none}
+    .toc a:hover{background:#151b24; color:#fff}
+    .toc small{color:var(--ow-dim)}
+    @media(min-width:1020px){
+      .wiki-layout{grid-template-columns: 260px 1fr;}
+    }
+    @media(max-width:1019px){
+      .toc{display:none}
+    }
+
+    /* Cards / grids */
+    .grid{display:grid; gap:var(--gap); grid-template-columns:repeat(12,1fr)}
+    .span-12{grid-column:span 12}
+    .span-6{grid-column:span 12}
+    @media(min-width:720px){ .span-6{grid-column:span 6} }
+
+    .card{
+      background: linear-gradient(180deg,#12161d,#0f141b);
+      border:1px solid var(--ow-line); border-radius:var(--radius);
+      padding: clamp(18px,3vw,26px); box-shadow:var(--shadow);
+    }
+
+    /* Pills */
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:6px 10px; border-radius:999px; font-size:12px; letter-spacing:.2px;
+      border:1px solid #2b3240; color:#c6cdd6; background:#121721;
+    }
+    .pill--btn{cursor:pointer; user-select:none; transition:.2s background-color ease, .2s border-color ease}
+    .pill--btn:hover{background:#18202a; border-color:#384353}
+
+    /* Toolbar (search + quick filters) */
+    .toolbar{
+      display:flex; gap:12px; align-items:center; flex-wrap:wrap;
+      background: linear-gradient(180deg,#11161d,#0e131a);
+      border:1px solid var(--ow-line); border-radius: var(--radius);
+      padding:12px 14px; box-shadow: var(--shadow);
+    }
+    .toolbar input[type="search"]{
+      flex:1 1 260px; min-width:180px;
+      background:#0f141b; border:1px solid #2b3240; color:#e8edf2;
+      border-radius:10px; padding:10px 12px; outline:none;
+    }
+
+    /* Details accordions */
+    details{border:1px solid var(--ow-line); border-radius:14px; padding:12px 14px; background:#12161d}
+    details+details{margin-top:12px}
+    summary{cursor:pointer; font-weight:800}
+    summary::-webkit-details-marker{display:none}
+    summary:focus{outline:2px solid #2b3240; border-radius:8px}
+
+    /* Buttons */
+    .btn{
+      display:inline-flex; align-items:center; gap:10px;
+      padding:12px 16px; border-radius:12px; font-weight:800; border:1px solid transparent;
+      background:#1a2028; color:#fff; text-decoration:none;
+      transition:.2s transform ease, .22s background-color ease, .22s box-shadow ease; will-change: transform;
+    }
+    .btn:hover{transform:translateY(-1px)}
+    .btn--primary{background:linear-gradient(180deg,var(--ow-orange),var(--ow-orange-2)); color:#111; box-shadow:0 8px 18px rgba(249,165,26,.28)}
+    .btn--ghost{border-color:#2c3340}
+
+    footer{padding:40px 0; color:var(--ow-dim); text-align:center}
+  /* ===== HERO BUTTONS / ICON GRID: fully responsive, no overlap ===== */
+  .hb__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(56px, 1fr));
+    gap: 10px;
+    width: 100%;
+  }
+
+  .hb__element {
+    display: grid;
+    place-items: center;
+    width: 100%;
+    aspect-ratio: 1 / 1;               /* perfect squares */
+    margin: 0;
+    padding: 0 !important;
+    border-radius: 10px;
+    overflow: hidden;                   /* no spill */
+    background: #131820;
+    border: 1px solid #232a34;
+    contain: content;                   /* safer transforms */
+  }
+
+  .hb__element img {
+    width: 44px;
+    height: 44px;
+    object-fit: cover;
+    border-radius: 8px !important;
+  }
+
+  .hb__element:hover {                  /* lighter hover scale */
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(0,0,0,.22);
+  }
+
+  .item__description .tabs__item--active {
+    transform: none;                    /* no big jump when active */
+    box-shadow: 0 0 0 2px #d55b16 inset;
+    z-index: 1;
+  }
+
+  /* Content area that shows the selected hero details */
+  .hb__content {
+    display: block;
+    width: 100%;
+    border-radius: 14px;
+    background: #1f2326;
+    box-shadow:
+      0 2px 1px rgba(0, 0, 0, .1),
+      0 4px 2px rgba(0, 0, 0, .1),
+      0 8px 4px rgba(0, 0, 0, .1);
+    overflow: clip;
+  }
+
+  /* If you embed iframes in tabs, keep them fluid */
+  .hb__content .tabs-content iframe {
+    width: 100%;
+    height: min(72vh, 760px);
+    border: 0;
+  }
+
+  /* Orientation tweaks no longer hard-code column counts;
+    keep them, but let auto-fit handle most layouts */
+  @media (orientation: landscape) {
+    .hb--responsive .hb__body {
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: row !important;
+      row-gap: 20px;
+    }
+    .hb--responsive .hb__body > *:first-child {
+      margin-right: .5rem !important;
+      margin-bottom: 0 !important;
+    }
+  }
+
+  @media (orientation: portrait) {
+    .hb--responsive .hb__body {
+      flex-direction: column !important;
+      row-gap: 16px;
+    }
+  }
+
+  /* Buttons: better hover perf + natural background animation */
+  .chip, .btn, .nav__btn {
+    will-change: transform;
+    transition:
+      transform .20s ease,
+      background-color .22s ease,
+      border-color .22s ease,
+      box-shadow .22s ease;
+  }
+  .chip:hover, .btn:hover, .nav__btn:hover {
+    transform: translateY(-1px);
+  }
+
+  /* Pills that look clickable should be clickable */
+  .pill, .pill--btn { cursor: pointer; }
+
+  /* Wiki content column uses gap (not per-card margins) – if not already */
+  #content { display: flex; flex-direction: column; gap: var(--gap); }
+
+  /* Sticky TOC remains, but ensure no overlap on narrower desktops */
+  @media (min-width: 1020px) {
+    .wiki-layout { grid-template-columns: 280px 1fr; }
+  }
+  
+  /* --- HERO DIRECTORY --- */
+  .hero-dir {
+    display:grid;
+    gap:22px;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 1020px){
+    .hero-dir{ grid-template-columns: 340px 1fr; }
+  }
+
+  .hero-dir__list {
+    background: linear-gradient(180deg,#11161d,#0e131a);
+    border:1px solid #232a34;
+    border-radius:16px; box-shadow:0 8px 30px rgba(0,0,0,.35);
+    padding:14px;
+  }
+  .hero-dir__search {
+    display:flex; gap:10px; margin-bottom:12px; flex-wrap:wrap;
+  }
+  .hero-dir__search input[type="search"]{
+    flex:1 1 160px; min-width:150px;
+    background:#0f141b; border:1px solid #2b3240; color:#e8edf2;
+    border-radius:10px; padding:10px 12px; outline:none;
+  }
+
+  /* hero pill grid */
+  .hero-grid {
+    display:grid;
+    gap:10px;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  }
+
+  .hero-pill {
+    display:flex; align-items:center; gap:10px;
+    border:1px solid #2b3240; border-radius:12px;
+    background:#121721; padding:8px 10px;
+    cursor:pointer; user-select:none; text-align:left;
+    transition:.2s background-color ease, .2s border-color ease, .2s transform ease;
+    will-change: transform;
+  }
+  .hero-pill:hover{ background:#18202a; border-color:#384353; transform: translateY(-1px); }
+  .hero-pill__icon{
+    width:28px; height:28px; border-radius:50%;
+    background:#0f141b; display:grid; place-items:center; font-size:12px; color:#9aa3ad;
+    flex:0 0 28px; overflow:hidden;
+  }
+  .hero-pill__name{
+    font-weight:700; color:#e8edf2; font-size:14px; line-height:1.2;
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+  }
+
+  /* detail panel */
+  .hero-dir__detail {
+    background: linear-gradient(180deg,#12161d,#0f141b);
+    border:1px solid #232a34;
+    border-radius:16px; box-shadow:0 8px 30px rgba(0,0,0,.35);
+    padding: clamp(16px, 2.2vw, 24px);
+  }
+  .hero-head{
+    display:flex; align-items:center; gap:14px; margin-bottom:12px; flex-wrap:wrap;
+  }
+  .hero-head__icon{
+    width:48px; height:48px; border-radius:50%; background:#0f141b; display:grid; place-items:center;
+    font-size:14px; color:#9aa3ad; overflow:hidden;
+  }
+  .hero-head__name{ font-family:Oxanium, Inter, sans-serif; font-size:22px; margin:0; }
+  .muted{ color:#9aa3ad }
+
+  /* stat/table blocks */
+  .stat-cards{
+    display:grid; gap:12px; grid-template-columns:repeat(12,1fr); margin-top:12px;
+  }
+  .stat-card{
+    grid-column: span 12;
+    background:#10151d; border:1px solid #2b3240; border-radius:12px; padding:12px;
+  }
+  @media (min-width:720px){
+    .stat-card.span-6{ grid-column: span 6; }
+  }
+  .stat-card h4{ margin:0 0 8px; font-size:15px }
+  .kv{
+    display:grid; grid-template-columns: 1fr auto; gap:6px; align-items:center;
+    font-size:14px; padding:6px 0; border-bottom:1px dashed #2b3240;
+  }
+  .kv:last-child{ border-bottom:0 }
+  .kv b{ color:#e8edf2 }
+  .kv code{ color:#d6dee7; background:#0f141b; padding:2px 6px; border-radius:8px; border:1px solid #2b3240 }
+
+  /* chips */
+  .pill{ display:inline-flex; align-items:center; gap:8px;
+    padding:6px 10px; border-radius:999px; font-size:12px; letter-spacing:.2px;
+    border:1px solid #2b3240; color:#c6cdd6; background:#121721; }
+
+  /* reduce-motion nicety */
+  @media (prefers-reduced-motion: reduce){
+    .hero-pill:hover{ transform:none }
+  }
+
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <header class="nav">
+    <div class="nav__inner">
+      <div class="brand">
+        <div class="brand__logo" aria-hidden="true"></div>
+        <div class="brand__name">Overwatch: Zombies</div>
+      </div>
+
+      <!-- Mobile toggle -->
+      <label for="nav-toggle" class="nav__btn" aria-label="Open menu">
+        <svg class="nav__icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M3 6h18v2H3V6Zm0 5h18v2H3v-2Zm0 5h18v2H3v-2Z"/>
+        </svg>
+      </label>
+      <input type="checkbox" id="nav-toggle" class="nav__toggle" aria-hidden="true">
+
+      <!-- Desktop links -->
+      <nav class="nav__links" aria-label="Primary">
+        <a class="chip chip--gold" href="index.html">Home</a>
+        <a class="chip chip--gold" href="comics.html">Comics</a>
+        <a class="chip chip--gold" href="mapcodes.html">Map Codes</a>
+        <a class="chip chip--gold" href="radio.html">Survivor Radio</a>
+        <a class="chip chip--gold" href="wiki.html">Wiki</a>
+        <a class="chip chip--gold" href="credits.html">Credits</a>
+        <a class="chip chip--cta"  href="donations.html">Donations</a>
+      </nav>
+
+      <!-- Mobile panel -->
+      <nav class="nav__panel" aria-label="Mobile menu">
+        <a class="chip chip--gold" href="index.html"           onclick="document.getElementById('nav-toggle').checked=false">Home</a>
+        <a class="chip chip--gold" href="comics.html"          onclick="document.getElementById('nav-toggle').checked=false">Comics</a>
+        <a class="chip chip--gold" href="mapcodes.html"        onclick="document.getElementById('nav-toggle').checked=false">Map Codes</a>
+        <a class="chip chip--gold" href="radio.html"  onclick="document.getElementById('nav-toggle').checked=false">Survivor Radio</a>
+        <a class="chip chip--gold" href="wiki.html"            onclick="document.getElementById('nav-toggle').checked=false">Wiki</a>
+        <a class="chip chip--gold" href="credits.html"         onclick="document.getElementById('nav-toggle').checked=false">Credits</a>
+        <a class="chip chip--cta"  href="donations.html"       onclick="document.getElementById('nav-toggle').checked=false">Donations</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero__media" aria-hidden="true">
+      <!-- Replace sources/poster paths with your assets, or keep only the poster -->
+      <video autoplay muted loop playsinline poster="images/hero-poster.webp">
+        <source src="videos/hero.webm" type="video/webm">
+      </video>
+    </div>
+    <div class="wrap hero__content">
+      <div class="eyebrow"><span class="dot"></span> Documentation</div>
+      <h1>Wiki</h1>
+      <p class="muted">Everything you need to play (and master) <strong>Zombies: Desecration</strong>: fundamentals, perks, wonder weapons, zones, bosses, and more.</p>
+
+      <!-- Quick TOC (mobile friendly) -->
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <a class="pill" href="#overview">Overview</a>
+        <a class="pill" href="#getting-started">Getting Started</a>
+        <a class="pill" href="#perks">Perks</a>
+        <a class="pill" href="#wonder-weapons">Wonder Weapons</a>
+        <a class="pill" href="#zones">Zones</a>
+        <a class="pill" href="#bosses">Bosses</a>
+        <a class="pill" href="#faq">FAQ</a>
+        <a class="pill" href="#changelog">Changelog</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- TOOLBAR -->
+  <section>
+    <div class="wrap">
+      <div class="toolbar">
+        <input id="search" type="search" placeholder="Search the wiki… perks, bosses, zones, terms" aria-label="Search wiki">
+        <span class="pill pill--btn" data-q="perks">Perks</span>
+        <span class="pill pill--btn" data-q="boss">Bosses</span>
+        <span class="pill pill--btn" data-q="weapon">Weapons</span>
+        <span class="pill pill--btn" data-q="zone">Zones</span>
+        <span class="pill pill--btn" data-q="code">Code</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTENT + TOC LAYOUT -->
+  <section>
+    <div class="wrap wiki-layout">
+      <!-- Sticky TOC (desktop) -->
+      <aside class="toc" aria-label="On this page">
+        <h3 style="margin-bottom:6px">On this page</h3>
+        <a href="#overview">Overview</a>
+        <a href="#getting-started">Getting Started</a>
+        <a href="#perks">Perks</a>
+        <a href="#wonder-weapons">Wonder Weapons</a>
+        <a href="#zones">Zones</a>
+        <a href="#bosses">Bosses</a>
+        <a href="#faq">FAQ</a>
+        <a href="#changelog">Changelog</a>
+        <small>Tip: use <strong>Ctrl/⌘+F</strong> to find anything fast.</small>
+      </aside>
+
+      <!-- MAIN WIKI CONTENT (now flex column with gap, no per-card margins) -->
+      <div id="content" style="display:flex;flex-direction:column;gap:var(--gap)">
+
+        <!-- OVERVIEW -->
+        <div id="overview" class="card" data-text="overview basics intro objective loop waves perks mystery box buy areas power connect">
+          <h2>Overview</h2>
+          <p class="muted">
+            Survive escalating waves of zomnics, unlock buyable areas, connect power, and roll the Mystery Box for stronger kits.
+            Bosses gate key progression. Coordination, route knowledge, and perk economy determine late‑game survival.
+          </p>
+          <ul style="margin:0;padding-left:18px">
+            <li><strong>Players:</strong> 1–4 Co‑op</li>
+            <li><strong>Goals:</strong> Survive waves • Open routes • Complete boss checks • Optimize perks</li>
+            <li><strong>Economy:</strong> Earn from kills/objectives • Spend on doors/perks/box • Risk vs. reward</li>
+          </ul>
+        </div>
+
+        <!-- GETTING STARTED -->
+        <div id="getting-started" class="card" data-text="getting started how to play controls buy interact revive ping team guide">
+          <h2>Getting Started</h2>
+          <ol style="margin:0;padding-left:18px">
+            <li><strong>Load a code</strong> from <a href="mapcodes.html">Map Codes</a> and start a custom game.</li>
+            <li><strong>Open early routes:</strong> prioritize safe loops and a perk station.</li>
+            <li><strong>Connect power</strong> when your squad has breathing room—expect a spike.</li>
+            <li><strong>Roll the Box</strong> sparingly; secure perks first.</li>
+            <li><strong>Boss prep:</strong> have escapes, burst damage, and revives planned.</li>
+          </ol>
+        </div>
+
+<h3 id="perk-expansion" style="margin-top:8px">Perk Details (Tiers)</h3>
+<div class="card" style="overflow:auto">
+  <table style="width:100%; border-collapse:collapse">
+    <thead>
+      <tr>
+        <th style="text-align:left; padding:8px; border-bottom:1px solid var(--ow-line)">Perk</th>
+        <th style="text-align:left; padding:8px; border-bottom:1px solid var(--ow-line)">Base Effect</th>
+        <th style="text-align:left; padding:8px; border-bottom:1px solid var(--ow-line)">Tier Bonuses (max T3)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="padding:8px">Juggernaut</td>
+        <td style="padding:8px">Gain double health</td>
+        <td style="padding:8px">+25 temp HP after 10s no damage per tier</td>
+      </tr>
+      <tr>
+        <td style="padding:8px">Sprint Burst</td>
+        <td style="padding:8px">Stronger sprint when hit by enemy</td>
+        <td style="padding:8px">+2.5% MS + extra 5% on hit per tier</td>
+      </tr>
+      <tr>
+        <td style="padding:8px">Healing Dealt & Regen</td>
+        <td style="padding:8px">Greatly increases healing dealt</td>
+        <td style="padding:8px">Regen delay −20% per tier</td>
+      </tr>
+      <tr>
+        <td style="padding:8px">Double-Mag</td>
+        <td style="padding:8px">Reloading consumes ½ a magazine</td>
+        <td style="padding:8px">10% (T1) → 30% (T3) chance reload uses no ammo</td>
+      </tr>
+      <tr>
+        <td style="padding:8px">Quick Revive</td>
+        <td style="padding:8px">Self-revive in solo; faster revives in co-op</td>
+        <td style="padding:8px">Stacks in solo; revive time −15% per tier</td>
+      </tr>
+      <tr>
+        <td style="padding:8px">Headshot Maniac</td>
+        <td style="padding:8px">HS ramp up damage; body shots ramp down</td>
+        <td style="padding:8px">Higher ceiling & floor per tier</td>
+      </tr>
+      <tr>
+        <td style="padding:8px">Pack-a-Punch</td>
+        <td style="padding:8px">Unlocks extra abilities + bonus damage</td>
+        <td style="padding:8px">+100% extra damage per tier (show HUD badge)</td>
+      </tr>
+      <tr>
+        <td style="padding:8px">Electric Cherry</td>
+        <td style="padding:8px">Shock AoE on reload</td>
+        <td style="padding:8px">+30% radius per tier</td>
+      </tr>
+      <tr>
+        <td style="padding:8px">Bandolier Bandit</td>
+        <td style="padding:8px">Increased ammo stock</td>
+        <td style="padding:8px">More stock per tier</td>
+      </tr>
+      <tr>
+        <td style="padding:8px">PHD Flopper</td>
+        <td style="padding:8px">Fall-damage slam explodes for high damage</td>
+        <td style="padding:8px">Higher damage per tier</td>
+      </tr>
+      <tr>
+        <td style="padding:8px">Follower’s Enchantment</td>
+        <td style="padding:8px">Follower swaps heroes every 60s</td>
+        <td style="padding:8px">−10s per tier</td>
+      </tr>
+      <tr>
+        <td style="padding:8px">Second Wind</td>
+        <td style="padding:8px">Temp HP regen burst on elimination</td>
+        <td style="padding:8px">Faster regen per tier</td>
+      </tr>
+      <tr>
+        <td style="padding:8px">Banker’s Luck</td>
+        <td style="padding:8px">Each round: −5% to +15% points delta</td>
+        <td style="padding:8px">+2.5% to the positive bound per tier</td>
+      </tr>
+      <tr>
+        <td style="padding:8px">Pack Rat</td>
+        <td style="padding:8px">Increase max monkey grenades</td>
+        <td style="padding:8px">+1 per tier</td>
+      </tr>
+      <tr>
+        <td style="padding:8px">Ultimate Stacker</td>
+        <td style="padding:8px">Hold multiple ult charges</td>
+        <td style="padding:8px">+1 charge per tier</td>
+      </tr>
+      <tr>
+        <td style="padding:8px">Bullet Broker</td>
+        <td style="padding:8px">Reload spends points instead of ammo</td>
+        <td style="padding:8px">−100 points cost per tier</td>
+      </tr>
+      <tr>
+        <td style="padding:8px">Time Warden</td>
+        <td style="padding:8px">1×/round: hold interact 3s to slow time 10s</td>
+        <td style="padding:8px">+2s duration per tier; lower CD</td>
+      </tr>
+      <tr>
+        <td style="padding:8px">Space Warden</td>
+        <td style="padding:8px">Hold interact 3s to random-teleport ≤40m</td>
+        <td style="padding:8px">Lower cooldown per tier</td>
+      </tr>
+      <tr>
+        <td style="padding:8px">Glass Cannon</td>
+        <td style="padding:8px">Half max HP; increased damage +5% MS</td>
+        <td style="padding:8px">More damage +2% MS per tier</td>
+      </tr>
+      <tr>
+        <td style="padding:8px">Insta Reload</td>
+        <td style="padding:8px">Instantly refills clip on reload</td>
+        <td style="padding:8px">Also refills HP bar; +25 points per tier</td>
+      </tr>
+      <tr>
+        <td style="padding:8px">Pack Leader</td>
+        <td style="padding:8px">Buff ally damage at your expense</td>
+        <td style="padding:8px">Higher ally buff per tier</td>
+      </tr>
+      <tr>
+        <td style="padding:8px">Slow ’n Steady</td>
+        <td style="padding:8px">−10% MS; melee stuns longer</td>
+        <td style="padding:8px">−2.5% MS for +0.5s stun per tier</td>
+      </tr>
+      <tr>
+        <td style="padding:8px">Door Man</td>
+        <td style="padding:8px">Doors 10% cheaper</td>
+        <td style="padding:8px">Then +25%, then +50%</td>
+      </tr>
+      <tr>
+        <td style="padding:8px">Mystery Man</td>
+        <td style="padding:8px">Box won’t teleport once (consumes perk)</td>
+        <td style="padding:8px">+1 non-teleport use per tier (lose a tier each use)</td>
+      </tr>
+      <tr>
+        <td style="padding:8px">Twisted Cowboy</td>
+        <td style="padding:8px">Body shots cause weak explosions</td>
+        <td style="padding:8px">Explosion damage ↑ per tier</td>
+      </tr>
+      <tr>
+        <td style="padding:8px">Omnic Technician</td>
+        <td style="padding:8px">Shows next zombie type</td>
+        <td style="padding:8px">More intel (e.g., HP) per tier</td>
+      </tr>
+      <tr>
+        <td style="padding:8px">Speed Runner</td>
+        <td style="padding:8px">2× movement speed between rounds</td>
+        <td style="padding:8px">+50% per tier</td>
+      </tr>
+      <tr>
+        <td style="padding:8px">Biker’s Tequila</td>
+        <td style="padding:8px">Summon a bike; run over zombies</td>
+        <td style="padding:8px">Bike HP ↑ + 50% more dmg per tier</td>
+      </tr>
+      <tr>
+        <td style="padding:8px">Faulty Augment</td>
+        <td style="padding:8px">Replace HP with decaying overhealth (start 25 +25 per final blow)</td>
+        <td style="padding:8px">+10 per final blow per tier</td>
+      </tr>
+      <tr>
+        <td style="padding:8px">Fairy Exchange</td>
+        <td style="padding:8px">Ride follower’s shoulder; insta-kill for 10s (60s CD)</td>
+        <td style="padding:8px">+5s duration per tier</td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="muted" style="margin-top:10px">All perks are one-time purchases unless the player dies. Max tier is 3.</p>
+</div>
+
+        <!-- WONDER WEAPONS -->
+        <div id="wonder-weapons" class="card" data-text="wonder weapon rare box legendary elemental crowd control burst aoe">
+          <h2>Wonder Weapons</h2>
+          <p class="muted">Rare pulls from the Mystery Box that redefine your kit: big crowd control, burst, or utility spikes. Save resources for perks before high‑rolling.</p>
+          <ul style="margin:0;padding-left:18px">
+            <li><strong>Drop rate:</strong> Rare</li>
+            <li><strong>Role:</strong> Boss burn • Wave clear • Escape tools</li>
+            <li><strong>Tuning:</strong> Expect iteration; check the <a href="#changelog">Changelog</a> for balance notes.</li>
+          </ul>
+        </div>
+  <section id="heroes" class="wrap">
+    <h2>Survivor Changes</h2>
+    <p class="muted">Every hero has Zombies-specific tuning plus a unique <strong>Pack-A-Punch</strong> upgrade. Use the search or pick a hero.</p>
+
+    <div class="hero-dir">
+      <!-- LEFT: hero list -->
+      <aside class="hero-dir__list">
+        <div class="hero-dir__search">
+          <input id="heroSearch" type="search" placeholder="Search heroes…">
+          <span class="pill">DPS & Supports start at 100 HP • Tanks 150 HP</span>
+        </div>
+
+        <div id="heroGrid" class="hero-grid" aria-live="polite"></div>
+      </aside>
+
+      <!-- RIGHT: hero details -->
+      <article class="hero-dir__detail" id="heroDetail" aria-live="polite">
+        <div class="hero-head">
+          <div class="hero-head__icon" id="heroIcon">OW</div>
+          <h3 class="hero-head__name" id="heroName">Select a hero</h3>
+        </div>
+
+        <div class="stat-cards">
+          <div class="stat-card span-6">
+            <h4>Core Tweaks</h4>
+            <div id="coreTweaks">
+              <div class="kv"><b>—</b><code>—</code></div>
+            </div>
+          </div>
+
+          <div class="stat-card span-6">
+            <h4>Pack-A-Punch</h4>
+            <div id="papTweaks">
+              <div class="kv"><b>—</b><code>—</code></div>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <h4>Notes</h4>
+            <p id="heroNotes" class="muted">Tip: pack-a-punch unlocks extra power per hero; find the bench to upgrade.</p>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+        <!-- ZONES -->
+        <div id="zones" class="card" data-text="zones maps routes buyable areas loops power relays teleporters doors">
+          <h2>Zones & Routes</h2>
+          <div class="grid">
+            <div class="span-6">
+              <h3>Urban District</h3>
+              <p class="muted">Fast rotations, relay routes, mid‑tier density. Learn a safe loop before power.</p>
+              <div style="display:flex;gap:8px;flex-wrap:wrap">
+                <a class="pill" href="mapcodes.html">Map Code</a>
+                <span class="pill">Boss: Orisa</span>
+                <span class="pill">Tier: Standard</span>
+              </div>
+            </div>
+            <div class="span-6">
+              <h3>Radiated Omnic Temple</h3>
+              <p class="muted">Tight corridors and corruption spikes. Coordinate doors and pre‑clear paths.</p>
+              <div style="display:flex;gap:8px;flex-wrap:wrap">
+                <a class="pill" href="mapcodes.html">Map Code</a>
+                <span class="pill">Boss: Ramattra</span>
+                <span class="pill">Tier: Hard</span>
+              </div>
+            </div>
+            <div class="span-6">
+              <h3>Harbor Docks</h3>
+              <p class="muted">Beginner‑friendly lanes, generous buyables, and clear sightlines.</p>
+              <div style="display:flex;gap:8px;flex-wrap:wrap">
+                <a class="pill" href="mapcodes.html">Map Code</a>
+                <span class="pill">Boss: Reinhardt</span>
+                <span class="pill">Tier: Beginner</span>
+              </div>
+            </div>
+            <div class="span-6">
+              <h3>Arcology Spire</h3>
+              <p class="muted">Verticality with teleporter doors. For squads chasing high‑wave milestones.</p>
+              <div style="display:flex;gap:8px;flex-wrap:wrap">
+                <a class="pill" href="mapcodes.html">Map Code</a>
+                <span class="pill">Boss: D.Va</span>
+                <span class="pill">Tier: Endgame</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- BOSSES -->
+        <div id="bosses" class="card" data-text="bosses mechanics phases telegraphs counters stagger dps check">
+          <h2>Bosses</h2>
+          <div class="grid">
+            <div class="span-6">
+              <details open>
+                <summary>Orisa — Sentry Protocol</summary>
+                <p class="muted">Telegraphed fortify windows, line‑break charges, and lane denial. Counter with interrupts and off‑angles.</p>
+              </details>
+              <details>
+                <summary>D.Va — Mech Overclock</summary>
+                <p class="muted">Burst windows around micro missile volleys; punish eject timings and manage self‑destruct LOS.</p>
+              </details>
+            </div>
+            <div class="span-6">
+              <details>
+                <summary>Reinhardt — Shieldbreaker</summary>
+                <p class="muted">Cone swings with gap‑closers; bait charges into terrain, keep revives behind cover.</p>
+              </details>
+              <details>
+                <summary>Ramattra — Corruption</summary>
+                <p class="muted">Phase spikes with adds and area denial. Save utility and DR for phase transitions.</p>
+              </details>
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ -->
+        <div id="faq" class="card" data-text="faq questions bugs performance perks box codes difficulty">
+          <h2>FAQ</h2>
+          <details open>
+            <summary>Do donations unlock in‑game benefits?</summary>
+            <p class="muted">No. To respect Blizzard’s policies, donations don’t provide gameplay advantages or exclusive items.</p>
+          </details>
+          <details>
+            <summary>Where do I report bugs or balance feedback?</summary>
+            <p class="muted">Use the survey on the home page or open an issue on GitHub (if you’ve published the site repo).</p>
+          </details>
+          <details>
+            <summary>Performance tips?</summary>
+            <p class="muted">Reduce particle clutter, stick to clean loops, and avoid cross‑pulling waves during power spikes.</p>
+          </details>
+        </div>
+
+        <!-- CHANGELOG -->
+        <div id="changelog" class="card" data-text="changelog patch notes version balance fixes">
+          <h2>Changelog</h2>
+          <details open>
+            <summary>v0.7.8</summary>
+            <ul style="margin:8px 0 0 18px">
+              <li>Balance: adjusted Orisa lane denial timings.</li>
+              <li>Economy: perk cost smoothing for early routes.</li>
+              <li>Fixes: box teleporter edge case on Urban District.</li>
+            </ul>
+          </details>
+          <details>
+            <summary>v0.7.7</summary>
+            <ul style="margin:8px 0 0 18px">
+              <li>Temple corruption spike tuning.</li>
+              <li>Minor UI polish on overlay captions.</li>
+            </ul>
+          </details>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="wrap">
+      <div>© <span id="y"></span> Zombie Survival • A Fan Made Overwatch Workshop Gamemode</div>
+      <div style="margin-top:8px">
+        <a href="index.html">Home</a> •
+        <a href="comics.html">Comics</a> •
+        <a href="mapcodes.html">Map Codes</a> •
+        <a href="radio.html">Survivor Radio</a> •
+        <a href="wiki.html">Wiki</a> •
+        <a href="credits.html">Credits</a> •
+        <a href="donations.html">Donations</a> •
+        <a href="about.html">About Me</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Close mobile menu if resized to desktop
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 1100) {
+        const cb = document.getElementById('nav-toggle');
+        if (cb) cb.checked = false;
+      }
+    });
+
+    // Year in footer
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    // Simple search/filter: hides cards that don't match (uses text + data-text)
+    const search = document.getElementById('search');
+    const contentEl = document.getElementById('content');
+    const filterable = Array.from(contentEl.querySelectorAll('.card'));
+    function applyFilter() {
+      const q = (search.value || '').toLowerCase().trim();
+      filterable.forEach(card => {
+        const hay = (card.innerText + ' ' + (card.getAttribute('data-text') || '')).toLowerCase();
+        card.style.display = hay.includes(q) ? '' : 'none';
+      });
+    }
+    search.addEventListener('input', applyFilter);
+    document.querySelectorAll('.toolbar .pill--btn[data-q]').forEach(p => {
+      p.addEventListener('click', () => {
+        search.value = p.getAttribute('data-q');
+        applyFilter();
+      });
+    });
+
+    // Smooth anchor scrolling
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', (e) => {
+        const id = a.getAttribute('href').slice(1);
+        const el = document.getElementById(id);
+        if (el) {
+          e.preventDefault();
+          window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - (74 + 12), behavior: 'smooth' });
+          history.pushState(null, '', '#' + id);
+        }
+      });
+    });
+    /* Minimal icon initials — swap with images if you want */
+    const iconFor = (name) => (name.split(' ').map(w => w[0]).join('').slice(0,2)).toUpperCase();
+
+    /* Data assembled from your settings + notes; extend freely.
+      Units are shown exactly as provided (%, cooldown wording, etc.). */
+    const HEROES = [
+      // ---- General note (applies to all) ----
+      { name:"All Heroes", role:"all",
+        core: [
+          ["Starting HP", "DPS/Support 100 • Tank 150"]
+        ],
+        pap: [
+          ["Pack-A-Punch", "Unlocks extra ability and bonus damage (varies by hero)"]
+        ],
+        notes: "Global baselines for Zombies mode."
+      },
+
+      // ---- Support examples from your settings & table ----
+      { name:"Ana", role:"support",
+        core: [
+          ["Damage Dealt", "300%"],
+          ["Biotic Grenade Cooldown", "50%"],
+          ["Sleep Dart Cooldown", "0%"]
+        ],
+        pap: [
+          ["Nano Boost", "Gives target teammate insta-kill (PAP)"]
+        ]
+      },
+      { name:"Baptiste", role:"support",
+        core: [
+          ["Damage Dealt","160%"],
+          ["Healing Dealt","150%"],
+          ["Regenerative Burst Cooldown","25%"],
+          ["Clip Size Scalar","50%"]
+        ],
+        pap: [
+          ["Regenerative Burst","Also grants extra temporary HP to self"]
+        ]
+      },
+      { name:"Brigitte", role:"support",
+        core: [
+          ["Healing Dealt","40%"],
+          ["Barrier Shield Cooldown","50%"],
+          ["Repair Pack Cooldown","50%"],
+          ["Shield Bash Cooldown","50%"]
+        ],
+        pap: [
+          ["Rally (Ult)","1.5× larger aura + +1000 temp HP; Shield Bash knocks down"]
+        ]
+      },
+      { name:"Kiriko", role:"support",
+        core: [
+          ["Damage Dealt","150%"]
+        ],
+        pap: [
+          ["Kitsune Rush","Enemies slow inside your rush field"]
+        ]
+      },
+      { name:"Lúcio", role:"support",
+        core: [
+          ["Healing Dealt","250%"]
+        ],
+        pap: [
+          ["Sound Barrier","All enemies in radius are rooted on cast"]
+        ]
+      },
+      { name:"Moira", role:"support",
+        core: [
+          ["Healing Dealt","150%"],
+          ["Damage Dealt","150%"],
+          ["Fade Cooldown","200%"],
+          ["Biotic Orb Cooldown","25%"],
+          ["Health","50%"]
+        ],
+        pap: [
+          ["—","(design TBD)"]
+        ]
+      },
+      { name:"Zenyatta", role:"support",
+        core: [
+          ["Damage Dealt","150%"],
+          ["Healing Dealt","150%"]
+        ],
+        pap: [
+          ["—","(design TBD)"]
+        ]
+      },
+
+      // ---- Damage from settings/table ----
+      { name:"Ashe", role:"damage",
+        core: [
+          ["Damage Dealt","125%"],
+          ["Coach Gun Cooldown","35%"],
+          ["Dynamite Cooldown","50%"]
+        ],
+        pap: [
+          ["Headshots","Apply burn damage"]
+        ]
+      },
+      { name:"Cassidy", role:"damage",
+        core: [
+          ["Combat Roll Cooldown","35%"],
+          ["Flashbang Cooldown","15%"],
+          ["Notes","Roll refills half a magazine"]
+        ],
+        pap: [
+          ["Rounds","Explosive rounds"],
+          ["Deadeye","Low gravity if you jump right before using it"]
+        ],
+        notes: "Starting hero — weaker early, huge payoff when PAP’d."
+      },
+      { name:"Echo", role:"damage",
+        core: [
+          ["Focusing Beam Cooldown","50%"],
+          ["Flight Cooldown","500%"]
+        ],
+        pap: [
+          ["Volley","Explosive volley shoots homing rockets"]
+        ]
+      },
+      { name:"Genji", role:"damage",
+        core: [
+          ["Damage Dealt","40%"]
+        ],
+        pap: [
+          ["Dragonblade","Sword swipes launch fire strikes"]
+        ]
+      },
+      { name:"Hanzo", role:"damage",
+        core: [
+          ["Damage Dealt","300%"],
+          ["Sonic Arrow Cooldown","50%"],
+          ["Storm Arrows Cooldown","50%"],
+          ["Storm Arrows Quantity","6"]
+        ],
+        pap: [
+          ["Storm Arrows","Knock enemies down ~8s"]
+        ]
+      },
+      { name:"Junkrat", role:"damage",
+        core: [
+          ["Damage Dealt","250%"],
+          ["Concussion Mine Cooldown","50%"],
+          ["Steel Trap Cooldown","25%"],
+          ["Concussion/Frag Knockback","25%"],
+          ["Ult Duration","25%"]
+        ],
+        pap: [
+          ["RIP-Tire","User is phased (invuln) during ult"],
+          ["Explosives","~4× blast radius"]
+        ]
+      },
+      { name:"Mei", role:"damage",
+        core: [
+          ["Damage Dealt","500%"],
+          ["Clip Size Scalar","300%"],
+          ["Cryo-Freeze Cooldown","75%"],
+          ["Ice Wall Cooldown","25%"],
+          ["Freeze Stacking","Enabled"],
+          ["Health","40%"],
+          ["Min Freeze","100%"]
+        ],
+        pap: [
+          ["—","(design TBD)"]
+        ]
+      },
+      { name:"Pharah", role:"damage",
+        core: [
+          ["Damage Dealt","250%"],
+          ["Clip Size Scalar","200%"],
+          ["Concussive Blast Cooldown","50%"],
+          ["Hover Charge Rate","5%"],
+          ["Jump Jet Cooldown","300%"]
+        ],
+        pap: [
+          ["—","(design TBD)"]
+        ]
+      },
+      { name:"Reaper", role:"damage",
+        core: [
+          ["Shadow Step Cooldown","50%"]
+        ],
+        pap: [
+          ["—","(design TBD)"]
+        ]
+      },
+      { name:"Soldier: 76", role:"damage",
+        core: [
+          ["Clip Size Scalar","82%"]
+        ],
+        pap: [
+          ["—","(design TBD)"]
+        ]
+      },
+      { name:"Sombra", role:"damage",
+        core: [
+          ["Clip Size Scalar","150%"],
+          ["Damage Dealt","200%–250% (team variants)"],
+          ["Hack Cooldown","25%"],
+          ["Translocator Cooldown","75%"],
+          ["Virus Cooldown","300%"],
+          ["Projectile Speed","10%"]
+        ],
+        pap: [
+          ["—","(design TBD)"]
+        ]
+      },
+      { name:"Symmetra", role:"damage",
+        core: [
+          ["Damage Dealt","70%"],
+          ["Sentry Turret Cooldown","200%"]
+        ],
+        pap: [
+          ["—","(design TBD)"]
+        ]
+      },
+      { name:"Torbjörn", role:"damage",
+        core: [
+          ["Damage Dealt","70%"],
+          ["Deploy Turret Cooldown","25%"],
+          ["Overload Cooldown","40%"],
+          ["Ult Gen (Molten Core)","220%"]
+        ],
+        pap: [
+          ["Molten Core","Super-stacking lava output (design expand)"]
+        ]
+      },
+      { name:"Tracer", role:"damage",
+        core: [
+          ["Damage Dealt","260%"],
+          ["Health","67%"]
+        ],
+        pap: [
+          ["—","(design TBD)"]
+        ]
+      },
+      { name:"Widowmaker", role:"damage",
+        core: [
+          ["Damage Dealt","500%"],
+          ["Grappling Hook Cooldown","35%"],
+          ["Health","58%"],
+          ["Venom Mine Cooldown","0%"]
+        ],
+        pap: [
+          ["—","(design TBD)"]
+        ]
+      },
+
+      // ---- Tanks from settings/table ----
+      { name:"D.Va", role:"tank",
+        core: [
+          ["Health","26% (team 1) / 26% (team 2 mech)"],
+          ["Boosters Cooldown","200%"],
+          ["Self-Destruct","Disabled (Team 1 Ult)"],
+          ["Notes","Gains an ability shield after using ‘shield’ ability (design note)"]
+        ],
+        pap: [
+          ["Micro Missiles","Fires big rockets that deal massive damage"],
+          ["Deploy","+100 HP when deploying shield"]
+        ]
+      },
+      { name:"Doomfist", role:"tank",
+        core: [
+          ["Damage Dealt","60%"],
+          ["Health","40% (team1) / 250% (team2)"],
+          ["No Ammo Requirement","On"],
+          ["Power Block/Rocket Punch/Seismic Slam CD","50%"]
+        ],
+        pap: [
+          ["Seismic Slam","Knocks down enemies"]
+        ]
+      },
+      { name:"Junker Queen", role:"tank",
+        core: [
+          ["Health","50%"],
+          ["Healing Received","50%"],
+          ["Projectile Speed","15%"]
+        ],
+        pap: [
+          ["Jagged Blade / Axe","Axe swing roots enemies ~4s"]
+        ]
+      },
+      { name:"Orisa", role:"tank",
+        core: [
+          ["Damage Dealt","20%"],
+          ["Health","32%–34%"],
+          ["Javelin Spin CD","25%"],
+          ["Energy Javelin/Fortify CD","50% / 75%"],
+          ["Projectile Speed","10%"]
+        ],
+        pap: [
+          ["—","(design TBD)"]
+        ]
+      },
+      { name:"Ramattra", role:"tank",
+        core: [
+          ["Health","40%–50%"],
+          ["Nemesis Form CD","0%"],
+          ["Healing Received","50%"]
+        ],
+        pap: [
+          ["—","(design TBD)"]
+        ]
+      },
+      { name:"Reinhardt", role:"tank",
+        core: [
+          ["Health","27%–25%"],
+          ["Damage Dealt","65%"],
+          ["Charge CD","50%"],
+          ["Fire Strike CD","10%"],
+          ["Barrier Field Recharge","300%"],
+          ["Earthshatter Gen","165% (+combat variants)"]
+        ],
+        pap: [
+          ["—","(design TBD)"]
+        ]
+      },
+      { name:"Roadhog", role:"tank",
+        core: [
+          ["Health","23%–20%"],
+          ["Damage Dealt","105% (team1) / 50% (team2)"],
+          ["Chain Hook CD","0%"],
+          ["Healing Received","33%"]
+        ],
+        pap: [
+          ["—","(design TBD)"]
+        ]
+      },
+      { name:"Sigma", role:"tank",
+        core: [
+          ["Health","32%–38%"],
+          ["Damage Dealt","420%"],
+          ["Accretion Knockback","300% (CD 25% team2)"],
+          ["Barrier: CD / Recharge","0% / 300%"],
+          ["Kinetic Grasp CD","0% (team2)"]
+        ],
+        pap: [
+          ["—","(design TBD)"]
+        ]
+      },
+      { name:"Winston", role:"tank",
+        core: [
+          ["Health","32%–10%"],
+          ["Damage Dealt","70%"],
+          ["Barrier Projector","20% CD (team1) / Disabled (team2)"],
+          ["Jump Vertical Speed","80%"],
+          ["Ult Duration","500% (team2)"]
+        ],
+        pap: [
+          ["—","(design TBD)"]
+        ]
+      },
+      { name:"Wrecking Ball", role:"tank",
+        core: [
+          ["Health","24%–25%"],
+          ["Damage Dealt","200%"],
+          ["Grappling Claw CD","250%"],
+          ["Healing Received","50%"],
+          ["Movement Speed","50% (team2)"]
+        ],
+        pap: [
+          ["—","(design TBD)"]
+        ]
+      },
+      { name:"Zarya", role:"tank",
+        core: [
+          ["Health","38%"],
+          ["Damage Dealt","420%"],
+          ["Clip Size Scalar","200%"],
+          ["Particle / Projected Barrier CD","40% / 40%"],
+          ["Spawn with Ultimate","Enabled (team1)"]
+        ],
+        pap: [
+          ["—","(design TBD)"]
+        ]
+      }
+    ];
+
+    /* ---- UI wiring ---- */
+    const grid = document.getElementById('heroGrid');
+    const detail = {
+      icon:  document.getElementById('heroIcon'),
+      name:  document.getElementById('heroName'),
+      core:  document.getElementById('coreTweaks'),
+      pap:   document.getElementById('papTweaks'),
+      notes: document.getElementById('heroNotes')
+    };
+
+    function renderList(list){
+      grid.innerHTML = '';
+      list.forEach(h=>{
+        const item = document.createElement('button');
+        item.className = 'hero-pill';
+        item.type = 'button';
+        item.setAttribute('data-name', h.name);
+
+        const icon = document.createElement('div');
+        icon.className = 'hero-pill__icon';
+        icon.textContent = iconFor(h.name);
+
+        const label = document.createElement('div');
+        label.className = 'hero-pill__name';
+        label.textContent = h.name;
+
+        item.appendChild(icon);
+        item.appendChild(label);
+        item.addEventListener('click', ()=> showHero(h.name));
+        grid.appendChild(item);
+      });
+    }
+
+    function rowsFrom(arr){
+      if(!arr || !arr.length){ return '<div class="kv"><b>—</b><code>—</code></div>'; }
+      return arr.map(([k,v]) => `<div class="kv"><b>${k}</b><code>${v}</code></div>`).join('');
+    }
+
+    function showHero(name){
+      const h = HEROES.find(x=>x.name===name);
+      if(!h) return;
+      detail.icon.textContent = iconFor(h.name);
+      detail.name.textContent = h.name;
+      detail.core.innerHTML = rowsFrom(h.core);
+      detail.pap.innerHTML  = rowsFrom(h.pap);
+      detail.notes.textContent = h.notes || '—';
+    }
+
+    const search = document.getElementById('heroSearch');
+    search.addEventListener('input', e=>{
+      const q = e.target.value.trim().toLowerCase();
+      const list = !q ? HEROES : HEROES.filter(h=>h.name.toLowerCase().includes(q) || (h.role||'').includes(q));
+      renderList(list);
+    });
+
+    renderList(HEROES);
+    showHero("All Heroes");
+    </script>
+</body>
+</html>

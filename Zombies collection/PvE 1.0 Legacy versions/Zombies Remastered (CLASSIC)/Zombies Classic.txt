@@ -1,0 +1,5718 @@
+settings
+{
+	lobby
+	{
+		Allow Players Who Are In Queue: Yes
+		Map Rotation: After A Game
+		Max Spectators: 12
+		Max Team 1 Players: 4
+		Max Team 2 Players: 0
+		Return To Lobby: Never
+	}
+
+	modes
+	{
+		Skirmish
+		{
+			enabled maps
+			{
+				King's Row 0
+				King's Row Winter 0
+			}
+		}
+
+		General
+		{
+			Allow Hero Switching: Off
+			Enemy Health Bars: Off
+			Game Mode Start: Immediately
+			Health Pack Respawn Time Scalar: 50%
+			Hero Limit: Off
+			Kill Cam: Off
+			Kill Feed: Off
+			Respawn As Random Hero: On
+			Spawn Health Packs: Enabled
+		}
+	}
+
+	heroes
+	{
+		Team 1
+		{
+			Health: 50%
+			Movement Gravity: 120%
+			Movement Speed: 115%
+			Spawn With Ultimate Ready: On
+
+			Brigitte
+			{
+				Barrier Shield Cooldown Time: 50%
+				Damage Dealt: 150%
+				Healing Dealt: 150%
+				Repair Pack Cooldown Time: 50%
+				Shield Bash Cooldown Time: 50%
+				Shield Bash Knockback Scalar: 300%
+				Whip Shot Cooldown Time: 50%
+				Whip Shot Knockback Scalar: 200%
+			}
+
+			Lúcio
+			{
+				Amp It Up Cooldown Time: 50%
+				Damage Dealt: 500%
+				Healing Dealt: 250%
+				Movement Speed: 101%
+				Soundwave Cooldown Time: 200%
+			}
+
+			Reinhardt
+			{
+				Barrier Field Recharge Rate: 300%
+				Charge Cooldown Time: 50%
+				Damage Dealt: 150%
+				Healing Received: 250%
+				Health: 25%
+			}
+
+			Sombra
+			{
+				Ammunition Clip Size Scalar: 66%
+				Damage Dealt: 130%
+				Hack Cooldown Time: 25%
+				Translocator Cooldown Time: 75%
+				Virus: Off
+			}
+
+			Symmetra
+			{
+				Damage Dealt: 63%
+				Sentry Turret Cooldown Time: 200%
+			}
+
+			Torbjörn
+			{
+				Damage Dealt: 70%
+				Deploy Turret Cooldown Time: 500%
+				Ultimate Generation Molten Core: 220%
+			}
+
+			Winston
+			{
+				Ammunition Clip Size Scalar: 40%
+				Barrier Projector Cooldown Time: 20%
+				Health: 10%
+				Jump Pack Cooldown Time: 500%
+				Jump Pack Knockback Scalar: 400%
+				Jump Vertical Speed: 80%
+				Primal Rage Melee Knockback Scalar: 300%
+				Ultimate Ability Primal Rage: Off
+			}
+		}
+
+		Team 2
+		{
+			Jump Vertical Speed: 200%
+			Movement Speed: 95%
+
+			Brigitte
+			{
+				Barrier Shield Cooldown Time: 50%
+				Damage Dealt: 70%
+				Healing Dealt: 40%
+				Health: 70%
+				Movement Speed: 75%
+				Repair Pack Cooldown Time: 50%
+				Shield Bash Knockback Scalar: 300%
+				Ultimate Generation - Combat Rally: 500%
+				Ultimate Generation Rally: 500%
+				Whip Shot Knockback Scalar: 300%
+			}
+
+			Lúcio
+			{
+				Amp It Up Cooldown Time: 50%
+				Damage Dealt: 500%
+				Healing Dealt: 250%
+				Soundwave Cooldown Time: 200%
+			}
+
+			Reinhardt
+			{
+				Barrier Field Recharge Rate: 300%
+				Charge Knockback Scalar: 300%
+				Damage Dealt: 65%
+				Rocket Hammer Knockback Scalar: 200%
+				Ultimate Generation - Combat Earthshatter: 500%
+				Ultimate Generation Earthshatter: 165%
+			}
+
+			Sombra
+			{
+				Ammunition Clip Size Scalar: 66%
+				Damage Dealt: 130%
+				Hack Cooldown Time: 25%
+				Translocator Cooldown Time: 75%
+			}
+
+			Symmetra
+			{
+				Damage Dealt: 70%
+				Sentry Turret Cooldown Time: 200%
+			}
+
+			Torbjörn
+			{
+				Damage Dealt: 89%
+				Deploy Turret: Off
+				Movement Gravity: 80%
+				Movement Speed: 85%
+				Overload Cooldown Time: 40%
+				Overload Duration Scalar: 500%
+				Ultimate Generation - Combat Molten Core: 500%
+				Ultimate Generation Molten Core: 220%
+				Weapons Enabled: Forge Hammer Only
+			}
+
+			Winston
+			{
+				Ammunition Clip Size Scalar: 40%
+				Barrier Projector Cooldown Time: 20%
+				Health: 10%
+				Jump Pack Cooldown Time: 500%
+				Jump Pack Knockback Scalar: 400%
+				Jump Vertical Speed: 150%
+				Primal Rage Melee Knockback Scalar: 300%
+				Ultimate Ability Primal Rage: Off
+			}
+		}
+
+		General
+		{
+			Ultimate Generation: 10%
+			Ultimate Generation - Combat: 0%
+			Ultimate Generation - Passive: 0%
+
+			Ana
+			{
+				Biotic Grenade Cooldown Time: 80%
+				Damage Dealt: 130%
+				Healing Dealt: 150%
+			}
+
+			Ashe
+			{
+				Coach Gun Cooldown Time: 35%
+				Dynamite Cooldown Time: 150%
+			}
+
+			Baptiste
+			{
+				Ammunition Clip Size Scalar: 50%
+				Damage Dealt: 130%
+				Healing Dealt: 150%
+			}
+
+			Bastion
+			{
+				Ammunition Clip Size Scalar: 35%
+			}
+
+			Cassidy
+			{
+				Ammunition Clip Size Scalar: 200%
+				Combat Roll Cooldown Time: 35%
+				Damage Dealt: 30%
+				Ultimate Ability Deadeye: Off
+			}
+
+			D.Va
+			{
+				Boosters Cooldown Time: 200%
+				Healing Received: 50%
+				Health: 25%
+			}
+
+			Doomfist
+			{
+				Damage Dealt: 120%
+				Power Block Cooldown Time: 50%
+				Rocket Punch Cooldown Time: 50%
+				Seismic Slam Cooldown Time: 50%
+			}
+
+			Genji
+			{
+				Damage Dealt: 125%
+			}
+
+			Hanzo
+			{
+				Lunge Cooldown Time: 50%
+				Lunge Distance Scalar: 200%
+				Sonic Arrow Cooldown Time: 50%
+				Storm Arrows Cooldown Time: 50%
+				Storm Arrows Quantity: 6
+			}
+
+			Junkrat
+			{
+				Concussion Mine Cooldown Time: 50%
+				Concussion Mine Knockback Scalar: 25%
+				Damage Dealt: 200%
+				Frag Launcher Knockback Scalar: 25%
+				Steel Trap Cooldown Time: 25%
+				Ultimate Duration: 50%
+			}
+
+			Mei
+			{
+				Ammunition Clip Size Scalar: 25%
+				Damage Dealt: 30%
+				Secondary Fire: Off
+				Weapon Freeze Duration Scalar: 20%
+				Weapon Freeze Minimum: 0%
+				Weapon Freeze Rate Scalar: 0%
+			}
+
+			Mercy
+			{
+				Ammunition Clip Size Scalar: 30%
+				Damage Dealt: 350%
+				Healing Dealt: 150%
+				Resurrect Cooldown Time: 0%
+			}
+
+			Moira
+			{
+				Biotic Orb Cooldown Time: 25%
+				Fade Cooldown Time: 200%
+				Healing Dealt: 150%
+			}
+
+			Orisa
+			{
+				Energy Javelin Cooldown Time: 50%
+				Fortify Cooldown Time: 75%
+				Healing Received: 50%
+				Health: 25%
+				Javelin Spin Cooldown Time: 25%
+			}
+
+			Pharah
+			{
+				Concussive Blast Cooldown Time: 50%
+				Damage Dealt: 200%
+				Hover Jets Vertical Speed Scalar: 25%
+				Jump Jet: Off
+			}
+
+			Reaper
+			{
+				Damage Dealt: 200%
+				Shadow Step Cooldown Time: 20%
+				Wraith Form Cooldown Time: 50%
+			}
+
+			Roadhog
+			{
+				Ammunition Clip Size Scalar: 66%
+				Damage Dealt: 130%
+				Healing Received: 33%
+				Health: 25%
+			}
+
+			Sigma
+			{
+				Accretion Cooldown Time: 50%
+				Accretion Knockback Scalar: 300%
+				Damage Dealt: 200%
+				Experimental Barrier Recharge Rate: 300%
+				Healing Received: 50%
+				Health: 25%
+				Ultimate Generation - Combat Gravitic Flux: 150%
+			}
+
+			Tracer
+			{
+				Health: 67%
+			}
+
+			Widowmaker
+			{
+				Grappling Hook Cooldown Time: 35%
+				Venom Mine Cooldown Time: 150%
+			}
+
+			Wrecking Ball
+			{
+				Ammunition Clip Size Scalar: 50%
+				Damage Dealt: 150%
+				Grappling Claw Cooldown Time: 250%
+				Healing Received: 50%
+				Health: 25%
+			}
+
+			Zarya
+			{
+				Damage Dealt: 120%
+				Healing Received: 50%
+				Health: 25%
+				Particle Barrier Cooldown Time: 40%
+				Projected Barrier Cooldown Time: 40%
+			}
+
+			Zenyatta
+			{
+				Damage Dealt: 130%
+				Healing Dealt: 150%
+			}
+
+			enabled heroes
+			{
+				Brigitte
+				Reinhardt
+				Torbjörn
+			}
+		}
+	}
+}
+
+variables
+{
+	global:
+		18: Died
+
+	player:
+		13: InfoUI
+		14: InfoCooldown
+		17: HideHints
+		26: Jugg
+		27: singlelives
+		28: Pack
+		29: HEADSH
+		30: Maniac
+		31: revived
+		32: revivebought
+		33: UI
+}
+
+rule("Setup")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	actions
+	{
+		Global.A = 0;
+		Global.B = 0;
+		Global.C = 0;
+		Global.P = 0;
+		Global.Q = Empty Array;
+		Modify Global Variable(Q, Append To Array, Hero(D.Va));
+		Modify Global Variable(Q, Append To Array, Hero(Orisa));
+		Modify Global Variable(Q, Append To Array, Hero(Reinhardt));
+		Modify Global Variable(Q, Append To Array, Hero(Roadhog));
+		Modify Global Variable(Q, Append To Array, Hero(Sigma));
+		Modify Global Variable(Q, Append To Array, Hero(Winston));
+		Modify Global Variable(Q, Append To Array, Hero(Wrecking Ball));
+		Modify Global Variable(Q, Append To Array, Hero(Zarya));
+		Global.T = Empty Array;
+		Global.Y = Empty Array;
+		disabled Modify Global Variable(Y, Append To Array, Vector(-23.738, 22.631, -120.650));
+		Create HUD Text(All Players(Team 1), String("Round {0}", Global.A), Null, Null, Top, 0, Color(Red), Color(Red), Color(Red),
+			Visible To and String, Visible Always);
+		Create HUD Text(All Players(Team 1), String("{0} {1}", Global.B, String("Enemies")), Null, Null, Right, 0, Color(Red), Color(Red),
+			Color(Red), Visible To and String, Visible Always);
+		Global.O = False;
+		Global.M[0] = Vector(500, 25, 500);
+		Global.M[1] = Vector(500, 25, 500);
+		Global.M[2] = Vector(500, 25, 500);
+		Global.M[3] = Vector(500, 25, 500);
+		Global.M[4] = Vector(500, 25, 500);
+		Global.M[5] = Vector(500, 25, 500);
+		Create Effect(All Players(Team 1), Orb, Color(White), Global.M[0], 1, Visible To Position and Radius);
+		Create Effect(All Players(Team 1), Orb, Color(Yellow), Global.M[1], 1, Visible To Position and Radius);
+		Create Effect(All Players(Team 1), Orb, Color(Green), Global.M[2], 1, Visible To Position and Radius);
+		Create Effect(All Players(Team 1), Orb, Color(Sky Blue), Global.M[3], 0.100, None);
+		Create Effect(All Players(Team 1), Orb, Color(Red), Global.M[4], 1, Position and Radius);
+		Create Effect(All Players(Team 1), Orb, Color(Orange), Global.M[5], 1, Position and Radius);
+		Create HUD Text(Filtered Array(All Players(Team 1), Current Array Element.S[1] == 1), Custom String("Double Points!"), Null, Null,
+			Top, 1, Color(Yellow), Color(White), Color(White), Visible To and String, Visible Never);
+		Create HUD Text(Filtered Array(All Players(Team 1), Current Array Element.S[2] == 1), Custom String("Speed boost!"), Null, Null,
+			Top, 1, Color(Green), Color(White), Color(White), Visible To and String, Visible Never);
+		Create HUD Text(Filtered Array(All Players(Team 1), Current Array Element.S[4] == 1), Custom String("Insta-Kill!"), Null, Null,
+			Top, 1, Color(Red), Color(White), Color(White), Visible To and String, Visible Never);
+		Create HUD Text(Filtered Array(All Players(Team 1), Current Array Element.S[0] == 1), Custom String("Ultimate MAYHEM"), Null, Null,
+			Top, 1, Color(White), Color(White), Color(White), Visible To and String, Visible Never);
+		Create HUD Text(Filtered Array(All Players(Team 1), Current Array Element.S[5] == 1), String("Healing"), Null, Null, Top, 1, Color(
+			Orange), Color(White), Color(White), Visible To and String, Visible Never);
+		Create HUD Text(Filtered Array(All Players(Team 1), Current Array Element.S[3] == 1), String("Freezing"), Null, Null, Top, 1,
+			Color(Sky Blue), Color(White), Color(White), Visible To and String, Visible Never);
+		Create HUD Text(All Players(All Teams), Custom String("Website: workshop.codes/z-remastered"), Null, Null, Top, 0, Color(White),
+			Color(White), Color(White), Visible To and String, Default Visibility);
+	}
+}
+
+rule("Round Number (Global Var A)")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	conditions
+	{
+		Global.B <= 0;
+		Global.O == False;
+	}
+
+	actions
+	{
+		Global.A += 1;
+		Global.Z = 1;
+		Set Ultimate Charge(All Players(Team 1), 100);
+		Big Message(All Players(All Teams), String("Round {0}", Global.A));
+		Global.P = 0;
+		All Dead Players(Team 1).Pack = 0;
+		Clear Status(All Dead Players(Team 1), Burning);
+		All Dead Players(Team 1).L = 100;
+		Teleport(All Dead Players(Team 1), Nearest Walkable Position(Random Value In Array(All Living Players(Team 1)) + Vector(
+			Random Integer(-5, 5), 0, Random Integer(-5, 5))));
+		Start Forcing Player To Be Hero(All Dead Players(Team 1), Hero(Cassidy));
+		Resurrect(All Dead Players(Team 1));
+		Global.Died[0] = Vector(500, 0, 500);
+		Global.Died[1] = Vector(500, 0, 500);
+		Global.Died[2] = Vector(500, 0, 500);
+		Global.Died[3] = Vector(500, 0, 500);
+		All Players(Team 1).InfoCooldown = 0;
+		All Players(Team 1).P = 0;
+		All Players(Team 1).Q = 0;
+		All Players(Team 1).HideHints = 0;
+		Wait(0.016, Ignore Condition);
+		Respawn(Players In Slot(0, Team 2));
+		Wait(0.016, Ignore Condition);
+		Respawn(Players In Slot(1, Team 2));
+		Wait(0.016, Ignore Condition);
+		Respawn(Players In Slot(2, Team 2));
+		Wait(0.016, Ignore Condition);
+		Respawn(Players In Slot(3, Team 2));
+		Wait(0.016, Ignore Condition);
+		Respawn(Players In Slot(4, Team 2));
+		Wait(0.016, Ignore Condition);
+		Respawn(Players In Slot(5, Team 2));
+	}
+}
+
+rule("Set Round Kills")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	conditions
+	{
+		Global.Z == 1;
+		Global.O == False;
+		Global.A <= 12;
+	}
+
+	actions
+	{
+		Global.B = 4 + Global.A * 2;
+		Wait(1, Ignore Condition);
+		Global.Z = 0;
+	}
+}
+
+rule("Set Round Kills Past wave 12")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	conditions
+	{
+		Global.Z == 1;
+		Global.O == False;
+		Global.A >= 13;
+	}
+
+	actions
+	{
+		Global.B = 28;
+		Wait(1, Ignore Condition);
+		Global.Z = 0;
+	}
+}
+
+rule("Rampage Rounds")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 2;
+		All;
+	}
+
+	conditions
+	{
+		Global.A / 5 == Round To Integer(Global.A / 5, Down);
+		Is Alive(Event Player) == True;
+	}
+
+	actions
+	{
+		Set Ultimate Charge(Event Player, 100);
+		Big Message(All Players(All Teams), Custom String("Challenge wave!"));
+	}
+}
+
+rule("Unlimited Time")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	conditions
+	{
+		Match Time < 3000;
+		Global.O == False;
+	}
+
+	actions
+	{
+		Set Match Time(3599);
+		Disable Built-In Game Mode Announcer;
+	}
+}
+
+rule("Defeat")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	conditions
+	{
+		Is True For All(All Players(Team 1), Is Dead(Current Array Element)) == True;
+		Has Spawned(All Players(Team 1)) == True;
+	}
+
+	actions
+	{
+		Wait(1.500, Ignore Condition);
+		Abort If Condition Is False;
+		Declare Team Victory(Team 2);
+	}
+}
+
+rule("Disable Bot Respawn")
+{
+	event
+	{
+		Player Joined Match;
+		Team 2;
+		All;
+	}
+
+	actions
+	{
+		Disable Built-In Game Mode Respawning(Event Player);
+	}
+}
+
+rule("Spawn Bots")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	conditions
+	{
+		disabled Global.B > 4;
+		Has Spawned(All Players(Team 1)) == True;
+		Global.A == 1;
+		Global.A / 1 < Absolute Value(2);
+	}
+
+	actions
+	{
+		Wait(12, Ignore Condition);
+		Create Dummy Bot(Hero(Brigitte), Team 2, -1, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(0.016, Ignore Condition);
+		Create Dummy Bot(Hero(Brigitte), Team 2, -1, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(0.016, Ignore Condition);
+		Create Dummy Bot(Hero(Brigitte), Team 2, -1, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(0.016, Ignore Condition);
+		Create Dummy Bot(Hero(Brigitte), Team 2, -1, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(0.016, Ignore Condition);
+		Create Dummy Bot(Hero(Brigitte), Team 2, -1, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(0.016, Ignore Condition);
+		Create Dummy Bot(Hero(Brigitte), Team 2, -1, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Loop If Condition Is True;
+	}
+}
+
+rule("Spawn Failsafe")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	conditions
+	{
+		Number Of Living Players(Team 2) < Global.B;
+		Global.B < 7;
+		Global.A > 1;
+	}
+
+	actions
+	{
+		Wait(1, Abort When False);
+		Respawn(Random Value In Array(All Dead Players(Team 2)));
+		Wait(5, Abort When False);
+		Loop If Condition Is True;
+	}
+}
+
+rule("Monkey Kill (Global Var B) (InstaUlt Powerup)")
+{
+	event
+	{
+		Player Died;
+		Team 2;
+		Slot 0;
+	}
+
+	actions
+	{
+		Event Player.B = Random Integer(1, 50);
+		Skip If(Event Player.B != 1, 1);
+		Global.M[0] = Nearest Walkable Position(Event Player) + Vector(0, 0.500, 0);
+		disabled Destroy Effect(Event Player.C);
+		disabled Create Effect(All Players(All Teams), Orb, Color(White), Nearest Walkable Position(Event Player) + Vector(0, 0.500, 0), 1,
+			Visible To);
+		disabled Event Player.C = Last Created Entity;
+		Set Ultimate Charge(Event Player, 0);
+		Wait(0.200, Ignore Condition);
+		Global.B -= 1;
+		disabled Destroy Dummy Bot(Team 2, 0);
+		Skip If(Global.B < 6, 1);
+		Respawn(Event Player);
+	}
+}
+
+rule("Monkey Kill (Global Var B) (doublePoints Powerup)")
+{
+	event
+	{
+		Player Died;
+		Team 2;
+		Slot 1;
+	}
+
+	actions
+	{
+		Event Player.B = Random Integer(1, 40);
+		Skip If(Event Player.B != 1, 1);
+		Global.M[1] = Nearest Walkable Position(Event Player) + Vector(0, 0.500, 0);
+		disabled Destroy Effect(Event Player.C);
+		disabled Create Effect(All Players(All Teams), Orb, Color(Yellow), Nearest Walkable Position(Event Player) + Vector(0, 0.500, 0), 1,
+			Visible To);
+		disabled Event Player.C = Last Created Entity;
+		Set Ultimate Charge(Event Player, 0);
+		Wait(0.200, Ignore Condition);
+		Global.B -= 1;
+		Skip If(Global.B < 6, 1);
+		Respawn(Event Player);
+	}
+}
+
+rule("Monkey Kill (Global Var B) (QuickSpeed Powerup)")
+{
+	event
+	{
+		Player Died;
+		Team 2;
+		Slot 2;
+	}
+
+	actions
+	{
+		Event Player.B = Random Integer(1, 30);
+		Skip If(Event Player.B != 1, 1);
+		Global.M[2] = Nearest Walkable Position(Event Player) + Vector(0, 0.500, 0);
+		disabled Destroy Effect(Event Player.C);
+		disabled Create Effect(All Players(All Teams), Orb, Color(Green), Nearest Walkable Position(Event Player) + Vector(0, 0.500, 0), 1,
+			Visible To);
+		disabled Event Player.C = Last Created Entity;
+		Set Ultimate Charge(Event Player, 0);
+		Wait(0.200, Ignore Condition);
+		Global.B -= 1;
+		disabled Destroy Dummy Bot(Team 2, 2);
+		Skip If(Global.B < 6, 1);
+		Respawn(Event Player);
+	}
+}
+
+rule("Monkey Kill (Global Var B) (Freeze Powerup)")
+{
+	event
+	{
+		Player Died;
+		Team 2;
+		Slot 3;
+	}
+
+	actions
+	{
+		Event Player.B = Random Integer(1, 40);
+		Skip If(Event Player.B != 1, 1);
+		Global.M[3] = Nearest Walkable Position(Event Player) + Vector(0, 0.500, 0);
+		disabled Destroy Effect(Event Player.C);
+		disabled Create Effect(All Players(All Teams), Orb, Color(Sky Blue), Nearest Walkable Position(Event Player) + Vector(0, 0.500, 0), 1,
+			Visible To);
+		disabled Event Player.C = Last Created Entity;
+		Set Ultimate Charge(Event Player, 0);
+		Wait(0.200, Ignore Condition);
+		Global.B -= 1;
+		disabled Destroy Dummy Bot(Team 2, 3);
+		Skip If(Global.B < 6, 1);
+		Respawn(Event Player);
+	}
+}
+
+rule("Monkey Kill (Global Var B) (5xDamage Powerup)")
+{
+	event
+	{
+		Player Died;
+		Team 2;
+		Slot 4;
+	}
+
+	actions
+	{
+		Event Player.B = Random Integer(1, 40);
+		Skip If(Event Player.B != 1, 1);
+		Global.M[4] = Nearest Walkable Position(Event Player) + Vector(0, 0.500, 0);
+		disabled Destroy Effect(Event Player.C);
+		disabled Create Effect(All Players(All Teams), Orb, Color(Red), Nearest Walkable Position(Event Player) + Vector(0, 0.500, 0), 1,
+			Visible To);
+		disabled Event Player.C = Last Created Entity;
+		Set Ultimate Charge(Event Player, 0);
+		Wait(0.200, Ignore Condition);
+		Global.B -= 1;
+		disabled Destroy Dummy Bot(Team 2, 4);
+		Skip If(Global.B < 6, 1);
+		Respawn(Event Player);
+	}
+}
+
+rule("Monkey Kill (Global Var B) (PermaHeal Powerup)")
+{
+	event
+	{
+		Player Died;
+		Team 2;
+		Slot 5;
+	}
+
+	actions
+	{
+		Event Player.B = Random Integer(1, 30);
+		Skip If(Event Player.B != 1, 1);
+		Global.M[5] = Nearest Walkable Position(Event Player) + Vector(0, 0.500, 0);
+		disabled Destroy Effect(Event Player.C);
+		disabled Create Effect(All Players(All Teams), Orb, Color(Aqua), Nearest Walkable Position(Event Player) + Vector(0, 0.500, 0), 1,
+			Visible To);
+		disabled Event Player.C = Last Created Entity;
+		Set Ultimate Charge(Event Player, 0);
+		Wait(0.200, Ignore Condition);
+		Global.B -= 1;
+		disabled Destroy Dummy Bot(Team 2, 5);
+		Wait(0.250, Ignore Condition);
+		Skip If(Global.B < 6, 1);
+		Respawn(Event Player);
+	}
+}
+
+rule("Bot health")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 2;
+		All;
+	}
+
+	actions
+	{
+		Set Max Health(Event Player, 65 + 8 * Number Of Players(Team 1) + Global.A / (3.300 - Number Of Players(Team 1) / 8) * (
+			Global.A / (3.300 - Number Of Players(Team 1) / 8)));
+		Set Damage Received(Event Player, 100 - Global.A);
+	}
+}
+
+rule("Bots Move Toward Players")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 2;
+		All;
+	}
+
+	conditions
+	{
+		Global.O == False;
+	}
+
+	actions
+	{
+		Start Forcing Throttle(Event Player, 1, 1, 0, 1, 0, 1);
+		Wait(3.500, Ignore Condition);
+		Start Forcing Throttle(Event Player, 1, 1, 0, 1, 1, 1);
+		Wait(0.500, Ignore Condition);
+		Start Throttle In Direction(Event Player, Left, 1, To Player, Replace existing throttle, Direction and Magnitude);
+		Wait(0.500, Ignore Condition);
+		Stop Throttle In Direction(Event Player);
+		Loop;
+	}
+}
+
+rule("Bots Face Nearest Player")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 2;
+		All;
+	}
+
+	conditions
+	{
+		Global.O == False;
+	}
+
+	actions
+	{
+		Start Facing(Event Player, Direction Towards(Eye Position(Event Player), Eye Position(First Of(Sorted Array(Filtered Array(
+			All Living Players(Team 1), Current Array Element.T == 0), Distance Between(Event Player, Current Array Element))))), 400,
+			To World, Direction and Turn Rate);
+		Set Facing(Event Player, Direction Towards(Eye Position(Event Player), Eye Position(Closest Player To(Eye Position(First Of(
+			Sorted Array(Filtered Array(All Living Players(Team 1), Current Array Element.T == 0), Distance Between(Event Player,
+			Current Array Element)))), Team 1))), To World);
+		disabled Wait(30, Ignore Condition);
+		disabled Loop;
+	}
+}
+
+rule("Unstuck Bots")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 2;
+		All;
+	}
+
+	conditions
+	{
+		Speed Of(Event Player) < 0.750;
+		Is Alive(Event Player) == True;
+		Has Status(Event Player, Hacked) == False;
+		Distance Between(Event Player, Closest Player To(Event Player, Team 1)) > 2;
+	}
+
+	actions
+	{
+		Press Button(Event Player, Button(Jump));
+	}
+}
+
+rule("Unstuck Bots 2")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 2;
+		All;
+	}
+
+	conditions
+	{
+		Is Alive(Event Player) == True;
+		Speed Of(Event Player) < 0.600;
+		disabled Is Button Held(Event Player, Button(Jump)) == True;
+		Distance Between(Event Player, Closest Player To(Event Player, Team 1)) > 2;
+	}
+
+	actions
+	{
+		Event Player.A += 1;
+		Wait(2, Abort When False);
+		Event Player.A = 0;
+	}
+}
+
+rule("Unstuck Bots 3")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 2;
+		All;
+	}
+
+	conditions
+	{
+		Event Player.A >= 2;
+		Distance Between(Event Player, Closest Player To(Event Player, Team 1)) > 8;
+		Is Alive(Event Player) == True;
+	}
+
+	actions
+	{
+		Teleport(Event Player, Random Value In Array(Global.Y));
+		Event Player.A = 0;
+	}
+}
+
+rule("Unstuck Bots 4 (Reset if Close)")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 2;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Closest Player To(Event Player, Team 1)) <= 4;
+	}
+
+	actions
+	{
+		Event Player.A = 0;
+	}
+}
+
+rule("Unstuck Bots 5")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 2;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Eye Position(Event Player), Ray Cast Hit Position(Eye Position(Event Player), Eye Position(Event Player)
+			+ Facing Direction Of(Event Player) * 100, Null, Event Player, False)) < 1;
+		Is Alive(Event Player) == True;
+	}
+
+	actions
+	{
+		Wait(8, Abort When False);
+		Teleport(Event Player, Random Value In Array(Global.Y));
+		Communicate(Event Player, Hello);
+	}
+}
+
+rule("Unstuck Bots 6")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 2;
+		All;
+	}
+
+	conditions
+	{
+		Is Alive(Event Player) == True;
+		Speed Of(Event Player) < 0.800;
+		Distance Between(Event Player, Closest Player To(Event Player, Team 1)) > 1.500;
+	}
+
+	actions
+	{
+		Start Forcing Throttle(Event Player, 0, 0, 1, 1, 1, 1);
+		Wait(1, Ignore Condition);
+		Start Forcing Throttle(Event Player, 1, 1, 0, 1, 0, 1);
+	}
+}
+
+rule("Jump If Far Away From Player")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 2;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Closest Player To(Event Player, Team 1)) > 18;
+		Global.O == False;
+	}
+
+	actions
+	{
+		Press Button(Event Player, Button(Secondary Fire));
+		Wait(10, Abort When False);
+		Loop If Condition Is True;
+	}
+}
+
+rule("Bots Attack if Near")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 2;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Closest Player To(Event Player, Team 1)) < 2;
+		Global.O == False;
+	}
+
+	actions
+	{
+		Start Holding Button(Event Player, Button(Primary Fire));
+	}
+}
+
+rule("Bots Dont Attack if Not Near")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 2;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Closest Player To(Event Player, Team 1)) >= 2;
+	}
+
+	actions
+	{
+		Stop Holding Button(Event Player, Button(Primary Fire));
+		Set Ability 2 Enabled(Event Player, True);
+	}
+}
+
+rule("Bots AutoUlt")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 2;
+		All;
+	}
+
+	conditions
+	{
+		Ultimate Charge Percent(Event Player) == 100;
+	}
+
+	actions
+	{
+		Press Button(Event Player, Button(Ultimate));
+		Wait(1, Abort When False);
+		Loop If Condition Is True;
+	}
+}
+
+rule("Bots Ult Jump/Attack")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 2;
+		All;
+	}
+
+	conditions
+	{
+		Is Using Ultimate(Event Player) == True;
+	}
+
+	actions
+	{
+		Press Button(Event Player, Button(Secondary Fire));
+		Start Holding Button(Event Player, Button(Primary Fire));
+		Wait(2, Ignore Condition);
+		Loop If Condition Is True;
+	}
+}
+
+rule("Bots Under Player")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 2;
+		All;
+	}
+
+	conditions
+	{
+		Vertical Facing Angle Of(Event Player) < -50;
+		Global.O == False;
+	}
+
+	actions
+	{
+		Apply Impulse(Event Player, World Vector Of(Vector(Random Integer(-10, 10), 0, Random Integer(-10, 10)), Event Player, Rotation),
+			25, To World, Cancel Contrary Motion);
+		Wait(0.500, Ignore Condition);
+		Apply Impulse(Event Player, Up, 25, To World, Cancel Contrary Motion);
+		Wait(1, Ignore Condition);
+		Press Button(Event Player, Button(Secondary Fire));
+	}
+}
+
+rule("Bots Jump Out of Crater")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 2;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Vector(135.664, -6.485, -41.649)) < 40;
+	}
+
+	actions
+	{
+		Press Button(Event Player, Button(Ability 1));
+	}
+}
+
+rule("Get out of Spawn")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Is In Spawn Room(Event Player) == True;
+	}
+
+	actions
+	{
+		Teleport(Event Player, Nearest Walkable Position(Vector(-27.275, 0.520, -5.135)));
+		Wait(5, Abort When False);
+		Loop If Condition Is True;
+	}
+}
+
+rule("Get out of Spawn Bots")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 2;
+		All;
+	}
+
+	conditions
+	{
+		Is In Spawn Room(Event Player) == True;
+	}
+
+	actions
+	{
+		Teleport(Event Player, Random Value In Array(Global.Y));
+	}
+}
+
+rule("SpawnPoints Array Add Area 1")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	conditions
+	{
+		Distance Between(Vector(-6.230, -0.110, 7.150), Closest Player To(Vector(-6.230, -0.110, 7.150), Team 1)) <= 23;
+	}
+
+	actions
+	{
+		Modify Global Variable(Y, Append To Array, Vector(10.650, 6.468, 0.768));
+		Modify Global Variable(Y, Append To Array, Vector(18.271, 6.455, 17.526));
+		Modify Global Variable(Y, Append To Array, Vector(-33.812, 0.344, 17.955));
+		Modify Global Variable(Y, Append To Array, Vector(-28.138, 6.455, 0.838));
+	}
+}
+
+rule("SpawnPoints Array Remove Area 1")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	conditions
+	{
+		Distance Between(Vector(-6.230, -0.110, 7.150), Closest Player To(Vector(-6.230, -0.110, 7.150), Team 1)) > 23;
+	}
+
+	actions
+	{
+		Modify Global Variable(Y, Remove From Array By Value, Vector(10.650, 6.468, 0.768));
+		Modify Global Variable(Y, Remove From Array By Value, Vector(18.271, 6.455, 17.526));
+		Modify Global Variable(Y, Remove From Array By Value, Vector(-33.812, 0.344, 17.955));
+		Modify Global Variable(Y, Remove From Array By Value, Vector(-28.138, 6.455, 0.838));
+	}
+}
+
+rule("SpawnPoints Array Add Area 2")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	conditions
+	{
+		Distance Between(Vector(2.440, 0.060, -31.420), Closest Player To(Vector(2.440, 0.060, -31.420), Team 1)) <= 20.500;
+	}
+
+	actions
+	{
+		Modify Global Variable(Y, Append To Array, Vector(7.059, 6.690, -28.235));
+		Modify Global Variable(Y, Append To Array, Vector(-15.281, 1.455, -52.249));
+		Modify Global Variable(Y, Append To Array, Vector(8.981, 6.528, -15.899));
+		Modify Global Variable(Y, Append To Array, Vector(-14.988, 6.455, -45.021));
+	}
+}
+
+rule("SpawnPoints Array Remove Area 2")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	conditions
+	{
+		Distance Between(Vector(2.440, 0.060, -31.420), Closest Player To(Vector(2.440, 0.060, -31.420), Team 1)) > 20.500;
+	}
+
+	actions
+	{
+		Modify Global Variable(Y, Remove From Array By Value, Vector(7.059, 6.690, -28.235));
+		Modify Global Variable(Y, Remove From Array By Value, Vector(-15.281, 1.455, -52.249));
+		Modify Global Variable(Y, Remove From Array By Value, Vector(8.981, 6.528, -15.899));
+		Modify Global Variable(Y, Remove From Array By Value, Vector(-14.988, 6.455, -45.021));
+	}
+}
+
+rule("SpawnPoints Array Add Area 3")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	conditions
+	{
+		Distance Between(Vector(-30.610, 0.060, -32.360), Closest Player To(Vector(-30.610, 0.060, -32.360), Team 1)) <= 23.500;
+	}
+
+	actions
+	{
+		Modify Global Variable(Y, Append To Array, Vector(-26.980, 10, -17.954));
+		Modify Global Variable(Y, Append To Array, Vector(-16.791, 0.605, -25.427));
+		Modify Global Variable(Y, Append To Array, Vector(-35.779, 2.694, -53.415));
+		Modify Global Variable(Y, Append To Array, Vector(-36.344, 9.455, -34.641));
+	}
+}
+
+rule("SpawnPoints Array Remove Area 3")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	conditions
+	{
+		Distance Between(Vector(-30.610, 0.060, -32.360), Closest Player To(Vector(-30.610, 0.060, -32.360), Team 1)) > 23.500;
+	}
+
+	actions
+	{
+		Modify Global Variable(Y, Remove From Array By Value, Vector(-26.980, 10, -17.954));
+		Modify Global Variable(Y, Remove From Array By Value, Vector(-16.791, 0.605, -25.427));
+		Modify Global Variable(Y, Remove From Array By Value, Vector(-35.779, 2.694, -53.415));
+		Modify Global Variable(Y, Remove From Array By Value, Vector(-36.344, 9.455, -34.641));
+	}
+}
+
+rule("SpawnPoints Array Add Area 4a")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	conditions
+	{
+		Distance Between(Vector(-71.900, 0, -30.450), Closest Player To(Vector(-71.900, 0, -30.450), Team 1)) <= 24.500;
+	}
+
+	actions
+	{
+		Modify Global Variable(Y, Append To Array, Vector(-56.677, 0.438, -29.706));
+		Modify Global Variable(Y, Append To Array, Vector(-49.369, 2.561, -51.655));
+		Modify Global Variable(Y, Append To Array, Vector(-65.743, 0.655, -34.102));
+		Modify Global Variable(Y, Append To Array, Vector(-93.234, 7.607, -5.554));
+		Modify Global Variable(Y, Append To Array, Vector(-81.476, 5.202, -43.811));
+		Modify Global Variable(Y, Append To Array, Vector(-80.345, 6.784, -14.622));
+		Modify Global Variable(Y, Append To Array, Vector(-72.214, 5, -34.558));
+	}
+}
+
+rule("SpawnPoints Array Remove Area 4a")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	conditions
+	{
+		Distance Between(Vector(-71.900, 0, -30.450), Closest Player To(Vector(-71.900, 0, -30.450), Team 1)) > 24.500;
+	}
+
+	actions
+	{
+		Modify Global Variable(Y, Remove From Array By Value, Vector(-56.677, 0.438, -29.706));
+		Modify Global Variable(Y, Remove From Array By Value, Vector(-49.369, 2.561, -51.655));
+		Modify Global Variable(Y, Remove From Array By Value, Vector(-65.743, 0.655, -34.102));
+		Modify Global Variable(Y, Remove From Array By Value, Vector(-93.234, 7.607, -5.554));
+		Modify Global Variable(Y, Remove From Array By Value, Vector(-81.476, 5.202, -43.811));
+		Modify Global Variable(Y, Remove From Array By Value, Vector(-80.345, 6.784, -14.622));
+		Modify Global Variable(Y, Remove From Array By Value, Vector(-72.214, 5, -34.558));
+	}
+}
+
+rule("SpawnPoints Array Add Area 5")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	conditions
+	{
+		Distance Between(Vector(-83.940, 0.720, 2.320), Closest Player To(Vector(-83.940, 0.720, 2.320), Team 1)) <= 16;
+	}
+
+	actions
+	{
+		Modify Global Variable(Y, Append To Array, Vector(-97.646, 7.422, -6.207));
+		Modify Global Variable(Y, Append To Array, Vector(-78.929, 0.561, 7.588));
+		Modify Global Variable(Y, Append To Array, Vector(-69.604, 0.450, 1.936));
+	}
+}
+
+rule("SpawnPoints Array Remove Area 5")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	conditions
+	{
+		Distance Between(Vector(-83.940, 0.720, 2.320), Closest Player To(Vector(-83.940, 0.720, 2.320), Team 1)) > 16;
+	}
+
+	actions
+	{
+		Modify Global Variable(Y, Remove From Array By Value, Vector(-97.646, 7.422, -6.207));
+		Modify Global Variable(Y, Remove From Array By Value, Vector(-78.929, 0.561, 7.588));
+		Modify Global Variable(Y, Remove From Array By Value, Vector(-69.604, 0.450, 1.936));
+	}
+}
+
+rule("SpawnPoints Array Add Area 6")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	conditions
+	{
+		Distance Between(Vector(-131.420, -1.500, 12.970), Closest Player To(Vector(-131.420, -1.500, 12.970), Team 1)) <= 34;
+		Global.C > 3;
+	}
+
+	actions
+	{
+		Modify Global Variable(Y, Append To Array, Vector(-115.865, 1.526, -18.571));
+		Modify Global Variable(Y, Append To Array, Vector(-130.990, -1.380, 28.040));
+		Modify Global Variable(Y, Append To Array, Vector(-134.240, 6.940, 29.830));
+		Modify Global Variable(Y, Append To Array, Vector(-153.330, -3.200, 32.440));
+		Modify Global Variable(Y, Append To Array, Vector(-161.210, 0.070, 4.730));
+		Modify Global Variable(Y, Append To Array, Vector(-133.588, -0.474, 11.947));
+		Modify Global Variable(Y, Append To Array, Vector(-123.522, 1.526, -11.854));
+	}
+}
+
+rule("SpawnPoints Array Remove Area 6")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	conditions
+	{
+		Distance Between(Vector(-131.420, -1.500, 12.970), Closest Player To(Vector(-131.420, -1.500, 12.970), Team 1)) > 34;
+	}
+
+	actions
+	{
+		Modify Global Variable(Y, Remove From Array By Value, Vector(-115.865, 1.526, -18.571));
+		Modify Global Variable(Y, Remove From Array By Value, Vector(-130.990, -1.380, 28.040));
+		Modify Global Variable(Y, Remove From Array By Value, Vector(-134.240, 6.940, 29.830));
+		Modify Global Variable(Y, Remove From Array By Value, Vector(-153.330, -3.200, 32.440));
+		Modify Global Variable(Y, Remove From Array By Value, Vector(-161.210, 0.070, 4.730));
+		Modify Global Variable(Y, Remove From Array By Value, Vector(-133.588, -0.474, 11.947));
+		Modify Global Variable(Y, Remove From Array By Value, Vector(-123.522, 1.526, -11.854));
+	}
+}
+
+rule("Blocked Area Effects Array")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	conditions
+	{
+		Global.A == 1;
+	}
+
+	actions
+	{
+		Global.W = Empty Array;
+		Create Effect(All Players(Team 1), Ring, Color(Red), Vector(-3.570, 0.090, -27.560), 20.500, Visible To Position and Radius);
+		Modify Global Variable(W, Append To Array, Last Created Entity);
+		Create Effect(All Players(Team 1), Ring, Color(Red), Vector(-30.610, 0.060, -32.360), 23.500, Visible To Position and Radius);
+		Modify Global Variable(W, Append To Array, Last Created Entity);
+		Create Effect(All Players(Team 1), Ring, Color(Red), Vector(-70.070, 0, -35.610), 26, Visible To Position and Radius);
+		Modify Global Variable(W, Append To Array, Last Created Entity);
+		Create Effect(All Players(Team 1), Ring, Color(Red), Vector(-85.530, -0.010, 1.660), 15, Visible To Position and Radius);
+		Modify Global Variable(W, Append To Array, Last Created Entity);
+		Create Effect(All Players(Team 1), Ring, Color(Red), Vector(-85.530, -0.010, 1.660), 15, Visible To Position and Radius);
+		Modify Global Variable(W, Append To Array, Last Created Entity);
+		Create Effect(All Players(Team 1), Ring, Color(Red), Vector(82.433, 7.991, -40.006), 10, Visible To Position and Radius);
+		Modify Global Variable(W, Append To Array, Last Created Entity);
+		Create Effect(All Players(Team 1), Ring, Color(Red), Vector(-123.230, -1.220, -4.690), 20, Visible To Position and Radius);
+		Modify Global Variable(W, Append To Array, Last Created Entity);
+		Create Effect(All Players(Team 1), Ring, Color(Red), Vector(31.809, 6, -43.663), 10, Visible To Position and Radius);
+		Modify Global Variable(W, Append To Array, Last Created Entity);
+	}
+}
+
+rule("Blocked Area Array")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	conditions
+	{
+		Global.A == 1;
+	}
+
+	actions
+	{
+		Global.V = Empty Array;
+		Modify Global Variable(V, Append To Array, Vector(-3.570, 0.090, -27.560));
+		Modify Global Variable(V, Append To Array, Vector(-30.610, 0.060, -32.360));
+		Modify Global Variable(V, Append To Array, Vector(-10.804, 7.451, -90.715));
+		Modify Global Variable(V, Append To Array, Vector(-0.336, 11.146, -110.706));
+		Modify Global Variable(V, Append To Array, Vector(-30.610, 0.060, -32.360));
+		Modify Global Variable(V, Append To Array, Vector(-70.070, 0, -35.610));
+		Modify Global Variable(V, Append To Array, Vector(75.765, 15.285, -84.208));
+		Modify Global Variable(V, Append To Array, Vector(-85.530, -0.010, 1.660));
+		Modify Global Variable(V, Append To Array, Vector(78.369, 10.194, -42.405));
+		Modify Global Variable(V, Append To Array, Vector(-123.230, -1.220, -4.690));
+		Modify Global Variable(V, Append To Array, Vector(34.147, 9.760, -48.401));
+	}
+}
+
+rule("Area 2 Locked Door1")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Global.V[0]) < 20.500;
+		Global.C == 0;
+		Global.O == False;
+	}
+
+	actions
+	{
+		Apply Impulse(Event Player, Direction Towards(Global.V[0], Event Player), 25, To World, Cancel Contrary Motion);
+		Wait(0.016, Ignore Condition);
+		Loop If Condition Is True;
+	}
+}
+
+rule("Area 2 Locked Door2")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Global.V[1]) < 20.500;
+		Global.C == 0;
+		Global.O == False;
+	}
+
+	actions
+	{
+		Apply Impulse(Event Player, Direction Towards(Global.V[1], Event Player), 25, To World, Cancel Contrary Motion);
+		Wait(0.016, Ignore Condition);
+		Loop If Condition Is True;
+	}
+}
+
+rule("Area 2 Locked Door3")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Global.V[2]) < 20.500;
+		Global.C == 0;
+		Global.O == False;
+	}
+
+	actions
+	{
+		Apply Impulse(Event Player, Direction Towards(Global.V[2], Event Player), 25, To World, Cancel Contrary Motion);
+		Wait(0.016, Ignore Condition);
+		Loop If Condition Is True;
+	}
+}
+
+rule("Area 2 Locked Door4")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Global.V[3]) < 20.500;
+		Global.C == 0;
+		Global.O == False;
+	}
+
+	actions
+	{
+		Apply Impulse(Event Player, Direction Towards(Global.V[3], Event Player), 25, To World, Cancel Contrary Motion);
+		Wait(0.016, Ignore Condition);
+		Loop If Condition Is True;
+	}
+}
+
+rule("Area 3a Locked")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Global.V[4]) < 22;
+		Global.C == 1;
+		Global.O == False;
+	}
+
+	actions
+	{
+		Apply Impulse(Event Player, Direction Towards(Global.V[4], Event Player), 25, To World, Cancel Contrary Motion);
+		Wait(0.016, Ignore Condition);
+		Loop If Condition Is True;
+	}
+}
+
+rule("Area 4a Locked")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Global.V[5]) < 26;
+		Global.C == 2;
+		Global.O == False;
+	}
+
+	actions
+	{
+		Apply Impulse(Event Player, Direction Towards(Global.V[5], Event Player), 25, To World, Cancel Contrary Motion);
+		Wait(0.016, Ignore Condition);
+		Loop If Condition Is True;
+	}
+}
+
+rule("Area 4b Locked")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Global.V[6]) < 15;
+		Global.C == 2;
+		Global.O == False;
+	}
+
+	actions
+	{
+		Apply Impulse(Event Player, Direction Towards(Global.V[6], Event Player), 25, To World, Cancel Contrary Motion);
+		Wait(0.016, Ignore Condition);
+		Loop If Condition Is True;
+	}
+}
+
+rule("Area 5 Locked Door1")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Global.V[7]) < 15;
+		Global.D == 0;
+		Global.O == False;
+	}
+
+	actions
+	{
+		Apply Impulse(Event Player, Direction Towards(Global.V[7], Event Player), 25, To World, Cancel Contrary Motion);
+		Wait(0.016, Ignore Condition);
+		Loop If Condition Is True;
+	}
+}
+
+rule("Area 5 Locked Door2")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Global.V[8]) < 5;
+		Global.D == 0;
+		Global.O == False;
+	}
+
+	actions
+	{
+		Apply Impulse(Event Player, Direction Towards(Global.V[8], Event Player), 25, To World, Cancel Contrary Motion);
+		Wait(0.016, Ignore Condition);
+		Loop If Condition Is True;
+	}
+}
+
+rule("Area 6 Locked Door1")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Global.V[9]) < 20;
+		Global.C == 3;
+		Global.O == False;
+	}
+
+	actions
+	{
+		Apply Impulse(Event Player, Direction Towards(Global.V[9], Event Player), 25, To World, Cancel Contrary Motion);
+		Wait(0.016, Ignore Condition);
+		Loop If Condition Is True;
+	}
+}
+
+rule("Area 6 Locked Door2")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Global.V[10]) < 5;
+		Global.C == 3;
+		Global.O == False;
+	}
+
+	actions
+	{
+		Apply Impulse(Event Player, Direction Towards(Global.V[10], Event Player), 25, To World, Cancel Contrary Motion);
+		Wait(0.016, Ignore Condition);
+		Loop If Condition Is True;
+	}
+}
+
+rule("Unlock Room 2 (Global Var C)")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Vector(8.180, 1, -8.020), Event Player) <= 2;
+		Is Button Held(Event Player, Button(Interact)) == True;
+		Global.C == 0;
+		Event Player.A >= 500;
+	}
+
+	actions
+	{
+		Global.C = 1;
+		Destroy Effect(Global.W[0]);
+		Destroy Effect(Global.T[0]);
+		Destroy In-World Text(Global.T[1]);
+		Play Effect(All Players(All Teams), Ring Explosion, Color(Green), Event Player, 10);
+		Play Effect(All Players(All Teams), Buff Impact Sound, Color(White), Event Player, 100);
+		Big Message(All Players(All Teams), String("{0} {1} {2}", String("Next"), String("Location"), String("{0}!", String("Unlocked"))));
+		Event Player.A -= 500;
+	}
+}
+
+rule("Unlock Room 3 (Global Var C)")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Vector(-5, 0.500, -36), Event Player) <= 2;
+		Is Button Held(Event Player, Button(Interact)) == True;
+		Global.C == 1;
+		Event Player.A >= 750;
+	}
+
+	actions
+	{
+		Global.C = 2;
+		Destroy Effect(Global.W[1]);
+		Destroy Effect(Global.T[2]);
+		Destroy In-World Text(Global.T[3]);
+		Play Effect(All Players(All Teams), Ring Explosion, Color(Green), Event Player, 10);
+		Play Effect(All Players(All Teams), Buff Impact Sound, Color(White), Event Player, 100);
+		Big Message(All Players(All Teams), String("{0} {1} {2}", String("Next"), String("Location"), String("{0}!", String("Unlocked"))));
+		Event Player.A -= 750;
+	}
+}
+
+rule("Unlock Room 4 (Global Var C)")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Vector(-40.270, 0.050, -35.610), Event Player) <= 2;
+		Is Button Held(Event Player, Button(Interact)) == True;
+		Global.C == 2;
+		Event Player.A >= 1250;
+	}
+
+	actions
+	{
+		Global.C = 3;
+		Global.D = 0;
+		Destroy Effect(Global.W[2]);
+		Destroy Effect(Global.W[3]);
+		Destroy Effect(Global.T[4]);
+		Destroy In-World Text(Global.T[5]);
+		Play Effect(All Players(All Teams), Ring Explosion, Color(Green), Event Player, 10);
+		Play Effect(All Players(All Teams), Buff Impact Sound, Color(White), Event Player, 100);
+		Big Message(All Players(All Teams), String("{0} {1} {2}", String("Next"), String("Location"), String("{0}!", String("Unlocked"))));
+		Event Player.A -= 1250;
+	}
+}
+
+rule("Unlock Room 5 (Global Var D)")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Vector(-68.710, -0.010, -9.310), Event Player) <= 2;
+		Is Button Held(Event Player, Button(Interact)) == True;
+		Global.D == 0;
+		Event Player.A >= 1250;
+	}
+
+	actions
+	{
+		Global.D = 1;
+		Destroy Effect(Global.W[4]);
+		Destroy Effect(Global.W[5]);
+		Destroy Effect(Global.T[6]);
+		Destroy In-World Text(Global.T[7]);
+		Play Effect(All Players(All Teams), Ring Explosion, Color(Green), Event Player, 10);
+		Play Effect(All Players(All Teams), Buff Impact Sound, Color(White), Event Player, 100);
+		Big Message(All Players(All Teams), String("{0} {1} {2}", String("Next"), String("Location"), String("{0}!", String("Unlocked"))));
+		Event Player.A -= 1250;
+	}
+}
+
+rule("Unlock Room 6 (Global Var C)")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Vector(-96.530, 1.390, -15.744), Event Player) <= 2;
+		Is Button Held(Event Player, Button(Interact)) == True;
+		Global.C == 3;
+		Event Player.A >= 1250;
+	}
+
+	actions
+	{
+		Global.C = 4;
+		Destroy Effect(Global.W[6]);
+		Destroy Effect(Global.W[7]);
+		Destroy Effect(Global.T[8]);
+		Destroy In-World Text(Global.T[9]);
+		Play Effect(All Players(All Teams), Ring Explosion, Color(Green), Event Player, 10);
+		Play Effect(All Players(All Teams), Buff Impact Sound, Color(White), Event Player, 100);
+		Big Message(All Players(All Teams), String("{0} {1} {2}", String("Next"), String("Location"), String("{0}!", String("Unlocked"))));
+		Event Player.A -= 1250;
+	}
+}
+
+rule("DoorBuy Effects")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	conditions
+	{
+		Global.A == 1;
+	}
+
+	actions
+	{
+		Create Effect(All Players(All Teams), Ring, Color(Green), Vector(8.180, 1, -8.020), 2, Visible To Position and Radius);
+		Modify Global Variable(T, Append To Array, Last Created Entity);
+		Create In-World Text(All Players(All Teams), String("{0} {1}", String("Buy"), String("{0}: {1}", String("{0} {1}", String("Next"),
+			String("Location")), 500)), Vector(8.180, 1, -8.020), 1, Clip Against Surfaces, Visible To Position and String, Color(Green),
+			Default Visibility);
+		Modify Global Variable(T, Append To Array, Last Text ID);
+		Create Effect(All Players(All Teams), Ring, Color(Green), Vector(-5, 0.500, -36), 2, Visible To Position and Radius);
+		Modify Global Variable(T, Append To Array, Last Created Entity);
+		Create In-World Text(All Players(All Teams), String("{0} {1}", String("Buy"), String("{0}: {1}", String("{0} {1}", String("Next"),
+			String("Location")), 750)), Vector(-5, 0.500, -36), 1, Clip Against Surfaces, Visible To Position and String, Color(Green),
+			Default Visibility);
+		Modify Global Variable(T, Append To Array, Last Text ID);
+		Create Effect(All Players(All Teams), Ring, Color(Green), Vector(-40.270, 0.050, -35.610), 2, Visible To Position and Radius);
+		Modify Global Variable(T, Append To Array, Last Created Entity);
+		Create In-World Text(All Players(All Teams), String("{0} {1}", String("Buy"), String("{0}: {1}", String("{0} {1}", String("Next"),
+			String("Location")), 1250)), Vector(-40.270, 0.050, -35.610), 1, Clip Against Surfaces, Visible To Position and String, Color(
+			Green), Default Visibility);
+		Modify Global Variable(T, Append To Array, Last Text ID);
+		Create Effect(All Players(All Teams), Ring, Color(Green), Vector(-68.710, -0.010, -9.310), 2, Visible To Position and Radius);
+		Modify Global Variable(T, Append To Array, Last Created Entity);
+		Create In-World Text(All Players(All Teams), String("{0} {1}", String("Buy"), String("{0}: {1}", String("{0} {1}", String("Next"),
+			String("Location")), 1250)), Vector(-68.710, -0.010, -9.310), 1, Clip Against Surfaces, Visible To Position and String, Color(
+			Green), Default Visibility);
+		Modify Global Variable(T, Append To Array, Last Text ID);
+		Create Effect(All Players(All Teams), Ring, Color(Green), Vector(-96.530, 1.390, -15.744), 2, Visible To Position and Radius);
+		Modify Global Variable(T, Append To Array, Last Created Entity);
+		Create In-World Text(All Players(All Teams), String("{0} {1}", String("Buy"), String("{0}: {1}", String("{0} {1}", String("Next"),
+			String("Location")), 1250)), Vector(-96.530, 1.390, -15.744), 1, Clip Against Surfaces, Visible To Position and String, Color(
+			Green), Default Visibility);
+		Modify Global Variable(T, Append To Array, Last Text ID);
+	}
+}
+
+rule("buy hero effects")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	conditions
+	{
+		Global.A == 1;
+	}
+
+	actions
+	{
+		Create Effect(All Players(All Teams), Ring, Color(Purple), Vector(-31.710, 0.090, -15.250), 2, Visible To Position and Radius);
+		Create In-World Text(All Players(All Teams), String("{0} {1}", String("Buy"), String("{0}: {1}", Hero Icon String(Hero(Mercy)),
+			1000)), Vector(-31.710, 0.090, -15.250), 1, Clip Against Surfaces, Visible To Position and String, Color(Purple),
+			Default Visibility);
+		Create Effect(All Players(All Teams), Ring, Color(Purple), Vector(14.580, 1, -9.850), 2, Visible To Position and Radius);
+		Create In-World Text(All Players(All Teams), String("{0} {1}", String("Buy"), String("{0}: {1}", Hero Icon String(Hero(Lúcio)),
+			10000 * 3)), Vector(14.580, 1, -9.850), 1, Clip Against Surfaces, Visible To Position and String, Color(Purple),
+			Default Visibility);
+		Create Effect(All Players(All Teams), Ring, Color(Purple), Vector(-14.074, 0.719, 6.985), 2, Visible To Position and Radius);
+		Create In-World Text(All Players(All Teams), String("{0} {1}", String("Buy"), String("{0}: {1}", Hero Icon String(Hero(
+			Soldier: 76)), 1000)), Vector(-14.074, 0.719, 6.985), 1, Clip Against Surfaces, Visible To Position and String, Color(Purple),
+			Default Visibility);
+		Create Effect(All Players(All Teams), Ring, Color(Purple), Vector(-25.600, 6, -48.480), 2, Visible To Position and Radius);
+		Create In-World Text(All Players(All Teams), String("{0} {1}", String("Buy"), String("{0}: {1}", Hero Icon String(Hero(Hanzo)),
+			1250)), Vector(-25.600, 6, -48.480), 1, Clip Against Surfaces, Visible To Position and String, Color(Purple),
+			Default Visibility);
+		Create Effect(All Players(All Teams), Ring, Color(Purple), Vector(16.880, 0.070, -16.030), 2, Visible To Position and Radius);
+		Create In-World Text(All Players(All Teams), String("{0} {1}", String("Buy"), String("{0}: {1}", Hero Icon String(Hero(Zenyatta)),
+			1000)), Vector(16.880, 0.070, -16.030), 1, Clip Against Surfaces, Visible To Position and String, Color(Purple),
+			Default Visibility);
+		Create Effect(All Players(All Teams), Ring, Color(Purple), Vector(-30.510, 9, -13.950), 2, Visible To Position and Radius);
+		Create In-World Text(All Players(All Teams), String("{0} {1}", String("Buy"), String("{0}: {1}", Hero Icon String(Hero(Pharah)),
+			1000)), Vector(-30.510, 9, -13.950), 1, Clip Against Surfaces, Visible To Position and String, Color(Purple),
+			Default Visibility);
+		Create Effect(All Players(All Teams), Ring, Color(Purple), Vector(-53.530, -0.060, -26.080), 2, Visible To Position and Radius);
+		Create In-World Text(All Players(All Teams), String("{0} {1}", String("Buy"), String("{0}: {1}", Hero Icon String(Hero(Junkrat)),
+			1250)), Vector(-53.530, -0.060, -26.080), 1, Clip Against Surfaces, Visible To Position and String, Color(Purple),
+			Default Visibility);
+		Create Effect(All Players(All Teams), Ring, Color(Purple), Vector(-131.040, 0.070, -11.880), 2, Visible To Position and Radius);
+		Create In-World Text(All Players(All Teams), String("{0} {1}", String("Buy"), String("{0}: {1}", Hero Icon String(Hero(Doomfist)),
+			500 + 500)), Vector(-131.040, 0.070, -11.880), 1, Clip Against Surfaces, Visible To Position and String, Color(Purple),
+			Default Visibility);
+		Create Effect(All Players(All Teams), Ring, Color(Purple), Vector(-110.120, 1.070, 1.150), 2, Visible To Position and Radius);
+		Create In-World Text(All Players(All Teams), String("{0} {1}", String("Buy"), String("{0}: {1}", Hero Icon String(Hero(Baptiste)),
+			1250)), Vector(-110.120, 1.070, 1.150), 1, Clip Against Surfaces, Visible To Position and String, Color(Purple),
+			Default Visibility);
+		Create Effect(All Players(All Teams), Ring, Color(Purple), Vector(-150.800, 0.070, 3.380), 2, Visible To Position and Radius);
+		Create In-World Text(All Players(All Teams), String("{0} {1}", String("Buy"), String("{0}: {1}", Hero Icon String(Hero(Bastion)),
+			1000 + 750)), Vector(-150.800, 0.070, 3.380), 1, Clip Against Surfaces, Visible To Position and String, Color(Purple),
+			Default Visibility);
+		Create Effect(All Players(All Teams), Ring, Color(Purple), Vector(-159.419, -2.474, 25.387), 2, Visible To Position and Radius);
+		Create In-World Text(All Players(All Teams), String("{0} {1}", String("Buy"), String("{0}: {1}", Hero Icon String(Hero(Reaper)),
+			1000 * 5)), Vector(-159.419, -2.474, 25.387), 1, Clip Against Surfaces, Visible To Position and String, Color(Purple),
+			Default Visibility);
+		Create Effect(All Players(All Teams), Ring, Color(Purple), Vector(-83.870, 6, -7.430), 2, Visible To Position and Radius);
+		Create In-World Text(All Players(All Teams), String("{0} {1}", String("Buy"), String("{0}: {1}", Hero Icon String(Hero(Symmetra)),
+			1000 + 750)), Vector(-83.870, 6, -7.430), 1, Clip Against Surfaces, Visible To Position and String, Color(Purple),
+			Default Visibility);
+		Create Effect(All Players(All Teams), Ring, Color(Purple), Vector(-10.200, 1, -52.230), 2, Visible To Position and Radius);
+		Create In-World Text(All Players(All Teams), String("{0} {1}", String("Buy"), String("{0}: {1}", Hero Icon String(Hero(Zarya)),
+			1750)), Vector(-10.200, 1, -52.230), 1, Clip Against Surfaces, Visible To Position and String, Color(Purple),
+			Default Visibility);
+		Create Effect(All Players(All Teams), Ring, Color(Purple), Vector(-19.220, 0.070, 22.870), 2, Visible To Position and Radius);
+		Create In-World Text(All Players(All Teams), String("{0} {1}", String("Buy"), String("{0}: {1}", Hero Icon String(Hero(Ashe)),
+			1250)), Vector(-19.220, 0.070, 22.870), 1, Clip Against Surfaces, Visible To Position and String, Color(Purple),
+			Default Visibility);
+		Create Effect(All Players(All Teams), Ring, Color(Purple), Vector(-9.560, 0.060, -14.450), 2, Visible To Position and Radius);
+		Create In-World Text(All Players(All Teams), String("{0} {1}", String("Buy"), String("{0}: {1}", Hero Icon String(Hero(Genji)),
+			1250)), Vector(-9.560, 0.060, -14.450), 1, Clip Against Surfaces, Visible To Position and String, Color(Purple),
+			Default Visibility);
+		Create Effect(All Players(All Teams), Ring, Color(Purple), Vector(-35.950, 2, -49.260), 2, Visible To Position and Radius);
+		Create In-World Text(All Players(All Teams), String("{0} {1}", String("Buy"), String("{0}: {1}", Hero Icon String(Hero(Roadhog)),
+			1750)), Vector(-35.950, 2, -49.260), 1, Clip Against Surfaces, Visible To Position and String, Color(Purple),
+			Default Visibility);
+		Create Effect(All Players(All Teams), Ring, Color(Purple), Vector(-72.240, 6.020, -14.140), 2, Visible To Position and Radius);
+		Create In-World Text(All Players(All Teams), String("{0} {1}", String("Buy"), String("{0}: {1}", Hero Icon String(Hero(D.Va)),
+			1750)), Vector(-72.240, 6.020, -14.140), 1, Clip Against Surfaces, Visible To Position and String, Color(Purple),
+			Default Visibility);
+		Create Effect(All Players(All Teams), Ring, Color(Purple), Vector(-72.660, 1.500, -28.580), 2, Visible To Position and Radius);
+		Create In-World Text(All Players(All Teams), String("{0} {1}", String("Buy"), String("{0}: {1}", Hero Icon String(Hero(Brigitte)),
+			1750)), Vector(-72.660, 1.500, -28.580), 1, Clip Against Surfaces, Visible To Position and String, Color(Purple),
+			Default Visibility);
+		Create Effect(All Players(All Teams), Ring, Color(Purple), Vector(-92.200, 1.130, 8.730), 2, Visible To Position and Radius);
+		Create In-World Text(All Players(All Teams), String("{0} {1}", String("Buy"), String("{0}: {1}", Hero Icon String(Hero(Reinhardt)),
+			750 + 1000)), Vector(-92.200, 1.130, 8.730), 1, Clip Against Surfaces, Visible To Position and String, Color(Purple),
+			Default Visibility);
+		Create Effect(All Players(All Teams), Ring, Color(Purple), Vector(-139.240, -0.930, 10.950), 2, Visible To Position and Radius);
+		Create In-World Text(All Players(All Teams), String("{0} {1}", String("Buy"), String("{0}: {1}", Hero Icon String(Hero(Torbjörn)),
+			1000 + 750)), Vector(-139.240, -0.930, 10.950), 1, Clip Against Surfaces, Visible To Position and String, Color(Purple),
+			Default Visibility);
+		Create Effect(All Players(All Teams), Ring, Color(Purple), Vector(-130.010, 0.070, 43.090), 2, Visible To Position and Radius);
+		Create In-World Text(All Players(All Teams), String("{0} {1}", String("Buy"), String("{0}: {1}", Hero Icon String(Hero(Sigma)),
+			1000 + 750)), Vector(-130.010, 0.070, 43.090), 1, Clip Against Surfaces, Visible To Position and String, Color(Purple),
+			Default Visibility);
+		Create Effect(All Players(All Teams), Ring, Color(Purple), Vector(-90.784, 1.263, -36.468), 2, Visible To Position and Radius);
+		Create In-World Text(All Players(All Teams), String("{0} {1}", String("Buy"), String("{0}: {1}", Hero Icon String(Hero(Orisa)),
+			1250 * 1)), Vector(-90.784, 1.263, -36.468), 1, Clip Against Surfaces, Visible To Position and String, Color(Purple),
+			Default Visibility);
+		Create Effect(All Players(All Teams), Ring, Color(Purple), Vector(-75.940, 0.030, -0.240), 2, Visible To Position and Radius);
+		Create In-World Text(All Players(All Teams), String("{0} {1}", String("Buy"), String("{0}: {1}", Hero Icon String(Hero(Mei)),
+			1000 + 750)), Vector(-75.940, 0.030, -0.240), 1, Clip Against Surfaces, Visible To Position and String, Color(Purple),
+			Default Visibility);
+		Create Effect(All Players(All Teams), Ring, Color(Purple), Vector(-19.590, 0.090, -38.370), 2, Visible To Position and Radius);
+		Create In-World Text(All Players(All Teams), String("{0} {1}", String("Buy"), String("{0}: {1}", Hero Icon String(Hero(Moira)),
+			1250)), Vector(-19.590, 0.090, -38.370), 1, Clip Against Surfaces, Visible To Position and String, Color(Purple),
+			Default Visibility);
+		Create Effect(All Players(All Teams), Ring, Color(Purple), Vector(4.813, 7.524, -38.806), 2, Visible To Position and Radius);
+		Create In-World Text(All Players(All Teams), String("{0} {1}", String("Buy"), String("{0}: {1}", Hero Icon String(Hero(
+			Widowmaker)), 1000)), Vector(4.813, 7.524, -38.806), 1, Clip Against Surfaces, Visible To Position and String, Color(Purple),
+			Default Visibility);
+	}
+}
+
+rule("Purchase Lucio")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Vector(14.580, 1, -9.850)) <= 2;
+		Is Button Held(Event Player, Button(Interact)) == True;
+		Event Player.A >= 10000 * 3;
+		Hero Of(Event Player) != Hero(Lúcio);
+		Event Player.F == False;
+	}
+
+	actions
+	{
+		Start Forcing Player To Be Hero(Event Player, Hero(Lúcio));
+		disabled Play Effect(All Players(All Teams), Ring Explosion, Color(Purple), Event Player, 10);
+		disabled Play Effect(All Players(All Teams), Buff Impact Sound, Color(Purple), Event Player, 50);
+		Event Player.A -= 10000 * 3;
+		Wait(0.250, Ignore Condition);
+		disabled Heal(Event Player, Null, 99999);
+	}
+}
+
+rule("Purchase Hanzo")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Vector(-25.600, 6, -48.480)) <= 2;
+		Is Button Held(Event Player, Button(Interact)) == True;
+		Event Player.A >= 1250;
+		Hero Of(Event Player) != Hero(Hanzo);
+		Global.C >= 1;
+		Event Player.F == False;
+	}
+
+	actions
+	{
+		Start Forcing Player To Be Hero(Event Player, Hero(Hanzo));
+		disabled Play Effect(All Players(All Teams), Ring Explosion, Color(Purple), Event Player, 10);
+		disabled Play Effect(All Players(All Teams), Buff Impact Sound, Color(Purple), Event Player, 50);
+		Event Player.A -= 1250;
+		Wait(0.250, Ignore Condition);
+		disabled Heal(Event Player, Null, 99999);
+	}
+}
+
+rule("Purchase Zenyatta")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Vector(16.880, 0.070, -16.030)) <= 2;
+		Is Button Held(Event Player, Button(Interact)) == True;
+		Event Player.A >= 1000;
+		Hero Of(Event Player) != Hero(Zenyatta);
+		Global.C >= 1;
+		Event Player.F == False;
+	}
+
+	actions
+	{
+		Start Forcing Player To Be Hero(Event Player, Hero(Zenyatta));
+		disabled Play Effect(All Players(All Teams), Ring Explosion, Color(Purple), Event Player, 10);
+		disabled Play Effect(All Players(All Teams), Buff Impact Sound, Color(Purple), Event Player, 50);
+		Event Player.A -= 1000;
+		Wait(0.250, Ignore Condition);
+		disabled Heal(Event Player, Null, 99999);
+	}
+}
+
+rule("Purchase Soldier 76")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Vector(-14.074, 0.719, 6.985)) <= 2;
+		Is Button Held(Event Player, Button(Interact)) == True;
+		Event Player.A >= 1000;
+		Hero Of(Event Player) != Hero(Soldier: 76);
+		Event Player.F == False;
+	}
+
+	actions
+	{
+		Start Forcing Player To Be Hero(Event Player, Hero(Soldier: 76));
+		Event Player.A -= 1000;
+		Wait(0.250, Ignore Condition);
+	}
+}
+
+rule("Purchase Mercy")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Vector(-31.710, 0.090, -15.250)) <= 2;
+		Is Button Held(Event Player, Button(Interact)) == True;
+		Event Player.A >= 1000;
+		Hero Of(Event Player) != Hero(Mercy);
+		Global.C >= 2;
+		Event Player.F == False;
+	}
+
+	actions
+	{
+		Start Forcing Player To Be Hero(Event Player, Hero(Mercy));
+		disabled Play Effect(All Players(All Teams), Ring Explosion, Color(Purple), Event Player, 10);
+		disabled Play Effect(All Players(All Teams), Buff Impact Sound, Color(Purple), Event Player, 50);
+		Event Player.A -= 1000;
+		Wait(0.250, Ignore Condition);
+		disabled Heal(Event Player, Null, 99999);
+	}
+}
+
+rule("Purchase Pharah")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Vector(-30.510, 9, -13.950)) <= 2;
+		Is Button Held(Event Player, Button(Interact)) == True;
+		Event Player.A >= 1000;
+		Hero Of(Event Player) != Hero(Pharah);
+		Global.C >= 2;
+		Event Player.F == False;
+	}
+
+	actions
+	{
+		Start Forcing Player To Be Hero(Event Player, Hero(Pharah));
+		disabled Play Effect(All Players(All Teams), Ring Explosion, Color(Purple), Event Player, 10);
+		disabled Play Effect(All Players(All Teams), Buff Impact Sound, Color(Purple), Event Player, 50);
+		Event Player.A -= 1000;
+		Wait(0.250, Ignore Condition);
+		disabled Heal(Event Player, Null, 99999);
+	}
+}
+
+rule("Purchase Junkrat")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Vector(-53.530, -0.060, -26.080)) <= 2;
+		Is Button Held(Event Player, Button(Interact)) == True;
+		Event Player.A >= 1250;
+		Hero Of(Event Player) != Hero(Junkrat);
+		Global.C >= 3;
+		Event Player.F == False;
+	}
+
+	actions
+	{
+		Start Forcing Player To Be Hero(Event Player, Hero(Junkrat));
+		disabled Play Effect(All Players(All Teams), Ring Explosion, Color(Purple), Event Player, 10);
+		disabled Play Effect(All Players(All Teams), Buff Impact Sound, Color(Purple), Event Player, 50);
+		Event Player.A -= 1250;
+		Wait(0.250, Ignore Condition);
+		disabled Heal(Event Player, Null, 99999);
+	}
+}
+
+rule("Purchase Symmetra")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Vector(-83.870, 6, -7.430)) <= 2;
+		Is Button Held(Event Player, Button(Interact)) == True;
+		Event Player.A >= 1000 + 750;
+		Hero Of(Event Player) != Hero(Symmetra);
+		Global.C >= 3;
+		Event Player.F == False;
+	}
+
+	actions
+	{
+		Start Forcing Player To Be Hero(Event Player, Hero(Symmetra));
+		disabled Play Effect(All Players(All Teams), Ring Explosion, Color(Purple), Event Player, 10);
+		disabled Play Effect(All Players(All Teams), Buff Impact Sound, Color(Purple), Event Player, 50);
+		Event Player.A -= 1000 + 750;
+		Wait(0.250, Ignore Condition);
+		disabled Heal(Event Player, Null, 99999);
+	}
+}
+
+rule("Purchase Doomfist")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Vector(-131.040, 0.070, -11.880)) <= 2;
+		Is Button Held(Event Player, Button(Interact)) == True;
+		Event Player.A >= 500 + 500;
+		Hero Of(Event Player) != Hero(Doomfist);
+		Global.C >= 4;
+		Event Player.F == False;
+	}
+
+	actions
+	{
+		Start Forcing Player To Be Hero(Event Player, Hero(Doomfist));
+		disabled Play Effect(All Players(All Teams), Ring Explosion, Color(Purple), Event Player, 10);
+		disabled Play Effect(All Players(All Teams), Buff Impact Sound, Color(Purple), Event Player, 50);
+		Event Player.A -= 500 + 500;
+		Wait(0.250, Ignore Condition);
+		disabled Heal(Event Player, Null, 99999);
+	}
+}
+
+rule("Purchase Baptiste")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Vector(-110.120, 1.070, 1.150)) <= 2;
+		Is Button Held(Event Player, Button(Interact)) == True;
+		Event Player.A >= 1250;
+		Hero Of(Event Player) != Hero(Baptiste);
+		Global.C >= 4;
+		Event Player.F == False;
+	}
+
+	actions
+	{
+		Start Forcing Player To Be Hero(Event Player, Hero(Baptiste));
+		disabled Play Effect(All Players(All Teams), Ring Explosion, Color(Purple), Event Player, 10);
+		disabled Play Effect(All Players(All Teams), Buff Impact Sound, Color(Purple), Event Player, 50);
+		Event Player.A -= 1250;
+		Wait(0.250, Ignore Condition);
+		disabled Heal(Event Player, Null, 99999);
+	}
+}
+
+rule("Purchase Bastion")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Vector(-150.800, 0.070, 3.380)) <= 2;
+		Is Button Held(Event Player, Button(Interact)) == True;
+		Event Player.A >= 1000 + 750;
+		Hero Of(Event Player) != Hero(Bastion);
+		Global.C >= 4;
+		Event Player.F == False;
+	}
+
+	actions
+	{
+		Start Forcing Player To Be Hero(Event Player, Hero(Bastion));
+		Play Effect(All Players(All Teams), Ring Explosion, Color(Purple), Event Player, 10);
+		Play Effect(All Players(All Teams), Buff Impact Sound, Color(Purple), Event Player, 50);
+		Event Player.A -= 1000 + 750;
+		Wait(0.250, Ignore Condition);
+		Heal(Event Player, Null, 99999);
+	}
+}
+
+rule("Purchase Reaper")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Vector(-159.419, -2.474, 25.387)) <= 2;
+		Is Button Held(Event Player, Button(Interact)) == True;
+		Event Player.A >= 1000 * 5;
+		Hero Of(Event Player) != Hero(Reaper);
+		Event Player.F == False;
+	}
+
+	actions
+	{
+		Start Forcing Player To Be Hero(Event Player, Hero(Reaper));
+		disabled Play Effect(All Players(All Teams), Ring Explosion, Color(Purple), Event Player, 10);
+		disabled Play Effect(All Players(All Teams), Buff Impact Sound, Color(Purple), Event Player, 50);
+		Event Player.A -= 1000 * 5;
+		Wait(0.250, Ignore Condition);
+		disabled Heal(Event Player, Null, 99999);
+	}
+}
+
+rule("Disable Respawn")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Has Spawned(Event Player) == True;
+	}
+
+	actions
+	{
+		Disable Built-In Game Mode Respawning(Event Player);
+		Event Player.F = False;
+		Event Player.H = 1;
+	}
+}
+
+rule("Initiate Health, Damage, and Healing Variables")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Has Spawned(Event Player) == True;
+		Event Player.K == 0;
+	}
+
+	actions
+	{
+		Event Player.K = 50;
+		Event Player.L = 100;
+		Event Player.M = 100;
+	}
+}
+
+rule("Health, Damage, and Healing HUD")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Global.N == 1;
+	}
+
+	actions
+	{
+		Create HUD Text(Event Player, String("{0} : {1} : {2}", String("{0} {1}", Custom String("Lives"), Event Player.revived), String(
+			"{0} {1}", String("Damage"), Event Player.L), String("{0} {1}", String("Heal"), Event Player.M)), Null, Null, Right, -1, Color(
+			Blue), Color(Lime Green), Color(Lime Green), Visible To and String, Default Visibility);
+	}
+}
+
+rule("Monkey Kill (Player Var A)")
+{
+	event
+	{
+		Player Dealt Final Blow;
+		All;
+		All;
+	}
+
+	conditions
+	{
+		Event Was Critical Hit == False;
+	}
+
+	actions
+	{
+		Event Player.A += 50 * Event Player.H;
+		Skip If(Event Player.H != 1, 1);
+		Small Message(Attacker, String("{0} + {1}", String(""), String("{0} {1}", 50, String("Points"))));
+		Skip If(Event Player.H == 1, 1);
+		Small Message(Attacker, String("{0} + {1}", String(""), String("{0} {1}", 100, String("Points"))));
+		Global.R += 100 * Event Player.H;
+	}
+}
+
+rule("Monkey Kill Headshot (Player Var A)")
+{
+	event
+	{
+		Player Dealt Final Blow;
+		All;
+		All;
+	}
+
+	conditions
+	{
+		Event Was Critical Hit == True;
+	}
+
+	actions
+	{
+		Event Player.A += 100 * Event Player.H;
+		Skip If(Event Player.H != 1, 1);
+		Small Message(Attacker, String("{0} + {1}", String(""), String("{0} {1}", 100, String("Points"))));
+		Skip If(Event Player.H == 1, 1);
+		Small Message(Attacker, String("{0} + {1}", String(""), String("{0} {1}", 200, String("Points"))));
+		Global.R += 250 * Event Player.H;
+	}
+}
+
+rule("Monkey damage points (Player Var A)")
+{
+	event
+	{
+		Player Dealt Damage;
+		All;
+		All;
+	}
+
+	conditions
+	{
+		Event Damage == True;
+		Hero Of(Event Player) != Hero(Mei);
+	}
+
+	actions
+	{
+		Event Player.A += 10 * Event Player.H;
+		Skip If(Event Player.H == 1, 1);
+		Global.R += 20 * Event Player.H;
+	}
+}
+
+rule("Player HUD Text")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	conditions
+	{
+		Global.A == 1;
+	}
+
+	actions
+	{
+		Create HUD Text(All Players(All Teams), String("{0}: {1}", String("{0} {1}", Hero Icon String(Hero Of(Players In Slot(0, Team 1))),
+			Players In Slot(0, Team 1)), Players In Slot(0, Team 1).A), Health(Players In Slot(0, Team 1)), Null, Left, 0, Color(Purple),
+			Color(Purple), Color(Purple), Visible To and String, Default Visibility);
+		Create HUD Text(All Players(All Teams), String("{0}: {1}", String("{0} {1}", Hero Icon String(Hero Of(Players In Slot(1, Team 1))),
+			Players In Slot(1, Team 1)), Players In Slot(1, Team 1).A), Health(Players In Slot(1, Team 1)), Null, Left, 1, Color(Green),
+			Color(Green), Color(Green), Visible To and String, Default Visibility);
+		Create HUD Text(All Players(All Teams), String("{0}: {1}", String("{0} {1}", Hero Icon String(Hero Of(Players In Slot(2, Team 1))),
+			Players In Slot(2, Team 1)), Players In Slot(2, Team 1).A), Health(Players In Slot(2, Team 1)), Null, Left, 2, Color(Orange),
+			Color(Orange), Color(Orange), Visible To and String, Default Visibility);
+		Create HUD Text(All Players(All Teams), String("{0}: {1}", String("{0} {1}", Hero Icon String(Hero Of(Players In Slot(3, Team 1))),
+			Players In Slot(3, Team 1)), Players In Slot(3, Team 1).A), Health(Players In Slot(3, Team 1)), Null, Left, 3, Color(
+			Turquoise), Color(Turquoise), Color(Turquoise), Visible To and String, Default Visibility);
+		disabled Create HUD Text(All Players(All Teams), String("{0}: {1}", String("{0} {1}", Hero Icon String(Hero Of(Players In Slot(4, Team 1))),
+			Players In Slot(4, Team 1)), Players In Slot(4, Team 1).A), Null, Null, Left, 4, Color(White), Color(White), Color(White),
+			Visible To and String, Default Visibility);
+		disabled Create HUD Text(All Players(All Teams), String("{0}: {1}", String("{0} {1}", Hero Icon String(Hero Of(Players In Slot(5, Team 1))),
+			Players In Slot(5, Team 1)), Players In Slot(5, Team 1).A), Null, Null, Left, 5, Color(White), Color(White), Color(White),
+			Visible To and String, Default Visibility);
+		Global.Died[0] = Vector(500, 0, 500);
+		Global.Died[1] = Vector(500, 0, 500);
+		Global.Died[2] = Vector(500, 0, 500);
+		Global.Died[3] = Vector(500, 0, 500);
+		disabled Global.Died[4] = Vector(500, 0, 500);
+		disabled Global.Died[5] = Vector(500, 0, 500);
+	}
+}
+
+rule("Revive Player 1")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Global.Died[0]) <= 4;
+		Event Player != Players In Slot(0, Team 1);
+		Is Alive(Event Player) == True;
+	}
+
+	actions
+	{
+		Event Player.C = Players In Slot(0, Team 1);
+		Chase Player Variable Over Time(Players In Slot(0, Team 1), C, 4, 2 + Global.P * 2, Destination and Duration);
+		Wait(2 + Global.P * 2, Abort When False);
+		Teleport(Players In Slot(0, Team 1), Event Player);
+		Resurrect(Players In Slot(0, Team 1));
+		Global.P += 1;
+		disabled Wait(0.250, Ignore Condition);
+		Play Effect(All Players(All Teams), Buff Explosion Sound, Color(Yellow), Global.Died[0], 4);
+		Play Effect(All Players(All Teams), Good Pickup Effect, Color(White), Players In Slot(0, Team 1), 100);
+		Global.Died[0] = Vector(500, 0, 500);
+		Event Player.A += 100 * Event Player.H;
+		Skip If(Event Player.H != 1, 1);
+		Small Message(Event Player, String("{0} + {1}", String(""), String("{0} {1}", 100, String("Points"))));
+		Skip If(Event Player.H == 1, 1);
+		Small Message(Event Player, String("{0} + {1}", String(""), String("{0} {1}", 300, String("Points"))));
+		All Players(Team 1).InfoCooldown = 0;
+		Global.R += 100 * Event Player.H;
+		Set Status(Players In Slot(0, Team 1), Null, Invincible, 10);
+	}
+}
+
+rule("Cancel Revive Player 1")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Global.Died[0]) > 4;
+		Event Player != Players In Slot(0, Team 1);
+	}
+
+	actions
+	{
+		Players In Slot(0, Team 1).C = 0;
+		Stop Chasing Player Variable(Players In Slot(0, Team 1), C);
+	}
+}
+
+rule("Revive Player 2")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Global.Died[1]) <= 4;
+		Event Player != Players In Slot(1, Team 1);
+		Is Alive(Event Player) == True;
+	}
+
+	actions
+	{
+		Event Player.C = Players In Slot(1, Team 1);
+		Chase Player Variable Over Time(Players In Slot(1, Team 1), C, 4, 2 + Global.P * 2, Destination and Duration);
+		Wait(2 + Global.P * 2, Abort When False);
+		Teleport(Players In Slot(1, Team 1), Event Player);
+		Resurrect(Players In Slot(1, Team 1));
+		Global.P += 1;
+		disabled Wait(0.250, Ignore Condition);
+		Play Effect(All Players(All Teams), Good Explosion, Color(Yellow), Global.Died[1], 4);
+		Play Effect(All Players(All Teams), Buff Explosion Sound, Color(White), Players In Slot(1, Team 1), 100);
+		Global.Died[1] = Vector(500, 0, 500);
+		Event Player.A += 100 * Event Player.H;
+		Skip If(Event Player.H != 1, 1);
+		Small Message(Event Player, String("{0} + {1}", String(""), String("{0} {1}", 100, String("Points"))));
+		Skip If(Event Player.H == 1, 1);
+		Small Message(Event Player, String("{0} + {1}", String(""), String("{0} {1}", 300, String("Points"))));
+		All Players(Team 1).P = 0;
+		Global.R += 100 * Event Player.H;
+		Set Status(Players In Slot(1, Team 1), Null, Invincible, 10);
+	}
+}
+
+rule("Cancel Revive Player 2")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Global.Died[1]) > 4;
+		Event Player != Players In Slot(1, Team 1);
+	}
+
+	actions
+	{
+		Players In Slot(1, Team 1).C = 0;
+		Stop Chasing Player Variable(Players In Slot(1, Team 1), C);
+	}
+}
+
+rule("Revive Player 3")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Global.Died[2]) <= 4;
+		Event Player != Players In Slot(2, Team 1);
+		Is Alive(Event Player) == True;
+	}
+
+	actions
+	{
+		Event Player.C = Players In Slot(2, Team 1);
+		Chase Player Variable Over Time(Players In Slot(2, Team 1), C, 4, 2 + Global.P * 2, Destination and Duration);
+		Wait(2 + Global.P * 2, Abort When False);
+		Teleport(Players In Slot(2, Team 1), Event Player);
+		Resurrect(Players In Slot(2, Team 1));
+		Global.P += 1;
+		disabled Wait(0.250, Ignore Condition);
+		Play Effect(All Players(All Teams), Good Explosion, Color(Yellow), Global.Died[2], 4);
+		Play Effect(All Players(All Teams), Buff Explosion Sound, Color(White), Players In Slot(2, Team 1), 100);
+		Global.Died[2] = Vector(500, 0, 500);
+		Event Player.A += 100 * Event Player.H;
+		Skip If(Event Player.H != 1, 1);
+		Small Message(Event Player, String("{0} + {1}", String(""), String("{0} {1}", 100, String("Points"))));
+		Skip If(Event Player.H == 1, 1);
+		Small Message(Event Player, String("{0} + {1}", String(""), String("{0} {1}", 300, String("Points"))));
+		All Players(Team 1).Q = 0;
+		Global.R += 100 * Event Player.H;
+		Set Status(Players In Slot(2, Team 1), Null, Invincible, 10);
+	}
+}
+
+rule("Cancel Revive Player 3")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Global.Died[2]) > 4;
+		Event Player != Players In Slot(2, Team 1);
+	}
+
+	actions
+	{
+		Players In Slot(2, Team 1).C = 0;
+		Stop Chasing Player Variable(Players In Slot(2, Team 1), C);
+	}
+}
+
+rule("Revive Player 4")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Global.Died[3]) <= 4;
+		Event Player != Players In Slot(3, Team 1);
+		Is Alive(Event Player) == True;
+	}
+
+	actions
+	{
+		Event Player.C = Players In Slot(3, Team 1);
+		Chase Player Variable Over Time(Players In Slot(3, Team 1), C, 4, 2 + Global.P * 2, Destination and Duration);
+		Wait(2 + Global.P * 2, Abort When False);
+		Teleport(Players In Slot(3, Team 1), Event Player);
+		Resurrect(Players In Slot(3, Team 1));
+		Global.P += 1;
+		disabled Wait(0.250, Ignore Condition);
+		Play Effect(All Players(All Teams), Good Explosion, Color(Yellow), Global.Died[3], 4);
+		Play Effect(All Players(All Teams), Buff Explosion Sound, Color(White), Players In Slot(3, Team 1), 100);
+		Global.Died[3] = Vector(500, 0, 500);
+		Event Player.A += 100 * Event Player.H;
+		Skip If(Event Player.H != 1, 1);
+		Small Message(Event Player, String("{0} + {1}", String(""), String("{0} {1}", 100, String("Points"))));
+		Skip If(Event Player.H == 1, 1);
+		Small Message(Event Player, String("{0} + {1}", String(""), String("{0} {1}", 300, String("Points"))));
+		All Players(Team 1).HideHints = 0;
+		Global.R += 100 * Event Player.H;
+		Set Status(Players In Slot(3, Team 1), Null, Invincible, 10);
+	}
+}
+
+rule("Cancel Revive Player 4")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Global.Died[3]) > 4;
+		Event Player != Players In Slot(3, Team 1);
+	}
+
+	actions
+	{
+		Players In Slot(3, Team 1).C = 0;
+		Stop Chasing Player Variable(Players In Slot(3, Team 1), C);
+	}
+}
+
+rule("Revive Effects")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	actions
+	{
+		Create Effect(All Players(All Teams), Ring, Color(Purple), Global.Died[0], 4, Visible To Position and Radius);
+		disabled Create In-World Text(Filtered Array(All Players(Team 1), Current Array Element.InfoCooldown == 1), String("{0} {1}", String(
+			"Resurrect"), Hero Icon String(Hero Of(Players In Slot(0, Team 1)))), Global.Died[0], 1, Do Not Clip,
+			Visible To Position and String, Color(White), Default Visibility);
+		Create Effect(All Players(All Teams), Sphere, Color(White), Global.Died[0], Players In Slot(0, Team 1).C,
+			Visible To Position and Radius);
+		Create Effect(All Players(All Teams), Ring, Color(Green), Global.Died[1], 4, Visible To Position and Radius);
+		disabled Create In-World Text(Filtered Array(All Players(Team 1), Current Array Element.P == 1), String("{0} {1}", String("Resurrect"),
+			Hero Icon String(Hero Of(Players In Slot(1, Team 1)))), Global.Died[1], 1, Do Not Clip, Visible To Position and String, Color(
+			White), Default Visibility);
+		Create Effect(All Players(All Teams), Sphere, Color(White), Global.Died[1], Players In Slot(1, Team 1).C,
+			Visible To Position and Radius);
+		Create Effect(All Players(All Teams), Ring, Color(Orange), Global.Died[2], 4, Visible To Position and Radius);
+		disabled Create In-World Text(Filtered Array(All Players(Team 1), Current Array Element.Q == 1), String("{0} {1}", String("Resurrect"),
+			Hero Icon String(Hero Of(Players In Slot(2, Team 1)))), Global.Died[2], 1, Do Not Clip, Visible To Position and String, Color(
+			White), Default Visibility);
+		Create Effect(All Players(All Teams), Sphere, Color(White), Global.Died[2], Players In Slot(2, Team 1).C,
+			Visible To Position and Radius);
+		Create Effect(All Players(All Teams), Ring, Color(Turquoise), Global.Died[3], 4, Visible To Position and Radius);
+		disabled Create In-World Text(Filtered Array(All Players(Team 1), Current Array Element.HideHints == 1), String("{0} {1}", String(
+			"Resurrect"), Hero Icon String(Hero Of(Players In Slot(3, Team 1)))), Global.Died[3], 1, Do Not Clip,
+			Visible To Position and String, Color(White), Default Visibility);
+		Create Effect(All Players(All Teams), Sphere, Color(White), Global.Died[3], Players In Slot(3, Team 1).C,
+			Visible To Position and Radius);
+		Create In-World Text(All Players(All Teams), Custom String("ReKt LAL"), Global.Died[0], 3, Clip Against Surfaces,
+			Visible To Position and String, Color(White), Default Visibility);
+		Create In-World Text(All Players(All Teams), Custom String("OOf"), Global.Died[1], 3, Clip Against Surfaces,
+			Visible To Position and String, Color(White), Default Visibility);
+		Create In-World Text(All Players(All Teams), Custom String("2 GUD 4 ME"), Global.Died[2], 3, Clip Against Surfaces,
+			Visible To Position and String, Color(White), Default Visibility);
+		Create In-World Text(All Players(All Teams), Custom String("HEP MEH"), Global.Died[3], 3, Clip Against Surfaces,
+			Visible To Position and String, Color(White), Default Visibility);
+	}
+}
+
+rule("Player Respawn, Move Revive Effect")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Is Alive(Event Player) == True;
+	}
+
+	actions
+	{
+		Global.Died[Slot Of(Event Player)] = Vector(500, 0, 500);
+	}
+}
+
+rule("Pickup double Points")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Global.M[1]) <= 1.500;
+		All Players(Team 1).G[1] == False;
+		Global.A >= 1;
+	}
+
+	actions
+	{
+		Global.M[1] = Vector(500, 25, 500);
+		All Players(Team 1).G[1] = True;
+		All Players(Team 1).S[1] = 1;
+		Big Message(All Players(All Teams), Custom String("Double points!"));
+		All Players(Team 1).H = 2;
+		disabled Create HUD Text(All Players(All Teams), String("Points"), Null, Null, Top, 1, Color(Yellow), Color(White), Color(White),
+			Visible To and String, Default Visibility);
+		disabled All Players(Team 1).I[1] = Last Text ID;
+		Wait(60, Ignore Condition);
+		All Players(Team 1).H = 1;
+		All Players(Team 1).G[1] = False;
+		disabled Destroy HUD Text(All Players(Team 1).I[1]);
+		All Players(Team 1).S[1] = 0;
+	}
+}
+
+rule("Pickup QuickSpeed")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Global.M[2]) <= 1.500;
+		All Players(Team 1).G[2] == False;
+		Global.A >= 1;
+	}
+
+	actions
+	{
+		Global.M[2] = Vector(500, 25, 500);
+		All Players(Team 1).G[2] = True;
+		All Players(Team 1).S[2] = 1;
+		Big Message(All Players(All Teams), String("{0} {1} {2}", String("Faster"), String("Speed"), String("-> {0}", String("{0} sec",
+			60))));
+		Set Move Speed(All Players(Team 1), 150);
+		disabled Create HUD Text(All Players(All Teams), String("Speed"), Null, Null, Top, 1, Color(Green), Color(White), Color(White),
+			Visible To and String, Default Visibility);
+		disabled All Players(Team 1).I[2] = Last Text ID;
+		Wait(60, Ignore Condition);
+		Set Move Speed(All Players(Team 1), 100);
+		All Players(Team 1).G[2] = False;
+		disabled Destroy HUD Text(All Players(Team 1).I[2]);
+		All Players(Team 1).S[2] = 0;
+	}
+}
+
+rule("Pickup insta kill")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Global.M[4]) <= 1.500;
+		All Players(Team 1).G[4] == False;
+		Global.A >= 1;
+	}
+
+	actions
+	{
+		Global.M[4] = Vector(500, 25, 500);
+		All Players(Team 1).G[4] = True;
+		All Players(Team 1).S[4] = 1;
+		Big Message(All Players(All Teams), Custom String("Insta-Kill!"));
+		Set Damage Dealt(All Players(Team 1), 9999);
+		disabled Create HUD Text(All Players(All Teams), String("Damage"), Null, Null, Top, 1, Color(Red), Color(White), Color(White),
+			Visible To and String, Default Visibility);
+		disabled All Players(Team 1).I[4] = Last Text ID;
+		Wait(30, Ignore Condition);
+		Set Damage Dealt(Players In Slot(0, Team 1), Players In Slot(0, Team 1).L);
+		Set Damage Dealt(Players In Slot(1, Team 1), Players In Slot(1, Team 1).L);
+		Set Damage Dealt(Players In Slot(2, Team 1), Players In Slot(2, Team 1).L);
+		Set Damage Dealt(Players In Slot(3, Team 1), Players In Slot(3, Team 1).L);
+		All Players(Team 1).G[4] = False;
+		disabled Destroy HUD Text(All Players(Team 1).I[4]);
+		All Players(Team 1).S[4] = 0;
+	}
+}
+
+rule("Pickup InstaUlt")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Global.M[0]) <= 1.500;
+		All Players(Team 1).G[0] == False;
+		Global.A >= 1;
+	}
+
+	actions
+	{
+		Global.M[0] = Vector(500, 25, 500);
+		All Players(Team 1).G[0] = True;
+		All Players(Team 1).S[0] = 1;
+		Big Message(All Players(All Teams), String("{0} {1} {2}", String("Unlimited"), String("Ultimate Ability"), String("-> {0}", String(
+			"{0} sec", 30))));
+		disabled Create HUD Text(All Players(All Teams), String("Ultimate Ability"), Null, Null, Top, 1, Color(White), Color(White), Color(White),
+			Visible To and String, Default Visibility);
+		disabled All Players(Team 1).I[0] = Last Text ID;
+		Wait(30, Ignore Condition);
+		All Players(Team 1).G[0] = False;
+		disabled Destroy HUD Text(All Players(Team 1).I[0]);
+		All Players(Team 1).S[0] = 0;
+	}
+}
+
+rule("InstaUlt Active")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Event Player.G[0] == True;
+	}
+
+	actions
+	{
+		Set Ultimate Charge(Event Player, 100);
+		Wait(2, Abort When False);
+		Loop If Condition Is True;
+	}
+}
+
+rule("Power Effect")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	conditions
+	{
+		Global.D == 1;
+	}
+
+	actions
+	{
+		Create Effect(All Players(All Teams), Ring, Color(Turquoise), Vector(-89.630, 6.930, -5.200), 2, Visible To Position and Radius);
+		Global.N[0] = Last Created Entity;
+		Create In-World Text(All Players(All Teams), String("{0} {1}", String("Connect"), String("Power")), Vector(-89.630, 6.930, -5.200),
+			1, Clip Against Surfaces, Visible To Position and String, Color(Turquoise), Default Visibility);
+		Global.N[1] = Last Text ID;
+	}
+}
+
+rule("Activate Power")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Vector(-89.630, 6.930, -5.200)) <= 2;
+		Is Button Held(Event Player, Button(Interact)) == True;
+		Global.K == 0;
+		Global.D == 1;
+	}
+
+	actions
+	{
+		Destroy Effect(Global.N[0]);
+		Destroy In-World Text(Global.N[1]);
+		Global.N = 1;
+		Global.K = 1;
+		Big Message(All Players(All Teams), String("{0} {1}", String("Power"), String("On")));
+		Set Ultimate Charge(All Players(Team 2), 100);
+	}
+}
+
+rule("Upgrade Effects")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	conditions
+	{
+		Global.N == 1;
+	}
+
+	actions
+	{
+		Create Effect(All Players(All Teams), Sphere, Color(Red), Vector(-3.804, 0.542, -26.678), 0.750, Visible To Position and Radius);
+		Create Effect(All Players(All Teams), Sphere, Color(Red), Vector(-3.804, 1.250, -26.678), 0.750, Visible To Position and Radius);
+		Create Effect(All Players(All Teams), Ring, Color(Red), Vector(-3.804, 0.542, -26.678), 1.500, Visible To Position and Radius);
+		Create Effect(All Players(All Teams), Ring, Color(Orange), Vector(-87.357, 2.140, -8.729), 1.500, Visible To Position and Radius);
+		Create Effect(All Players(All Teams), Ring, Color(Blue), Vector(-138.201, -0.394, 34.089), 1.500, Visible To Position and Radius);
+		Create In-World Text(All Players(All Teams), String("{0} + {1}", Custom String("Juggernaut"), String("{0} {1}", 100, String(
+			"{0}: {1}", String(""), 2500))), Vector(-3.804, 0.542, -26.678), 1, Clip Against Surfaces, Visible To Position and String,
+			Color(White), Default Visibility);
+		Create In-World Text(All Players(All Teams), String("{0} + {1}", Custom String("Pack-a-Punch"), String("{0} {1}", 100, String(
+			"{0}: {1}", String(""), 5000))), Vector(-87.357, 2.140, -8.729), 1, Clip Against Surfaces, Visible To Position and String,
+			Color(Red), Default Visibility);
+		Create In-World Text(All Players(All Teams), Custom String("passive & healing dealt buff: 6000 points"), Vector(-138.201, -0.394,
+			34.089), 1, Clip Against Surfaces, Visible To Position and String, Color(Blue), Default Visibility);
+		Create Effect(All Players(All Teams), Ring, Color(Orange), Vector(-38.370, 0.523, -34.687), 1.500, Visible To Position and Radius);
+		Create In-World Text(All Players(All Teams), String("{0} + {1}", Custom String("Headshot maniac"), String("{0} {1}", Custom String(
+			"50% to 400%"), String("{0}: {1}", String(""), 4000))), Vector(-38.370, 0.523, -34.687), 1, Clip Against Surfaces,
+			Visible To Position and String, Color(White), Default Visibility);
+		Create Effect(All Players(All Teams), Ring, Color(Blue), Vector(4.434, 0.522, 14.392), 1.500, Visible To Position and Radius);
+		Create In-World Text(All Players(All Teams), Custom String("Revive self: 1000 points"), Vector(4.434, 0.522, 14.392), 1,
+			Clip Against Surfaces, Visible To Position and String, Color(Blue), Default Visibility);
+	}
+}
+
+rule("Purchase pack a punch Upgrade")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Vector(-87.357, 2.140, -8.729)) < 1.500;
+		Is Button Held(Event Player, Button(Interact)) == True;
+		Event Player.A >= 5000;
+		Global.N == 1;
+		Event Player.Pack == 0;
+	}
+
+	actions
+	{
+		Event Player.A -= 5000;
+		Event Player.L = 200;
+		Set Damage Dealt(Event Player, Event Player.L);
+		Set Status(Event Player, Null, Burning, 9999);
+		Event Player.Pack = 1;
+		Wait(0.110, Ignore Condition);
+		Communicate(Event Player, Emote Up);
+		Event Player.Maniac = 0;
+		Wait(0.050, Ignore Condition);
+		Set Move Speed(Event Player, 0);
+		Wait(2, Ignore Condition);
+		Set Move Speed(Event Player, 100);
+	}
+}
+
+rule("Purchase Health Upgrade")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Vector(-3.804, 0.542, -26.678)) < 1.500;
+		Is Button Held(Event Player, Button(Interact)) == True;
+		Event Player.A >= 2500;
+		Global.N == 1;
+		Event Player.Jugg == 0;
+	}
+
+	actions
+	{
+		Event Player.Jugg = 100;
+		Event Player.A -= 2500;
+		Wait(0.250, Ignore Condition);
+		Set Max Health(Event Player, 200);
+		Heal(Event Player, Null, 1000);
+		Event Player.Jugg = 1;
+		Wait(0.250, Ignore Condition);
+		Communicate(Event Player, Emote Up);
+		Wait(0.050, Ignore Condition);
+		Set Move Speed(Event Player, 0);
+		Wait(2, Ignore Condition);
+		Set Move Speed(Event Player, 100);
+	}
+}
+
+rule("Purchase Healing Upgrade")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Vector(-138.201, -0.394, 34.089)) < 4;
+		Is Button Held(Event Player, Button(Interact)) == True;
+		Event Player.A >= 6000;
+		Global.N == 1;
+		Event Player.M != 400;
+	}
+
+	actions
+	{
+		Event Player.A -= 6000;
+		Event Player.M = 400;
+		Set Healing Dealt(Event Player, Event Player.M);
+		Wait(0.100, Ignore Condition);
+		Communicate(Event Player, Emote Up);
+		Wait(0.500, Ignore Condition);
+		Set Move Speed(Event Player, 0);
+		Wait(2, Ignore Condition);
+		Set Move Speed(Event Player, 100);
+	}
+}
+
+rule("Empty Global Var UVW")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	conditions
+	{
+		Global.C == 4;
+		Global.D == 1;
+	}
+
+	actions
+	{
+		Global.W = Empty Array;
+		disabled Global.X = Empty Array;
+		Global.V = Empty Array;
+		Global.U = Empty Array;
+	}
+}
+
+rule("Purchase Genji")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Vector(-9.560, 0.060, -14.450)) <= 2;
+		Is Button Held(Event Player, Button(Interact)) == True;
+		Event Player.A >= 1250;
+		Hero Of(Event Player) != Hero(Genji);
+		Event Player.F == False;
+	}
+
+	actions
+	{
+		Start Forcing Player To Be Hero(Event Player, Hero(Genji));
+		disabled Play Effect(All Players(All Teams), Ring Explosion, Color(Purple), Event Player, 10);
+		disabled Play Effect(All Players(All Teams), Buff Impact Sound, Color(Purple), Event Player, 50);
+		Event Player.A -= 1250;
+		Wait(0.250, Ignore Condition);
+		disabled Heal(Event Player, Null, 99999);
+	}
+}
+
+rule("Purchase Ashe")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Vector(-19.220, 0.070, 22.870)) <= 2;
+		Is Button Held(Event Player, Button(Interact)) == True;
+		Event Player.A >= 1250;
+		Hero Of(Event Player) != Hero(Ashe);
+		Event Player.F == False;
+	}
+
+	actions
+	{
+		Start Forcing Player To Be Hero(Event Player, Hero(Ashe));
+		disabled Play Effect(All Players(All Teams), Ring Explosion, Color(Purple), Event Player, 10);
+		disabled Play Effect(All Players(All Teams), Buff Impact Sound, Color(Purple), Event Player, 50);
+		Event Player.A -= 1250;
+		Wait(0.250, Ignore Condition);
+		disabled Heal(Event Player, Null, 99999);
+	}
+}
+
+rule("Purchase Zarya")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Vector(-10.200, 1, -52.230)) <= 2;
+		Is Button Held(Event Player, Button(Interact)) == True;
+		Event Player.A >= 1750;
+		Hero Of(Event Player) != Hero(Zarya);
+		Event Player.F == False;
+	}
+
+	actions
+	{
+		Start Forcing Player To Be Hero(Event Player, Hero(Zarya));
+		disabled Play Effect(All Players(All Teams), Ring Explosion, Color(Purple), Event Player, 10);
+		disabled Play Effect(All Players(All Teams), Buff Impact Sound, Color(Purple), Event Player, 50);
+		Event Player.A -= 1750;
+		Wait(0.250, Ignore Condition);
+		disabled Heal(Event Player, Null, 99999);
+	}
+}
+
+rule("Purchase Roadhog")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Vector(-35.950, 2, -49.260)) <= 2;
+		Is Button Held(Event Player, Button(Interact)) == True;
+		Event Player.A >= 1750;
+		Hero Of(Event Player) != Hero(Roadhog);
+		Event Player.F == False;
+	}
+
+	actions
+	{
+		Start Forcing Player To Be Hero(Event Player, Hero(Roadhog));
+		disabled Play Effect(All Players(All Teams), Ring Explosion, Color(Purple), Event Player, 10);
+		disabled Play Effect(All Players(All Teams), Buff Impact Sound, Color(Purple), Event Player, 50);
+		Event Player.A -= 1750;
+		Wait(0.250, Ignore Condition);
+		disabled Heal(Event Player, Null, 99999);
+	}
+}
+
+rule("Purchase Dva")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Vector(-72.240, 6.020, -14.140)) <= 2;
+		Is Button Held(Event Player, Button(Interact)) == True;
+		Event Player.A >= 1750;
+		Hero Of(Event Player) != Hero(D.Va);
+		Event Player.F == False;
+	}
+
+	actions
+	{
+		Start Forcing Player To Be Hero(Event Player, Hero(D.Va));
+		disabled Play Effect(All Players(All Teams), Ring Explosion, Color(Purple), Event Player, 10);
+		disabled Play Effect(All Players(All Teams), Buff Impact Sound, Color(Purple), Event Player, 50);
+		Event Player.A -= 1750;
+		Wait(0.250, Ignore Condition);
+		disabled Heal(Event Player, Null, 99999);
+	}
+}
+
+rule("Purchase Brigitte")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Vector(-72.660, 1.500, -28.580)) <= 2;
+		Is Button Held(Event Player, Button(Interact)) == True;
+		Event Player.A >= 1750;
+		Hero Of(Event Player) != Hero(Brigitte);
+		Event Player.F == False;
+	}
+
+	actions
+	{
+		Start Forcing Player To Be Hero(Event Player, Hero(Brigitte));
+		disabled Play Effect(All Players(All Teams), Ring Explosion, Color(Purple), Event Player, 10);
+		disabled Play Effect(All Players(All Teams), Buff Impact Sound, Color(Purple), Event Player, 50);
+		Event Player.A -= 1750;
+		Wait(0.250, Ignore Condition);
+		disabled Heal(Event Player, Null, 99999);
+	}
+}
+
+rule("Purchase Reinhardt")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Vector(-92.200, 1.130, 8.730)) <= 2;
+		Is Button Held(Event Player, Button(Interact)) == True;
+		Event Player.A >= 1000 + 750;
+		Hero Of(Event Player) != Hero(Reinhardt);
+	}
+
+	actions
+	{
+		Start Forcing Player To Be Hero(Event Player, Hero(Reinhardt));
+		Event Player.A -= 1000 + 750;
+	}
+}
+
+rule("Purchase Torbjorn")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Vector(-139.240, -0.930, 10.950)) <= 2;
+		Is Button Held(Event Player, Button(Interact)) == True;
+		Event Player.A >= 1000 + 750;
+		Hero Of(Event Player) != Hero(Torbjörn);
+	}
+
+	actions
+	{
+		Start Forcing Player To Be Hero(Event Player, Hero(Torbjörn));
+		Event Player.A -= 750 + 1000;
+	}
+}
+
+rule("Purchase Sigma")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Vector(-130.010, 0.070, 43.090)) <= 2;
+		Is Button Held(Event Player, Button(Interact)) == True;
+		Event Player.A >= 1000 + 750;
+		Hero Of(Event Player) != Hero(Sigma);
+	}
+
+	actions
+	{
+		Start Forcing Player To Be Hero(Event Player, Hero(Sigma));
+		disabled Play Effect(All Players(All Teams), Ring Explosion, Color(Purple), Event Player, 10);
+		disabled Play Effect(All Players(All Teams), Buff Impact Sound, Color(Purple), Event Player, 50);
+		Event Player.A -= 1000 + 750;
+	}
+}
+
+rule("Purchase Orisa")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Vector(-90.784, 1.263, -36.468)) <= 2;
+		Is Button Held(Event Player, Button(Interact)) == True;
+		Event Player.A >= 1250 * 1;
+		Hero Of(Event Player) != Hero(Orisa);
+		Event Player.F == False;
+	}
+
+	actions
+	{
+		Start Forcing Player To Be Hero(Event Player, Hero(Orisa));
+		disabled Play Effect(All Players(All Teams), Ring Explosion, Color(Purple), Event Player, 10);
+		disabled Play Effect(All Players(All Teams), Buff Impact Sound, Color(Purple), Event Player, 50);
+		Event Player.A -= 1250 * 1;
+	}
+}
+
+rule("Spawn Blockers")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Global.A == 1;
+	}
+
+	actions
+	{
+		Create Effect(All Players(Team 1), Sphere, Color(Red), Vector(-98.375, 2.299, -31.485), 6, Visible To Position and Radius);
+		Create Effect(All Players(Team 1), Sphere, Color(Red), Vector(-71.235, 1.450, -52.386), 5, Visible To Position and Radius);
+	}
+}
+
+rule("Spawn Blocker Effect A")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Vector(-98.375, 2.299, -31.485)) <= 6.500;
+	}
+
+	actions
+	{
+		Teleport(Event Player, Vector(-83.967, 1.347, -24.774));
+	}
+}
+
+rule("Spawn Blocker Effect B")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Vector(-71.235, 1.450, -52.386)) <= 5;
+	}
+
+	actions
+	{
+		Teleport(Event Player, Vector(-61.903, 0.856, -48.146));
+	}
+}
+
+rule("Spawn Blocker Effect C")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Vector(-162.793, 1.729, 12.898)) <= 2;
+	}
+
+	actions
+	{
+		Teleport(Event Player, Vector(-159.210, 1.080, 12.338));
+	}
+}
+
+rule("Spawn Blocker Effect D")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Vector(-164.359, 1.430, 5.378)) <= 2;
+	}
+
+	actions
+	{
+		Teleport(Event Player, Vector(-159.675, 1.080, 6.641));
+	}
+}
+
+rule("Spawn Blocker Effect E")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Vector(-156.662, 1.078, 48.117)) <= 2;
+	}
+
+	actions
+	{
+		Teleport(Event Player, Vector(-152.042, 0.840, 47.075));
+	}
+}
+
+rule("Purchase Moirall")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Vector(-19.590, 0.090, -38.370)) <= 2;
+		Is Button Held(Event Player, Button(Interact)) == True;
+		Event Player.A >= 1250;
+		Hero Of(Event Player) != Hero(Moira);
+		Global.C >= 2;
+		Event Player.F == False;
+	}
+
+	actions
+	{
+		Start Forcing Player To Be Hero(Event Player, Hero(Moira));
+		disabled Play Effect(All Players(All Teams), Ring Explosion, Color(Purple), Event Player, 10);
+		disabled Play Effect(All Players(All Teams), Buff Impact Sound, Color(Purple), Event Player, 50);
+		Event Player.A -= 1250;
+		Wait(0.250, Ignore Condition);
+		disabled Heal(Event Player, Null, 99999);
+	}
+}
+
+rule("Purchase Mei2")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Vector(-75.940, 0.030, -0.240)) <= 2;
+		Is Button Held(Event Player, Button(Interact)) == True;
+		Event Player.A >= 1000 + 750;
+		Hero Of(Event Player) != Hero(Mei);
+		Global.C >= 3;
+		Event Player.F == False;
+	}
+
+	actions
+	{
+		Start Forcing Player To Be Hero(Event Player, Hero(Mei));
+		disabled Play Effect(All Players(All Teams), Ring Explosion, Color(Purple), Event Player, 10);
+		disabled Play Effect(All Players(All Teams), Buff Impact Sound, Color(Purple), Event Player, 50);
+		Event Player.A -= 1000 + 750;
+		Wait(0.250, Ignore Condition);
+		disabled Heal(Event Player, Null, 99999);
+	}
+}
+
+rule("PBFF Sphere")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 2;
+		All;
+	}
+
+	conditions
+	{
+		Global.A == 1;
+	}
+
+	actions
+	{
+		Create Effect(All Players(Team 2), Sphere, Color(White), Vector(-137.480, -12, 7.160), 11, Visible To Position and Radius);
+	}
+}
+
+rule("PBFF Sphere Teleport")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 2;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Vector(-137.480, -12, 7.160)) < 11;
+	}
+
+	actions
+	{
+		Teleport(Event Player, Vector(-143.150, -3.200, 28.950));
+	}
+}
+
+rule("Purchase Winston")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Vector(4.813, 7.524, -38.806)) <= 2;
+		Is Button Held(Event Player, Button(Interact)) == True;
+		Event Player.A >= 1000;
+		Hero Of(Event Player) != Hero(Widowmaker);
+		Global.C >= 1;
+		Event Player.F == False;
+	}
+
+	actions
+	{
+		Start Forcing Player To Be Hero(Event Player, Hero(Widowmaker));
+		disabled Play Effect(All Players(All Teams), Ring Explosion, Color(Purple), Event Player, 10);
+		disabled Play Effect(All Players(All Teams), Buff Impact Sound, Color(Purple), Event Player, 50);
+		Event Player.A -= 1000;
+		Wait(0.250, Ignore Condition);
+		disabled Heal(Event Player, Null, 99999);
+	}
+}
+
+rule("spawned in points")
+{
+	event
+	{
+		Ongoing - Each Player;
+		All;
+		All;
+	}
+
+	conditions
+	{
+		Has Spawned(Event Player) == True;
+	}
+
+	actions
+	{
+		Event Player.A += 300 * Global.A + 200;
+	}
+}
+
+rule("player hit speed boost")
+{
+	event
+	{
+		Player Took Damage;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Event Damage == True;
+	}
+
+	actions
+	{
+		Set Move Speed(Event Player, 200);
+		Wait(1.500, Ignore Condition);
+		Set Move Speed(Event Player, 100);
+	}
+}
+
+rule("heal over time effect")
+{
+	event
+	{
+		Player Took Damage;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		All Living Players(Team 1) == True;
+	}
+
+	actions
+	{
+		Wait(2, Ignore Condition);
+		Start Heal Over Time(Event Player, Event Player, 3, Event Player.M / 4 + 8);
+		Wait(5, Ignore Condition);
+	}
+}
+
+rule("rien use ability")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 2;
+		Reinhardt;
+	}
+
+	conditions
+	{
+		Is Moving(Event Player) == True;
+		Global.A / 1 >= Absolute Value(21);
+	}
+
+	actions
+	{
+		Press Button(Event Player, Button(Ability 1));
+	}
+}
+
+rule("torb use ability")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 2;
+		Torbjörn;
+	}
+
+	conditions
+	{
+		Is Moving(Event Player) == True;
+		Global.A / 1 >= Absolute Value(15);
+	}
+
+	actions
+	{
+		Press Button(Event Player, Button(Ability 2));
+		Wait(5, Ignore Condition);
+		Loop;
+	}
+}
+
+rule("is hacked")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 2;
+		All;
+	}
+
+	conditions
+	{
+		Has Status(Event Player, Hacked) == True;
+	}
+
+	actions
+	{
+		Set Move Speed(Event Player, 0);
+		Set Primary Fire Enabled(Event Player, False);
+		Set Status(Event Player, Null, Burning, 4);
+		Start Damage Over Time(Event Player, Null, 10, 60);
+		Disallow Button(Event Player, Button(Jump));
+	}
+}
+
+rule("rien use ability 2")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 2;
+		Reinhardt;
+	}
+
+	conditions
+	{
+		Is Moving(Event Player) == True;
+		Global.A / 1 >= Absolute Value(26);
+	}
+
+	actions
+	{
+		Press Button(Event Player, Button(Ability 2));
+	}
+}
+
+rule("is not hacked")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 2;
+		All;
+	}
+
+	conditions
+	{
+		Has Status(Event Player, Hacked) == False;
+	}
+
+	actions
+	{
+		Set Move Speed(Event Player, 100);
+		Set Primary Fire Enabled(Event Player, True);
+	}
+}
+
+rule("despawn brigs")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	conditions
+	{
+		Has Spawned(All Players(Team 1)) == True;
+		Global.A / 1 == Absolute Value(6);
+	}
+
+	actions
+	{
+		Destroy All Dummy Bots;
+	}
+}
+
+rule("spawn brigs and torbs")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	conditions
+	{
+		Has Spawned(All Players(Team 1)) == True;
+		Global.A / 1 >= Absolute Value(6);
+		Global.A / 1 <= Absolute Value(10);
+	}
+
+	actions
+	{
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Torbjörn), Team 2, -1, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(0.016, Ignore Condition);
+		Create Dummy Bot(Hero(Brigitte), Team 2, -1, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(0.016, Ignore Condition);
+		Create Dummy Bot(Hero(Torbjörn), Team 2, -1, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(0.016, Ignore Condition);
+		Create Dummy Bot(Hero(Brigitte), Team 2, -1, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(0.016, Ignore Condition);
+		Create Dummy Bot(Hero(Torbjörn), Team 2, -1, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(0.016, Ignore Condition);
+		Create Dummy Bot(Hero(Brigitte), Team 2, -1, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Loop If Condition Is True;
+	}
+}
+
+rule("despawn brigs and torbs")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	conditions
+	{
+		Has Spawned(All Players(Team 1)) == True;
+		Global.A / 1 == Absolute Value(11);
+	}
+
+	actions
+	{
+		Destroy All Dummy Bots;
+	}
+}
+
+rule("Spawn torbs")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	conditions
+	{
+		Has Spawned(All Players(Team 1)) == True;
+		Global.A / 1 >= Absolute Value(11);
+		Global.A / 1 < Absolute Value(21);
+	}
+
+	actions
+	{
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Torbjörn), Team 2, 0, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Torbjörn), Team 2, 1, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Torbjörn), Team 2, 2, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Torbjörn), Team 2, 3, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Torbjörn), Team 2, 4, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Torbjörn), Team 2, 5, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(60, Ignore Condition);
+		Loop If Condition Is True;
+	}
+}
+
+rule("despawn torbs")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	conditions
+	{
+		Has Spawned(All Players(Team 1)) == True;
+		Global.A / 1 >= Absolute Value(21);
+	}
+
+	actions
+	{
+		Destroy All Dummy Bots;
+	}
+}
+
+rule("spawn torb and riens")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	conditions
+	{
+		Has Spawned(All Players(Team 1)) == True;
+		Global.A / 1 >= Absolute Value(21);
+		Global.A / 1 < Absolute Value(31);
+	}
+
+	actions
+	{
+		Wait(2, Ignore Condition);
+		Create Dummy Bot(Hero(Torbjörn), Team 2, 0, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Reinhardt), Team 2, 1, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Torbjörn), Team 2, 2, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Reinhardt), Team 2, 3, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Torbjörn), Team 2, 4, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Reinhardt), Team 2, 5, Random Value In Array(Global.Y), Vector(0, 0, 0));
+	}
+}
+
+rule("spawn torb rien brig")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	conditions
+	{
+		Has Spawned(All Players(Team 1)) == True;
+		Global.A / 1 >= Absolute Value(31);
+	}
+
+	actions
+	{
+		Wait(2, Ignore Condition);
+		Create Dummy Bot(Hero(Torbjörn), Team 2, 0, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Reinhardt), Team 2, 1, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Torbjörn), Team 2, 2, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Reinhardt), Team 2, 3, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Brigitte), Team 2, 4, Random Value In Array(Global.Y), Vector(0, 0, 0));
+		Wait(1, Ignore Condition);
+		Create Dummy Bot(Hero(Reinhardt), Team 2, 5, Random Value In Array(Global.Y), Vector(0, 0, 0));
+	}
+}
+
+rule("brigg wave 31")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 2;
+		Brigitte;
+	}
+
+	conditions
+	{
+		Global.A / 1 >= Absolute Value(31);
+	}
+
+	actions
+	{
+		Set Ultimate Charge(Event Player, 100);
+		Set Move Speed(Event Player, 120);
+	}
+}
+
+rule("trap effect")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	conditions
+	{
+		Global.N == 1;
+	}
+
+	actions
+	{
+		Create Effect(All Players(All Teams), Ring, Color(Purple), Vector(-41.195, 0.486, -22.427), 1.750, Visible To Position and Radius);
+		Create In-World Text(All Players(All Teams), String("{0} {1}", String("Buy"), Custom String("Trap: 1000 points")), Vector(-41.195,
+			0.486, -22.427), 1, Clip Against Surfaces, Visible To Position and String, Color(Purple), Default Visibility);
+	}
+}
+
+rule("sym turrets slot 5")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		Slot 4;
+	}
+
+	conditions
+	{
+		Hero(Symmetra) == True;
+	}
+
+	actions
+	{
+		Set Status(Event Player, Null, Invincible, 4.500);
+		Wait(1, Ignore Condition);
+		Press Button(Event Player, Button(Ability 1));
+		Wait(1, Ignore Condition);
+		Set Facing(Event Player, Vector(5, 20, -22), To World);
+		Press Button(Event Player, Button(Ability 1));
+		Wait(1, Ignore Condition);
+		Set Facing(Event Player, Vector(5, 40, -22), To World);
+		Press Button(Event Player, Button(Ability 1));
+		Start Damage Over Time(Event Player, Null, 9999, 10000);
+	}
+}
+
+rule("sym turrets slot 6")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		Slot 5;
+	}
+
+	conditions
+	{
+		Hero(Symmetra) == True;
+	}
+
+	actions
+	{
+		Set Status(Event Player, Null, Invincible, 4.500);
+		Wait(1, Ignore Condition);
+		Press Button(Event Player, Button(Ability 1));
+		Wait(1, Ignore Condition);
+		Set Facing(Event Player, Vector(5, 20, 22), To World);
+		Press Button(Event Player, Button(Ability 1));
+		Wait(1, Ignore Condition);
+		Set Facing(Event Player, Vector(5, 40, 22), To World);
+		Press Button(Event Player, Button(Ability 1));
+		Start Damage Over Time(Event Player, Null, 9999, 10000);
+	}
+}
+
+rule("despawn syms")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		Slot 4;
+	}
+
+	actions
+	{
+		Wait(26.500, Ignore Condition);
+		Destroy Dummy Bot(Team 1, 4);
+		Destroy Dummy Bot(Team 1, 5);
+	}
+}
+
+rule("flaming rien idea")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 2;
+		Reinhardt;
+	}
+
+	conditions
+	{
+		Global.A / 1 >= Absolute Value(31);
+	}
+
+	actions
+	{
+		Set Status(Event Player, Null, Burning, 9999);
+		Set Move Speed(Event Player, 120);
+	}
+}
+
+rule("brig use whip shot")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 2;
+		Brigitte;
+	}
+
+	conditions
+	{
+		Global.A / 1 >= Absolute Value(31);
+		Distance Between(Event Player, Closest Player To(Event Player, Team 1)) < 3;
+	}
+
+	actions
+	{
+		Press Button(Event Player, Button(Ability 1));
+		Wait(6, Ignore Condition);
+		Loop;
+	}
+}
+
+rule("buy trap")
+{
+	event
+	{
+		Ongoing - Each Player;
+		All;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Vector(-41.195, 0.486, -22.427)) <= 2;
+		Is Button Held(Event Player, Button(Interact)) == True;
+		Event Player.A >= 1000;
+		Global.N == 1;
+	}
+
+	actions
+	{
+		Event Player.A -= 1000;
+		Create Dummy Bot(Hero(Symmetra), Team 1, 4, Vector(-35.471, 0.338, -24.553), Vector(5, 0.506, -22.223));
+		Create Dummy Bot(Hero(Symmetra), Team 1, 5, Vector(-35.471, 0.338, -24.553), Vector(5, 0.520, 27.864));
+		Wait(60, Ignore Condition);
+	}
+}
+
+rule("hammond stop grapple")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		Wrecking Ball;
+	}
+
+	conditions
+	{
+		Is Button Held(Event Player, Button(Secondary Fire)) == True;
+	}
+
+	actions
+	{
+		Wait(4, Ignore Condition);
+		Abort If Condition Is False;
+		Set Status(Event Player, Null, Hacked, 6);
+	}
+}
+
+rule("mystery box")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Is Button Held(Event Player, Button(Interact)) == True;
+		Distance Between(Event Player, Vector(-149.794, -2.401, 24.952)) <= 2;
+		Event Player.A >= 950;
+	}
+
+	actions
+	{
+		Start Forcing Player To Be Hero(Event Player, First Of(Random Value In Array(Randomized Array(All Heroes))));
+		Wait(0.100, Ignore Condition);
+		disabled Kill(Event Player, Null);
+		Wait(0.100, Ignore Condition);
+		Resurrect(Event Player);
+		Event Player.A -= 750;
+		Loop If Condition Is True;
+	}
+}
+
+rule("mystery box effect")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	actions
+	{
+		Create Effect(All Players(All Teams), Ring, Color(Purple), Vector(-149.794, -2.401, 24.952), 2, Visible To Position and Radius);
+		Create In-World Text(All Players(All Teams), String("{0} {1}", String("Buy"), Custom String("Mystery box: 950 points")), Vector(
+			-149.794, -2.401, 24.952), 1, Clip Against Surfaces, Visible To Position and String, Color(Purple), Default Visibility);
+		Create Effect(All Players(All Teams), Sparkles, Color(Yellow), Vector(-149.794, -2.401, 24.952), 2,
+			Visible To Position and Radius);
+		Create Effect(All Players(All Teams), Sphere, Color(Purple), Vector(-149.794, -2.401, 24.952), 0.750,
+			Visible To Position and Radius);
+		Create Effect(All Players(All Teams), Sphere, Color(Purple), Vector(-149.794, -2.401, 24.202), 0.750,
+			Visible To Position and Radius);
+		Create Effect(All Players(All Teams), Sphere, Color(Purple), Vector(-149.794, -2.401, 25.702), 0.750,
+			Visible To Position and Radius);
+	}
+}
+
+rule("start as mccree")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	actions
+	{
+		Start Forcing Player To Be Hero(Event Player, Hero(Cassidy));
+		Abort If(Has Status(Event Player, Invincible));
+	}
+}
+
+rule("points loss for high roller")
+{
+	event
+	{
+		Player Died;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Event Player.A >= 3000;
+	}
+
+	actions
+	{
+		Event Player.A -= Event Player.A * 0.200;
+	}
+}
+
+rule("death points loss")
+{
+	event
+	{
+		Player Died;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Event Player.A >= 1000;
+	}
+
+	actions
+	{
+		Event Player.A -= 200 * Event Player.H;
+	}
+}
+
+rule("instructions")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	actions
+	{
+		Create In-World Text(All Players(All Teams), Custom String("Welcome to my gamemode: by mightydog#11543"), Vector(-26.136, 3.500,
+			0.544), 2, Clip Against Surfaces, Visible To Position and String, Color(Blue), Default Visibility);
+		Create In-World Text(All Players(All Teams), Custom String("Instructions: PRESS CROUCH + INTERACT ( ctrl+f )"), Vector(-26.136, 3,
+			0.544), 2, Clip Against Surfaces, Visible To Position and String, Color(Red), Default Visibility);
+	}
+}
+
+rule("Single player lives mechanic")
+{
+	event
+	{
+		Player Died;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Number Of Players(Team 1) == 1;
+		Event Player.singlelives < 3;
+	}
+
+	actions
+	{
+		Set Status(Event Player, Null, Knocked Down, 2);
+		Resurrect(Event Player);
+		Set Status(Event Player, Null, Invincible, 10);
+		Event Player.singlelives = Event Player.singlelives + 1;
+	}
+}
+
+rule("Melee does more damage")
+{
+	event
+	{
+		Ongoing - Each Player;
+		All;
+		All;
+	}
+
+	conditions
+	{
+		Is Button Held(Event Player, Button(Melee)) == True;
+		Hero Of(Event Player) != Hero(Cassidy);
+	}
+
+	actions
+	{
+		Wait(0.050, Ignore Condition);
+		Set Damage Dealt(Event Player, 500);
+		Allow Button(Event Player, Button(Melee));
+		Press Button(Event Player, Button(Melee));
+		Wait(0.500, Ignore Condition);
+		Set Damage Dealt(Event Player, Event Player.L);
+		Disallow Button(Event Player, Button(Melee));
+	}
+}
+
+rule("Monkey Kill Melee")
+{
+	event
+	{
+		Player Dealt Final Blow;
+		All;
+		All;
+	}
+
+	conditions
+	{
+		Is Button Held(Event Player, Button(Primary Fire)) == False;
+		Is Button Held(Event Player, Button(Secondary Fire)) == False;
+		Is Button Held(Event Player, Button(Melee)) == True;
+	}
+
+	actions
+	{
+		Event Player.A += 70 * Event Player.H;
+		Skip If(Event Player.H != 1, 1);
+		Small Message(Attacker, String("{0} + {1}", String(""), String("{0} {1}", 70, String("Points"))));
+		Skip If(Event Player.H == 1, 1);
+		Small Message(Attacker, String("{0} + {1}", String(""), String("{0} {1}", 140, String("Points"))));
+		Global.R += 140 * Event Player.H;
+	}
+}
+
+rule("Bot taunt LOLOLOLOOLOLOLOL")
+{
+	event
+	{
+		Player Earned Elimination;
+		Team 2;
+		All;
+	}
+
+	actions
+	{
+		Set Move Speed(Event Player, 0);
+		Wait(0.016, Ignore Condition);
+		Disallow Button(Event Player, Button(Jump));
+		Disallow Button(Event Player, Button(Primary Fire));
+		Start Holding Button(Event Player, Button(Crouch));
+		Wait(0.250, Ignore Condition);
+		Communicate(Event Player, Thanks);
+		Stop Holding Button(Event Player, Button(Crouch));
+		Wait(0.250, Ignore Condition);
+		Start Holding Button(Event Player, Button(Crouch));
+		Wait(0.250, Ignore Condition);
+		Stop Holding Button(Event Player, Button(Crouch));
+		Wait(0.250, Ignore Condition);
+		Start Holding Button(Event Player, Button(Crouch));
+		Wait(0.250, Ignore Condition);
+		Stop Holding Button(Event Player, Button(Crouch));
+		Wait(0.250, Ignore Condition);
+		Start Holding Button(Event Player, Button(Crouch));
+		Wait(0.250, Ignore Condition);
+		Stop Holding Button(Event Player, Button(Crouch));
+		Wait(0.250, Ignore Condition);
+		Start Holding Button(Event Player, Button(Crouch));
+		Wait(0.250, Ignore Condition);
+		Stop Holding Button(Event Player, Button(Crouch));
+		Wait(0.250, Ignore Condition);
+		Start Holding Button(Event Player, Button(Crouch));
+		Wait(0.250, Ignore Condition);
+		Stop Holding Button(Event Player, Button(Crouch));
+		Wait(0.250, Ignore Condition);
+		Start Holding Button(Event Player, Button(Crouch));
+		Wait(0.250, Ignore Condition);
+		Stop Holding Button(Event Player, Button(Crouch));
+		Wait(0.250, Ignore Condition);
+		Set Move Speed(Event Player, 100);
+		Allow Button(Event Player, Button(Primary Fire));
+		Allow Button(Event Player, Button(Jump));
+	}
+}
+
+rule("disable melee by default")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	actions
+	{
+		Disallow Button(Event Player, Button(Melee));
+	}
+}
+
+rule("Melee does more damage mccree")
+{
+	event
+	{
+		Ongoing - Each Player;
+		All;
+		All;
+	}
+
+	conditions
+	{
+		Is Button Held(Event Player, Button(Melee)) == True;
+		Hero Of(Event Player) == Hero(Cassidy);
+	}
+
+	actions
+	{
+		Wait(0.050, Ignore Condition);
+		Set Damage Dealt(Event Player, 1500);
+		Allow Button(Event Player, Button(Melee));
+		Press Button(Event Player, Button(Melee));
+		Wait(0.500, Ignore Condition);
+		Set Damage Dealt(Event Player, Event Player.L);
+		Disallow Button(Event Player, Button(Melee));
+	}
+}
+
+rule("ring around the player 2")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		Slot 1;
+	}
+
+	actions
+	{
+		Create Effect(All Players(All Teams), Light Shaft, Color(Green), Event Player, 1, Visible To Position and Radius);
+		Wait(30, Ignore Condition);
+		Destroy Effect(Last Created Entity);
+		Create Effect(All Players(All Teams), Ring, Color(Green), Event Player, 1, Visible To Position and Radius);
+	}
+}
+
+rule("ring around the player 3")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		Slot 2;
+	}
+
+	actions
+	{
+		Create Effect(All Players(All Teams), Light Shaft, Color(Orange), Event Player, 1, Visible To Position and Radius);
+		Wait(30, Ignore Condition);
+		Destroy Effect(Last Created Entity);
+		Create Effect(All Players(All Teams), Ring, Color(Orange), Event Player, 1, Visible To Position and Radius);
+	}
+}
+
+rule("ring around the player 4")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		Slot 3;
+	}
+
+	actions
+	{
+		Create Effect(All Players(All Teams), Light Shaft, Color(Turquoise), Event Player, 1, Visible To Position and Radius);
+		Wait(30, Ignore Condition);
+		Destroy Effect(Last Created Entity);
+		Create Effect(All Players(All Teams), Ring, Color(Turquoise), Event Player, 1, Visible To Position and Radius);
+	}
+}
+
+rule("ring around the player")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		Slot 0;
+	}
+
+	actions
+	{
+		Create Effect(All Players(All Teams), Light Shaft, Color(Purple), Event Player, 1, Visible To Position and Radius);
+		Wait(30, Ignore Condition);
+		Destroy Effect(Last Created Entity);
+		Create Effect(All Players(All Teams), Ring, Color(Purple), Event Player, 1, Visible To Position and Radius);
+	}
+}
+
+rule("say Hi if stuck Bots")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 2;
+		All;
+	}
+
+	conditions
+	{
+		Speed Of(Event Player) < 0.750;
+		Has Status(Event Player, Hacked) == False;
+		Distance Between(Event Player, Closest Player To(Event Player, Team 1)) > 2;
+	}
+
+	actions
+	{
+		Communicate(Event Player, Hello);
+		Wait(7, Ignore Condition);
+	}
+}
+
+rule("server 24/7 rule to restart if everyone left")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	conditions
+	{
+		Number Of Players(Team 1) == 0;
+		Number Of Players(Team 2) > 0;
+	}
+
+	actions
+	{
+		Declare Team Victory(Team 2);
+	}
+}
+
+rule("wave >1 warning")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Is Hero Being Played(Hero(Cassidy), Team 1) == Hero Of(Event Player);
+		Global.A > 1;
+	}
+
+	actions
+	{
+		Abort If(Hero Of(Event Player) != Hero(Cassidy));
+		Wait(0.250, Ignore Condition);
+		Big Message(Event Player, Custom String("WARNING: SWITCH OFF MCCREE - LOW DAMAGE CAPABILITY"));
+		Wait(30, Ignore Condition);
+		Loop If Condition Is True;
+	}
+}
+
+rule("solo play mode effect")
+{
+	event
+	{
+		Player Joined Match;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Number Of Players(Team 1) < 2;
+	}
+
+	actions
+	{
+		Wait(15, Ignore Condition);
+		Abort If Condition Is False;
+		Big Message(All Players(All Teams), Custom String("SOLO MODE: YOU NOW HAVE 3 LIVES TOTAL"));
+	}
+}
+
+rule("player joined invincible")
+{
+	event
+	{
+		Player Joined Match;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Has Spawned(Event Player) == True;
+	}
+
+	actions
+	{
+		Set Status(Event Player, Null, Invincible, 30);
+	}
+}
+
+rule("healer points")
+{
+	event
+	{
+		Player Received Healing;
+		All;
+		All;
+	}
+
+	actions
+	{
+		Abort If Condition Is False;
+		Healer.A += 10 * Healer.H;
+		Wait(0.200, Ignore Condition);
+	}
+}
+
+rule("sky effect")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	actions
+	{
+		Create Effect(All Players(All Teams), Sphere, Color(Red), Vector(0, 0, 0), 200, Visible To Position and Radius);
+	}
+}
+
+rule("round won sound effect")
+{
+	event
+	{
+		Ongoing - Each Player;
+		All;
+		All;
+	}
+
+	conditions
+	{
+		Global.Z <= 0;
+	}
+
+	actions
+	{
+		Play Effect(All Players(All Teams), Ring Explosion Sound, Color(White), Event Player, 100);
+	}
+}
+
+rule("show single player lives effect")
+{
+	event
+	{
+		Player Joined Match;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Number Of Players(Team 1) < 2;
+	}
+
+	actions
+	{
+		Wait(5, Ignore Condition);
+		Abort If Condition Is False;
+		Create HUD Text(All Players(All Teams), Event Player.singlelives, Null, Null, Right, 2, Color(Green), Color(Green), Color(Green),
+			Visible To and String, Default Visibility);
+	}
+}
+
+rule("MCCREE")
+{
+	event
+	{
+		Player Dealt Damage;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Hero Of(Attacker) == Hero(Cassidy);
+		Attacker.Pack == 1;
+		Is Button Held(Event Player, Button(Primary Fire)) == True;
+	}
+
+	actions
+	{
+		Damage(Players Within Radius(Victim, 3, Team 2, Off), Null, 420);
+		Play Effect(All Players(All Teams), Good Explosion, Color(White), Victim, 3);
+	}
+}
+
+rule("MCCREE points")
+{
+	event
+	{
+		Player Earned Elimination;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Hero Of(Attacker) == Hero(Cassidy);
+		Event Player.Pack == 1;
+		Is Button Held(Event Player, Button(Primary Fire)) == True;
+	}
+
+	actions
+	{
+		Attacker.A += 50 * Event Player.H;
+	}
+}
+
+rule("mei flamethrower idea")
+{
+	event
+	{
+		Player Dealt Damage;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Hero Of(Event Player) == Hero(Mei);
+		Attacker.Pack == 0;
+	}
+
+	actions
+	{
+		Set Status(Victim, Null, Burning, 8);
+		Start Damage Over Time(Victim, Null, 8, Max Health(Victim) * 0.050);
+		Wait(0.250, Ignore Condition);
+		Attacker.A += 10 * Event Player.H;
+	}
+}
+
+rule("mei points")
+{
+	event
+	{
+		Player Earned Elimination;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Hero Of(Event Player) == Hero(Mei);
+	}
+
+	actions
+	{
+		Attacker.A += 50 * Event Player.H;
+	}
+}
+
+rule("mei flamethrower idea With PAP")
+{
+	event
+	{
+		Player Dealt Damage;
+		All;
+		All;
+	}
+
+	conditions
+	{
+		Hero Of(Event Player) == Hero(Mei);
+		Attacker.Pack == 1;
+	}
+
+	actions
+	{
+		Set Status(Victim, Null, Burning, 10);
+		Start Damage Over Time(Victim, Null, 10, Max Health(Victim) * 0.100);
+		Wait(0.250, Ignore Condition);
+		Attacker.A += 10 * Event Player.H;
+	}
+}
+
+rule("Headshot maniac Perk add damage")
+{
+	event
+	{
+		Player Dealt Damage;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Event Player.Maniac == 1;
+		Event Was Critical Hit == True;
+		Event Player.L < 391;
+	}
+
+	actions
+	{
+		Event Player.L += 10;
+		Set Damage Dealt(Event Player, Event Player.L);
+	}
+}
+
+rule("headshot maniac Perk remove damage")
+{
+	event
+	{
+		Player Dealt Damage;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Event Was Critical Hit == False;
+		Event Player.L >= 55;
+		Event Player.Maniac == 1;
+	}
+
+	actions
+	{
+		Event Player.L -= 2.500;
+		Set Damage Dealt(Event Player, Event Player.L);
+	}
+}
+
+rule("soldier 76 explosive rounds")
+{
+	event
+	{
+		Player Dealt Damage;
+		Team 1;
+		Soldier: 76;
+	}
+
+	conditions
+	{
+		Is Using Ultimate(Event Player) == Hero(Soldier: 76);
+	}
+
+	actions
+	{
+		Damage(Players Within Radius(Victim, 5, Team 2, Off), Null, 20);
+		Play Effect(All Players(All Teams), Good Explosion, Color(Blue), Victim, 5);
+	}
+}
+
+rule("Rule 198")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	actions
+	{
+		Event Player.HEADSH = 1;
+	}
+}
+
+rule("Purchase headshot maniac upgrade")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Vector(-38.370, 0.523, -34.687)) < 4;
+		Is Button Held(Event Player, Button(Interact)) == True;
+		Event Player.A >= 4000;
+		Global.N == 1;
+	}
+
+	actions
+	{
+		Event Player.Pack = 0;
+		Event Player.A -= 4000;
+		Clear Status(Event Player, Burning);
+		Event Player.L = 200;
+		Wait(0.100, Ignore Condition);
+		Communicate(Event Player, Emote Up);
+		Event Player.Maniac = 1;
+		Wait(0.050, Ignore Condition);
+		Set Move Speed(Event Player, 0);
+		Wait(2, Ignore Condition);
+		Set Move Speed(Event Player, 100);
+	}
+}
+
+rule("multiplayer lives Perk")
+{
+	event
+	{
+		Player Died;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Event Player.revived == 1;
+	}
+
+	actions
+	{
+		Set Status(Event Player, Null, Knocked Down, 2);
+		Resurrect(Event Player);
+		Set Status(Event Player, Null, Invincible, 10);
+		Event Player.revived = 0;
+	}
+}
+
+rule("buy revive multiplayer")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Distance Between(Event Player, Vector(4.434, 0.522, 14.392)) < 4;
+		Is Button Held(Event Player, Button(Interact)) == True;
+		Event Player.A >= 1000;
+		Global.N == 1;
+		Event Player.revivebought == 0;
+		Number Of Players(Team 1) > 1;
+	}
+
+	actions
+	{
+		Event Player.A -= 1000;
+		Event Player.revived = 1;
+		Wait(0.100, Ignore Condition);
+		Communicate(Event Player, Emote Up);
+		Event Player.revivebought = 1;
+		Wait(0.050, Ignore Condition);
+		Set Move Speed(Event Player, 0);
+		Wait(2, Ignore Condition);
+		Set Move Speed(Event Player, 100);
+	}
+}
+
+rule("player died with maniac")
+{
+	event
+	{
+		Player Died;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Event Player.Maniac == 1;
+	}
+
+	actions
+	{
+		Global.Died[Slot Of(Event Player)] = Nearest Walkable Position(Event Player);
+		Big Message(All Players(All Teams), String("{0} {1}", Event Player, String("{0}!", String("Down"))));
+		Global.E[Slot Of(Event Player)] = True;
+		Set Max Health(Event Player, 100);
+		Event Player.Jugg = 0;
+		Event Player.K = 50;
+		Event Player.Maniac = 0;
+		Set Damage Dealt(Event Player, 100);
+		Event Player.L = 100;
+		Event Player.M = 100;
+		Set Healing Dealt(Event Player, 100);
+	}
+}
+
+rule("player died without maniac")
+{
+	event
+	{
+		Player Died;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Event Player.Maniac == 0;
+	}
+
+	actions
+	{
+		Global.Died[Slot Of(Event Player)] = Nearest Walkable Position(Event Player);
+		Big Message(All Players(All Teams), String("{0} {1}", Event Player, String("{0}!", String("Down"))));
+		Global.E[Slot Of(Event Player)] = True;
+		Set Max Health(Event Player, 100);
+		Event Player.Jugg = 0;
+		Event Player.K = 50;
+		Event Player.M = 100;
+		Set Healing Dealt(Event Player, 100);
+	}
+}
+
+rule("Bots crouch")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 2;
+		All;
+	}
+
+	conditions
+	{
+		Global.O == False;
+	}
+
+	actions
+	{
+		Wait(10, Ignore Condition);
+		Start Holding Button(Event Player, Button(Crouch));
+		Wait(0.400, Ignore Condition);
+		Stop Holding Button(Event Player, Button(Crouch));
+		Loop;
+	}
+}
+
+rule("Died Low points Bonus")
+{
+	event
+	{
+		Player Died;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Event Player.A < 1500;
+		Global.A > 5;
+	}
+
+	actions
+	{
+		Event Player.A = 1500;
+	}
+}
+
+rule("lucio knockback")
+{
+	event
+	{
+		Player Dealt Damage;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Is Button Held(Event Player, Button(Secondary Fire)) == True;
+		Hero Of(Attacker) == Hero(Lúcio);
+		Event Player.Pack == 1;
+	}
+
+	actions
+	{
+		Set Status(Victim, Null, Knocked Down, 4);
+	}
+}
+
+rule("rien max")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 2;
+		Reinhardt;
+	}
+}
+
+rule("power challenge effects")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	conditions
+	{
+		Global.N == 1;
+		Global.A < 15;
+	}
+
+	actions
+	{
+		Set Ultimate Charge(Players On Hero(Hero(Brigitte), Team 2), 100);
+	}
+}
+
+rule("torb use ability")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 2;
+		Torbjörn;
+	}
+
+	conditions
+	{
+		Is Moving(Event Player) == True;
+		Global.N == 1;
+		Global.A < 15;
+	}
+
+	actions
+	{
+		Press Button(Event Player, Button(Ability 2));
+		Wait(5, Ignore Condition);
+		Loop;
+	}
+}
+
+rule("l")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Is Button Held(Event Player, Button(Interact)) == True;
+		Is Button Held(Event Player, Button(Crouch)) == True;
+		Event Player.UI == 1;
+	}
+
+	actions
+	{
+		Skip If(Count Of(Event Player.InfoUI) == 0, 6);
+		Destroy HUD Text(Event Player.InfoUI[Count Of(Event Player.InfoUI) - 1]);
+		Modify Player Variable(Event Player, InfoUI, Remove From Array By Index, Count Of(Event Player.InfoUI) - 1);
+		Wait(0, Ignore Condition);
+		Loop If(Count Of(Event Player.InfoUI) != 0);
+		Event Player.InfoCooldown = Total Time Elapsed + 5;
+		Event Player.UI = 0;
+		Abort;
+	}
+}
+
+rule("Info UI")
+{
+	event
+	{
+		Ongoing - Each Player;
+		All;
+		All;
+	}
+
+	conditions
+	{
+		Is Button Held(Event Player, Button(Interact)) == True;
+		Is Button Held(Event Player, Button(Crouch)) == True;
+		Event Player.UI == 0;
+	}
+
+	actions
+	{
+		disabled Create HUD Text(Event Player, Null, Null, Custom String("."), Left, 1, Color(White), Color(White), Color(White),
+			Visible To and String, Default Visibility);
+		disabled Modify Player Variable(Event Player, InfoUI, Append To Array, Last Text ID);
+		disabled Wait(0.016, Ignore Condition);
+		disabled Create HUD Text(Event Player, Null, Null, Custom String("."), Left, 1, Color(White), Color(White), Color(White),
+			Visible To and String, Default Visibility);
+		disabled Modify Player Variable(Event Player, InfoUI, Append To Array, Last Text ID);
+		disabled Wait(0.016, Ignore Condition);
+		Create HUD Text(Event Player, Null, Custom String("You Will only get your ultimate Once per wave, use it wisely!"), Null, Left, 15,
+			Color(White), Color(White), Color(White), Visible To and String, Default Visibility);
+		Modify Player Variable(Event Player, InfoUI, Append To Array, Last Text ID);
+		Wait(0.016, Ignore Condition);
+		Create HUD Text(Event Player, Null, Custom String("You can find the latest version on Workshop.codes made by mightydog"), Null,
+			Left, 102, Color(White), Color(White), Color(White), Visible To and String, Default Visibility);
+		Modify Player Variable(Event Player, InfoUI, Append To Array, Last Text ID);
+		Wait(0.016, Ignore Condition);
+		Create HUD Text(Event Player, Null, Custom String("Zombies remastered workshop code:5TH8B - 3/11/2020"), Null, Left, 101, Color(
+			White), Color(White), Color(White), Visible To and String, Default Visibility);
+		Modify Player Variable(Event Player, InfoUI, Append To Array, Last Text ID);
+		Wait(0.016, Ignore Condition);
+		Create HUD Text(Event Player, Null, Null, Custom String("{0} Workshop Information:", Icon String(Heart)), Left, 100, Color(White),
+			Color(White), Color(Red), Visible To and String, Default Visibility);
+		Modify Player Variable(Event Player, InfoUI, Append To Array, Last Text ID);
+		Wait(0.016, Ignore Condition);
+		Create HUD Text(Event Player, Null, Custom String("Body shots do 50 points, headshots 100, melee 130 and 10 per shot landed"),
+			Null, Left, 33, Color(White), Color(White), Color(White), Visible To and String, Default Visibility);
+		Modify Player Variable(Event Player, InfoUI, Append To Array, Last Text ID);
+		Wait(0.016, Ignore Condition);
+		Create HUD Text(Event Player, Null, Custom String(
+			"If you die, you will lose 200 points if you have over 1000 points or lose 20% if you have over 3000 points"), Null, Left, 32,
+			Color(White), Color(White), Color(White), Visible To and String, Default Visibility);
+		Modify Player Variable(Event Player, InfoUI, Append To Array, Last Text ID);
+		Wait(0.016, Ignore Condition);
+		Create HUD Text(Event Player, Null, Custom String(
+			"Score will be in the top left and prices for everything will be displayed in game just press F to buy"), Null, Left, 31,
+			Color(White), Color(Green), Color(White), Visible To and String, Default Visibility);
+		Modify Player Variable(Event Player, InfoUI, Append To Array, Last Text ID);
+		Wait(0.016, Ignore Condition);
+		Create HUD Text(Event Player, Null, Null, Custom String("{0}How points work:", Icon String(Diamond)), Left, 30, Color(White),
+			Color(White), Color(Red), Visible To and String, Default Visibility);
+		Modify Player Variable(Event Player, InfoUI, Append To Array, Last Text ID);
+		Wait(0.016, Ignore Condition);
+		Create HUD Text(Event Player, Null, Custom String("Connecting the power allows you to buy perks (5 total) and see your stats"),
+			Null, Left, 22, Color(White), Color(White), Color(White), Visible To and String, Default Visibility);
+		Modify Player Variable(Event Player, InfoUI, Append To Array, Last Text ID);
+		Wait(0.016, Ignore Condition);
+		Create HUD Text(Event Player, Null, Custom String(
+			"When you find and connect the power make sure no zombies are around as they will ultimate"), Null, Left, 21, Color(White),
+			Color(White), Color(White), Visible To and String, Default Visibility);
+		Modify Player Variable(Event Player, InfoUI, Append To Array, Last Text ID);
+		Wait(0.016, Ignore Condition);
+		Create HUD Text(Event Player, Null, Null, Custom String("{0}Connect the power", Icon String(Bolt)), Left, 20, Color(White), Color(
+			White), Color(Red), Visible To and String, Default Visibility);
+		Modify Player Variable(Event Player, InfoUI, Append To Array, Last Text ID);
+		Wait(0.016, Ignore Condition);
+		Create HUD Text(Event Player, Null, Custom String(
+			" in the map there is a Trap, a mystery box, 5 perks, but you lose them if you die, excluding Pack a punch"), Null, Left, 13,
+			Color(White), Color(White), Color(White), Visible To and String, Default Visibility);
+		Modify Player Variable(Event Player, InfoUI, Append To Array, Last Text ID);
+		Wait(0.016, Ignore Condition);
+		Create HUD Text(Event Player, Null, Custom String(
+			"Try to progress and survive by switching heros, mccree does less damage, and melee does 500% damage"), Null, Left, 12, Color(
+			White), Color(White), Color(White), Visible To and String, Default Visibility);
+		Modify Player Variable(Event Player, InfoUI, Append To Array, Last Text ID);
+		Wait(0.016, Ignore Condition);
+		Create HUD Text(Event Player, Null, Custom String(
+			" there will be 3 kinds of zombies: briggette, torb and reinheart. every 5 waves they use their ultimates"), Null, Left, 11,
+			Color(White), Color(White), Color(White), Visible To and String, Default Visibility);
+		Modify Player Variable(Event Player, InfoUI, Append To Array, Last Text ID);
+		Wait(0.016, Ignore Condition);
+		Create HUD Text(Event Player, Null, Null, Custom String("{0} How This mode works:", Icon String(Checkmark)), Left, 10, Color(
+			White), Color(White), Color(Red), Visible To and String, Default Visibility);
+		Modify Player Variable(Event Player, InfoUI, Append To Array, Last Text ID);
+		Wait(0.016, Ignore Condition);
+		Create HUD Text(Event Player, Null, Custom String(
+			"In solo play, you get 3 lives, however in multiplayer you can buy only 1 extra life."), Null, Left, 14, Color(White), Color(
+			White), Color(White), Visible To and String, Default Visibility);
+		Modify Player Variable(Event Player, InfoUI, Append To Array, Last Text ID);
+		Wait(0.016, Ignore Condition);
+		disabled Create HUD Text(Event Player, Null, Null, Custom String("."), Left, 2, Color(White), Color(White), Color(Orange),
+			Visible To and String, Default Visibility);
+		disabled Modify Player Variable(Event Player, InfoUI, Append To Array, Last Text ID);
+		Create HUD Text(Event Player, Null, Custom String(
+			"                                                    |   Press  Interact + Crouch  to hide this menu   |"), Null, Left, 900,
+			Color(White), Color(White), Color(White), Visible To and String, Default Visibility);
+		Modify Player Variable(Event Player, InfoUI, Append To Array, Last Text ID);
+		Event Player.InfoCooldown = Total Time Elapsed + 0.160;
+		Event Player.HideHints = True;
+		Event Player.UI = 1;
+	}
+}
+
+rule("set frozen from winston")
+{
+	event
+	{
+		Player Dealt Damage;
+		All;
+		Winston;
+	}
+
+	conditions
+	{
+		Is Using Ultimate(Event Player) != True;
+	}
+
+	actions
+	{
+		Set Status(Victim, Null, Frozen, 2);
+	}
+}
+
+rule("freeze nearby people")
+{
+	event
+	{
+		Ongoing - Each Player;
+		All;
+		All;
+	}
+
+	conditions
+	{
+		Has Status(Event Player, Frozen) == True;
+	}
+
+	actions
+	{
+		Wait(0.250, Ignore Condition);
+		Set Status(Players Within Radius(Event Player, 6, Team 2, Off), Null, Frozen, 2);
+	}
+}
+
+rule("winston only has 1 shot")
+{
+	event
+	{
+		Ongoing - Each Player;
+		All;
+		Winston;
+	}
+
+	conditions
+	{
+		Is Firing Primary(Event Player) == True;
+		Is Using Ultimate(Event Player) != True;
+	}
+
+	actions
+	{
+		Press Button(Event Player, Button(Reload));
+	}
+}
+
+rule("instant kill winston")
+{
+	event
+	{
+		Ongoing - Each Player;
+		Team 2;
+		All;
+	}
+
+	conditions
+	{
+		Has Status(Event Player, Frozen) == True;
+	}
+
+	actions
+	{
+		Wait(0.250, Ignore Condition);
+		Kill(Event Player, Null);
+	}
+}
+
+rule("Winston points")
+{
+	event
+	{
+		Player Earned Elimination;
+		Team 1;
+		All;
+	}
+
+	conditions
+	{
+		Hero Of(Attacker) == Hero(Winston);
+	}
+
+	actions
+	{
+		Attacker.A += 50 * Event Player.H;
+	}
+}

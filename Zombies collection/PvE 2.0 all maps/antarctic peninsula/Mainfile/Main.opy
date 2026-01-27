@@ -1,0 +1,262 @@
+#Global variables
+#!define roundnumber extraVar[0]
+#!define numberOfZombies extraVar[1]
+#!define Difficulty extraVar[2]
+#!define start extraVar[3]
+#!define g extraVar[4]
+#!define teleporterwait extraVar[5]
+#!define startlines extraVar[6]
+#!define walljumpers extraVar[7]
+#!define zombjump extraVar[8]
+#!define zombstrafe extraVar[9]
+#!define zombspeed extraVar[10]
+#!define dispencerposition extraVar[11]
+#!define telespot extraVar[12]
+#!define lesszomb extraVar[13]
+#!define experiencesystem extraVar[14]
+#!define idlebots extraVar[15]
+#!define dispencerplaced extraVar[16]
+#!define trapeffect extraVar[17]
+#!define boxcounter extraVar[18]
+#!define boxcounter2 extraVar[19]
+#!define challengewave extraVar[20]
+#!define chwaveinterval extraVar[21]
+#!define aprilrng extraVar[22]
+#!define spawntype extraVar[23]
+#!define Bosssequencer extraVar[25]
+#!define outofpsawn extraVar[26]
+#!define romanNcounter extraVar[27]
+#!define appenddoorsequencer extraVar[28]
+#!define svrLdThreshold extraVar[30]
+#!define svrSlwThreshold extraVar[31]
+#!define CameraDistanceFactor extraVar[32]
+#!define botamount extraVar[33]
+#!define doorLoopIndex extraVar[34]
+#!define looping extraVar[35]
+#!define ramPoints extraVar[36]
+#!define bankTier extraVar[37]
+#!define bankPoints extraVar[38]
+#!define doorZoneStart extraVar[39]
+#!define doorZoneEnd extraVar[40]
+#!define teleporterused extraVar[41]
+#!define indx extraVar[42]
+#!define poweron extraVar[43]
+#!define powerconnected extraVar[44]
+#!define doors extraVar[45]
+#!define impulseDoorArray extraVar[46]
+#!define omnicspawn extraVar[47]
+#!define teleportercolor extraVar[48]
+#!define firstpos extraVar[49]
+#!define secondpos extraVar[50]
+#!define firstpoint2 extraVar[56]
+#!define secondpoint2 extraVar[57]
+#!define AllDir extraVar[58]
+#!define AllPos extraVar[59]
+#!define rngCamera extraVar[60]
+#!define cutscene extraVar[61]
+#!define text_shown extraVar[62]
+#!define costmultiplier extraVar[63]
+#!define doormade extraVar[64]
+#!define roundpointmultiplier extraVar[65]
+
+globalvar Died 18
+globalvar Vectordoorpositions 21
+globalvar hero 36
+globalvar bankCosts 37
+globalvar bankRates 38
+globalvar creditCosts 39
+globalvar ccRates 40
+globalvar creditLimits 41
+globalvar cashbackRates 42
+globalvar buyheros 43
+globalvar buyperks 44
+globalvar doorradius 46
+globalvar mysterylocations 47
+globalvar rngbox 48
+globalvar ccCurrentRate 49
+globalvar rngbox2 50
+globalvar ccInterest 51
+globalvar Mysterylocations2 52
+globalvar bossSpawn 54
+globalvar bot1spawn 55
+globalvar bot2spawn 56
+globalvar setspawn 60
+globalvar aprilquotes 61
+globalvar perkcosts 62
+globalvar perkmessages 63
+globalvar Beameffectdoors 65
+globalvar heroradius 71
+globalvar diedradius 72
+globalvar tipstrings 73
+globalvar bossbuypositions 74
+globalvar herobuyrandomized 75
+globalvar perkbuyrandomized 76
+globalvar romanN 78
+globalvar forindex 82
+globalvar forindex2 83
+globalvar zzz 84
+globalvar diedphrase 85
+globalvar diedtext 86
+globalvar noammostrings 87
+globalvar i 95
+globalvar Dialogue_Text 96
+globalvar Character_Nr 97
+globalvar second 106
+globalvar z 107
+globalvar Wall_ID 108
+globalvar g_beamType 109
+globalvar is_Grounded 110
+globalvar teleradiusef 111
+globalvar indexofbosseffect 113
+globalvar extraVar 115
+globalvar herobuymessages 116
+globalvar doorParams 118
+globalvar doorVectors 119
+globalvar herobuycosts 122
+globalvar dooreffectsequencer 123
+globalvar teleporterpositions 124
+globalvar followerbuyMsg 125
+globalvar doorindexsequencer 126
+globalvar hudappend 127
+
+
+#Player variables
+
+#!define doublemag extraPlayerVar[1]
+#!define sprintburstperk extraPlayerVar[2]
+#!define healthmax extraPlayerVar[3]
+#!define damagevariable extraPlayerVar[4]
+#!define healvariable extraPlayerVar[5]
+#!define InfoCooldown extraPlayerVar[6]
+#!define botTarget extraPlayerVar[7]
+#!define HideHints extraPlayerVar[8]
+#!define XPlevel extraPlayerVar[9]
+#!define Jugg extraPlayerVar[10]
+#!define singlelives extraPlayerVar[11]
+#!define Packapunch extraPlayerVar[12]
+#!define Maniac extraPlayerVar[13]
+#!define revived extraPlayerVar[14]
+#!define revivebought extraPlayerVar[15]
+#!define heroBuyMessTimer extraPlayerVar[16]
+#!define cameratoggle extraPlayerVar[17]
+#!define ToggleEdit extraPlayerVar[18]
+#!define doorNotif extraPlayerVar[19]
+#!define creditTier extraPlayerVar[20]
+#!define depNotif extraPlayerVar[21]
+#!define withdrawNotif extraPlayerVar[22]
+#!define papTier extraPlayerVar[23]
+#!define papDamageTier extraPlayerVar[24]
+#!define heroBuyIndex extraPlayerVar[25]
+#!define herocost extraPlayerVar[26]
+#!define herobuycost extraPlayerVar[27]
+#!define creditcardlimit extraPlayerVar[28]
+#!define cashback extraPlayerVar[29]
+#!define botspawned extraPlayerVar[30]
+
+playervar points 0
+playervar magazines 3
+playervar InfoUI 13
+playervar UI 33
+playervar idlebot 36
+playervar healovertime 38
+playervar xp 39
+playervar Movement 40
+playervar Head_HP 41
+playervar Part 42
+playervar Part2 43
+playervar Speed 44
+playervar doorimpulse 45
+playervar dispencereffect 46
+playervar xparray 47
+playervar herohp 49
+playervar currentheroxp 51
+playervar doormessage 52
+playervar currentdoor 53
+playervar Major_Attacks 55
+playervar currentdoorIndex 56
+playervar do 57
+playervar doorresponse 58
+playervar heroswap 59
+playervar currentswap 60
+playervar perkinfo 61
+playervar Perkui 62
+playervar currentmagazines 63
+playervar currentultcharge 64
+playervar ultcharge 65
+playervar heroiconswap 66
+playervar abilitycooldown 67
+playervar followerbuy 68
+playervar swapvar 69
+playervar filterpos 70
+playervar lastsavedpos 71
+playervar closestbodypos 72
+playervar fullbodypos 73
+playervar prevpos_intersection 74
+playervar active_wall 75
+playervar closestwall 76
+playervar x_ 77
+playervar intersection_length 78
+playervar thickness 79
+playervar emotebox 80
+playervar swap 81
+playervar heropoints 82
+playervar extraPlayerVar 83
+playervar points2 84
+playervar allowedheroes 85
+playervar cameravar1 86
+playervar cameravar2 87
+playervar Noclip 88
+playervar idx 89
+playervar perk 90
+playervar perkicon 91
+playervar perkcolor 92
+
+
+#Subroutine names
+
+subroutine herobuy1250 0
+subroutine herobuy1750 2
+subroutine doorimpulse 3
+subroutine wavespawn 4
+subroutine followerattack1 5
+subroutine followerattack2 6
+subroutine perkbuyanimation 7
+subroutine followerbuy 8
+subroutine heroswap 9
+subroutine PaPsound 10
+subroutine ParseNumber 11
+subroutine DecompressString 12
+subroutine totalrandomspawn 13
+subroutine wavevoicecall 14
+subroutine setbotamount 15
+subroutine getoutofspawn 16
+subroutine packapunchbuy 17
+subroutine zone1 18
+subroutine zone2 19
+subroutine zone3 20
+subroutine makedoors 21
+
+
+#Activated extensions
+
+#!extension beamEffects
+#!extension buffStatusEffects
+#!extension debuffStatusEffects
+#!extension energyExplosionEffects
+#!extension kineticExplosionEffects
+#!extension explosionSounds
+#!extension playMoreEffects
+#!extension spawnMoreDummyBots
+#!extension projectiles
+
+#Import files
+
+#!include "../../== corelogic all maps/bot logic/"
+#!include "../../== corelogic all maps/general main/"
+#!include "../../== corelogic all maps/player main/"
+#!include "../../== corelogic all maps/tooling/"
+#!include "../../== effects all maps/"
+#!include "../bosses/"
+#!include "../core logic antarctic P/"
+#!include "../effects/"
+#!include "../story/"
