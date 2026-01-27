@@ -91,12 +91,20 @@ rule "18 Get out of Spawn":
     @Event eachPlayer
     @Team 1
     #need to make sure this doesnt conflict with soft restart
+<<<<<<< HEAD
     #@Condition eventPlayer.isInSpawnRoom() == true
+=======
+    @Condition eventPlayer.isInSpawnRoom() == true
+>>>>>>> origin/main
     @Condition outofpsawn == 1
     
     wait(1)
     getoutofspawn()
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/main
 rule "80 player died without maniac":
     @Event playerDied
     @Team 1
@@ -247,14 +255,32 @@ rule "245 Rule 388 tank sheild":
         eventPlayer.removeAllHealthPools()
 
 
+<<<<<<< HEAD
 rule "393 POINTS Omnic kill (final hit)":
+=======
+<<<<<<< HEAD
+rule "393 POINTS Omnic kill (final hit (could probably make this one rule))":
+=======
+rule "393 POINTS Omnic kill (final hit)":
+>>>>>>> e5aeb79 (Sync local changes)
+>>>>>>> origin/main
     @Event playerDealtFinalBlow
     @Team 1
     
     if eventPlayer.isMeleeing() == false:
         if eventWasCriticalHit == false:
+<<<<<<< HEAD
             eventPlayer.points += (50 + eventPlayer.heropoints * eventPlayer.H) * roundpointmultiplier ** (roundnumber - 1)
             ramPoints += (50 + eventPlayer.heropoints * eventPlayer.H) * roundpointmultiplier ** (roundnumber - 1)
+=======
+<<<<<<< HEAD
+            eventPlayer.points += 50 + eventPlayer.heropoints * eventPlayer.H
+            ramPoints +=50 + eventPlayer.heropoints * eventPlayer.H
+=======
+            eventPlayer.points += (50 + eventPlayer.heropoints * eventPlayer.H) * roundpointmultiplier ** (roundnumber - 1)
+            ramPoints += (50 + eventPlayer.heropoints * eventPlayer.H) * roundpointmultiplier ** (roundnumber - 1)
+>>>>>>> e5aeb79 (Sync local changes)
+>>>>>>> origin/main
             chaseAtRate(eventPlayer.points2, (evalOnce(eventPlayer.points) + 0) * eventPlayer.H, 1000)
             if eventPlayer.H != 1:
                 goto lbl_0
@@ -265,8 +291,18 @@ rule "393 POINTS Omnic kill (final hit)":
             lbl_1:
             eventPlayer.xp[eventPlayer.currentheroxp] += 5
         elif eventWasCriticalHit == true:
+<<<<<<< HEAD
             eventPlayer.points += (100 + eventPlayer.heropoints * eventPlayer.H) * roundpointmultiplier ** (roundnumber - 1)
             ramPoints += (100 + eventPlayer.heropoints * eventPlayer.H) * roundpointmultiplier ** (roundnumber - 1)
+=======
+<<<<<<< HEAD
+            eventPlayer.points += 100 + eventPlayer.heropoints * eventPlayer.H
+            ramPoints +=100 + eventPlayer.heropoints * eventPlayer.H
+=======
+            eventPlayer.points += (100 + eventPlayer.heropoints * eventPlayer.H) * roundpointmultiplier ** (roundnumber - 1)
+            ramPoints += (100 + eventPlayer.heropoints * eventPlayer.H) * roundpointmultiplier ** (roundnumber - 1)
+>>>>>>> e5aeb79 (Sync local changes)
+>>>>>>> origin/main
             chaseAtRate(eventPlayer.points2, (evalOnce(eventPlayer.points) + 0) * eventPlayer.H, 1000)
             if eventPlayer.H != 1:
                 goto lbl_2
@@ -277,23 +313,88 @@ rule "393 POINTS Omnic kill (final hit)":
             lbl_3:
             eventPlayer.xp[eventPlayer.currentheroxp] += 10
     elif eventPlayer.isMeleeing() == true:
+<<<<<<< HEAD
         eventPlayer.points += (60 + eventPlayer.heropoints * eventPlayer.H) * roundpointmultiplier ** (roundnumber - 1)
         ramPoints += (60 + eventPlayer.heropoints * eventPlayer.H) * roundpointmultiplier ** (roundnumber - 1)
+=======
+<<<<<<< HEAD
+        eventPlayer.points += 130 + eventPlayer.heropoints * eventPlayer.H
+        ramPoints +=130 + eventPlayer.heropoints * eventPlayer.H
+=======
+        eventPlayer.points += (60 + eventPlayer.heropoints * eventPlayer.H) * roundpointmultiplier ** (roundnumber - 1)
+        ramPoints += (60 + eventPlayer.heropoints * eventPlayer.H) * roundpointmultiplier ** (roundnumber - 1)
+>>>>>>> e5aeb79 (Sync local changes)
+>>>>>>> origin/main
         chaseAtRate(eventPlayer.points2, (evalOnce(eventPlayer.points) + 0) * eventPlayer.H, 250)
         if eventPlayer.H != 1:
             goto lbl_4
         if eventPlayer.H == 1:
             goto lbl_5
         lbl_4:
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+        R += 260 * eventPlayer.H
+        lbl_5:
+        eventPlayer.xp[eventPlayer.currentheroxp] += 15
+=======
+>>>>>>> origin/main
         R += 120 * eventPlayer.H
         lbl_5:
         eventPlayer.xp[eventPlayer.currentheroxp] += 6
     eventPlayer.setUltCharge(eventPlayer.getUltCharge() + 2)
+<<<<<<< HEAD
+=======
+>>>>>>> e5aeb79 (Sync local changes)
+>>>>>>> origin/main
 
 
 rule "396 POINTS Omnic kill (elimination)":
     @Event playerEarnedElimination
     @Team 1
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+    @Condition eventWasCriticalHit == false
+    @Condition eventPlayer.isMeleeing() == false
+    
+    if eventWasCriticalHit == false:
+        if eventPlayer.getHero() in getDamageHeroes() == true:
+            eventPlayer.heropoints = 15
+        elif eventPlayer.getHero() in getSupportHeroes() == true:
+            eventPlayer.heropoints = 5
+        elif eventPlayer.getHero() in getTankHeroes() == true:
+            eventPlayer.heropoints = 10
+        eventPlayer.points += 40 + eventPlayer.heropoints * eventPlayer.H
+        ramPoints +=80 + eventPlayer.heropoints * eventPlayer.H
+        if eventPlayer.H != 1:
+            goto lbl_0
+        if eventPlayer.H == 1:
+            goto lbl_1
+        lbl_0:
+        R += 80 * eventPlayer.H
+        lbl_1:
+        eventPlayer.xp[eventPlayer.currentheroxp] += 5
+    elif eventWasCriticalHit == true:
+        if eventPlayer.getHero() in getDamageHeroes() == true:
+            eventPlayer.heropoints = 30
+        elif eventPlayer.getHero() in getSupportHeroes() == true:
+            eventPlayer.heropoints = 10
+        elif eventPlayer.getHero() in getTankHeroes() == true:
+            eventPlayer.heropoints = 20
+        eventPlayer.points += 80 + eventPlayer.heropoints * eventPlayer.H
+        ramPoints +=80 + eventPlayer.heropoints * eventPlayer.H
+        if eventPlayer.H != 1:
+            goto lbl_2
+        if eventPlayer.H == 1:
+            goto lbl_3
+        lbl_2:
+        R += 160 * eventPlayer.H
+        lbl_3:
+        eventPlayer.xp[eventPlayer.currentheroxp] += 10
+
+=======
+>>>>>>> origin/main
 
     if eventPlayer.isMeleeing() == false:
         if eventWasCriticalHit == false:
@@ -349,6 +450,10 @@ rule "396 POINTS Omnic kill (elimination)":
         lbl_5:
         eventPlayer.xp[eventPlayer.currentheroxp] += 7
     eventPlayer.setUltCharge(eventPlayer.getUltCharge() + 2)
+<<<<<<< HEAD
+=======
+>>>>>>> e5aeb79 (Sync local changes)
+>>>>>>> origin/main
 
 rule "Set starting heros (hero needs to be a variable, and also need to set up a way to go through hero selection twice)":
     @Event eachPlayer
@@ -533,6 +638,11 @@ rule "35 Player Respawn, Move Revive Effect":
     
     #might want to delete downed effect instead of move
     Died[eventPlayer.getSlot()] = vect(500, 0, 500)
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> origin/main
 
 rule "died Camera":
     @Event playerDied
@@ -541,3 +651,7 @@ rule "died Camera":
     eventPlayer.startCamera(vect(evalOnce(random.randint(-3, 4)), 0, evalOnce(random.randint(-3, 4))) + eventPlayer.getEyePosition(), eventPlayer.getEyePosition())
     wait(1.5)
     eventPlayer.stopCamera()
+<<<<<<< HEAD
+=======
+>>>>>>> e5aeb79 (Sync local changes)
+>>>>>>> origin/main

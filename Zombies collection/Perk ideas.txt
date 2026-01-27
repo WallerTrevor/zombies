@@ -45,6 +45,7 @@ Reversal - Reflect a portion of incoming damage back to the source.
 Shadow Play - Create a decoy of yourself that distracts enemies while you reposition.
 Static Discharge - Briefly stun nearby enemies upon using an ability.
 - use a grapple hook 3 times to navigate map faster; 120 second cooldown
+<<<<<<< HEAD
 starting buff - when you buy this perk only once, gain 1500 health
 doubletime - gain double points on command, for 10 seconds, once per round
 Ammo Up - increase magazine capacity for all weapons by 100%
@@ -55,3 +56,5 @@ gain agro - all zombies focus you on command for 15 seconds, 60 second cooldown
 Fortress - while standing still, gain stacking damage reduction
 reusable ammo - regain 1 bullet every 5 seconds back into your active magazine
 door trapper - activate a trap on a previously purchased door that electricutes all zombies that pass through it.
+=======
+>>>>>>> origin/main

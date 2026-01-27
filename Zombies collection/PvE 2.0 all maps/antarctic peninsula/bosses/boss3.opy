@@ -75,7 +75,11 @@ rule "285 Cannon shoot":
     @Condition getPlayersOnHero(Hero.DVA, Team.2).isHoldingButton(Button.PRIMARY_FIRE) == true
     @Disabled
     
+<<<<<<< HEAD
     createHomingProjectile(Projectile.SIGMA_HYPERSPHERE, eventPlayer, null, null, Relativity.TO_WORLD, ModifyHealth.DAMAGE, getOppositeTeam(eventPlayer.getTeam()), 75, 0, 5, DynamicEffect.BASTION_TANK_CANNON_EXPLOSION, DynamicEffect.BASTION_TANK_CANNON_EXPLOSION_SOUND, 0.1, 30, 5, 5, eventPlayer.getRealPlayerClosestToReticle(getOppositeTeam(eventPlayer.getTeam())), 0.5)
+=======
+    createHomingProjectile(Projectile.SIGMA_HYPERSPHERE, eventPlayer, null, null, Relativity.TO_WORLD, ModifyHealth.DAMAGE, getOppositeTeam(eventPlayer.getTeam()), 75, 0, 5, DynamicEffect.BASTION_TANK_CANNON_EXPLOSION, DynamicEffect.BASTION_TANK_CANNON_EXPLOSION_SOUND, 0.1, 30, 5, 5, eventPlayer.getPlayerClosestToReticle(getOppositeTeam(eventPlayer.getTeam())), 0.5)
+>>>>>>> origin/main
     playEffect(getAllPlayers(), DynamicEffect.CASSIDY_FLASHBANG_EXPLOSION_SOUND, Color.WHITE, eventPlayer.getEyePosition(), 100)
     playEffect(getAllPlayers(), DynamicEffect.BAD_EXPLOSION, Color.GRAY, eventPlayer, 2)
     wait(1)
