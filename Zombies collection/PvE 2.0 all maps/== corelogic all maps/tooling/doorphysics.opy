@@ -29,13 +29,7 @@ rule "Collision Logic":
     @Condition eventPlayer.isAlive() == true
     @Condition start == 1
     @Condition eventPlayer.isDummy() == false
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
     #@Disabled
-=======
->>>>>>> e5aeb79 (Sync local changes)
->>>>>>> origin/main
 
     if teleporterused == 1:
         wait(1)
@@ -82,23 +76,14 @@ rule "Collision Logic":
                     eventPlayer.applyImpulse(directionTowards(eventPlayer.filterpos, eventPlayer.fullbodypos) * vect(1, [], 1), 1, Relativity.TO_WORLD, Impulse.CANCEL_CONTRARY_MOTION)
                     if eventPlayer.doorNotif == 0:
                         eventPlayer.doorNotif = 1
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
                     if eventPlayer.isHoldingButton(Button.INTERACT) and eventPlayer.points >= 1000 - eventPlayer.creditcardlimit:
                         playEffect(getAllPlayers(), DynamicEffect.GOOD_EXPLOSION, Color.WHITE, AllPos[z], 50) 
                         playEffect(getAllPlayers(), DynamicEffect.LUCIO_SOUND_BARRIER_CAST_SOUND, Color.WHITE, AllPos[z], 100)
                         eventPlayer.points -= 1000 * eventPlayer.cashback
-=======
->>>>>>> origin/main
                     if eventPlayer.isHoldingButton(Button.INTERACT) and eventPlayer.points >= 1000 * costmultiplier - eventPlayer.creditcardlimit:
                         playEffect(getAllPlayers(), DynamicEffect.GOOD_EXPLOSION, Color.WHITE, AllPos[z], 50) 
                         playEffect(getAllPlayers(), DynamicEffect.LUCIO_SOUND_BARRIER_CAST_SOUND, Color.WHITE, AllPos[z], 100)
                         eventPlayer.points -= round(1000 * costmultiplier * eventPlayer.cashback)
-<<<<<<< HEAD
-=======
->>>>>>> e5aeb79 (Sync local changes)
->>>>>>> origin/main
                         destroyEffect(doors[z + z])
                         destroyEffect(doors[z + z + 1])
                         Wall_ID[z] = 0
@@ -126,14 +111,8 @@ rule "Reset":
 
 rule "Make door arrays":
     @Condition start == 1
-<<<<<<< HEAD
     @Condition doormade == 0
-=======
-<<<<<<< HEAD
-=======
     @Condition doormade == 0
->>>>>>> e5aeb79 (Sync local changes)
->>>>>>> origin/main
     i = 0
     wait(1.0)
     looping = 0
@@ -163,29 +142,17 @@ rule "Make door arrays":
         else:
             looping += 4
         i += 1
-<<<<<<< HEAD
     doormade = 1
-=======
-<<<<<<< HEAD
 
-=======
     doormade = 1
->>>>>>> e5aeb79 (Sync local changes)
->>>>>>> origin/main
 
 rule "Reset door notif":
     @Event eachPlayer
     @Condition eventPlayer.doorNotif == 1
 
-<<<<<<< HEAD
     smallMessage(eventPlayer, "  Hold {0} to buy door - cost: {1}".format(inputBindingString(Button.INTERACT), round(1000 * costmultiplier)))
-=======
-<<<<<<< HEAD
     smallMessage(eventPlayer, "  Hold {0} to buy door - cost: 1000".format(inputBindingString(Button.INTERACT)))
-=======
     smallMessage(eventPlayer, "  Hold {0} to buy door - cost: {1}".format(inputBindingString(Button.INTERACT), round(1000 * costmultiplier)))
->>>>>>> e5aeb79 (Sync local changes)
->>>>>>> origin/main
     wait(4)
     eventPlayer.doorNotif = 0
     wait(0.5)

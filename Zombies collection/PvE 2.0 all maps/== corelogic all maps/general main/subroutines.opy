@@ -93,11 +93,8 @@ def setbotamount():
 def getoutofspawn():
     @Name "out of spawn subroutine"
 
-<<<<<<< HEAD
     if setspawn == false: #this can be a for loop and array that is outside of all maps, and map specific spawn points
-=======
     if setspawn == false: #this can be a for loop and array
->>>>>>> origin/main
         eventPlayer.teleport(vect(-63.355, -148.766, -17.141)) #zone 1 need to label which of these is which
         zone1()
         makedoors()

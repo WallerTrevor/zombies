@@ -26,21 +26,17 @@ rule "global bank interest gain every round":
     @Condition bankPoints > 0
     @Condition start == 1
 
-<<<<<<< HEAD
     wait(0.16)
     for i in range(0, len(bankRates)):
         if bankTier == i:
             bankPoints += bankPoints * bankRates[i]
         break
-=======
-<<<<<<< HEAD
     if bankTier == 0:
         bankPoints += bankPoints * 0.005
     elif bankTier == 1:
         bankPoints += bankPoints * 0.02
     elif bankTier == 2:
         bankPoints += bankPoints * 0.03
-=======
     wait(0.16)
     if bankTier == 0:
         bankPoints += bankPoints * 0.015
@@ -48,15 +44,12 @@ rule "global bank interest gain every round":
         bankPoints += bankPoints * 0.03
     elif bankTier == 2:
         bankPoints += bankPoints * 0.04
->>>>>>> e5aeb79 (Sync local changes)
->>>>>>> origin/main
 
 rule "global bank tier upgrade":
     @Event eachPlayer
     @Condition eventPlayer.isAlive() == true
     @Condition distance(eventPlayer, vect(275.586, 38.147, 177.222)) < 1
     @Condition eventPlayer.isHoldingButton(Button.INTERACT) == true
-<<<<<<< HEAD
     @Condition bankTier < 3
 
     for i in range(0, len(bankCosts)):
@@ -69,7 +62,6 @@ rule "global bank tier upgrade":
             else:
                 smallMessage(getAllPlayers(), "  You need {0} points in the bank to upgrade!".format(bankCosts[i]))
             break
-=======
     @Condition bankTier < 2
 
     if bankTier == 0:
@@ -88,7 +80,6 @@ rule "global bank tier upgrade":
             playEffect(getAllPlayers(), DynamicEffect.BUFF_EXPLOSION_SOUND, Color.WHITE, eventPlayer, 70)
         else:
             smallMessage(getAllPlayers(), "  You need 10000 points in the bank to upgrade!")
->>>>>>> origin/main
 
 rule "global bank withdraw button":
     @Event eachPlayer
@@ -146,7 +137,6 @@ rule "credit card system":
     @Condition distance(eventPlayer, vect(299.653, -14.545, -222.024)) < 1
     @Condition eventPlayer.isHoldingButton(Button.INTERACT) == true
     @Condition eventPlayer.creditTier < 3
-<<<<<<< HEAD
 
 
     if getServerLoad() < 245:
@@ -169,7 +159,6 @@ rule "credit card system":
                 break
     else:
         smallMessage(eventPlayer, "{0} Error: {1} Credit card office closed! (--ANTICRASHSYS--)".format(heroIcon(Hero.RAMATTRA), random.randint(10, 1000)))
-=======
     if getServerLoad() < 245:
         if eventPlayer.creditTier == 0:
             if eventPlayer.points >= 1000:
@@ -213,14 +202,12 @@ rule "credit card system":
                 #needs a hud icon to show current credit card tier, preferrably in the top right corner
     else:
         smallMessage(getAllPlayers(), "{0} Error: {1} Credit card machine is closed! (--ANTICRASHSYS--)".format(heroIcon(Hero.RAMATTRA), random.randint(10, 1000)))
->>>>>>> origin/main
 
 
 rule "credit card interest":
     @Event eachPlayer
     @Condition eventPlayer.points < 0
     @Condition numberOfZombies < 1
-<<<<<<< HEAD
     @Condition eventPlayer.isAlive() == true
     @Condition eventPlayer.creditTier > 0
 
@@ -232,7 +219,6 @@ rule "credit card interest":
             chaseAtRate(eventPlayer.points2, (evalOnce(eventPlayer.points)), 1000)
             smallMessage(eventPlayer, "  You have incurred {0} interest on your credit card.".format(ccInterest))
         break
-=======
 
     if eventPlayer.creditTier == 1:
         eventPlayer.points += eventPlayer.points * 0.3
@@ -246,7 +232,6 @@ rule "credit card interest":
         eventPlayer.points += eventPlayer.points * 0.15
         chaseAtRate(eventPlayer.points2, (evalOnce(eventPlayer.points)), 1000)
         smallMessage(eventPlayer, "  You have incurred {0} interest on your credit card.".format(eventPlayer.points * 0.15))
->>>>>>> origin/main
 
 #needs hud element to show current credit card tier in a color, and the rest when player holds spacebar: current debt, current APR, current fee per round, and one time fee for next upgrade
 

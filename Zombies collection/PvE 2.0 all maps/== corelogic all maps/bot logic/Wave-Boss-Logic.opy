@@ -2,11 +2,8 @@ rule "426 OMNIC WAVE BOSS doomfist Attack if Near":
     @Event eachPlayer
     @Team 2
     @Hero doomfist
-<<<<<<< HEAD
     @Condition distance(eventPlayer, getRealClosestPlayer(eventPlayer, Team.1)) < 2
-=======
     @Condition distance(eventPlayer, getClosestPlayer(eventPlayer, Team.1)) < 2
->>>>>>> origin/main
     #@Condition O == false
     
     wait(0.3, Wait.ABORT_WHEN_FALSE)
@@ -19,11 +16,8 @@ rule "427 OMNIC WAVE BOSS doomfist Attack if Near":
     @Event eachPlayer
     @Team 2
     @Hero doomfist
-<<<<<<< HEAD
     @Condition distance(eventPlayer, getRealClosestPlayer(eventPlayer, Team.1)) < 15
-=======
     @Condition distance(eventPlayer, getClosestPlayer(eventPlayer, Team.1)) < 15
->>>>>>> origin/main
     @Condition O == false
     
     wait(0.3, Wait.ABORT_WHEN_FALSE)
@@ -34,11 +28,8 @@ rule "428 OMNIC WAVE BOSS doomfist Attack if Near":
     @Event eachPlayer
     @Team 2
     @Hero doomfist
-<<<<<<< HEAD
     @Condition distance(eventPlayer, getRealClosestPlayer(eventPlayer, Team.1)) < 10
-=======
     @Condition distance(eventPlayer, getClosestPlayer(eventPlayer, Team.1)) < 10
->>>>>>> origin/main
     @Condition O == false
     
     wait(0.3, Wait.ABORT_WHEN_FALSE)
@@ -49,11 +40,8 @@ rule "429 OMNIC WAVE BOSS zenyatta Attack if Near":
     @Event eachPlayer
     @Team 2
     @Hero zenyatta
-<<<<<<< HEAD
     @Condition distance(eventPlayer, getRealClosestPlayer(eventPlayer, Team.1)) < 2
-=======
     @Condition distance(eventPlayer, getClosestPlayer(eventPlayer, Team.1)) < 2
->>>>>>> origin/main
     #@Condition O == false
     
     wait(0.3, Wait.ABORT_WHEN_FALSE)
@@ -86,11 +74,8 @@ rule "432 OMNIC WAVE BOSS zenyatta discord if Near":
     @Event eachPlayer
     @Team 2
     @Hero zenyatta
-<<<<<<< HEAD
     @Condition distance(eventPlayer, getRealClosestPlayer(eventPlayer, Team.1)) < 10
-=======
     @Condition distance(eventPlayer, getClosestPlayer(eventPlayer, Team.1)) < 10
->>>>>>> origin/main
     #@Condition O == false
     
     wait(0.3, Wait.ABORT_WHEN_FALSE)
@@ -103,13 +88,10 @@ rule "433 OMNIC WAVE BOSS roadhog use hook":
     @Event eachPlayer
     @Team 2
     @Hero roadhog
-<<<<<<< HEAD
     @Condition distance(eventPlayer, getRealClosestPlayer(eventPlayer, Team.1)) < 20
     @Condition distance(eventPlayer, getRealClosestPlayer(eventPlayer, Team.1)) > 10
-=======
     @Condition distance(eventPlayer, getClosestPlayer(eventPlayer, Team.1)) < 20
     @Condition distance(eventPlayer, getClosestPlayer(eventPlayer, Team.1)) > 10
->>>>>>> origin/main
     @Condition eventPlayer.getSlot() == getPlayersInSlot(0, Team.2)
     
     eventPlayer.forceButtonPress(Button.ABILITY_2)

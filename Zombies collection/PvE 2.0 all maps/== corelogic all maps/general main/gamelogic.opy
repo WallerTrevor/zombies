@@ -37,17 +37,11 @@ rule "1 Setup":
     Died[1] = vect(500, 0, 500)
     Died[2] = vect(500, 0, 500)
     Died[3] = vect(500, 0, 500)
-<<<<<<< HEAD
     costmultiplier = 1
 
-=======
-<<<<<<< HEAD
 
-=======
     costmultiplier = 1
     
->>>>>>> e5aeb79 (Sync local changes)
->>>>>>> origin/main
 rule "2 round change":
     @Condition numberOfZombies <= 0
     @Condition O == false
@@ -58,22 +52,16 @@ rule "2 round change":
         destroyDummy(Team.2, omnicspawn[forindex])
     roundnumber += 1
     Z = 1
-<<<<<<< HEAD
     bigMessage(getAllPlayers(), l"Round {0}".format(romanN[romanNcounter]))
     P = false
     getDeadPlayers(Team.1).Packapunch = false # this needs to change for all heroes in inventory
-=======
-<<<<<<< HEAD
     getPlayers(Team.1).setUltCharge(100)
     bigMessage(getAllPlayers(), l"Round {0}".format(romanN[romanNcounter]))
     P = false
     getDeadPlayers(Team.1).Packapunch = false
-=======
     bigMessage(getAllPlayers(), l"Round {0}".format(romanN[romanNcounter]))
     P = false
     getDeadPlayers(Team.1).Packapunch = false # this needs to change for all heroes in inventory
->>>>>>> e5aeb79 (Sync local changes)
->>>>>>> origin/main
     getDeadPlayers(Team.1).clearStatusEffect(Status.BURNING)
     getDeadPlayers(Team.1).damagevariable = 100
     getDeadPlayers(Team.1).teleport(nearestWalkablePosition(random.choice(getLivingPlayers(Team.1)) + vect(random.randint(-5, 5), 0, random.randint(-5, 5))))
@@ -94,21 +82,15 @@ rule "2 round change":
     chwaveinterval += 1
     if roundnumber < 12:
         romanNcounter += 1
-<<<<<<< HEAD
     rngCamera = random.randint(1, 5)
     costmultiplier = costmultiplier * random.uniform(1.02, 1.04)
     roundpointmultiplier = random.uniform(1.01, 1.03)
-=======
-<<<<<<< HEAD
     getPlayers(Team.1).ultcharge[0] = 100
     getPlayers(Team.1).ultcharge[1] = 100
     rngCamera = random.randint(1, 5)
-=======
     rngCamera = random.randint(1, 5)
     costmultiplier = costmultiplier * random.uniform(1.02, 1.04)
     roundpointmultiplier = random.uniform(1.01, 1.03)
->>>>>>> e5aeb79 (Sync local changes)
->>>>>>> origin/main
 
 rule "3 Set Round Kills":
     @Condition Z == 1
@@ -161,25 +143,16 @@ rule "6 Defeat (needs to be refined for soft restart)":
     poweron = 0
     getPlayers(Team.1).points = 0
     g = false
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
     restartMatch() #comment this out later
     getPlayers(Team.1).creditcardlimit = 0
     getPlayers(Team.1).creditTier = 0
     
-=======
->>>>>>> origin/main
     #restartMatch() #comment this out later
     getPlayers(Team.1).creditcardlimit = 0
     getPlayers(Team.1).creditTier = 0
     costmultiplier = 1
 
 
-<<<<<<< HEAD
-=======
->>>>>>> e5aeb79 (Sync local changes)
->>>>>>> origin/main
 rule "7 Disable Bot Respawn":
     @Event playerJoined
     @Team 2

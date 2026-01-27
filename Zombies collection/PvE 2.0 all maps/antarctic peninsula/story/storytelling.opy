@@ -16,14 +16,8 @@ rule "starting voice lines":
 
 rule "set dialogue text":
     @Condition start == 1
-<<<<<<< HEAD
     
-=======
-<<<<<<< HEAD
-=======
     
->>>>>>> e5aeb79 (Sync local changes)
->>>>>>> origin/main
     wait(3)
     if startlines == false:
         Dialogue_Text = "Trial {0}. The path to a new world begins.".format(random.randint(100, 9999))
