@@ -3,7 +3,6 @@ rule "426 OMNIC WAVE BOSS doomfist Attack if Near":
     @Team 2
     @Hero doomfist
     @Condition distance(eventPlayer, getRealClosestPlayer(eventPlayer, Team.1)) < 2
-    @Condition distance(eventPlayer, getClosestPlayer(eventPlayer, Team.1)) < 2
     #@Condition O == false
     
     wait(0.3, Wait.ABORT_WHEN_FALSE)
@@ -17,7 +16,6 @@ rule "427 OMNIC WAVE BOSS doomfist Attack if Near":
     @Team 2
     @Hero doomfist
     @Condition distance(eventPlayer, getRealClosestPlayer(eventPlayer, Team.1)) < 15
-    @Condition distance(eventPlayer, getClosestPlayer(eventPlayer, Team.1)) < 15
     @Condition O == false
     
     wait(0.3, Wait.ABORT_WHEN_FALSE)
@@ -29,7 +27,6 @@ rule "428 OMNIC WAVE BOSS doomfist Attack if Near":
     @Team 2
     @Hero doomfist
     @Condition distance(eventPlayer, getRealClosestPlayer(eventPlayer, Team.1)) < 10
-    @Condition distance(eventPlayer, getClosestPlayer(eventPlayer, Team.1)) < 10
     @Condition O == false
     
     wait(0.3, Wait.ABORT_WHEN_FALSE)
@@ -41,7 +38,6 @@ rule "429 OMNIC WAVE BOSS zenyatta Attack if Near":
     @Team 2
     @Hero zenyatta
     @Condition distance(eventPlayer, getRealClosestPlayer(eventPlayer, Team.1)) < 2
-    @Condition distance(eventPlayer, getClosestPlayer(eventPlayer, Team.1)) < 2
     #@Condition O == false
     
     wait(0.3, Wait.ABORT_WHEN_FALSE)
@@ -75,7 +71,6 @@ rule "432 OMNIC WAVE BOSS zenyatta discord if Near":
     @Team 2
     @Hero zenyatta
     @Condition distance(eventPlayer, getRealClosestPlayer(eventPlayer, Team.1)) < 10
-    @Condition distance(eventPlayer, getClosestPlayer(eventPlayer, Team.1)) < 10
     #@Condition O == false
     
     wait(0.3, Wait.ABORT_WHEN_FALSE)
@@ -90,8 +85,6 @@ rule "433 OMNIC WAVE BOSS roadhog use hook":
     @Hero roadhog
     @Condition distance(eventPlayer, getRealClosestPlayer(eventPlayer, Team.1)) < 20
     @Condition distance(eventPlayer, getRealClosestPlayer(eventPlayer, Team.1)) > 10
-    @Condition distance(eventPlayer, getClosestPlayer(eventPlayer, Team.1)) < 20
-    @Condition distance(eventPlayer, getClosestPlayer(eventPlayer, Team.1)) > 10
     @Condition eventPlayer.getSlot() == getPlayersInSlot(0, Team.2)
     
     eventPlayer.forceButtonPress(Button.ABILITY_2)

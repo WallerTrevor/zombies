@@ -1,5 +1,4 @@
 #Global variables
-
 #!define roundnumber extraVar[0]
 #!define numberOfZombies extraVar[1]
 #!define Difficulty extraVar[2]
@@ -22,148 +21,187 @@
 #!define boxcounter2 extraVar[19]
 #!define challengewave extraVar[20]
 #!define chwaveinterval extraVar[21]
-#!define aprilrng extraVar[22]
-#!define spawntype extraVar[23]
-#!define Bosssequencer extraVar[25]
-#!define outofpsawn extraVar[26]
-#!define romanNcounter extraVar[27]
-#!define appenddoorsequencer extraVar[28]
-#!define svrLdThreshold extraVar[30]
-#!define svrSlwThreshold extraVar[31]
-#!define CameraDistanceFactor extraVar[32]
-#!define botamount extraVar[33]
-#!define doorLoopIndex extraVar[34]
-#!define looping extraVar[35]
-#!define ramPoints extraVar[36]
-#!define bankTier extraVar[37]
-#!define bankPoints extraVar[38]
-#!define doorZoneStart extraVar[39]
-#!define doorZoneEnd extraVar[40]
-#!define teleporterused extraVar[41]
-#!define indx extraVar[42]
-#!define poweron extraVar[43]
-#!define powerconnected extraVar[44]
-#!define doors extraVar[45]
-#!define impulseDoorArray extraVar[46]
-#!define omnicspawn extraVar[47]
-#!define teleportercolor extraVar[48]
-#!define firstpos extraVar[49]
-#!define secondpos extraVar[50]
-#!define firstpoint2 extraVar[56]
-#!define secondpoint2 extraVar[57]
-#!define AllDir extraVar[58]
-#!define AllPos extraVar[59]
-#!define rngCamera extraVar[60]
-#!define cutscene extraVar[61]
-#!define text_shown extraVar[62]
-#!define costmultiplier extraVar[63]
-#!define doormade extraVar[64]
-#!define roundpointmultiplier extraVar[65]
-#!define costmultiplier extraVar[63]
-#!define doormade extraVar[64]
-#!define roundpointmultiplier extraVar[65]
+#!define rngCamera extraVar[22]
+#!define pfExecOwner extraVar[24]
+#!define rngbox extraVar[25]
+#!define current_hero extraVar[26]
+#!define subindex extraVar[27]
+#!define poweron extraVar[28]
+#!define teleporterused extraVar[29]
+#!define ramPoints extraVar[30]
+#!define ccInterest extraVar[32]
+#!define bankCosts dnumbersArray[0]
+#!define creditCosts dnumbersArray[1]
+#!define creditLimits dnumbersArray[2]
+#!define cashbackRates dnumbersArray[3]
+#!define bankRates dnumbersArray[4]
+#!define ccRates dnumbersArray[5]
+#!define herobuycosts dnumbersArray[6]
+#!define bossbuypositions dvectorsArray[0]
+#!define mysterylocations dvectorsArray[1]
+#!define Mysterylocations2 dvectorsArray[2]
+#!define buyheros dvectorsArray[3]
+#!define buyperks dvectorsArray[4]
+#!define doorVectors dvectorsArray[5]
+#!define teleporterpositions dvectorsArray[6]
+#!define doorParams dnumbersArray2[0]
+#!define teleradiusef dnumbersArray2[1]
+#!define perkcosts dnumbersArray2[2]
+#!define tipstrings etcArray[0]
+#!define diedphrase etcArray[1]
+#!define diedtext etcArray[2]
+#!define romanN etcArray[3]
+#!define noammostrings etcArray[4]
+#!define hero etcArray[5]
+#!define herobuymessages etcArray[6]
+#!define followerbuyMsg etcArray[7]
+#!define heroAlphabetical etcArray[8]
+#!define heroDamageHeroes etcArray[9]
+#!define herotankHeroes etcArray[10]
+#!define heroSupportHeroes etcArray[11]
 
+globalvar damageheroes 1
+globalvar roundpointmultiplier 3
+globalvar doormade 5
+globalvar costmultiplier 6
+globalvar text_shown 7
+globalvar cutscene 8
+globalvar supportheroes 9
+globalvar AllPos 10
+globalvar AllDir 11
+globalvar tankheroes 13
 globalvar Died 18
+globalvar pfcurrentNeighbors 20
 globalvar Vectordoorpositions 21
-globalvar hero 36
-globalvar bankCosts 37
-globalvar bankRates 38
-globalvar creditCosts 39
-globalvar ccRates 40
-globalvar creditLimits 41
-globalvar cashbackRates 42
-globalvar buyheros 43
-globalvar buyperks 44
+globalvar pfnext 22
+globalvar pfdecompressionState 23
+globalvar Y 24
+globalvar Z 25
+globalvar pfIterationsThisTick 26
+globalvar pfcompressionTable 27
+globalvar pfDecompress 28
+globalvar omnicspawn 29
+globalvar secondpoint2 30
+globalvar secondpos 31
+globalvar firstpos 32
+globalvar teleportercolor 33
+globalvar impulseDoorArray 34
+globalvar heroFallDamageTable 35
+globalvar dnumbersArray 37
+globalvar dnumbersArray2 38
+globalvar etcArray 39
+globalvar firstpoint2 40
+globalvar doors 45
 globalvar doorradius 46
-globalvar mysterylocations 47
-globalvar rngbox 48
+globalvar currentEnemyIndex 48
 globalvar ccCurrentRate 49
 globalvar rngbox2 50
-globalvar ccInterest 51
-globalvar rngbox2 50
-globalvar Mysterylocations2 52
+globalvar dvectorsArray 51
+globalvar powerconnected 53
 globalvar bossSpawn 54
 globalvar bot1spawn 55
 globalvar bot2spawn 56
+globalvar heroDamageModifiers 57
+globalvar currentenemyindex 58
+globalvar index 59
 globalvar setspawn 60
 globalvar aprilquotes 61
-globalvar perkcosts 62
 globalvar perkmessages 63
+globalvar indx 64
 globalvar Beameffectdoors 65
+globalvar currentzombiearray 69
 globalvar heroradius 71
 globalvar diedradius 72
-globalvar tipstrings 73
-globalvar bossbuypositions 74
 globalvar herobuyrandomized 75
 globalvar perkbuyrandomized 76
-globalvar romanN 78
+globalvar pfI1 77
+globalvar heroSupportModifiers 79
+globalvar doorZoneEnd 80
+globalvar doorZoneStart 81
 globalvar forindex 82
 globalvar forindex2 83
 globalvar zzz 84
-globalvar diedphrase 85
-globalvar diedtext 86
-globalvar noammostrings 87
+globalvar bankPoints 88
+globalvar bankTier 89
+globalvar heroTankModifiers 90
+globalvar looping 91
+globalvar doorLoopIndex 92
+globalvar botamount 93
+globalvar CameraDistanceFactor 94
 globalvar i 95
 globalvar Dialogue_Text 96
 globalvar Character_Nr 97
+globalvar svrSlwThreshold 98
+globalvar svrLdThreshold 99
+globalvar appenddoorsequencer 100
+globalvar romanNcounter 101
+globalvar outofpsawn 102
+globalvar Bosssequencer 103
+globalvar spawntype 104
+globalvar aprilrng 105
 globalvar second 106
 globalvar z 107
 globalvar Wall_ID 108
 globalvar g_beamType 109
 globalvar is_Grounded 110
-globalvar teleradiusef 111
+globalvar pfLoadedMap_nodes 112
 globalvar indexofbosseffect 113
+globalvar pfLoadedMap_neighbors 114
 globalvar extraVar 115
-globalvar herobuymessages 116
-globalvar doorParams 118
-globalvar doorVectors 119
-globalvar herobuycosts 122
+globalvar pfI2 117
+globalvar decompressN 120
+globalvar decompressV 121
 globalvar dooreffectsequencer 123
-globalvar teleporterpositions 124
-globalvar followerbuyMsg 125
 globalvar doorindexsequencer 126
 globalvar hudappend 127
-#Player variables
-
 
 #Player variables
 
-#!define doublemag extraPlayerVar[1]
-#!define sprintburstperk extraPlayerVar[2]
-#!define healthmax extraPlayerVar[3]
-#!define damagevariable extraPlayerVar[4]
-#!define healvariable extraPlayerVar[5]
-#!define InfoCooldown extraPlayerVar[6]
-#!define botTarget extraPlayerVar[7]
-#!define HideHints extraPlayerVar[8]
-#!define XPlevel extraPlayerVar[9]
-#!define Jugg extraPlayerVar[10]
-#!define singlelives extraPlayerVar[11]
-#!define Packapunch extraPlayerVar[12]
-#!define Maniac extraPlayerVar[13]
-#!define revived extraPlayerVar[14]
-#!define revivebought extraPlayerVar[15]
-#!define heroBuyMessTimer extraPlayerVar[16]
-#!define cameratoggle extraPlayerVar[17]
-#!define ToggleEdit extraPlayerVar[18]
-#!define doorNotif extraPlayerVar[19]
-#!define creditTier extraPlayerVar[20]
-#!define depNotif extraPlayerVar[21]
-#!define withdrawNotif extraPlayerVar[22]
-#!define papTier extraPlayerVar[23]
-#!define papDamageTier extraPlayerVar[24]
-#!define heroBuyIndex extraPlayerVar[25]
-#!define herocost extraPlayerVar[26]
-#!define herobuycost extraPlayerVar[27]
-#!define creditcardlimit extraPlayerVar[28]
-#!define cashback extraPlayerVar[29]
-#!define botspawned extraPlayerVar[30]
+
+#!define fall_Speed extraPlayerVar[0]
+#!define enablefalldamage extraPlayerVar[1]
+#!define fall_Damage_Speed extraPlayerVar[2]
+#!define fallDamageOffsetTable extraPlayerVar[3]
+
 
 playervar points 0
+playervar B 1
+playervar C 2
 playervar magazines 3
+playervar pfneighborI 4
+playervar F 5
+playervar G 6
+playervar H 7
+playervar pfiter 8
+playervar pfcheckedNode 9
+playervar pfcurrentInExistingPath 10
+playervar pfscoreIndex 11
+playervar pfcurrent 12
 playervar InfoUI 13
+playervar pfscore 14
+playervar P 15
+playervar pfbroadcastTo 16
+playervar pfopen 17
+playervar S 18
+playervar T 19
+playervar pfscores_parent 20
+playervar pfscores_nodeIndex 21
+playervar pfscores_fScore 22
+playervar pfscores_gScore 23
+playervar pfgoal 24
+playervar pfIsStuck 25
+playervar pfWasBroadcasted 26
+playervar pfStuckOnNode 27
+playervar pfActiveNode 28
+playervar pfWalkingFromPosition 29
+playervar pfStartTime 30
+playervar pfPath 31
+playervar pfWalkingToPosition 32
 playervar UI 33
-playervar idlebot 36
+playervar pfCurrentNodeIndex 34
+playervar pfIsPathfinding 35
+playervar pfSavedTarget 36
+playervar idlebot 37
 playervar healovertime 38
 playervar xp 39
 playervar Movement 40
@@ -174,10 +212,13 @@ playervar Speed 44
 playervar doorimpulse 45
 playervar dispencereffect 46
 playervar xparray 47
+playervar pfAttributes 48
 playervar herohp 49
+playervar pfPlayerAttributes 50
 playervar currentheroxp 51
 playervar doormessage 52
 playervar currentdoor 53
+playervar pfneighbor 54
 playervar Major_Attacks 55
 playervar currentdoorIndex 56
 playervar do 57
@@ -216,8 +257,40 @@ playervar idx 89
 playervar perk 90
 playervar perkicon 91
 playervar perkcolor 92
-
-
+playervar pfDestination 93
+playervar pfWait 94
+playervar botspawned 95
+playervar cashback 96
+playervar creditcardlimit 97
+playervar herobuycost 98
+playervar herocost 99
+playervar heroBuyIndex 100
+playervar papDamageTier 101
+playervar papTier 102
+playervar withdrawNotif 103
+playervar depNotif 104
+playervar creditTier 105
+playervar doorNotif 106
+playervar ToggleEdit 107
+playervar cameratoggle 108
+playervar heroBuyMessTimer 109
+playervar revivebought 110
+playervar revived 111
+playervar Maniac 112
+playervar Packapunch 113
+playervar singlelives 114
+playervar Jugg 115
+playervar XPlevel 116
+playervar HideHints 117
+playervar botTarget 118
+playervar InfoCooldown 119
+playervar healvariable 120
+playervar damagevariable 121
+playervar healthmax 122
+playervar sprintburstperk 123
+playervar doublemag 124
+playervar currentdamgindex 125
+playervar currentEnemyIndex 126
 
 
 #Subroutine names
@@ -243,9 +316,16 @@ subroutine zone1 18
 subroutine zone2 19
 subroutine zone3 20
 subroutine makedoors 21
-
-
-
+subroutine decompressNSub 22
+subroutine decompressVSub 23
+subroutine pfTick 24
+subroutine pfUpdateNodeMeta 25
+subroutine pfWalkToDestination 26
+subroutine pfProgressEventPlayer 27
+subroutine pfRecalibrate 28
+subroutine pfLookAtDestination 29
+subroutine setdamagemodif 30
+subroutine CurrentEnemyIndex 31
 
 #Activated extensions
 
@@ -261,12 +341,10 @@ subroutine makedoors 21
 
 #Import files
 
-#Import files
-
+#!include "../../== corelogic all maps/tooling/"
 #!include "../../== corelogic all maps/bot logic/"
 #!include "../../== corelogic all maps/general main/"
 #!include "../../== corelogic all maps/player main/"
-#!include "../../== corelogic all maps/tooling/"
 #!include "../../== effects all maps/"
 #!include "../bosses/"
 #!include "../core logic antarctic P/"

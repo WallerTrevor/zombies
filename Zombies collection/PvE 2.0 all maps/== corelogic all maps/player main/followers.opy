@@ -37,7 +37,6 @@ rule "352 FOLLOWERS attack All":
     @Event eachPlayer
     @Team 1
     @Condition distance(eventPlayer, getRealClosestPlayer(eventPlayer, Team.2)) < 6
-    @Condition distance(eventPlayer, getClosestPlayer(eventPlayer, Team.2)) < 6
     @Condition eventPlayer.isDummy() == true
     
     #needs to be a variable
@@ -113,12 +112,6 @@ rule "202 Purchase Follower action":
     # Loop through all heroes
     for i in range(len(hero)):
         if distance(eventPlayer, buyheros[i]) < 2:
-            if eventPlayer.points >= herobuycosts[i] / 3 - eventPlayer.creditcardlimit:
-                eventPlayer.followerbuy = hero[i]
-                wait()
-                followerbuy()
-                eventPlayer.points -= herobuycosts[i] / 3
-                eventPlayer.points2 -= herobuycosts[i] / 3
             if eventPlayer.points >= round(herobuycosts[i] / 3 * costmultiplier - eventPlayer.creditcardlimit):
                 eventPlayer.followerbuy = hero[i]
                 wait()
@@ -138,12 +131,6 @@ rule "241  follower mystery box":
     @Condition eventPlayer.points >= round(950 * costmultiplier - eventPlayer.creditcardlimit)
     
     if eventPlayer.points > round(950 - eventPlayer.creditcardlimit):
-    @Condition eventPlayer.points >= 950 - eventPlayer.creditcardlimit
-    
-    if eventPlayer.points > 950 - eventPlayer.creditcardlimit:
-    @Condition eventPlayer.points >= round(950 * costmultiplier - eventPlayer.creditcardlimit)
-    
-    if eventPlayer.points > round(950 - eventPlayer.creditcardlimit):
         if eventPlayer.emotebox < 1:
             eventPlayer.emotebox = 1
             eventPlayer.communicate(Comms.EMOTE_UP)
@@ -156,9 +143,6 @@ rule "241  follower mystery box":
         (eventPlayer.getSlot() + 4).startScalingSize(0.2)
         (eventPlayer.getSlot() + 4).startModifyingVoicelinePitch(1.3)
         #eventPlayer.resurrect()
-        eventPlayer.points -= round(950 * costmultiplier)
-        chaseAtRate(eventPlayer.points2, (evalOnce(eventPlayer.points) + 0) * eventPlayer.H, 2500)
-        eventPlayer.points -= 950
         eventPlayer.points -= round(950 * costmultiplier)
         chaseAtRate(eventPlayer.points2, (evalOnce(eventPlayer.points) + 0) * eventPlayer.H, 2500)
         #if ruleCondition:
@@ -184,7 +168,6 @@ rule "351 followers ult":
     @Event eachPlayer
     @Team 1
     @Condition distance(eventPlayer, getRealClosestPlayer(eventPlayer, Team.2)) < 8
-    @Condition distance(eventPlayer, getClosestPlayer(eventPlayer, Team.2)) < 8
     @Condition eventPlayer.isDummy() == true
     @Condition eventPlayer.getUltCharge() == 100
     @Condition eventPlayer.getHero() != Hero.REINHARDT

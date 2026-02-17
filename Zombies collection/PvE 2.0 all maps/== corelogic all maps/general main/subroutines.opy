@@ -50,15 +50,21 @@ def wavespawn():
     wavevoicecall()
     createDummy(bossSpawn[g], Team.2, 0, getSpawnPoints(Team.2))
     omnicspawn[0] = getPlayersInSlot(0, Team.2).getSlot()
+    subindex = 0
+    CurrentEnemyIndex()
     wait(0.5, Wait.ABORT_WHEN_FALSE)
     setbotamount()
-    for forindex in range(1, botamount + 1, 2):    # Alternate spawning bot1 and bot2 in unique slots
-        createDummy(bot1spawn[g], Team.2, forindex, getSpawnPoints(Team.2))        # bot1 in slot forindex
+    for forindex in range(1, botamount + 1, 2):
+        createDummy(bot1spawn[g], Team.2, forindex, getSpawnPoints(Team.2))
         omnicspawn[forindex] = getPlayersInSlot(forindex, Team.2).getSlot()
+        subindex = forindex
+        CurrentEnemyIndex()
         wait(0.75, Wait.ABORT_WHEN_FALSE)
-        if forindex + 1 <= botamount:        # bot2 in slot forindex + 1 (if within botamount)
+        if forindex + 1 <= botamount:
             createDummy(bot2spawn[g], Team.2, forindex + 1, getSpawnPoints(Team.2))
             omnicspawn[forindex + 1] = getPlayersInSlot(forindex + 1, Team.2).getSlot()
+            subindex = forindex + 1
+            CurrentEnemyIndex()
             wait(0.75, Wait.ABORT_WHEN_FALSE)
 
 def totalrandomspawn():
@@ -67,8 +73,11 @@ def totalrandomspawn():
     wavevoicecall()
     setbotamount()
     for forindex in range(0, botamount):
-        createDummy(hero[random.randint(0, 37)], Team.2, forindex, getSpawnPoints(Team.2))
+        current_hero = hero[random.randint(0, 37)]
+        createDummy(current_hero, Team.2, forindex, getSpawnPoints(Team.2))
         omnicspawn[forindex] = getPlayersInSlot(forindex, Team.2).getSlot()
+        subindex = forindex
+        CurrentEnemyIndex()
         wait(0.75, Wait.ABORT_WHEN_FALSE)
 
 def wavevoicecall():
@@ -76,7 +85,7 @@ def wavevoicecall():
 
     wait(9, Wait.ABORT_WHEN_FALSE)
     random.choice(getLivingPlayers(Team.1)).communicate(Comms.COUNTDOWN)
-    wait(random.uniform(3.5, 4.5), Wait.ABORT_WHEN_FALSE)
+    wait(random.uniform(4.5, 5.5), Wait.ABORT_WHEN_FALSE)
     random.choice(getLivingPlayers(Team.1)).communicate(Comms.INCOMING)
     wait(0.5, Wait.ABORT_WHEN_FALSE)
 
@@ -94,7 +103,6 @@ def getoutofspawn():
     @Name "out of spawn subroutine"
 
     if setspawn == false: #this can be a for loop and array that is outside of all maps, and map specific spawn points
-    if setspawn == false: #this can be a for loop and array
         eventPlayer.teleport(vect(-63.355, -148.766, -17.141)) #zone 1 need to label which of these is which
         zone1()
         makedoors()
@@ -156,7 +164,7 @@ def zone3():
     doorZoneStart = 68
     doorZoneEnd = 89
 
-def makedoors():
+def makedoors(): #needs to check if the wall_ID if statement works as intended
     @Name "make the door effects"
 
     if telespot == 1 or telespot == 2:
@@ -164,9 +172,114 @@ def makedoors():
             doors[doorindexsequencer] = null
     wait(3)
     for dooreffectsequencer in range(doorZoneStart, doorZoneEnd):
-        createBeam(getPlayers(Team.1), Beam.JUNKRAT_TRAP_CHAIN, Beameffectdoors[evalOnce(dooreffectsequencer * 4)], Beameffectdoors[evalOnce(dooreffectsequencer * 4 + 1)], Color.RED, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
-        doors[dooreffectsequencer * 2] = getLastCreatedEntity()        #append to allow the game to delete for later
-        createBeam(getPlayers(Team.1), Beam.JUNKRAT_TRAP_CHAIN, Beameffectdoors[evalOnce(dooreffectsequencer * 4 + 2)], Beameffectdoors[evalOnce(dooreffectsequencer * 4 + 3)], Color.RED, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
-        doors[dooreffectsequencer * 2 + 1] = getLastCreatedEntity()        #append to allow the game to delete for later
-        if not (dooreffectsequencer % 3): wait()
+        if Wall_ID[dooreffectsequencer] == 1: #test this
+            createBeam(getPlayers(Team.1), Beam.JUNKRAT_TRAP_CHAIN, Beameffectdoors[evalOnce(dooreffectsequencer * 4)], Beameffectdoors[evalOnce(dooreffectsequencer * 4 + 1)], Color.RED, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
+            doors[dooreffectsequencer * 2] = getLastCreatedEntity()        #append to allow the game to delete for later
+            createBeam(getPlayers(Team.1), Beam.JUNKRAT_TRAP_CHAIN, Beameffectdoors[evalOnce(dooreffectsequencer * 4 + 2)], Beameffectdoors[evalOnce(dooreffectsequencer * 4 + 3)], Color.RED, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
+            doors[dooreffectsequencer * 2 + 1] = getLastCreatedEntity()        #append to allow the game to delete for later
+            if not (dooreffectsequencer % 3): wait()
+    smallMessage(getAllPlayers(), "  Doors made".format(inputBindingString(Button.INTERACT), round(1000 * costmultiplier)))
+
+
+def decompressNSub():
+    decompressN = decompressNumbers([decompressN])
+
+def decompressVSub():
+    decompressV = decompressVectors([decompressV])
+
+def pfLookAtDestination():
+    @Name "☆【PF Core Subroutine】☞ Look at destination"
     
+    #Calling this subroutine will make the player look to the point they are walking towards.
+    eventPlayer.startFacing(directionTowards(eventPlayer.getEyePosition() * (vect(1, [], 1) if distance(eventPlayer.getPosition(), eventPlayer.pfWalkingToPosition) < 3 else vect(1, 1, 1)), (eventPlayer.pfWalkingToPosition + vect(0, 1.5, 0)) * (vect(1, [], 1) if distance(eventPlayer.getPosition(), eventPlayer.pfWalkingToPosition) < 3 else vect(1, 1, 1))), 500)
+
+def pfRecalibrate(): #probably need to use this to toggle between states, for linear pathing vs pathfinding
+    @Name "【PF Core Subroutine】☞ Recalibrate"
+    
+    eventPlayer.stopThrottleInDirection()
+    eventPlayer.pfCurrentNodeIndex = -1
+    eventPlayer.pfSavedTarget = null
+    eventPlayer.pfIsPathfinding = false
+    eventPlayer.pfPath = 0
+
+def pfProgressEventPlayer():
+    @Name "【PF Core Subroutine】☞ Progress event player"
+    
+    if len(eventPlayer.pfPath) == 0:
+        goto lbl_0
+    #Pop the current path.
+    del eventPlayer.pfPath[0]
+    #Update the current pathfind attributes.
+    if len(eventPlayer.pfPath) and eventPlayer.pfPath[0] != -1:
+        #Any rules watching these with the matching condition will activate.
+        eventPlayer.pfAttributes = (([i for i in pfLoadedMap_neighbors[eventPlayer.pfPath[0]] if i[0] == eventPlayer.pfCurrentNodeIndex])[0])[1]
+    else:
+        eventPlayer.pfAttributes = []
+    #Go to the next node in the path.
+    eventPlayer.pfCurrentNodeIndex = eventPlayer.pfPath[0]
+    #Set the position that the player is currently walking towards.
+    eventPlayer.pfWalkingToPosition = eventPlayer.pfDestination if eventPlayer.pfCurrentNodeIndex == -1 else pfLoadedMap_nodes[eventPlayer.pfCurrentNodeIndex]
+    pfUpdateNodeMeta()
+    lbl_0:
+
+def pfTick():
+    @Name "【PF Core Subroutine】☞ Tick"
+    
+    pfIterationsThisTick--
+    if pfIterationsThisTick <= 0:
+        wait(0.032)
+        waitUntil(max(getAverageServerLoad(), getServerLoad()) < 255, 0.25)
+        #This determines the pathfinding budget for the current tick.
+        pfIterationsThisTick = ((max(getAverageServerLoad(), getServerLoad()) < 230) + ((max(getAverageServerLoad(), getServerLoad()) < 180) * 2)) + 1
+
+
+def pfUpdateNodeMeta():
+    @Name "【PF Core Subroutine】☞ Update node meta"
+    
+    if eventPlayer.pfCurrentNodeIndex != -1:
+        eventPlayer.pfActiveNode = eventPlayer.pfCurrentNodeIndex
+    #Update the pathfinding start time.
+    eventPlayer.pfStartTime = getTotalTimeElapsed()
+    eventPlayer.pfWalkingFromPosition = eventPlayer.getPosition()
+
+
+def pfWalkToDestination():
+    @Name "☆【PF Core Subroutine】☞ Walk to destination"
+    
+    eventPlayer.startThrottleInDirection(directionTowards(eventPlayer.getPosition(), eventPlayer.pfDestination if eventPlayer.pfCurrentNodeIndex == -1 else pfLoadedMap_nodes[eventPlayer.pfCurrentNodeIndex]), ((distance(eventPlayer.getPosition(), eventPlayer.pfDestination if eventPlayer.pfCurrentNodeIndex == -1 else pfLoadedMap_nodes[eventPlayer.pfCurrentNodeIndex])) > 0.4) and (eventPlayer.pfCurrentNodeIndex != -1 or (not (not eventPlayer.pfSavedTarget or distance(eventPlayer.pfDestination, eventPlayer.pfSavedTarget) > 5))), Relativity.TO_WORLD)
+
+def setdamagemodif():
+    @Name "set damage modification" #this selects what section of the array to use for damage modification, but need currentenemyindex
+
+    if eventPlayer.getHero() in getTankHeroes() == true:
+        for index in range(0, len(tankheroes)):
+            if eventPlayer.getHero() == tankheroes[index]:
+                eventPlayer.currentdamgindex = heroSupportHeroes[index * 45]
+                break
+            else:
+                eventPlayer.currentdamgindex = 1
+                break
+    elif eventPlayer.getHero() in getSupportHeroes() == true:
+        for index in range(0, len(supportheroes)):
+            if eventPlayer.getHero() == supportheroes[index]:
+                eventPlayer.currentdamgindex = heroSupportHeroes[index * 45]
+                break
+            else:
+                eventPlayer.currentdamgindex = 1
+                break
+    else: #damage heroes
+        for index in range(0, len(damageheroes)):
+            if eventPlayer.getHero() == damageheroes[index]:
+                eventPlayer.currentdamgindex = heroDamageHeroes[index * 45]
+                break
+            else:
+                eventPlayer.currentdamgindex = 1
+                break
+
+def CurrentEnemyIndex():
+    @Name " current enemy index subroutine"
+
+    for index in range(0, len(heroAlphabetical)):
+        if getPlayersInSlot(subindex, Team.2).getHero() == heroAlphabetical[index]:
+            currentEnemyIndex[subindex] = index
+            break

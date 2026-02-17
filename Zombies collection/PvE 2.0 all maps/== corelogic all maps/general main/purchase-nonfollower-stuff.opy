@@ -1,21 +1,8 @@
-def perkbuyanimation():
-    @Name "buy perk subroutine"
-    
-    wait(0.25)
-    eventPlayer.communicate(Comms.EMOTE_UP)
-    wait(0.05)
-    eventPlayer.setMoveSpeed(0)
-    wait(2)
-    eventPlayer.setMoveSpeed(100)
-
-
 rule "229 buy perks and power activate":
     @Event eachPlayer
     @Team 1
     @Condition eventPlayer.isHoldingButton(Button.INTERACT) == true
-    @Condition any([[distance(player, eventPlayer) < heroradius[0]] for player, i in buyperks]) == true
-    @Condition any([distance(player, eventPlayer) < heroradius[i] for player, i in buyperks]) == true
-    @Condition any([[distance(player, eventPlayer) < heroradius[0]] for player, i in buyperks]) == true
+    @Condition any([[distance(player, eventPlayer) < 2] for player, i in buyperks]) == true
 
 
     if getServerLoad() < 245:
@@ -25,16 +12,16 @@ rule "229 buy perks and power activate":
                     if eventPlayer.points >= round(perkcosts[i] * costmultiplier- eventPlayer.creditcardlimit):
                         if eventPlayer.perk[i] < 3:
                             eventPlayer.points -= round(perkcosts[i] * costmultiplier * eventPlayer.cashback)
-                    if eventPlayer.points >= perkcosts[i] - eventPlayer.creditcardlimit:
-                        if eventPlayer.perk[i] < 3:
-                            eventPlayer.points -= perkcosts[i] * eventPlayer.cashback
-                    if eventPlayer.points >= round(perkcosts[i] * costmultiplier- eventPlayer.creditcardlimit):
-                        if eventPlayer.perk[i] < 3:
-                            eventPlayer.points -= round(perkcosts[i] * costmultiplier * eventPlayer.cashback)
                             wait(0.25)
                             eventPlayer.perk[i] += 1
+                            playEffect(getPlayers(Team.1), DynamicEffect.RING_EXPLOSION_SOUND, Color.WHITE, eventPlayer, 70)
                             smallMessage(eventPlayer, "  {0} {1}".format(heroIcon(Hero.RAMATTRA), perkmessages[i]))
-                            perkbuyanimation()
+                            wait(0.25)
+                            eventPlayer.communicate(Comms.EMOTE_UP)
+                            wait(0.05)
+                            eventPlayer.setMoveSpeed(0)
+                            wait(2)
+                            eventPlayer.setMoveSpeed(100)
                             break
                         else:
                             smallMessage(eventPlayer, "  {0} You already have the max tier!".format(heroIcon(Hero.RAMATTRA)))
@@ -46,12 +33,14 @@ rule "229 buy perks and power activate":
                     smallMessage(eventPlayer, "  {0} The power is not ON!".format(heroIcon(Hero.RAMATTRA)))
                     break  # Stop after the first match
                     #pack a punch (make this not a perk, and have its own hud element outside the perk area)
+    else:
+        smallMessage(eventPlayer, "{0} Error: {1} What do you think you're doing! (--ANTICRASHSYS--)".format(heroIcon(Hero.RAMATTRA), random.randint(10, 1000)))
 
 rule "boss buy (consolidate later)":
     @Event eachPlayer
     @Team 1
     @Condition eventPlayer.isHoldingButton(Button.INTERACT) == true
-    @Condition any([distance(player, eventPlayer) < 2 for player, i in bossbuypositions]) == true
+    @Condition any([distance(player, eventPlayer) < 2 for player, i in bossbuypositions]) == true #needs to track cost
 
     for i in range(len(bossbuypositions)):
         if distance(bossbuypositions[i], eventPlayer) < 2:
@@ -75,16 +64,12 @@ rule "202 Purchase hero actions":
     @Event eachPlayer
     @Team 1
     @Condition eventPlayer.isHoldingButton(Button.INTERACT) == true
-    @Condition any([distance(eventPlayer, buyheros[i]) < heroradius[0]])  == true
+    @Condition any([distance(eventPlayer, buyheros[i]) < 2])  == true
 
     if getServerLoad() < 245:
         for eventPlayer.idx in range(len(buyheros)):
             if distance(eventPlayer, buyheros[eventPlayer.idx]) < 2:
                 if eventPlayer.getHero() == hero[eventPlayer.idx]:
-                    if eventPlayer.points >= round((herobuycosts[eventPlayer.idx] / 2) * costmultiplier - eventPlayer.creditcardlimit) and eventPlayer.currentmagazines < 10:
-                        eventPlayer.points -= round((herobuycosts[eventPlayer.idx] / 2) * costmultiplier * eventPlayer.cashback)
-                    if eventPlayer.points >= (herobuycosts[eventPlayer.idx] / 2) - eventPlayer.creditcardlimit and eventPlayer.currentmagazines < 10:
-                        eventPlayer.points -= (herobuycosts[eventPlayer.idx] / 2) * eventPlayer.cashback
                     if eventPlayer.points >= round((herobuycosts[eventPlayer.idx] / 2) * costmultiplier - eventPlayer.creditcardlimit) and eventPlayer.currentmagazines < 10:
                         eventPlayer.points -= round((herobuycosts[eventPlayer.idx] / 2) * costmultiplier * eventPlayer.cashback)
                         wait(0.25)
@@ -93,20 +78,18 @@ rule "202 Purchase hero actions":
                         smallMessage(eventPlayer, "  {0} Magazines refilled!".format(heroIcon(hero[eventPlayer.idx])))
                         break  # Stop after the first match
                     else: 
-                        if eventPlayer.currentmagazines >= 10:
+                        if eventPlayer.currentmagazines >= 10: #probably need to track if they have pack a punch amount of ammo or not
                             smallMessage(eventPlayer, "  You already have full magazines!")
                         elif eventPlayer.points < herobuycosts[eventPlayer.idx] / 2:
                             smallMessage(eventPlayer, "  {0} No points? NO magazines!".format(heroIcon(Hero.RAMATTRA)))
                 else:
                     if eventPlayer.points >= round(herobuycosts[eventPlayer.idx] * costmultiplier - eventPlayer.creditcardlimit):       
-                    if eventPlayer.points >= herobuycosts[eventPlayer.idx] - eventPlayer.creditcardlimit:       
-                    if eventPlayer.points >= round(herobuycosts[eventPlayer.idx] * costmultiplier - eventPlayer.creditcardlimit):       
                         eventPlayer.startForcingHero(hero[eventPlayer.idx])
+                        wait()
                         eventPlayer.heroswap[eventPlayer.currentswap] = hero[eventPlayer.idx]
+                        wait()
                         eventPlayer.heroiconswap[eventPlayer.currentswap] = heroIcon(hero[eventPlayer.idx])
                         playEffect(getPlayers(Team.1), DynamicEffect.BUFF_IMPACT_SOUND, Color.WHITE, eventPlayer, 70)
-                        eventPlayer.points -= round(herobuycosts[eventPlayer.idx] * costmultiplier * eventPlayer.cashback)
-                        eventPlayer.points -= herobuycosts[eventPlayer.idx] * eventPlayer.cashback
                         eventPlayer.points -= round(herobuycosts[eventPlayer.idx] * costmultiplier * eventPlayer.cashback)
                         wait(0.25)
                         chaseAtRate(eventPlayer.points2, (evalOnce(eventPlayer.points) + 0) * eventPlayer.H, herobuycosts[eventPlayer.idx])
@@ -150,14 +133,10 @@ rule "78 buy revive multiplayer":# maybe change this perk
     @Condition distance(eventPlayer, vect(-83.583, -155.045, 120.352)) < 4
     @Condition eventPlayer.isHoldingButton(Button.INTERACT) == true
     @Condition eventPlayer.points >= round(1000 * costmultiplier - eventPlayer.creditcardlimit)
-    @Condition eventPlayer.points >= 1000
-    @Condition eventPlayer.points >= round(1000 * costmultiplier - eventPlayer.creditcardlimit)
     @Condition powerconnected == 1
     #@Condition __assignTo__(eventPlayer.revivebought, false)
     @Condition getNumberOfPlayers(Team.1) > 1
     
-    eventPlayer.points -= round(1000 * costmultiplier * eventPlayer.cashback)
-    eventPlayer.points -= 1000 * eventPlayer.cashback
     eventPlayer.points -= round(1000 * costmultiplier * eventPlayer.cashback)
     chaseAtRate(eventPlayer.points2, (evalOnce(eventPlayer.points) + 0) * eventPlayer.H, 1000)
     playEffect(getPlayers(Team.1), DynamicEffect.BUFF_IMPACT_SOUND, Color.WHITE, eventPlayer, 70)
@@ -178,11 +157,6 @@ rule "173 Purchase winston Omnic bomb":
     @Team 1
     @Condition distance(eventPlayer, buyperks[9]) < 4
     @Condition eventPlayer.isHoldingButton(Button.INTERACT) == true
-    @Condition eventPlayer.points >= 2500
-    @Condition powerconnected == 1
-    @Condition eventPlayer.Movement == false
-    
-    eventPlayer.points -= 2500 * eventPlayer.cashback
     @Condition eventPlayer.points >= round(2500 * costmultiplier - eventPlayer.creditcardlimit)
     @Condition powerconnected == 1
     @Condition eventPlayer.Movement == false

@@ -48,16 +48,12 @@ rule "perk info simplified":
     @Condition eventPlayer.perkinfo == false
     @Disabled
 
-    
-    @Disabled
-
     #this could be a loop
     if roundnumber > 0:
         goto lbl_0
     wait(9)
     lbl_0:
     for i in range(len(eventPlayer.Perkui)):
-        wait(0.1)
         wait(0.1)
         hudHeader(eventPlayer, "{0}".format(eventPlayer.Perkui[i]), HudPosition.LEFT, 3, eventPlayer.perkcolor[i], HudReeval.VISIBILITY_SORT_ORDER_AND_COLOR)
         eventPlayer.Perkui.append(getLastCreatedText())
@@ -296,8 +292,6 @@ rule "202 Purchase hero message":
     for i in range(len(buyheros)):
         if distance(eventPlayer, buyheros[i]) < 2:
             wait(0.1)
-            smallMessage(eventPlayer, "  {0} Press: {1} for Hero = {2}".format(heroIcon(hero[i]), inputBindingString(Button.INTERACT), "{0} Points -- Hold: {1} for follower = {2}".format(round(herobuycosts[i] * costmultiplier), inputBindingString(Button.RELOAD), "{0} Points --- Ammo cost {1}".format(round(herobuycosts[i] / 3 * costmultiplier), round(herobuycosts[i] / 2 * costmultiplier)))))
-            smallMessage(eventPlayer, "  {0} Press: {1} for Hero = {2}".format(heroIcon(hero[i]), inputBindingString(Button.INTERACT), "{0} Points -- Hold: {1} for follower = {2}".format(herobuycosts[i], inputBindingString(Button.RELOAD), "{0} Points --- Ammo cost {1}".format(herobuycosts[i] / 3, herobuycosts[i] / 2))))
             smallMessage(eventPlayer, "  {0} Press: {1} for Hero = {2}".format(heroIcon(hero[i]), inputBindingString(Button.INTERACT), "{0} Points -- Hold: {1} for follower = {2}".format(round(herobuycosts[i] * costmultiplier), inputBindingString(Button.RELOAD), "{0} Points --- Ammo cost {1}".format(round(herobuycosts[i] / 3 * costmultiplier), round(herobuycosts[i] / 2 * costmultiplier)))))
             eventPlayer.heroBuyMessTimer = true
             wait(5)

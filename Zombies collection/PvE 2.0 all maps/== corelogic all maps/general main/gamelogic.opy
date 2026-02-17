@@ -39,9 +39,6 @@ rule "1 Setup":
     Died[3] = vect(500, 0, 500)
     costmultiplier = 1
 
-
-    costmultiplier = 1
-    
 rule "2 round change":
     @Condition numberOfZombies <= 0
     @Condition O == false
@@ -52,13 +49,6 @@ rule "2 round change":
         destroyDummy(Team.2, omnicspawn[forindex])
     roundnumber += 1
     Z = 1
-    bigMessage(getAllPlayers(), l"Round {0}".format(romanN[romanNcounter]))
-    P = false
-    getDeadPlayers(Team.1).Packapunch = false # this needs to change for all heroes in inventory
-    getPlayers(Team.1).setUltCharge(100)
-    bigMessage(getAllPlayers(), l"Round {0}".format(romanN[romanNcounter]))
-    P = false
-    getDeadPlayers(Team.1).Packapunch = false
     bigMessage(getAllPlayers(), l"Round {0}".format(romanN[romanNcounter]))
     P = false
     getDeadPlayers(Team.1).Packapunch = false # this needs to change for all heroes in inventory
@@ -82,12 +72,6 @@ rule "2 round change":
     chwaveinterval += 1
     if roundnumber < 12:
         romanNcounter += 1
-    rngCamera = random.randint(1, 5)
-    costmultiplier = costmultiplier * random.uniform(1.02, 1.04)
-    roundpointmultiplier = random.uniform(1.01, 1.03)
-    getPlayers(Team.1).ultcharge[0] = 100
-    getPlayers(Team.1).ultcharge[1] = 100
-    rngCamera = random.randint(1, 5)
     rngCamera = random.randint(1, 5)
     costmultiplier = costmultiplier * random.uniform(1.02, 1.04)
     roundpointmultiplier = random.uniform(1.01, 1.03)
@@ -143,10 +127,6 @@ rule "6 Defeat (needs to be refined for soft restart)":
     poweron = 0
     getPlayers(Team.1).points = 0
     g = false
-    restartMatch() #comment this out later
-    getPlayers(Team.1).creditcardlimit = 0
-    getPlayers(Team.1).creditTier = 0
-    
     #restartMatch() #comment this out later
     getPlayers(Team.1).creditcardlimit = 0
     getPlayers(Team.1).creditTier = 0
@@ -185,7 +165,7 @@ rule "36 Pickup perk drops(should be able to write this as one rule)":
     @Condition distance(eventPlayer, M[1]) <= 1.5
     @Condition getPlayers(Team.1).G[1] == false
     @Condition roundnumber >= 1
-    @Condition any([distance(player, eventPlayer) < diedradius[i] for player, i in M]) == true
+    @Condition any([distance(player, eventPlayer) < 4 for player, i in M]) == true
     
     M[1] = vect(500, 25, 500)
     getPlayers(Team.1).G[1] = true
@@ -266,12 +246,12 @@ rule "40 InstaUlt Active":
         loop()
 
 
-rule "43 zone blockers (needs arrays)":
+rule "43 zone blockers (needs arrays)": #set this to be an array of locations and loop through it with a condition that checks if player is in radius of any of them
     @Event eachPlayer
     @Team 1
     #should use a is true for any
     @Condition distance(eventPlayer, vect(-92.307, -149.655, 143.069)) <= 3
-    #@Condition any([distance(player, eventPlayer) < diedradius[i] for player, i in Z]) == true
+    #@Condition any([distance(player, eventPlayer) < 4 for player, i in Z]) == true
     @Condition distance(eventPlayer, vect(-71.911, -149.645, 141.974)) <= 3
     @Condition distance(eventPlayer, vect(-83.688, -149.566, 141.589)) <= 3    
     @Condition getPlayersInRadius(vect(202.856, -7.605, -227.935), 2.5, Team.1) == true
@@ -306,6 +286,7 @@ rule "48 WORKSHOP SETTINGS":
     experiencesystem = createWorkshopSettingBool("fun", "experience system", false)
     if experiencesystem == false:
         goto lbl_0
+    eventPlayer.setSecondaryFireEnabled(false)
     eventPlayer.setAbility1Enabled(false)
     eventPlayer.setAbility2Enabled(false)
     eventPlayer.setUltEnabled(false)
@@ -599,5 +580,4 @@ rule "bastion re enter turret mode (need to add cooldown reduction to seemlessly
     eventPlayer.forceButtonPress(Button.ABILITY_1)
     wait(6.5)
     loop()
-
 

@@ -12,7 +12,7 @@ What it does
 
 Notes
 - This tool stores only 1/2/3 as requested.
-- You can later decode 1/2/3 -> {0.75, 1.00, 1.25} (or whatever mapping you want).
+- You can later decode 1/2/3 -> {0.70, 1.00, 1.30} (or whatever mapping you want).
 
 Run
 - Python 3.10+ recommended
@@ -32,26 +32,58 @@ DEFAULT_HEROES = [
     # Edit this list to match your roster.
     # Kept generic because hero rosters change over time.
     "Ana", "Ashe", "Baptiste", "Bastion", "Brigitte", "Cassidy",
-    "D.Va", "Doomfist", "Echo", "Genji", "Hanzo", "Illari",
-    "Junker Queen", "Junkrat", "Kiriko", "Lifeweaver", "Lúcio",
+    "D.Va", "Doomfist", "Echo", "Freja", "Genji", "Hanzo", "Hazard", "Illari",
+    "Junker Queen", "Junkrat", "Juno", "Kiriko", "Lifeweaver", "Lúcio",
     "Mauga", "Mei", "Mercy", "Moira", "Orisa", "Pharah", "Ramattra",
     "Reaper", "Reinhardt", "Roadhog", "Sigma", "Sojourn", "Soldier: 76",
-    "Sombra", "Symmetra", "Torbjörn", "Tracer", "Venture", "Widowmaker",
-    "Winston", "Wrecking Ball", "Zarya", "Zenyatta",
-    # Add/remove to reach your 45/46 target
-    "Gen-Placeholder-1", "Gen-Placeholder-2", "Gen-Placeholder-3", "Gen-Placeholder-4", "Gen-Placeholder-5"
+    "Sombra", "Symmetra", "Torbjörn", "Tracer", "Vendetta", "Venture", "Widowmaker",
+    "Winston", "Wrecking Ball", "Wuyang", "Zarya", "Zenyatta"
 ]
+
+HERO_ROLES = {
+    # TANKS
+    "D.Va": "tank",
+    "Doomfist": "tank",
+    "Hazard": "tank",
+    "Junker Queen": "tank",
+    "Mauga": "tank",
+    "Orisa": "tank",
+    "Ramattra": "tank",
+    "Reinhardt": "tank",
+    "Roadhog": "tank",
+    "Sigma": "tank",
+    "Winston": "tank",
+    "Wrecking Ball": "tank",
+    "Zarya": "tank",
+
+    # SUPPORTS
+    "Ana": "support",
+    "Baptiste": "support",
+    "Brigitte": "support",
+    "Illari": "support",
+    "Juno": "support",
+    "Kiriko": "support",
+    "Lifeweaver": "support",
+    "Lúcio": "support",
+    "Mercy": "support",
+    "Moira": "support",
+    "Wuyang": "support",
+    "Zenyatta": "support",
+
+    # EVERYTHING ELSE = DPS
+}
 
 
 class ScrollableFrame(ttk.Frame):
     def __init__(self, parent):
         super().__init__(parent)
 
-        self.canvas = tk.Canvas(self, highlightthickness=0)
+        self.canvas = tk.Canvas(self, highlightthickness=0, background="#1e1e1e")
         self.v_scroll = ttk.Scrollbar(self, orient="vertical", command=self.canvas.yview)
         self.canvas.configure(yscrollcommand=self.v_scroll.set)
 
         self.inner = ttk.Frame(self.canvas)
+        self.inner.configure(style="TFrame")  # ensures ttk background applies
         self.inner_id = self.canvas.create_window((0, 0), window=self.inner, anchor="nw")
 
         self.canvas.grid(row=0, column=0, sticky="nsew")
@@ -108,16 +140,116 @@ class SwitchboardApp(ttk.Frame):
 
     def _build_style(self):
         style = ttk.Style()
+
         try:
-            style.theme_use("clam")
+            style.theme_use("clam")  # clam is the best base for dark themes
         except tk.TclError:
             pass
 
-        style.configure("TLabel", padding=2)
-        style.configure("TButton", padding=6)
-        style.configure("Header.TLabel", font=("Segoe UI", 11, "bold"))
-        style.configure("Small.TLabel", font=("Segoe UI", 9))
-        style.configure("Mono.TLabel", font=("Consolas", 9))
+        # --- GLOBAL COMBOBOX DROPDOWN COLORS (IMPORTANT) ---
+        self.root.option_add("*TCombobox*Listbox.background", "#1e1e1e")
+        self.root.option_add("*TCombobox*Listbox.foreground", "#d4d4d4")
+        self.root.option_add("*TCombobox*Listbox.selectBackground", "#444444")
+        self.root.option_add("*TCombobox*Listbox.selectForeground", "#ffffff")
+
+        # ---- COLORS ----
+        BG = "#1e1e1e"      # main background
+        FG = "#d4d4d4"      # main text
+        ACCENT = "#3a3a3a"  # buttons / frames
+        HOVER = "#505050"
+        ENTRY_BG = "#2a2a2a"
+
+        # ---- COMBOBOX (field colors + readonly override) ----
+        style.configure(
+            "TCombobox",
+            fieldbackground=ENTRY_BG,
+            background=ENTRY_BG,
+            foreground=FG
+        )
+
+        # This is the important part on Linux: readonly state overrides
+        style.map(
+            "TCombobox",
+            fieldbackground=[("readonly", ENTRY_BG), ("!disabled", ENTRY_BG)],
+            foreground=[("readonly", FG), ("!disabled", FG)],
+            selectbackground=[("readonly", "#444444")],
+            selectforeground=[("readonly", "#ffffff")]
+        )
+
+        # ---- ROOT WINDOW ----
+        self.root.configure(background=BG)
+
+        # ---- BASE STYLES ----
+        style.configure(
+            ".",
+            background=BG,
+            foreground=FG,
+            fieldbackground=ENTRY_BG,
+            bordercolor=ACCENT
+        )
+
+        style.configure(
+            "TFrame",
+            background=BG
+        )
+
+        style.configure(
+            "TLabel",
+            background=BG,
+            foreground=FG,
+            padding=2
+        )
+
+        style.configure(
+            "Header.TLabel",
+            background=BG,
+            foreground=FG,
+            font=("Segoe UI", 11, "bold")
+        )
+
+        style.configure(
+            "Small.TLabel",
+            background=BG,
+            foreground=FG,
+            font=("Segoe UI", 9)
+        )
+
+        style.configure(
+            "Mono.TLabel",
+            background=BG,
+            foreground=FG,
+            font=("Consolas", 9)
+        )
+
+        # ---- BUTTONS ----
+        style.configure(
+            "TButton",
+            background=ACCENT,
+            foreground=FG,
+            padding=6
+        )
+
+        style.map(
+            "TButton",
+            background=[("active", HOVER)]
+        )
+
+        # ---- COMBOBOX ----
+        style.configure(
+            "TCombobox",
+            fieldbackground=ENTRY_BG,
+            background=ENTRY_BG,
+            foreground=FG,
+            arrowcolor=FG
+        )
+
+        # ---- SCROLLBAR ----
+        style.configure(
+            "Vertical.TScrollbar",
+            background=ACCENT,
+            troughcolor=BG,
+            arrowcolor=FG
+        )
 
     def _build_layout(self):
         self.root.title("OW Hero Switchboard (1/2/3)")
@@ -138,6 +270,7 @@ class SwitchboardApp(ttk.Frame):
         ttk.Button(left, text="Edit Hero List…", command=self._open_hero_editor).grid(row=1, column=0, sticky="we", pady=(6, 6))
 
         self.attacker_list = tk.Listbox(left, height=22, exportselection=False)
+        self.attacker_list.configure(background="#1e1e1e",    foreground="#d4d4d4",    selectbackground="#444444",    selectforeground="#ffffff",    highlightthickness=0)
         self.attacker_list.grid(row=2, column=0, sticky="nsew")
         self.attacker_list.bind("<<ListboxSelect>>", self._on_attacker_select)
 
@@ -177,8 +310,22 @@ class SwitchboardApp(ttk.Frame):
         out.grid(row=3, column=0, sticky="nsew", pady=(8, 0))
         out.grid_columnconfigure(0, weight=1)
 
-        ttk.Label(out, text="Output (Flattened + JSON preview):", style="Small.TLabel").grid(row=0, column=0, sticky="w")
+
+        out_header = ttk.Frame(out)
+        out_header.grid(row=0, column=0, sticky="we")
+        out_header.grid_columnconfigure(0, weight=1)
+
+        ttk.Label(out_header, text="Output (Flattened + JSON preview):", style="Small.TLabel").grid(row=0, column=0, sticky="w")
+        ttk.Button(out_header, text="Copy", command=self._copy_output).grid(row=0, column=1, sticky="e")
         self.output = tk.Text(out, height=10, wrap="none")
+        self.output.configure(
+            background="#1e1e1e",
+            foreground="#d4d4d4",
+            insertbackground="#ffffff",
+            selectbackground="#444444",
+            selectforeground="#ffffff"
+        )
+
         self.output.grid(row=1, column=0, sticky="nsew")
         self.output.configure(font=("Consolas", 9))
 
@@ -186,6 +333,11 @@ class SwitchboardApp(ttk.Frame):
         xscroll = ttk.Scrollbar(out, orient="horizontal", command=self.output.xview)
         self.output.configure(xscrollcommand=xscroll.set)
         xscroll.grid(row=2, column=0, sticky="we")
+
+    def _copy_output(self):
+        text = self.output.get("1.0", "end-1c")
+        self.root.clipboard_clear()
+        self.root.clipboard_append(text)
 
     def _render_victim_rows(self):
         # Clear existing victim rows
@@ -211,6 +363,7 @@ class SwitchboardApp(ttk.Frame):
             self.victim_vars.append(var)
 
             combo = ttk.Combobox(row, textvariable=var, values=("1", "2", "3"), width=4, state="readonly")
+            combo.configure(background="#2a2a2a", foreground="#d4d4d4")
             combo.grid(row=0, column=1, sticky="e")
             combo.bind("<<ComboboxSelected>>", lambda _e, victim_index=i: self._on_victim_value_changed(victim_index))
 
@@ -251,36 +404,59 @@ class SwitchboardApp(ttk.Frame):
         self._select_attacker(self.selected_attacker)
 
     def _compile(self):
-        # Flatten in attacker-major order: idx = a*N + v
-        flat = []
-        for a in range(self.N):
-            flat.extend(self.table[a])
-
-        # Prepare output payloads
-        payload = {
-            "heroes": self.heroes,
-            "N": self.N,
-            "flat_attacker_major": flat,
-            "matrix": {
-                self.heroes[a]: {self.heroes[v]: self.table[a][v] for v in range(self.N)}
-                for a in range(self.N)
-            }
+        # Build role index lists
+        role_indices = {
+            "damage": [],
+            "tank": [],
+            "support": []
         }
 
-        self.output.delete("1.0", "end")
-        self.output.insert("end", "FLATTENED (attacker-major):\n")
-        self.output.insert("end", json.dumps(flat))
-        self.output.insert("end", "\n\nJSON (preview):\n")
-        preview = json.dumps(payload, indent=2)
-        # Keep preview reasonable in the text box
-        if len(preview) > 20000:
-            preview = preview[:20000] + "\n... (truncated preview) ..."
-        self.output.insert("end", preview)
+        for i, hero in enumerate(self.heroes):
+            role = HERO_ROLES.get(hero, "damage")
+            role_indices[role].append(i)
 
-        # Also copy flattened to clipboard for quick paste
+        # Build separate flattened tables
+        damage_table = []
+        tank_table = []
+        support_table = []
+
+        for a in range(self.N):
+            attacker_role = HERO_ROLES.get(self.heroes[a], "damage")
+
+            if attacker_role == "damage":
+                target = damage_table
+            elif attacker_role == "tank":
+                target = tank_table
+            else:
+                target = support_table
+
+            for v in range(self.N):
+                target.append(self.table[a][v])
+
+        # Output
+        self.output.delete("1.0", "end")
+
+        self.output.insert("end", "DAMAGE HERO ARRAY:\n")
+        self.output.insert("end", json.dumps(damage_table))
+        self.output.insert("end", "\n\nTANK HERO ARRAY:\n")
+        self.output.insert("end", json.dumps(tank_table))
+        self.output.insert("end", "\n\nSUPPORT HERO ARRAY:\n")
+        self.output.insert("end", json.dumps(support_table))
+
+        # Copy all three as a single object for convenience
+        compiled = {
+            "damage": damage_table,
+            "tank": tank_table,
+            "support": support_table
+        }
+
         self.root.clipboard_clear()
-        self.root.clipboard_append(json.dumps(flat))
-        messagebox.showinfo("Compiled", "Compiled successfully.\n\nFlattened array copied to clipboard.")
+        self.root.clipboard_append(json.dumps(compiled))
+
+        messagebox.showinfo(
+            "Compiled",
+            "Compiled into 3 role-based arrays.\n\nAll arrays copied to clipboard as JSON."
+        )
 
     def _save_json(self):
         path = filedialog.asksaveasfilename(

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -94,6 +95,7 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+=======
 :root{
   --ow-orange:#f9a51a;
   --ow-orange-2:#ffb547;
@@ -151,3 +153,4 @@ body{padding-top:var(--nav-h)}
 .btn{display:inline-flex;align-items:center;gap:10px;padding:12px 16px;border-radius:12px;font-weight:800;background:#1a2028;color:#fff;transition:transform .18s ease, background .2s ease;will-change:transform}
 .btn:hover{transform:translateY(-2px)}
 .btn--primary{background:linear-gradient(180deg,var(--ow-orange),var(--ow-orange-2));color:#111;box-shadow:0 8px 18px rgba(249,165,26,.28)}
+>>>>>>> e5aeb79 (Sync local changes)

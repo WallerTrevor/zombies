@@ -29,7 +29,6 @@ rule "Collision Logic":
     @Condition eventPlayer.isAlive() == true
     @Condition start == 1
     @Condition eventPlayer.isDummy() == false
-    #@Disabled
 
     if teleporterused == 1:
         wait(1)
@@ -76,10 +75,6 @@ rule "Collision Logic":
                     eventPlayer.applyImpulse(directionTowards(eventPlayer.filterpos, eventPlayer.fullbodypos) * vect(1, [], 1), 1, Relativity.TO_WORLD, Impulse.CANCEL_CONTRARY_MOTION)
                     if eventPlayer.doorNotif == 0:
                         eventPlayer.doorNotif = 1
-                    if eventPlayer.isHoldingButton(Button.INTERACT) and eventPlayer.points >= 1000 - eventPlayer.creditcardlimit:
-                        playEffect(getAllPlayers(), DynamicEffect.GOOD_EXPLOSION, Color.WHITE, AllPos[z], 50) 
-                        playEffect(getAllPlayers(), DynamicEffect.LUCIO_SOUND_BARRIER_CAST_SOUND, Color.WHITE, AllPos[z], 100)
-                        eventPlayer.points -= 1000 * eventPlayer.cashback
                     if eventPlayer.isHoldingButton(Button.INTERACT) and eventPlayer.points >= 1000 * costmultiplier - eventPlayer.creditcardlimit:
                         playEffect(getAllPlayers(), DynamicEffect.GOOD_EXPLOSION, Color.WHITE, AllPos[z], 50) 
                         playEffect(getAllPlayers(), DynamicEffect.LUCIO_SOUND_BARRIER_CAST_SOUND, Color.WHITE, AllPos[z], 100)
@@ -112,9 +107,8 @@ rule "Reset":
 rule "Make door arrays":
     @Condition start == 1
     @Condition doormade == 0
-    @Condition doormade == 0
     i = 0
-    wait(1.0)
+    wait(5.0)
     looping = 0
     Beameffectdoors = []
     while i < len(doorVectors):
@@ -142,16 +136,13 @@ rule "Make door arrays":
         else:
             looping += 4
         i += 1
-    doormade = 1
-
+    #for i in range(len(firstpos)):
     doormade = 1
 
 rule "Reset door notif":
     @Event eachPlayer
     @Condition eventPlayer.doorNotif == 1
 
-    smallMessage(eventPlayer, "  Hold {0} to buy door - cost: {1}".format(inputBindingString(Button.INTERACT), round(1000 * costmultiplier)))
-    smallMessage(eventPlayer, "  Hold {0} to buy door - cost: 1000".format(inputBindingString(Button.INTERACT)))
     smallMessage(eventPlayer, "  Hold {0} to buy door - cost: {1}".format(inputBindingString(Button.INTERACT), round(1000 * costmultiplier)))
     wait(4)
     eventPlayer.doorNotif = 0

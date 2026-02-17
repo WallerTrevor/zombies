@@ -106,8 +106,9 @@ Difficulty settings
 - player revives dont disappear
 - 36 zomnics a wave max
 - melee does a stun
--
--
+- simple attack patterns
+- no fall damage
+
     - NORMAL 
 - have armor system - armor breaks faster
 - medium bot reaction time
@@ -115,7 +116,8 @@ Difficulty settings
 - player revives dissapear after 60 seconds
 - 52 zomnics a wave max
 - melee does not stun
--
+- regular attack patterns
+- no fall damage
     - HARD
 - remove armor system
 - fast bot reaction time
@@ -123,8 +125,18 @@ Difficulty settings
 - player revives dissapear after 30 seconds
 - scaling number of zomnics per wave? or just 72 max
 - melee does not stun
--
+- advanced attack patterns
+- some fall damage
 
+    - Nightmare
+- remove armor system
+- instant bot reaction time
+- do randomize array for hero buy, and perks
+- player revives dissapear after 20 seconds
+- scaling number of zomnics per wave
+- melee does not stun
+- more advanced attack patterns
+- heavy fall damage
 
 include data compression for all arrays
 include only 1 vector for all doors then use math to calculate the other 3 points
@@ -173,6 +185,7 @@ Might be able to use data compression for lines 47 and 51
 
 
 
+=========== Path to 1.0.0 =====================
 
 get walls done 
 - needs data compression and my own door designing tool done 

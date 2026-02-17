@@ -17,7 +17,6 @@ rule "starting voice lines":
 rule "set dialogue text":
     @Condition start == 1
     
-    
     wait(3)
     if startlines == false:
         Dialogue_Text = "Trial {0}. The path to a new world begins.".format(random.randint(100, 9999))
@@ -88,7 +87,7 @@ rule "Dialogue - Text scrolling Function":
     
     Character_Nr++
     if not (Character_Nr % 3): playEffect(getAllPlayers(), DynamicEffect.SOMBRA_TRANSLOCATOR_REAPPEAR_SOUND, getAllPlayers(), getAllPlayers().getEyePosition(), 100)
-    wait(0.7 if Dialogue_Text.charAt(Character_Nr) in [".", "!", "?", "-"] else 0.100)
+    wait(0.350 if Dialogue_Text.charAt(Character_Nr) in [".", "!", "?", "-"] else 0.050)
     waitUntil(Character_Nr <= strLen(Dialogue_Text), 99999)
     if ruleCondition:
         loop()

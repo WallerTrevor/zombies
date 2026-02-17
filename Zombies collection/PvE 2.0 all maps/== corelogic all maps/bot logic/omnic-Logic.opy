@@ -24,7 +24,6 @@ rule "15 Unstuck Bots(buggy effect)":
     @Condition eventPlayer.isInSpawnRoom() == false
     @Condition eventPlayer.hasStatus(Status.HACKED) or eventPlayer.hasStatus(Status.KNOCKED_DOWN) or eventPlayer.hasStatus(Status.FROZEN) or eventPlayer.hasStatus(Status.ASLEEP) or eventPlayer.hasStatus(Status.STUNNED) == false
     #@Condition distance(eventPlayer, getRealClosestPlayer(eventPlayer, Team.1)) > 2.5
-    #@Condition distance(eventPlayer, getClosestPlayer(eventPlayer, Team.1)) > 2.5
     
     wait(2.5, Wait.ABORT_WHEN_FALSE)
     #eventPlayer.teleport(random.choice(Y))
@@ -43,7 +42,6 @@ rule "16 Jump If Far Away From Player":
     @Team 2
     #not sure if this rule is needed
     @Condition distance(eventPlayer, getRealClosestPlayer(eventPlayer, Team.1)) > random.randint(5, 20)
-    @Condition distance(eventPlayer, getClosestPlayer(eventPlayer, Team.1)) > random.randint(5, 20)
     @Condition O == false
     #idle bots would be great in concept, its meant to feel like L4D2
     @Condition eventPlayer.getHorizontalSpeed() < 0.7
@@ -70,7 +68,6 @@ rule "17 Bots Under Player":
     @Condition O == false
     @Condition eventPlayer.getSpeed() < 0.95
     @Condition distance(eventPlayer, getRealClosestPlayer(eventPlayer, Team.1)) > 1
-    @Condition distance(eventPlayer, getClosestPlayer(eventPlayer, Team.1)) > 1
     @Condition eventPlayer.hasStatus(Status.HACKED) or eventPlayer.hasStatus(Status.KNOCKED_DOWN) or eventPlayer.hasStatus(Status.FROZEN) or eventPlayer.hasStatus(Status.ASLEEP) or eventPlayer.hasStatus(Status.STUNNED) != true #needs a (is boss active) condition
     wait(0.33, Wait.ABORT_WHEN_FALSE)
     eventPlayer.applyImpulse(Vector.UP, 15, Relativity.TO_WORLD, Impulse.CANCEL_CONTRARY_MOTION)
@@ -228,7 +225,7 @@ rule "519 Spawn wave director":
         #and need wave boss to spawn a 2nd or 3rd one if players are doing well
         wait(0.25)
         wavespawn()
-    elif spawntype == 1:
+    elif spawntype == 1: #this all needs to work with spawntypes and its for loop
         g = false
         wait(0.25)
         bossSpawn = [null]
@@ -275,7 +272,6 @@ rule "559 stop throttle omnics":
     @Event eachPlayer
     @Team 2
     @Condition distance(eventPlayer, getRealClosestPlayer(eventPlayer, Team.1)) < 1.75
-    @Condition distance(eventPlayer, getClosestPlayer(eventPlayer, Team.1)) < 1.75
     @Disabled
     
     eventPlayer.stopForcingThrottle()
@@ -285,10 +281,8 @@ rule "435 basic OMNIC ALL heroes":
     @Event eachPlayer
     @Team 2
     @Condition distance(eventPlayer, getRealClosestPlayer(eventPlayer, Team.1)) < 10
-    @Condition distance(eventPlayer, getClosestPlayer(eventPlayer, Team.1)) < 10
     @Condition eventPlayer.getSlot() != getPlayersInSlot(0, Team.2)
 
-    #needs to be seperate rules as this is very limited conditions
     if eventPlayer.getHero() == Hero.ROADHOG:
         eventPlayer.forceButtonPress(Button.ABILITY_2)
         wait(random.randint(15, 25))
@@ -400,7 +394,6 @@ rule "435 basic OMNIC ALL heroes":
     elif eventPlayer.getHero() == Hero.JUNKER_QUEEN:
         eventPlayer.forceButtonPress(Button.ABILITY_1)
         if distance(eventPlayer, getRealClosestPlayer(eventPlayer, Team.1)) < 5:
-        if distance(eventPlayer, getClosestPlayer(eventPlayer, Team.1)) < 5:
             eventPlayer.forceButtonPress(Button.ABILITY_2)
     elif eventPlayer.getHero() == Hero.SIGMA:
         eventPlayer.startForcingButton(Button.SECONDARY_FIRE)
@@ -422,7 +415,6 @@ rule "435 basic OMNIC ALL heroes":
         if eventPlayer.getNormalizedHealth() <= random.randint(0.5, 0.75):
             eventPlayer.forceButtonPress(Button.ABILITY_1)
 
-
 rule "137  bots too far away":
     @Event eachPlayer
     @Team 2
@@ -439,7 +431,6 @@ rule "164 OMNIC brigg hold sheild":
     @Team 2
     @Hero brigitte
     @Condition distance(eventPlayer, getRealClosestPlayer(eventPlayer, Team.1)) >= 15
-    @Condition distance(eventPlayer, getClosestPlayer(eventPlayer, Team.1)) >= 15
 
     if powerconnected == 1:
         goto lbl_0
@@ -455,7 +446,6 @@ rule "165 OMNIC brigg hold sheild":
     @Team 2
     @Hero brigitte
     @Condition distance(eventPlayer, getRealClosestPlayer(eventPlayer, Team.1)) < 12
-    @Condition distance(eventPlayer, getClosestPlayer(eventPlayer, Team.1)) < 12
     
     eventPlayer.stopForcingButton(Button.SECONDARY_FIRE)
 
@@ -476,7 +466,6 @@ rule "407 OMNIC Bots Move Toward Players":
     @Team 2
     @Condition O == false
     @Condition distance(eventPlayer, getRealClosestPlayer(eventPlayer, Team.1)) >= 1.75
-    @Condition distance(eventPlayer, getClosestPlayer(eventPlayer, Team.1)) >= 1.75
 
     eventPlayer.startForcingThrottle(1, 1, 0, 1, 0, 1)
     if zombstrafe == false:
@@ -513,7 +502,6 @@ rule "409 OMNIC Bots Attack if Near":
     @Event eachPlayer
     @Team 2
     @Condition distance(eventPlayer, getRealClosestPlayer(eventPlayer, Team.1)) < 1.8
-    @Condition distance(eventPlayer, getClosestPlayer(eventPlayer, Team.1)) < 1.8
     @Condition O == false
     @Condition eventPlayer.getHero() == Hero.TORBJORN or Hero.BRIGITTE or Hero.WINSTON or Hero.GENJI or Hero.RAMATTRA or Hero.REAPER or Hero.REINHARDT
     wait(createWorkshopSettingFloat("difficulty", "zombie reaction time", 0.35, 0, 1), Wait.ABORT_WHEN_FALSE)
@@ -524,7 +512,6 @@ rule "410 OMNIC Bots Dont Attack if Not Near":
     @Event eachPlayer
     @Team 2
     @Condition distance(eventPlayer, getRealClosestPlayer(eventPlayer, Team.1)) >= 1.8
-    @Condition distance(eventPlayer, getClosestPlayer(eventPlayer, Team.1)) >= 1.8
     @Condition eventPlayer.isFiringPrimaryFire() == true
     @Condition eventPlayer.isUsingUltimate() == false
     @Condition eventPlayer.getHero() == Hero.TORBJORN or Hero.BRIGITTE or Hero.WINSTON or Hero.GENJI or Hero.RAMATTRA or Hero.REAPER or Hero.REINHARDT
@@ -619,7 +606,6 @@ rule "422 OMNIC Dont Attack if Not Near genji":
     @Team 2
     @Hero genji
     @Condition distance(eventPlayer, getRealClosestPlayer(eventPlayer, Team.1)) >= 1.8
-    @Condition distance(eventPlayer, getClosestPlayer(eventPlayer, Team.1)) >= 1.8
     @Condition eventPlayer.isFiringPrimaryFire() == true
     
     eventPlayer.stopForcingButton(Button.PRIMARY_FIRE)
@@ -638,7 +624,6 @@ rule "424 OMNIC moira Attack if Near":
     @Team 2
     @Hero moira
     @Condition distance(eventPlayer, getRealClosestPlayer(eventPlayer, Team.1)) < 1.8
-    @Condition distance(eventPlayer, getClosestPlayer(eventPlayer, Team.1)) < 1.8
     @Condition O == false
     
     wait(0.49, Wait.ABORT_WHEN_FALSE)

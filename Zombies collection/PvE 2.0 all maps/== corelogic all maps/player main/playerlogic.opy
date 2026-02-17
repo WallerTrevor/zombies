@@ -92,12 +92,10 @@ rule "18 Get out of Spawn":
     @Team 1
     #need to make sure this doesnt conflict with soft restart
     #@Condition eventPlayer.isInSpawnRoom() == true
-    @Condition eventPlayer.isInSpawnRoom() == true
     @Condition outofpsawn == 1
     
     wait(1)
     getoutofspawn()
-
 
 rule "80 player died without maniac":
     @Event playerDied
@@ -250,17 +248,11 @@ rule "245 Rule 388 tank sheild":
 
 
 rule "393 POINTS Omnic kill (final hit)":
-rule "393 POINTS Omnic kill (final hit (could probably make this one rule))":
-rule "393 POINTS Omnic kill (final hit)":
     @Event playerDealtFinalBlow
     @Team 1
     
     if eventPlayer.isMeleeing() == false:
         if eventWasCriticalHit == false:
-            eventPlayer.points += (50 + eventPlayer.heropoints * eventPlayer.H) * roundpointmultiplier ** (roundnumber - 1)
-            ramPoints += (50 + eventPlayer.heropoints * eventPlayer.H) * roundpointmultiplier ** (roundnumber - 1)
-            eventPlayer.points += 50 + eventPlayer.heropoints * eventPlayer.H
-            ramPoints +=50 + eventPlayer.heropoints * eventPlayer.H
             eventPlayer.points += (50 + eventPlayer.heropoints * eventPlayer.H) * roundpointmultiplier ** (roundnumber - 1)
             ramPoints += (50 + eventPlayer.heropoints * eventPlayer.H) * roundpointmultiplier ** (roundnumber - 1)
             chaseAtRate(eventPlayer.points2, (evalOnce(eventPlayer.points) + 0) * eventPlayer.H, 1000)
@@ -275,10 +267,6 @@ rule "393 POINTS Omnic kill (final hit)":
         elif eventWasCriticalHit == true:
             eventPlayer.points += (100 + eventPlayer.heropoints * eventPlayer.H) * roundpointmultiplier ** (roundnumber - 1)
             ramPoints += (100 + eventPlayer.heropoints * eventPlayer.H) * roundpointmultiplier ** (roundnumber - 1)
-            eventPlayer.points += 100 + eventPlayer.heropoints * eventPlayer.H
-            ramPoints +=100 + eventPlayer.heropoints * eventPlayer.H
-            eventPlayer.points += (100 + eventPlayer.heropoints * eventPlayer.H) * roundpointmultiplier ** (roundnumber - 1)
-            ramPoints += (100 + eventPlayer.heropoints * eventPlayer.H) * roundpointmultiplier ** (roundnumber - 1)
             chaseAtRate(eventPlayer.points2, (evalOnce(eventPlayer.points) + 0) * eventPlayer.H, 1000)
             if eventPlayer.H != 1:
                 goto lbl_2
@@ -291,19 +279,12 @@ rule "393 POINTS Omnic kill (final hit)":
     elif eventPlayer.isMeleeing() == true:
         eventPlayer.points += (60 + eventPlayer.heropoints * eventPlayer.H) * roundpointmultiplier ** (roundnumber - 1)
         ramPoints += (60 + eventPlayer.heropoints * eventPlayer.H) * roundpointmultiplier ** (roundnumber - 1)
-        eventPlayer.points += 130 + eventPlayer.heropoints * eventPlayer.H
-        ramPoints +=130 + eventPlayer.heropoints * eventPlayer.H
-        eventPlayer.points += (60 + eventPlayer.heropoints * eventPlayer.H) * roundpointmultiplier ** (roundnumber - 1)
-        ramPoints += (60 + eventPlayer.heropoints * eventPlayer.H) * roundpointmultiplier ** (roundnumber - 1)
         chaseAtRate(eventPlayer.points2, (evalOnce(eventPlayer.points) + 0) * eventPlayer.H, 250)
         if eventPlayer.H != 1:
             goto lbl_4
         if eventPlayer.H == 1:
             goto lbl_5
         lbl_4:
-        R += 260 * eventPlayer.H
-        lbl_5:
-        eventPlayer.xp[eventPlayer.currentheroxp] += 15
         R += 120 * eventPlayer.H
         lbl_5:
         eventPlayer.xp[eventPlayer.currentheroxp] += 6
@@ -313,44 +294,6 @@ rule "393 POINTS Omnic kill (final hit)":
 rule "396 POINTS Omnic kill (elimination)":
     @Event playerEarnedElimination
     @Team 1
-    @Condition eventWasCriticalHit == false
-    @Condition eventPlayer.isMeleeing() == false
-    
-    if eventWasCriticalHit == false:
-        if eventPlayer.getHero() in getDamageHeroes() == true:
-            eventPlayer.heropoints = 15
-        elif eventPlayer.getHero() in getSupportHeroes() == true:
-            eventPlayer.heropoints = 5
-        elif eventPlayer.getHero() in getTankHeroes() == true:
-            eventPlayer.heropoints = 10
-        eventPlayer.points += 40 + eventPlayer.heropoints * eventPlayer.H
-        ramPoints +=80 + eventPlayer.heropoints * eventPlayer.H
-        if eventPlayer.H != 1:
-            goto lbl_0
-        if eventPlayer.H == 1:
-            goto lbl_1
-        lbl_0:
-        R += 80 * eventPlayer.H
-        lbl_1:
-        eventPlayer.xp[eventPlayer.currentheroxp] += 5
-    elif eventWasCriticalHit == true:
-        if eventPlayer.getHero() in getDamageHeroes() == true:
-            eventPlayer.heropoints = 30
-        elif eventPlayer.getHero() in getSupportHeroes() == true:
-            eventPlayer.heropoints = 10
-        elif eventPlayer.getHero() in getTankHeroes() == true:
-            eventPlayer.heropoints = 20
-        eventPlayer.points += 80 + eventPlayer.heropoints * eventPlayer.H
-        ramPoints +=80 + eventPlayer.heropoints * eventPlayer.H
-        if eventPlayer.H != 1:
-            goto lbl_2
-        if eventPlayer.H == 1:
-            goto lbl_3
-        lbl_2:
-        R += 160 * eventPlayer.H
-        lbl_3:
-        eventPlayer.xp[eventPlayer.currentheroxp] += 10
-
 
     if eventPlayer.isMeleeing() == false:
         if eventWasCriticalHit == false:
@@ -543,10 +486,10 @@ rule "26 Revive Player system":
     #then lose their hero and will need to rebuild spectator cam
     @Condition eventPlayer.isAlive() == true
     @Condition eventPlayer.isDummy() == false
-    @Condition any([distance(player, eventPlayer) < diedradius[i] for player, i in Died]) == true
+    @Condition any([distance(player, eventPlayer) < 4 for player, i in Died]) == true
     
     for i in range(len(Died)):
-        if distance(eventPlayer, Died[i]) <= diedradius[i]:
+        if distance(eventPlayer, Died[i]) <= 4:
             eventPlayer.C = getPlayersInSlot(i, Team.1)
             chaseOverTime(getPlayersInSlot(i, Team.1).C, 4, 2 + P * 2)
             wait(2 + P * 2, Wait.ABORT_WHEN_FALSE)
@@ -576,7 +519,7 @@ rule "27 Cancel Revive all players":
     @Event eachPlayer
     @Team 1
     #work in progress
-    @Condition any([distance(player, eventPlayer) > diedradius[i] for player, i in Died]) == true
+    @Condition any([distance(player, eventPlayer) > 4 for player, i in Died]) == true
     @Condition eventPlayer != getPlayersInSlot(i, Team.1)
     
     getPlayersInSlot(i, Team.1).C = false
@@ -598,3 +541,129 @@ rule "died Camera":
     eventPlayer.startCamera(vect(evalOnce(random.randint(-3, 4)), 0, evalOnce(random.randint(-3, 4))) + eventPlayer.getEyePosition(), eventPlayer.getEyePosition())
     wait(1.5)
     eventPlayer.stopCamera()
+
+rule "set damage to player variable for all DPS heroes":
+    @Event eachPlayer
+    @Condition eventPlayer.getHero() in getDamageHeroes() == true
+    
+    if spawntype < 4:
+        startDamageModification(getPlayersOnHero(bossSpawn, Team.ALL), eventPlayer, heroDamageModifiers[eventPlayer.currentdamgindex + currentEnemyIndex]) #these could be a for loop
+        startDamageModification(getPlayersOnHero(bot1spawn, Team.ALL), eventPlayer, heroDamageModifiers[eventPlayer.currentdamgindex + currentEnemyIndex])
+        startDamageModification(getPlayersOnHero(bot2spawn, Team.ALL), eventPlayer, heroDamageModifiers[eventPlayer.currentdamgindex + currentEnemyIndex])
+    else:
+        for i in range(1, botamount):
+            startDamageModification(getPlayersOnHero(currentzombiearray[i], Team.ALL), eventPlayer, heroDamageModifiers[eventPlayer.currentdamgindex + currentEnemyIndex])
+
+rule "set damage to player variable for all TANK heroes":
+    @Event eachPlayer
+    @Condition eventPlayer.getHero() in getTankHeroes() == true
+
+    if spawntype < 4:
+        startDamageModification(getPlayersOnHero(bossSpawn, Team.ALL), eventPlayer, heroTankModifiers[eventPlayer.currentdamgindex + currentEnemyIndex]) #for loop
+        startDamageModification(getPlayersOnHero(bot1spawn, Team.ALL), eventPlayer, heroTankModifiers[eventPlayer.currentdamgindex + currentEnemyIndex])
+        startDamageModification(getPlayersOnHero(bot2spawn, Team.ALL), eventPlayer, heroTankModifiers[eventPlayer.currentdamgindex + currentEnemyIndex])
+    else:
+        for i in range(1, botamount):
+            startDamageModification(getPlayersOnHero(currentzombiearray[i], Team.ALL), eventPlayer, heroTankModifiers[eventPlayer.currentdamgindex + currentEnemyIndex])
+
+rule "set damage to player variable for all SUPPORT heroes":
+    @Event eachPlayer
+    @Condition eventPlayer.getHero() in getSupportHeroes() == true
+
+    if spawntype < 4:
+        startDamageModification(getPlayersOnHero(bossSpawn, Team.ALL), eventPlayer, heroSupportModifiers[eventPlayer.currentdamgindex + currentEnemyIndex]) #for loop
+        startDamageModification(getPlayersOnHero(bot1spawn, Team.ALL), eventPlayer, heroSupportModifiers[eventPlayer.currentdamgindex + currentEnemyIndex])
+        startDamageModification(getPlayersOnHero(bot2spawn, Team.ALL), eventPlayer, heroSupportModifiers[eventPlayer.currentdamgindex + currentEnemyIndex])
+    else:
+        for i in range(1, botamount):
+            startDamageModification(getPlayersOnHero(currentzombiearray[i], Team.ALL), eventPlayer, heroSupportModifiers[eventPlayer.currentdamgindex + currentEnemyIndex]) 
+
+rule "decompress damagemodifier arrays":
+
+
+
+rule "apply fall damage":
+    @Event eachPlayer
+    @Condition eventPlayer.enablefalldamage == 1
+    @Condition eventPlayer.isOnGround() == true
+    @Condition eventPlayer.fall_Damage_Speed < -15
+    
+    damage(eventPlayer, null, abs(eventPlayer.fall_Damage_Speed) * eventPlayer.getMaxHealth() / 200 * (abs(eventPlayer.fall_Damage_Speed) / 8) * 3)
+
+
+rule "Find fall speed for fall damage":
+    @Event eachPlayer
+    @Condition eventPlayer.enablefalldamage == 1
+    @Condition eventPlayer.getAltitude() < 1
+    @Condition eventPlayer.isInAir() == true
+    
+    eventPlayer.fall_Damage_Speed = eventPlayer.getVerticalSpeed()
+
+
+rule "toggle fall damage regular":
+    @Event eachPlayer
+    @Condition eventPlayer.isInAir() == true
+    @Condition eventPlayer.isUsingAbility1() == false
+    @Condition eventPlayer.isUsingAbility2() == false
+    @Condition eventPlayer.isUsingUltimate() == false
+    
+    if heroFallDamageTable[0] + eventPlayer.fallDamageOffsetTable == 1:
+        eventPlayer.enablefalldamage = 1
+    else:
+        eventPlayer.enablefalldamage = false
+
+
+rule "enable fall damage ability 1":
+    @Event eachPlayer
+    @Condition eventPlayer.isInAir() == true
+    @Condition eventPlayer.isUsingAbility1() == true
+    
+    if heroFallDamageTable[1] + eventPlayer.fallDamageOffsetTable == 1:
+        eventPlayer.enablefalldamage = 1
+    else:
+        eventPlayer.enablefalldamage = false
+
+
+rule "enable fall damage ability 2":
+    @Event eachPlayer
+    @Condition eventPlayer.isInAir() == true
+    @Condition eventPlayer.isUsingAbility2() == true
+    
+    if heroFallDamageTable[2] + eventPlayer.fallDamageOffsetTable == 1:
+        eventPlayer.enablefalldamage = 1
+    else:
+        eventPlayer.enablefalldamage = false
+
+
+rule "enable fall damage ultimate":
+    @Event eachPlayer
+    @Condition eventPlayer.isInAir() == true
+    @Condition eventPlayer.isUsingUltimate() == true
+    
+    if heroFallDamageTable[3] + eventPlayer.fallDamageOffsetTable == 1:
+        eventPlayer.enablefalldamage = 1
+    else:
+        eventPlayer.enablefalldamage = false
+
+
+rule "hero fall damage Table":
+    @Event eachPlayer
+    @Hero soldier
+    
+    heroFallDamageTable = []
+
+
+rule "stop jetpack cat from flying too long":
+    @Event eachPlayer
+    @Hero jetpackCat
+    @Condition eventPlayer.getAltitude() >= 1.5
+    @Condition eventPlayer.getAltitude() < 100
+    
+    wait(3.0, Wait.ABORT_WHEN_FALSE)
+    eventPlayer.startAcceleration(Vector.DOWN, 100, 20, Relativity.TO_WORLD)
+    waitUntil(eventPlayer.getAltitude() <= 1.5, 5)
+    eventPlayer.disallowButton(Button.JUMP) #to prevent them from flying away again too soon
+    eventPlayer.stopAcceleration()
+    wait(3.0)
+    eventPlayer.allowButton(Button.JUMP)
+
