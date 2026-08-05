@@ -108,7 +108,6 @@ rule "202 Purchase Follower action":
     @Condition any([distance(player, eventPlayer) < 2 for player, i in buyheros]) == true
     
     wait(1, Wait.ABORT_WHEN_FALSE)
-
     # Loop through all heroes
     for i in range(len(hero)):
         if distance(eventPlayer, buyheros[i]) < 2:
@@ -122,47 +121,21 @@ rule "202 Purchase Follower action":
                 smallMessage(eventPlayer,"  {0} {1}".format(heroIcon(hero[i]), followerbuyMsg[i]))
             break
 
-
-rule "241  follower mystery box":
+rule "Purchase Mystery Follower action":
     @Event eachPlayer
     @Team 1
-    @Condition eventPlayer.isHoldingButton(Button.INTERACT) == true
-    @Condition distance(eventPlayer, rngbox2) <= 2
-    @Condition eventPlayer.points >= round(950 * costmultiplier - eventPlayer.creditcardlimit)
-    
-    if eventPlayer.points > round(950 - eventPlayer.creditcardlimit):
-        if eventPlayer.emotebox < 1:
-            eventPlayer.emotebox = 1
-            eventPlayer.communicate(Comms.EMOTE_UP)
-        destroyDummy(Team.1, eventPlayer.getSlot() + 4)
-        wait(0.25)
-        createDummy(random.choice(getAllHeroes()), Team.1, eventPlayer.getSlot() + 4, vect(0, 0, 0))
-        wait(0.03)
-        (eventPlayer.getSlot() + 4).attachTo(eventPlayer, vect(-0.5, 1.8, -0.2))
-        wait(0.1)
-        (eventPlayer.getSlot() + 4).startScalingSize(0.2)
-        (eventPlayer.getSlot() + 4).startModifyingVoicelinePitch(1.3)
-        #eventPlayer.resurrect()
-        eventPlayer.points -= round(950 * costmultiplier)
-        chaseAtRate(eventPlayer.points2, (evalOnce(eventPlayer.points) + 0) * eventPlayer.H, 2500)
-        #if ruleCondition:
-        #            loop()
-        eventPlayer.magazines = 10
-        #if experiencesystem == false:
-        #            goto lbl_0
-        #eventPlayer.XPlevel = false
-        #eventPlayer.xp = false
-        lbl_0:
-        boxcounter2 += 1
-        wait(1)
-        if boxcounter2 < random.randint(6, 10):
-            goto lbl_1
-        rngbox2 = random.choice(Mysterylocations2)
-        boxcounter2 = false
-        lbl_1:
-    elif eventPlayer.points < 950 - eventPlayer.creditcardlimit:
-        bigMessage(eventPlayer, "Come back when you've got some money buddy!")
+    @Condition eventPlayer.isHoldingButton(Button.RELOAD) == true
+    @Condition distance(eventPlayer, rngbox) <= 2
 
+    wait(1, Wait.ABORT_WHEN_FALSE)
+    if eventPlayer.points >= round(herobuycosts[0] / 3 * costmultiplier - eventPlayer.creditcardlimit):
+        eventPlayer.followerbuy = random.choice(hero)
+        wait()
+        followerbuy()
+        eventPlayer.points -= round(herobuycosts[0] / 3 * costmultiplier)
+        eventPlayer.points2 -= round(herobuycosts[0] / 3 * costmultiplier)
+    else:
+        smallMessage(eventPlayer,"  {0} {1}".format(heroIcon(hero[0]), followerbuyMsg[0]))
 
 rule "351 followers ult":
     @Event eachPlayer

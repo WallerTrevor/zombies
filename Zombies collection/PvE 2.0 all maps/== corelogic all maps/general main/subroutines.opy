@@ -92,38 +92,33 @@ def wavevoicecall():
 def setbotamount():
     @Name "set bot amount subroutine"
 
-    if roundnumber < (5 + (getNumberOfPlayers(Team.1) - 1) * 3): # this needs to be done so that it hot swaps while players leave and join
-        botamount = 5 + roundnumber
-    else:
-        botamount = 17 - ((getNumberOfPlayers(Team.1) - 1) * 3)
-        if botamount < 1:
-            botamount = 1
+        botamount = 16 - ((getNumberOfPlayers(Team.1) - 1) * 2) # maxAmount - numberOfPlayersWhenNotSolo * Number to remove per player -- need to track number of dummy bots as well
 
 def getoutofspawn():
     @Name "out of spawn subroutine"
 
     if setspawn == false: #this can be a for loop and array that is outside of all maps, and map specific spawn points
-        eventPlayer.teleport(vect(-63.355, -148.766, -17.141)) #zone 1 need to label which of these is which
+        eventPlayer.teleport(vect(-98.883, 8.939, 72.511)) #zone 1 need to label which of these is which
         zone1()
         makedoors()
     elif setspawn == 1:
-        eventPlayer.teleport(vect(-65.701, -150.372, 136.652)) #zone 1-1
+        eventPlayer.teleport(vect(-80.097, 9.076, -73.528)) #zone 1-1
         zone1()
         makedoors()
     elif setspawn == 2:
-        eventPlayer.teleport(vect(354.63, 46.375, 181.943)) #zone 2
+        eventPlayer.teleport(vect(185.785, 45.059, 176.924)) #zone 2
         zone2()
         makedoors()
     elif setspawn == 3:
-        eventPlayer.teleport(vect(185.152, 46.154, 185.661)) #zone 2-1
+        eventPlayer.teleport(vect(349.006, 45.721, 180.954)) #zone 2-1
         zone2()
         makedoors()
     elif setspawn == 4:
-        eventPlayer.teleport(vect(367.509, -8.358, -241.533)) #zone 3
+        eventPlayer.teleport(vect(211.903, -9.592, -237.573)) #zone 3
         zone3()
         makedoors()
     elif setspawn == 5:
-        eventPlayer.teleport(vect(200.42, -8.412, -242.411)) #zone 3-1
+        eventPlayer.teleport(vect(354.448, -9.548, -232.832)) #zone 3-1
         zone3()
         makedoors()
 
@@ -144,16 +139,16 @@ def zone1():
 
     startForcingSpawn(Team.ALL, 1)
     telespot = 0
-    doorZoneStart = 0
-    doorZoneEnd = 38
+    doorZoneStart = doorzone1count1
+    doorZoneEnd = doorzone1count2
 
 def zone2():
     @Name "zone 2 subroutine"
 
     startForcingSpawn(Team.ALL, 0)
     telespot = 1
-    doorZoneStart = 39
-    doorZoneEnd = 67
+    doorZoneStart = doorzone2count1
+    doorZoneEnd = doorzone2count2
 
 
 def zone3():
@@ -161,8 +156,8 @@ def zone3():
 
     startForcingSpawn(Team.ALL, 2)
     telespot = 2
-    doorZoneStart = 68
-    doorZoneEnd = 89
+    doorZoneStart = doorzone3count1
+    doorZoneEnd = doorzone3count2
 
 def makedoors(): #needs to check if the wall_ID if statement works as intended
     @Name "make the door effects"
@@ -178,7 +173,6 @@ def makedoors(): #needs to check if the wall_ID if statement works as intended
             createBeam(getPlayers(Team.1), Beam.JUNKRAT_TRAP_CHAIN, Beameffectdoors[evalOnce(dooreffectsequencer * 4 + 2)], Beameffectdoors[evalOnce(dooreffectsequencer * 4 + 3)], Color.RED, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
             doors[dooreffectsequencer * 2 + 1] = getLastCreatedEntity()        #append to allow the game to delete for later
             if not (dooreffectsequencer % 3): wait()
-    smallMessage(getAllPlayers(), "  Doors made".format(inputBindingString(Button.INTERACT), round(1000 * costmultiplier)))
 
 
 def decompressNSub():
@@ -228,7 +222,7 @@ def pfTick():
     pfIterationsThisTick--
     if pfIterationsThisTick <= 0:
         wait(0.032)
-        waitUntil(max(getAverageServerLoad(), getServerLoad()) < 255, 0.25)
+        waitUntil(max(getAverageServerLoad(), getServerLoad()) < 245, 0.50)
         #This determines the pathfinding budget for the current tick.
         pfIterationsThisTick = ((max(getAverageServerLoad(), getServerLoad()) < 230) + ((max(getAverageServerLoad(), getServerLoad()) < 180) * 2)) + 1
 
@@ -283,3 +277,10 @@ def CurrentEnemyIndex():
         if getPlayersInSlot(subindex, Team.2).getHero() == heroAlphabetical[index]:
             currentEnemyIndex[subindex] = index
             break
+/*
+def getBotSpawnNode():
+    @Name "bot spawn node selector"
+
+    targetPos = getLivingPlayers(Team.1)[0].getPosition()
+    validNodes = pfLoadedMap_nodes.filter(lambda node: distance(node, targetPos) >= 20 and distance(node, targetPos) <= 30)
+*/

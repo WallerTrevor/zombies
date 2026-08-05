@@ -1,3 +1,4 @@
+/*
 rule "283 Imperial warmech setup ================================================":
     @Event eachPlayer
     @Team 2
@@ -317,3 +318,4 @@ rule "296 Seeking Mega mine function":
     destroyDummy(eventPlayer.getTeam(), eventPlayer.getSlot())
 
 
+*/

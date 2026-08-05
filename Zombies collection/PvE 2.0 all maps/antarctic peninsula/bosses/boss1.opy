@@ -1,3 +1,4 @@
+/*
 rule "257 Devestator Big Boss 1===============================================":
     @Event eachPlayer
     @Team 2
@@ -178,3 +179,4 @@ rule "272 Unleash fire breath shoot":
         loop()
 
 
+*/

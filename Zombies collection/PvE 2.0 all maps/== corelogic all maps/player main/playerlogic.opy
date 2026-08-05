@@ -41,7 +41,7 @@ rule "DAMAGE Melee does more damage": # this rule allows only the melee itself t
     eventPlayer.disallowButton(Button.MELEE) # i did try a direct set damage, but it was not working, so this is the best way to do it, as it allows the damage to be applied only for melee attacks
 
 
-rule "67 solo play mode effect":
+rule "67 solo play mode effect": #needs to not count dummy bots
     @Event playerJoined
     @Team 1
     @Condition getNumberOfPlayers(Team.1) < 2
@@ -60,7 +60,7 @@ rule "switch between 2 heros (needs ultimates, followers, ammo, systems working)
     @Condition eventPlayer.isHoldingButton(Button.CROUCH) == true
     @Condition eventPlayer.isAlive() == true
     
-    if getServerLoad() < 245:
+    waitUntil(max(getAverageServerLoad(), getServerLoad()) < 225, 5)
         playEffect(getAllPlayers(), DynamicEffect.MOIRA_FADE_DISAPPEAR_SOUND, Color.WHITE, eventPlayer, 200)
         eventPlayer.removeAllHealthPools()
         if eventPlayer.currentswap == false:
@@ -82,9 +82,6 @@ rule "switch between 2 heros (needs ultimates, followers, ammo, systems working)
         wait(0.1)
         playEffect(getAllPlayers(), DynamicEffect.MOIRA_FADE_DISAPPEAR, Color.WHITE, eventPlayer, 1)
         wait(1)
-    else:
-        smallMessage(eventPlayer, "{0} Error: {1} Not on my watch! (--ANTICRASHSYS--)".format(heroIcon(Hero.RAMATTRA), random.randint(10, 1000)))
-        wait(6)
 
 
 rule "18 Get out of Spawn":
@@ -93,6 +90,7 @@ rule "18 Get out of Spawn":
     #need to make sure this doesnt conflict with soft restart
     #@Condition eventPlayer.isInSpawnRoom() == true
     @Condition outofpsawn == 1
+    @Condition eventPlayer.isDummy() == false
     
     wait(1)
     getoutofspawn()
@@ -104,9 +102,7 @@ rule "80 player died without maniac":
     
     Died[eventPlayer.getSlot()] = nearestWalkablePosition(eventPlayer)
     bigMessage(getAllPlayers(), "{0}{1}".format(eventPlayer, random.choice(diedphrase)))
-    eventPlayer.setMaxHealth(100)
     E[eventPlayer.getSlot()] = true
-    eventPlayer.stopForcingCurrentHero()
     wait(0.1)
     eventPlayer.Jugg = false
     wait(0.1)
@@ -177,14 +173,6 @@ rule "110 player hit speed boost default":
     eventPlayer.setMoveSpeed(100)
 
 
-rule "set allowed heros (wip)":
-    @Event playerJoined
-    @Disabled
-    
-    #this needs to store what heroes the player has purchased through their playthrough
-    
-
-
 rule "126 healing dealt points":
     @Event playerReceivedHealing
     @Team 1
@@ -193,12 +181,16 @@ rule "126 healing dealt points":
     healer.points += 20
     healer.points2 += 20
     wait(0.25)
+    healer.healCounter += 1
+    if healer.healCounter >= 4 + 2 * Difficulty:
+        healer.healCounter = 0
+        healer.setUltCharge(healer.getUltCharge() + 1)
 
 
 rule "158 melee stun":
     @Event playerTookDamage
     @Team 2
-    @Condition createWorkshopSettingBool("difficulty", "melee stun", true) == true
+    @Condition createWorkshopSettingBool("difficulty", "melee stun", true) == true #make this based on difficulty level, not just a toggle
     @Condition attacker.isMeleeing() == true
     @Condition distance(attacker, victim) <= 3
     
@@ -228,7 +220,9 @@ rule "245 Rule 388 tank sheild":
     @Event eachPlayer
     @Team 1
     @Condition eventPlayer.isHoldingButton(Button.SECONDARY_FIRE) == true
-    
+    @Condition eventPlayer.isAlive() == true
+
+
     if eventPlayer.getHero() == Hero.SIGMA:
         eventPlayer.addHealthPool(Health.NORMAL, 100, false, false)
         wait(10)
@@ -238,9 +232,9 @@ rule "245 Rule 388 tank sheild":
         wait(10)
         eventPlayer.removeAllHealthPools()
     elif eventPlayer.getHero() == Hero.DVA:
-        eventPlayer.addHealthPool(Health.NORMAL, 100, false, false)
-        wait(10)
-        eventPlayer.removeAllHealthPools()
+       eventPlayer.addHealthPool(Health.NORMAL, 100, false, false)
+       wait(10)
+       eventPlayer.removeAllHealthPools()
     elif eventPlayer.getHero() == Hero.RAMATTRA:
         eventPlayer.addHealthPool(Health.NORMAL, 100, false, false)
         wait(10)
@@ -288,7 +282,12 @@ rule "393 POINTS Omnic kill (final hit)":
         R += 120 * eventPlayer.H
         lbl_5:
         eventPlayer.xp[eventPlayer.currentheroxp] += 6
-    eventPlayer.setUltCharge(eventPlayer.getUltCharge() + 2)
+    if eventPlayer.getHero() in getDamageHeroes():
+        eventPlayer.setUltCharge(eventPlayer.getUltCharge() + max(3, 11 - (Difficulty * 2)))
+    elif eventPlayer.getHero() in getTankHeroes():
+        eventPlayer.setUltCharge(eventPlayer.getUltCharge() + max(3, 7 - Difficulty))
+    elif eventPlayer.getHero() in getSupportHeroes():
+        eventPlayer.setUltCharge(eventPlayer.getUltCharge() + max(1, 4 - Difficulty))
 
 
 rule "396 POINTS Omnic kill (elimination)":
@@ -348,7 +347,12 @@ rule "396 POINTS Omnic kill (elimination)":
         R += 70 * eventPlayer.H
         lbl_5:
         eventPlayer.xp[eventPlayer.currentheroxp] += 7
-    eventPlayer.setUltCharge(eventPlayer.getUltCharge() + 2)
+    if eventPlayer.getHero() in getDamageHeroes():
+        eventPlayer.setUltCharge(eventPlayer.getUltCharge() + max(1, 4 - Difficulty))
+    elif eventPlayer.getHero() in getTankHeroes():
+        eventPlayer.setUltCharge(eventPlayer.getUltCharge() + max(1, 3 - Difficulty))
+    elif eventPlayer.getHero() in getSupportHeroes():
+        eventPlayer.setUltCharge(eventPlayer.getUltCharge() + 1)
 
 rule "Set starting heros (hero needs to be a variable, and also need to set up a way to go through hero selection twice)":
     @Event eachPlayer
@@ -442,10 +446,12 @@ rule "Camera 3rd person static crosshair":
     createInWorldText(localPlayer if localPlayer.extraPlayerVar[17] == 2 else null, "+", raycast(localPlayer.getEyePosition(), localPlayer.getEyePosition() + localPlayer.getFacingDirection() * 999, getAllPlayers(), localPlayer, true).getHitPosition(), 1, Clip.NONE, WorldTextReeval.VISIBILITY_POSITION_AND_STRING)
 
 
-rule "Fix dva health": #buggy
+rule "Fix dva health":
     @Event eachPlayer
     @Condition eventPlayer.getHero() == Hero.DVA
-    
+    @Condition eventPlayer.isAlive() == true
+
+
     if eventPlayer.isInAlternateForm() == true:
         eventPlayer.setMaxHealth(220)
     elif eventPlayer.isInAlternateForm() == false:
@@ -462,6 +468,7 @@ rule "mercy overheal mechanic":
     waitUntil(healee.getHealth() == healee.getMaxHealth(), 99999)
     healee.addHealthPool(Health.NORMAL, healee.getMaxHealth() * 0.5, false, false)
     healer.points += 50
+    healer.setUltCharge(healer.getUltCharge() + 5 - Difficulty)
 
 rule "slowmo camera final blow":
     @Event playerDealtFinalBlow
@@ -541,7 +548,7 @@ rule "died Camera":
     eventPlayer.startCamera(vect(evalOnce(random.randint(-3, 4)), 0, evalOnce(random.randint(-3, 4))) + eventPlayer.getEyePosition(), eventPlayer.getEyePosition())
     wait(1.5)
     eventPlayer.stopCamera()
-
+/*
 rule "set damage to player variable for all DPS heroes":
     @Event eachPlayer
     @Condition eventPlayer.getHero() in getDamageHeroes() == true
@@ -600,7 +607,7 @@ rule "Find fall speed for fall damage":
     eventPlayer.fall_Damage_Speed = eventPlayer.getVerticalSpeed()
 
 
-rule "toggle fall damage regular":
+rule "enable/toggle fall damage regular":
     @Event eachPlayer
     @Condition eventPlayer.isInAir() == true
     @Condition eventPlayer.isUsingAbility1() == false
@@ -652,18 +659,19 @@ rule "hero fall damage Table":
     
     heroFallDamageTable = []
 
-
+*/
 rule "stop jetpack cat from flying too long":
     @Event eachPlayer
     @Hero jetpackCat
     @Condition eventPlayer.getAltitude() >= 1.5
     @Condition eventPlayer.getAltitude() < 100
     
-    wait(3.0, Wait.ABORT_WHEN_FALSE)
+    wait(2.5, Wait.ABORT_WHEN_FALSE)
     eventPlayer.startAcceleration(Vector.DOWN, 100, 20, Relativity.TO_WORLD)
     waitUntil(eventPlayer.getAltitude() <= 1.5, 5)
     eventPlayer.disallowButton(Button.JUMP) #to prevent them from flying away again too soon
+    wait(5.0)
     eventPlayer.stopAcceleration()
-    wait(3.0)
+    wait(5.0)
     eventPlayer.allowButton(Button.JUMP)
 

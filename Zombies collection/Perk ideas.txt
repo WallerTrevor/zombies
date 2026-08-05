@@ -55,3 +55,13 @@ gain agro - all zombies focus you on command for 15 seconds, 60 second cooldown
 Fortress - while standing still, gain stacking damage reduction
 reusable ammo - regain 1 bullet every 5 seconds back into your active magazine
 door trapper - activate a trap on a previously purchased door that electricutes all zombies that pass through it.
+- First bullet in clip does something after reloading
+- sheilding as a shield hero gives all teammates your bonus health once every 120 seconds decreasing per tier
+- followers can be dropped and attack like a normal teammate
+- summon ramattra to make the zombies slow down to a crawl (limit to one player every 5 rounds (-1 per tier))
+- emp system. Floods the server cooldown 3 rounds
+- make the zombies float upward radius 10/30/100 meters from player for 10 seconds once per round 
+- granades. Use i need healing to throw a granade max 2/3/4 +2/3/4 per round
+- carry more monkey granades when they are obtained
+- traps are now 20/40/60% cheaper
+- make the zombies change team and fight each other

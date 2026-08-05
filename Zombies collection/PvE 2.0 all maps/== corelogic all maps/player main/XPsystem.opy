@@ -15,7 +15,8 @@ rule "517 set xp to hero":
     @Event eachPlayer
     @Team 1
     @Condition eventPlayer.isAlive() == true
-    
+
+
     for i in range(0, 35):
         if eventPlayer.getHero() == hero[i]:
             eventPlayer.currentheroxp = eventPlayer.xp[i]

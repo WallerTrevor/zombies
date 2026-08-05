@@ -92,7 +92,7 @@ rule "136  dva ammo double mag":
         if ruleCondition:
             loop()
     
-
+/*
 rule "350 hanzo ammo cancel (wip)":
     @Event eachPlayer
     @Hero hanzo
@@ -104,7 +104,7 @@ rule "350 hanzo ammo cancel (wip)":
         eventPlayer.magazines += 0.25
     elif eventPlayer.doublemag == 1:
         eventPlayer.magazines += 0.125
-
+*/
 
 rule "132  rien out of ammo":
     @Event eachPlayer
@@ -132,6 +132,7 @@ rule "84 reloading all heros without doublemag":
     #can be made into one rule with or without perk
     @Condition eventPlayer.isReloading() == true
     @Condition eventPlayer.doublemag == false
+    @Condition Difficulty > 1
     
     eventPlayer.currentmagazines -= 1
 
@@ -147,6 +148,7 @@ rule "89 out of ammo":
     @Condition eventPlayer.getHero() != Hero.MEI
     @Condition eventPlayer.isDummy() != true
     @Condition eventPlayer.currentmagazines <= 0
+    @Condition Difficulty > 1
     
     eventPlayer.setPrimaryFireEnabled(false)
     eventPlayer.setSecondaryFireEnabled(false)
@@ -156,8 +158,12 @@ rule "89 out of ammo":
 rule "90 initialize ammo amount":
     @Event eachPlayer
     
-    eventPlayer.magazines[0] = 5
-    eventPlayer.magazines[1] = 5
+    if Difficulty < 4:
+        eventPlayer.magazines[0] = 5
+        eventPlayer.magazines[1] = 5
+    else:
+        eventPlayer.magazines[0] = 3
+        eventPlayer.magazines[1] = 2
     eventPlayer.currentmagazines = eventPlayer.magazines[0]
     eventPlayer.currentswap = false
     eventPlayer.disallowButton(Button.CROUCH)
@@ -183,6 +189,7 @@ rule "94 out of ammo moira":
     @Event eachPlayer
     @Hero moira
     @Condition eventPlayer.currentmagazines <= 0
+    @Condition Difficulty > 1
     
     eventPlayer.setSecondaryFireEnabled(false)
 
@@ -217,6 +224,7 @@ rule "98  reloading with doublemag":
 rule "103  remove less than zero issue on ammo":
     @Event eachPlayer
     @Condition eventPlayer.currentmagazines < 0
+    @Condition Difficulty > 1
     
     eventPlayer.currentmagazines = false
 
@@ -233,6 +241,7 @@ rule "113  ashe reload fix":
     @Team 1
     @Hero ashe
     @Condition eventPlayer.isReloading() == true
+    @Condition Difficulty > 1
     
     wait(0.45)
     eventPlayer.setAmmo(0, 12)
@@ -243,6 +252,7 @@ rule "115  ammo message force melee when out of ammo":
     @Team 1
     @Condition eventPlayer.currentmagazines == false
     @Condition eventPlayer.isHoldingButton(Button.PRIMARY_FIRE) == true
+    @Condition Difficulty > 1
 
     for i in range(len(hero)):
         if eventPlayer.getHero() == hero[i]:
@@ -260,6 +270,7 @@ rule "161 life weiver no ammo":
     @Team 1
     @Hero lifeweaver
     @Condition eventPlayer.currentmagazines == false
+    @Condition Difficulty > 1
     
     #this doesnt seem to work, need to measure time instead of reloads
     eventPlayer.disallowButton(Button.PRIMARY_FIRE)
@@ -284,6 +295,7 @@ rule "171 no ammo force melee":
     @Team 1
     @Condition eventPlayer.currentmagazines <= 0
     @Condition (eventPlayer.isHoldingButton(Button.PRIMARY_FIRE) or eventPlayer.isHoldingButton(Button.SECONDARY_FIRE)) == true
+    @Condition Difficulty > 1
     
     eventPlayer.forceButtonPress(Button.MELEE)
 

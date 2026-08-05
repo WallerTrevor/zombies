@@ -10,6 +10,7 @@ rule "Initial Global":
     Wall_ID = []
     g_beamType = []
     doors = []
+    zoneDoors = []
 
 rule "Initial Player":
     @Event eachPlayer
@@ -29,21 +30,24 @@ rule "Collision Logic":
     @Condition eventPlayer.isAlive() == true
     @Condition start == 1
     @Condition eventPlayer.isDummy() == false
+    @Condition any([[distance(player, eventPlayer) < 10] for player, i in firstpos]) == true
 
     if teleporterused == 1:
-        wait(1)
+        waitUntil(teleporterused == 0)
+        wait(1.5)
     if outofpsawn == 0:
         waitUntil(outofpsawn == 1)
         wait(1.5)
     eventPlayer.lastsavedpos = (eventPlayer.getEyePosition() + eventPlayer.getPosition()) / 2
-    wait(0.16 + 0.32 * (getPeakServerLoad() / 255) + (eventPlayer.getSlot() * 0.016))    #this might need to be a different amount of wait, just keep testing
+    wait(0.16 + 0.32 * (getPeakServerLoad() / 255) + (eventPlayer.getSlot() * 0.016))
+    waitUntil(max(getPeakServerLoad(), getServerLoad()) < 245, 2)
     eventPlayer.closestwall = [player for player, i in AllPos if distance(AllPos[i], eventPlayer) <= distance(AllPos[i], firstpos[i]) or eventPlayer.active_wall[i] == 1 or dotProduct(directionTowards(player, eventPlayer.lastsavedpos), AllDir[i]) > 0 != (dotProduct(directionTowards(player, eventPlayer), AllDir[i]) > 0)]
     for eventPlayer.x_ in range(len(eventPlayer.closestwall)):
         if Wall_ID[z] == 0:
             eventPlayer.active_wall[z] = 0
             eventPlayer.setMoveSpeed(100) #needs to use gamemode wide movement speed, when player gets perks
         z = AllPos.index(eventPlayer.closestwall[eventPlayer.x_])
-        if Wall_ID[z] == 1 or Wall_ID[z] == 3 or Wall_ID[z] == 5:
+        if Wall_ID[z] == 1:
             if firstpos[z].y >= eventPlayer.getPosition().y and firstpos[z].y <= (eventPlayer.getEyePosition() + vect([], 0.2, [])).y:
                 eventPlayer.closestbodypos = firstpos[z]
             elif secondpos[z].y >= eventPlayer.getPosition().y and secondpos[z].y <= (eventPlayer.getEyePosition() + vect([], 0.2, [])).y:
@@ -52,18 +56,14 @@ rule "Collision Logic":
                 eventPlayer.closestbodypos = eventPlayer.getPosition()
             eventPlayer.fullbodypos = vect(eventPlayer.getEyePosition().x, eventPlayer.closestbodypos.y, eventPlayer.getEyePosition().z)
             eventPlayer.filterpos = eventPlayer.fullbodypos + ((AllDir[z] * (dotProduct(AllPos[z] - eventPlayer.fullbodypos, AllDir[z]))) / dotProduct(AllDir[z], AllDir[z]))
-            if Wall_ID[z] == 1 or Wall_ID[z] == 3:
+            if Wall_ID[z] == 1:
                 if dotProduct(directionTowards(AllPos[z], eventPlayer.lastsavedpos), AllDir[z]) > 0 != (dotProduct(directionTowards(AllPos[z], eventPlayer.fullbodypos), AllDir[z]) > 0):
                     eventPlayer.intersection_length = (dotProduct(AllPos[z] - eventPlayer.fullbodypos, AllDir[z])) / dotProduct(directionTowards(eventPlayer.lastsavedpos, eventPlayer.fullbodypos), AllDir[z])
                     eventPlayer.prevpos_intersection = eventPlayer.fullbodypos + directionTowards(eventPlayer.lastsavedpos, eventPlayer.fullbodypos) * vect(1, [], 1) * eventPlayer.intersection_length
                     if dotProduct(directionTowards(firstpos[z], vect(secondpos[z].x, firstpos[z].y, secondpos[z].z)), directionTowards(firstpos[z], eventPlayer.prevpos_intersection)) >= 0 and dotProduct(directionTowards(firstpos[z], vect(firstpos[z].x, secondpos[z].y, firstpos[z].z)), directionTowards(firstpos[z], eventPlayer.prevpos_intersection)) >= 0 and dotProduct(directionTowards(secondpos[z], vect(secondpos[z].x, firstpos[z].y, secondpos[z].z)), directionTowards(secondpos[z], eventPlayer.prevpos_intersection)) >= 0 and dotProduct(directionTowards(secondpos[z], vect(firstpos[z].x, secondpos[z].y, firstpos[z].z)), directionTowards(secondpos[z], eventPlayer.prevpos_intersection)) >= 0:
                         eventPlayer.cancelPrimaryAction()
                         eventPlayer.teleport(eventPlayer.prevpos_intersection + directionTowards(eventPlayer.prevpos_intersection, eventPlayer.lastsavedpos) * vect(1, [], 1) * 2)
-            eventPlayer.thickness = 0
-            if Wall_ID[z] == 5:
-                eventPlayer.thickness = 8
-            else:
-                eventPlayer.thickness = 4
+            eventPlayer.thickness = 6
             if distance(eventPlayer.fullbodypos, eventPlayer.filterpos) <= eventPlayer.thickness and dotProduct(directionTowards(firstpos[z], vect(secondpos[z].x, firstpos[z].y, secondpos[z].z)), directionTowards(firstpos[z], eventPlayer.filterpos)) >= 0 and dotProduct(directionTowards(firstpos[z], vect(firstpos[z].x, secondpos[z].y, firstpos[z].z)), directionTowards(firstpos[z], eventPlayer.filterpos)) >= 0 and dotProduct(directionTowards(secondpos[z], vect(secondpos[z].x, firstpos[z].y, secondpos[z].z)), directionTowards(secondpos[z], eventPlayer.filterpos)) >= 0 and dotProduct(directionTowards(secondpos[z], vect(firstpos[z].x, secondpos[z].y, firstpos[z].z)), directionTowards(secondpos[z], eventPlayer.filterpos)) >= 0:
                 if eventPlayer.active_wall[z] == false:
                     eventPlayer.active_wall[z] = 1
@@ -72,18 +72,24 @@ rule "Collision Logic":
                     elif Wall_ID[z] == 5:
                         eventPlayer.disableEnvironmentCollision(false)
                 if Wall_ID[z] == 1:
-                    eventPlayer.applyImpulse(directionTowards(eventPlayer.filterpos, eventPlayer.fullbodypos) * vect(1, [], 1), 1, Relativity.TO_WORLD, Impulse.CANCEL_CONTRARY_MOTION)
+                    eventPlayer.applyImpulse(directionTowards(eventPlayer.filterpos, eventPlayer.fullbodypos) * vect(1, [], 1), 0.1, Relativity.TO_WORLD, Impulse.CANCEL_CONTRARY_MOTION)
                     if eventPlayer.doorNotif == 0:
                         eventPlayer.doorNotif = 1
                     if eventPlayer.isHoldingButton(Button.INTERACT) and eventPlayer.points >= 1000 * costmultiplier - eventPlayer.creditcardlimit:
                         playEffect(getAllPlayers(), DynamicEffect.GOOD_EXPLOSION, Color.WHITE, AllPos[z], 50) 
                         playEffect(getAllPlayers(), DynamicEffect.LUCIO_SOUND_BARRIER_CAST_SOUND, Color.WHITE, AllPos[z], 100)
                         eventPlayer.points -= round(1000 * costmultiplier * eventPlayer.cashback)
-                        destroyEffect(doors[z + z])
-                        destroyEffect(doors[z + z + 1])
-                        Wall_ID[z] = 0
-                        eventPlayer.active_wall[z] = 0
-                        smallMessage(eventPlayer, "  Door bought!")
+                        currentZone = zoneDoors[z]
+                        for i in range(len(zoneDoors)):
+                            if zoneDoors[i] == currentZone:
+                                if Wall_ID[i] == 1:
+                                    if doors[i * 2] != null:
+                                        destroyEffect(doors[i * 2])
+                                    if doors[i * 2 + 1] != null:
+                                        destroyEffect(doors[i * 2 + 1])
+                                    Wall_ID[i] = 0
+                                    eventPlayer.active_wall[i] = 0
+                        smallMessage(eventPlayer, "  Zone bought!")
                         eventPlayer.doorNotif = 0
                         chaseAtRate(eventPlayer.points2, (evalOnce(eventPlayer.points) + 0) * eventPlayer.H, 1000)
                         wait()
@@ -143,7 +149,7 @@ rule "Reset door notif":
     @Event eachPlayer
     @Condition eventPlayer.doorNotif == 1
 
-    smallMessage(eventPlayer, "  Hold {0} to buy door - cost: {1}".format(inputBindingString(Button.INTERACT), round(1000 * costmultiplier)))
+    smallMessage(eventPlayer, "  Hold {0} to buy zone - cost: {1}".format(inputBindingString(Button.INTERACT), round(1000 * costmultiplier)))
     wait(4)
     eventPlayer.doorNotif = 0
     wait(0.5)
@@ -157,14 +163,20 @@ rule "destroy all door effects on teleporter use":
         destroyEffect(doors[i * 2])
         destroyEffect(doors[i * 2 + 1])
 
-rule "set zonestart zoneend":
+rule "set zonestart zoneend for teleporter use":
     @Condition teleporterused == 1
+    
     if telespot == 0:
-        doorZoneStart = 0
-        doorZoneEnd = 38
+        doorZoneStart = doorzone1count1
+        doorZoneEnd = doorzone1count2
     elif telespot == 1:
-        doorZoneStart = 39
-        doorZoneEnd = 67
+        doorZoneStart = doorzone2count1
+        doorZoneEnd = doorzone2count2
     elif telespot == 2:
-        doorZoneStart = 68
-        doorZoneEnd = 89
+        doorZoneStart = doorzone3count1
+        doorZoneEnd = doorzone3count2
+
+
+
+
+

@@ -1,3 +1,4 @@
+/*
 rule "273 Colossal charger stats Big boss 2 ===================================================":
     @Event eachPlayer
     @Team 2
@@ -181,3 +182,4 @@ rule "282 Making minigun shoot":
         loop()
 
 
+*/

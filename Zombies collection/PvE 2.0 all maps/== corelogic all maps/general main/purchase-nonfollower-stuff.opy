@@ -5,7 +5,7 @@ rule "229 buy perks and power activate":
     @Condition any([[distance(player, eventPlayer) < 2] for player, i in buyperks]) == true
 
 
-    if getServerLoad() < 245:
+    waitUntil(max(getAverageServerLoad(), getServerLoad()) < 225, 5)
         for i in range(len(buyperks)):
             if distance(eventPlayer, buyperks[i]) < 2 and i != 6:
                 if poweron == 1:
@@ -33,8 +33,6 @@ rule "229 buy perks and power activate":
                     smallMessage(eventPlayer, "  {0} The power is not ON!".format(heroIcon(Hero.RAMATTRA)))
                     break  # Stop after the first match
                     #pack a punch (make this not a perk, and have its own hud element outside the perk area)
-    else:
-        smallMessage(eventPlayer, "{0} Error: {1} What do you think you're doing! (--ANTICRASHSYS--)".format(heroIcon(Hero.RAMATTRA), random.randint(10, 1000)))
 
 rule "boss buy (consolidate later)":
     @Event eachPlayer
@@ -51,10 +49,12 @@ rule "connect power":
     @Condition eventPlayer.isHoldingButton(Button.INTERACT) == true
     @Condition distance(eventPlayer, buyperks[6]) < 2
     @Condition poweron == 0
+    @Condition buyperks[6] != null
 
     playEffect(getPlayers(Team.1), DynamicEffect.BUFF_IMPACT_SOUND, Color.WHITE, eventPlayer, 70)
     destroyEffect(powerconnected[0])
-    destroyInWorldText(powerconnected[1])
+    destroyEffect(powerconnected[1])
+    destroyIcon(powerconnected[2])
     poweron = 1
     getPlayers(Team.2).setUltCharge(100)
     smallMessage(getAllPlayers(), "  The power is now ON!")
@@ -66,22 +66,32 @@ rule "202 Purchase hero actions":
     @Condition eventPlayer.isHoldingButton(Button.INTERACT) == true
     @Condition any([distance(eventPlayer, buyheros[i]) < 2])  == true
 
-    if getServerLoad() < 245:
+    waitUntil(max(getAverageServerLoad(), getServerLoad()) < 225, 5)
         for eventPlayer.idx in range(len(buyheros)):
             if distance(eventPlayer, buyheros[eventPlayer.idx]) < 2:
                 if eventPlayer.getHero() == hero[eventPlayer.idx]:
-                    if eventPlayer.points >= round((herobuycosts[eventPlayer.idx] / 2) * costmultiplier - eventPlayer.creditcardlimit) and eventPlayer.currentmagazines < 10:
-                        eventPlayer.points -= round((herobuycosts[eventPlayer.idx] / 2) * costmultiplier * eventPlayer.cashback)
-                        wait(0.25)
-                        chaseAtRate(eventPlayer.points2, (evalOnce(eventPlayer.points) + 0) * eventPlayer.H, herobuycosts[eventPlayer.idx])
-                        eventPlayer.currentmagazines = 10
-                        smallMessage(eventPlayer, "  {0} Magazines refilled!".format(heroIcon(hero[eventPlayer.idx])))
-                        break  # Stop after the first match
-                    else: 
-                        if eventPlayer.currentmagazines >= 10: #probably need to track if they have pack a punch amount of ammo or not
-                            smallMessage(eventPlayer, "  You already have full magazines!")
-                        elif eventPlayer.points < herobuycosts[eventPlayer.idx] / 2:
-                            smallMessage(eventPlayer, "  {0} No points? NO magazines!".format(heroIcon(Hero.RAMATTRA)))
+                    if Difficulty > 1:
+                        if eventPlayer.points >= round((herobuycosts[eventPlayer.idx] / 2) * costmultiplier - eventPlayer.creditcardlimit) and eventPlayer.currentmagazines < 10:
+                            eventPlayer.points -= round((herobuycosts[eventPlayer.idx] / 2) * costmultiplier * eventPlayer.cashback)
+                            wait(0.25)
+                            chaseAtRate(eventPlayer.points2, (evalOnce(eventPlayer.points) + 0) * eventPlayer.H, herobuycosts[eventPlayer.idx])
+                            if Difficulty < 4:
+                                eventPlayer.currentmagazines = 10
+                            else:
+                                eventPlayer.currentmagazines = 5
+                            smallMessage(eventPlayer, "  {0} Magazines refilled!".format(heroIcon(hero[eventPlayer.idx])))
+                            break  # Stop after the first match
+                        else: 
+                            if Difficulty < 4:
+                                if eventPlayer.currentmagazines >= 10: #probably need to track if they have pack a punch amount of ammo or not
+                                    smallMessage(eventPlayer, "  You already have full magazines!")
+                                elif eventPlayer.points < herobuycosts[eventPlayer.idx] / 2:
+                                    smallMessage(eventPlayer, "  {0} No points? NO magazines!".format(heroIcon(Hero.RAMATTRA)))
+                            else:
+                                if eventPlayer.currentmagazines >= 5: #probably need to track if they have pack a punch amount of ammo or not
+                                    smallMessage(eventPlayer, "  You already have full magazines!")
+                                elif eventPlayer.points < herobuycosts[eventPlayer.idx] / 2:
+                                    smallMessage(eventPlayer, "  {0} No points? NO magazines!".format(heroIcon(Hero.RAMATTRA)))
                 else:
                     if eventPlayer.points >= round(herobuycosts[eventPlayer.idx] * costmultiplier - eventPlayer.creditcardlimit):       
                         eventPlayer.startForcingHero(hero[eventPlayer.idx])
@@ -89,15 +99,19 @@ rule "202 Purchase hero actions":
                         eventPlayer.heroswap[eventPlayer.currentswap] = hero[eventPlayer.idx]
                         wait()
                         eventPlayer.heroiconswap[eventPlayer.currentswap] = heroIcon(hero[eventPlayer.idx])
-                        playEffect(getPlayers(Team.1), DynamicEffect.BUFF_IMPACT_SOUND, Color.WHITE, eventPlayer, 70)
+                        if getServerLoad() < 235:
+                            playEffect(getPlayers(Team.1), DynamicEffect.BUFF_IMPACT_SOUND, Color.WHITE, eventPlayer, 70)
+                            playEffect(getAllPlayers(), DynamicEffect.MOIRA_FADE_DISAPPEAR, Color.WHITE, eventPlayer, 1)
                         eventPlayer.points -= round(herobuycosts[eventPlayer.idx] * costmultiplier * eventPlayer.cashback)
                         wait(0.25)
                         chaseAtRate(eventPlayer.points2, (evalOnce(eventPlayer.points) + 0) * eventPlayer.H, herobuycosts[eventPlayer.idx])
-                        playEffect(getAllPlayers(), DynamicEffect.MOIRA_FADE_DISAPPEAR, Color.WHITE, eventPlayer, 1)
                         (getPlayersInSlot(eventPlayer.getSlot() + 4, Team.1)).attachTo(eventPlayer, vect(-0.5, 1.8, -0.2))
                         if eventPlayer.getHero() not in eventPlayer.allowedheroes:  
                             eventPlayer.allowedheroes.append(eventPlayer.getHero())
-                        eventPlayer.currentmagazines = 10
+                        if Difficulty < 4:
+                            eventPlayer.currentmagazines = 10
+                        else:
+                            eventPlayer.currentmagazines = 5
                         if eventPlayer.getHero() == hero[eventPlayer.idx]:
                             goto lbl_0
                         if experiencesystem == false:
@@ -123,8 +137,6 @@ rule "202 Purchase hero actions":
                     #sudo code: give player tier 3 pack a punch on hero for all runs from then on. and then soft restart
                 elif eventPlayer.points < 50000:
                     smallMessage(eventPlayer, "  {0} HA, good luck escaping...".format(heroIcon(Hero.RAMATTRA)))
-    else:
-        smallMessage(eventPlayer, "{0} Error: {1} No Heroes for you! (--ANTICRASHSYS--)".format(heroIcon(Hero.RAMATTRA), random.randint(10, 1000)))
 
 
 rule "78 buy revive multiplayer":# maybe change this perk
@@ -133,7 +145,7 @@ rule "78 buy revive multiplayer":# maybe change this perk
     @Condition distance(eventPlayer, vect(-83.583, -155.045, 120.352)) < 4
     @Condition eventPlayer.isHoldingButton(Button.INTERACT) == true
     @Condition eventPlayer.points >= round(1000 * costmultiplier - eventPlayer.creditcardlimit)
-    @Condition powerconnected == 1
+    @Condition poweron == 1
     #@Condition __assignTo__(eventPlayer.revivebought, false)
     @Condition getNumberOfPlayers(Team.1) > 1
     
@@ -158,7 +170,7 @@ rule "173 Purchase winston Omnic bomb":
     @Condition distance(eventPlayer, buyperks[9]) < 4
     @Condition eventPlayer.isHoldingButton(Button.INTERACT) == true
     @Condition eventPlayer.points >= round(2500 * costmultiplier - eventPlayer.creditcardlimit)
-    @Condition powerconnected == 1
+    @Condition poweron == 1
     @Condition eventPlayer.Movement == false
     
     eventPlayer.points -= round(2500 * costmultiplier * eventPlayer.cashback)

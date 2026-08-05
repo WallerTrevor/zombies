@@ -5,11 +5,11 @@ rule "anticrash on":
 
 
 rule "anticrash off":
-    @Condition getPeakServerLoad() < 150
+    @Condition getPeakServerLoad() < 135
 
     setSlowMotion(100)
 
-
+/*
 rule "148 Remove bots ANTI CRASH":
     @Condition getAverageServerLoad() >= null
     @Disabled
@@ -39,3 +39,4 @@ rule "148 Remove bots ANTI CRASH":
     destroyDummy(Team.2, 6)
 
 
+*/

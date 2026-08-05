@@ -8,7 +8,7 @@ rule "【PF Core】Prepare loaded map":
 
 rule "【PF Core】Select next pathfinder":
     @Condition (not entityExists(pfExecOwner) or pfExecOwner == null) == true
-    @Condition any([player.pfWait for player in getAllPlayers()]) == true
+    @Condition any([player.isAlive() and player.pfWait for player in getAllPlayers()]) == true
     
     pfExecOwner = sorted([player for player in getAllPlayers() if player.pfWait], lambda i: i.pfWait)[0]
     wait()
@@ -18,7 +18,9 @@ rule "【PF Core】Select next pathfinder":
 
 rule "【PF Core】Update & Execute":
     @Event eachPlayer
-    @Condition eventPlayer.pfDestination == true
+    @Condition eventPlayer.isAlive() == true
+    @Condition eventPlayer.pfDestination != null
+    @Condition eventPlayer.pfIsPathfinding == false
     @Condition (not eventPlayer.pfSavedTarget or distance(eventPlayer.pfDestination, eventPlayer.pfSavedTarget) > 5) == true
     
     #Ensure that a map is loaded.
@@ -27,7 +29,7 @@ rule "【PF Core】Update & Execute":
         return
     eventPlayer.pfWait = getTotalTimeElapsed()
     eventPlayer.pfWasBroadcasted = false
-    waitUntil(pfExecOwner == eventPlayer or eventPlayer.pfWasBroadcasted, 9999)
+    waitUntil(pfExecOwner == eventPlayer or eventPlayer.pfWasBroadcasted, 99999)
     #Update saved destination
     eventPlayer.pfSavedTarget = eventPlayer.pfDestination
     if not eventPlayer.pfWasBroadcasted:
@@ -113,6 +115,7 @@ rule "【PF Core】Update & Execute":
 
 rule "【PF Core】Node reached":
     @Event eachPlayer
+    @Condition eventPlayer.isAlive() == true
     @Condition eventPlayer.pfIsPathfinding == true
     @Condition eventPlayer.pfWalkingToPosition == true
     #Horizontal distance to current position is less than 0.4.
@@ -128,8 +131,21 @@ rule "【PF Core】Node reached":
         loop()
 
 
+rule "【PF Core】Stop pathfinding when the bot dies":
+    @Event eachPlayer
+    @Condition eventPlayer.isAlive() == false
+    @Condition eventPlayer.pfIsPathfinding == true
+
+    eventPlayer.stopThrottleInDirection()
+    eventPlayer.pfIsPathfinding = false
+    eventPlayer.pfSavedTarget = null
+    eventPlayer.pfWait = null
+    eventPlayer.pfWalkingToPosition = null
+
+
 rule "【PF Core】Stop throttle when pfDestination is reset":
     @Event eachPlayer
+    @Condition eventPlayer.isAlive() == true
     @Condition eventPlayer.pfIsPathfinding == true
     @Condition eventPlayer.pfDestination == null
     
@@ -140,6 +156,7 @@ rule "【PF Core】Stop throttle when pfDestination is reset":
 
 rule "【PF Core】Insurance":
     @Event eachPlayer
+    @Condition eventPlayer.isAlive() == true
     @Condition eventPlayer.pfIsPathfinding == true
     @Condition eventPlayer.pfWalkingToPosition == true
     
@@ -164,6 +181,7 @@ rule "【PF Core】Insurance":
 
 rule "【PF Core】Recalibrate when off path":
     @Event eachPlayer
+    @Condition eventPlayer.isAlive() == true
     @Condition eventPlayer.pfIsPathfinding == true
     @Condition eventPlayer.pfWalkingToPosition == true
     @Condition distance((eventPlayer.pfWalkingFromPosition + eventPlayer.pfWalkingToPosition) / 2, eventPlayer) > (distance(eventPlayer.pfWalkingFromPosition, eventPlayer.pfWalkingToPosition) + 4) * 1.2
@@ -173,12 +191,13 @@ rule "【PF Core】Recalibrate when off path":
 
 rule "【PF Core】Check throttle":
     @Event eachPlayer
+    @Condition eventPlayer.isAlive() == true
     @Condition eventPlayer.pfIsPathfinding == true
     @Condition magnitude(eventPlayer.getVelocity()) < 3
     
     wait(2.1, Wait.ABORT_WHEN_FALSE)
     eventPlayer.pfIsStuck = true
-    waitUntil(not eventPlayer.pfWalkingToPosition or not eventPlayer.pfIsPathfinding or magnitude(eventPlayer.getVelocity()) >= 3, 9999)
+    waitUntil(not eventPlayer.pfWalkingToPosition or not eventPlayer.pfIsPathfinding or magnitude(eventPlayer.getVelocity()) >= 3, 99999)
     eventPlayer.pfIsStuck = false
 
 

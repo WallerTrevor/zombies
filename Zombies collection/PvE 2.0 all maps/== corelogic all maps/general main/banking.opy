@@ -1,3 +1,5 @@
+#need all vectors in the arrays file, not here.
+
 rule "56  points loss for high roller":
     @Event playerDied
     @Team 1
@@ -6,20 +8,6 @@ rule "56  points loss for high roller":
     eventPlayer.points -= eventPlayer.points * 0.3
     eventPlayer.points = ceil(eventPlayer.points)
 
-
-
-
-rule "global bank system":
-    createEffect(getAllPlayers(), Effect.RING, Color.YELLOW, vect(270.637, 38.147, 176.339), 1, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
-    createInWorldText(getAllPlayers(), "Property damage: ${0}".format(extraVar[36]), vect(270.637, 38.147, 176.339), 1, Clip.SURFACES, WorldTextReeval.VISIBILITY_POSITION_AND_STRING, Color.YELLOW)
-    createEffect(getAllPlayers(), Effect.RING, Color.RED, vect(275.586, 38.147, 177.222), 1, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
-    createInWorldText(getAllPlayers(), "Bank: {0} Points".format(extraVar[38]), vect(275.586, 38.147, 177.222), 1, Clip.SURFACES, WorldTextReeval.VISIBILITY_POSITION_AND_STRING)
-    createEffect(getAllPlayers(), Effect.RING, Color.RED, vect(273.277, 38.147, 176.182), 1, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
-    createInWorldText(getAllPlayers(), iconString(Icon.ARROW_UP), vect(273.277, 38.147, 176.182), 1, Clip.SURFACES, WorldTextReeval.VISIBILITY_POSITION_AND_STRING)
-    createEffect(getAllPlayers(), Effect.RING, Color.RED, vect(277.261, 38.147, 178.713), 1, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
-    createInWorldText(getAllPlayers(), iconString(Icon.ARROW_DOWN), vect(277.261, 38.147, 178.713), 1, Clip.SURFACES, WorldTextReeval.VISIBILITY_POSITION_AND_STRING)
-    createEffect(getAllPlayers(), Effect.RING, Color.BLUE, vect(299.653, -14.545, -222.024), 1, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
-    createInWorldText(getAllPlayers(), abilityIconString(Hero.KIRIKO, Button.PRIMARY_FIRE), vect(299.653, -14.545, -222.024), 2.25, Clip.SURFACES, WorldTextReeval.VISIBILITY_POSITION_AND_STRING)
 
 rule "global bank interest gain every round":
     @Condition numberOfZombies <= 0
@@ -36,7 +24,7 @@ rule "global bank tier upgrade":
     @Event eachPlayer
     @Condition eventPlayer.isAlive() == true
     @Condition eventPlayer.isHoldingButton(Button.INTERACT) == true
-    @Condition distance(eventPlayer, vect(275.586, 38.147, 177.222)) < 1
+    @Condition distance(eventPlayer, vect(273.459, 44.205, 176.795)) < 1
     @Condition bankTier < 3
 
     for i in range(0, len(bankCosts)):
@@ -54,7 +42,7 @@ rule "global bank withdraw button":
     @Event eachPlayer
     @Condition eventPlayer.isAlive() == true
     @Condition eventPlayer.isHoldingButton(Button.INTERACT) == true
-    @Condition distance(eventPlayer, vect(273.277, 38.147, 176.182)) < 1
+    @Condition distance(eventPlayer, vect(277.123, 44.205, 177.262)) < 1
 
     if getServerLoad() < 245:
         if bankPoints >= 250:
@@ -74,7 +62,7 @@ rule "global bank deposit button":
     @Event eachPlayer
     @Condition eventPlayer.isAlive() == true
     @Condition eventPlayer.isHoldingButton(Button.INTERACT) == true
-    @Condition distance(eventPlayer, vect(277.261, 38.147, 178.713)) < 1
+    @Condition distance(eventPlayer, vect(275.451, 44.205, 175.244)) < 1
 
     if getServerLoad() < 245:
         if eventPlayer.points >= 200:
@@ -95,7 +83,7 @@ rule "property damage easter egg":
     @Event eachPlayer
     @Condition eventPlayer.isAlive() == true
     @Condition eventPlayer.isHoldingButton(Button.INTERACT) == true
-    @Condition distance(eventPlayer, vect(270.637, 38.147, 176.339)) < 1
+    @Condition distance(eventPlayer, vect(269.882, 44.205, 179.101)) < 1
 
     smallMessage(eventPlayer, "  {0} You have caused ${1} damage to my army!".format(heroIcon(Hero.RAMATTRA), (ramPoints)))
 

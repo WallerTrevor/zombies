@@ -1,3 +1,16 @@
+#Really got to fix the "magic numbers" but really i want to get OSTW language installed and have the project in OOP paradigms
+
+/*
+perk[0] = pack a punch
+perk[1] = juggernaut
+perk[2] = speed boost
+perk[3] = headshot maniac
+perk[4] = extra life
+perk[5] = double mag
+buyperks[6] = power switch "technically not a perk, but it is in the perk area"
+
+*/
+
 rule "73 Headshot maniac Perk add damage":
     @Event playerDealtDamage
     @Team 1
@@ -35,27 +48,27 @@ rule "jugg tier 2 and 3":
         wait(10, Wait.RESTART_WHEN_TRUE)
         eventPlayer.addHealthPool(Health.NORMAL, 50, false, false)
 
-rule "give juggernaut perk max health":
+rule "give juggernaut tier 1":
     @Event eachPlayer
     @Team 1
     @Condition eventPlayer.perk[1] == 1
 
     eventPlayer.setMaxHealth(200)
 
-rule "109 PERK player hit speed boost sprint burst":
+rule "109 PERK player hit speed boost sprint burst": # I would combine this with the normal system, but i want to keep it seperate for organization
     @Event playerTookDamage
     @Team 1
     @Condition eventDamage == true
     @Condition eventPlayer.perk[2] == 1
-    if eventPlayer.perk[1] == 1:
+    if eventPlayer.perk[2] == 1:
         eventPlayer.setMoveSpeed(180)
         wait(1)
         eventPlayer.setMoveSpeed(105)
-    elif eventPlayer.perk[1] == 2:
+    elif eventPlayer.perk[2] == 2:
         eventPlayer.setMoveSpeed(200)
         wait(1)
         eventPlayer.setMoveSpeed(107)
-    elif eventPlayer.perk[1] == 3:
+    elif eventPlayer.perk[2] == 3:
         eventPlayer.setMoveSpeed(220)
         wait(1)
         eventPlayer.setMoveSpeed(110)
@@ -72,7 +85,7 @@ rule "79 player died with maniac": #dont need 2 rules for maniac
     eventPlayer.setMaxHealth(100)
     eventPlayer.stopForcingCurrentHero()
     wait()
-    eventPlayer.perk[1] = false
+    eventPlayer.perk[3] = false
     wait()
     eventPlayer.healthmax = 50
     eventPlayer.perk[3] = false
@@ -113,3 +126,6 @@ rule "pack a punch ability":
     elif eventPlayer.perk[0] == 3:
         eventPlayer.setDamageDealt(1000)
         eventPlayer.damagevariable = 1000
+
+
+#rule Double mag perk is baked into the ammo system under ammosystem.opy perk[5]

@@ -22,16 +22,16 @@ rule "1 Setup":
     createEffect(getPlayers(Team.1), Effect.ORB, Color.VIOLET, M[3], 0.1, EffectReeval.NONE)
     createEffect(getPlayers(Team.1), Effect.ORB, Color.RED, M[4], 1, EffectReeval.POSITION_AND_RADIUS)
     createEffect(getPlayers(Team.1), Effect.ORB, Color.ORANGE, M[5], 1, EffectReeval.POSITION_AND_RADIUS)
-    hudText([player for player in getPlayers(Team.1) if player.S[1] == 1], "{0}".format(heroIcon(Hero.RAMATTRA)), null, " Double points!", HudPosition.TOP, 1, Color.WHITE, Color.WHITE, Color.ORANGE, HudReeval.VISIBILITY_AND_STRING, SpecVisibility.NEVER)
-    hudText([player for player in getPlayers(Team.1) if player.S[2] == 1], "{0}".format(heroIcon(Hero.RAMATTRA)), null, " Time Freeze", HudPosition.TOP, 1, Color.WHITE, Color.WHITE, Color.ORANGE, HudReeval.VISIBILITY_AND_STRING, SpecVisibility.NEVER)
-    hudText([player for player in getPlayers(Team.1) if player.S[4] == 1], "{0}".format(heroIcon(Hero.RAMATTRA)), null, " Insta-Kill!", HudPosition.TOP, 1, Color.WHITE, Color.WHITE, Color.ORANGE, HudReeval.VISIBILITY_AND_STRING, SpecVisibility.NEVER)
-    hudText([player for player in getPlayers(Team.1) if player.S[0] == 1], "{0}".format(heroIcon(Hero.RAMATTRA)), null, " Ultimate Mayhem!", HudPosition.TOP, 1, Color.WHITE, Color.WHITE, Color.ORANGE, HudReeval.VISIBILITY_AND_STRING, SpecVisibility.NEVER)
-    hudText([player for player in getPlayers(Team.1) if player.S[5] == 1], "{0}".format(heroIcon(Hero.RAMATTRA)), null, "Max Ammo!", HudPosition.TOP, 1, Color.WHITE, Color.WHITE, Color.ORANGE, HudReeval.VISIBILITY_AND_STRING, SpecVisibility.NEVER)
-    hudText([player for player in getPlayers(Team.1) if player.S[3] == 1], "{0}".format(heroIcon(Hero.RAMATTRA)), null, "Data Reset.", HudPosition.TOP, 1, Color.WHITE, Color.WHITE, Color.ORANGE, HudReeval.VISIBILITY_AND_STRING, SpecVisibility.NEVER)
+    hudText([player for player in getPlayers(Team.1) if player.S[1] == 1], "{0}".format(heroIcon(Hero.RAMATTRA)), null, " Double points!", HudPosition.TOP, 1, Color.WHITE, Color.WHITE, Color.ORANGE, HudReeval.VISIBILITY_AND_STRING, SpecVisibility.ALWAYS)
+    hudText([player for player in getPlayers(Team.1) if player.S[2] == 1], "{0}".format(heroIcon(Hero.RAMATTRA)), null, " Time Freeze", HudPosition.TOP, 1, Color.WHITE, Color.WHITE, Color.ORANGE, HudReeval.VISIBILITY_AND_STRING, SpecVisibility.ALWAYS)
+    hudText([player for player in getPlayers(Team.1) if player.S[4] == 1], "{0}".format(heroIcon(Hero.RAMATTRA)), null, " Insta-Kill!", HudPosition.TOP, 1, Color.WHITE, Color.WHITE, Color.ORANGE, HudReeval.VISIBILITY_AND_STRING, SpecVisibility.ALWAYS)
+    hudText([player for player in getPlayers(Team.1) if player.S[0] == 1], "{0}".format(heroIcon(Hero.RAMATTRA)), null, " Ultimate Mayhem!", HudPosition.TOP, 1, Color.WHITE, Color.WHITE, Color.ORANGE, HudReeval.VISIBILITY_AND_STRING, SpecVisibility.ALWAYS)
+    hudText([player for player in getPlayers(Team.1) if player.S[5] == 1], "{0}".format(heroIcon(Hero.RAMATTRA)), null, "Max Ammo!", HudPosition.TOP, 1, Color.WHITE, Color.WHITE, Color.ORANGE, HudReeval.VISIBILITY_AND_STRING, SpecVisibility.ALWAYS)
+    hudText([player for player in getPlayers(Team.1) if player.S[3] == 1], "{0}".format(heroIcon(Hero.RAMATTRA)), null, "Data Reset.", HudPosition.TOP, 1, Color.WHITE, Color.WHITE, Color.ORANGE, HudReeval.VISIBILITY_AND_STRING, SpecVisibility.ALWAYS)
     appenddoorsequencer = []
     dooreffectsequencer = []
     teleportercolor = Color.BLUE
-    disableInspector()
+    #disableInspector()
     Difficulty = createWorkshopSettingInt("difficulty", "difficulty", 1, 1, 4)
     Died[0] = vect(500, 0, 500)
     Died[1] = vect(500, 0, 500)
@@ -73,7 +73,7 @@ rule "2 round change":
     if roundnumber < 12:
         romanNcounter += 1
     rngCamera = random.randint(1, 5)
-    costmultiplier = costmultiplier * random.uniform(1.02, 1.04)
+    costmultiplier = costmultiplier * random.uniform(1.00, 1.00) #definitely need to play test to see if this is fun
     roundpointmultiplier = random.uniform(1.01, 1.03)
 
 rule "3 Set Round Kills":
@@ -127,10 +127,11 @@ rule "6 Defeat (needs to be refined for soft restart)":
     poweron = 0
     getPlayers(Team.1).points = 0
     g = false
-    #restartMatch() #comment this out later
     getPlayers(Team.1).creditcardlimit = 0
     getPlayers(Team.1).creditTier = 0
     costmultiplier = 1
+    for forindex in range(90):
+        Wall_ID[forindex] = 1
 
 
 rule "7 Disable Bot Respawn":
@@ -300,16 +301,15 @@ rule "48 WORKSHOP SETTINGS":
 
 
 rule "83 power challenge effects":
-    @Condition powerconnected == 1
+    @Condition poweron == 1
     @Condition roundnumber < 15
     
-    #change this to be all heros on team 2
-    getPlayersOnHero(Hero.BRIGITTE, Team.2).setUltCharge(100)
+    getPlayers(Team.2).setUltCharge(100)
 
 
 rule "88 disable vanilla features":
     @Event playerJoined
-    
+
     disableMusic()
     getAllPlayers().disableKillFeed()
     disableAnnouncer()
@@ -323,11 +323,8 @@ rule "88 disable vanilla features":
     getAllPlayers().disableRespawn()
     eventPlayer.F = false
     eventPlayer.H = 1
-    #eventPlayer.disableTextChat()
-    wait(4)
-    eventPlayer.allowedheroes = []
-    wait(4)
-    eventPlayer.allowedheroes.append(eventPlayer.getHero())
+    wait(10)
+    eventPlayer.allowedheroes = [eventPlayer.heroswap[0], eventPlayer.heroswap[1]]
 
 rule "498 Rule 480 start screen":
     @Event eachPlayer
@@ -366,13 +363,12 @@ rule "497 start control":
     aprilrng = random.randint(1, 100)
     startlines = random.randint(0, 29)
     eventPlayer.heroswap[0] = eventPlayer.getHero()
-    rngbox2 = random.choice(Mysterylocations2)
     wait(1)
     roundnumber = createWorkshopSettingInt("Set Wave number", "Set starting wave", 1, 1, 100)
     enableMusic()
     rngbox = random.choice(mysterylocations)
-    getAllPlayers().startCamera(vect(269.985, 35.41, 143.855), vect(269.985, 35.06, 140.284))
-    createInWorldText(getAllPlayers(), "Good Luck...", vect(269.985, 35.06, 140.284), 5, Clip.SURFACES, WorldTextReeval.VISIBILITY_POSITION_AND_STRING)
+    getAllPlayers().startCamera(vect(283.872, 1.875, 118.717), vect(282.782, 1.329, 109.203))
+    createInWorldText(getAllPlayers(), "Good Luck...", vect(282.782, 1.329, 109.203), 5, Clip.SURFACES, WorldTextReeval.VISIBILITY_POSITION_AND_STRING)
     wait(4)
     getAllPlayers().stopCamera()
     wait(0.1)
@@ -480,7 +476,7 @@ rule "191 Trap logic":
     destroyDummy(Team.1, omnicspawn[19])
 
 
-rule "192 Purchase trap":
+rule "192 Purchase trap": #the visual for the trap should not show a hero icon, to prevent players from getting confused
     @Event eachPlayer
     @Team 1
     @Condition distance(eventPlayer, vect(-83.799, -160.001, 64.224)) <= 2

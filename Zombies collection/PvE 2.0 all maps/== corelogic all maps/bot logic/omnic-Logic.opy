@@ -5,17 +5,30 @@ rule "137  get out of spawn bots(buggy effect)":
     @Condition eventPlayer.isInSpawnRoom() == true
     
     eventPlayer.startForcingOutlineFor(getPlayers(Team.1), true, rgb(random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)))
-    eventPlayer.teleport(nearestWalkablePosition(directionFromAngles(random.uniform(0, 360), random.uniform(-3, 3)) * random.uniform(10, 20) + getLivingPlayers(Team.1)[0].getPosition()))
+    if len(globalSpawnNodes) > 0:
+        eventPlayer.teleport(random.choice(globalSpawnNodes)) #this needs a defined location
 
-    wait(1)
-    createEffect(getAllPlayers(), Effect.BAD_AURA, Color.BLACK, evalOnce(eventPlayer.getPosition()) + vect(0, 1.5, 0), 1, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
-    createEffect(getAllPlayers(), Effect.BAD_AURA_SOUND, Color.WHITE, evalOnce(eventPlayer.getPosition()), 100, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
-    wait(3)
-    destroyEffect(getLastCreatedEntity())
-    #i dont think doing it twice works need to append
-    destroyEffect(getLastCreatedEntity())
+rule "create barricade effect":
+    @Event global
+    @Condition start == 1
 
+    if globalSpawnEffectCount > 0:
+        for i in range(0, globalSpawnEffectCount):
+            destroyEffect(globalSpawnEffectIDs[i])
 
+    globalSpawnEffectIDs = []
+    globalSpawnEffectCount = 0
+
+    if len(globalSpawnNodes) > 0:
+        for i in range(0, len(globalSpawnNodes)):
+            node = globalSpawnNodes[i]
+
+            createEffect(getAllPlayers(), Effect.BAD_AURA, Color.BLACK, node + vect(0, 1.5, 0), 1, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
+            globalSpawnEffectIDs.append(getLastCreatedEntity())
+            createEffect(getAllPlayers(), Effect.BAD_AURA_SOUND, Color.WHITE, node, 100, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
+            globalSpawnEffectIDs.append(getLastCreatedEntity())
+            globalSpawnEffectCount += 2
+            
 rule "15 Unstuck Bots(buggy effect)":
     @Event eachPlayer
     @Team 2
@@ -23,19 +36,13 @@ rule "15 Unstuck Bots(buggy effect)":
     @Condition eventPlayer.isAlive() == true
     @Condition eventPlayer.isInSpawnRoom() == false
     @Condition eventPlayer.hasStatus(Status.HACKED) or eventPlayer.hasStatus(Status.KNOCKED_DOWN) or eventPlayer.hasStatus(Status.FROZEN) or eventPlayer.hasStatus(Status.ASLEEP) or eventPlayer.hasStatus(Status.STUNNED) == false
+    @Disabled
     #@Condition distance(eventPlayer, getRealClosestPlayer(eventPlayer, Team.1)) > 2.5
     
     wait(2.5, Wait.ABORT_WHEN_FALSE)
     #eventPlayer.teleport(random.choice(Y))
-    eventPlayer.teleport(nearestWalkablePosition(directionFromAngles(random.uniform(0, 360), random.uniform(-3, 3)) * random.uniform(10, 20) + getLivingPlayers(Team.1)[0].getPosition()))
-    #loop()
-    wait(0.4)
-    createEffect(getAllPlayers(), Effect.BAD_AURA, Color.BLACK, evalOnce(eventPlayer.getPosition()) + vect(0, 1.5, 0), 1, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
-    createEffect(getAllPlayers(), Effect.GOOD_AURA_SOUND, Color.WHITE, evalOnce(eventPlayer.getPosition()), 100, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
-    wait(4)
-    destroyEffect(getLastCreatedEntity())
-    destroyEffect(getLastCreatedEntity())
-
+    if len(globalSpawnNodes) > 0:
+        eventPlayer.teleport(random.choice(globalSpawnNodes))
 
 rule "16 Jump If Far Away From Player":
     @Event eachPlayer
@@ -45,6 +52,7 @@ rule "16 Jump If Far Away From Player":
     @Condition O == false
     #idle bots would be great in concept, its meant to feel like L4D2
     @Condition eventPlayer.getHorizontalSpeed() < 0.7
+    @Disabled
 
     if zombjump == false:
         goto lbl_0
@@ -61,22 +69,7 @@ rule "16 Jump If Far Away From Player":
     lbl_2:
 
 
-rule "17 Bots Under Player":
-    @Event eachPlayer
-    @Team 2
-    @Condition eventPlayer.getVerticalFacingAngle() < -10
-    @Condition O == false
-    @Condition eventPlayer.getSpeed() < 0.95
-    @Condition distance(eventPlayer, getRealClosestPlayer(eventPlayer, Team.1)) > 1
-    @Condition eventPlayer.hasStatus(Status.HACKED) or eventPlayer.hasStatus(Status.KNOCKED_DOWN) or eventPlayer.hasStatus(Status.FROZEN) or eventPlayer.hasStatus(Status.ASLEEP) or eventPlayer.hasStatus(Status.STUNNED) != true #needs a (is boss active) condition
-    wait(0.33, Wait.ABORT_WHEN_FALSE)
-    eventPlayer.applyImpulse(Vector.UP, 15, Relativity.TO_WORLD, Impulse.CANCEL_CONTRARY_MOTION)
-    if walljumpers == false:
-        goto lbl_0
-    eventPlayer.disableEnvironmentCollision(false)
-    wait(2.5)
-    eventPlayer.enableEnvironmentCollision()
-    lbl_0:
+
 
 
 rule "9 Omnic Kill all powerups)":
@@ -176,7 +169,7 @@ rule "118  Omnic Kill (Global Var B) ALL SLOTS":
     lbl_1:
 
 
-rule "436 OMNIC set features ALL":
+rule "436 OMNIC set features ALL": # could be data driven
     @Event eachPlayer
     @Team 2
     @Condition eventPlayer.getSlot() != getPlayersInSlot(0, Team.2)
@@ -277,177 +270,30 @@ rule "559 stop throttle omnics":
     eventPlayer.stopForcingThrottle()
 
 
-rule "435 basic OMNIC ALL heroes":
+rule "use ability loop":
     @Event eachPlayer
     @Team 2
+    @Condition eventPlayer.isAlive() == true
     @Condition distance(eventPlayer, getRealClosestPlayer(eventPlayer, Team.1)) < 10
-    @Condition eventPlayer.getSlot() != getPlayersInSlot(0, Team.2)
 
-    if eventPlayer.getHero() == Hero.ROADHOG:
-        eventPlayer.forceButtonPress(Button.ABILITY_2)
-        wait(random.randint(15, 25))
-    elif eventPlayer.getHero() == Hero.REAPER:
-        eventPlayer.forceButtonPress(Button.ABILITY_1)
-        wait(random.randint(15, 25))
-    elif eventPlayer.getHero() == Hero.HANZO:
-        eventPlayer.forceButtonPress(Button.JUMP)
-        wait(0.6)
-        eventPlayer.forceButtonPress(Button.JUMP)
-        wait(random.randint(20, 25))
-    elif eventPlayer.getHero() == Hero.PHARAH:
-        eventPlayer.forceButtonPress(Button.ABILITY_1)
-        wait(0.75)
-        eventPlayer.forceButtonPress(Button.ABILITY_2)
-    elif eventPlayer.getHero() == Hero.WIDOWMAKER:
-        eventPlayer.forceButtonPress(Button.ABILITY_1)
-        wait(0.75)
-        eventPlayer.forceButtonPress(Button.ABILITY_2)
-    elif eventPlayer.getHero() == Hero.BASTION:
-        eventPlayer.forceButtonPress(Button.SECONDARY_FIRE)
-    elif eventPlayer.getHero() == Hero.SYMMETRA:
-        eventPlayer.forceButtonPress(Button.ABILITY_1)
-        wait(2)
-        eventPlayer.forceButtonPress(Button.ABILITY_1)
-        wait(2)
-        eventPlayer.forceButtonPress(Button.ABILITY_1)
-        wait(2)
-    elif eventPlayer.getHero() == Hero.CASSIDY:
-        eventPlayer.forceButtonPress(Button.ABILITY_1)
-        wait(0.5)
-        eventPlayer.forceButtonPress(Button.ABILITY_2)
-    elif eventPlayer.getHero() == Hero.JUNKRAT:
-        eventPlayer.forceButtonPress(Button.ABILITY_1)
-        wait(0.5)
-        eventPlayer.forceButtonPress(Button.ABILITY_2)
-        wait(2)
-        eventPlayer.forceButtonPress(Button.SECONDARY_FIRE)
-    elif eventPlayer.getHero() == Hero.ZARYA:
-        eventPlayer.forceButtonPress(Button.ABILITY_1)
-        wait(6)
-        if ruleCondition:
-            loop()
-    elif eventPlayer.getHero() == Hero.SOLDIER:
-        eventPlayer.forceButtonPress(Button.SECONDARY_FIRE)
-        wait(6)
-        if ruleCondition:
-            loop()
-    elif eventPlayer.getHero() == Hero.LUCIO:
-        if distance(eventPlayer, getLivingPlayers(Team.1)[0]) < 3:
-            eventPlayer.forceButtonPress(Button.SECONDARY_FIRE)
-    elif eventPlayer.getHero() == Hero.BRIGITTE:
-        if roundnumber >= 20:
-            eventPlayer.forceButtonPress(Button.ABILITY_1)
-            wait(6)
-            if ruleCondition:
-                loop()
-    elif eventPlayer.getHero() == Hero.TRACER:
-        if eventPlayer.getNormalizedHealth() <= 0.5:
-            eventPlayer.forceButtonPress(Button.ABILITY_2)
-            wait(random.randint(40, 60))
-    elif eventPlayer.getHero() == Hero.MERCY:
-        eventPlayer.setUltCharge(100)
-    elif eventPlayer.getHero() == Hero.DVA:
-        eventPlayer.forceButtonPress(Button.ABILITY_1)
-        if eventPlayer.getNormalizedHealth() <= 0.25:
-            eventPlayer.startForcingButton(Button.SECONDARY_FIRE)
-            wait(3)
-            eventPlayer.stopForcingButton(Button.SECONDARY_FIRE)
-    elif eventPlayer.getHero() == Hero.MEI:
-        if eventPlayer.getNormalizedHealth() <= 0.4:
-            eventPlayer.forceButtonPress(Button.ABILITY_1)
-    elif eventPlayer.getHero() == Hero.ANA:
-        eventPlayer.forceButtonPress(Button.ABILITY_1)
-        if eventPlayer.getNormalizedHealth() <= 0.4:
-            eventPlayer.forceButtonPress(Button.ABILITY_2)
-    elif eventPlayer.getHero() == Hero.SOMBRA:
-        eventPlayer.forceButtonPress(Button.MELEE)
-        wait(1)
-        eventPlayer.forceButtonPress(Button.ABILITY_2)
-        wait(1.5)
-        eventPlayer.forceButtonPress(Button.ABILITY_1)
-    elif eventPlayer.getHero() == Hero.ORISA:
-        if eventPlayer.getNormalizedHealth() <= 0.5:
-            eventPlayer.forceButtonPress(Button.SECONDARY_FIRE)
-            eventPlayer.forceButtonPress(Button.ABILITY_1)
-    elif eventPlayer.getHero() == Hero.RAMATTRA:
-        eventPlayer.forceButtonPress(Button.ABILITY_1)
-        wait(8)
-        loop()
-    elif eventPlayer.getHero() == Hero.WRECKING_BALL:
-        eventPlayer.forceButtonPress(Button.ABILITY_1)
-        eventPlayer.forceButtonPress(Button.ABILITY_2)
-    elif eventPlayer.getHero() == Hero.SOJOURN:
-        eventPlayer.forceButtonPress(Button.ABILITY_1)
-        wait(1)
-        eventPlayer.forceButtonPress(Button.JUMP)
-    elif eventPlayer.getHero() == Hero.ASHE:
-        eventPlayer.forceButtonPress(Button.ABILITY_2)
-    elif eventPlayer.getHero() == Hero.ECHO:
-        eventPlayer.forceButtonPress(Button.SECONDARY_FIRE)
-        eventPlayer.forceButtonPress(Button.SECONDARY_FIRE)
-    elif eventPlayer.getHero() == Hero.BAPTISTE:
-        if eventPlayer.getNormalizedHealth() <= random.randint(0.5, 0.75):
-            eventPlayer.forceButtonPress(Button.ABILITY_1)
-    elif eventPlayer.getHero() == Hero.KIRIKO:
-        if eventPlayer.getNormalizedHealth() <= random.randint(0.5, 0.75):
-            eventPlayer.forceButtonPress(Button.ABILITY_2)
-    elif eventPlayer.getHero() == Hero.JUNKER_QUEEN:
-        eventPlayer.forceButtonPress(Button.ABILITY_1)
-        if distance(eventPlayer, getRealClosestPlayer(eventPlayer, Team.1)) < 5:
-            eventPlayer.forceButtonPress(Button.ABILITY_2)
-    elif eventPlayer.getHero() == Hero.SIGMA:
-        eventPlayer.startForcingButton(Button.SECONDARY_FIRE)
-        wait(2)
-        eventPlayer.stopForcingButton(Button.SECONDARY_FIRE)
-        wait(0.25)
-        eventPlayer.forceButtonPress(Button.SECONDARY_FIRE)
-        if eventPlayer.getNormalizedHealth() <= random.randint(0.5, 0.75):
-            eventPlayer.forceButtonPress(Button.ABILITY_1)
-    elif eventPlayer.getHero() == Hero.LIFEWEAVER:
-        eventPlayer.forceButtonPress(Button.JUMP)
-        wait(0.3)
-        eventPlayer.forceButtonPress(Button.JUMP)
-        eventPlayer.forceButtonPress(Button.ABILITY_1)
-    elif eventPlayer.getHero() == Hero.MAUGA:
-        eventPlayer.forceButtonPress(Button.ABILITY_1)
-    elif eventPlayer.getHero() == Hero.ILLARI:
-        eventPlayer.forceButtonPress(Button.ABILITY_2)
-        if eventPlayer.getNormalizedHealth() <= random.randint(0.5, 0.75):
-            eventPlayer.forceButtonPress(Button.ABILITY_1)
+        for eventPlayer.idx in range(0, 10):
+            eventPlayer.abilityFlag = abilityTable[hero[eventPlayer.currentEnemyIndex] * 10 * Difficulty + eventPlayer.idx]
+            if eventPlayer.abilityFlag > 0:
+                eventPlayer.forceButtonPress(buttons[eventPlayer.abilityFlag - 1])
+            wait(1.0)
+            
 
 rule "137  bots too far away":
     @Event eachPlayer
     @Team 2
     @Condition eventPlayer.isAlive() == true
-    @Condition distance(eventPlayer, (sorted([player for player in getLivingPlayers(Team.1) if eventPlayer.T < 2]))[0]) > 25
+    @Condition distance(eventPlayer, (sorted([player for player in getLivingPlayers(Team.1) if eventPlayer.T < 2]))[0]) > 90
     
     #good to keep but might need bigger radius when implementing pathfinding
     wait(6.0 + (eventPlayer.getSlot() * 0.032), Wait.ABORT_WHEN_FALSE) # good to make this 5+ seconds for teleporter maps
-    eventPlayer.teleport(nearestWalkablePosition(directionFromAngles(random.uniform(0, 360), random.uniform(-3, 3)) * random.uniform(10, 20) + getLivingPlayers(Team.1)[0].getPosition()))
+    if len(globalSpawnNodes) > 0:
+        eventPlayer.teleport(random.choice(globalSpawnNodes))
 
-
-rule "164 OMNIC brigg hold sheild":
-    @Event eachPlayer
-    @Team 2
-    @Hero brigitte
-    @Condition distance(eventPlayer, getRealClosestPlayer(eventPlayer, Team.1)) >= 15
-
-    if powerconnected == 1:
-        goto lbl_0
-    if roundnumber < 10:
-        goto lbl_1
-    lbl_0:
-    eventPlayer.startForcingButton(Button.SECONDARY_FIRE)
-    lbl_1:
-
-
-rule "165 OMNIC brigg hold sheild":
-    @Event eachPlayer
-    @Team 2
-    @Hero brigitte
-    @Condition distance(eventPlayer, getRealClosestPlayer(eventPlayer, Team.1)) < 12
-    
-    eventPlayer.stopForcingButton(Button.SECONDARY_FIRE)
 
 rule "402 Omnic movespeed + health":
     @Event eachPlayer
@@ -456,16 +302,15 @@ rule "402 Omnic movespeed + health":
     
     eventPlayer.setMaxHealth(15 * roundnumber)
     if roundnumber <= 6:
-        eventPlayer.setMoveSpeed(52 + 8 * roundnumber)
+        eventPlayer.setMoveSpeed(80 + 8 * roundnumber)
     elif roundnumber > 6:
-        eventPlayer.setMoveSpeed(100)
+        eventPlayer.setMoveSpeed(128) #needs playtesting
 
-
+/*
 rule "407 OMNIC Bots Move Toward Players":
     @Event eachPlayer
     @Team 2
-    @Condition O == false
-    @Condition distance(eventPlayer, getRealClosestPlayer(eventPlayer, Team.1)) >= 1.75
+    @Condition distance(eventPlayer, getRealClosestPlayer(eventPlayer, Team.1)) < 20 and isInLoS(eventPlayer, getRealClosestPlayer(eventPlayer, Team.1)) == true
 
     eventPlayer.startForcingThrottle(1, 1, 0, 1, 0, 1)
     if zombstrafe == false:
@@ -485,7 +330,87 @@ rule "407 OMNIC Bots Move Toward Players":
         loop()
     lbl_0:
     lbl_2:
+*/
 
+rule "17 Bots Under Player":
+    @Event eachPlayer
+    @Team 2
+    @Condition eventPlayer.getVerticalFacingAngle() < -10
+    @Condition eventPlayer.pfDestination == null
+
+    wait(0.25, Wait.ABORT_WHEN_FALSE)
+    eventPlayer.pfDestination = getRealClosestPlayer(eventPlayer, Team.1).getPosition()
+    wait(3.5 + (eventPlayer.getSlot() * 0.032))
+    if ruleCondition:
+        loop()
+
+
+rule "force no pathfinding when close":
+    @Event eachPlayer
+    @Team 2
+    @Condition distance(eventPlayer, getRealClosestPlayer(eventPlayer, Team.1)) < 20 and isInLoS(eventPlayer, getRealClosestPlayer(eventPlayer, Team.1)) == true
+    #@Condition eventPlayer.pfIsPathfinding == false
+
+    wait(0.25, Wait.ABORT_WHEN_FALSE)
+    if eventPlayer.pfIsPathfinding == true:
+        eventPlayer.pfIsPathfinding = false
+    eventPlayer.pfDestination = null
+    eventPlayer.pfSavedTarget = null
+    eventPlayer.pfPath = []
+    eventPlayer.pfWait = null
+    eventPlayer.pfWasBroadcasted = false
+    eventPlayer.pfIsPathfinding = false
+    eventPlayer.pfCurrentNodeIndex = -1
+    eventPlayer.pfActiveNode = -1
+    eventPlayer.pfWalkingToPosition = null
+    eventPlayer.pfWalkingFromPosition = null
+    eventPlayer.pfStartTime = 0
+    eventPlayer.pfAttributes = []
+    eventPlayer.pfopen = []
+    eventPlayer.pfscores_gScore = []
+    eventPlayer.pfscores_fScore = []
+    eventPlayer.pfscores_parent = []
+    eventPlayer.pfscores_nodeIndex = []
+    eventPlayer.pfiter = 0
+    eventPlayer.pfcurrent = -1
+    eventPlayer.pfgoal = -1
+    eventPlayer.pfStuckOnNode = -1
+    eventPlayer.pfIsStuck = false
+    eventPlayer.stopThrottleInDirection()
+    eventPlayer.stopForcingThrottle()
+    wait(0.10)
+    eventPlayer.startThrottleInDirection(directionTowards(eventPlayer.getPosition(), getRealClosestPlayer(eventPlayer, Team.1).getPosition()), 1, Relativity.TO_WORLD)
+
+
+rule "use pathfinding":
+    @Event eachPlayer
+    @Team 2
+    @Condition eventPlayer.pfIsPathfinding == false
+    @Condition distance(eventPlayer, getRealClosestPlayer(eventPlayer, Team.1)) >= 20 or isInLoS(eventPlayer, getRealClosestPlayer(eventPlayer, Team.1)) == false
+    @Condition eventPlayer.pfDestination == null or distance(eventPlayer.pfDestination, getRealClosestPlayer(eventPlayer, Team.1).getPosition()) > 4
+    @Condition eventPlayer.pfWait != null
+
+    wait(0.25, Wait.ABORT_WHEN_FALSE)
+    eventPlayer.stopForcingThrottle()
+    eventPlayer.pfDestination = getRealClosestPlayer(eventPlayer, Team.1).getPosition()
+    wait(2.5 + (eventPlayer.getSlot() * 0.032))
+    if ruleCondition:
+        loop()
+
+rule "use pathfinding if on wall":
+    @Event eachPlayer
+    @Team 2
+    @Condition eventPlayer.pfIsPathfinding == false
+    @Condition eventPlayer.getSpeed() <= 0.7
+    @Condition distance(eventPlayer, getRealClosestPlayer(eventPlayer, Team.1)) > 2
+    @Condition eventPlayer.pfDestination == null or distance(eventPlayer.pfDestination, getRealClosestPlayer(eventPlayer, Team.1).getPosition()) > 4
+
+    wait(0.25, Wait.ABORT_WHEN_FALSE)
+    eventPlayer.stopForcingThrottle()
+    eventPlayer.pfDestination = getRealClosestPlayer(eventPlayer, Team.1).getPosition()
+    wait(2.5 + (eventPlayer.getSlot() * 0.032))
+    if ruleCondition:
+        loop()
 
 rule "408 OMNIC Bots Face Nearest Player":
     @Event eachPlayer
@@ -547,50 +472,6 @@ rule "412 OMNIC Bots Ult Attack":
         loop()
 
 
-rule "413 OMNIC torb use ability":
-    @Event eachPlayer
-    @Team 2
-    @Hero torbjorn
-    @Condition eventPlayer.isMoving() == true
-    @Condition roundnumber / 1 >= abs(15)
-    
-    eventPlayer.forceButtonPress(Button.ABILITY_2)
-    wait(5)
-    loop()
-
-
-rule "414 OMNIC rien use ability 2":
-    @Event eachPlayer
-    @Team 2
-    @Hero reinhardt
-    @Condition eventPlayer.isMoving() == true
-    @Condition roundnumber >= abs(26)
-    
-    eventPlayer.forceButtonPress(Button.ABILITY_2)
-
-
-rule "415 OMNIC brigg wave 16":
-    @Event eachPlayer
-    @Team 2
-    @Hero brigitte
-    @Condition roundnumber >= abs(16)
-    
-    eventPlayer.setUltCharge(100)
-    eventPlayer.setMoveSpeed(120)
-
-
-rule "417 OMNIC torb use ability":
-    @Event eachPlayer
-    @Team 2
-    @Hero torbjorn
-    @Condition eventPlayer.isMoving() == true
-    @Condition powerconnected == 1
-    @Condition roundnumber < 15
-    
-    eventPlayer.forceButtonPress(Button.ABILITY_2)
-    wait(5)
-    loop()
-
 
 rule "419 OMNIC set winston always has ult":
     @Event eachPlayer
@@ -600,47 +481,16 @@ rule "419 OMNIC set winston always has ult":
 
     eventPlayer.setUltCharge(100)
 
-
-rule "422 OMNIC Dont Attack if Not Near genji":
-    @Event eachPlayer
-    @Team 2
-    @Hero genji
-    @Condition distance(eventPlayer, getRealClosestPlayer(eventPlayer, Team.1)) >= 1.8
-    @Condition eventPlayer.isFiringPrimaryFire() == true
+rule "get nearest nodes for spawning (Random Player Focus)":
+    @Event global
+    @Condition start == 1
     
-    eventPlayer.stopForcingButton(Button.PRIMARY_FIRE)
+    wait(5.0)
+    teamPlayers = getLivingPlayers(Team.1)
+    if len(teamPlayers) > 0:
+        averagePosition = Vector.UP * 0
+        for i in range(0, len(teamPlayers)):
+            averagePosition += teamPlayers[i].getPosition()
+        averagePosition = averagePosition / len(teamPlayers)
 
-
-rule "423 OMNIC genji use reflect after hitting player":
-    @Event playerDealtDamage
-    @Team 2
-    @Hero genji
-    
-    eventPlayer.forceButtonPress(Button.ABILITY_2)
-
-
-rule "424 OMNIC moira Attack if Near":
-    @Event eachPlayer
-    @Team 2
-    @Hero moira
-    @Condition distance(eventPlayer, getRealClosestPlayer(eventPlayer, Team.1)) < 1.8
-    @Condition O == false
-    
-    wait(0.49, Wait.ABORT_WHEN_FALSE)
-    eventPlayer.forceButtonPress(Button.MELEE)
-    if ruleCondition:
-        loop()
-
-
-rule "425 OMNIC moira fade if far away":
-    @Event eachPlayer
-    @Team 2
-    @Hero moira
-    @Condition distance(eventPlayer, sorted([player for player in getLivingPlayers(Team.1) if eventPlayer.T == false])[0]) > 8
-    
-    eventPlayer.forceButtonPress(Button.ABILITY_1)
-    wait(5)
-    if ruleCondition:
-        loop()
-
-
+    globalSpawnNodes = pfLoadedMap_nodes.filter(lambda nodes: distance(averagePosition, nodes) > 10).filter(lambda nodes: distance(averagePosition, nodes) < 25)

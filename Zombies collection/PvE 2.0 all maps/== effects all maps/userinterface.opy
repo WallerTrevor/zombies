@@ -60,7 +60,7 @@ rule "perk info simplified":
     for i in range(0, 3 - (len(eventPlayer.Perkui) - 1), 1):
         hudText(eventPlayer, null, "\n", null, HudPosition.LEFT, 3, Color.GREEN, Color.SKY_BLUE, Color.WHITE, HudReeval.VISIBILITY_AND_STRING) #this adds blank lines if less than 4 perks
         eventPlayer.Perkui.append(getLastCreatedText())
-    hudSubheader(eventPlayer, " \n\n", HudPosition.LEFT, 6, Color.GREEN, HudReeval.VISIBILITY, SpecVisibility.NEVER)
+    hudSubheader(eventPlayer, " \n\n", HudPosition.LEFT, 6, Color.GREEN, HudReeval.VISIBILITY, SpecVisibility.ALWAYS)
     eventPlayer.Perkui.append(getLastCreatedText())
 
 
@@ -159,7 +159,7 @@ rule "Info UI":
     @Event eachPlayer
     @Condition start == false
     
-    #might make this a subroutine and then let it be a toggle players can use to read while playing
+    #might make this a for loop and part of the menu system while playing
     #hudSubtext(eventPlayer, ".", HudPosition.LEFT, 1, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
     #eventPlayer.InfoUI.append(getLastCreatedText())
     #wait()
@@ -222,7 +222,30 @@ rule "Info UI":
     eventPlayer.HideHints = true
     eventPlayer.UI = 1
 
+/*
+    for i in range(len(InfoUIText)):
+        if InfoUIType[i] == 0:
+            hudSubtext(
+                eventPlayer,
+                InfoUIText[i],
+                HudPosition.LEFT,
+                InfoUIPriority[i],
+                InfoUIColor[i],
+                HudReeval.VISIBILITY_AND_STRING
+            )
+        else:
+            hudSubheader(
+                eventPlayer,
+                InfoUIText[i],
+                HudPosition.LEFT,
+                InfoUIPriority[i],
+                InfoUIColor[i],
+                HudReeval.VISIBILITY_AND_STRING
+            )
 
+        eventPlayer.InfoUI.append(getLastCreatedText())
+        wait()
+*/
 
 rule "all the effects (local player huds)":
     @Condition start == 1
@@ -233,31 +256,33 @@ rule "all the effects (local player huds)":
     Died[1] = vect(500, 0, 500)
     Died[2] = vect(500, 0, 500)
     Died[3] = vect(500, 0, 500)
-    wait(4)
-    if not ruleCondition:
-        return
+    #wait(4)
+    #if not ruleCondition:
+    #    return
     hudSubtext(localPlayer, "lives used: {0}".format(localPlayer.singlelives), HudPosition.RIGHT, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
-
-    hudSubtext(localPlayer, "Magazines {0}".format(localPlayer.currentmagazines), HudPosition.RIGHT, 7, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
-    hudSubheader(localPlayer, " \n\n", HudPosition.RIGHT, 8, Color.GREEN, HudReeval.VISIBILITY, SpecVisibility.NEVER)
+    if Difficulty > 1:
+        hudSubtext(localPlayer, "Magazines {0}".format(localPlayer.currentmagazines), HudPosition.RIGHT, 7, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
+    hudSubheader(localPlayer, " \n\n", HudPosition.RIGHT, 8, Color.GREEN, HudReeval.VISIBILITY, SpecVisibility.ALWAYS)
     hudSubtext(localPlayer, "Heroes {0} {1}  {2}".format(localPlayer.heroiconswap[0], localPlayer.heroiconswap[1], inputBindingString(Button.CROUCH)), HudPosition.RIGHT, 9, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
     hudSubtext(localPlayer, "Follower: {0}".format(heroIcon((getPlayersInSlot(localPlayer.getSlot() + 4, Team.1)).getHero())), HudPosition.LEFT, 5, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
     hudSubtext(localPlayer, "                                                                             {0}".format(romanN[romanNcounter]), HudPosition.LEFT, 7, Color.ORANGE, HudReeval.VISIBILITY_AND_STRING)
-    hudSubheader(localPlayer, " \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", HudPosition.RIGHT, 1, Color.GREEN, HudReeval.VISIBILITY, SpecVisibility.NEVER)
-    hudSubheader(localPlayer, " \n\n", HudPosition.RIGHT, 6, Color.GREEN, HudReeval.VISIBILITY, SpecVisibility.NEVER)
-    hudSubheader(localPlayer, " \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", HudPosition.TOP, 1, Color.GREEN, HudReeval.VISIBILITY, SpecVisibility.NEVER)
-    hudSubheader(localPlayer, "workshop.codes/ap-zombies \n Code:T5M30 \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", HudPosition.LEFT, 1, Color.GREEN, HudReeval.VISIBILITY, SpecVisibility.NEVER)
-    hudSubheader(localPlayer, " \n\n", HudPosition.LEFT, 6, Color.GREEN, HudReeval.VISIBILITY, SpecVisibility.NEVER)
-    hudSubheader(localPlayer, " \n\n", HudPosition.LEFT, 4, Color.GREEN, HudReeval.VISIBILITY, SpecVisibility.NEVER)
+    hudSubheader(localPlayer, " \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", HudPosition.RIGHT, 1, Color.GREEN, HudReeval.VISIBILITY, SpecVisibility.ALWAYS)
+    hudSubheader(localPlayer, " \n\n", HudPosition.RIGHT, 6, Color.GREEN, HudReeval.VISIBILITY, SpecVisibility.ALWAYS)
+    hudSubheader(localPlayer, " \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", HudPosition.TOP, 1, Color.GREEN, HudReeval.VISIBILITY, SpecVisibility.ALWAYS)
+    hudSubheader(localPlayer, "workshop.codes/ap-zombies \n Code:T5M30 \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", HudPosition.LEFT, 1, Color.GREEN, HudReeval.VISIBILITY, SpecVisibility.ALWAYS)
+    hudSubheader(localPlayer, " \n\n", HudPosition.LEFT, 6, Color.GREEN, HudReeval.VISIBILITY, SpecVisibility.ALWAYS)
+    hudSubheader(localPlayer, " \n\n", HudPosition.LEFT, 4, Color.GREEN, HudReeval.VISIBILITY, SpecVisibility.ALWAYS)
     hudText(localPlayer, "", null, "{0} : {1} : {2}".format(heroIcon(getPlayersInSlot(0, Team.1).getHero()), getPlayersInSlot(0, Team.1), getPlayersInSlot(0, Team.1).points2), HudPosition.RIGHT, 5, Color.WHITE, Color.WHITE, Color.RED, HudReeval.VISIBILITY_AND_STRING)
     hudText(localPlayer, "", null, "{0} : {1} : {2}".format(heroIcon(getPlayersInSlot(1, Team.1).getHero()), getPlayersInSlot(1, Team.1), getPlayersInSlot(1, Team.1).points2), HudPosition.RIGHT, 5, Color.WHITE, Color.WHITE, Color.BLUE, HudReeval.VISIBILITY_AND_STRING)
     hudText(localPlayer, "", null, "{0} : {1} : {2}".format(heroIcon(getPlayersInSlot(2, Team.1).getHero()), getPlayersInSlot(2, Team.1), getPlayersInSlot(2, Team.1).points2), HudPosition.RIGHT, 5, Color.WHITE, Color.WHITE, Color.GREEN, HudReeval.VISIBILITY_AND_STRING)
     hudText(localPlayer, "", null, "{0} : {1} : {2}".format(heroIcon(getPlayersInSlot(3, Team.1).getHero()), getPlayersInSlot(3, Team.1), getPlayersInSlot(3, Team.1).points2), HudPosition.RIGHT, 5, Color.WHITE, Color.WHITE, Color.ORANGE, HudReeval.VISIBILITY_AND_STRING)
+
+
+/*
 rule "193 achivements logic":
     @Disabled
     @Delimiter
     
-
 
 rule "194 achivements menu":
     @Disabled
@@ -278,11 +303,17 @@ rule "195 credits":
     
     createInWorldText(getAllPlayers(), "by Dropthatbeat#11756", vect(0, 0, 0), 1, Clip.SURFACES, WorldTextReeval.VISIBILITY_POSITION_AND_STRING)
     createInWorldText(getAllPlayers(), "B73NS#2325 for the boss fights", vect(0, 0, 0), 1, Clip.SURFACES, WorldTextReeval.VISIBILITY_POSITION_AND_STRING)
+    createInWorldText(getAllPlayers(), "Labbed for teaching me the math for the doors", vect(0, 0, 0), 1, Clip.SURFACES, WorldTextReeval.VISIBILITY_POSITION_AND_STRING)
+    createInWorldText(getAllPlayers(), "Deltin and Zezombye for their tooling and direct advice!", vect(0, 0, 0), 1, Clip.SURFACES, WorldTextReeval.VISIBILITY_POSITION_AND_STRING)
+    createInWorldText(getAllPlayers(), "Thanks to ItargetMercy#1179 and his friends, for being playtesters!", vect(0, 0, 0), 1, Clip.SURFACES, WorldTextReeval.VISIBILITY_POSITION_AND_STRING)
+    createInWorldText(getAllPlayers(), "Rose.x for the music for the website! owzombies.com", vect(0, 0, 0), 1, Clip.SURFACES, WorldTextReeval.VISIBILITY_POSITION_AND_STRING)
+    createInWorldText(getAllPlayers(), "Special thanks to Mitsiee for hosting workshop.codes for so long!", vect(0, 0, 0), 1, Clip.SURFACES, WorldTextReeval.VISIBILITY_POSITION_AND_STRING)
+    createInWorldText(getAllPlayers(), "Chewie for the comics for the website! owzombies.com", vect(0, 0, 0), 1, Clip.SURFACES, WorldTextReeval.VISIBILITY_POSITION_AND_STRING)
     createInWorldText(getAllPlayers(), "with the help of the people over at workshop.codes", vect(0, 0, 0), 1, Clip.SURFACES, WorldTextReeval.VISIBILITY_POSITION_AND_STRING)
     createInWorldText(getAllPlayers(), "and lastly: you guys, Thanks for playing!", vect(0, 0, 0), 1, Clip.SURFACES, WorldTextReeval.VISIBILITY_POSITION_AND_STRING)
     getPlayers(Team.1).startCamera(vect(0, 0, 0), vect(0, 0, 0))
 
-
+*/
 rule "202 Purchase hero message":
     @Event eachPlayer
     @Team 1
@@ -297,3 +328,41 @@ rule "202 Purchase hero message":
             wait(5)
             eventPlayer.heroBuyMessTimer = false
             break
+
+rule "Purchase Mystery Box message":
+    @Event eachPlayer
+    @Team 1
+    @Condition eventPlayer.mysteryBuyMessTimer == false 
+    @Condition distance(eventPlayer, rngbox) <= 2
+    @Condition rngbox != null
+
+    wait(0.1)
+    smallMessage(eventPlayer, "  {0} Press: {1} for Mystery Hero = {2}".format(heroIcon(Hero.RAMATTRA),inputBindingString(Button.INTERACT), "{0} Points -- Hold: {1} for follower = {2}".format(round(950 * costmultiplier), inputBindingString(Button.RELOAD), "{0} Points".format(round(950 / 3 * costmultiplier)))))
+    eventPlayer.mysteryBuyMessTimer = true
+    wait(5)
+    eventPlayer.mysteryBuyMessTimer = false
+
+rule "Purchase perk machine message":
+    @Event eachPlayer
+    @Team 1
+    @Condition eventPlayer.perkBuyMessTimer == false 
+    @Condition any([[distance(player, eventPlayer) < 2] for player, i in buyperks]) == true
+
+    for i in range(len(buyperks)):
+        if distance(eventPlayer, buyperks[i]) < 2:
+            if poweron == 1:
+                if i != 6:
+                    wait(0.1)
+                    smallMessage(eventPlayer, "  {0} Press: {1} for Perk = {2}".format(heroIcon(Hero.RAMATTRA),inputBindingString(Button.INTERACT), "{0} == {1} Points".format(perkNames[i], round(perkcosts[i] * costmultiplier))))
+                    eventPlayer.perkBuyMessTimer = true
+                    wait(5)
+                    eventPlayer.perkBuyMessTimer = false
+                    break
+                else:
+                    smallMessage(eventPlayer, "  {0} Press: {1} To connect power".format(heroIcon(Hero.RAMATTRA), inputBindingString(Button.INTERACT)))
+                    eventPlayer.perkBuyMessTimer = true
+                    wait(5)
+                    eventPlayer.perkBuyMessTimer = false
+                    break
+            else:
+                smallMessage(eventPlayer, "  {0} What a Mysterious Machine for my Trials!".format(heroIcon(Hero.RAMATTRA)))
