@@ -5,7 +5,7 @@ rule "starting voice lines":
         cutscene = true
         Character_Nr = 0
         wait(localPlayer.getSlot() * 0.160)
-        hudText(localPlayer, heroIcon(Hero.RAMATTRA), null, "                                                                                                                   ­\n{0}".format(Dialogue_Text.substring(0, Character_Nr)), HudPosition.TOP, 2, Color.WHITE, Color.WHITE, Color.ORANGE, HudReeval.VISIBILITY_AND_STRING)
+        hudText(localPlayer, heroIcon(Hero.RAMATTRA), null, "                                                                                                                 ­\n{0}".format(Dialogue_Text.substring(0, Character_Nr)), HudPosition.TOP, 2, Color.WHITE, Color.WHITE, Color.ORANGE, HudReeval.VISIBILITY_AND_STRING)
         hudappend.append(getLastCreatedText())
         wait(10)
         for i in range(0, len(hudappend)):

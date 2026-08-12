@@ -128,7 +128,7 @@ def packapunchbuy():
     eventPlayer.points -= 5000 * eventPlayer.cashback
     eventPlayer.damagevariable = eventPlayer.papDamageTier
     wait(0.25)
-    smallMessage(eventPlayer, "  you now get (+{0}%) damage with this hero".format(eventPlayer.papTier))
+    smallMessage(eventPlayer, "you now get (+{0}%) damage with this hero".format(eventPlayer.papTier))
     eventPlayer.setDamageDealt(eventPlayer.damagevariable)
     createEffect(getPlayers(Team.1), Effect.BAPTISTE_IMMORTALITY_FIELD_PROTECTED, Color.WHITE, eventPlayer, 1)
     eventPlayer.Packapunch = eventPlayer.papTier

@@ -15,7 +15,7 @@ rule "229 buy perks and power activate":
                             wait(0.25)
                             eventPlayer.perk[i] += 1
                             playEffect(getPlayers(Team.1), DynamicEffect.RING_EXPLOSION_SOUND, Color.WHITE, eventPlayer, 70)
-                            smallMessage(eventPlayer, "  {0} {1}".format(heroIcon(Hero.RAMATTRA), perkmessages[i]))
+                            smallMessage(eventPlayer, "{0} {1}".format(heroIcon(Hero.RAMATTRA), perkmessages[i]))
                             wait(0.25)
                             eventPlayer.communicate(Comms.EMOTE_UP)
                             wait(0.05)
@@ -24,13 +24,13 @@ rule "229 buy perks and power activate":
                             eventPlayer.setMoveSpeed(100)
                             break
                         else:
-                            smallMessage(eventPlayer, "  {0} You already have the max tier!".format(heroIcon(Hero.RAMATTRA)))
+                            smallMessage(eventPlayer, "{0} You already have the max tier!".format(heroIcon(Hero.RAMATTRA)))
                             break
                     elif eventPlayer.points < perkcosts[i]:
-                        smallMessage(eventPlayer, "  {0} No points? NO perks!".format(heroIcon(Hero.RAMATTRA)))
+                        smallMessage(eventPlayer, "{0} No points? NO perks!".format(heroIcon(Hero.RAMATTRA)))
                         break
                 else:
-                    smallMessage(eventPlayer, "  {0} The power is not ON!".format(heroIcon(Hero.RAMATTRA)))
+                    smallMessage(eventPlayer, "{0} The power is not ON!".format(heroIcon(Hero.RAMATTRA)))
                     break  # Stop after the first match
                     #pack a punch (make this not a perk, and have its own hud element outside the perk area)
 
@@ -57,7 +57,7 @@ rule "connect power":
     destroyIcon(powerconnected[2])
     poweron = 1
     getPlayers(Team.2).setUltCharge(100)
-    smallMessage(getAllPlayers(), "  The power is now ON!")
+    smallMessage(getAllPlayers(), "The power is now ON!")
 
 
 rule "202 Purchase hero actions":
@@ -79,19 +79,19 @@ rule "202 Purchase hero actions":
                                 eventPlayer.currentmagazines = 10
                             else:
                                 eventPlayer.currentmagazines = 5
-                            smallMessage(eventPlayer, "  {0} Magazines refilled!".format(heroIcon(hero[eventPlayer.idx])))
+                            smallMessage(eventPlayer, "{0} Magazines refilled!".format(heroIcon(hero[eventPlayer.idx])))
                             break  # Stop after the first match
                         else: 
                             if Difficulty < 4:
                                 if eventPlayer.currentmagazines >= 10: #probably need to track if they have pack a punch amount of ammo or not
-                                    smallMessage(eventPlayer, "  You already have full magazines!")
+                                    smallMessage(eventPlayer, "You already have full magazines!")
                                 elif eventPlayer.points < herobuycosts[eventPlayer.idx] / 2:
-                                    smallMessage(eventPlayer, "  {0} No points? NO magazines!".format(heroIcon(Hero.RAMATTRA)))
+                                    smallMessage(eventPlayer, "{0} No points? NO magazines!".format(heroIcon(Hero.RAMATTRA)))
                             else:
                                 if eventPlayer.currentmagazines >= 5: #probably need to track if they have pack a punch amount of ammo or not
-                                    smallMessage(eventPlayer, "  You already have full magazines!")
+                                    smallMessage(eventPlayer, "You already have full magazines!")
                                 elif eventPlayer.points < herobuycosts[eventPlayer.idx] / 2:
-                                    smallMessage(eventPlayer, "  {0} No points? NO magazines!".format(heroIcon(Hero.RAMATTRA)))
+                                    smallMessage(eventPlayer, "{0} No points? NO magazines!".format(heroIcon(Hero.RAMATTRA)))
                 else:
                     if eventPlayer.points >= round(herobuycosts[eventPlayer.idx] * costmultiplier - eventPlayer.creditcardlimit):       
                         eventPlayer.startForcingHero(hero[eventPlayer.idx])
@@ -131,12 +131,12 @@ rule "202 Purchase hero actions":
                     setSlowMotion(100)
                     eventPlayer.points -= 50000 * eventPlayer.cashback
                     chaseAtRate(eventPlayer.points2, (evalOnce(eventPlayer.points) + 0) * eventPlayer.H, 50000)
-                    smallMessage(eventPlayer, "  {0} You really thought this was going to end?".format(heroIcon(Hero.RAMATTRA)))
+                    smallMessage(eventPlayer, "{0} You really thought this was going to end?".format(heroIcon(Hero.RAMATTRA)))
                     kill(getAllPlayers())
                     wait(0.1)
                     #sudo code: give player tier 3 pack a punch on hero for all runs from then on. and then soft restart
                 elif eventPlayer.points < 50000:
-                    smallMessage(eventPlayer, "  {0} HA, good luck escaping...".format(heroIcon(Hero.RAMATTRA)))
+                    smallMessage(eventPlayer, "{0} HA, good luck escaping...".format(heroIcon(Hero.RAMATTRA)))
 
 
 rule "78 buy revive multiplayer":# maybe change this perk

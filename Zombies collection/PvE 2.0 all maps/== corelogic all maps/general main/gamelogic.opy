@@ -381,8 +381,8 @@ rule "521 start screen message":
     @Event eachPlayer
     @Condition start == false
     
-    smallMessage(eventPlayer, "  Press melee for settings")
-    smallMessage(eventPlayer, "  Press jump to start")
+    smallMessage(eventPlayer, "Press melee for settings")
+    smallMessage(eventPlayer, "Press jump to start")
     wait(8)
     if ruleCondition:
         loop()
@@ -490,7 +490,7 @@ rule "192 Purchase trap": #the visual for the trap should not show a hero icon, 
         wait(22)
         trapeffect = false
     elif eventPlayer.points < 1000:
-        smallMessage(eventPlayer, "  {0}  A Trap? No! Omnics need purpose!".format(heroIcon(Hero.RAMATTRA)))
+        smallMessage(eventPlayer, "{0}  A Trap? No! Omnics need purpose!".format(heroIcon(Hero.RAMATTRA)))
         wait(4)
 
 

@@ -89,7 +89,7 @@ rule "Collision Logic":
                                         destroyEffect(doors[i * 2 + 1])
                                     Wall_ID[i] = 0
                                     eventPlayer.active_wall[i] = 0
-                        smallMessage(eventPlayer, "  Zone bought!")
+                        smallMessage(eventPlayer, "Zone bought!")
                         eventPlayer.doorNotif = 0
                         chaseAtRate(eventPlayer.points2, (evalOnce(eventPlayer.points) + 0) * eventPlayer.H, 1000)
                         wait()
@@ -149,7 +149,7 @@ rule "Reset door notif":
     @Event eachPlayer
     @Condition eventPlayer.doorNotif == 1
 
-    smallMessage(eventPlayer, "  Hold {0} to buy zone - cost: {1}".format(inputBindingString(Button.INTERACT), round(1000 * costmultiplier)))
+    smallMessage(eventPlayer, "Hold {0} to buy zone - cost: {1}".format(inputBindingString(Button.INTERACT), round(1000 * costmultiplier)))
     wait(4)
     eventPlayer.doorNotif = 0
     wait(0.5)

@@ -117,8 +117,8 @@ rule "488 button held teleporter":
             teleporterused = 0
             makedoors()
         elif teleporterwait > 0:
-            smallMessage(eventPlayer, "  {0} That machine is not a toy!".format(heroIcon(Hero.RAMATTRA)))
+            smallMessage(eventPlayer, "{0} That machine is not a toy!".format(heroIcon(Hero.RAMATTRA)))
             wait(4)
     elif getLivingPlayers(Team.1) != getPlayersInRadius(teleporterpositions[telespot], 3, Team.1):
-        smallMessage(eventPlayer, "  You can't leave your friends behind!")
+        smallMessage(eventPlayer, "You can't leave your friends behind!")
         wait(4)

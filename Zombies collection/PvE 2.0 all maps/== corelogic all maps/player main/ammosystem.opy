@@ -257,13 +257,13 @@ rule "115  ammo message force melee when out of ammo":
     for i in range(len(hero)):
         if eventPlayer.getHero() == hero[i]:
             wait(0.1)
-            smallMessage(eventPlayer, "  {0} {1}".format(heroIcon(hero[i]), noammostrings[i]))
+            smallMessage(eventPlayer, "{0} {1}".format(heroIcon(hero[i]), noammostrings[i]))
             break
-    bigMessage(eventPlayer, "  USE MELEE")
+    bigMessage(eventPlayer, "USE MELEE")
     wait(5)
-    smallMessage(eventPlayer, "  MELEE BONUS DAMAGE")
+    smallMessage(eventPlayer, "MELEE BONUS DAMAGE")
     wait(5)
-    smallMessage(eventPlayer, "  buy any hero for more ammo")
+    smallMessage(eventPlayer, "buy any hero for more ammo")
 
 rule "161 life weiver no ammo":
     @Event eachPlayer

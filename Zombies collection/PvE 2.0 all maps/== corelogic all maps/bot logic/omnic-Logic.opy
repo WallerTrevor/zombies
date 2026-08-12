@@ -281,6 +281,7 @@ rule "use ability loop":
             if eventPlayer.abilityFlag > 0:
                 eventPlayer.forceButtonPress(buttons[eventPlayer.abilityFlag - 1])
             wait(1.0)
+        wait(5.0)
             
 
 rule "137  bots too far away":
@@ -485,7 +486,6 @@ rule "get nearest nodes for spawning (Random Player Focus)":
     @Event global
     @Condition start == 1
     
-    wait(5.0)
     teamPlayers = getLivingPlayers(Team.1)
     if len(teamPlayers) > 0:
         averagePosition = Vector.UP * 0

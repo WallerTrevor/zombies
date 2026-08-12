@@ -216,7 +216,7 @@ rule "Info UI":
     wait()
     #hudSubtext(eventPlayer, ".", HudPosition.LEFT, 2, Color.ORANGE, HudReeval.VISIBILITY_AND_STRING)
     #eventPlayer.InfoUI.append(getLastCreatedText())
-    hudSubheader(eventPlayer, "                                                    |   Start the mode to hide the instructions   |", HudPosition.LEFT, 900, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
+    hudSubheader(eventPlayer, "                                                  |   Start the mode to hide the instructions   |", HudPosition.LEFT, 900, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
     eventPlayer.InfoUI.append(getLastCreatedText())
     eventPlayer.InfoCooldown = getTotalTimeElapsed() + 0.16
     eventPlayer.HideHints = true
@@ -265,7 +265,7 @@ rule "all the effects (local player huds)":
     hudSubheader(localPlayer, " \n\n", HudPosition.RIGHT, 8, Color.GREEN, HudReeval.VISIBILITY, SpecVisibility.ALWAYS)
     hudSubtext(localPlayer, "Heroes {0} {1}  {2}".format(localPlayer.heroiconswap[0], localPlayer.heroiconswap[1], inputBindingString(Button.CROUCH)), HudPosition.RIGHT, 9, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
     hudSubtext(localPlayer, "Follower: {0}".format(heroIcon((getPlayersInSlot(localPlayer.getSlot() + 4, Team.1)).getHero())), HudPosition.LEFT, 5, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
-    hudSubtext(localPlayer, "                                                                             {0}".format(romanN[romanNcounter]), HudPosition.LEFT, 7, Color.ORANGE, HudReeval.VISIBILITY_AND_STRING)
+    hudSubtext(localPlayer, "                                                                           {0}".format(romanN[romanNcounter]), HudPosition.LEFT, 7, Color.ORANGE, HudReeval.VISIBILITY_AND_STRING)
     hudSubheader(localPlayer, " \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", HudPosition.RIGHT, 1, Color.GREEN, HudReeval.VISIBILITY, SpecVisibility.ALWAYS)
     hudSubheader(localPlayer, " \n\n", HudPosition.RIGHT, 6, Color.GREEN, HudReeval.VISIBILITY, SpecVisibility.ALWAYS)
     hudSubheader(localPlayer, " \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", HudPosition.TOP, 1, Color.GREEN, HudReeval.VISIBILITY, SpecVisibility.ALWAYS)
@@ -323,7 +323,7 @@ rule "202 Purchase hero message":
     for i in range(len(buyheros)):
         if distance(eventPlayer, buyheros[i]) < 2:
             wait(0.1)
-            smallMessage(eventPlayer, "  {0} Press: {1} for Hero = {2}".format(heroIcon(hero[i]), inputBindingString(Button.INTERACT), "{0} Points -- Hold: {1} for follower = {2}".format(round(herobuycosts[i] * costmultiplier), inputBindingString(Button.RELOAD), "{0} Points --- Ammo cost {1}".format(round(herobuycosts[i] / 3 * costmultiplier), round(herobuycosts[i] / 2 * costmultiplier)))))
+            smallMessage(eventPlayer, "{0} Press: {1} for Hero = {2}".format(heroIcon(hero[i]), inputBindingString(Button.INTERACT), "{0} Points -- Hold: {1} for follower = {2}".format(round(herobuycosts[i] * costmultiplier), inputBindingString(Button.RELOAD), "{0} Points --- Ammo cost {1}".format(round(herobuycosts[i] / 3 * costmultiplier), round(herobuycosts[i] / 2 * costmultiplier)))))
             eventPlayer.heroBuyMessTimer = true
             wait(5)
             eventPlayer.heroBuyMessTimer = false
@@ -337,7 +337,7 @@ rule "Purchase Mystery Box message":
     @Condition rngbox != null
 
     wait(0.1)
-    smallMessage(eventPlayer, "  {0} Press: {1} for Mystery Hero = {2}".format(heroIcon(Hero.RAMATTRA),inputBindingString(Button.INTERACT), "{0} Points -- Hold: {1} for follower = {2}".format(round(950 * costmultiplier), inputBindingString(Button.RELOAD), "{0} Points".format(round(950 / 3 * costmultiplier)))))
+    smallMessage(eventPlayer, "{0} Press: {1} for Mystery Hero = {2}".format(heroIcon(Hero.RAMATTRA),inputBindingString(Button.INTERACT), "{0} Points -- Hold: {1} for follower = {2}".format(round(950 * costmultiplier), inputBindingString(Button.RELOAD), "{0} Points".format(round(950 / 3 * costmultiplier)))))
     eventPlayer.mysteryBuyMessTimer = true
     wait(5)
     eventPlayer.mysteryBuyMessTimer = false
@@ -353,16 +353,16 @@ rule "Purchase perk machine message":
             if poweron == 1:
                 if i != 6:
                     wait(0.1)
-                    smallMessage(eventPlayer, "  {0} Press: {1} for Perk = {2}".format(heroIcon(Hero.RAMATTRA),inputBindingString(Button.INTERACT), "{0} == {1} Points".format(perkNames[i], round(perkcosts[i] * costmultiplier))))
+                    smallMessage(eventPlayer, "{0} Press: {1} for Perk = {2}".format(heroIcon(Hero.RAMATTRA),inputBindingString(Button.INTERACT), "{0} == {1} Points".format(perkNames[i], round(perkcosts[i] * costmultiplier))))
                     eventPlayer.perkBuyMessTimer = true
                     wait(5)
                     eventPlayer.perkBuyMessTimer = false
                     break
                 else:
-                    smallMessage(eventPlayer, "  {0} Press: {1} To connect power".format(heroIcon(Hero.RAMATTRA), inputBindingString(Button.INTERACT)))
+                    smallMessage(eventPlayer, "{0} Press: {1} To connect power".format(heroIcon(Hero.RAMATTRA), inputBindingString(Button.INTERACT)))
                     eventPlayer.perkBuyMessTimer = true
                     wait(5)
                     eventPlayer.perkBuyMessTimer = false
                     break
             else:
-                smallMessage(eventPlayer, "  {0} What a Mysterious Machine for my Trials!".format(heroIcon(Hero.RAMATTRA)))
+                smallMessage(eventPlayer, "{0} What a Mysterious Machine for my Trials!".format(heroIcon(Hero.RAMATTRA)))

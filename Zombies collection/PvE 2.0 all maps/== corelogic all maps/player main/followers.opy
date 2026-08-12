@@ -118,7 +118,7 @@ rule "202 Purchase Follower action":
                 eventPlayer.points -= round(herobuycosts[i] / 3 * costmultiplier)
                 eventPlayer.points2 -= round(herobuycosts[i] / 3 * costmultiplier)
             else:
-                smallMessage(eventPlayer,"  {0} {1}".format(heroIcon(hero[i]), followerbuyMsg[i]))
+                smallMessage(eventPlayer,"{0} {1}".format(heroIcon(hero[i]), followerbuyMsg[i]))
             break
 
 rule "Purchase Mystery Follower action":
@@ -135,7 +135,7 @@ rule "Purchase Mystery Follower action":
         eventPlayer.points -= round(herobuycosts[0] / 3 * costmultiplier)
         eventPlayer.points2 -= round(herobuycosts[0] / 3 * costmultiplier)
     else:
-        smallMessage(eventPlayer,"  {0} {1}".format(heroIcon(hero[0]), followerbuyMsg[0]))
+        smallMessage(eventPlayer,"{0} {1}".format(heroIcon(hero[0]), followerbuyMsg[0]))
 
 rule "351 followers ult":
     @Event eachPlayer
