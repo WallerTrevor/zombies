@@ -48,23 +48,138 @@ def wavespawn():
     @Name "518 spawn bots subroutine"
 
     wavevoicecall()
-    createDummy(bossSpawn[g], Team.2, 0, getSpawnPoints(Team.2))
-    omnicspawn[0] = getPlayersInSlot(0, Team.2).getSlot()
-    subindex = 0
-    CurrentEnemyIndex()
+    # Attempt spawn at a random active breach. If the breach is intact, the attempt damages it and no bot is spawned.
+    spawnPos = null
+    if len(globalActiveBreaches) > 0:
+        idx = random.randint(0, len(globalActiveBreaches) - 1)
+        node = globalActiveBreaches[idx]
+        if idx < len(globalActiveBreachHealth) and globalActiveBreachHealth[idx] > 0:
+            # damage from a spawn attempt
+            attemptDamage = 25
+            old = globalActiveBreachHealth[idx]
+            globalActiveBreachHealth[idx] = max(0, old - attemptDamage)
+            # update visual
+            if 2 * idx < len(globalActiveBreachEffects) and globalActiveBreachEffects[2 * idx] != null:
+                destroyEffect(globalActiveBreachEffects[2 * idx])
+            if 2 * idx + 1 < len(globalActiveBreachEffects) and globalActiveBreachEffects[2 * idx + 1] != null:
+                destroyEffect(globalActiveBreachEffects[2 * idx + 1])
+            h = globalActiveBreachHealth[idx]
+            if h <= 0:
+                color = Color.BLACK
+            else:
+                r = int(255 * (1 - (h / 100.0)))
+                g = int(255 * (h / 100.0))
+                color = rgb(r, g, 0)
+            createEffect(getAllPlayers(), Effect.BAD_AURA, color, node + vect(0, 1.5, 0), 1, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
+            if 2 * idx < len(globalActiveBreachEffects):
+                globalActiveBreachEffects[2 * idx] = getLastCreatedEntity()
+            else:
+                globalActiveBreachEffects.append(getLastCreatedEntity())
+            createEffect(getAllPlayers(), Effect.BAD_AURA_SOUND, Color.WHITE, node, 100, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
+            if 2 * idx + 1 < len(globalActiveBreachEffects):
+                globalActiveBreachEffects[2 * idx + 1] = getLastCreatedEntity()
+            else:
+                globalActiveBreachEffects.append(getLastCreatedEntity())
+            spawnPos = null
+        else:
+            spawnPos = node
+    else:
+        spawnPos = getSpawnPoints(Team.2)
+
+    if spawnPos != null:
+        createDummy(bossSpawn[g], Team.2, 0, spawnPos)
+        omnicspawn[0] = getPlayersInSlot(0, Team.2).getSlot()
+        subindex = 0
+        CurrentEnemyIndex()
+
     wait(0.5, Wait.ABORT_WHEN_FALSE)
     setbotamount()
     for forindex in range(1, botamount + 1, 2):
-        createDummy(bot1spawn[g], Team.2, forindex, getSpawnPoints(Team.2))
-        omnicspawn[forindex] = getPlayersInSlot(forindex, Team.2).getSlot()
-        subindex = forindex
-        CurrentEnemyIndex()
-        wait(0.75, Wait.ABORT_WHEN_FALSE)
-        if forindex + 1 <= botamount:
-            createDummy(bot2spawn[g], Team.2, forindex + 1, getSpawnPoints(Team.2))
-            omnicspawn[forindex + 1] = getPlayersInSlot(forindex + 1, Team.2).getSlot()
-            subindex = forindex + 1
+        # attempt for bot1
+        spawnPos = null
+        if len(globalActiveBreaches) > 0:
+            idx = random.randint(0, len(globalActiveBreaches) - 1)
+            node = globalActiveBreaches[idx]
+            if idx < len(globalActiveBreachHealth) and globalActiveBreachHealth[idx] > 0:
+                attemptDamage = 25
+                old = globalActiveBreachHealth[idx]
+                globalActiveBreachHealth[idx] = max(0, old - attemptDamage)
+                if 2 * idx < len(globalActiveBreachEffects) and globalActiveBreachEffects[2 * idx] != null:
+                    destroyEffect(globalActiveBreachEffects[2 * idx])
+                if 2 * idx + 1 < len(globalActiveBreachEffects) and globalActiveBreachEffects[2 * idx + 1] != null:
+                    destroyEffect(globalActiveBreachEffects[2 * idx + 1])
+                h = globalActiveBreachHealth[idx]
+                if h <= 0:
+                    color = Color.BLACK
+                else:
+                    r = int(255 * (1 - (h / 100.0)))
+                    g = int(255 * (h / 100.0))
+                    color = rgb(r, g, 0)
+                createEffect(getAllPlayers(), Effect.BAD_AURA, color, node + vect(0, 1.5, 0), 1, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
+                if 2 * idx < len(globalActiveBreachEffects):
+                    globalActiveBreachEffects[2 * idx] = getLastCreatedEntity()
+                else:
+                    globalActiveBreachEffects.append(getLastCreatedEntity())
+                createEffect(getAllPlayers(), Effect.BAD_AURA_SOUND, Color.WHITE, node, 100, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
+                if 2 * idx + 1 < len(globalActiveBreachEffects):
+                    globalActiveBreachEffects[2 * idx + 1] = getLastCreatedEntity()
+                else:
+                    globalActiveBreachEffects.append(getLastCreatedEntity())
+                spawnPos = null
+            else:
+                spawnPos = node
+        else:
+            spawnPos = getSpawnPoints(Team.2)
+
+        if spawnPos != null:
+            createDummy(bot1spawn[g], Team.2, forindex, spawnPos)
+            omnicspawn[forindex] = getPlayersInSlot(forindex, Team.2).getSlot()
+            subindex = forindex
             CurrentEnemyIndex()
+        wait(0.75, Wait.ABORT_WHEN_FALSE)
+
+        if forindex + 1 <= botamount:
+            # attempt for bot2
+            spawnPos = null
+            if len(globalActiveBreaches) > 0:
+                idx = random.randint(0, len(globalActiveBreaches) - 1)
+                node = globalActiveBreaches[idx]
+                if idx < len(globalActiveBreachHealth) and globalActiveBreachHealth[idx] > 0:
+                    attemptDamage = 25
+                    old = globalActiveBreachHealth[idx]
+                    globalActiveBreachHealth[idx] = max(0, old - attemptDamage)
+                    if 2 * idx < len(globalActiveBreachEffects) and globalActiveBreachEffects[2 * idx] != null:
+                        destroyEffect(globalActiveBreachEffects[2 * idx])
+                    if 2 * idx + 1 < len(globalActiveBreachEffects) and globalActiveBreachEffects[2 * idx + 1] != null:
+                        destroyEffect(globalActiveBreachEffects[2 * idx + 1])
+                    h = globalActiveBreachHealth[idx]
+                    if h <= 0:
+                        color = Color.BLACK
+                    else:
+                        r = int(255 * (1 - (h / 100.0)))
+                        g = int(255 * (h / 100.0))
+                        color = rgb(r, g, 0)
+                    createEffect(getAllPlayers(), Effect.BAD_AURA, color, node + vect(0, 1.5, 0), 1, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
+                    if 2 * idx < len(globalActiveBreachEffects):
+                        globalActiveBreachEffects[2 * idx] = getLastCreatedEntity()
+                    else:
+                        globalActiveBreachEffects.append(getLastCreatedEntity())
+                    createEffect(getAllPlayers(), Effect.BAD_AURA_SOUND, Color.WHITE, node, 100, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
+                    if 2 * idx + 1 < len(globalActiveBreachEffects):
+                        globalActiveBreachEffects[2 * idx + 1] = getLastCreatedEntity()
+                    else:
+                        globalActiveBreachEffects.append(getLastCreatedEntity())
+                    spawnPos = null
+                else:
+                    spawnPos = node
+            else:
+                spawnPos = getSpawnPoints(Team.2)
+
+            if spawnPos != null:
+                createDummy(bot2spawn[g], Team.2, forindex + 1, spawnPos)
+                omnicspawn[forindex + 1] = getPlayersInSlot(forindex + 1, Team.2).getSlot()
+                subindex = forindex + 1
+                CurrentEnemyIndex()
             wait(0.75, Wait.ABORT_WHEN_FALSE)
 
 def totalrandomspawn():
@@ -74,10 +189,46 @@ def totalrandomspawn():
     setbotamount()
     for forindex in range(0, botamount):
         current_hero = hero[random.randint(0, 37)]
-        createDummy(current_hero, Team.2, forindex, getSpawnPoints(Team.2))
-        omnicspawn[forindex] = getPlayersInSlot(forindex, Team.2).getSlot()
-        subindex = forindex
-        CurrentEnemyIndex()
+        spawnPos = null
+        if len(globalActiveBreaches) > 0:
+            idx = random.randint(0, len(globalActiveBreaches) - 1)
+            node = globalActiveBreaches[idx]
+            if idx < len(globalActiveBreachHealth) and globalActiveBreachHealth[idx] > 0:
+                attemptDamage = 25
+                old = globalActiveBreachHealth[idx]
+                globalActiveBreachHealth[idx] = max(0, old - attemptDamage)
+                if 2 * idx < len(globalActiveBreachEffects) and globalActiveBreachEffects[2 * idx] != null:
+                    destroyEffect(globalActiveBreachEffects[2 * idx])
+                if 2 * idx + 1 < len(globalActiveBreachEffects) and globalActiveBreachEffects[2 * idx + 1] != null:
+                    destroyEffect(globalActiveBreachEffects[2 * idx + 1])
+                h = globalActiveBreachHealth[idx]
+                if h <= 0:
+                    color = Color.BLACK
+                else:
+                    r = int(255 * (1 - (h / 100.0)))
+                    g = int(255 * (h / 100.0))
+                    color = rgb(r, g, 0)
+                createEffect(getAllPlayers(), Effect.BAD_AURA, color, node + vect(0, 1.5, 0), 1, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
+                if 2 * idx < len(globalActiveBreachEffects):
+                    globalActiveBreachEffects[2 * idx] = getLastCreatedEntity()
+                else:
+                    globalActiveBreachEffects.append(getLastCreatedEntity())
+                createEffect(getAllPlayers(), Effect.BAD_AURA_SOUND, Color.WHITE, node, 100, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
+                if 2 * idx + 1 < len(globalActiveBreachEffects):
+                    globalActiveBreachEffects[2 * idx + 1] = getLastCreatedEntity()
+                else:
+                    globalActiveBreachEffects.append(getLastCreatedEntity())
+                spawnPos = null
+            else:
+                spawnPos = node
+        else:
+            spawnPos = getSpawnPoints(Team.2)
+
+        if spawnPos != null:
+            createDummy(current_hero, Team.2, forindex, spawnPos)
+            omnicspawn[forindex] = getPlayersInSlot(forindex, Team.2).getSlot()
+            subindex = forindex
+            CurrentEnemyIndex()
         wait(0.75, Wait.ABORT_WHEN_FALSE)
 
 def wavevoicecall():
@@ -121,6 +272,25 @@ def getoutofspawn():
         eventPlayer.teleport(vect(354.448, -9.548, -232.832)) #zone 3-1
         zone3()
         makedoors()
+
+# Return a spawn position for bots. Prefer breached nodes that are broken (health <= 0). Fallback to engine spawn points.
+def getBotSpawnNode():
+    @Name "Get bot spawn node from active breaches (fallback to map spawns)"
+
+    # collect breaches that are broken (health <= 0)
+    candidates = []
+    if len(globalActiveBreaches) > 0 and len(globalActiveBreachHealth) > 0:
+        for idx in range(0, len(globalActiveBreaches)):
+            # guard against mismatched arrays
+            if idx < len(globalActiveBreachHealth):
+                if globalActiveBreachHealth[idx] <= 0:
+                    candidates.append(globalActiveBreaches[idx])
+
+    if len(candidates) > 0:
+        return random.choice(candidates)
+
+    # fallback to engine spawn points if no broken breaches yet
+    return getSpawnPoints(Team.2)
 
 def packapunchbuy():
     @Name "pack a punch buy subroutine"

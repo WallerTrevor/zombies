@@ -172,6 +172,13 @@ globalvar perkNames 119
 globalvar decompressN 120
 globalvar decompressV 121
 globalvar globalSpawnNodes 122
+globalvar globalActiveBreaches 128
+globalvar globalActiveBreachEffects 129
+globalvar globalActiveBreachHealth 130
+globalvar globalActiveBreachCount 131
+globalvar globalSpawnNetworkLastCenter 132
+globalvar globalSpawnNetworkLastChangeTime 133
+globalvar globalSpawnNetworkDirty 134
 globalvar dooreffectsequencer 123
 globalvar doorindexsequencer 126
 globalvar hudappend 127

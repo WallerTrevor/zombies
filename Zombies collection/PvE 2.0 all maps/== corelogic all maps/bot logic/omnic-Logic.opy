@@ -5,29 +5,82 @@ rule "137  get out of spawn bots(buggy effect)":
     @Condition eventPlayer.isInSpawnRoom() == true
     
     eventPlayer.startForcingOutlineFor(getPlayers(Team.1), true, rgb(random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)))
-    if len(globalSpawnNodes) > 0:
-        eventPlayer.teleport(random.choice(globalSpawnNodes)) #this needs a defined location
+    # teleport out to a currently active breach node if present
+    if len(globalActiveBreaches) > 0:
+        eventPlayer.teleport(random.choice(globalActiveBreaches)) # teleport to an active breach position
 
 rule "create barricade effect":
     @Event global
-    @Condition start == 1
 
-    if globalSpawnEffectCount > 0:
-        for i in range(0, globalSpawnEffectCount):
-            destroyEffect(globalSpawnEffectIDs[i])
+    # Create or refresh breach (barricade) effects whenever the spawn network is flagged dirty or on start
+    if start == 1 or globalSpawnNetworkDirty == 1:
 
-    globalSpawnEffectIDs = []
-    globalSpawnEffectCount = 0
+        # destroy previous effects if any
+        if globalActiveBreachCount > 0:
+            for i in range(0, globalActiveBreachCount):
+                destroyEffect(globalActiveBreachEffects[i])
 
-    if len(globalSpawnNodes) > 0:
-        for i in range(0, len(globalSpawnNodes)):
-            node = globalSpawnNodes[i]
+        globalActiveBreachEffects = []
+        globalActiveBreachHealth = []
+        globalActiveBreachCount = 0
 
-            createEffect(getAllPlayers(), Effect.BAD_AURA, Color.BLACK, node + vect(0, 1.5, 0), 1, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
-            globalSpawnEffectIDs.append(getLastCreatedEntity())
-            createEffect(getAllPlayers(), Effect.BAD_AURA_SOUND, Color.WHITE, node, 100, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
-            globalSpawnEffectIDs.append(getLastCreatedEntity())
-            globalSpawnEffectCount += 2
+        # create new effects for each active breach node
+        if len(globalActiveBreaches) > 0:
+            for i in range(0, len(globalActiveBreaches)):
+                node = globalActiveBreaches[i]
+
+                # initialize barricade health (100 = full)
+                globalActiveBreachHealth.append(100)
+
+                # effect color indicates health (start green)
+                color = rgb(0, 255, 0)
+                createEffect(getAllPlayers(), Effect.BAD_AURA, color, node + vect(0, 1.5, 0), 1, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
+                globalActiveBreachEffects.append(getLastCreatedEntity())
+                createEffect(getAllPlayers(), Effect.BAD_AURA_SOUND, Color.WHITE, node, 100, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
+                globalActiveBreachEffects.append(getLastCreatedEntity())
+                globalActiveBreachCount += 2
+
+        # clear dirty flag
+        globalSpawnNetworkDirty = 0
+
+# Players can repair breached barricades by reloading while close to the breach.
+rule "barricade repair by players":
+    @Event eachPlayer
+    @Team 1
+    @Condition eventPlayer.isAlive() == true
+
+    # repair amount per tick (per check)
+    repairAmount = 25
+    for i in range(0, len(globalActiveBreaches)):
+        if i < len(globalActiveBreachHealth):
+            node = globalActiveBreaches[i]
+            if distance(eventPlayer, node) < 2 and eventPlayer.isReloading() == true:
+                old = globalActiveBreachHealth[i]
+                globalActiveBreachHealth[i] = min(100, globalActiveBreachHealth[i] + repairAmount)
+                if globalActiveBreachHealth[i] != old:
+                    # update visual for this breach
+                    # effects stored as pairs: aura at 2*i, sound at 2*i+1
+                    if 2 * i < len(globalActiveBreachEffects) and globalActiveBreachEffects[2 * i] != null:
+                        destroyEffect(globalActiveBreachEffects[2 * i])
+                    if 2 * i + 1 < len(globalActiveBreachEffects) and globalActiveBreachEffects[2 * i + 1] != null:
+                        destroyEffect(globalActiveBreachEffects[2 * i + 1])
+
+                    # color gradient: green (healthy) -> red (broken)
+                    h = globalActiveBreachHealth[i]
+                    r = int(255 * (1 - (h / 100.0)))
+                    g = int(255 * (h / 100.0))
+                    color = rgb(r, g, 0)
+                    createEffect(getAllPlayers(), Effect.BAD_AURA, color, node + vect(0, 1.5, 0), 1, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
+                    if 2 * i < len(globalActiveBreachEffects):
+                        globalActiveBreachEffects[2 * i] = getLastCreatedEntity()
+                    else:
+                        globalActiveBreachEffects.append(getLastCreatedEntity())
+                    createEffect(getAllPlayers(), Effect.BAD_AURA_SOUND, Color.WHITE, node, 100, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
+                    if 2 * i + 1 < len(globalActiveBreachEffects):
+                        globalActiveBreachEffects[2 * i + 1] = getLastCreatedEntity()
+                    else:
+                        globalActiveBreachEffects.append(getLastCreatedEntity())
+
             
 rule "15 Unstuck Bots(buggy effect)":
     @Event eachPlayer
@@ -41,8 +94,8 @@ rule "15 Unstuck Bots(buggy effect)":
     
     wait(2.5, Wait.ABORT_WHEN_FALSE)
     #eventPlayer.teleport(random.choice(Y))
-    if len(globalSpawnNodes) > 0:
-        eventPlayer.teleport(random.choice(globalSpawnNodes))
+    if len(globalActiveBreaches) > 0:
+        eventPlayer.teleport(random.choice(globalActiveBreaches))
 
 rule "16 Jump If Far Away From Player":
     @Event eachPlayer
@@ -492,5 +545,35 @@ rule "get nearest nodes for spawning (Random Player Focus)":
         for i in range(0, len(teamPlayers)):
             averagePosition += teamPlayers[i].getPosition()
         averagePosition = averagePosition / len(teamPlayers)
+    else:
+        averagePosition = null
 
-    globalSpawnNodes = pfLoadedMap_nodes.filter(lambda nodes: distance(averagePosition, nodes) > 10).filter(lambda nodes: distance(averagePosition, nodes) < 25)
+    # Recalculate the active spawn "breach" network only when the team's center has moved far enough
+    # and at least 10 seconds have passed since the last change.
+    recalc = false
+    if averagePosition != null:
+        if globalSpawnNetworkLastCenter == null:
+            recalc = true
+        elif distance(averagePosition, globalSpawnNetworkLastCenter) > 10:
+            if globalSpawnNetworkLastChangeTime == 0 or (second - globalSpawnNetworkLastChangeTime) >= 10:
+                recalc = true
+
+    if recalc:
+        # find candidate nodes in the donut (10 .. 25 meters)
+        candidates = pfLoadedMap_nodes.filter(lambda n: distance(averagePosition, n) > 10).filter(lambda n: distance(averagePosition, n) < 25)
+
+        # choose up to 8 random nodes from the candidates
+        globalActiveBreaches = []
+        maxBreaches = 8
+        count = min(len(candidates), maxBreaches)
+        for i in range(0, count):
+            pick = random.choice(candidates)
+            globalActiveBreaches.append(pick)
+            candidates.remove(pick)
+
+        globalActiveBreachCount = len(globalActiveBreaches)
+        globalSpawnNetworkLastCenter = averagePosition
+        globalSpawnNetworkLastChangeTime = second
+
+        # flag to (re)create breach effects
+        globalSpawnNetworkDirty = 1
