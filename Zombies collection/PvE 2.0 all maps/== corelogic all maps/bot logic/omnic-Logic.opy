@@ -493,4 +493,4 @@ rule "get nearest nodes for spawning (Random Player Focus)":
             averagePosition += teamPlayers[i].getPosition()
         averagePosition = averagePosition / len(teamPlayers)
 
-    globalSpawnNodes = pfLoadedMap_nodes.filter(lambda nodes: distance(averagePosition, nodes) > 10).filter(lambda nodes: distance(averagePosition, nodes) < 25)
+    globalSpawnNodes = pfLoadedMap_nodes.filter(lambda nodes: distance(averagePosition, nodes) < 25)
