@@ -16,13 +16,11 @@ rule "create barricade effect":
     if start == 1 or globalSpawnNetworkDirty == 1:
 
         # destroy previous effects if any
-        if globalActiveBreachCount > 0:
-            for i in range(0, globalActiveBreachCount):
-                destroyEffect(globalActiveBreachEffects[i])
+        for i in range(0, len(globalActiveBreachEffects)):
+            destroyEffect(globalActiveBreachEffects[i])
 
         globalActiveBreachEffects = []
         globalActiveBreachHealth = []
-        globalActiveBreachCount = 0
 
         # create new effects for each active breach node
         if len(globalActiveBreaches) > 0:
@@ -38,7 +36,6 @@ rule "create barricade effect":
                 globalActiveBreachEffects.append(getLastCreatedEntity())
                 createEffect(getAllPlayers(), Effect.BAD_AURA_SOUND, Color.WHITE, node, 100, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
                 globalActiveBreachEffects.append(getLastCreatedEntity())
-                globalActiveBreachCount += 2
 
         # clear dirty flag
         globalSpawnNetworkDirty = 0
@@ -67,9 +64,12 @@ rule "barricade repair by players":
 
                     # color gradient: green (healthy) -> red (broken)
                     h = globalActiveBreachHealth[i]
-                    r = int(255 * (1 - (h / 100.0)))
-                    g = int(255 * (h / 100.0))
-                    color = rgb(r, g, 0)
+                    if h <= 0:
+                        color = Color.BLACK
+                    else:
+                        # use floating-point arithmetic; rgb() will handle the rounding
+                        healthPercent = h / 100.0
+                        color = rgb(255 * (1 - healthPercent), 255 * healthPercent, 0)
                     createEffect(getAllPlayers(), Effect.BAD_AURA, color, node + vect(0, 1.5, 0), 1, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
                     if 2 * i < len(globalActiveBreachEffects):
                         globalActiveBreachEffects[2 * i] = getLastCreatedEntity()
@@ -555,7 +555,7 @@ rule "get nearest nodes for spawning (Random Player Focus)":
         if globalSpawnNetworkLastCenter == null:
             recalc = true
         elif distance(averagePosition, globalSpawnNetworkLastCenter) > 10:
-            if globalSpawnNetworkLastChangeTime == 0 or (second - globalSpawnNetworkLastChangeTime) >= 10:
+            if globalSpawnNetworkLastChangeTime == 0 or (getTotalTimeElapsed() - globalSpawnNetworkLastChangeTime) >= 10:
                 recalc = true
 
     if recalc:
@@ -571,9 +571,8 @@ rule "get nearest nodes for spawning (Random Player Focus)":
             globalActiveBreaches.append(pick)
             candidates.remove(pick)
 
-        globalActiveBreachCount = len(globalActiveBreaches)
         globalSpawnNetworkLastCenter = averagePosition
-        globalSpawnNetworkLastChangeTime = second
+        globalSpawnNetworkLastChangeTime = getTotalTimeElapsed()
 
         # flag to (re)create breach effects
         globalSpawnNetworkDirty = 1
