@@ -76,6 +76,28 @@
 #!define averagePosition extraVar[47]
 #!define globalSpawnEffectCount extraVar[51]
 #!define globalSpawnEffectIDs extraVar[52]
+#!define color extraVar[53]
+#!define repairAmount extraVar[54]
+#!define old extraVar[55]
+#!define h extraVar[56]
+#!define healthPercent extraVar[57]
+#!define recalc extraVar[58]
+#!define candidates extraVar[59]
+#!define maxBreaches extraVar[60]
+#!define count extraVar[61]
+#!define pick extraVar[62]
+#!define spawnPos extraVar[63]
+#!define globalActiveBreaches extraVar[65]
+#!define globalSpawnNetworkDirty extraVar[66]
+#!define globalActiveBreachEffects extraVar[67]
+#!define globalActiveBreachHealth extraVar[68]
+#!define globalSpawnNetworkLastCenter extraVar[69]
+#!define globalSpawnNetworkLastChangeTime extraVar[70]
+#!define globalBotSpawnNode extraVar[72]
+#!define attemptDamage extraVar[73]
+#!define effectColor extraVar[74]
+#!define globalBreachSpawnPos extraVar[75]
+
 
 globalvar damageheroes 1
 globalvar roundpointmultiplier 3
@@ -172,13 +194,6 @@ globalvar perkNames 119
 globalvar decompressN 120
 globalvar decompressV 121
 globalvar globalSpawnNodes 122
-globalvar globalActiveBreaches 128
-globalvar globalActiveBreachEffects 129
-globalvar globalActiveBreachHealth 130
-globalvar globalActiveBreachCount 131
-globalvar globalSpawnNetworkLastCenter 132
-globalvar globalSpawnNetworkLastChangeTime 133
-globalvar globalSpawnNetworkDirty 134
 globalvar dooreffectsequencer 123
 globalvar doorindexsequencer 126
 globalvar hudappend 127
@@ -357,6 +372,7 @@ subroutine pfLookAtDestination 29
 subroutine setdamagemodif 30
 subroutine CurrentEnemyIndex 31
 subroutine getBotSpawnNode 32
+subroutine attemptBreachSpawn 33
 
 #Activated extensions
 
