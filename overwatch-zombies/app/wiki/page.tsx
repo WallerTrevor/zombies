@@ -378,7 +378,7 @@ export default function Wiki(){
  const filtered=useMemo(()=>HEROES.filter((h:any)=>(h.name+" "+(h.role||"")).toLowerCase().includes(q.toLowerCase())),[q]);
  const h=HEROES.find((x:any)=>x.name===selected)||HEROES[0];
  const rows=(a:any[])=>a?.map((r:any[])=> <div className="kv" key={r[0]}><b>{r[0]}</b><code>{r[1]}</code></div>);
- return <main><section className="page-hero"><div className="page-hero__bg"><video autoPlay muted loop playsInline><source src="/videos/hero.webm" type="video/webm"/></video></div><div className="wrap page-hero__content"><div className="eyebrow">Documentation</div><h1>Wiki</h1><p>Everything you need to play (and master) Zombies: Desecration: fundamentals, perks, wonder weapons, zones, bosses, and more.</p></div></section>
+ return <main><section className="page-hero"><div className="page-hero__bg"><video autoPlay muted loop playsInline><source src="/videos/hero.webm" type="video/webm"/></video></div><div className="wrap page-hero__content"><div className="eyebrow">Documentation</div><h1>Wiki</h1><p>Everything you need to play (and master) Zombies: Complete Series: fundamentals, perks, wonder weapons, zones, bosses, and more.</p></div></section>
  <section className="content-section"><div className="wrap wiki-layout">
  <aside className="toc"><h3>On this page</h3>{["overview","getting-started","perks","wonder-weapons","heroes","zones","bosses","faq","changelog"].map(x=><a key={x} href={"#"+x}>{x.replaceAll("-"," ")}</a>)}</aside>
  <div className="wiki-content">

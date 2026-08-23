@@ -1,3 +1,5 @@
+#!suppressWarnings w_dark_color
+
 #Global variables
 #!define roundnumber extraVar[0]
 #!define numberOfZombies extraVar[1]

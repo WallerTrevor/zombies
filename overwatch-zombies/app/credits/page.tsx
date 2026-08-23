@@ -56,7 +56,7 @@ export default function Credits() {
   return (
     <main>
       <PageHero eyebrow="Project Acknowledgments" title="Credits">
-        <p>People, tools, and communities that made Zombies: Desecration possible.</p>
+        <p>People, tools, and communities that made this complete series possible.</p>
       </PageHero>
 
       <ContentSection>

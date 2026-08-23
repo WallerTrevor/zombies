@@ -156,7 +156,7 @@ export default function Comics() {
     <main>
       <PageHero>
         <p>
-          Cinematic snapshots from the Zombies: Desecration universe — character arcs, boss origins,
+          Cinematic snapshots from the Zombies: Complete Series — character arcs, boss origins,
           and glimpses into the AI corruption that started it all.
         </p>
       </PageHero>
