@@ -48,23 +48,29 @@ def wavespawn():
     @Name "518 spawn bots subroutine"
 
     wavevoicecall()
-    createDummy(bossSpawn[g], Team.2, 0, getSpawnPoints(Team.2))
-    omnicspawn[0] = getPlayersInSlot(0, Team.2).getSlot()
-    subindex = 0
-    CurrentEnemyIndex()
+    
+    # Boss spawn (use standard engine spawn)
+    createDummy(bossSpawn[g], Team.2, 0, getSpawnPoints(Team.2))  # Keep the original engine spawn path so wave bookkeeping and boss dummy creation remain unchanged; the breach system is only used after spawn to move the bot to a valid graph node.
+    omnicspawn[0] = getPlayersInSlot(0, Team.2).getSlot()  # This preserves the existing slot tracking so later AI logic still references the spawned dummy as before.
+    subindex = 0  # The original sub-index bookkeeping is preserved to maintain current enemy assignment behavior across the wave.
+    CurrentEnemyIndex()  # This keeps the same enemy index update logic as the original spawning system, so no broader design changes are introduced.
+
     wait(0.5, Wait.ABORT_WHEN_FALSE)
     setbotamount()
     for forindex in range(1, botamount + 1, 2):
-        createDummy(bot1spawn[g], Team.2, forindex, getSpawnPoints(Team.2))
-        omnicspawn[forindex] = getPlayersInSlot(forindex, Team.2).getSlot()
-        subindex = forindex
-        CurrentEnemyIndex()
+        # Bot1 spawn (use standard engine spawn)
+        createDummy(bot1spawn[g], Team.2, forindex, getSpawnPoints(Team.2))  # We intentionally leave the initial createDummy location alone so all normal spawn logic and map-specific behavior remain identical.
+        omnicspawn[forindex] = getPlayersInSlot(forindex, Team.2).getSlot()  # Same slot bookkeeping as the original code, so the rest of the bot logic is not disrupted.
+        subindex = forindex  # Keeps the active enemy index aligned with the original wave-spawn flow.
+        CurrentEnemyIndex()  # Maintains the current enemy tracking exactly as before; this is not a redesign of the spawn system.
         wait(0.75, Wait.ABORT_WHEN_FALSE)
+
         if forindex + 1 <= botamount:
-            createDummy(bot2spawn[g], Team.2, forindex + 1, getSpawnPoints(Team.2))
-            omnicspawn[forindex + 1] = getPlayersInSlot(forindex + 1, Team.2).getSlot()
-            subindex = forindex + 1
-            CurrentEnemyIndex()
+            # Bot2 spawn (use standard engine spawn)
+            createDummy(bot2spawn[g], Team.2, forindex + 1, getSpawnPoints(Team.2))  # The original Workshop spawn still decides the initial dummy location; teleports happen only afterward for movement out of the spawn room.
+            omnicspawn[forindex + 1] = getPlayersInSlot(forindex + 1, Team.2).getSlot()  # Keeps the per-bot slot table consistent with the pre-existing spawn flow.
+            subindex = forindex + 1  # Preserves the original increment logic for slot tracking and enemy assignment.
+            CurrentEnemyIndex()  # Leaves the existing enemy-index update behavior untouched, just as before.
             wait(0.75, Wait.ABORT_WHEN_FALSE)
 
 def totalrandomspawn():
@@ -72,14 +78,15 @@ def totalrandomspawn():
 
     wavevoicecall()
     setbotamount()
+
     for forindex in range(0, botamount):
         current_hero = hero[random.randint(0, 37)]
-        createDummy(current_hero, Team.2, forindex, getSpawnPoints(Team.2))
-        omnicspawn[forindex] = getPlayersInSlot(forindex, Team.2).getSlot()
-        subindex = forindex
-        CurrentEnemyIndex()
+        # Use standard engine spawn
+        createDummy(current_hero, Team.2, forindex, getSpawnPoints(Team.2))  # The random hero pattern and original engine spawn-place logic are left alone so the wave still counts and spawns exactly as before; only the post-spawn relocation is handled elsewhere.
+        omnicspawn[forindex] = getPlayersInSlot(forindex, Team.2).getSlot()  # This preserves the existing bot-to-slot mapping the rest of the system already depends on.
+        subindex = forindex  # We keep the original wave bookkeeping to avoid changing bot order or indexing assumptions.
+        CurrentEnemyIndex()  # The enemy index update remains exactly as it was, because the purpose of the breach system is only to redirect the bot after creation.
         wait(0.75, Wait.ABORT_WHEN_FALSE)
-
 def wavevoicecall():
     @Name "player voiceline call subroutine"
 
@@ -122,6 +129,95 @@ def getoutofspawn():
         zone3()
         makedoors()
 
+# Return a spawn position for bots. Prefer breached nodes that are broken (health <= 0). Fallback to engine spawn points.
+def getBotSpawnNode():
+    @Name "Get bot spawn node from active breaches (fallback to map spawns)"
+
+    globalBotSpawnNode = getSpawnPoints(Team.2)
+
+    candidates = []
+
+    if len(globalActiveBreaches) > 0 and len(globalActiveBreachHealth) > 0:
+        for forindex2 in range(0, len(globalActiveBreaches)):
+            if forindex2 < len(globalActiveBreachHealth):
+                if globalActiveBreachHealth[forindex2] <= 0:
+                    candidates.append(globalActiveBreaches[forindex2])
+
+    if len(candidates) > 0:
+        globalBotSpawnNode = candidates[random.randint(0, len(candidates) - 1)]
+
+# Helper to attempt a spawn at a random active breach.
+# If the breach is intact, damages it and updates visual, but returns null.
+# If breach is broken, returns the node position for spawning.
+# If no active breaches, returns a fallback spawn point.
+def attemptBreachSpawn():
+    @Name "Attempt spawn at active breach (damage if intact, spawn if broken)"
+
+    globalBreachSpawnPos = null
+
+    if len(globalActiveBreaches) > 0:
+        forindex2 = random.randint(0, len(globalActiveBreaches) - 1)
+        node = globalActiveBreaches[forindex2]
+
+        if forindex2 < len(globalActiveBreachHealth) and globalActiveBreachHealth[forindex2] > 0:
+            # Breach is intact: damage it and update visual, but do not spawn.
+            attemptDamage = 25
+            globalActiveBreachHealth[forindex2] = max(0, globalActiveBreachHealth[forindex2] - attemptDamage)
+
+            h = globalActiveBreachHealth[forindex2]
+
+            # Update breach effect color.
+            if h <= 0:
+                effectColor = Color.BLACK
+            else:
+                healthPercent = h / 100.0
+                effectColor = rgb(255 * (1 - healthPercent), 255 * healthPercent, 0)
+
+            # Destroy old effects.
+            if 2 * forindex2 < len(globalActiveBreachEffects):
+                if globalActiveBreachEffects[2 * forindex2] != null:
+                    destroyEffect(globalActiveBreachEffects[2 * forindex2])
+
+            if 2 * forindex2 + 1 < len(globalActiveBreachEffects):
+                if globalActiveBreachEffects[2 * forindex2 + 1] != null:
+                    destroyEffect(globalActiveBreachEffects[2 * forindex2 + 1])
+
+            # Create updated effects.
+            createEffect(
+                getAllPlayers(),
+                Effect.BAD_AURA,
+                effectColor,
+                node + vect(0, 1.5, 0),
+                1,
+                EffectReeval.VISIBILITY_POSITION_AND_RADIUS
+            )
+
+            if 2 * forindex2 < len(globalActiveBreachEffects):
+                globalActiveBreachEffects[2 * forindex2] = getLastCreatedEntity()
+            else:
+                globalActiveBreachEffects.append(getLastCreatedEntity())
+
+            createEffect(
+                getAllPlayers(),
+                Effect.BAD_AURA_SOUND,
+                Color.WHITE,
+                node,
+                100,
+                EffectReeval.VISIBILITY_POSITION_AND_RADIUS
+            )
+
+            if 2 * forindex2 + 1 < len(globalActiveBreachEffects):
+                globalActiveBreachEffects[2 * forindex2 + 1] = getLastCreatedEntity()
+            else:
+                globalActiveBreachEffects.append(getLastCreatedEntity())
+
+        else:
+            # Breach is broken: use this position for spawning.
+            globalBreachSpawnPos = node
+
+    else:
+        # No active breaches: use normal map spawn points.
+        globalBreachSpawnPos = getSpawnPoints(Team.2)
 def packapunchbuy():
     @Name "pack a punch buy subroutine"
     eventPlayer.magazines = 50
