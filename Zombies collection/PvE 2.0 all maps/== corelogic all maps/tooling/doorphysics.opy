@@ -118,7 +118,8 @@ rule "Make door arrays":
     looping = 0
     Beameffectdoors = []
     while i < len(doorVectors):
-        loopwait(i, 2)
+        #loopwait(i, 2)
+        wait(0.1)
         Beameffectdoors.append(doorVectors[i])  # bottom left
         Beameffectdoors.append(doorVectors[i] + (directionFromAngles(doorParams[looping + 2] - 90, 0) * doorParams[looping]) + (Vector.UP * doorParams[looping + 1]))  # top right
         Beameffectdoors.append(doorVectors[i] + (Vector.UP * doorParams[looping + 1]))  # top left

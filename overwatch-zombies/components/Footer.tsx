@@ -1,0 +1,2 @@
+import Link from "next/link";
+export default function Footer(){return <footer><div className="wrap footer__inner"><div>© {new Date().getFullYear()} Zombie Survival • A Fan Made Overwatch Workshop Gamemode</div><div className="footer__links"><Link href="/">Home</Link> • <Link href="/comics">Comics</Link> • <Link href="/mapcodes">Map Codes</Link> • <Link href="/wiki">Wiki</Link> • <Link href="/radio">Survivor Radio</Link> • <Link href="/credits">Credits</Link> • <Link href="/donations">Donations</Link> • <Link href="/about">About Me</Link></div></div></footer>}

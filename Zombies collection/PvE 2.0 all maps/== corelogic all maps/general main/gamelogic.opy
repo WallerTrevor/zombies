@@ -31,7 +31,7 @@ rule "1 Setup":
     appenddoorsequencer = []
     dooreffectsequencer = []
     teleportercolor = Color.BLUE
-    #disableInspector()
+    disableInspector()
     Difficulty = createWorkshopSettingInt("difficulty", "difficulty", 1, 1, 4)
     Died[0] = vect(500, 0, 500)
     Died[1] = vect(500, 0, 500)

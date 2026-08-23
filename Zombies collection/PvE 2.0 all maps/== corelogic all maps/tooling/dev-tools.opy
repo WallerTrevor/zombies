@@ -231,3 +231,8 @@ rule "show power":
 
     hudText(eventPlayer, "Power: {0}".format(poweron))
 */
+
+rule "Rule 246":
+    @Event eachPlayer
+    
+    hudHeader(eventPlayer, "candidates {0} -- avg position {1} -- breaches {2}".format(len(extraVar[59]), extraVar[47], len(globalActiveBreaches)), HudPosition.LEFT, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)

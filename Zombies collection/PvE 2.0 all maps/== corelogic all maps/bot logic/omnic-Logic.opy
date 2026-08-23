@@ -1,44 +1,44 @@
-rule "137  get out of spawn bots(buggy effect)":
+rule "137  get out of spawn bots":
     @Event eachPlayer
     @Team 2
     @Condition eventPlayer.isAlive() == true
     @Condition eventPlayer.isInSpawnRoom() == true
     
-    eventPlayer.startForcingOutlineFor(getPlayers(Team.1), true, rgb(random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)))
+    eventPlayer.startForcingOutlineFor(getPlayers(Team.1), true, rgb(random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)))  # This is the existing visual indicator for a bot leaving its spawn room; it stays intact so the bot still looks like it is escaping the spawn zone.
     # teleport out to a currently active breach node if present
     if len(globalActiveBreaches) > 0:
-        eventPlayer.teleport(random.choice(globalActiveBreaches)) # teleport to an active breach position
+        eventPlayer.teleport(random.choice(globalActiveBreaches))  # We choose a currently active breach node here so the bot is redirected to the graph-based spawn area immediately after spawning, without changing the normal spawn location itself.
 
 rule "create barricade effect":
     @Event global
 
     # Create or refresh breach (barricade) effects whenever the spawn network is flagged dirty or on start
-    if start == 1 or globalSpawnNetworkDirty == 1:
+    if start == 1 or globalSpawnNetworkDirty == 1:  # We only rebuild the breach effects when the network is initialized or changed so the visual state matches the active graph selection without wasting runtime on every tick.
 
         # destroy previous effects if any
-        for i in range(0, len(globalActiveBreachEffects)):
-            destroyEffect(globalActiveBreachEffects[i])
+        for botspawnindex in range(0, len(globalActiveBreachEffects)):
+            destroyEffect(globalActiveBreachEffects[i])  # Destroying the old visual entities first prevents stale breach effects from lingering after the network changes to a new set of pathfinding nodes.
 
-        globalActiveBreachEffects = []
-        globalActiveBreachHealth = []
+        globalActiveBreachEffects = []  # Reset the effect handle list to match the newly selected breach state.
+        globalActiveBreachHealth = []  # Reset health values alongside the effects so each breach starts with its current network state instead of leftover values from the previous area.
 
         # create new effects for each active breach node
         if len(globalActiveBreaches) > 0:
-            for i in range(0, len(globalActiveBreaches)):
-                node = globalActiveBreaches[i]
+            for botspawnindex in range(0, len(globalActiveBreaches)):
+                node = globalActiveBreaches[i]  # Each chosen pathfinding node becomes one visible breach marker for the current area.
 
                 # initialize barricade health (100 = full)
-                globalActiveBreachHealth.append(100)
+                globalActiveBreachHealth.append(100)  # Full health starts each breach at 100 so the visual states can degrade over repeated spawn attempts without starting damaged.
 
                 # effect color indicates health (start green)
-                color = rgb(0, 255, 0)
-                createEffect(getAllPlayers(), Effect.BAD_AURA, color, node + vect(0, 1.5, 0), 1, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
-                globalActiveBreachEffects.append(getLastCreatedEntity())
-                createEffect(getAllPlayers(), Effect.BAD_AURA_SOUND, Color.WHITE, node, 100, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
-                globalActiveBreachEffects.append(getLastCreatedEntity())
+                color = rgb(0, 255, 0)  # Green indicates a healthy breach that is still intact and not yet weakened by zombie spawn attempts.
+                createEffect(getAllPlayers(), Effect.BAD_AURA, color, node + vect(0, 1.5, 0), 1, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)  # The aura effect is placed slightly above the node so it visually marks the breach location as a barricade / window.
+                globalActiveBreachEffects.append(getLastCreatedEntity())  # We record the visual entity handle so later damage or repair updates can replace it cleanly.
+                createEffect(getAllPlayers(), Effect.BAD_AURA_SOUND, Color.WHITE, node, 100, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)  # The audio effect keeps the breach readable as a clear point of interest even when the visual effect is replaced.
+                globalActiveBreachEffects.append(getLastCreatedEntity())  # The second handle corresponds to the sound effect so each breach stays paired with its two entities.
 
         # clear dirty flag
-        globalSpawnNetworkDirty = 0
+        globalSpawnNetworkDirty = 0  # Once the effects are rebuilt, we clear the dirty flag so the network does not keep recreating the same visuals every tick.
 
 # Players can repair breached barricades by reloading while close to the breach.
 rule "barricade repair by players":
@@ -48,7 +48,7 @@ rule "barricade repair by players":
 
     # repair amount per tick (per check)
     repairAmount = 25
-    for i in range(0, len(globalActiveBreaches)):
+    for botspawnindex in range(0, len(globalActiveBreaches)):
         if i < len(globalActiveBreachHealth):
             node = globalActiveBreaches[i]
             if distance(eventPlayer, node) < 2 and eventPlayer.isReloading() == true:
@@ -536,43 +536,39 @@ rule "419 OMNIC set winston always has ult":
     eventPlayer.setUltCharge(100)
 
 rule "get nearest nodes for spawning (Random Player Focus)":
-    @Event global
+    @Event eachPlayer
+    @Team 1
     @Condition start == 1
     
-    teamPlayers = getLivingPlayers(Team.1)
+    teamPlayers = getLivingPlayers(Team.1)  # This gathers the current living attackers so the breach network can follow where the team is actually fighting.
+
     if len(teamPlayers) > 0:
-        averagePosition = Vector.UP * 0
-        for i in range(0, len(teamPlayers)):
-            averagePosition += teamPlayers[i].getPosition()
-        averagePosition = averagePosition / len(teamPlayers)
-    else:
-        averagePosition = null
+        # Reset the average before calculating it again.
+        averagePosition = vect(0, 0, 0)  # We start from zero so the team center can be computed from the sum of player positions instead of reusing stale data.
 
-    # Recalculate the active spawn "breach" network only when the team's center has moved far enough
-    # and at least 10 seconds have passed since the last change.
-    recalc = false
-    if averagePosition != null:
-        if globalSpawnNetworkLastCenter == null:
-            recalc = true
-        elif distance(averagePosition, globalSpawnNetworkLastCenter) > 10:
-            if globalSpawnNetworkLastChangeTime == 0 or (getTotalTimeElapsed() - globalSpawnNetworkLastChangeTime) >= 10:
-                recalc = true
+        # Calculate the average position of all living players.
+        for botspawnindex in range(0, len(teamPlayers)):
+            averagePosition += teamPlayers[i].getPosition()  # Summing the players' positions gives a center point that represents the team's current combat area.
 
-    if recalc:
-        # find candidate nodes in the donut (10 .. 25 meters)
-        candidates = pfLoadedMap_nodes.filter(lambda n: distance(averagePosition, n) > 10).filter(lambda n: distance(averagePosition, n) < 25)
+        averagePosition = averagePosition / len(teamPlayers)  # Dividing by the player count produces the center of the squad, which is what the pathfinding search uses to choose breach nodes.
 
-        # choose up to 8 random nodes from the candidates
-        globalActiveBreaches = []
-        maxBreaches = 8
-        count = min(len(candidates), maxBreaches)
-        for i in range(0, count):
-            pick = random.choice(candidates)
-            globalActiveBreaches.append(pick)
-            candidates.remove(pick)
+        candidates = pfLoadedMap_nodes.filter(
+            lambda n: distance(averagePosition, n) > 10 and distance(averagePosition, n) < 35  # We filter to the graph nodes in the desired donut range so the breach network stays near the team without overlapping too close to them.
+        )
 
-        globalSpawnNetworkLastCenter = averagePosition
-        globalSpawnNetworkLastChangeTime = getTotalTimeElapsed()
+        # Select up to 8 unique random nodes.
+        globalActiveBreaches = []  # Resetting the breach list means each recalculation creates a fresh set of active breach nodes for the current area.
 
-        # flag to (re)create breach effects
-        globalSpawnNetworkDirty = 1
+        maxBreaches = 8  # Keeping only eight active breaches prevents the map from becoming crowded with too many simultaneous spawn points.
+        count = min(len(candidates), maxBreaches)  # This guarantees we never try to select more breach nodes than the graph actually has available.
+
+        for botspawnindex in range(0, count):
+            pick = random.choice(candidates)  # Randomizing the chosen nodes keeps the network varied and avoids a fixed, predictable row of breaches.
+            globalActiveBreaches.append(pick)  # Each chosen graph node becomes an active breach candidate for zombie exits.
+            candidates.remove(pick)  # Removing the picked node ensures each breach is unique and prevents duplicate nodes in the same network.
+
+        # Tell the effect system that the breach network changed.
+        globalSpawnNetworkDirty = 1  # The dirty flag triggers the visual rebuild so the breach markers reflect the freshly selected graph nodes and health state.
+
+    wait(5)
+    loop()

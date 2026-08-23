@@ -126,6 +126,7 @@ globalvar firstpos 32
 globalvar teleportercolor 33
 globalvar impulseDoorArray 34
 globalvar heroFallDamageTable 35
+globalvar botspawnindex 36
 globalvar twoDnumbersArray 37
 globalvar twoDnumbersArray2 38
 globalvar etcArray 39

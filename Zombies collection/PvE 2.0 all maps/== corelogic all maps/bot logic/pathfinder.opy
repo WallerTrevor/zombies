@@ -1,4 +1,5 @@
 rule "【PF Core】Prepare loaded map":
+    @Condition start == 1
     @Condition pfLoadedMap_nodes == true
     @Condition pfIterationsThisTick != -99
     
@@ -7,6 +8,7 @@ rule "【PF Core】Prepare loaded map":
 
 
 rule "【PF Core】Select next pathfinder":
+    @Condition start == 1
     @Condition (not entityExists(pfExecOwner) or pfExecOwner == null) == true
     @Condition any([player.isAlive() and player.pfWait for player in getAllPlayers()]) == true
     
@@ -18,6 +20,7 @@ rule "【PF Core】Select next pathfinder":
 
 rule "【PF Core】Update & Execute":
     @Event eachPlayer
+    @Condition start == 1
     @Condition eventPlayer.isAlive() == true
     @Condition eventPlayer.pfDestination != null
     @Condition eventPlayer.pfIsPathfinding == false
@@ -115,6 +118,7 @@ rule "【PF Core】Update & Execute":
 
 rule "【PF Core】Node reached":
     @Event eachPlayer
+    @Condition start == 1
     @Condition eventPlayer.isAlive() == true
     @Condition eventPlayer.pfIsPathfinding == true
     @Condition eventPlayer.pfWalkingToPosition == true
@@ -156,6 +160,7 @@ rule "【PF Core】Stop throttle when pfDestination is reset":
 
 rule "【PF Core】Insurance":
     @Event eachPlayer
+    @Condition start == 1
     @Condition eventPlayer.isAlive() == true
     @Condition eventPlayer.pfIsPathfinding == true
     @Condition eventPlayer.pfWalkingToPosition == true
@@ -181,6 +186,7 @@ rule "【PF Core】Insurance":
 
 rule "【PF Core】Recalibrate when off path":
     @Event eachPlayer
+    @Condition start == 1
     @Condition eventPlayer.isAlive() == true
     @Condition eventPlayer.pfIsPathfinding == true
     @Condition eventPlayer.pfWalkingToPosition == true
@@ -191,6 +197,7 @@ rule "【PF Core】Recalibrate when off path":
 
 rule "【PF Core】Check throttle":
     @Event eachPlayer
+    @Condition start == 1
     @Condition eventPlayer.isAlive() == true
     @Condition eventPlayer.pfIsPathfinding == true
     @Condition magnitude(eventPlayer.getVelocity()) < 3
@@ -203,6 +210,7 @@ rule "【PF Core】Check throttle":
 
 rule "【PF Decompress】Decompress map":
     @Condition pfDecompress == true
+    @Condition start == 1
     
     #Lock pathfinder until compression is completed.
     pfIterationsThisTick = -99
