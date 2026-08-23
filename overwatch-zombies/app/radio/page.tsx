@@ -43,13 +43,15 @@ const VIBES: Vibe[] = [
 
 export default function Radio() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const shouldAutoplayRef = useRef(false);
   const [selectedVibe, setSelectedVibe] = useState(0);
   const [current, setCurrent] = useState<Track | null>(VIBES[0].tracks[0] ?? null);
   const [isPlaying, setIsPlaying] = useState(false);
   const vibe = VIBES[selectedVibe];
 
   useEffect(() => {
-    if (!audioRef.current || !current) return;
+    if (!audioRef.current || !current || !shouldAutoplayRef.current) return;
+    shouldAutoplayRef.current = false;
     audioRef.current.load();
     const p = audioRef.current.play();
     if (p && typeof p.then === "function") {
@@ -61,6 +63,7 @@ export default function Radio() {
 
   function changeVibe(index: number) {
     setSelectedVibe(index);
+    shouldAutoplayRef.current = true;
     setCurrent(VIBES[index].tracks[0] ?? null);
     setIsPlaying(false);
   }
@@ -84,6 +87,7 @@ export default function Radio() {
 
     const currentIndex = vibe.tracks.findIndex((track) => track.src === current.src);
     const nextIndex = currentIndex >= 0 ? (currentIndex + 1) % vibe.tracks.length : 0;
+    shouldAutoplayRef.current = true;
     setCurrent(vibe.tracks[nextIndex]);
   }
 
@@ -157,7 +161,10 @@ export default function Radio() {
                 <button
                   className={`radio-track ${current?.src === track.src ? "radio-track--active" : ""}`}
                   key={track.title}
-                  onClick={() => setCurrent(track)}
+                  onClick={() => {
+                    shouldAutoplayRef.current = true;
+                    setCurrent(track);
+                  }}
                 >
                   <span className="radio-track__play">{current?.src === track.src && isPlaying ? "❚❚" : "▶"}</span>
                   <span>{track.title}</span>
