@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import type { ReactNode } from "react";
 import Script from "next/script";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
@@ -36,11 +37,12 @@ twitter: {
   description: "Overwatch Workshop zombie survival gamemode.",
   images: ["https://owzombies.com/social-preview.png"],
 },
+};
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
 }) {
   return (
     <html lang="en">
