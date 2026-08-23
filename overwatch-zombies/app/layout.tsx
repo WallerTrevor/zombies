@@ -15,28 +15,27 @@ export const metadata: Metadata = {
   description: "Overwatch Workshop zombie survival gamemode.",
 
   openGraph: {
-    title: "Zombies: Complete Series",
-    description: "Overwatch Workshop zombie survival gamemode.",
-    url: "https://owzombies.com",
-    siteName: "Zombies: Complete Series",
-    type: "website",
-    images: [
-      {
-        url: "https://owzombies.com/opengraph-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Zombies: Complete Series",
-      },
-    ],
-  },
+  title: "Zombies: Complete Series",
+  description: "Overwatch Workshop zombie survival gamemode.",
+  url: "https://owzombies.com",
+  siteName: "Zombies: Complete Series",
+  type: "website",
+  images: [
+    {
+      url: "https://owzombies.com/social-preview.png",
+      width: 1200,
+      height: 630,
+      alt: "Zombies: Complete Series",
+    },
+  ],
+},
 
-  twitter: {
-    card: "summary_large_image",
-    title: "Zombies: Complete Series",
-    description: "Overwatch Workshop zombie survival gamemode.",
-    images: ["https://owzombies.com/opengraph-image.png"],
-  },
-};
+twitter: {
+  card: "summary_large_image",
+  title: "Zombies: Complete Series",
+  description: "Overwatch Workshop zombie survival gamemode.",
+  images: ["https://owzombies.com/social-preview.png"],
+},
 
 export default function RootLayout({
   children,
