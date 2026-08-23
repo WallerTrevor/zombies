@@ -20,12 +20,21 @@ export const metadata: Metadata = {
     url: "https://owzombies.com",
     siteName: "Zombies: Complete Series",
     type: "website",
+    images: [
+      {
+        url: "https://owzombies.com/opengraph-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Zombies: Complete Series",
+      },
+    ],
   },
 
   twitter: {
     card: "summary_large_image",
     title: "Zombies: Complete Series",
     description: "Overwatch Workshop zombie survival gamemode.",
+    images: ["https://owzombies.com/opengraph-image.png"],
   },
 };
 
