@@ -1,0 +1,38 @@
+import "index.ostw";
+
+#=================================================
+#Global Variables
+#================================================= 
+globalvar define damageheroes;
+globalvar define roundpointmultiplier;
+globalvar define E;
+globalvar define cutscene;
+globalvar define supportheroes;
+globalvar define tankheroes;
+globalvar define R;
+globalvar define teleportercolor;
+globalvar define heroFallDamageTable;
+globalvar define currentEnemyIndex;
+globalvar define powerconnected;
+globalvar define heroDamageModifiers;
+globalvar define index;
+globalvar define aprilquotes;
+globalvar define perkmessages;
+globalvar define currentzombiearray;
+globalvar define heroSupportModifiers;
+globalvar define zzz;
+globalvar define heroTankModifiers;
+globalvar define botamount;
+globalvar define CameraDistanceFactor;
+globalvar define Dialogue_Text;
+globalvar define Character_Nr;
+globalvar define appenddoorsequencer;
+globalvar define Bosssequencer;
+globalvar define aprilrng;
+globalvar define indexofbosseffect;
+globalvar define pfLoadedMap_neighbors;
+globalvar define perkNames;
+globalvar define decompressV;
+globalvar define dooreffectsequencer;
+globalvar define doorindexsequencer;
+globalvar define botNames;

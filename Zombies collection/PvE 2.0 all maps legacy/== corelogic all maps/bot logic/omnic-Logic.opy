@@ -320,15 +320,18 @@ rule "519 Spawn wave director":
         wait(0.25)
         totalrandomspawn()
 
+
 rule "wave director incramenter":
     @Condition spawntype == 3
     @Condition roundnumber > 1
     @Condition roundnumber / 3 == floor(roundnumber / 3) #incrament every 3 rounds
-
+    #@Condition roundnumber != 0
+    
     if g >= 12:
         g = 0
     else:
         g += 1
+
 
 rule "559 stop throttle omnics":
     @Event eachPlayer
@@ -550,4 +553,6 @@ rule "419 OMNIC set winston always has ult":
     @Condition eventPlayer.isMoving() == true
 
     eventPlayer.setUltCharge(100)
+
+
 

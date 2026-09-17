@@ -1,0 +1,126 @@
+import "../Main/index.ostw";
+
+
+rule: "488 button held teleporter"
+Event.OngoingPlayer
+Team.Team1
+
+if (IsButtonHeld(EventPlayer(), Button.Interact) == true)
+if (CountOf(PlayersWithinRadius(
+    twoDvectorsArray[5][extraVar[12]],
+    3,
+    Team.Team1,
+    RadiusLOS.Off
+)) > 0)
+{
+    # All living Team 1 players must be inside the teleporter radius.
+    if (CountOf(AllLivingPlayers(Team.Team1)) == CountOf(PlayersWithinRadius(
+        twoDvectorsArray[5][extraVar[12]],
+        3,
+        Team.Team1,
+        RadiusLOS.Off
+    )))
+    {
+        if (extraVar[5] == false)
+        {
+            # might need to not use destroy effect last created, and append every single one to array then delete all
+            CreateEffect(
+                EventPlayer(),
+                Effect.AnaNanoBoostedEffect,
+                TeamOf(EventPlayer()),
+                EventPlayer(),
+                1,
+                EffectRev.VisibleToPositionAndRadius
+            );
+
+            ModifyVariable(
+                zzz,
+                Operation.AppendToArray,
+                LastCreatedEntity()
+            );
+
+            # need a for loop needs 4 loops
+            CreateEffect(
+                LocalPlayer(),
+                Effect.WinstonTeslaCannonTargetEffect,
+                Color.Black,
+                EventPlayer(),
+                80,
+                EffectRev.VisibleToPositionAndRadius
+            );
+
+            ModifyVariable(
+                zzz,
+                Operation.AppendToArray,
+                LastCreatedEntity()
+            );
+
+            Wait(0.25, WaitBehavior.IgnoreCondition);
+
+            SetStatus(
+                PlayersWithinRadius(
+                    twoDvectorsArray[5][extraVar[12]],
+                    5,
+                    Team.Team2,
+                    RadiusLOS.Off
+                ),
+                EventPlayer(),
+                Status.Stunned,
+                0.25
+            );
+
+            DestroyEffect(FirstOf(zzz));
+
+            PlayEffect(
+                LocalPlayer(),
+                PlayEffect.RingExplosionSound,
+                Color.White,
+                EventPlayer(),
+                80
+            );
+
+            Wait(0.25, WaitBehavior.IgnoreCondition);
+
+            Kill(
+                PlayersWithinRadius(
+                    twoDvectorsArray[5][101],
+                    5,
+                    Team.Team2,
+                    RadiusLOS.Off
+                ),
+                FirstOf(AllLivingPlayers(Team.Team1))
+            );
+
+            DestroyEffect(zzz[1]);
+
+            extraVar[5] = 1;
+            teleportercolor = Color.Red;
+
+            # needs to be set to current telespot
+            if (CountOf(twoDvectorsArray[5]) > 0)
+            {
+                extraVar[12] =
+                    (extraVar[12] + 1) % CountOf(twoDvectorsArray[5]);
+
+                MinWait();
+
+                extraVar[29] = 1;
+                lastsavedpos = null;
+
+                Wait(0.5, WaitBehavior.IgnoreCondition);
+
+                Teleport(
+                    AllPlayers(Team.Team1),
+                    twoDvectorsArray[5][extraVar[12]]
+                );
+            }
+
+            Wait(0.5, WaitBehavior.IgnoreCondition);
+
+            extraVar[29] = 0;
+            makedoors();
+        }
+    }
+}
+
+

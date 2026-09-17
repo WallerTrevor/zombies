@@ -1,3 +1,4 @@
+
 rule "53  mystery box":
     @Event eachPlayer
     @Team 1

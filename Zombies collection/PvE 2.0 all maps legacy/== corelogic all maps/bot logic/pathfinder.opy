@@ -1,3 +1,4 @@
+
 rule "【PF Core】Prepare loaded map":
     @Condition start == 1
     @Condition pfLoadedMap_nodes == true
@@ -253,4 +254,5 @@ rule "【PF Decompress】Decompress map":
     pfcompressionTable = null
     #Unlock pathfinder
     pfIterationsThisTick = 0
+
 

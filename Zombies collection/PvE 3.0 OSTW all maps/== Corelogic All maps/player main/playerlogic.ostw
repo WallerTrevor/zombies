@@ -1,0 +1,817 @@
+
+rule: "pack a punch ability"
+Event.OngoingPlayer
+Team.Team1
+if (FirstOf(perk) > 0)
+{
+    if (FirstOf(perk) == 1)
+    {
+        SetDamageDealt(EventPlayer(), 250);
+        damagevariable = 250;
+    }
+    else if (FirstOf(perk) == 2)
+    {
+        SetDamageDealt(EventPlayer(), 500);
+        damagevariable = 500;
+    }
+    else if (FirstOf(perk) == 3)
+    {
+        SetDamageDealt(EventPlayer(), 1000);
+        damagevariable = 1000;
+    }
+}
+
+rule: "stop jetpack cat from flying too long"
+Event.OngoingPlayer
+Player.JetpackCat
+if (AltitudeOf(EventPlayer()) >= 1.5)
+if (AltitudeOf(EventPlayer()) < 100)
+{
+    Wait(3, WaitBehavior.AbortWhenFalse);
+    StartAccelerating(EventPlayer(), Down(), 100, 20, Relative.ToWorld, AccelerateRev.DirectionRateAndMaxSpeed);
+    WaitUntil(AltitudeOf(EventPlayer()) <= 1.5, 5);
+    # to prevent them from flying away again too soon
+    DisallowButton(EventPlayer(), Button.Jump);
+    StopAccelerating(EventPlayer());
+    Wait(3, WaitBehavior.IgnoreCondition);
+    AllowButton(EventPlayer(), Button.Jump);
+}
+
+rule: "apply fall damage"
+Event.OngoingPlayer
+if (extraPlayerVar[1] == 1)
+if (IsOnGround(EventPlayer()) == true)
+if (extraPlayerVar[2] < -15)
+{
+    Damage(EventPlayer(), null, AbsoluteValue(extraPlayerVar[2]) * MaxHealth(EventPlayer()) / 200 * AbsoluteValue(extraPlayerVar[2]) / 8 * 3);
+}
+
+rule: "Find fall speed for fall damage"
+Event.OngoingPlayer
+if (extraPlayerVar[1] == 1)
+if (AltitudeOf(EventPlayer()) < 1)
+if (IsInAir(EventPlayer()) == true)
+{
+    extraPlayerVar[2] = VerticalSpeedOf(EventPlayer());
+}
+
+rule: "enable/toggle fall damage regular"
+Event.OngoingPlayer
+if (IsInAir(EventPlayer()) == true)
+if (IsUsingAbility1(EventPlayer()) == false)
+if (IsUsingAbility2(EventPlayer()) == false)
+if (IsUsingUltimate(EventPlayer()) == false)
+{
+    if (FirstOf(heroFallDamageTable) + extraPlayerVar[3] == 1)
+    {
+        extraPlayerVar[1] = 1;
+    }
+    else
+    {
+        extraPlayerVar[1] = false;
+    }
+}
+
+rule: "enable fall damage ability 1"
+Event.OngoingPlayer
+if (IsInAir(EventPlayer()) == true)
+if (IsUsingAbility1(EventPlayer()) == true)
+{
+    if (heroFallDamageTable[1] + extraPlayerVar[3] == 1)
+    {
+        extraPlayerVar[1] = 1;
+    }
+    else
+    {
+        extraPlayerVar[1] = false;
+    }
+}
+
+rule: "enable fall damage ability 2"
+Event.OngoingPlayer
+if (IsInAir(EventPlayer()) == true)
+if (IsUsingAbility2(EventPlayer()) == true)
+{
+    if (heroFallDamageTable[2] + extraPlayerVar[3] == 1)
+    {
+        extraPlayerVar[1] = 1;
+    }
+    else
+    {
+        extraPlayerVar[1] = false;
+    }
+}
+
+rule: "enable fall damage ultimate"
+Event.OngoingPlayer
+if (IsInAir(EventPlayer()) == true)
+if (IsUsingUltimate(EventPlayer()) == true)
+{
+    if (heroFallDamageTable[3] + extraPlayerVar[3] == 1)
+    {
+        extraPlayerVar[1] = 1;
+    }
+    else
+    {
+        extraPlayerVar[1] = false;
+    }
+}
+
+rule: "hero fall damage Table"
+Event.OngoingPlayer
+Player.Soldier76
+{
+    heroFallDamageTable = [];
+}
+
+rule: "99  hero ultimate adjustments"
+Event.OngoingPlayer
+Team.Team1
+if (IsUsingUltimate(EventPlayer()) == true)
+{
+    if (HeroOf(EventPlayer()) == Hero.Ashe)
+    {
+        SetDamageDealt(EventPlayer(), 300);
+        Wait(10, WaitBehavior.IgnoreCondition);
+        SetDamageDealt(EventPlayer(), 100);
+    }
+    else if (HeroOf(EventPlayer()) == Hero.Widowmaker)
+    {
+        SetDamageDealt(AllPlayers(Team.Team1), 300);
+        Wait(12.5, WaitBehavior.IgnoreCondition);
+        SetDamageDealt(AllPlayers(Team.Team1), 100);
+    }
+    else if (HeroOf(EventPlayer()) == Hero.Symmetra)
+    {
+        AddHealthPoolToPlayer(AllLivingPlayers(Team.Team1), HealthType.Health, 200, false, true);
+        Wait(12.5, WaitBehavior.IgnoreCondition);
+        RemoveHealthPoolFromPlayer(LastCreatedHealthPool());
+    }
+    else if (HeroOf(EventPlayer()) == Hero.Junkrat)
+    {
+        SetStatus(EventPlayer(), null, Status.PhasedOut, 10);
+    }
+    else if (HeroOf(EventPlayer()) == Hero.Mercy)
+    {
+        Resurrect(AllDeadPlayers(Team.Team1));
+    }
+    else if (HeroOf(EventPlayer()) == Hero.Zenyatta)
+    {
+        SetStatus(EventPlayer(), null, Status.PhasedOut, 6);
+    }
+    else if (HeroOf(EventPlayer()) == Hero.Cassidy)
+    {
+        SetGravity(EventPlayer(), 0);
+        WaitUntil(false, 7);
+        SetGravity(EventPlayer(), 100);
+    }
+    else if (HeroOf(EventPlayer()) == Hero.Lucio)
+    {
+        AddHealthPoolToPlayer(AllLivingPlayers(Team.Team1), HealthType.Health, 500, false, false);
+        Wait(10, WaitBehavior.IgnoreCondition);
+        RemoveAllHealthPoolsFromPlayer(AllLivingPlayers(Team.Team1));
+    }
+}
+
+rule: "110 player hit speed boost default"
+Event.OnDamageTaken
+Team.Team1
+if (EventDamage() == true)
+if (sprintburstperk == false)
+# change this and many other features to be dependant on difficulty
+if (WorkshopSettingToggle("difficulty", "speed boost when hit", true, 0) == true)
+{
+    SetMoveSpeed(EventPlayer(), 150);
+    Wait(1, WaitBehavior.IgnoreCondition);
+    SetMoveSpeed(EventPlayer(), 100);
+}
+
+rule: "126 healing dealt points"
+Event.OnHealingTaken
+Team.Team1
+if (Healee() != Healer())
+{
+    Healer().points += 20;
+    Healer().points2 += 20;
+    Wait(0.25, WaitBehavior.IgnoreCondition);
+}
+
+rule: "158 melee stun"
+Event.OnDamageTaken
+Team.Team2
+if (WorkshopSettingToggle("difficulty", "melee stun", true, 0) == true)
+if (IsMeleeing(Attacker()) == true)
+if (DistanceBetween(Attacker(), Victim()) <= 3)
+{
+    SetStatus(EventPlayer(), null, Status.Stunned, 1);
+}
+
+rule: "163 heal over time effect solo"
+Event.OnDamageTaken
+Team.Team1
+if (AllLivingPlayers(Team.Team1) == true)
+if (NumberOfPlayers(Team.Team1) == 1)
+{
+    if (NumberOfPlayers(Team.Team1) == 1)
+    {
+        # need to disable built in health regen as well
+        StopHealOverTime(healovertime);
+        Wait(5, WaitBehavior.RestartWhenTrue);
+        StartHealOverTime(EventPlayer(), EventPlayer(), 3, 4 * healvariable);
+        healovertime = LastHealOverTime();
+    }
+    else if (NumberOfPlayers(Team.Team1) > 1)
+    {
+        StopHealOverTime(healovertime);
+        Wait(5, WaitBehavior.RestartWhenTrue);
+        StartHealOverTime(EventPlayer(), EventPlayer(), 3, 4 * healvariable);
+        healovertime = LastHealOverTime();
+    }
+}
+
+rule: "245 Rule 388 tank sheild"
+Event.OngoingPlayer
+Team.Team1
+if (IsButtonHeld(EventPlayer(), Button.SecondaryFire) == true)
+if (IsAlive(EventPlayer()) == true)
+{
+    if (HeroOf(EventPlayer()) == Hero.Sigma)
+    {
+        AddHealthPoolToPlayer(EventPlayer(), HealthType.Health, 100, false, false);
+        Wait(10, WaitBehavior.IgnoreCondition);
+        RemoveAllHealthPoolsFromPlayer(EventPlayer());
+    }
+    else if (HeroOf(EventPlayer()) == Hero.Reinhardt)
+    {
+        AddHealthPoolToPlayer(EventPlayer(), HealthType.Health, 100, false, false);
+        Wait(10, WaitBehavior.IgnoreCondition);
+        RemoveAllHealthPoolsFromPlayer(EventPlayer());
+    }
+    else if (HeroOf(EventPlayer()) == Hero.Dva)
+    {
+        AddHealthPoolToPlayer(EventPlayer(), HealthType.Health, 100, false, false);
+        Wait(10, WaitBehavior.IgnoreCondition);
+        RemoveAllHealthPoolsFromPlayer(EventPlayer());
+    }
+    else if (HeroOf(EventPlayer()) == Hero.Ramattra)
+    {
+        AddHealthPoolToPlayer(EventPlayer(), HealthType.Health, 100, false, false);
+        Wait(10, WaitBehavior.IgnoreCondition);
+        RemoveAllHealthPoolsFromPlayer(EventPlayer());
+    }
+}
+
+rule: "393 POINTS Omnic kill (final hit)"
+Event.OnFinalBlow
+Team.Team1
+{
+    if (!IsMeleeing(EventPlayer()))
+    {
+        if (!EventWasCriticalHit())
+        {
+            points += (50 + heropoints * H) * roundpointmultiplier ^ (FirstOf(extraVar) - 1);
+            extraVar[30] += (50 + heropoints * H) * roundpointmultiplier ^ (FirstOf(extraVar) - 1);
+            ChaseVariableAtRate(points2, EvaluateOnce(points) * H, 1000, RateChaseReevaluation.DestinationAndRate);
+            SkipIf(H != 1, 1);
+            SkipIf(H == 1, 1);
+            R += 100 * H;
+            xp[currentheroxp] += 5;
+        }
+        else if (EventWasCriticalHit())
+        {
+            points += (100 + heropoints * H) * roundpointmultiplier ^ (FirstOf(extraVar) - 1);
+            extraVar[30] += (100 + heropoints * H) * roundpointmultiplier ^ (FirstOf(extraVar) - 1);
+            ChaseVariableAtRate(points2, EvaluateOnce(points) * H, 1000, RateChaseReevaluation.DestinationAndRate);
+            SkipIf(H != 1, 1);
+            SkipIf(H == 1, 1);
+            R += 200 * H;
+            xp[currentheroxp] += 10;
+        }
+    }
+    else if (IsMeleeing(EventPlayer()))
+    {
+        points += (60 + heropoints * H) * roundpointmultiplier ^ (FirstOf(extraVar) - 1);
+        extraVar[30] += (60 + heropoints * H) * roundpointmultiplier ^ (FirstOf(extraVar) - 1);
+        ChaseVariableAtRate(points2, EvaluateOnce(points) * H, 250, RateChaseReevaluation.DestinationAndRate);
+        SkipIf(H != 1, 1);
+        SkipIf(H == 1, 1);
+        R += 120 * H;
+        xp[currentheroxp] += 6;
+    }
+    SetUltimateCharge(EventPlayer(), UltimateChargePercent(EventPlayer()) + 2);
+}
+
+rule: "396 POINTS Omnic kill (elimination)"
+Event.OnElimination
+Team.Team1
+{
+    if (!IsMeleeing(EventPlayer()))
+    {
+        if (!EventWasCriticalHit())
+        {
+            # prob should add heropoints list to finalblow too and melee
+            if (ArrayContains(AllDamageHeroes(), HeroOf(EventPlayer())))
+            {
+                heropoints = 15;
+            }
+            else if (ArrayContains(AllSupportHeroes(), HeroOf(EventPlayer())))
+            {
+                heropoints = 5;
+            }
+            else if (ArrayContains(AllTankHeroes(), HeroOf(EventPlayer())))
+            {
+                heropoints = 10;
+            }
+            points += (40 + heropoints * H) * roundpointmultiplier ^ (FirstOf(extraVar) - 1);
+            extraVar[30] += (40 + heropoints * H) * roundpointmultiplier ^ (FirstOf(extraVar) - 1);
+            SkipIf(H != 1, 1);
+            SkipIf(H == 1, 1);
+            R += 80 * H;
+            xp[currentheroxp] += 5;
+        }
+        else if (EventWasCriticalHit())
+        {
+            if (ArrayContains(AllDamageHeroes(), HeroOf(EventPlayer())))
+            {
+                heropoints = 30;
+            }
+            else if (ArrayContains(AllSupportHeroes(), HeroOf(EventPlayer())))
+            {
+                heropoints = 10;
+            }
+            else if (ArrayContains(AllTankHeroes(), HeroOf(EventPlayer())))
+            {
+                heropoints = 20;
+            }
+            points += (80 + heropoints * H) * roundpointmultiplier ^ (FirstOf(extraVar) - 1);
+            extraVar[30] += (80 + heropoints * H) * roundpointmultiplier ^ (FirstOf(extraVar) - 1);
+            SkipIf(H != 1, 1);
+            SkipIf(H == 1, 1);
+            R += 160 * H;
+            xp[currentheroxp] += 10;
+        }
+    }
+    else if (IsMeleeing(EventPlayer()))
+    {
+        if (ArrayContains(AllDamageHeroes(), HeroOf(EventPlayer())))
+        {
+            heropoints = 45;
+        }
+        else if (ArrayContains(AllSupportHeroes(), HeroOf(EventPlayer())))
+        {
+            heropoints = 15;
+        }
+        else if (ArrayContains(AllTankHeroes(), HeroOf(EventPlayer())))
+        {
+            heropoints = 30;
+        }
+        points += (70 + heropoints * H) * roundpointmultiplier ^ (FirstOf(extraVar) - 1);
+        extraVar[30] += (70 + heropoints * H) * roundpointmultiplier ^ (FirstOf(extraVar) - 1);
+        ChaseVariableAtRate(points2, EvaluateOnce(points) * H, 250, RateChaseReevaluation.DestinationAndRate);
+        SkipIf(H != 1, 1);
+        SkipIf(H == 1, 1);
+        R += 70 * H;
+        xp[currentheroxp] += 7;
+    }
+    SetUltimateCharge(EventPlayer(), UltimateChargePercent(EventPlayer()) + 2);
+}
+
+rule: "Set starting heros (hero needs to be a variable, and also need to set up a way to go through hero selection twice)"
+Event.OngoingPlayer
+Team.Team1
+{
+    heroswap[0] = Hero.Cassidy;
+    heroswap[1] = Hero.Dva;
+    heroiconswap[0] = HeroIconString(Hero.Cassidy);
+    heroiconswap[1] = HeroIconString(Hero.Dva);
+}
+
+rule: "245  tank sheild 2"
+Event.OngoingPlayer
+Team.Team1
+if (IsButtonHeld(EventPlayer(), Button.Ability2) == true)
+{
+    if (HeroOf(EventPlayer()) == Hero.Winston)
+    {
+        AddHealthPoolToPlayer(EventPlayer(), HealthType.Health, 100, false, false);
+        Wait(10, WaitBehavior.IgnoreCondition);
+        # will create future conflicts with other sheilds need patch
+        RemoveAllHealthPoolsFromPlayer(EventPlayer());
+    }
+    else if (HeroOf(EventPlayer()) == Hero.Doomfist)
+    {
+        AddHealthPoolToPlayer(EventPlayer(), HealthType.Health, 100, false, false);
+        Wait(10, WaitBehavior.IgnoreCondition);
+        RemoveAllHealthPoolsFromPlayer(EventPlayer());
+    }
+}
+
+rule: "ultimate use check"
+Event.OngoingPlayer
+Team.Team1
+if (IsUsingUltimate(EventPlayer()) == true)
+{
+    currentultcharge = false;
+}
+
+rule: "soldier explosive rounds (could make this one rule)"
+Event.OngoingPlayer
+Team.Team1
+Player.Soldier76
+if (IsFiringPrimary(EventPlayer()) == true)
+if (IsUsingUltimate(EventPlayer()) == true)
+{
+    # higher than .11 due to lag
+    Wait(0.22, WaitBehavior.IgnoreCondition);
+    PlayEffect(AllPlayers(Team.All), PlayEffect.GoodExplosion, Color.Blue, RayCastHitPosition(EyePosition(EventPlayer()), EyePosition(EventPlayer()) + FacingDirectionOf(EventPlayer()) * 100, AllPlayers(Team.Team2), EventPlayer(), true), 5);
+    LoopIfConditionIsTrue();
+}
+
+rule: "third person camera accurate"
+Event.OngoingPlayer
+Team.Team1
+if (cameratoggle == 1)
+{
+    cameravar1 = Vector(0, 0, 0);
+    StartCamera(EventPlayer(), RayCastHitPosition(EyePosition(EventPlayer()), EyePosition(EventPlayer()) + WorldVectorOf(cameravar1, EventPlayer(), LocalVector.Rotation) + FacingDirectionOf(EventPlayer()) * cameravar2, AllPlayers(Team.Team2), EventPlayer(), false), RayCastHitPosition(EyePosition(EventPlayer()), EyePosition(EventPlayer()) + FacingDirectionOf(EventPlayer()) * sea, AllPlayers(Team.Team2), EventPlayer(), false), 40);
+}
+
+rule: "Camera 3rd person static"
+Event.OngoingPlayer
+if (cameratoggle == 2)
+{
+    StartCamera(EventPlayer(), RayCastHitPosition(EyePosition(EventPlayer()), EyePosition(EventPlayer()) + WorldVectorOf(Vector(-1, 0.55, -3), EventPlayer(), LocalVector.Rotation) + FacingDirectionOf(EventPlayer()) * -4 * CameraDistanceFactor, null, EventPlayer(), false), EyePosition(EventPlayer()) + FacingDirectionOf(EventPlayer()) * 1000, 300);
+}
+
+rule: "third person accurate initialize"
+Event.OngoingPlayer
+if (cameratoggle == 1)
+{
+    sea = 200;
+    ChaseVariableOverTime(cameravar1, Vector(0, 0.5, 0), 0.05, TimeChaseReevaluation.None);
+    ChaseVariableOverTime(cameravar2, -1.25, 0.1, TimeChaseReevaluation.None);
+}
+
+rule: "toggle camera toggle"
+Event.OngoingPlayer
+if (IsButtonHeld(EventPlayer(), Button.Interact) == true)
+if (IsButtonHeld(EventPlayer(), Button.Reload) == true)
+{
+    if (cameratoggle == 2)
+    {
+        Wait(1, WaitBehavior.AbortWhenFalse);
+        cameratoggle = false;
+        StopCamera(EventPlayer());
+    }
+    else if (cameratoggle == false)
+    {
+        Wait(1, WaitBehavior.AbortWhenFalse);
+        cameratoggle = 1;
+    }
+    else if (cameratoggle == 1)
+    {
+        Wait(1, WaitBehavior.AbortWhenFalse);
+        cameratoggle = 2;
+    }
+}
+
+rule: "Camera 3rd person static crosshair"
+{
+    CreateInWorldText(LocalPlayer().extraPlayerVar[17] == 2 ? LocalPlayer() : null, "+", RayCastHitPosition(EyePosition(LocalPlayer()), EyePosition(LocalPlayer()) + FacingDirectionOf(LocalPlayer()) * 999, AllPlayers(Team.All), LocalPlayer(), true), 1, Clipping.DoNotClip, InworldTextRev.VisibleToPositionAndString, Color.White, Spectators.DefaultVisibility);
+}
+
+rule: "Fix dva health"
+Event.OngoingPlayer
+if (HeroOf(EventPlayer()) == Hero.Dva)
+if (IsAlive(EventPlayer()) == true)
+{
+    if (IsInAlternateForm(EventPlayer()))
+    {
+        SetMaxHealth(EventPlayer(), 220);
+    }
+    else if (!IsInAlternateForm(EventPlayer()))
+    {
+        SetMaxHealth(EventPlayer(), healthmax);
+    }
+    WaitUntil(HeroOf(EventPlayer()) != Hero.Dva, 99999);
+    SetMaxHealth(EventPlayer(), 100);
+    Heal(EventPlayer(), null, 1000);
+}
+
+rule: "mercy overheal mechanic"
+Event.OnHealingTaken
+if (HeroOf(Healer()) == Hero.Mercy)
+if (Healee() != Healer())
+{
+    WaitUntil(Health(Healee()) == MaxHealth(Healee()), 99999);
+    AddHealthPoolToPlayer(Healee(), HealthType.Health, MaxHealth(Healee()) * 0.5, false, false);
+    Healer().points += 50;
+}
+
+rule: "slowmo camera final b­low"
+Event.OnFinalBlow
+Team.Team1
+if (extraVar[1] <= 1)
+if (extraVar[22] == 1)
+{
+    StartCamera(AllPlayers(Team.All), Vector(EvaluateOnce(RandomInteger(-3, 4)), 0, EvaluateOnce(RandomInteger(-3, 4))) + EyePosition(Victim()), EyePosition(Victim()), 0);
+    SetSlowMotion(25);
+    Wait(1.5, WaitBehavior.IgnoreCondition);
+    SetSlowMotion(100);
+    StopCamera(AllPlayers(Team.All));
+}
+
+rule: "26 Revive Player system"
+Event.OngoingPlayer
+Team.Team1
+# might rebuild downed system to have players be unkillable
+if (DistanceBetween(EventPlayer(), Died[i]) <= 4)
+# and only stay alive for 25 seconds then dissapear
+if (EventPlayer() != PlayersInSlot(i, Team.Team1))
+# then lose their hero and will need to rebuild spectator cam
+if (IsAlive(EventPlayer()) == true)
+if (IsDummyBot(EventPlayer()) == false)
+if (IsTrueForAny(Died, DistanceBetween(ArrayElement(), EventPlayer()) < 4) == true)
+{
+    for (i = 0; CountOf(Died); 1)
+    {
+        if (DistanceBetween(EventPlayer(), Died[i]) <= 4)
+        {
+            sea = PlayersInSlot(i, Team.Team1);
+            ChaseVariableOverTime(PlayersInSlot(i, Team.Team1).sea, 4, 2 + P * 2, TimeChaseReevaluation.DestinationAndDuration);
+            Wait(2 + P * 2, WaitBehavior.AbortWhenFalse);
+            Teleport(PlayersInSlot(i, Team.Team1), EventPlayer());
+            Resurrect(PlayersInSlot(i, Team.Team1));
+            P += 1;
+            # wait(0.25)
+            Died[i] = Vector(500, 0, 500);
+            points += 100 * H;
+            ChaseVariableAtRate(points2, EvaluateOnce(points) * H, 1000, RateChaseReevaluation.DestinationAndRate);
+            SkipIf(H != 1, 1);
+            SkipIf(H == 1, 1);
+            AllPlayers(Team.Team1).InfoCooldown = false;
+            R += 100 * H;
+            SetStatus(PlayersInSlot(i, Team.Team1), null, Status.PhasedOut, 5);
+            SetMaxHealth(PlayersInSlot(i, Team.Team1), 100);
+            break;
+        }
+    }
+}
+
+rule: "27 Cancel Revive all players"
+Event.OngoingPlayer
+Team.Team1
+# work in progress
+if (IsTrueForAny(Died, DistanceBetween(ArrayElement(), EventPlayer()) > 4) == true)
+if (EventPlayer() != PlayersInSlot(i, Team.Team1))
+{
+    PlayersInSlot(i, Team.Team1).sea = false;
+    StopChasingVariable(PlayersInSlot(i, Team.Team1).sea);
+}
+
+rule: "35 Player Respawn, Move Revive Effect"
+Event.OngoingPlayer
+Team.Team1
+if (IsAlive(EventPlayer()) == true)
+{
+    # might want to delete downed effect instead of move
+    Died[SlotOf(EventPlayer())] = Vector(500, 0, 500);
+}
+
+rule: "died Camera"
+Event.OnDeath
+Team.Team1
+{
+    StartCamera(EventPlayer(), Vector(EvaluateOnce(RandomInteger(-3, 4)), 0, EvaluateOnce(RandomInteger(-3, 4))) + EyePosition(EventPlayer()), EyePosition(EventPlayer()), 0);
+    Wait(1.5, WaitBehavior.IgnoreCondition);
+    StopCamera(EventPlayer());
+}
+
+rule: "set damage to player variable for all DPS heroes"
+Event.OngoingPlayer
+if (ArrayContains(AllDamageHeroes(), HeroOf(EventPlayer())) == true)
+{
+    if (spawntype < 4)
+    {
+        # these could be a for loop
+        StartDamageModification(PlayersOnHero(bossSpawn, Team.All), EventPlayer(), heroDamageModifiers[currentdamgindex + currentEnemyIndex], DamageModificationRev.ReceiversDamagersAndDamagePercent);
+        StartDamageModification(PlayersOnHero(bot1spawn, Team.All), EventPlayer(), heroDamageModifiers[currentdamgindex + currentEnemyIndex], DamageModificationRev.ReceiversDamagersAndDamagePercent);
+        StartDamageModification(PlayersOnHero(bot2spawn, Team.All), EventPlayer(), heroDamageModifiers[currentdamgindex + currentEnemyIndex], DamageModificationRev.ReceiversDamagersAndDamagePercent);
+    }
+    else
+    {
+        for (i = 1; botamount; 1)
+        {
+            StartDamageModification(PlayersOnHero(currentzombiearray[i], Team.All), EventPlayer(), heroDamageModifiers[currentdamgindex + currentEnemyIndex], DamageModificationRev.ReceiversDamagersAndDamagePercent);
+        }
+    }
+}
+
+rule: "set damage to player variable for all TANK heroes"
+Event.OngoingPlayer
+if (ArrayContains(AllTankHeroes(), HeroOf(EventPlayer())) == true)
+{
+    if (spawntype < 4)
+    {
+        # for loop
+        StartDamageModification(PlayersOnHero(bossSpawn, Team.All), EventPlayer(), heroTankModifiers[currentdamgindex + currentEnemyIndex], DamageModificationRev.ReceiversDamagersAndDamagePercent);
+        StartDamageModification(PlayersOnHero(bot1spawn, Team.All), EventPlayer(), heroTankModifiers[currentdamgindex + currentEnemyIndex], DamageModificationRev.ReceiversDamagersAndDamagePercent);
+        StartDamageModification(PlayersOnHero(bot2spawn, Team.All), EventPlayer(), heroTankModifiers[currentdamgindex + currentEnemyIndex], DamageModificationRev.ReceiversDamagersAndDamagePercent);
+    }
+    else
+    {
+        for (i = 1; botamount; 1)
+        {
+            StartDamageModification(PlayersOnHero(currentzombiearray[i], Team.All), EventPlayer(), heroTankModifiers[currentdamgindex + currentEnemyIndex], DamageModificationRev.ReceiversDamagersAndDamagePercent);
+        }
+    }
+}
+
+rule: "set damage to player variable for all SUPPORT heroes"
+Event.OngoingPlayer
+if (ArrayContains(AllSupportHeroes(), HeroOf(EventPlayer())) == true)
+{
+    if (spawntype < 4)
+    {
+        # for loop
+        StartDamageModification(PlayersOnHero(bossSpawn, Team.All), EventPlayer(), heroSupportModifiers[currentdamgindex + currentEnemyIndex], DamageModificationRev.ReceiversDamagersAndDamagePercent);
+        StartDamageModification(PlayersOnHero(bot1spawn, Team.All), EventPlayer(), heroSupportModifiers[currentdamgindex + currentEnemyIndex], DamageModificationRev.ReceiversDamagersAndDamagePercent);
+        StartDamageModification(PlayersOnHero(bot2spawn, Team.All), EventPlayer(), heroSupportModifiers[currentdamgindex + currentEnemyIndex], DamageModificationRev.ReceiversDamagersAndDamagePercent);
+    }
+    else
+    {
+        for (i = 1; botamount; 1)
+        {
+            StartDamageModification(PlayersOnHero(currentzombiearray[i], Team.All), EventPlayer(), heroSupportModifiers[currentdamgindex + currentEnemyIndex], DamageModificationRev.ReceiversDamagersAndDamagePercent);
+        }
+    }
+}
+rule: "80 player died without maniac"
+Event.OnDeath
+Team.Team1
+# doesnt need 2 rules just for maniac
+if (Maniac == false)
+{
+    Died[SlotOf(EventPlayer())] = NearestWalkablePosition(EventPlayer());
+    BigMessage(AllPlayers(Team.All), <"<0><1>", EventPlayer(), RandomValueInArray(etcArray[1])>);
+    E[SlotOf(EventPlayer())] = true;
+    Wait(0.1, WaitBehavior.IgnoreCondition);
+    Jugg = false;
+    Wait(0.1, WaitBehavior.IgnoreCondition);
+    healthmax = 50;
+    Wait(0.1, WaitBehavior.IgnoreCondition);
+    healvariable = 100;
+    Wait(0.1, WaitBehavior.IgnoreCondition);
+    SetHealingDealt(EventPlayer(), 100);
+    doublemag = false;
+    Wait(0.1, WaitBehavior.IgnoreCondition);
+    sprintburstperk = false;
+    DestroyDummyBot(Team.Team1, SlotOf(EventPlayer()) + 4);
+    SetAllowedHeroes(EventPlayer(), allowedheroes);
+}
+
+rule: "81 Died Low points Bonus"
+Event.OnDeath
+Team.Team1
+if (points < 1500)
+if (FirstOf(extraVar) > 5)
+{
+    points = 1500;
+    points2 = 1500;
+}
+rule: "23 Initiate Health, Damage, and Healing Variables"
+Event.OngoingPlayer
+Team.Team1
+# outdated rule need new variable names and more variables here for all perks
+if (HasSpawned(EventPlayer()) == true)
+if (healthmax == false)
+{
+    healthmax = 50;
+    damagevariable = 100;
+    healvariable = 100;
+}
+
+rule: "55  starting hero set"
+Event.OnPlayerJoin
+{
+    ForcePlayerHero(EventPlayer(), Hero.Cassidy);
+}
+
+rule: "58  Single player lives mechanic"
+Event.OnDeath
+Team.Team1
+if (NumberOfPlayers(Team.Team1) == 1)
+if (singlelives < 3)
+{
+    Resurrect(EventPlayer());
+    Wait(0.05, WaitBehavior.IgnoreCondition);
+    SetStatus(EventPlayer(), null, Status.KnockedDown, 2);
+    SetStatus(EventPlayer(), null, Status.PhasedOut, 10);
+    singlelives += 1;
+}
+
+rule: "DAMAGE Melee does more damage"
+Event.OngoingPlayer
+if (IsButtonHeld(EventPlayer(), Button.Melee) == true)
+{
+    Wait(0.05, WaitBehavior.IgnoreCondition);
+    SetDamageDealt(EventPlayer(), 350);
+    # the reason this is toggled, is to allow a few frames before the melee animation starts, so the damage can be applied
+    AllowButton(EventPlayer(), Button.Melee);
+    PressButton(EventPlayer(), Button.Melee);
+    Wait(0.5, WaitBehavior.IgnoreCondition);
+    SetDamageDealt(EventPlayer(), damagevariable);
+    # i did try a direct set damage, but it was not working, so this is the best way to do it, as it allows the damage to be applied only for melee attacks
+    DisallowButton(EventPlayer(), Button.Melee);
+}
+
+rule: "67 solo play mode effect"
+Event.OnPlayerJoin
+Team.Team1
+if (NumberOfPlayers(Team.Team1) < 2)
+if (extraVar[3] == 1)
+{
+    # might make this a perk that the player can buy, instead of just having
+    Wait(15, WaitBehavior.IgnoreCondition);
+    AbortIfConditionIsFalse();
+    BigMessage(AllPlayers(Team.All), "SOLO MODE: YOU NOW HAVE 3 LIVES TOTAL");
+}
+
+rule: "switch between 2 heros (needs ultimates, followers, ammo, systems working)"
+Event.OngoingPlayer
+Team.Team1
+if (IsButtonHeld(EventPlayer(), Button.Crouch) == true)
+if (IsAlive(EventPlayer()) == true)
+{
+    if (ServerLoad() < 245)
+    {
+        PlayEffect(AllPlayers(Team.All), PlayEffect.MoiraFadeDisappearSound, Color.White, EventPlayer(), 200);
+        RemoveAllHealthPoolsFromPlayer(EventPlayer());
+        if (currentswap == false)
+        {
+            swapvar = [1, 0, 0, 1, 2];
+            MinWait();
+            Subheroswap();
+        }
+        else if (currentswap == 1)
+        {
+            swapvar = [0, 1, 3, 4, 5];
+            MinWait();
+            Subheroswap();
+        }
+        ForcePlayerHero(EventPlayer(), heroswap[currentswap]);
+        SetPlayerHealth(EventPlayer(), herohp[FirstOf(swap)]);
+        SetAbilityCooldown(EventPlayer(), Button.Ability1, abilitycooldown[swap[2]]);
+        SetAbilityCooldown(EventPlayer(), Button.Ability2, abilitycooldown[swap[3]]);
+        SetAbilityCooldown(EventPlayer(), Button.SecondaryFire, abilitycooldown[swap[4]]);
+        SetUltimateCharge(EventPlayer(), currentultcharge);
+        MinWait();
+        AttachPlayers(PlayersInSlot(SlotOf(EventPlayer()) + 4, Team.Team1), EventPlayer(), Vector(-0.5, 1.8, -0.2));
+        Wait(0.1, WaitBehavior.IgnoreCondition);
+        PlayEffect(AllPlayers(Team.All), PlayEffect.MoiraFadeDisappearEffect, Color.White, EventPlayer(), 1);
+        Wait(1, WaitBehavior.IgnoreCondition);
+    }
+    else
+    {
+        SmallMessage(EventPlayer(), <"<0> Error: <1> Not on my watch! (--ANTICRASHSYS--)", HeroIconString(Hero.Ramattra), RandomInteger(10, 1000)>);
+        Wait(6, WaitBehavior.IgnoreCondition);
+    }
+}
+
+rule: "18 Get out of Spawn"
+Event.OngoingPlayer
+Team.Team1
+# need to make sure this doesnt conflict with soft restart\n@Condition eventPlayer.isInSpawnRoom() == true
+if (outofpsawn == 1)
+{
+    Wait(1, WaitBehavior.IgnoreCondition);
+    getoutofspawn();
+}
+
+
+rule: "gain points on final blow"
+Event.OnFinalBlow
+Team.Team1
+if (ArrayContains([Hero.Venture, Hero.Mauga, Hero.Sigma], HeroOf(EventPlayer())) == true)
+if (Packapunch >= 1)
+if ((IsUsingAbility1(EventPlayer()) || IsUsingAbility2(EventPlayer()) || IsUsingUltimate(EventPlayer()) || IsFiringPrimary(EventPlayer()) || IsFiringSecondary(EventPlayer()) || IsMeleeing(EventPlayer())) == true)
+{
+    if (HeroOf(Attacker()) == Hero.Venture)
+    {
+        if (IsMeleeing(EventPlayer()))
+        {
+            PlayEffect(AllPlayers(Team.All), PlayEffect.GoodExplosion, Color.Blue, Victim(), 5);
+            Damage(PlayersWithinRadius(Victim(), 5, Team.All, RadiusLOS.Off), Attacker(), 800);
+        }
+    }
+    else if (HeroOf(Attacker()) == Hero.Mauga)
+    {
+        SetAbilityCooldown(EventPlayer(), Button.Ability1, 0);
+        SetAbilityCooldown(EventPlayer(), Button.Ability2, 0);
+    }
+    else if (HeroOf(Attacker()) == Hero.Sigma)
+    {
+        points += 50;
+    }
+}
+

@@ -1,0 +1,15 @@
+
+void totalrandomspawn() "each bot will be random"
+{
+	wavevoicecall();
+	setbotamount();
+	for (forindex = 0; botamount; 1)
+	{
+		extraVar[26] = etcArray[5][RandomInteger(0, 37)];
+		CreateDummyBot(extraVar[26], Team.Team2, forindex, FirstOf(SpawnPoints(Team.Team2)), Vector(0, 0, 0));
+		omnicspawn[forindex] = SlotOf(PlayersInSlot(forindex, Team.Team2));
+		extraVar[27] = forindex;
+		ActiveEnemyIndex();
+		Wait(0.75, WaitBehavior.AbortWhenFalse);
+	}
+}

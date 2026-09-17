@@ -1,0 +1,359 @@
+import "index.ostw";
+
+
+void followerattack1() "391 FOLLOWERS attack subroutine 1"
+{
+    StartHoldingButton(EventPlayer(), Button.PrimaryFire);
+    Wait(1, WaitBehavior.IgnoreCondition);
+    StopHoldingButton(EventPlayer(), Button.PrimaryFire);
+    Wait(6, WaitBehavior.IgnoreCondition);
+    LoopIfConditionIsTrue();
+}
+
+void followerattack2() "392 FOLLOWERS attack subroutine 2"
+{
+    PressButton(EventPlayer(), Button.PrimaryFire);
+    Wait(6, WaitBehavior.IgnoreCondition);
+    LoopIfConditionIsTrue();
+}
+
+void Subheroswap() "hero swap subroutine"
+{
+    PreloadHero(EventPlayer(), heroswap[FirstOf(swapvar)]);
+    # need to switch this for overpy extended variables
+    herohp[swapvar[1]] = Health(EventPlayer());
+    ultcharge[swapvar[1]] = currentultcharge;
+    abilitycooldown[swapvar[2]] = AbilityCooldown(EventPlayer(), Button.Ability1);
+    abilitycooldown[swapvar[3]] = AbilityCooldown(EventPlayer(), Button.Ability2);
+    abilitycooldown[swapvar[4]] = AbilityCooldown(EventPlayer(), Button.SecondaryFire);
+    PressButton(EventPlayer(), Button.Reload);
+    MinWait();
+    magazines[swapvar[1]] = currentmagazines;
+    currentswap = FirstOf(swapvar);
+    MinWait();
+    currentmagazines = magazines[FirstOf(swapvar)];
+    currentultcharge = ultcharge[FirstOf(swapvar)];
+}
+
+void Subfollowerbuy() "follower subroutine"
+{
+    DestroyDummyBot(Team.Team1, SlotOf(EventPlayer()) + 4);
+    Wait(0.25, WaitBehavior.IgnoreCondition);
+    CreateDummyBot(followerbuy, Team.Team1, SlotOf(EventPlayer()) + 4, Vector(0, 0, 0), Vector(0, 0, 0));
+    Wait(0.03, WaitBehavior.IgnoreCondition);
+    AttachPlayers(PlayersInSlot(SlotOf(EventPlayer()) + 4, Team.Team1), EventPlayer(), Vector(-0.5, 1.8, -0.2));
+    Wait(0.1, WaitBehavior.IgnoreCondition);
+    StartScalingPlayer(PlayersInSlot(SlotOf(EventPlayer()) + 4, Team.Team1), 0.2, true);
+    StartModifyingHeroVoiceLines(FirstOf(SlotOf(EventPlayer())) + 4, 1.3, true);
+}
+
+void PaPsound() "PaP Sound subroutine"
+{
+    PlayEffect(AllPlayers(Team.All), PlayEffect.BaptisteBioticLauncherExplosionSound, Color.White, EventPlayer(), 80);
+    Wait(0.2, WaitBehavior.IgnoreCondition);
+    LoopIfConditionIsTrue();
+}
+
+void wavespawn() "518 spawn bots subroutine"
+{
+    wavevoicecall();
+    CreateDummyBot(bossSpawn[extraVar[4]], Team.Team2, 0, FirstOf(SpawnPoints(Team.Team2)), Vector(0, 0, 0));
+    omnicspawn[0] = SlotOf(PlayersInSlot(0, Team.Team2));
+    extraVar[27] = 0;
+    ActiveEnemyIndex();
+    Wait(0.5, WaitBehavior.AbortWhenFalse);
+    setbotamount();
+    for (forindex = 1; botamount + 1; 2)
+    {
+        CreateDummyBot(bot1spawn[extraVar[4]], Team.Team2, forindex, FirstOf(SpawnPoints(Team.Team2)), Vector(0, 0, 0));
+        omnicspawn[forindex] = SlotOf(PlayersInSlot(forindex, Team.Team2));
+        extraVar[27] = forindex;
+        ActiveEnemyIndex();
+        Wait(0.75, WaitBehavior.AbortWhenFalse);
+        if (forindex + 1 <= botamount)
+        {
+            CreateDummyBot(bot2spawn[extraVar[4]], Team.Team2, forindex + 1, FirstOf(SpawnPoints(Team.Team2)), Vector(0, 0, 0));
+            omnicspawn[forindex + 1] = SlotOf(PlayersInSlot(forindex + 1, Team.Team2));
+            extraVar[27] = forindex + 1;
+            ActiveEnemyIndex();
+            Wait(0.75, WaitBehavior.AbortWhenFalse);
+        }
+    }
+}
+
+void wavevoicecall() "player voiceline call subroutine"
+{
+    Wait(9, WaitBehavior.AbortWhenFalse);
+    Communicate(RandomValueInArray(AllLivingPlayers(Team.Team1)), Communication.Countdown);
+    Wait(RandomReal(4.5, 5.5), WaitBehavior.AbortWhenFalse);
+    Communicate(RandomValueInArray(AllLivingPlayers(Team.Team1)), Communication.Incoming);
+    Wait(0.5, WaitBehavior.AbortWhenFalse);
+}
+
+void setbotamount() "set bot amount subroutine"
+{
+    # this needs to be done so that it hot swaps while players leave and join
+    if (FirstOf(extraVar) < 5 + (NumberOfPlayers(Team.Team1) - 1) * 2)
+    {
+        botamount = 5 + FirstOf(extraVar);
+    }
+    else
+    {
+        botamount = 13 - (NumberOfPlayers(Team.Team1) - 1) * 2;
+        if (botamount < 1)
+        {
+            botamount = 1;
+        }
+    }
+}
+
+void getoutofspawn() "out of spawn subroutine"
+{
+    # this can be a for loop and array that is outside of all maps, and map specific spawn points
+    if (setspawn == false)
+    {
+        # zone 1 need to label which of these is which
+        Teleport(EventPlayer(), Vector(-98.883, 8.939, 72.511));
+        zone1();
+        makedoors();
+    }
+    else if (setspawn == 1)
+    {
+        # zone 1-1
+        Teleport(EventPlayer(), Vector(-80.097, 9.076, -73.528));
+        zone1();
+        makedoors();
+    }
+    else if (setspawn == 2)
+    {
+        # zone 2
+        Teleport(EventPlayer(), Vector(185.785, 45.059, 176.924));
+        zone2();
+        makedoors();
+    }
+    else if (setspawn == 3)
+    {
+        # zone 2-1
+        Teleport(EventPlayer(), Vector(349.006, 45.721, 180.954));
+        zone2();
+        makedoors();
+    }
+    else if (setspawn == 4)
+    {
+        # zone 3
+        Teleport(EventPlayer(), Vector(211.903, -9.592, -237.573));
+        zone3();
+        makedoors();
+    }
+    else if (setspawn == 5)
+    {
+        # zone 3-1
+        Teleport(EventPlayer(), Vector(354.448, -9.548, -232.832));
+        zone3();
+        makedoors();
+    }
+}
+
+void packapunchbuy() "pack a punch buy subroutine"
+{
+    magazines = 50;
+    points -= 5000 * cashback;
+    damagevariable = papDamageTier;
+    Wait(0.25, WaitBehavior.IgnoreCondition);
+    SmallMessage(EventPlayer(), <"you now get (+<0>%) damage with this hero", papTier>);
+    SetDamageDealt(EventPlayer(), damagevariable);
+    CreateEffect(AllPlayers(Team.Team1), Effect.BaptisteImmortalityFieldProtectedEffect, Color.White, EventPlayer(), 1, EffectRev.VisibleToPositionRadiusAndColor);
+    Packapunch = papTier;
+}
+
+void zone1() "zone 1 subroutine"
+{
+    ForceSpawnRoom(Team.All, 1);
+    extraVar[12] = 0;
+    doorZoneStart = extraVar[33];
+    doorZoneEnd = extraVar[34];
+}
+
+void zone2() "zone 2 subroutine"
+{
+    ForceSpawnRoom(Team.All, 0);
+    extraVar[12] = 1;
+    doorZoneStart = extraVar[35];
+    doorZoneEnd = extraVar[36];
+}
+
+void zone3() "zone 3 subroutine"
+{
+    ForceSpawnRoom(Team.All, 2);
+    extraVar[12] = 2;
+    doorZoneStart = extraVar[37];
+    doorZoneEnd = extraVar[38];
+}
+
+void makedoors() "make the door effects"
+{
+    if (extraVar[12] == 1 || extraVar[12] == 2)
+    {
+        for (doorindexsequencer = 0; doorZoneStart * 2; 1)
+        {
+            doors[doorindexsequencer] = null;
+        }
+    }
+    Wait(3, WaitBehavior.IgnoreCondition);
+    for (dooreffectsequencer = doorZoneStart; doorZoneEnd; 1)
+    {
+        # test this
+        if (Wall_ID[dooreffectsequencer] == 1)
+        {
+            CreateBeamEffect(AllPlayers(Team.Team1), BeamType.JunkratTrapChainBeam, Beameffectdoors[EvaluateOnce(dooreffectsequencer * 4)], Beameffectdoors[EvaluateOnce(dooreffectsequencer * 4 + 1)], Color.Red, EffectRev.VisibleToPositionAndRadius);
+            # append to allow the game to delete for later
+            doors[dooreffectsequencer * 2] = LastCreatedEntity();
+            CreateBeamEffect(AllPlayers(Team.Team1), BeamType.JunkratTrapChainBeam, Beameffectdoors[EvaluateOnce(dooreffectsequencer * 4 + 2)], Beameffectdoors[EvaluateOnce(dooreffectsequencer * 4 + 3)], Color.Red, EffectRev.VisibleToPositionAndRadius);
+            # append to allow the game to delete for later
+            doors[dooreffectsequencer * 2 + 1] = LastCreatedEntity();
+            if (!(dooreffectsequencer % 3))
+            {
+                MinWait();
+            }
+        }
+    }
+}
+
+void decompressNSub() "Subroutine decompressNSub"
+{
+    decompressN = MappedArray(MappedArray(StringSplit(FirstOf([decompressN]), FirstOf(null)), Append(ArrayElement(), "	\n\r !\"#$%&'()*+,-./2:;<=>?@Q[\\]^_`q|}~¡")), 0.001 * IndexOfStringChar(LastOf(ArrayElement()), CharInString(ArrayElement(), 0)) + 0.1 * IndexOfStringChar(LastOf(ArrayElement()), CharInString(ArrayElement(), 1)) + 10 * IndexOfStringChar(LastOf(ArrayElement()), CharInString(ArrayElement(), 2)) + 1000 * IndexOfStringChar(LastOf(ArrayElement()), CharInString(ArrayElement(), 3)) - 50000);
+}
+
+void decompressVSub() "Subroutine decompressVSub"
+{
+    decompressV = MappedArray(MappedArray(StringSplit(FirstOf([decompressV]), FirstOf(null)), Append(ArrayElement(), "	\n\r !\"#$%&'()*+,-./2:;<=>?@Q[\\]^_`q|}~¡")), Vector(0.01 * IndexOfStringChar(LastOf(ArrayElement()), CharInString(ArrayElement(), 0)) + IndexOfStringChar(LastOf(ArrayElement()), CharInString(ArrayElement(), 1)) + 100 * IndexOfStringChar(LastOf(ArrayElement()), CharInString(ArrayElement(), 2)), 0.01 * IndexOfStringChar(LastOf(ArrayElement()), CharInString(ArrayElement(), 6)) + IndexOfStringChar(LastOf(ArrayElement()), CharInString(ArrayElement(), 7)) + 100 * IndexOfStringChar(LastOf(ArrayElement()), CharInString(ArrayElement(), 8)), 0.01 * IndexOfStringChar(LastOf(ArrayElement()), CharInString(ArrayElement(), 3)) + IndexOfStringChar(LastOf(ArrayElement()), CharInString(ArrayElement(), 4)) + 100 * IndexOfStringChar(LastOf(ArrayElement()), CharInString(ArrayElement(), 5))) - Vector(5000, 5000, 5000));
+}
+
+void pfLookAtDestination() "☆【PF Core Subroutine】☞ Look at destination"
+{
+    # Calling this subroutine will make the player look to the point they are walking towards.
+    StartFacing(EventPlayer(), DirectionTowards(EyePosition(EventPlayer()) * (DistanceBetween(PositionOf(EventPlayer()), pfWalkingToPosition) < 3 ? Vector(1, 0, 1) : Vector(1, 1, 1)), (pfWalkingToPosition + Vector(0, 1.5, 0)) * (DistanceBetween(PositionOf(EventPlayer()), pfWalkingToPosition) < 3 ? Vector(1, 0, 1) : Vector(1, 1, 1))), 500, Relative.ToWorld, FacingRev.DirectionAndTurnRate);
+}
+
+void pfRecalibrate() "【PF Core Subroutine】☞ Recalibrate"
+{
+    StopThrottleInDirection(EventPlayer());
+    pfCurrentNodeIndex = -1;
+    pfSavedTarget = null;
+    pfIsPathfinding = false;
+    pfPath = 0;
+}
+
+void pfProgressEventPlayer() "【PF Core Subroutine】☞ Progress event player"
+{
+    SkipIf(CountOf(pfPath) == 0, 9);
+    # Pop the current path.
+    ModifyVariable(pfPath, Operation.RemoveFromArrayByIndex, 0);
+    # Update the current pathfind attributes.
+    if (CountOf(pfPath) && FirstOf(pfPath) != -1)
+    {
+        # Any rules watching these with the matching condition will activate.
+        pfAttributes = FirstOf(FilteredArray(pfLoadedMap_neighbors[FirstOf(pfPath)], FirstOf(ArrayElement()) == pfCurrentNodeIndex))[1];
+    }
+    else
+    {
+        pfAttributes = [];
+    }
+    # Go to the next node in the path.
+    pfCurrentNodeIndex = FirstOf(pfPath);
+    # Set the position that the player is currently walking towards.
+    pfWalkingToPosition = pfCurrentNodeIndex == -1 ? pfDestination : pfLoadedMap_nodes[pfCurrentNodeIndex];
+    pfUpdateNodeMeta();
+}
+
+void pfTick() "【PF Core Subroutine】☞ Tick"
+{
+    pfIterationsThisTick -= 1;
+    if (pfIterationsThisTick <= 0)
+    {
+        Wait(0.032, WaitBehavior.IgnoreCondition);
+        WaitUntil(Max(ServerLoadAverage(), ServerLoad()) < 245, 0.5);
+        # This determines the pathfinding budget for the current tick.
+        pfIterationsThisTick = (Max(ServerLoadAverage(), ServerLoad()) < 230) + (Max(ServerLoadAverage(), ServerLoad()) < 180) * 2 + 1;
+    }
+}
+
+void pfUpdateNodeMeta() "【PF Core Subroutine】☞ Update node meta"
+{
+    if (pfCurrentNodeIndex != -1)
+    {
+        pfActiveNode = pfCurrentNodeIndex;
+    }
+    # Update the pathfinding start time.
+    pfStartTime = TotalTimeElapsed();
+    pfWalkingFromPosition = PositionOf(EventPlayer());
+}
+
+void pfWalkToDestination() "☆【PF Core Subroutine】☞ Walk to destination"
+{
+    StartThrottleInDirection(EventPlayer(), DirectionTowards(PositionOf(EventPlayer()), pfCurrentNodeIndex == -1 ? pfDestination : pfLoadedMap_nodes[pfCurrentNodeIndex]), DistanceBetween(PositionOf(EventPlayer()), pfCurrentNodeIndex == -1 ? pfDestination : pfLoadedMap_nodes[pfCurrentNodeIndex]) > 0.4 && (pfCurrentNodeIndex != -1 || !(!pfSavedTarget || DistanceBetween(pfDestination, pfSavedTarget) > 5)), Relative.ToWorld, ThrottleBehavior.ReplaceExistingThrottle, ThrottleRev.DirectionAndMagnitude);
+}
+
+void setdamagemodif() "set damage modification"
+{
+    if (ArrayContains(AllTankHeroes(), HeroOf(EventPlayer())))
+    {
+        for (index = 0; CountOf(tankheroes); 1)
+        {
+            if (HeroOf(EventPlayer()) == tankheroes[index])
+            {
+                currentdamgindex = etcArray[11][index * 45];
+                break;
+            }
+            else
+            {
+                currentdamgindex = 1;
+                break;
+            }
+        }
+    }
+    else if (ArrayContains(AllSupportHeroes(), HeroOf(EventPlayer())))
+    {
+        for (index = 0; CountOf(supportheroes); 1)
+        {
+            if (HeroOf(EventPlayer()) == supportheroes[index])
+            {
+                currentdamgindex = etcArray[11][index * 45];
+                break;
+            }
+            else
+            {
+                currentdamgindex = 1;
+                break;
+            }
+        }
+    }
+    else
+    {
+        for (index = 0; CountOf(damageheroes); 1)
+        {
+            if (HeroOf(EventPlayer()) == damageheroes[index])
+            {
+                currentdamgindex = etcArray[9][index * 45];
+                break;
+            }
+            else
+            {
+                currentdamgindex = 1;
+                break;
+            }
+        }
+    }
+}
+
+void ActiveEnemyIndex() "current enemy index subroutine"
+{
+    for (index = 0; CountOf(etcArray[8]); 1)
+    {
+        if (HeroOf(PlayersInSlot(extraVar[27], Team.Team2)) == etcArray[8][index])
+        {
+            currentEnemyIndex[extraVar[27]] = index;
+            break;
+        }
+    }
+}

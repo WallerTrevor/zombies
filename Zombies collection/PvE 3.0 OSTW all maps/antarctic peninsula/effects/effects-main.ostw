@@ -1,0 +1,142 @@
+import "../Main/index.ostw";
+
+
+rule: "all the effects"
+if (extraVar[3] == 1)
+{
+    # @Condition outofpsawn == 1\nset all this to be array elements for each perk name, so it can easily be swapped with each map file
+    for (forindex = 0; 3; 1)
+    {
+        CreateEffect(LocalPlayer(), Effect.GoodAura, teleportercolor, twoDvectorsArray[5][extraVar[12]], EvaluateOnce(twoDnumbersArray2[1][forindex]), EffectRev.VisibleToPositionRadiusAndColor);
+        CreateEffect(LocalPlayer(), Effect.Sparkles, teleportercolor, twoDvectorsArray[5][extraVar[12]], EvaluateOnce(twoDnumbersArray2[1][forindex]), EffectRev.VisibleToPositionRadiusAndColor);
+        CreateEffect(LocalPlayer(), Effect.Ring, Color.White, twoDvectorsArray[5][extraVar[12]], EvaluateOnce(twoDnumbersArray2[1][forindex]), EffectRev.VisibleToPositionRadiusAndColor);
+    }
+    Wait(1, WaitBehavior.IgnoreCondition);
+    # this can be created on the spot instead of always present
+    for (forindex = 0; 3; 1)
+    {
+        CreateEffect(LocalPlayer(), Effect.Ring, Color.Red, Died[EvaluateOnce(forindex)], 4, EffectRev.VisibleToPositionAndRadius);
+        CreateEffect(LocalPlayer(), Effect.Sphere, Color.White, Died[EvaluateOnce(forindex)], PlayersInSlot(EvaluateOnce(forindex), Team.Team1).sea, EffectRev.VisibleToPositionAndRadius);
+        CreateInWorldText(LocalPlayer(), <"<0>", RandomValueInArray(etcArray[2])>, Died[EvaluateOnce(forindex)], 3, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleToPositionAndString, Color.White, Spectators.DefaultVisibility);
+    }
+    # mystery box
+    CreateEffect(LocalPlayer(), Effect.Ring, Color.Purple, extraVar[25], 2, EffectRev.VisibleToPositionAndRadius);
+    CreateEffect(LocalPlayer(), Effect.LightShaft, Color.SkyBlue, Vector(0, 10, 0) + extraVar[25], 1, EffectRev.VisibleToPositionAndRadius);
+    CreateEffect(LocalPlayer(), Effect.LightShaft, Color.SkyBlue, Vector(0, 25, 0) + extraVar[25], 1, EffectRev.VisibleToPositionAndRadius);
+    CreateEffect(LocalPlayer(), Effect.LightShaft, Color.SkyBlue, Vector(0, 40, 0) + extraVar[25], 1, EffectRev.VisibleToPositionAndRadius);
+    CreateInWorldText(LocalPlayer(), IconString(Icon.QuestionMark), Vector(0, 2, 0) + extraVar[25], 2.25, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleToPositionAndString, Color.Purple, Spectators.DefaultVisibility);
+    CreateEffect(LocalPlayer(), Effect.Sparkles, Color.Yellow, extraVar[25], 2, EffectRev.VisibleToPositionAndRadius);
+    CreateProjectileEffect(LocalPlayer(), ProjectileType.SymmetraPhotonProjector, null, Up() + extraVar[25], Up(), 0.1, ProjectileEffectReeval.VisibleToFriendlyTo);
+    powerconnected[0] = LastCreatedEntity();
+    CreateIcon(AllLivingPlayers(Team.Team1), Vector(0, 2, 0) + twoDvectorsArray[3][6], Icon.Bolt, IconRev.VisibleToAndPosition, Color.Yellow, true);
+    powerconnected[1] = LastTextID();
+    for (forindex = 0; 9; 1)
+    {
+        if (forindex != 6)
+        {
+            CreateEffect(LocalPlayer(), Effect.Ring, Color.Red, twoDvectorsArray[3][forindex], 1, EffectRev.VisibleToAndColor);
+            CreateProjectileEffect(LocalPlayer(), ProjectileType.BaptisteBioticLauncher, null, twoDvectorsArray[3][forindex], Up(), 0.1, ProjectileEffectReeval.VisibleToFriendlyTo);
+        }
+        else
+        {
+            CreateEffect(LocalPlayer(), Effect.Ring, Color.Red, twoDvectorsArray[3][forindex], 1, EffectRev.VisibleToAndColor);
+            CreateProjectileEffect(LocalPlayer(), ProjectileType.ZaryaGraviton, null, Vector(0, 1.5, 0) + twoDvectorsArray[3][forindex], Up(), 0.05, ProjectileEffectReeval.VisibleToFriendlyTo);
+        }
+    }
+    # might be able to make this a loop as well, but since the perks are all different it would be more difficult to do so maybe an array
+    CreateInWorldText(LocalPlayer(), IconString(Icon.Heart), Vector(0, 2, 0) + twoDvectorsArray[3][1], 2.25, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleToPositionAndString, Color.White, Spectators.DefaultVisibility);
+    CreateInWorldText(LocalPlayer(), IconString(Icon.Fire), Vector(0, 2, 0) + twoDvectorsArray[3][2], 2.25, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleToPositionAndString, Color.Red, Spectators.DefaultVisibility);
+    CreateInWorldText(LocalPlayer(), IconString(Icon.Diamond), Vector(0, 2, 0) + twoDvectorsArray[3][3], 2.25, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleToPositionAndString, Color.Blue, Spectators.DefaultVisibility);
+    CreateInWorldText(LocalPlayer(), IconString(Icon.Eye), Vector(0, 2, 0) + twoDvectorsArray[3][4], 2.25, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleToPositionAndString, Color.White, Spectators.DefaultVisibility);
+    CreateInWorldText(LocalPlayer(), IconString(Icon.Halo), Vector(0, 2, 0) + twoDvectorsArray[3][5], 2.25, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleToPositionAndString, Color.Blue, Spectators.DefaultVisibility);
+    CreateInWorldText(LocalPlayer(), AbilityIconString(Hero.Cassidy, Button.Ability1), Vector(0, 2, 0) + FirstOf(twoDvectorsArray[3]), 3.25, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleToPositionAndString, Color.White, Spectators.DefaultVisibility);
+    CreateInWorldText(LocalPlayer(), AbilityIconString(Hero.Soldier76, Button.Ability1), Vector(0, 2, 0) + twoDvectorsArray[3][7], 3.25, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleToPositionAndString, Color.White, Spectators.DefaultVisibility);
+    CreateInWorldText(LocalPlayer(), AbilityIconString(Hero.Ashe, Button.Ability2), Vector(0, 2, 0) + twoDvectorsArray[3][9], 3.25, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleToPositionAndString, Color.White, Spectators.DefaultVisibility);
+    for (forindex = 0; CountOf(twoDvectorsArray[2]); 1)
+    {
+        CreateEffect(LocalPlayer(), Effect.Ring, Color.Yellow, twoDvectorsArray[2][forindex], 2, EffectRev.VisibleTo);
+        CreateInWorldText(LocalPlayer(), HeroIconString(etcArray[5][forindex]), Vector(0, 2, 0) + twoDvectorsArray[2][forindex], 2.25, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleTo, Color.Blue, Spectators.DefaultVisibility);
+    }
+    Wait(3, WaitBehavior.IgnoreCondition);
+    CreateInWorldText(LocalPlayer(), <"Bastion Trap: press <0> <1>", InputBindingString(Button.Interact), <@"<0>: <1>", HeroIconString(Hero.Bastion), 1000>>, Vector(-83.763, -158.95, 64.107), 1, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleToPositionAndString, Color.Purple, Spectators.DefaultVisibility);
+    CreateEffect(LocalPlayer(), Effect.Ring, Color.White, Vector(-101.303, -150.36, -17.831), 2, EffectRev.VisibleToPositionAndRadius);
+    CreateInWorldText(LocalPlayer(), "The end : 50,000 points", Vector(-101.303, -150.36, -17.831), 1, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleToPositionAndString, Color.White, Spectators.DefaultVisibility);
+    CreateEffect(LocalPlayer(), Effect.Ring, Color.White, FirstOf(FirstOf(twoDvectorsArray)), 1, EffectRev.PositionAndRadius);
+    for (forindex = 0; 3; 1)
+    {
+        CreateInWorldText(LocalPlayer(), <"Spawn boss: <0> : 15000 points", InputBindingString(Button.Interact)>, FirstOf(twoDvectorsArray)[indexofbosseffect], 1, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleTo, Color.White, Spectators.DefaultVisibility);
+        CreateEffect(LocalPlayer(), Effect.Ring, Color.White, FirstOf(twoDvectorsArray)[indexofbosseffect], 1, EffectRev.VisibleTo);
+    }
+    CreateEffect(LocalPlayer(), Effect.Ring, Color.Yellow, Vector(269.882, 44.205, 179.101), 1, EffectRev.VisibleToPositionAndRadius);
+    CreateInWorldText(LocalPlayer(), <"Property damage: $<0>", extraVar[36]>, Vector(269.882, 44.205, 179.101), 1, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleToPositionAndString, Color.Yellow, Spectators.DefaultVisibility);
+    CreateEffect(LocalPlayer(), Effect.Ring, Color.Red, Vector(273.459, 44.205, 176.795), 1, EffectRev.VisibleToPositionAndRadius);
+    CreateInWorldText(LocalPlayer(), <"Bank: <0> Points", extraVar[38]>, Vector(273.459, 46.205, 176.795), 1, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleToPositionAndString, Color.White, Spectators.DefaultVisibility);
+    CreateProjectileEffect(LocalPlayer(), ProjectileType.ZaryaParticleCannon, null, Vector(273.459, 45.205, 176.795), Up(), 0.03, ProjectileEffectReeval.VisibleToFriendlyTo);
+    CreateEffect(LocalPlayer(), Effect.Ring, Color.Red, Vector(277.123, 44.205, 177.262), 1, EffectRev.VisibleToPositionAndRadius);
+    CreateInWorldText(LocalPlayer(), IconString(Icon.ArrowUp), Vector(277.123, 44.205, 177.262), 1, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleToPositionAndString, Color.White, Spectators.DefaultVisibility);
+    CreateEffect(LocalPlayer(), Effect.Ring, Color.Red, Vector(275.451, 44.205, 175.244), 1, EffectRev.VisibleToPositionAndRadius);
+    CreateInWorldText(LocalPlayer(), IconString(Icon.ArrowDown), Vector(275.451, 44.205, 175.244), 1, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleToPositionAndString, Color.White, Spectators.DefaultVisibility);
+    CreateEffect(LocalPlayer(), Effect.Ring, Color.Blue, Vector(300.839, -13.533, -219.392), 1, EffectRev.VisibleToPositionAndRadius);
+    CreateInWorldText(LocalPlayer(), AbilityIconString(Hero.Kiriko, Button.PrimaryFire), Vector(300.839, -11.533, -219.392), 2.25, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleToPositionAndString, Color.White, Spectators.DefaultVisibility);
+    CreateProjectileEffect(LocalPlayer(), ProjectileType.ZaryaParticleCannon, null, Vector(300.839, -12.533, -219.392), Up(), 0.03, ProjectileEffectReeval.VisibleToFriendlyTo);
+}
+
+rule: "69 round won sound effect"
+Event.OngoingPlayer
+Team.Team1
+if (Z <= 0)
+{
+    PlayEffect(AllPlayers(Team.All), PlayEffect.RingExplosionSound, Color.White, EventPlayer(), 80);
+}
+rule: "66 wave >1 warning"
+Event.OngoingPlayer
+Team.Team1
+# might need to make this for any starting hero, and
+if (IsHeroBeingPlayed(Hero.Cassidy, Team.Team1) == HeroOf(EventPlayer()))
+# then once player buys said hero again they become stronger, but playtesting required
+if (FirstOf(extraVar) > 1)
+{
+    AbortIf(HeroOf(EventPlayer()) != Hero.Cassidy);
+    Wait(0.25, WaitBehavior.IgnoreCondition);
+    BigMessage(EventPlayer(), "WARNING:STARTING HERO - LOW DAMAGE CAPABILITY");
+    Wait(30, WaitBehavior.IgnoreCondition);
+    LoopIfConditionIsTrue();
+}
+rule: "65 ring around each player"
+Event.OngoingPlayer
+Team.Team1
+{
+    # this could probably be simpler
+    if (SlotOf(EventPlayer()) == false)
+    {
+        CreateEffect(AllPlayers(Team.All), Effect.Ring, Color.Red, EventPlayer(), 1.2, EffectRev.VisibleToPositionAndRadius);
+    }
+    else if (SlotOf(EventPlayer()) == 1)
+    {
+        CreateEffect(AllPlayers(Team.All), Effect.Ring, Color.Blue, EventPlayer(), 1.2, EffectRev.VisibleToPositionAndRadius);
+    }
+    else if (SlotOf(EventPlayer()) == 2)
+    {
+        CreateEffect(AllPlayers(Team.All), Effect.Ring, Color.Green, EventPlayer(), 1.2, EffectRev.VisibleToPositionAndRadius);
+    }
+    else if (SlotOf(EventPlayer()) == 3)
+    {
+        CreateEffect(AllPlayers(Team.All), Effect.Ring, Color.Orange, EventPlayer(), 1.2, EffectRev.VisibleToPositionAndRadius);
+    }
+}
+
+rule: "Bot effect (each player team 2)"
+Event.OnDeath
+Team.Team2
+if (IsDummyBot(EventPlayer()) == true)
+{
+    # need to see how this looks when the bots dont instantly disappear on death
+    PlayEffect(AllPlayers(Team.All), PlayEffect.JunkratFragLauncherExplosionEffect, Color.White, EventPlayer(), 5);
+    PlayEffect(AllPlayers(Team.All), PlayEffect.WreckingBallMinefieldExplosionSound, Color.White, EventPlayer(), 100);
+}
+
+rule: "teleporter back to blue"
+if (extraVar[5] == false)
+{
+    teleportercolor = Color.Blue;
+}

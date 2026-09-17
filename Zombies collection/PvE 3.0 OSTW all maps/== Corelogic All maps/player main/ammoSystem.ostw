@@ -1,0 +1,351 @@
+import "../general main/coreindex.ostw";
+
+rule: "104 fix reload disabled"
+Event.OngoingPlayer
+Team.Team1
+if (HeroOf(EventPlayer()) != Hero.Ashe)
+{
+    AllowButton(EventPlayer(), Button.Reload);
+}
+
+rule: "113  ashe reload fix"
+Event.OngoingPlayer
+Team.Team1
+Player.Ashe
+if (IsReloading(EventPlayer()) == true)
+{
+    Wait(0.45, WaitBehavior.IgnoreCondition);
+    SetAmmo(EventPlayer(), 0, 12);
+}
+
+rule: "115  ammo message force melee when out of ammo"
+Event.OngoingPlayer
+Team.Team1
+if (currentmagazines == false)
+if (IsButtonHeld(EventPlayer(), Button.PrimaryFire) == true)
+{
+    for (i = 0; CountOf(etcArray[5]); 1)
+    {
+        if (HeroOf(EventPlayer()) == etcArray[5][i])
+        {
+            Wait(0.1, WaitBehavior.IgnoreCondition);
+            SmallMessage(EventPlayer(), <"<0> <1>", HeroIconString(etcArray[5][i]), etcArray[4][i]>);
+            break;
+        }
+    }
+    BigMessage(EventPlayer(), "USE MELEE");
+    Wait(5, WaitBehavior.IgnoreCondition);
+    SmallMessage(EventPlayer(), "MELEE BONUS DAMAGE");
+    Wait(5, WaitBehavior.IgnoreCondition);
+    SmallMessage(EventPlayer(), "buy any hero for more ammo");
+}
+
+rule: "161 life weiver no ammo"
+Event.OngoingPlayer
+Team.Team1
+Player.Lifeweaver
+if (currentmagazines == false)
+{
+    # this doesnt seem to work, need to measure time instead of reloads
+    DisallowButton(EventPlayer(), Button.PrimaryFire);
+    DisallowButton(EventPlayer(), Button.SecondaryFire);
+}
+
+rule: "160 life weaver ammo"
+Event.OngoingPlayer
+Team.Team1
+Player.Lifeweaver
+if (IsReloading(EventPlayer()) == false)
+if (IsButtonHeld(EventPlayer(), Button.SecondaryFire) == true)
+{
+    currentmagazines -= 0.025;
+    Wait(0.1, WaitBehavior.IgnoreCondition);
+    LoopIfConditionIsTrue();
+}
+
+rule: "171 no ammo force melee"
+Event.OngoingPlayer
+Team.Team1
+if (currentmagazines <= 0)
+if ((IsButtonHeld(EventPlayer(), Button.PrimaryFire) || IsButtonHeld(EventPlayer(), Button.SecondaryFire)) == true)
+{
+    PressButton(EventPlayer(), Button.Melee);
+}
+
+rule: "160 orisa ammo"
+Event.OngoingPlayer
+Team.Team1
+Player.Orisa
+if (IsButtonHeld(EventPlayer(), Button.PrimaryFire) == true)
+{
+    currentmagazines -= 0.05;
+    Wait(0.2, WaitBehavior.IgnoreCondition);
+    LoopIfConditionIsTrue();
+}
+
+
+rule: "105 specific hero ammo and double mag"
+Event.OngoingPlayer
+Team.Team1
+if ((IsButtonHeld(EventPlayer(), Button.Ability1) || IsButtonHeld(EventPlayer(), Button.Ability2) || IsButtonHeld(EventPlayer(), Button.SecondaryFire) || IsButtonHeld(EventPlayer(), Button.PrimaryFire)) == true)
+{
+    if (IsButtonHeld(EventPlayer(), Button.SecondaryFire))
+    {
+        if (HeroOf(EventPlayer()) == Hero.Moira)
+        {
+            if (perk[5] == false)
+            {
+                currentmagazines -= 0.05;
+                Wait(0.25, WaitBehavior.IgnoreCondition);
+                LoopIfConditionIsTrue();
+            }
+            else if (perk[5] == 1)
+            {
+                currentmagazines -= 0.025;
+                Wait(0.25, WaitBehavior.IgnoreCondition);
+                LoopIfConditionIsTrue();
+            }
+        }
+    }
+    if (IsButtonHeld(EventPlayer(), Button.PrimaryFire))
+    {
+        if (HeroOf(EventPlayer()) == Hero.Doomfist)
+        {
+            if (perk[5] == false)
+            {
+                currentmagazines -= 0.25;
+                Wait(0.25, WaitBehavior.IgnoreCondition);
+                LoopIfConditionIsTrue();
+            }
+        }
+        else if (HeroOf(EventPlayer()) == Hero.Dva)
+        {
+            if (!IsInAlternateForm(EventPlayer()))
+            {
+                if (perk[5] == false)
+                {
+                    currentmagazines -= 0.05;
+                    Wait(0.15, WaitBehavior.IgnoreCondition);
+                    LoopIfConditionIsTrue();
+                }
+                else if (perk[5] == 1)
+                {
+                    currentmagazines -= 0.025;
+                    Wait(0.125, WaitBehavior.IgnoreCondition);
+                    LoopIfConditionIsTrue();
+                }
+            }
+        }
+        else if (HeroOf(EventPlayer()) == Hero.Hanzo)
+        {
+            if (perk[5] == false)
+            {
+                currentmagazines -= 0.25;
+            }
+            else if (perk[5] == 1)
+            {
+                currentmagazines -= 0.125;
+            }
+        }
+        else if (HeroOf(EventPlayer()) == Hero.Sigma)
+        {
+            if (perk[5] == false)
+            {
+                currentmagazines -= 0.05;
+                Wait(0.1, WaitBehavior.IgnoreCondition);
+                currentmagazines -= 0.05;
+                Wait(1.5, WaitBehavior.IgnoreCondition);
+                LoopIfConditionIsTrue();
+            }
+            else if (perk[5] == 1)
+            {
+                currentmagazines -= 0.025;
+                Wait(0.1, WaitBehavior.IgnoreCondition);
+                currentmagazines -= 0.025;
+                Wait(1.5, WaitBehavior.IgnoreCondition);
+                LoopIfConditionIsTrue();
+            }
+        }
+    }
+    else if (HeroOf(EventPlayer()) == Hero.Reaper)
+    {
+        if (IsUsingAbility1(EventPlayer()))
+        {
+            currentmagazines -= 0.5;
+        }
+    }
+    else if (HeroOf(EventPlayer()) == Hero.Cassidy)
+    {
+        if (IsUsingAbility1(EventPlayer()))
+        {
+            SkipIf(Ammo(EventPlayer(), 0) == 6, 1);
+            currentmagazines -= 0.5;
+        }
+    }
+    else if (HeroOf(EventPlayer()) == Hero.Reinhardt)
+    {
+        if (IsUsingAbility2(EventPlayer()))
+        {
+            if (perk[5] == false)
+            {
+                currentmagazines -= 0.25;
+            }
+            else if (perk[5] == 1)
+            {
+                currentmagazines -= 0.125;
+            }
+        }
+    }
+}
+
+rule: "136  dva ammo double mag"
+Event.OngoingPlayer
+Team.Team1
+Player.Dva
+if (doublemag == 1)
+if (IsButtonHeld(EventPlayer(), Button.PrimaryFire) == true)
+{
+    if (!IsInAlternateForm(EventPlayer()))
+    {
+        currentmagazines -= 0.025;
+        Wait(0.15, WaitBehavior.IgnoreCondition);
+        LoopIfConditionIsTrue();
+    }
+}
+
+disabled rule: "350 hanzo ammo cancel (wip)"
+Event.OngoingPlayer
+Player.Hanzo
+if (IsButtonHeld(EventPlayer(), Button.PrimaryFire) == true)
+if (IsButtonHeld(EventPlayer(), Button.SecondaryFire) == true)
+{
+    Wait(0.1, WaitBehavior.AbortWhenFalse);
+    if (doublemag == false)
+    {
+        magazines += 0.25;
+    }
+    else if (doublemag == 1)
+    {
+        magazines += 0.125;
+    }
+}
+
+rule: "132  rien out of ammo"
+Event.OngoingPlayer
+Team.Team1
+Player.Reinhardt
+if (currentmagazines <= 0)
+if (IsUsingAbility2(EventPlayer()) == true)
+{
+    DisallowButton(EventPlayer(), Button.Ability2);
+}
+
+rule: "112  hanzo ammo"
+Event.OngoingPlayer
+Team.Team1
+Player.Hanzo
+if (IsFiringPrimary(EventPlayer()) == true)
+if (doublemag == false)
+{
+    currentmagazines -= 0.25;
+}
+
+rule: "84 reloading all heros without doublemag"
+Event.OngoingPlayer
+Team.Team1
+# can be made into one rule with or without perk
+if (IsReloading(EventPlayer()) == true)
+if (doublemag == false)
+{
+    currentmagazines -= 1;
+}
+
+rule: "89 out of ammo"
+Event.OngoingPlayer
+# can just have an if else statement for specific heros
+if (HeroOf(EventPlayer()) != Hero.Moira)
+if (HeroOf(EventPlayer()) != Hero.Mercy)
+if (HeroOf(EventPlayer()) != Hero.Reinhardt)
+if (HeroOf(EventPlayer()) != Hero.Brigitte)
+if (HeroOf(EventPlayer()) != Hero.Torbjorn)
+if (HeroOf(EventPlayer()) != Hero.Mei)
+if (IsDummyBot(EventPlayer()) == false)
+if (currentmagazines <= 0)
+{
+    SetPrimaryFireEnabled(EventPlayer(), false);
+    SetSecondaryFireEnabled(EventPlayer(), false);
+    DisallowButton(EventPlayer(), Button.PrimaryFire);
+    DisallowButton(EventPlayer(), Button.SecondaryFire);
+}
+
+rule: "90 initialize ammo amount"
+Event.OngoingPlayer
+{
+    magazines[0] = 5;
+    magazines[1] = 5;
+    currentmagazines = FirstOf(magazines);
+    currentswap = false;
+    DisallowButton(EventPlayer(), Button.Crouch);
+    ultcharge[0] = false;
+    ultcharge[1] = false;
+    MinWait();
+    currentultcharge = FirstOf(ultcharge);
+    MinWait();
+    SetUltimateCharge(EventPlayer(), FirstOf(ultcharge));
+}
+
+rule: "91 enable guns when they have ammo"
+Event.OngoingPlayer
+if (currentmagazines > 0)
+if (HeroOf(EventPlayer()) != Hero.Mei)
+{
+    SetPrimaryFireEnabled(EventPlayer(), true);
+    SetSecondaryFireEnabled(EventPlayer(), true);
+    AllowButton(EventPlayer(), Button.PrimaryFire);
+    AllowButton(EventPlayer(), Button.SecondaryFire);
+}
+
+rule: "94 out of ammo moira"
+Event.OngoingPlayer
+Player.Moira
+if (currentmagazines <= 0)
+{
+    SetSecondaryFireEnabled(EventPlayer(), false);
+}
+
+rule: "96 mercy disable gun if no ammo"
+Event.OngoingPlayer
+Team.Team1
+Player.Mercy
+if (Weapon(EventPlayer()) == 2)
+if (magazines <= 0)
+{
+    SetWeapon(EventPlayer(), 1);
+}
+
+rule: "97 torb disable gun if no ammo"
+Event.OngoingPlayer
+Team.Team1
+Player.Torbjorn
+if (Weapon(EventPlayer()) == 1)
+if (magazines <= 0)
+{
+    SetWeapon(EventPlayer(), 2);
+}
+
+rule: "98  reloading with doublemag"
+Event.OngoingPlayer
+if (IsReloading(EventPlayer()) == true)
+if (doublemag == 1)
+{
+    currentmagazines -= 0.5;
+}
+
+rule: "103  remove less than zero issue on ammo"
+Event.OngoingPlayer
+if (currentmagazines < 0)
+{
+    currentmagazines = false;
+}
+
+

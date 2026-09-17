@@ -1,0 +1,26 @@
+
+rule: "bastion re enter turret mode (need to add cooldown reduction to seemlessly re-enter turret mode)"
+Event.OngoingPlayer
+Team.Team1
+Player.Bastion
+if (IsDummyBot(EventPlayer()) == true)
+{
+    SetAbilityCooldown(EventPlayer(), Button.Ability1, 0);
+    Wait(0.25, WaitBehavior.IgnoreCondition);
+    PressButton(EventPlayer(), Button.Ability1);
+    Wait(6.5, WaitBehavior.IgnoreCondition);
+    Loop();
+}
+
+rule: "bastion bot re enter turret mode (need to add cooldown reduction to seemlessly re-enter turret mode)"
+Event.OngoingPlayer
+Team.Team1
+Player.Bastion
+if (IsDummyBot(EventPlayer()) == true)
+{
+    SetAbilityCooldown(EventPlayer(), Button.Ability1, 0);
+    Wait(0.25, WaitBehavior.IgnoreCondition);
+    PressButton(EventPlayer(), Button.Ability1);
+    Wait(6.5, WaitBehavior.IgnoreCondition);
+    Loop();
+}

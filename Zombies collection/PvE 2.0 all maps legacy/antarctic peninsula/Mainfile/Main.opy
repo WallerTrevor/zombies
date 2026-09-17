@@ -1,5 +1,6 @@
 #!suppressWarnings w_dark_color
-#!disableOptimizations
+#!optimizeForSize
+#!optimizeForSizeAggressive
 
 #Global variables
 #!define roundnumber extraVar[0]

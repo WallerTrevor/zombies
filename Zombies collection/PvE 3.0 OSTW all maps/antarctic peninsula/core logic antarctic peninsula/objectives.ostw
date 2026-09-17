@@ -1,0 +1,27 @@
+import "../Main/index.ostw";
+
+
+disabled rule: "196 (effect) GOAL: omnic part collector"
+{
+    CreateEffect(AllPlayers(Team.All), Effect.Ring, Color.White, Vector(0, 0, 0), 1, EffectRev.VisibleToPositionAndRadius);
+}
+
+disabled rule: "197 GOAL: omnic part collector (players gather souls from omnics)"
+{
+    CreateEffect(AllPlayers(Team.All), Effect.Ring, Color.White, Vector(0, 0, 0), 1, EffectRev.VisibleToPositionAndRadius);
+}
+
+disabled rule: "198 GOAL: save little winstons (carry miniature winstons to a location)"
+{
+    CreateEffect(AllPlayers(Team.All), Effect.Ring, Color.White, Vector(0, 0, 0), 1, EffectRev.VisibleToPositionAndRadius);
+}
+
+disabled rule: "199 GOAL: gather 3 teleporter parts"
+{
+    CreateEffect(AllPlayers(Team.All), Effect.Ring, Color.White, Vector(0, 0, 0), 1, EffectRev.VisibleToPositionAndRadius);
+}
+
+disabled rule: "200 GOAL: The main easter egg"
+{
+    CreateHudText(AllPlayers(Team.All), "stay tuned...", null, null, Location.Left, 0, Color.White, null, null, HudTextRev.VisibleToAndString, Spectators.DefaultVisibility);
+}

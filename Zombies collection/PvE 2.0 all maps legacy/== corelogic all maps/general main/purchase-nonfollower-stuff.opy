@@ -1,3 +1,4 @@
+
 rule "229 buy perks and power activate":
     @Event eachPlayer
     @Team 1

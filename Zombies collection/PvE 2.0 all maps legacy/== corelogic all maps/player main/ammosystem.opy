@@ -1,3 +1,4 @@
+
 rule "105 specific hero ammo and double mag":
     @Event eachPlayer
     @Team 1
@@ -92,7 +93,7 @@ rule "136  dva ammo double mag":
         if ruleCondition:
             loop()
     
-/*
+
 rule "350 hanzo ammo cancel (wip)":
     @Event eachPlayer
     @Hero hanzo
@@ -104,7 +105,7 @@ rule "350 hanzo ammo cancel (wip)":
         eventPlayer.magazines += 0.25
     elif eventPlayer.doublemag == 1:
         eventPlayer.magazines += 0.125
-*/
+
 
 rule "132  rien out of ammo":
     @Event eachPlayer
@@ -310,3 +311,5 @@ rule "160 orisa ammo":
     wait(0.2)
     if ruleCondition:
         loop()
+        
+

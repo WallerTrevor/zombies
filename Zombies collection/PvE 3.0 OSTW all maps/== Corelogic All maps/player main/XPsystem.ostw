@@ -1,0 +1,58 @@
+
+disabled rule: "516 rounds add points and XP"
+Event.OngoingPlayer
+Team.Team1
+if (FirstOf(extraVar) >= 1)
+if (WorkshopSettingToggle("difficulty", "Each round adds XP and points in co-op", true, 0) == true)
+{
+    # modify these to scale based off difficulty
+    xp += 30;
+    # if getNumberOfPlayers(Team.1) > 2: set starting points
+    points2 += 500;
+}
+
+rule: "517 set xp to hero"
+Event.OngoingPlayer
+Team.Team1
+if (IsAlive(EventPlayer()) == true)
+{
+    for (i = 0; 35; 1)
+    {
+        if (HeroOf(EventPlayer()) == etcArray[5][i])
+        {
+            currentheroxp = xp[i];
+        }
+    }
+}
+
+rule: "512 gain level"
+Event.OngoingPlayer
+if (xp[currentheroxp] >= 100)
+if (extraVar[14] == true)
+{
+    XPlevel[currentheroxp] += 1;
+    xp[currentheroxp] = false;
+}
+
+rule: "513 Rule 321 lvl gain stat changes"
+Event.OngoingPlayer
+Team.Team1
+if (extraVar[14] == true)
+{
+    if (XPlevel[currentheroxp] == 5)
+    {
+        SetSecondaryFireEnabled(EventPlayer(), true);
+    }
+    else if (XPlevel[currentheroxp] == 10)
+    {
+        SetAbility1Enabled(EventPlayer(), true);
+    }
+    else if (XPlevel[currentheroxp] == 15)
+    {
+        SetAbility2Enabled(EventPlayer(), true);
+    }
+    else if (XPlevel[currentheroxp] == 20)
+    {
+        SetUltimateAbilityEnabled(EventPlayer(), true);
+    }
+}

@@ -1,2 +1,47 @@
-import "../dev tools/the-rest.ostw";
-import "../Main/main.ostw";
+/*
+ ========================================================================
+             core logic all maps            
+ ========================================================================
+*/
+
+
+import "../../== Corelogic all maps/general main/the-rest.ostw";
+import "../../== Corelogic all maps/general main/CoreGlobal.ostw";
+import "../../== Corelogic all maps/general main/CorePlayer.ostw";
+import "../../== Corelogic all maps/general main/CoreSubroutines.ostw";
+
+import "../../== Corelogic all maps/player main/ammoSystem.ostw";
+import "../../== Corelogic all maps/player main/followers.ostw";
+import "../../== Corelogic all maps/player main/pack-a-punch.ostw";
+import "../../== Corelogic all maps/player main/playerlogic.ostw";
+import "../../== Corelogic all maps/player main/perklogic.ostw";
+import "../../== Corelogic all maps/player main/purchaseActions.ostw";
+import "../../== Corelogic all maps/player main/XPsystem.ostw";
+
+import "../../== Corelogic all maps/bot logic/bot-logic.ostw";
+
+import "../../== Corelogic all maps/tooling/dev-tools.ostw";
+
+import "../../== Core effects All Maps/effects.ostw";
+
+
+/*
+ ========================================================================
+             map logic
+ ========================================================================
+*/
+
+
+import "../core logic antarctic peninsula/array.ostw";
+import "../core logic antarctic peninsula/main-map-logic.ostw";
+import "../core logic antarctic peninsula/objectives.ostw";
+
+import "../effects/effects-main.ostw";
+import "../effects/UI-UX.ostw";
+
+import "../story/eastereggs.ostw";
+import "../story/storymain.ostw";
+
+import "../Main/localPlayer.ostw";
+import "../Main/localGlobal.ostw";
+import "../Main/localSubroutines.ostw";

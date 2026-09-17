@@ -1,0 +1,324 @@
+
+rule: "Pack a punch Ongoing - player"
+Event.OngoingPlayer
+if (Packapunch >= 1)
+if ((IsUsingAbility1(EventPlayer()) || IsUsingAbility2(EventPlayer()) || IsUsingUltimate(EventPlayer()) || IsFiringPrimary(EventPlayer()) || IsFiringSecondary(EventPlayer())) == true)
+
+{
+    #if (HeroOf(EventPlayer()) == Hero.Ashe)
+    #{
+    #    if (EventWasCriticalHit())
+    #    {
+    #        # fix this and the positions for status, and damage over time. - dealt damage
+    #        SetStatus(RayCastHitPlayer(EventPlayer(), Vector(0, 0, 0), AllPlayers(Team.Team2), AllPlayers(Team.Team1), true), EventPlayer(), Status.Burning, 4);
+    #        StartDamageOverTime(RayCastHitPlayer(Vector(0, 0, 0), Vector(0, 0, 0), AllPlayers(Team.Team2), EventPlayer(), true), EventPlayer(), 4, 150);
+    #    }
+    #}
+    if (HeroOf(EventPlayer()) == Hero.Baptiste)
+    {
+        if (IsUsingAbility1(EventPlayer()))
+        {
+            RemoveAllHealthPoolsFromPlayer(EventPlayer());
+            MinWait();
+            AddHealthPoolToPlayer(EventPlayer(), HealthType.Health, 100, false, false);
+        }
+    }
+    else if (IsFiringPrimary(EventPlayer()))
+    {
+        if (HeroOf(EventPlayer()) == Hero.Bastion)
+        {
+            if (IsInAlternateForm(EventPlayer()))
+            {
+                Wait(0.5, WaitBehavior.AbortWhenFalse);
+                CreateHomingProjectile(ProjectileType.PharahRocket, EventPlayer(), EyePosition(EventPlayer()) + FacingDirectionOf(EventPlayer()), FacingDirectionOf(EventPlayer()), Relative.ToWorld, ModifyHealthType.Damage, Team.Team2, 500, 1, 15, PlayEffect.AsheDynamiteExplosionEffect, PlayEffect.ExplosionSound, 0.2, 25, 5, 0, FirstOf(AllLivingPlayers(Team.Team2)), 0.5);
+                Wait(1.5, WaitBehavior.AbortWhenFalse);
+                LoopIfConditionIsTrue();
+            }
+        }
+    }
+    else if (HeroOf(EventPlayer()) == Hero.Torbjorn)
+    {
+        if (extraVar[16] == false)
+        {
+            if (IsCommunicating(EventPlayer(), Communication.NeedHealing))
+            {
+                dispencereffect = [];
+                MinWait();
+                CreateEffect(AllPlayers(Team.All), Effect.Sphere, Color.Green, PositionOf(EventPlayer()), 0.8, EffectRev.VisibleTo);
+                ModifyVariable(dispencereffect, Operation.AppendToArray, LastCreatedEntity());
+                MinWait();
+                CreateEffect(AllPlayers(Team.All), Effect.Sphere, Color.Green, Vector(0, 1.3, 0) + PositionOf(EventPlayer()), 0.8, EffectRev.VisibleTo);
+                ModifyVariable(dispencereffect, Operation.AppendToArray, LastCreatedEntity());
+                MinWait();
+                CreateEffect(AllPlayers(Team.All), Effect.Ring, Color.Green, PositionOf(EventPlayer()), 3.5, EffectRev.VisibleTo);
+                ModifyVariable(dispencereffect, Operation.AppendToArray, LastCreatedEntity());
+                extraVar[11] = EvaluateOnce(PositionOf(EventPlayer()));
+                extraVar[16] = 1;
+                Wait(30, WaitBehavior.IgnoreCondition);
+                extraVar[16] = 2;
+                PlayEffect(EventPlayer(), PlayEffect.DebuffImpactSound, Color.White, EventPlayer(), 60);
+                Wait(0.1, WaitBehavior.IgnoreCondition);
+                DestroyEffect(FirstOf(dispencereffect));
+                DestroyEffect(dispencereffect[1]);
+                DestroyEffect(dispencereffect[2]);
+                Wait(0.1, WaitBehavior.IgnoreCondition);
+                ModifyVariable(dispencereffect[0], Operation.RemoveFromArrayByIndex, 0);
+                ModifyVariable(dispencereffect[1], Operation.RemoveFromArrayByIndex, 0);
+                ModifyVariable(dispencereffect[2], Operation.RemoveFromArrayByIndex, 0);
+                Wait(60, WaitBehavior.IgnoreCondition);
+                extraVar[16] = false;
+            }
+        }
+    }
+    else if (IsFiringSecondary(EventPlayer()))
+    {
+        if (HeroOf(EventPlayer()) == Hero.Roadhog)
+        {
+            if (AbilityResource(EventPlayer(), Button.SecondaryFire) > 0)
+            {
+                StartHealOverTime(PlayersWithinRadius(EventPlayer(), 5, Team.Team1, RadiusLOS.SurfacesAndEnemyBarriers), EventPlayer(), 2, 20);
+                CreateEffect(AllPlayers(Team.Team1), Effect.Ring, Color.Orange, EventPlayer(), 5, EffectRev.VisibleToPositionAndRadius);
+                WaitUntil(false, 5);
+                DestroyEffect(LastCreatedEntity());
+            }
+        }
+        else if (HeroOf(EventPlayer()) == Hero.Soldier76)
+        {
+            CreateHomingProjectile(ProjectileType.PharahRocket, EventPlayer(), EyePosition(EventPlayer()) + FacingDirectionOf(EventPlayer()), FacingDirectionOf(EventPlayer()), Relative.ToWorld, ModifyHealthType.Damage, Team.Team2, 500, 1, 15, PlayEffect.AsheDynamiteExplosionEffect, PlayEffect.ExplosionSound, 0.2, 25, 5, 0, FirstOf(AllLivingPlayers(Team.Team2)), 0.5);
+        }
+        else if (HeroOf(EventPlayer()) == Hero.Echo)
+        {
+            # needs more than 1 but will fix later
+            CreateHomingProjectile(ProjectileType.EchoStickyBomb, EventPlayer(), EyePosition(EventPlayer()) + FacingDirectionOf(EventPlayer()), FacingDirectionOf(EventPlayer()), Relative.ToWorld, ModifyHealthType.Damage, Team.Team2, 500, 1, 15, PlayEffect.AsheDynamiteExplosionEffect, PlayEffect.ExplosionSound, 0.2, 25, 5, 0, FirstOf(AllLivingPlayers(Team.Team2)), 0.5);
+            Wait(0.2, WaitBehavior.AbortWhenFalse);
+            LoopIfConditionIsTrue();
+        }
+        else if (HeroOf(EventPlayer()) == Hero.Juno)
+        {
+            CreateHomingProjectile(ProjectileType.EchoStickyBomb, EventPlayer(), EyePosition(EventPlayer()) + FacingDirectionOf(EventPlayer()), FacingDirectionOf(EventPlayer()), Relative.ToWorld, ModifyHealthType.Damage, Team.Team2, 500, 1, 15, PlayEffect.AsheDynamiteExplosionEffect, PlayEffect.ExplosionSound, 0, 25, 5, 0, FirstOf(AllLivingPlayers(Team.Team2)), 0.5);
+            Wait(0.15, WaitBehavior.AbortWhenFalse);
+            LoopIfConditionIsTrue();
+        }
+    }
+    else if (IsUsingUltimate(EventPlayer()))
+    {
+        if (HeroOf(EventPlayer()) == Hero.Winston)
+        {
+            SetStatus(EventPlayer(), EventPlayer(), Status.Unkillable, 10);
+        }
+        else if (HeroOf(EventPlayer()) == Hero.Symmetra)
+        {
+            SetStatus(EventPlayer(), null, Status.PhasedOut, 10);
+        }
+        else if (HeroOf(EventPlayer()) == Hero.Reinhardt)
+        {
+            SetStatus(AllLivingPlayers(Team.Team1), EventPlayer(), Status.KnockedDown, 8);
+        }
+        else if (HeroOf(EventPlayer()) == Hero.Brigitte)
+        {
+            StartScalingPlayer(EventPlayer(), 1.5, true);
+            AddHealthPoolToPlayer(EventPlayer(), HealthType.Health, 1000, false, false);
+            Wait(8, WaitBehavior.IgnoreCondition);
+            StopScalingPlayer(EventPlayer());
+            RemoveAllHealthPoolsFromPlayer(EventPlayer());
+        }
+        else if (HeroOf(EventPlayer()) == Hero.Zenyatta)
+        {
+            Damage(PlayersWithinRadius(EventPlayer(), 10.5, Team.Team2, RadiusLOS.SurfacesAndEnemyBarriers), EventPlayer(), 300);
+            Wait(1, WaitBehavior.AbortWhenFalse);
+            LoopIfConditionIsTrue();
+        }
+        else if (HeroOf(EventPlayer()) == Hero.Zarya)
+        {
+            if (IsUsingAbility1(EventPlayer()))
+            {
+                SetAbilityCooldown(EventPlayer(), Button.Ability1, 0);
+            }
+            else if (IsUsingAbility2(EventPlayer()))
+            {
+                SetAbilityCooldown(EventPlayer(), Button.Ability2, 0);
+            }
+        }
+        else if (HeroOf(EventPlayer()) == Hero.Widowmaker)
+        {
+            p_T = 1;
+            if (NumberOfPlayers(Team.Team1) < 2)
+            {
+                WaitUntil(false, 4);
+                p_T = false;
+            }
+            else if (NumberOfPlayers(Team.Team1) >= 2)
+            {
+                WaitUntil(false, 16);
+                p_T = false;
+            }
+        }
+        else if (HeroOf(EventPlayer()) == Hero.Lucio)
+        {
+            SetStatus(PlayersWithinRadius(EventPlayer(), 3, Team.Team2, RadiusLOS.SurfacesAndEnemyBarriers), EventPlayer(), Status.Rooted, 3);
+        }
+        else if (HeroOf(EventPlayer()) == Hero.Ramattra)
+        {
+            AllLivingPlayers(Team.Team1).points += 1000;
+            AllLivingPlayers(Team.Team1).magazines += 5;
+        }
+        else if (HeroOf(EventPlayer()) == Hero.Genji)
+        {
+            if (IsFiringPrimary(EventPlayer()))
+            {
+                CreateProjectile(ProjectileType.ReinhardtFireStrike, EventPlayer(), EyePosition(EventPlayer()), FacingDirectionOf(EventPlayer()), Relative.ToWorld, ModifyHealthType.Damage, Team.Team2, 300, 1, 0, PlayEffect.BadExplosion, PlayEffect.ExplosionSound, 0, 10, 5, 0, 0, 0);
+            }
+        }
+        else if (HeroOf(EventPlayer()) == Hero.Orisa)
+        {
+            StartScalingPlayer(EventPlayer(), 2, true);
+            SetDamageDealt(EventPlayer(), 1000);
+            WaitUntil(false, 8);
+            StartScalingPlayer(EventPlayer(), 1, true);
+            SetDamageDealt(EventPlayer(), damagevariable);
+        }
+        else if (HeroOf(EventPlayer()) == Hero.Kiriko)
+        {
+            SetMoveSpeed(PlayersWithinRadius(EventPlayer(), 15, Team.Team2, RadiusLOS.Off), 50);
+            Wait(8, WaitBehavior.IgnoreCondition);
+            if (FirstOf(extraVar) <= 6)
+            {
+                SetMoveSpeed(AllPlayers(Team.Team2), 52 + 8 * FirstOf(extraVar));
+            }
+            else if (FirstOf(extraVar) > 6)
+            {
+                SetMoveSpeed(AllPlayers(Team.Team2), 100);
+            }
+        }
+    }
+    else if (IsUsingAbility1(EventPlayer()))
+    {
+        if (HeroOf(EventPlayer()) == Hero.Sojourn)
+        {
+            SetStatus(PlayersWithinRadius(EventPlayer(), 3, Team.Team2, RadiusLOS.Off), EventPlayer(), Status.KnockedDown, 4);
+        }
+    }
+    else if (IsUsingAbility2(EventPlayer()))
+    {
+        if (HeroOf(EventPlayer()) == Hero.Tracer)
+        {
+            SetStatus(PlayersWithinRadius(EvaluateOnce(PositionOf(EventPlayer())), 5, Team.Team2, RadiusLOS.Off), EventPlayer(), Status.Stunned, 4);
+        }
+        else if (HeroOf(EventPlayer()) == Hero.Sombra)
+        {
+            Wait(1, WaitBehavior.IgnoreCondition);
+            p_T = 1;
+            Wait(4, WaitBehavior.IgnoreCondition);
+            p_T = false;
+        }
+        else if (HeroOf(EventPlayer()) == Hero.Dva)
+        {
+            Wait(0.2, WaitBehavior.AbortWhenFalse);
+            CreateHomingProjectile(ProjectileType.PharahRocket, EventPlayer(), EyePosition(EventPlayer()) + FacingDirectionOf(EventPlayer()), FacingDirectionOf(EventPlayer()), Relative.ToWorld, ModifyHealthType.Damage, Team.Team2, 400, 1, 15, PlayEffect.AsheDynamiteExplosionEffect, PlayEffect.ExplosionSound, 0, 25, 5, 0, FirstOf(AllLivingPlayers(Team.Team2)), 0.5);
+        }
+        else if (HeroOf(EventPlayer()) == Hero.Lifeweaver)
+        {
+            AddHealthPoolToPlayer(PlayersInViewAngle(EventPlayer(), Team.Team1, 5), HealthType.Health, 100, false, false);
+        }
+        else if (HeroOf(EventPlayer()) == Hero.Pharah)
+        {
+            CreateHomingProjectile(ProjectileType.PharahRocket, EventPlayer(), EyePosition(EventPlayer()) + FacingDirectionOf(EventPlayer()), FacingDirectionOf(EventPlayer()), Relative.ToWorld, ModifyHealthType.Damage, Team.Team2, 500, 1, 15, PlayEffect.AsheDynamiteExplosionEffect, PlayEffect.ExplosionSound, 0.2, 25, 5, 0, FirstOf(AllLivingPlayers(Team.Team2)), 0.5);
+            Wait(0.2, WaitBehavior.AbortWhenFalse);
+            LoopIfConditionIsTrue();
+        }
+    }
+}
+
+rule: "Pack a Punch - Damage dealt"
+Event.OnDamageDealt
+Team.Team1
+if (ArrayContains([Hero.Soldier76, Hero.Cassidy, Hero.Sigma, Hero.Junkrat, Hero.Moira, Hero.Brigitte, Hero.Doomfist], HeroOf(EventPlayer())) == true)
+if (Packapunch >= 1)
+if ((IsUsingAbility1(EventPlayer()) || IsUsingAbility2(EventPlayer()) || IsUsingUltimate(EventPlayer()) || IsFiringPrimary(EventPlayer()) || IsFiringSecondary(EventPlayer())) == true)
+{
+    if (HeroOf(Attacker()) == Hero.Cassidy)
+    {
+        if (IsButtonHeld(EventPlayer(), Button.PrimaryFire))
+        {
+            Damage(PlayersWithinRadius(Victim(), 3, Team.Team2, RadiusLOS.Off), Attacker(), 420);
+            PlayEffect(AllPlayers(Team.All), PlayEffect.GoodExplosion, Color.White, Victim(), 3);
+            Wait(0.45, WaitBehavior.IgnoreCondition);
+        }
+    }
+    else if (HeroOf(Attacker()) == Hero.Sigma)
+    {
+        Damage(PlayersWithinRadius(Victim(), 5, Team.All, RadiusLOS.Off), EventPlayer(), 200);
+        PlayEffect(AllPlayers(Team.All), PlayEffect.GoodExplosion, Color.Blue, Victim(), 5);
+    }
+    else if (HeroOf(Attacker()) == Hero.Junkrat)
+    {
+        PlayEffect(AllPlayers(Team.All), PlayEffect.GoodExplosion, Color.Orange, Victim(), 8);
+        # make sure this doesnt damage self
+        Damage(PlayersWithinRadius(Victim(), 8, Team.Team2, RadiusLOS.Off), Attacker(), 300);
+    }
+    else if (IsUsingUltimate(EventPlayer()))
+    {
+        if (HeroOf(Attacker()) == Hero.Moira)
+        {
+            SetStatus(Victim(), EventPlayer(), Status.Rooted, 4);
+            Wait(0.25, WaitBehavior.IgnoreCondition);
+        }
+        else if (HeroOf(Attacker()) == Hero.Moira)
+        {
+            PlayEffect(AllPlayers(Team.All), PlayEffect.GoodExplosion, Color.Blue, Victim(), 5);
+            Damage(PlayersWithinRadius(Victim(), 5, Team.Team2, RadiusLOS.Off), Attacker(), 400);
+        }
+        else if (HeroOf(Attacker()) == Hero.Brigitte)
+        {
+            if (HasStatus(Victim(), Status.Stunned))
+            {
+                SetStatus(Victim(), EventPlayer(), Status.KnockedDown, 4);
+            }
+        }
+        else if (IsUsingAbility1(EventPlayer()))
+        {
+            if (HeroOf(Attacker()) == Hero.Doomfist)
+            {
+                SetStatus(Victim(), EventPlayer(), Status.KnockedDown, 4);
+            }
+        }
+    }
+}
+
+
+rule: "Torbjorn pack a punch Dispencer active"
+Event.OngoingPlayer
+Team.Team1
+if (PlayersWithinRadius(extraVar[11], 3.5, Team.Team1, RadiusLOS.SurfacesAndEnemyBarriers) == true)
+if (extraVar[16] == 1)
+{
+    Wait(0.5, WaitBehavior.AbortWhenFalse);
+    Heal(EventPlayer(), null, 20);
+    currentmagazines += 0.2;
+    Wait(0.5, WaitBehavior.AbortWhenFalse);
+    LoopIfConditionIsTrue();
+}
+
+rule: "give pack a punch a sound"
+Event.OngoingPlayer
+Team.Team1
+if (Packapunch >= 1)
+if (ServerLoad() < 220)
+# this needs to check if secondary fire is the gun or not
+if ((IsFiringPrimary(EventPlayer()) || IsFiringSecondary(EventPlayer())) == true)
+{
+    if (IsFiringPrimary(EventPlayer()))
+    {
+        if (ArrayContains([Hero.Cassidy, Hero.Cassidy, Hero.Cassidy, Hero.Cassidy, Hero.Cassidy], HeroOf(EventPlayer())))
+        {
+            PaPsound();
+        }
+    }
+    else if (IsFiringSecondary(EventPlayer()))
+    {
+        if (ArrayContains([Hero.Cassidy, Hero.Cassidy, Hero.Cassidy, Hero.Cassidy, Hero.Cassidy], HeroOf(EventPlayer())))
+        {
+            PaPsound();
+        }
+    }
+}

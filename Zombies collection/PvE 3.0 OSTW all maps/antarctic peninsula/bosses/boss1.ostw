@@ -1,0 +1,191 @@
+import "index.ostw";
+
+disabled rule: "257 Devestator Big Boss 1==============================================="
+Event.OngoingPlayer
+Team.Team2
+if (Bosssequencer == 1)
+{
+    # might make it so the hammonds arent attached and roll around
+    CreateDummyBot(Hero.Orisa, Team.Team2, -1, Vector(-80.776, -159.164, 59.549), Vector(0, 0, 0));
+    omnicspawn[0] = SlotOf(PlayersInSlot(0, Team.Team2));
+    Wait(5, WaitBehavior.IgnoreCondition);
+    SetDamageDealt(EventPlayer(), 200);
+    SetKnockbackReceived(EventPlayer(), 0);
+    Speed = 100;
+    StartScalingPlayer(EventPlayer(), 3, true);
+    SetMaxHealth(EventPlayer(), 1000);
+    StartForcingDummyBotName(EventPlayer(), "Devastator");
+    MinWait();
+    CreateDummyBot(Hero.WreckingBall, Team.Team2, -1, EventPlayer(), Vector(0, 0, 0));
+    MinWait();
+    AttachPlayers(LastCreatedEntity(), FirstOf(PlayersOnHero(Hero.Orisa, Team.Team2)), Vector(1, 3, 1));
+    MinWait();
+    LastCreatedEntity().Part = "Rocket launcher";
+    AddHealthPoolToPlayer(EventPlayer(), HealthType.Armor, 3000, true, true);
+    AddHealthPoolToPlayer(EventPlayer(), HealthType.Health, 3000, true, true);
+    MinWait();
+    CreateDummyBot(Hero.WreckingBall, Team.Team2, -1, EventPlayer(), Vector(0, 0, 0));
+    MinWait();
+    AttachPlayers(LastCreatedEntity(), EventPlayer(), Vector(-1, 3, 1));
+    MinWait();
+    LastCreatedEntity().Part = "Rocket launcher";
+    MinWait();
+    CreateDummyBot(Hero.WreckingBall, Team.Team2, -1, EventPlayer(), Vector(0, 0, 0));
+    MinWait();
+    AttachPlayers(LastCreatedEntity(), EventPlayer(), Vector(0, 4, -1));
+    MinWait();
+    LastCreatedEntity().Part = "Generator";
+    MinWait();
+    CreateDummyBot(Hero.Bastion, Team.Team2, -1, EventPlayer(), Vector(0, 0, 0));
+    MinWait();
+    AttachPlayers(LastCreatedEntity(), EventPlayer(), Vector(1.75, 4.25, 0));
+    MinWait();
+    LastCreatedEntity().Part = "Cannon";
+    MinWait();
+    CreateDummyBot(Hero.Bastion, Team.Team2, -1, EventPlayer(), Vector(0, 0, 0));
+    MinWait();
+    AttachPlayers(LastCreatedEntity(), EventPlayer(), Vector(-1.75, 4.25, 0));
+    MinWait();
+    LastCreatedEntity().Part = "Cannon";
+    MinWait();
+    CreateDummyBot(Hero.WreckingBall, Team.Team2, -1, EventPlayer(), Vector(0, 0, 0));
+    MinWait();
+    AttachPlayers(LastCreatedEntity(), EventPlayer(), Vector(0, 1.75, -1.25));
+    MinWait();
+    LastCreatedEntity().Part = "Leg joint";
+    if (IsDead(EventPlayer()))
+    {
+        # set this to be looped and simplified
+        RemoveAllHealthPoolsFromPlayer(EventPlayer());
+        PlayEffect(AllPlayers(Team.All), PlayEffect.JunkratRipTireExplosionEffect, Color.White, EventPlayer(), 1);
+        PlayEffect(AllPlayers(Team.All), PlayEffect.JunkratRipTireExplosionSound, Color.White, EyePosition(EventPlayer()), 200);
+        PlayEffect(AllPlayers(Team.All), PlayEffect.AsheDynamiteExplosionEffect, Color.White, EventPlayer(), 1);
+        PlayEffect(AllPlayers(Team.All), PlayEffect.AsheDynamiteExplosionSound, Color.White, EyePosition(EventPlayer()), 200);
+        PlayEffect(AllPlayers(Team.All), PlayEffect.DvaSelfDestructExplosionEffect, Color.White, EventPlayer(), 1);
+        PlayEffect(AllPlayers(Team.All), PlayEffect.DvaSelfDestructExplosionSound, Color.White, EyePosition(EventPlayer()), 200);
+        Wait(0.25, WaitBehavior.IgnoreCondition);
+    }
+    WaitUntil(IsAlive(EventPlayer()), 99999);
+    if (Part == "rocket launcher")
+    {
+        StartForcingDummyBotName(EventPlayer(), "Rocket launcher");
+        SetMaxHealth(EventPlayer(), 500);
+        Wait(2, WaitBehavior.IgnoreCondition);
+        SetHealingReceived(EventPlayer(), 0);
+    }
+    else if (Part == "generator")
+    {
+        StartForcingDummyBotName(EventPlayer(), "Generator");
+        CreateEffect(AllPlayers(Team.All), Effect.AnaNanoBoostedEffect, Color.White, EventPlayer(), 1, EffectRev.VisibleToPositionAndRadius);
+        SetMaxHealth(EventPlayer(), 500);
+        Wait(2, WaitBehavior.IgnoreCondition);
+        SetHealingReceived(EventPlayer(), 0);
+    }
+    else if (Part == "Cannon")
+    {
+        Wait(0.25, WaitBehavior.AbortWhenFalse);
+        ForceThrottle(EventPlayer(), 1, 1, 0, 1, 0, 1);
+        SetKnockbackDealt(EventPlayer(), 0);
+        StartForcingDummyBotName(EventPlayer(), "Cannon");
+        SetMaxHealth(EventPlayer(), 1000);
+        StartScalingPlayer(EventPlayer(), 1.5, true);
+        Wait(2, WaitBehavior.IgnoreCondition);
+        SetHealingReceived(EventPlayer(), 0);
+    }
+    else if (Part == "Leg joint")
+    {
+        StartForcingDummyBotName(EventPlayer(), "Leg joint");
+        SetMaxHealth(EventPlayer(), 500);
+        StartScalingPlayer(EventPlayer(), 1.2, true);
+        CreateEffect(AllPlayers(Team.All), Effect.AnaNanoBoostedEffect, Color.White, EventPlayer(), 1, EffectRev.VisibleToPositionAndRadius);
+        Wait(2, WaitBehavior.IgnoreCondition);
+        SetHealingReceived(EventPlayer(), 0);
+    }
+    else if (Part == "Leg joint")
+    {
+    }
+}
+
+disabled rule: "263 Cannon stay in form"
+Event.OngoingPlayer
+Team.Team2
+Player.Bastion
+if (IsUsingAbility1(EventPlayer()) == false)
+if (Part == "Cannon")
+{
+    PressButton(EventPlayer(), Button.Ability1);
+    Wait(0.25, WaitBehavior.IgnoreCondition);
+    LoopIfConditionIsTrue();
+}
+
+disabled rule: "266 Omnic Big Boss Part destroyed"
+Event.OnDeath
+Team.Team2
+{
+    if (Part == "leg joint")
+    {
+        PlayersWithinRadius(EventPlayer(), 5, TeamOf(EventPlayer()), RadiusLOS.Off).Speed = false;
+        SetStatus(PlayersWithinRadius(EventPlayer(), 5, TeamOf(EventPlayer()), RadiusLOS.Off), null, Status.Stunned, 2);
+    }
+    else if (Part == "rocket launcher")
+    {
+        SetStatus(PlayersWithinRadius(EventPlayer(), 5, TeamOf(EventPlayer()), RadiusLOS.Off), null, Status.Stunned, 2);
+    }
+    else if (Part == "Cannon")
+    {
+        SetStatus(PlayersWithinRadius(EventPlayer(), 5, TeamOf(EventPlayer()), RadiusLOS.Off), null, Status.Stunned, 2);
+        PlayEffect(AllPlayers(Team.All), PlayEffect.AsheDynamiteExplosionEffect, Color.White, EventPlayer(), 1);
+        PlayEffect(AllPlayers(Team.All), PlayEffect.AsheDynamiteExplosionSound, Color.White, EyePosition(EventPlayer()), 200);
+    }
+    else if (Part == "Generator")
+    {
+        PlayEffect(AllPlayers(Team.All), PlayEffect.SombraEmpExplosioneffect, Color.White, EventPlayer(), 1);
+        PlayEffect(AllPlayers(Team.All), PlayEffect.SombraEmpExplosionSound, Color.White, EyePosition(EventPlayer()), 200);
+        SetStatus(PlayersWithinRadius(EventPlayer(), 5, TeamOf(EventPlayer()), RadiusLOS.Off), null, Status.Stunned, 4);
+        Damage(PlayersWithinRadius(EventPlayer(), 5, TeamOf(EventPlayer()), RadiusLOS.Off), Attacker(), 1500);
+        PlayEffect(AllPlayers(Team.All), PlayEffect.JunkratRipTireExplosionEffect, Color.White, EventPlayer(), 1);
+        PlayEffect(AllPlayers(Team.All), PlayEffect.JunkratRipTireExplosionSound, Color.White, EyePosition(EventPlayer()), 200);
+    }
+}
+
+disabled rule: "270 Making cannons shoot"
+Event.OngoingPlayer
+Team.Team2
+Player.Bastion
+if (IsButtonHeld(FirstOf(PlayersOnHero(Hero.Orisa, Team.Team2)), Button.PrimaryFire) == true)
+if (Part == "Cannon")
+{
+    PressButton(EventPlayer(), Button.SecondaryFire);
+    Wait(0.1, WaitBehavior.IgnoreCondition);
+    CancelPrimaryAction(EventPlayer());
+    Wait(0.1, WaitBehavior.IgnoreCondition);
+    Wait(3, WaitBehavior.IgnoreCondition);
+    LoopIfConditionIsTrue();
+}
+
+disabled rule: "271 Making rockets shoot"
+Event.OngoingPlayer
+Team.Team2
+Player.WreckingBall
+if (IsButtonHeld(FirstOf(PlayersOnHero(Hero.Orisa, Team.Team2)), Button.PrimaryFire) == true)
+if (IsAlive(EventPlayer()) == true)
+if (Part == "Rocket launcher")
+{
+    PlayEffect(AllPlayers(Team.All), PlayEffect.DvaMicroMissilesExplosionSound, Color.White, EyePosition(EventPlayer()), 200);
+    PlayEffect(AllPlayers(Team.All), PlayEffect.DvaMicroMissilesExplosionEffect, Color.White, EventPlayer(), 1);
+    CreateHomingProjectile(ProjectileType.PharahRocket, EventPlayer(), null, null, Relative.ToWorld, ModifyHealthType.Damage, OppositeTeamOf(TeamOf(EventPlayer())), 100, 1, 3, PlayEffect.AsheDynamiteExplosionEffect, PlayEffect.AsheDynamiteExplosionSound, 0, 50, 5, 0, RayCastHitPlayer(EyePosition(EventPlayer()), EyePosition(EventPlayer()) + FacingDirectionOf(EventPlayer()) * 100, AllPlayers(Team.All), EventPlayer(), true), 0.25);
+    Wait(0.5, WaitBehavior.IgnoreCondition);
+    Wait(3, WaitBehavior.IgnoreCondition);
+    LoopIfConditionIsTrue();
+}
+
+disabled rule: "272 Unleash fire breath shoot"
+Event.OngoingPlayer
+Team.Team2
+Player.Orisa
+if (IsUsingAbility2(EventPlayer()) == true)
+{
+    CreateProjectile(ProjectileType.ReinhardtFireStrike, EventPlayer(), null, null, Relative.ToWorld, ModifyHealthType.Damage, OppositeTeamOf(TeamOf(EventPlayer())), 50, 1, 0, PlayEffect.ReinhardtFireStrikeTargetImpactEffect, PlayEffect.ReinhardtFireStrikeTargetImpactSound, 0.1, 50, 5, 0, 0, 0);
+    Wait(0.05, WaitBehavior.IgnoreCondition);
+    LoopIfConditionIsTrue();
+}

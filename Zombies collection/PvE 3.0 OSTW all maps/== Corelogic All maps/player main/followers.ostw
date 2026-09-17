@@ -1,0 +1,86 @@
+rule: "351 followers ult"
+Event.OngoingPlayer
+Team.Team1
+if (DistanceBetween(EventPlayer(), FirstOf(SortedArray(FilteredArray(AllLivingPlayers(Team.Team2), HasSpawned(ArrayElement())), DistanceBetween(ArrayElement(), EventPlayer())))) < 8)
+if (IsDummyBot(EventPlayer()) == true)
+if (UltimateChargePercent(EventPlayer()) == 100)
+if (HeroOf(EventPlayer()) != Hero.Reinhardt)
+if (HeroOf(EventPlayer()) != Hero.Bastion)
+{
+    PressButton(EventPlayer(), Button.Ultimate);
+    Wait(0.25, WaitBehavior.IgnoreCondition);
+    StartHoldingButton(EventPlayer(), Button.PrimaryFire);
+    Wait(6, WaitBehavior.IgnoreCondition);
+    StopHoldingButton(EventPlayer(), Button.PrimaryFire);
+}
+
+rule: "172 FOLLOWERS  winston Omnic bomb"
+Event.OngoingPlayer
+Team.Team1
+if (IsCommunicating(EventPlayer(), Communication.UltimateStatus) == true)
+# variable conflict with boss' need fix later
+if (Movement == 1)
+if (Head_HP > 0)
+{
+    CreateDummyBot(Hero.Winston, Team.Team1, 6, EyePosition(EventPlayer()), Vector(0, 0, 0));
+    Wait(0.03, WaitBehavior.IgnoreCondition);
+    Head_HP -= 1;
+    p_T = 1;
+    AttachPlayers(PlayersInSlot(6, Team.Team1), EventPlayer(), Vector(0, 0, 2));
+    StartScalingPlayer(PlayersInSlot(6, Team.Team1), 0.2, true);
+    StartModifyingHeroVoiceLines(PlayersInSlot(6, Team.Team1), 1.3, true);
+    Wait(1, WaitBehavior.IgnoreCondition);
+    DetachPlayers(PlayersInSlot(6, Team.Team1));
+    Wait(0.2, WaitBehavior.IgnoreCondition);
+    PressButton(PlayersInSlot(6, Team.Team1), Button.Jump);
+    ApplyImpulse(PlayersInSlot(6, Team.Team1), VectorTowards(EventPlayer(), PlayersInSlot(6, Team.Team1)), 25, Relative.ToWorld, ContraryMotion.Cancel);
+    CreateEffect(AllPlayers(Team.All), Effect.BadAura, Color.Orange, PlayersInSlot(6, Team.Team1), 0.5, EffectRev.VisibleToPositionAndRadius);
+    Wait(2, WaitBehavior.IgnoreCondition);
+    Communicate(PlayersInSlot(6, Team.Team1), Communication.Countdown);
+    Wait(4, WaitBehavior.IgnoreCondition);
+    Damage(PlayersWithinRadius(PlayersInSlot(6, Team.All), 2, Team.Team2, RadiusLOS.SurfacesAndAllBarriers), EventPlayer(), 100);
+    Damage(PlayersWithinRadius(PlayersInSlot(6, Team.All), 4, Team.Team2, RadiusLOS.SurfacesAndAllBarriers), EventPlayer(), 50);
+    PlayEffect(AllPlayers(Team.All), PlayEffect.DoomfistMeteorStrikeImpactEffect, Color.White, EventPlayer(), 1);
+    Wait(0.5, WaitBehavior.IgnoreCondition);
+    Communicate(PlayersInSlot(6, Team.Team1), Communication.Goodbye);
+    DestroyEffect(LastCreatedEntity());
+    Wait(0.5, WaitBehavior.IgnoreCondition);
+    DestroyDummyBot(Team.Team1, 6);
+    p_T = false;
+}
+
+rule: "352 FOLLOWERS attack All"
+Event.OngoingPlayer
+Team.Team1
+if (DistanceBetween(EventPlayer(), FirstOf(SortedArray(FilteredArray(AllLivingPlayers(Team.Team2), HasSpawned(ArrayElement())), DistanceBetween(ArrayElement(), EventPlayer())))) < 6)
+if (IsDummyBot(EventPlayer()) == true)
+{
+    # needs to be a variable
+    Skip(1);
+    followerattack1();
+    Skip(1);
+    followerattack2();
+    Skip(1);
+    PressButton(EventPlayer(), Button.Ability2);
+    Wait(6, WaitBehavior.IgnoreCondition);
+    LoopIfConditionIsTrue();
+    Skip(1);
+    followerattack2();
+    Skip(1);
+    StartHoldingButton(EventPlayer(), Button.SecondaryFire);
+    Wait(1, WaitBehavior.IgnoreCondition);
+    StopHoldingButton(EventPlayer(), Button.SecondaryFire);
+    Wait(6, WaitBehavior.IgnoreCondition);
+    LoopIfConditionIsTrue();
+    Skip(1);
+    StartHoldingButton(EventPlayer(), Button.PrimaryFire);
+    Wait(1, WaitBehavior.IgnoreCondition);
+    PressButton(EventPlayer(), Button.SecondaryFire);
+    StopHoldingButton(EventPlayer(), Button.PrimaryFire);
+    Wait(6, WaitBehavior.IgnoreCondition);
+    LoopIfConditionIsTrue();
+    Skip(1);
+    PressButton(EventPlayer(), Button.Ability1);
+    Wait(6, WaitBehavior.IgnoreCondition);
+    LoopIfConditionIsTrue();
+}

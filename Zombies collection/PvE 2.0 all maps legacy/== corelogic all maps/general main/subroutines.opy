@@ -1,3 +1,4 @@
+
 def heroswap():
     @Name "hero swap subroutine"
     
@@ -72,7 +73,8 @@ def wavespawn():
             subindex = forindex + 1  # Preserves the original increment logic for slot tracking and enemy assignment.
             CurrentEnemyIndex()  # Leaves the existing enemy-index update behavior untouched, just as before.
             wait(0.75, Wait.ABORT_WHEN_FALSE)
-            
+
+
 def totalrandomspawn():
     @Name "each bot will be random"
 

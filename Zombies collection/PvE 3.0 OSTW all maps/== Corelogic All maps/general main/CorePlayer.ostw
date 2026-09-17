@@ -1,0 +1,12 @@
+import "coreindex.ostw";
+
+playervar define currentmagazines;
+playervar define points2;
+playervar define points;
+playervar define closestbodypos;
+playervar define fullbodypos;
+playervar define prevpos_intersection;
+playervar define active_wall;
+playervar define closestwall;
+playervar define outofpsawn;
+playervar define doorNotif;

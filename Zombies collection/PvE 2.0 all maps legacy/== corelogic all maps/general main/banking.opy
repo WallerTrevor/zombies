@@ -1,3 +1,4 @@
+
 #need all vectors in the arrays file, not here.
 
 rule "56  points loss for high roller":

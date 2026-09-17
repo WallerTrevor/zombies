@@ -1,0 +1,308 @@
+import "index.ostw";
+
+disabled rule: "283 Imperial warmech setup ================================================"
+Event.OngoingPlayer
+Team.Team2
+Player.Dva
+if (Bosssequencer == 3)
+{
+    CreateDummyBot(Hero.Dva, Team.Team2, 0, Vector(-80.776, -159.164, 59.549), Vector(0, 0, 0));
+    omnicspawn[0] = SlotOf(PlayersInSlot(0, Team.Team2));
+    # Imperial warmech
+    SetKnockbackReceived(EventPlayer(), 0);
+    SetMoveSpeed(EventPlayer(), 100);
+    SetDamageDealt(EventPlayer(), 200);
+    StartScalingPlayer(EventPlayer(), 3, true);
+    StartForcingDummyBotName(EventPlayer(), "Imperial warmech ");
+    Wait(3, WaitBehavior.IgnoreCondition);
+    # Cannon 1
+    CreateDummyBot(Hero.WreckingBall, Team.Team2, -1, EventPlayer(), Vector(0, 0, 0));
+    Wait(1, WaitBehavior.IgnoreCondition);
+    AttachPlayers(LastCreatedEntity(), FirstOf(PlayersOnHero(Hero.Dva, Team.Team2)), Vector(0, 6.1, 1));
+    LastCreatedEntity().Part = "Cannon";
+    StartFacing(LastCreatedEntity(), FacingDirectionOf(EventPlayer()), 1000, Relative.ToWorld, FacingRev.DirectionAndTurnRate);
+    MinWait();
+    # Cannon 2
+    CreateDummyBot(Hero.WreckingBall, Team.Team2, -1, EventPlayer(), Vector(0, 0, 0));
+    Wait(1, WaitBehavior.IgnoreCondition);
+    AttachPlayers(LastCreatedEntity(), FirstOf(PlayersOnHero(Hero.Dva, Team.Team2)), Vector(2.15, 5.4, 1));
+    LastCreatedEntity().Part = "Cannon";
+    StartFacing(LastCreatedEntity(), FacingDirectionOf(EventPlayer()), 1000, Relative.ToWorld, FacingRev.DirectionAndTurnRate);
+    MinWait();
+    # Cannon 3
+    CreateDummyBot(Hero.WreckingBall, Team.Team2, -1, EventPlayer(), Vector(0, 0, 0));
+    Wait(1, WaitBehavior.IgnoreCondition);
+    AttachPlayers(LastCreatedEntity(), FirstOf(PlayersOnHero(Hero.Dva, Team.Team2)), Vector(-2.15, 5.4, 1));
+    LastCreatedEntity().Part = "Cannon";
+    StartFacing(LastCreatedEntity(), FacingDirectionOf(EventPlayer()), 1000, Relative.ToWorld, FacingRev.DirectionAndTurnRate);
+    MinWait();
+    # Machine gun 1
+    CreateDummyBot(Hero.Bastion, Team.Team2, -1, EventPlayer(), Vector(0, 0, 0));
+    Wait(1, WaitBehavior.IgnoreCondition);
+    AttachPlayers(LastCreatedEntity(), FirstOf(PlayersOnHero(Hero.Dva, Team.Team2)), Vector(2, 3, 1));
+    LastCreatedEntity().Part = "Machine gun";
+    StartFacing(LastCreatedEntity(), FacingDirectionOf(EventPlayer()), 1000, Relative.ToWorld, FacingRev.DirectionAndTurnRate);
+    MinWait();
+    # Machine gun 2
+    CreateDummyBot(Hero.Bastion, Team.Team2, -1, EventPlayer(), Vector(0, 0, 0));
+    Wait(1, WaitBehavior.IgnoreCondition);
+    AttachPlayers(LastCreatedEntity(), FirstOf(PlayersOnHero(Hero.Dva, Team.Team2)), Vector(-2, 3, 1));
+    LastCreatedEntity().Part = "Machine gun";
+    AddHealthPoolToPlayer(EventPlayer(), HealthType.Armor, 9999, true, true);
+    StartFacing(LastCreatedEntity(), FacingDirectionOf(EventPlayer()), 1000, Relative.ToWorld, FacingRev.DirectionAndTurnRate);
+    WaitUntil(IsDead(EventPlayer()), 99999);
+    RemoveAllHealthPoolsFromPlayer(EventPlayer());
+}
+
+disabled rule: "284 Cannon stats"
+Event.OngoingPlayer
+Team.Team2
+Player.WreckingBall
+if (Part == "Cannon")
+{
+    SetHealingReceived(EventPlayer(), 0);
+    SetMaxHealth(EventPlayer(), 500);
+    StartForcingDummyBotName(EventPlayer(), "Homing Cannon");
+    Wait(0.35, WaitBehavior.IgnoreCondition);
+    WaitUntil(IsDead(EventPlayer()), 99999);
+    SetStatus(PlayersWithinRadius(EventPlayer(), 5, TeamOf(EventPlayer()), RadiusLOS.Off), null, Status.Stunned, 2);
+}
+
+disabled rule: "285 Cannon shoot"
+Event.OngoingPlayer
+Team.Team2
+Player.WreckingBall
+if (IsButtonHeld(FirstOf(PlayersOnHero(Hero.Dva, Team.Team2)), Button.PrimaryFire) == true)
+{
+    CreateHomingProjectile(ProjectileType.SigmaHypersphere, EventPlayer(), null, null, Relative.ToWorld, ModifyHealthType.Damage, OppositeTeamOf(TeamOf(EventPlayer())), 75, 0, 5, PlayEffect.BastionTankCannonExplosionEffect, PlayEffect.BastionTankCannonExplosionSound, 0.1, 30, 5, 5, FirstOf(SortedArray(FilteredArray(AllLivingPlayers(OppositeTeamOf(TeamOf(EventPlayer()))), HasSpawned(ArrayElement()) && ArrayElement() != EventPlayer()), AngleBetweenVectors(FacingDirectionOf(EventPlayer()), ArrayElement() - EyePosition(EventPlayer())))), 0.5);
+    PlayEffect(AllPlayers(Team.All), PlayEffect.CassidyFlashbangExplosionSound, Color.White, EyePosition(EventPlayer()), 100);
+    PlayEffect(AllPlayers(Team.All), PlayEffect.BadExplosion, Color.Gray, EventPlayer(), 2);
+    Wait(1, WaitBehavior.IgnoreCondition);
+    LoopIfConditionIsTrue();
+}
+
+disabled rule: "286 Machine gun stats"
+Event.OngoingPlayer
+Team.Team2
+Player.Bastion
+if (IsDummyBot(EventPlayer()) == true)
+if (Part == "Machine gun")
+{
+    SetDamageDealt(EventPlayer(), 100);
+    StartScalingPlayer(EventPlayer(), 1.25, true);
+    SetMaxHealth(EventPlayer(), 1000);
+    StartForcingDummyBotName(EventPlayer(), "Machine gun");
+    ForceThrottle(EventPlayer(), 1, 1, 0, 1, 0, 1);
+    Wait(0.35, WaitBehavior.IgnoreCondition);
+    WaitUntil(IsDead(EventPlayer()), 99999);
+    SetStatus(PlayersWithinRadius(EventPlayer(), 5, TeamOf(EventPlayer()), RadiusLOS.Off), null, Status.Stunned, 2);
+}
+
+disabled rule: "287 Machine gun keep form"
+Event.OngoingPlayer
+Team.Team2
+Player.Bastion
+if (IsUsingAbility1(EventPlayer()) == false)
+if (IsDummyBot(EventPlayer()) == true)
+{
+    SetAbilityCooldown(EventPlayer(), Button.Ability1, 0);
+    PressButton(EventPlayer(), Button.Ability1);
+    Wait(0.25, WaitBehavior.IgnoreCondition);
+    LoopIfConditionIsTrue();
+}
+
+disabled rule: "288 Machine gun shoot"
+Event.OngoingPlayer
+Team.Team2
+Player.Bastion
+if (IsButtonHeld(FirstOf(PlayersOnHero(Hero.Dva, Team.Team2)), Button.PrimaryFire) == true)
+if (IsDummyBot(EventPlayer()) == true)
+{
+    StartHoldingButton(EventPlayer(), Button.PrimaryFire);
+    Wait(2, WaitBehavior.IgnoreCondition);
+    StopHoldingButton(EventPlayer(), Button.PrimaryFire);
+    Wait(1, WaitBehavior.AbortWhenFalse);
+    LoopIfConditionIsTrue();
+}
+
+disabled rule: "289 Imperial warmech set attacks"
+Event.OngoingPlayer
+Team.Team2
+Player.Dva
+if (IsButtonHeld(EventPlayer(), Button.PrimaryFire) == true)
+if (IsAlive(EventPlayer()) == true)
+{
+    Major_Attacks = RandomInteger(2, 6);
+    Wait(0.25, WaitBehavior.IgnoreCondition);
+    if (Major_Attacks == 2)
+    {
+        PlayEffect(AllPlayers(Team.All), PlayEffect.WreckingBallPiledriverImpactSound, Color.White, EyePosition(EventPlayer()), 200);
+        PlayEffect(AllPlayers(Team.All), PlayEffect.WreckingBallPiledriverImpactEffect, Color.White, PositionOf(EventPlayer()), 1);
+        Wait(0.75, WaitBehavior.IgnoreCondition);
+        CreateDummyBot(Hero.Pharah, Team.Team2, -1, EventPlayer(), Vector(0, 0, 0));
+        MinWait();
+        SetStatus(LastCreatedEntity(), null, Status.PhasedOut, 9999);
+        AttachPlayers(LastCreatedEntity(), EventPlayer(), Vector(0, 5, 0));
+        StartFacing(LastCreatedEntity(), FacingDirectionOf(EventPlayer()), 1000, Relative.ToWorld, FacingRev.DirectionAndTurnRate);
+        Wait(7, WaitBehavior.IgnoreCondition);
+        LoopIfConditionIsTrue();
+    }
+    else if (Major_Attacks == 3)
+    {
+        CreateDummyBot(Hero.Zarya, Team.Team2, -1, EventPlayer(), Vector(0, 0, 0));
+        MinWait();
+        SetStatus(LastCreatedEntity(), null, Status.PhasedOut, 9999);
+        AttachPlayers(LastCreatedEntity(), EventPlayer(), Vector(0, 2, 0));
+        StartFacing(LastCreatedEntity(), FacingDirectionOf(EventPlayer()) + Vector(RandomInteger(-1, 1), 0, 0), 1000, Relative.ToPlayer, FacingRev.DirectionAndTurnRate);
+        Wait(7, WaitBehavior.IgnoreCondition);
+        LoopIfConditionIsTrue();
+    }
+    else if (Major_Attacks == 4)
+    {
+        CreateDummyBot(Hero.Sojourn, Team.Team2, -1, EventPlayer(), Vector(0, 0, 0));
+        MinWait();
+        SetStatus(LastCreatedEntity(), null, Status.PhasedOut, 9999);
+        AttachPlayers(LastCreatedEntity(), EventPlayer(), Vector(0, 5, 0));
+        StartFacing(LastCreatedEntity(), FacingDirectionOf(EventPlayer()), 1000, Relative.ToWorld, FacingRev.DirectionAndTurnRate);
+        Wait(7, WaitBehavior.IgnoreCondition);
+        LoopIfConditionIsTrue();
+    }
+    else if (Major_Attacks == 5)
+    {
+        CreateDummyBot(Hero.Moira, Team.Team2, -1, EventPlayer(), Vector(0, 0, 0));
+        MinWait();
+        SetStatus(LastCreatedEntity(), null, Status.PhasedOut, 9999);
+        AttachPlayers(LastCreatedEntity(), EventPlayer(), Vector(0, 4, 0));
+        StartFacing(LastCreatedEntity(), FacingDirectionOf(EventPlayer()), 1000, Relative.ToWorld, FacingRev.DirectionAndTurnRate);
+        Wait(7, WaitBehavior.IgnoreCondition);
+        LoopIfConditionIsTrue();
+    }
+    else if (Major_Attacks == 6)
+    {
+        CreateDummyBot(Hero.Junkrat, Team.Team2, -1, EventPlayer(), Vector(0, 0, 0));
+        MinWait();
+        SetStatus(LastCreatedEntity(), null, Status.PhasedOut, 9999);
+        AttachPlayers(LastCreatedEntity(), EventPlayer(), Vector(0, 4, -1));
+        StartFacing(LastCreatedEntity(), FacingDirectionOf(EventPlayer()), 1000, Relative.ToWorld, FacingRev.DirectionAndTurnRate);
+        Wait(7, WaitBehavior.IgnoreCondition);
+        LoopIfConditionIsTrue();
+    }
+}
+
+disabled rule: "290 Rockets function"
+Event.OngoingPlayer
+Team.Team2
+Player.Pharah
+if (IsDummyBot(EventPlayer()) == true)
+{
+    SetDamageDealt(EventPlayer(), 100);
+    SetInvisible(EventPlayer(), InvisibleTo.All);
+    StartForcingDummyBotName(EventPlayer(), "Rockets");
+    Wait(0.25, WaitBehavior.IgnoreCondition);
+    SetUltimateCharge(EventPlayer(), 100);
+    PressButton(EventPlayer(), Button.Ultimate);
+    Wait(2.5, WaitBehavior.IgnoreCondition);
+    SetUltimateCharge(EventPlayer(), 100);
+    PressButton(EventPlayer(), Button.Ultimate);
+    Wait(3.5, WaitBehavior.IgnoreCondition);
+    DestroyDummyBot(TeamOf(EventPlayer()), SlotOf(EventPlayer()));
+}
+
+disabled rule: "291 Artillery setup"
+Event.OngoingPlayer
+Team.Team2
+Player.Zarya
+if (IsDummyBot(EventPlayer()) == true)
+{
+    SetDamageDealt(EventPlayer(), 100);
+    StartForcingDummyBotName(EventPlayer(), "Artillery");
+    SetAmmo(EventPlayer(), 0, 1);
+    SetMaxAmmo(EventPlayer(), 0, 1);
+    SetInvisible(EventPlayer(), InvisibleTo.All);
+    Wait(6, WaitBehavior.IgnoreCondition);
+    DestroyDummyBot(TeamOf(EventPlayer()), SlotOf(EventPlayer()));
+}
+
+disabled rule: "292 Artillery function"
+Event.OngoingPlayer
+Team.Team2
+Player.Zarya
+if (IsDummyBot(EventPlayer()) == true)
+{
+    StartHoldingButton(EventPlayer(), Button.SecondaryFire);
+    Wait(0.05, WaitBehavior.IgnoreCondition);
+    SetAmmo(EventPlayer(), 0, 1);
+    LoopIfConditionIsTrue();
+}
+
+disabled rule: "293 Imperial warmech destroyed"
+Event.OngoingPlayer
+Team.Team2
+Player.Dva
+if (IsInAlternateForm(EventPlayer()) == true)
+{
+    Wait(0.1, WaitBehavior.AbortWhenFalse);
+    Kill(PlayersWithinRadius(EventPlayer(), 7, TeamOf(EventPlayer()), RadiusLOS.Off), null);
+    PlayEffect(AllPlayers(Team.All), PlayEffect.BastionTankCannonExplosionSound, Color.White, EyePosition(EventPlayer()), 200);
+    PlayEffect(AllPlayers(Team.All), PlayEffect.BastionTankCannonExplosionEffect, Color.White, EyePosition(EventPlayer()) + Vector(RandomInteger(-4, 4), RandomInteger(-3, 3), RandomInteger(-3, 3)), 1);
+    Wait(0.25, WaitBehavior.IgnoreCondition);
+    WaitUntil(IsDead(EventPlayer()), 99999);
+    DestroyAllEffects();
+    ClearStatus(EventPlayer(), Status.Burning);
+}
+
+disabled rule: "294 Electric field bombs function"
+Event.OngoingPlayer
+Team.Team2
+Player.Sojourn
+if (IsDummyBot(EventPlayer()) == true)
+{
+    SetDamageDealt(EventPlayer(), 100);
+    SetInvisible(EventPlayer(), InvisibleTo.All);
+    StartForcingDummyBotName(EventPlayer(), "Electric field bombs");
+    Wait(0.5, WaitBehavior.IgnoreCondition);
+    PressButton(EventPlayer(), Button.Ability2);
+    Wait(0.5, WaitBehavior.IgnoreCondition);
+    CancelPrimaryAction(EventPlayer());
+    SetAbilityCooldown(EventPlayer(), Button.Ability2, 0);
+    PressButton(EventPlayer(), Button.Ability2);
+    Wait(4, WaitBehavior.IgnoreCondition);
+    DestroyDummyBot(TeamOf(EventPlayer()), SlotOf(EventPlayer()));
+}
+
+disabled rule: "295 Laser function"
+Event.OngoingPlayer
+Team.Team2
+Player.Moira
+if (IsDummyBot(EventPlayer()) == true)
+if (FirstOf(extraVar) == 30)
+{
+    SetHealingDealt(EventPlayer(), 0);
+    SetDamageDealt(EventPlayer(), 200);
+    SetInvisible(EventPlayer(), InvisibleTo.All);
+    StartForcingDummyBotName(EventPlayer(), "Laser");
+    Wait(0.25, WaitBehavior.IgnoreCondition);
+    SetUltimateCharge(EventPlayer(), 100);
+    PressButton(EventPlayer(), Button.Ultimate);
+    Wait(6.25, WaitBehavior.IgnoreCondition);
+    DestroyDummyBot(TeamOf(EventPlayer()), SlotOf(EventPlayer()));
+}
+
+disabled rule: "296 Seeking Mega mine function"
+Event.OngoingPlayer
+Team.Team2
+Player.Junkrat
+if (IsDummyBot(EventPlayer()) == true)
+{
+    SetMaxHealth(EventPlayer(), 300);
+    SetDamageDealt(EventPlayer(), 100);
+    StartForcingDummyBotName(EventPlayer(), "Seeking Mega mine");
+    Wait(0.25, WaitBehavior.IgnoreCondition);
+    SetUltimateCharge(EventPlayer(), 100);
+    PressButton(EventPlayer(), Button.Ultimate);
+    Wait(3, WaitBehavior.IgnoreCondition);
+    PressButton(EventPlayer(), Button.Ultimate);
+    Wait(2.25, WaitBehavior.IgnoreCondition);
+    DestroyDummyBot(TeamOf(EventPlayer()), SlotOf(EventPlayer()));
+}
+

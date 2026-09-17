@@ -1,0 +1,63 @@
+import "index.ostw";
+
+#=================================================
+#player variables
+#================================================= 
+
+playervar define sea;
+playervar define magazines;
+playervar define F;
+playervar define G;
+playervar define InfoUI;
+playervar define p_P;
+playervar define S;
+playervar define UI;
+playervar define healovertime;
+playervar define xp;
+playervar define Movement;
+playervar define Head_HP;
+playervar define Part;
+playervar define Part2;
+playervar define Speed;
+playervar define dispencereffect;
+playervar define herohp;
+playervar define pfPlayerAttributes;
+playervar define currentheroxp;
+playervar define doormessage;
+playervar define Major_Attacks;
+playervar define heroswap;
+playervar define currentswap;
+playervar define perkinfo;
+playervar define Perkui;
+playervar define currentultcharge;
+playervar define ultcharge;
+playervar define heroiconswap;
+playervar define abilitycooldown;
+playervar define followerbuy;
+playervar define swapvar;
+playervar define swap;
+playervar define heropoints;
+playervar define allowedheroes;
+playervar define cameravar1;
+playervar define cameravar2;
+playervar define perk;
+playervar define perkicon;
+playervar define perkcolor;
+playervar define papDamageTier;
+playervar define papTier;
+playervar define cameratoggle;
+playervar define revived;
+playervar define Maniac;
+playervar define Packapunch;
+playervar define singlelives;
+playervar define Jugg;
+playervar define XPlevel;
+playervar define HideHints;
+playervar define botTarget;
+playervar define InfoCooldown;
+playervar define healvariable;
+playervar define damagevariable;
+playervar define healthmax;
+playervar define sprintburstperk;
+playervar define doublemag;
+playervar define currentdamgindex;

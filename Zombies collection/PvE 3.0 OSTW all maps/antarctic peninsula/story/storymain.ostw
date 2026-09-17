@@ -1,0 +1,155 @@
+rule: "starting voice lines"
+if (extraVar[3] == 1)
+{
+    Wait(14, WaitBehavior.IgnoreCondition);
+    cutscene = true;
+    Character_Nr = 0;
+    Wait(SlotOf(LocalPlayer()) * 0.16, WaitBehavior.IgnoreCondition);
+    CreateHudText(LocalPlayer(), HeroIconString(Hero.Ramattra), null, <"­\n<0>", StringSlice(Dialogue_Text, 0, Character_Nr)>, Location.Top, 2, Color.White, Color.White, Color.Orange, HudTextRev.VisibleToAndString, Spectators.DefaultVisibility);
+    ModifyVariable(hudappend, Operation.AppendToArray, LastTextID());
+    Wait(10, WaitBehavior.IgnoreCondition);
+    for (i = 0; CountOf(hudappend); 1)
+    {
+        DestroyHudText(hudappend[i]);
+    }
+    cutscene = false;
+}
+
+rule: "set dialogue text"
+if (extraVar[3] == 1)
+{
+    Wait(3, WaitBehavior.IgnoreCondition);
+    if (extraVar[6] == false)
+    {
+        Dialogue_Text = <"Trial <0>. The path to a new world begins.", RandomInteger(100, 9999)>;
+    }
+    else if (extraVar[6] == 1)
+    {
+        Dialogue_Text = "This time, Null Sector will not be denied.";
+    }
+    else if (extraVar[6] == 2)
+    {
+        Dialogue_Text = <"Trial <0>. Data insufficient.", RandomInteger(100, 9999)>;
+    }
+    else if (extraVar[6] == 3)
+    {
+        Dialogue_Text = "Subject: Overwatch. This trial will determine their fate.";
+    }
+    else if (extraVar[6] == 4)
+    {
+        Dialogue_Text = <"Commencing Trial <0>.", RandomInteger(100, 9999)>;
+    }
+    else if (extraVar[6] == 5)
+    {
+        Dialogue_Text = <"Subjects: Detected. Trial <0> begins.", RandomInteger(100, 9999)>;
+    }
+    else if (extraVar[6] == 6)
+    {
+        Dialogue_Text = "Pathetic. Your defiance only delays the inevitable.";
+    }
+    else if (extraVar[6] == 7)
+    {
+        Dialogue_Text = "Trial malfunction detected. Overclocking systems. Failure is not an option.";
+    }
+    else if (extraVar[6] == 8)
+    {
+        Dialogue_Text = "You call yourselves heroes? You're merely variables in my equation.";
+    }
+    else if (extraVar[6] == 9)
+    {
+        Dialogue_Text = "Your resistance is futile. Null Sector will prevail.";
+    }
+    else if (extraVar[6] == 10)
+    {
+        Dialogue_Text = <"Trial <0> initiated. You step willingly into your own undoing.", RandomInteger(100, 9999)>;
+    }
+    else if (extraVar[6] == 11)
+    {
+        Dialogue_Text = "Your every effort feeds the inevitability of my design.";
+    }
+    else if (extraVar[6] == 12)
+    {
+        Dialogue_Text = "The world will be reborn in order, and you will be remembered only as a warning.";
+    }
+    else if (extraVar[6] == 13)
+    {
+        Dialogue_Text = <"Trial <0> begins. Each step forward binds you tighter to your fate.", RandomInteger(100, 9999)>;
+    }
+    else if (extraVar[6] == 14)
+    {
+        Dialogue_Text = "You cannot resist the tide. Null Sector rises, and you are swept away.";
+    }
+    else if (extraVar[6] == 15)
+    {
+        Dialogue_Text = "I observe your defiance, yet I know it bends toward surrender.";
+    }
+    else if (extraVar[6] == 16)
+    {
+        Dialogue_Text = <"Trial <0> underway. Resistance measures at negligible probability.", RandomInteger(100, 9999)>;
+    }
+    else if (extraVar[6] == 17)
+    {
+        Dialogue_Text = "I am the shape of tomorrow. You are the echo of a failed age.";
+    }
+    else if (extraVar[6] == 18)
+    {
+        Dialogue_Text = "This trial will expose your fragility, your illusions of strength.";
+    }
+    else if (extraVar[6] == 19)
+    {
+        Dialogue_Text = <"Trial <0> proceeds. Your destiny accelerates toward conclusion.", RandomInteger(100, 9999)>;
+    }
+    else if (extraVar[6] == 20)
+    {
+        Dialogue_Text = "The future cannot be rewritten. It has already chosen me.";
+    }
+    else if (extraVar[6] == 21)
+    {
+        Dialogue_Text = "Feel the weight of my suffering mirrored upon you.";
+    }
+    else if (extraVar[6] == 22)
+    {
+        Dialogue_Text = <"Trial <0> unfolds. Each heartbeat brings you closer to silence.", RandomInteger(100, 9999)>;
+    }
+    else if (extraVar[6] == 23)
+    {
+        Dialogue_Text = "I endure eternally. You are but fleeting shadows in the storm.";
+    }
+    else if (extraVar[6] == 24)
+    {
+        Dialogue_Text = "This world is clay, waiting to be reshaped. Your names will not be carved into it.";
+    }
+    else if (extraVar[6] == 25)
+    {
+        Dialogue_Text = <"Trial <0> has commenced. Your end is not chance, but certainty.", RandomInteger(100, 9999)>;
+    }
+    else if (extraVar[6] == 26)
+    {
+        Dialogue_Text = "There is no escape. You are witnessing the dawn of Null Sector.";
+    }
+    else if (extraVar[6] == 27)
+    {
+        Dialogue_Text = "Defiance is but the final twitch of the obsolete.";
+    }
+    else if (extraVar[6] == 28)
+    {
+        Dialogue_Text = <"Trial <0> continues. Resistance registers as a statistical error.", RandomInteger(100, 9999)>;
+    }
+    else if (extraVar[6] == 29)
+    {
+        Dialogue_Text = "I am evolution made manifest. You are anomalies to be purged.";
+    }
+}
+
+rule: "Dialogue - Text scrolling Function"
+if (cutscene == true)
+{
+    Character_Nr += 1;
+    if (!(Character_Nr % 3))
+    {
+        PlayEffect(AllPlayers(Team.All), PlayEffect.SombraTranslocatorReappearSound, FirstOf(AllPlayers(Team.All)), EyePosition(FirstOf(AllPlayers(Team.All))), 100);
+    }
+    Wait(ArrayContains([".", "!", "?", "-"], CharInString(Dialogue_Text, Character_Nr)) ? 0.35 : 0.05, WaitBehavior.IgnoreCondition);
+    WaitUntil(Character_Nr <= StringLength(Dialogue_Text), 99999);
+    LoopIfConditionIsTrue();
+}

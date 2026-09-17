@@ -1,3 +1,5 @@
+
+
 rule "426 OMNIC WAVE BOSS doomfist Attack if Near":
     @Event eachPlayer
     @Team 2
@@ -102,5 +104,6 @@ rule "434 OMNIC WAVE BOSS roadhog use heal":
     eventPlayer.startForcingButton(Button.SECONDARY_FIRE)
     wait(3)
     eventPlayer.stopForcingButton(Button.SECONDARY_FIRE)
+
 
 
