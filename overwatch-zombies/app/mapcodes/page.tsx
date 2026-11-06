@@ -5,7 +5,7 @@ import { trackGoatCounterEvent } from "../goatcounter-events";
 
 type MapEntry = {
   title: string;
-  image: string;
+  image: string | null;
   difficulty: string;
   boss: string;
   description: string;
@@ -17,7 +17,7 @@ type MapEntry = {
 const MAPS: MapEntry[] = [
   {
     title: "Antarctic Peninsula",
-    image: "/images/map-antarcticp.jpg",
+    image: "/assets/images/map-antarcticp.jpg",
     difficulty: "Standard",
     boss: "Orisa",
     description:
@@ -27,7 +27,7 @@ const MAPS: MapEntry[] = [
   },
   {
     title: "shambali Monastery",
-    image: "/images/map-shambalimonastery.jpg",
+    image: "/assets/images/map-shambalimonastery.jpg",
     difficulty: "Hard",
     boss: "Ramattra",
     description:
@@ -37,7 +37,7 @@ const MAPS: MapEntry[] = [
   },
   {
     title: "Hanamura",
-    image: "/images/map-docks.jpg",
+    image: null,
     difficulty: "Beginner",
     boss: "Reinhardt",
     description:
@@ -47,7 +47,7 @@ const MAPS: MapEntry[] = [
   },
   {
     title: "Kings Row",
-    image: "/images/map-kingsrow.jpg",
+    image: "/assets/images/map-kingsrow.jpg",
     difficulty: "Endgame",
     boss: "D.Va",
     description:
@@ -77,7 +77,11 @@ function MapCard({ map, onCopy }: { map: MapEntry; onCopy: (code: string) => voi
   return (
     <article className="card" key={map.title}>
       <div className="media">
-        <img src={map.image} alt={map.title} />
+        {map.image ? (
+          <img src={map.image} alt={map.title} />
+        ) : (
+          <div className="media__placeholder">Map artwork coming soon</div>
+        )}
       </div>
       <h2>{map.title}</h2>
       <div className="meta">
