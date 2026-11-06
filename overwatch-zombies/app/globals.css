@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Oxanium:wght@400;600;700&display=swap');
 
+/* Shared palette and sizing tokens keep the site-wide visual system configurable in one place. */
 :root {
   --orange: #f9a51a;
   --orange-bright: #ffb547;
@@ -30,6 +31,7 @@ h1,h2,h3 { font-family: Oxanium, sans-serif; line-height: 1.08; margin: 0; lette
 p { margin: 0; }
 .wrap { width: min(var(--max), calc(100% - 40px)); margin-inline: auto; }
 
+/* Fixed site navigation and its compact disclosure-menu presentation. */
 .nav {
   position: fixed;
   inset: 0 0 auto;
@@ -86,6 +88,7 @@ p { margin: 0; }
 }
 .nav__panel .chip { display: block; text-align: center; margin: 5px; }
 
+/* Home-page hero, calls to action, and feature-card styling. */
 .hero {
   min-height: 720px;
   padding-top: 74px;
@@ -212,22 +215,596 @@ footer { padding: 45px 0; color: var(--muted); font-size: 12px; text-align: cent
   .cta { flex-direction: column; align-items: flex-start; padding: 28px; }
 }
 
-.page-hero{position:relative;min-height:390px;padding-top:74px;display:flex;align-items:center;overflow:hidden;border-bottom:1px solid var(--line)}
-.page-hero__bg{position:absolute;inset:0;z-index:-2}.page-hero__bg video{width:100%;height:100%;object-fit:cover;opacity:.45}
-.page-hero::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(9,12,16,.95),rgba(9,12,16,.55),rgba(9,12,16,.8))}
-.page-hero__content{padding-block:80px}.page-hero h1{font-size:clamp(42px,6vw,68px);margin-top:12px}.page-hero p{max-width:760px;color:#adb7c3;margin-top:18px;font-size:16px}
-.content-section{padding:70px 0;border-bottom:1px solid var(--line)}.toolbar{display:flex;gap:10px;flex-wrap:wrap;padding:12px;border:1px solid var(--line);border-radius:16px;background:#11171f;margin-bottom:24px}
-.toolbar input{flex:1;min-width:220px;background:#0c1117;border:1px solid #303946;border-radius:11px;color:white;padding:11px 13px;outline:none}
-.grid-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.card{background:linear-gradient(145deg,#151b23,#0f141b);border:1px solid var(--line);border-radius:18px;padding:22px;box-shadow:0 10px 30px rgba(0,0,0,.18)}
-.card h2,.card h3{margin-bottom:10px}.card p{color:var(--muted)}.media{aspect-ratio:16/9;overflow:hidden;background:#080a0d;border-radius:13px;margin:-22px -22px 18px}.media img,.media video{width:100%;height:100%;object-fit:cover;display:block}
-.meta{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0}.pill{display:inline-flex;align-items:center;border:1px solid #35404d;border-radius:999px;padding:5px 9px;color:#aeb8c4;font-size:10px;font-weight:800}
-.card-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:16px}.notice{padding:14px 16px;border:1px solid #3a3324;border-radius:13px;background:rgba(249,165,26,.05);color:#bfc7d0}
-.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:16px}.data-table{width:100%;border-collapse:collapse;min-width:700px}.data-table th,.data-table td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line)}.data-table th{font-family:Oxanium;color:#dfe5eb;background:#11171f}
-.wiki-layout{display:grid;grid-template-columns:250px 1fr;gap:22px}.toc{position:sticky;top:92px;align-self:start;padding:14px;border:1px solid var(--line);border-radius:16px;background:#11171f}.toc a{display:block;padding:8px;border-radius:8px;color:#b7c0cb}.toc a:hover{background:#19212b;color:#fff}
-.wiki-content{display:grid;gap:18px}.hero-dir{display:grid;grid-template-columns:300px 1fr;gap:18px}.hero-list{display:grid;gap:7px;max-height:650px;overflow:auto}.hero-item{border:1px solid #2d3743;background:#11171f;color:#dfe5eb;border-radius:10px;padding:10px;text-align:left;cursor:pointer}.hero-item:hover,.hero-item.active{border-color:#b77a18;background:#181f28}
-.kv{display:grid;grid-template-columns:1fr auto;gap:8px;padding:7px 0;border-bottom:1px dashed #2d3743;font-size:13px}.kv code{color:#d9e0e7;background:#0d1319;border:1px solid #2d3743;border-radius:7px;padding:2px 6px}
-.stat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.lightbox{position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.88);display:flex;align-items:center;justify-content:center;padding:30px}.lightbox img{max-width:94vw;max-height:90vh;object-fit:contain;border-radius:10px}.lightbox button{position:absolute;top:22px;right:22px;width:42px;height:42px;border-radius:50%;border:1px solid #44505f;background:#11171f;color:white;font-size:20px}
-.track-list{display:grid;gap:8px;margin-top:12px}.track{display:flex;align-items:center;justify-content:space-between;padding:10px;border:1px solid #2d3743;border-radius:10px;background:#11171f}.radio-player{position:sticky;bottom:14px;z-index:20;margin-top:22px;padding:15px;border:1px solid #3a3324;border-radius:16px;background:rgba(12,17,23,.94);backdrop-filter:blur(14px);display:flex;align-items:center;gap:10px}.radio-player__meta{min-width:180px}.radio-player__sub{font-size:11px;color:var(--muted)}
-.radio-wrap{display:flex;justify-content:center}.radio-console{width:min(100%,900px);padding:22px;background:linear-gradient(145deg,#343b40,#171c20 55%,#0c1013);border:1px solid #596066;border-radius:10px;box-shadow:0 22px 55px rgba(0,0,0,.35),inset 0 1px rgba(255,255,255,.14)}.radio-console__topline{display:flex;justify-content:space-between;color:#9da5a8;font:700 10px Oxanium;letter-spacing:1.2px}.radio-console__topline i{display:inline-block;width:7px;height:7px;margin-left:5px;border-radius:50%;background:#f9a51a;box-shadow:0 0 10px #f9a51a}.radio-console__face{display:grid;grid-template-columns:280px 1fr;gap:42px;align-items:center;padding:38px 42px 34px;margin-top:18px;background:#1c2225;border:1px solid #080a0b;border-radius:5px;box-shadow:inset 0 0 0 6px #252b2e,inset 0 0 30px rgba(0,0,0,.55)}.radio-console__dial-wrap{text-align:center}.radio-dial{position:relative;width:190px;height:190px;margin:auto;border:9px solid #090b0c;border-radius:50%;background:repeating-conic-gradient(from -35deg,#c5c9c6 0deg 2deg,transparent 2deg 15deg),radial-gradient(circle at 35% 28%,#747b7c,#303638 46%,#101416 76%);box-shadow:0 8px 15px rgba(0,0,0,.5),inset 0 2px 2px rgba(255,255,255,.25);transform:rotate(-30deg)}.radio-dial--1{transform:rotate(0deg)}.radio-dial--2{transform:rotate(30deg)}.radio-dial__cap{position:absolute;inset:42%;border:2px solid #101416;border-radius:50%;background:#8b9290;box-shadow:0 2px 3px #050607}.radio-dial__pointer{position:absolute;width:3px;height:63px;top:25px;left:calc(50% - 1.5px);background:#f9a51a;box-shadow:0 0 5px #f9a51a}.radio-dial-wrap label{display:block;margin-top:13px;color:#9da5a8;font:700 10px Oxanium;text-transform:uppercase;letter-spacing:1px}.radio-dial__input{width:190px;margin:10px auto 0;accent-color:var(--orange);cursor:pointer}.radio-dial__scale{display:flex;justify-content:space-between;width:190px;margin:0 auto;color:#707a7d;font:10px Oxanium}.radio-console__display{min-height:205px;padding:24px 28px;background:#0e1613;border:8px solid #101315;box-shadow:inset 0 0 20px rgba(0,0,0,.7);color:#d5e4c0}.radio-console__frequency{font:700 clamp(44px,8vw,74px)/.9 Oxanium;letter-spacing:2px;color:#c7ddaa;text-shadow:0 0 12px rgba(199,221,170,.5)}.radio-console__frequency small{font-size:16px;letter-spacing:1px}.radio-console__signal{display:flex;gap:4px;margin:16px 0 13px}.radio-console__signal span{width:28px;height:5px;background:#79955e;box-shadow:0 0 7px #79955e}.radio-console__signal span:nth-child(4),.radio-console__signal span:nth-child(5){opacity:.25}.radio-console__station{font:700 20px Oxanium;color:#f1f4e4}.radio-console__display p{max-width:470px;margin-top:7px;color:#93a18d;font-size:13px;line-height:1.5}.radio-console__controls{display:flex;align-items:center;gap:18px;padding:20px 4px 4px}.radio-console__controls audio{width:100%;height:38px}.radio-console__queue{margin-top:24px;padding-top:18px;border-top:1px solid #4a5154}.radio-console__queue-heading{display:flex;justify-content:space-between;margin-bottom:9px;color:#aeb5b5;font:700 11px Oxanium;letter-spacing:.8px;text-transform:uppercase}.radio-track{display:grid;grid-template-columns:34px 1fr auto;align-items:center;width:100%;padding:12px 10px;border:1px solid #3a4246;border-radius:3px;background:#20272a;color:#e2e6e5;text-align:left;cursor:pointer}.radio-track+.radio-track{margin-top:7px}.radio-track:hover,.radio-track--active{border-color:var(--orange);background:#292c29}.radio-track__play{color:var(--orange)}.radio-track>span:last-child{color:#90999b;font:11px Oxanium}.radio-console__empty{padding:12px 0;color:#8c9697;font-size:13px}
-@media(max-width:900px){.wiki-layout,.hero-dir,.grid-2,.stat-grid{grid-template-columns:1fr}.toc{display:none}}
-@media(max-width:650px){.radio-console{padding:14px}.radio-console__face{grid-template-columns:1fr;gap:28px;padding:28px 18px}.radio-console__display{min-height:175px;padding:20px}.radio-console__controls{align-items:stretch;flex-direction:column;gap:10px}.radio-console__controls .btn{align-self:flex-start}.radio-console__topline{font-size:8px}}
+
+/* Reusable internal-page header and content-card primitives. */
+.page-hero {
+  position: relative;
+  min-height: 390px;
+  padding-top: 74px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  border-bottom: 1px solid var(--line);
+}
+
+.page-hero__bg {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+}
+
+.page-hero__bg video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: .45;
+}
+
+.page-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(90deg,rgba(9,12,16,.95),rgba(9,12,16,.55),rgba(9,12,16,.8));
+}
+
+.page-hero__content {
+  padding-block: 80px;
+}
+
+.page-hero h1 {
+  font-size: clamp(42px,6vw,68px);
+  margin-top: 12px;
+}
+
+.page-hero p {
+  max-width: 760px;
+  color: #adb7c3;
+  margin-top: 18px;
+  font-size: 16px;
+}
+
+.content-section {
+  padding: 70px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.toolbar {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: #11171f;
+  margin-bottom: 24px;
+}
+
+.toolbar input {
+  flex: 1;
+  min-width: 220px;
+  background: #0c1117;
+  border: 1px solid #303946;
+  border-radius: 11px;
+  color: white;
+  padding: 11px 13px;
+  outline: none;
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 18px;
+}
+
+.card {
+  background: linear-gradient(145deg,#151b23,#0f141b);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 22px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.18);
+}
+
+.card h2,.card h3 {
+  margin-bottom: 10px;
+}
+
+.card p {
+  color: var(--muted);
+}
+
+.media {
+  aspect-ratio: 16/9;
+  overflow: hidden;
+  background: #080a0d;
+  border-radius: 13px;
+  margin: -22px -22px 18px;
+}
+
+.media img,.media video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin: 10px 0;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid #35404d;
+  border-radius: 999px;
+  padding: 5px 9px;
+  color: #aeb8c4;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.card-actions {
+  display: flex;
+  gap: 9px;
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+
+.notice {
+  padding: 14px 16px;
+  border: 1px solid #3a3324;
+  border-radius: 13px;
+  background: rgba(249,165,26,.05);
+  color: #bfc7d0;
+}
+
+.table-wrap {
+  overflow: auto;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 700px;
+}
+
+.data-table th,.data-table td {
+  text-align: left;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--line);
+}
+
+.data-table th {
+  font-family: Oxanium;
+  color: #dfe5eb;
+  background: #11171f;
+}
+
+/* Wiki reference layout and hero-directory details. */
+.wiki-layout {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  gap: 22px;
+}
+
+.toc {
+  position: sticky;
+  top: 92px;
+  align-self: start;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: #11171f;
+}
+
+.toc a {
+  display: block;
+  padding: 8px;
+  border-radius: 8px;
+  color: #b7c0cb;
+}
+
+.toc a:hover {
+  background: #19212b;
+  color: #fff;
+}
+
+.wiki-content {
+  display: grid;
+  gap: 18px;
+}
+
+.hero-dir {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 18px;
+}
+
+.hero-list {
+  display: grid;
+  gap: 7px;
+  max-height: 650px;
+  overflow: auto;
+}
+
+.hero-item {
+  border: 1px solid #2d3743;
+  background: #11171f;
+  color: #dfe5eb;
+  border-radius: 10px;
+  padding: 10px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.hero-item:hover,.hero-item.active {
+  border-color: #b77a18;
+  background: #181f28;
+}
+
+.kv {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
+  padding: 7px 0;
+  border-bottom: 1px dashed #2d3743;
+  font-size: 13px;
+}
+
+.kv code {
+  color: #d9e0e7;
+  background: #0d1319;
+  border: 1px solid #2d3743;
+  border-radius: 7px;
+  padding: 2px 6px;
+}
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  gap: 12px;
+}
+
+/* Shared overlays and the radio console's instrument-like controls. */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  background: rgba(0,0,0,.88);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+}
+
+.lightbox img {
+  max-width: 94vw;
+  max-height: 90vh;
+  object-fit: contain;
+  border-radius: 10px;
+}
+
+.lightbox button {
+  position: absolute;
+  top: 22px;
+  right: 22px;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid #44505f;
+  background: #11171f;
+  color: white;
+  font-size: 20px;
+}
+
+.track-list {
+  display: grid;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.track {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border: 1px solid #2d3743;
+  border-radius: 10px;
+  background: #11171f;
+}
+
+.radio-player {
+  position: sticky;
+  bottom: 14px;
+  z-index: 20;
+  margin-top: 22px;
+  padding: 15px;
+  border: 1px solid #3a3324;
+  border-radius: 16px;
+  background: rgba(12,17,23,.94);
+  backdrop-filter: blur(14px);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.radio-player__meta {
+  min-width: 180px;
+}
+
+.radio-player__sub {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.radio-wrap {
+  display: flex;
+  justify-content: center;
+}
+
+.radio-console {
+  width: min(100%,900px);
+  padding: 22px;
+  background: linear-gradient(145deg,#343b40,#171c20 55%,#0c1013);
+  border: 1px solid #596066;
+  border-radius: 10px;
+  box-shadow: 0 22px 55px rgba(0,0,0,.35),inset 0 1px rgba(255,255,255,.14);
+}
+
+/* Radio console station display, tuning dial, player, and track queue. */
+.radio-console__topline {
+  display: flex;
+  justify-content: space-between;
+  color: #9da5a8;
+  font: 700 10px Oxanium;
+  letter-spacing: 1.2px;
+}
+
+.radio-console__topline i {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  margin-left: 5px;
+  border-radius: 50%;
+  background: #f9a51a;
+  box-shadow: 0 0 10px #f9a51a;
+}
+
+.radio-console__face {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 42px;
+  align-items: center;
+  padding: 38px 42px 34px;
+  margin-top: 18px;
+  background: #1c2225;
+  border: 1px solid #080a0b;
+  border-radius: 5px;
+  box-shadow: inset 0 0 0 6px #252b2e,inset 0 0 30px rgba(0,0,0,.55);
+}
+
+.radio-console__dial-wrap {
+  text-align: center;
+}
+
+.radio-dial {
+  position: relative;
+  width: 190px;
+  height: 190px;
+  margin: auto;
+  border: 9px solid #090b0c;
+  border-radius: 50%;
+  background: repeating-conic-gradient(from -35deg,#c5c9c6 0deg 2deg,transparent 2deg 15deg),radial-gradient(circle at 35% 28%,#747b7c,#303638 46%,#101416 76%);
+  box-shadow: 0 8px 15px rgba(0,0,0,.5),inset 0 2px 2px rgba(255,255,255,.25);
+  transform: rotate(-30deg);
+}
+
+.radio-dial--1 {
+  transform: rotate(0deg);
+}
+
+.radio-dial--2 {
+  transform: rotate(30deg);
+}
+
+.radio-dial__cap {
+  position: absolute;
+  inset: 42%;
+  border: 2px solid #101416;
+  border-radius: 50%;
+  background: #8b9290;
+  box-shadow: 0 2px 3px #050607;
+}
+
+.radio-dial__pointer {
+  position: absolute;
+  width: 3px;
+  height: 63px;
+  top: 25px;
+  left: calc(50% - 1.5px);
+  background: #f9a51a;
+  box-shadow: 0 0 5px #f9a51a;
+}
+
+.radio-dial-wrap label {
+  display: block;
+  margin-top: 13px;
+  color: #9da5a8;
+  font: 700 10px Oxanium;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.radio-dial__input {
+  width: 190px;
+  margin: 10px auto 0;
+  accent-color: var(--orange);
+  cursor: pointer;
+}
+
+.radio-dial__scale {
+  display: flex;
+  justify-content: space-between;
+  width: 190px;
+  margin: 0 auto;
+  color: #707a7d;
+  font: 10px Oxanium;
+}
+
+.radio-console__display {
+  min-height: 205px;
+  padding: 24px 28px;
+  background: #0e1613;
+  border: 8px solid #101315;
+  box-shadow: inset 0 0 20px rgba(0,0,0,.7);
+  color: #d5e4c0;
+}
+
+.radio-console__frequency {
+  font: 700 clamp(44px,8vw,74px)/.9 Oxanium;
+  letter-spacing: 2px;
+  color: #c7ddaa;
+  text-shadow: 0 0 12px rgba(199,221,170,.5);
+}
+
+.radio-console__frequency small {
+  font-size: 16px;
+  letter-spacing: 1px;
+}
+
+.radio-console__signal {
+  display: flex;
+  gap: 4px;
+  margin: 16px 0 13px;
+}
+
+.radio-console__signal span {
+  width: 28px;
+  height: 5px;
+  background: #79955e;
+  box-shadow: 0 0 7px #79955e;
+}
+
+.radio-console__signal span:nth-child(4),.radio-console__signal span:nth-child(5) {
+  opacity: .25;
+}
+
+.radio-console__station {
+  font: 700 20px Oxanium;
+  color: #f1f4e4;
+}
+
+.radio-console__display p {
+  max-width: 470px;
+  margin-top: 7px;
+  color: #93a18d;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.radio-console__controls {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 20px 4px 4px;
+}
+
+.radio-console__controls audio {
+  width: 100%;
+  height: 38px;
+}
+
+.radio-console__queue {
+  margin-top: 24px;
+  padding-top: 18px;
+  border-top: 1px solid #4a5154;
+}
+
+.radio-console__queue-heading {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 9px;
+  color: #aeb5b5;
+  font: 700 11px Oxanium;
+  letter-spacing: .8px;
+  text-transform: uppercase;
+}
+
+.radio-track {
+  display: grid;
+  grid-template-columns: 34px 1fr auto;
+  align-items: center;
+  width: 100%;
+  padding: 12px 10px;
+  border: 1px solid #3a4246;
+  border-radius: 3px;
+  background: #20272a;
+  color: #e2e6e5;
+  text-align: left;
+  cursor: pointer;
+}
+
+.radio-track+.radio-track {
+  margin-top: 7px;
+}
+
+.radio-track:hover,.radio-track--active {
+  border-color: var(--orange);
+  background: #292c29;
+}
+
+.radio-track__play {
+  color: var(--orange);
+}
+
+.radio-track>span:last-child {
+  color: #90999b;
+  font: 11px Oxanium;
+}
+
+.radio-console__empty {
+  padding: 12px 0;
+  color: #8c9697;
+  font-size: 13px;
+}
+
+/* Collapse multi-column reference and radio layouts as the viewport narrows. */
+@media (max-width:900px) {
+  .wiki-layout,.hero-dir,.grid-2,.stat-grid {
+    grid-template-columns: 1fr;
+  }
+  .toc {
+    display: none;
+  }
+}
+
+@media (max-width:650px) {
+  .radio-console {
+    padding: 14px;
+  }
+  .radio-console__face {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    padding: 28px 18px;
+  }
+  .radio-console__display {
+    min-height: 175px;
+    padding: 20px;
+  }
+  .radio-console__controls {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .radio-console__controls .btn {
+    align-self: flex-start;
+  }
+  .radio-console__topline {
+    font-size: 8px;
+  }
+}

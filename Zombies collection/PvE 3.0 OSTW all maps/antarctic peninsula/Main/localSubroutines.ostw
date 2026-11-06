@@ -1,4 +1,4 @@
-import "index.ostw";
+﻿import "index.ostw";
 
 
 void followerattack1() "391 FOLLOWERS attack subroutine 1"
@@ -57,24 +57,24 @@ void PaPsound() "PaP Sound subroutine"
 void wavespawn() "518 spawn bots subroutine"
 {
     wavevoicecall();
-    CreateDummyBot(bossSpawn[extraVar[4]], Team.Team2, 0, FirstOf(SpawnPoints(Team.Team2)), Vector(0, 0, 0));
+    CreateDummyBot(bossSpawn[g], Team.Team2, 0, FirstOf(SpawnPoints(Team.Team2)), Vector(0, 0, 0));
     omnicspawn[0] = SlotOf(PlayersInSlot(0, Team.Team2));
-    extraVar[27] = 0;
+    subindex = 0;
     ActiveEnemyIndex();
     Wait(0.5, WaitBehavior.AbortWhenFalse);
     setbotamount();
     for (forindex = 1; botamount + 1; 2)
     {
-        CreateDummyBot(bot1spawn[extraVar[4]], Team.Team2, forindex, FirstOf(SpawnPoints(Team.Team2)), Vector(0, 0, 0));
+        CreateDummyBot(bot1spawn[g], Team.Team2, forindex, FirstOf(SpawnPoints(Team.Team2)), Vector(0, 0, 0));
         omnicspawn[forindex] = SlotOf(PlayersInSlot(forindex, Team.Team2));
-        extraVar[27] = forindex;
+        subindex = forindex;
         ActiveEnemyIndex();
         Wait(0.75, WaitBehavior.AbortWhenFalse);
         if (forindex + 1 <= botamount)
         {
-            CreateDummyBot(bot2spawn[extraVar[4]], Team.Team2, forindex + 1, FirstOf(SpawnPoints(Team.Team2)), Vector(0, 0, 0));
+            CreateDummyBot(bot2spawn[g], Team.Team2, forindex + 1, FirstOf(SpawnPoints(Team.Team2)), Vector(0, 0, 0));
             omnicspawn[forindex + 1] = SlotOf(PlayersInSlot(forindex + 1, Team.Team2));
-            extraVar[27] = forindex + 1;
+            subindex = forindex + 1;
             ActiveEnemyIndex();
             Wait(0.75, WaitBehavior.AbortWhenFalse);
         }
@@ -93,9 +93,9 @@ void wavevoicecall() "player voiceline call subroutine"
 void setbotamount() "set bot amount subroutine"
 {
     # this needs to be done so that it hot swaps while players leave and join
-    if (FirstOf(extraVar) < 5 + (NumberOfPlayers(Team.Team1) - 1) * 2)
+    if (roundnumber < 5 + (NumberOfPlayers(Team.Team1) - 1) * 2)
     {
-        botamount = 5 + FirstOf(extraVar);
+        botamount = 5 + roundnumber;
     }
     else
     {
@@ -110,47 +110,49 @@ void setbotamount() "set bot amount subroutine"
 void getoutofspawn() "out of spawn subroutine"
 {
     # this can be a for loop and array that is outside of all maps, and map specific spawn points
-    if (setspawn == false)
+    switch (setspawn)
     {
-        # zone 1 need to label which of these is which
-        Teleport(EventPlayer(), Vector(-98.883, 8.939, 72.511));
-        zone1();
-        makedoors();
-    }
-    else if (setspawn == 1)
-    {
-        # zone 1-1
-        Teleport(EventPlayer(), Vector(-80.097, 9.076, -73.528));
-        zone1();
-        makedoors();
-    }
-    else if (setspawn == 2)
-    {
-        # zone 2
-        Teleport(EventPlayer(), Vector(185.785, 45.059, 176.924));
-        zone2();
-        makedoors();
-    }
-    else if (setspawn == 3)
-    {
-        # zone 2-1
-        Teleport(EventPlayer(), Vector(349.006, 45.721, 180.954));
-        zone2();
-        makedoors();
-    }
-    else if (setspawn == 4)
-    {
-        # zone 3
-        Teleport(EventPlayer(), Vector(211.903, -9.592, -237.573));
-        zone3();
-        makedoors();
-    }
-    else if (setspawn == 5)
-    {
-        # zone 3-1
-        Teleport(EventPlayer(), Vector(354.448, -9.548, -232.832));
-        zone3();
-        makedoors();
+        case false:
+            # zone 1 need to label which of these is which
+            Teleport(EventPlayer(), Vector(-98.883, 8.939, 72.511));
+            zone1();
+            makedoors();
+            break;
+
+        case 1:
+            # zone 1-1
+            Teleport(EventPlayer(), Vector(-80.097, 9.076, -73.528));
+            zone1();
+            makedoors();
+            break;
+
+        case 2:
+            # zone 2
+            Teleport(EventPlayer(), Vector(185.785, 45.059, 176.924));
+            zone2();
+            makedoors();
+            break;
+
+        case 3:
+            # zone 2-1
+            Teleport(EventPlayer(), Vector(349.006, 45.721, 180.954));
+            zone2();
+            makedoors();
+            break;
+
+        case 4:
+            # zone 3
+            Teleport(EventPlayer(), Vector(211.903, -9.592, -237.573));
+            zone3();
+            makedoors();
+            break;
+
+        case 5:
+            # zone 3-1
+            Teleport(EventPlayer(), Vector(354.448, -9.548, -232.832));
+            zone3();
+            makedoors();
+            break;
     }
 }
 
@@ -169,30 +171,30 @@ void packapunchbuy() "pack a punch buy subroutine"
 void zone1() "zone 1 subroutine"
 {
     ForceSpawnRoom(Team.All, 1);
-    extraVar[12] = 0;
-    doorZoneStart = extraVar[33];
-    doorZoneEnd = extraVar[34];
+    telespot = 0;
+    doorZoneStart = doorzone1count1;
+    doorZoneEnd = doorzone1count2;
 }
 
 void zone2() "zone 2 subroutine"
 {
     ForceSpawnRoom(Team.All, 0);
-    extraVar[12] = 1;
-    doorZoneStart = extraVar[35];
-    doorZoneEnd = extraVar[36];
+    telespot = 1;
+    doorZoneStart = doorzone2count1;
+    doorZoneEnd = doorzone2count2;
 }
 
 void zone3() "zone 3 subroutine"
 {
     ForceSpawnRoom(Team.All, 2);
-    extraVar[12] = 2;
-    doorZoneStart = extraVar[37];
-    doorZoneEnd = extraVar[38];
+    telespot = 2;
+    doorZoneStart = doorzone3count1;
+    doorZoneEnd = doorzone3count2;
 }
 
 void makedoors() "make the door effects"
 {
-    if (extraVar[12] == 1 || extraVar[12] == 2)
+    if (telespot == 1 || telespot == 2)
     {
         for (doorindexsequencer = 0; doorZoneStart * 2; 1)
         {
@@ -221,21 +223,21 @@ void makedoors() "make the door effects"
 
 void decompressNSub() "Subroutine decompressNSub"
 {
-    decompressN = MappedArray(MappedArray(StringSplit(FirstOf([decompressN]), FirstOf(null)), Append(ArrayElement(), "	\n\r !\"#$%&'()*+,-./2:;<=>?@Q[\\]^_`q|}~¡")), 0.001 * IndexOfStringChar(LastOf(ArrayElement()), CharInString(ArrayElement(), 0)) + 0.1 * IndexOfStringChar(LastOf(ArrayElement()), CharInString(ArrayElement(), 1)) + 10 * IndexOfStringChar(LastOf(ArrayElement()), CharInString(ArrayElement(), 2)) + 1000 * IndexOfStringChar(LastOf(ArrayElement()), CharInString(ArrayElement(), 3)) - 50000);
+    decompressN = MappedArray(MappedArray(StringSplit(FirstOf([decompressN]), FirstOf(null)), Append(ArrayElement(), "	\n\r !\"#$%&'()*+,-./2:;<=>?@Q[\\]^_`q|}~Â€ÂÂ‚ÂƒÂ„Â…Â†Â‡ÂˆÂ‰ÂŠÂ‹ÂŒÂÂŽÂÂÂ‘Â’Â“Â”Â•Â–Â—Â˜Â™ÂšÂ›ÂœÂÂžÂŸÂ¡")), 0.001 * IndexOfStringChar(LastOf(ArrayElement()), CharInString(ArrayElement(), 0)) + 0.1 * IndexOfStringChar(LastOf(ArrayElement()), CharInString(ArrayElement(), 1)) + 10 * IndexOfStringChar(LastOf(ArrayElement()), CharInString(ArrayElement(), 2)) + 1000 * IndexOfStringChar(LastOf(ArrayElement()), CharInString(ArrayElement(), 3)) - 50000);
 }
 
 void decompressVSub() "Subroutine decompressVSub"
 {
-    decompressV = MappedArray(MappedArray(StringSplit(FirstOf([decompressV]), FirstOf(null)), Append(ArrayElement(), "	\n\r !\"#$%&'()*+,-./2:;<=>?@Q[\\]^_`q|}~¡")), Vector(0.01 * IndexOfStringChar(LastOf(ArrayElement()), CharInString(ArrayElement(), 0)) + IndexOfStringChar(LastOf(ArrayElement()), CharInString(ArrayElement(), 1)) + 100 * IndexOfStringChar(LastOf(ArrayElement()), CharInString(ArrayElement(), 2)), 0.01 * IndexOfStringChar(LastOf(ArrayElement()), CharInString(ArrayElement(), 6)) + IndexOfStringChar(LastOf(ArrayElement()), CharInString(ArrayElement(), 7)) + 100 * IndexOfStringChar(LastOf(ArrayElement()), CharInString(ArrayElement(), 8)), 0.01 * IndexOfStringChar(LastOf(ArrayElement()), CharInString(ArrayElement(), 3)) + IndexOfStringChar(LastOf(ArrayElement()), CharInString(ArrayElement(), 4)) + 100 * IndexOfStringChar(LastOf(ArrayElement()), CharInString(ArrayElement(), 5))) - Vector(5000, 5000, 5000));
+    decompressV = MappedArray(MappedArray(StringSplit(FirstOf([decompressV]), FirstOf(null)), Append(ArrayElement(), "	\n\r !\"#$%&'()*+,-./2:;<=>?@Q[\\]^_`q|}~Â€ÂÂ‚ÂƒÂ„Â…Â†Â‡ÂˆÂ‰ÂŠÂ‹ÂŒÂÂŽÂÂÂ‘Â’Â“Â”Â•Â–Â—Â˜Â™ÂšÂ›ÂœÂÂžÂŸÂ¡")), Vector(0.01 * IndexOfStringChar(LastOf(ArrayElement()), CharInString(ArrayElement(), 0)) + IndexOfStringChar(LastOf(ArrayElement()), CharInString(ArrayElement(), 1)) + 100 * IndexOfStringChar(LastOf(ArrayElement()), CharInString(ArrayElement(), 2)), 0.01 * IndexOfStringChar(LastOf(ArrayElement()), CharInString(ArrayElement(), 6)) + IndexOfStringChar(LastOf(ArrayElement()), CharInString(ArrayElement(), 7)) + 100 * IndexOfStringChar(LastOf(ArrayElement()), CharInString(ArrayElement(), 8)), 0.01 * IndexOfStringChar(LastOf(ArrayElement()), CharInString(ArrayElement(), 3)) + IndexOfStringChar(LastOf(ArrayElement()), CharInString(ArrayElement(), 4)) + 100 * IndexOfStringChar(LastOf(ArrayElement()), CharInString(ArrayElement(), 5))) - Vector(5000, 5000, 5000));
 }
 
-void pfLookAtDestination() "☆【PF Core Subroutine】☞ Look at destination"
+void pfLookAtDestination() "â˜†ã€PF Core Subroutineã€‘â˜ž Look at destination"
 {
     # Calling this subroutine will make the player look to the point they are walking towards.
     StartFacing(EventPlayer(), DirectionTowards(EyePosition(EventPlayer()) * (DistanceBetween(PositionOf(EventPlayer()), pfWalkingToPosition) < 3 ? Vector(1, 0, 1) : Vector(1, 1, 1)), (pfWalkingToPosition + Vector(0, 1.5, 0)) * (DistanceBetween(PositionOf(EventPlayer()), pfWalkingToPosition) < 3 ? Vector(1, 0, 1) : Vector(1, 1, 1))), 500, Relative.ToWorld, FacingRev.DirectionAndTurnRate);
 }
 
-void pfRecalibrate() "【PF Core Subroutine】☞ Recalibrate"
+void pfRecalibrate() "ã€PF Core Subroutineã€‘â˜ž Recalibrate"
 {
     StopThrottleInDirection(EventPlayer());
     pfCurrentNodeIndex = -1;
@@ -244,7 +246,7 @@ void pfRecalibrate() "【PF Core Subroutine】☞ Recalibrate"
     pfPath = 0;
 }
 
-void pfProgressEventPlayer() "【PF Core Subroutine】☞ Progress event player"
+void pfProgressEventPlayer() "ã€PF Core Subroutineã€‘â˜ž Progress event player"
 {
     SkipIf(CountOf(pfPath) == 0, 9);
     # Pop the current path.
@@ -266,7 +268,7 @@ void pfProgressEventPlayer() "【PF Core Subroutine】☞ Progress event player"
     pfUpdateNodeMeta();
 }
 
-void pfTick() "【PF Core Subroutine】☞ Tick"
+void pfTick() "ã€PF Core Subroutineã€‘â˜ž Tick"
 {
     pfIterationsThisTick -= 1;
     if (pfIterationsThisTick <= 0)
@@ -278,7 +280,7 @@ void pfTick() "【PF Core Subroutine】☞ Tick"
     }
 }
 
-void pfUpdateNodeMeta() "【PF Core Subroutine】☞ Update node meta"
+void pfUpdateNodeMeta() "ã€PF Core Subroutineã€‘â˜ž Update node meta"
 {
     if (pfCurrentNodeIndex != -1)
     {
@@ -289,7 +291,7 @@ void pfUpdateNodeMeta() "【PF Core Subroutine】☞ Update node meta"
     pfWalkingFromPosition = PositionOf(EventPlayer());
 }
 
-void pfWalkToDestination() "☆【PF Core Subroutine】☞ Walk to destination"
+void pfWalkToDestination() "â˜†ã€PF Core Subroutineã€‘â˜ž Walk to destination"
 {
     StartThrottleInDirection(EventPlayer(), DirectionTowards(PositionOf(EventPlayer()), pfCurrentNodeIndex == -1 ? pfDestination : pfLoadedMap_nodes[pfCurrentNodeIndex]), DistanceBetween(PositionOf(EventPlayer()), pfCurrentNodeIndex == -1 ? pfDestination : pfLoadedMap_nodes[pfCurrentNodeIndex]) > 0.4 && (pfCurrentNodeIndex != -1 || !(!pfSavedTarget || DistanceBetween(pfDestination, pfSavedTarget) > 5)), Relative.ToWorld, ThrottleBehavior.ReplaceExistingThrottle, ThrottleRev.DirectionAndMagnitude);
 }
@@ -302,7 +304,7 @@ void setdamagemodif() "set damage modification"
         {
             if (HeroOf(EventPlayer()) == tankheroes[index])
             {
-                currentdamgindex = etcArray[11][index * 45];
+                currentdamgindex = heroSupportHeroes[index * 45];
                 break;
             }
             else
@@ -318,7 +320,7 @@ void setdamagemodif() "set damage modification"
         {
             if (HeroOf(EventPlayer()) == supportheroes[index])
             {
-                currentdamgindex = etcArray[11][index * 45];
+                currentdamgindex = heroSupportHeroes[index * 45];
                 break;
             }
             else
@@ -334,7 +336,7 @@ void setdamagemodif() "set damage modification"
         {
             if (HeroOf(EventPlayer()) == damageheroes[index])
             {
-                currentdamgindex = etcArray[9][index * 45];
+                currentdamgindex = heroDamageHeroes[index * 45];
                 break;
             }
             else
@@ -348,11 +350,11 @@ void setdamagemodif() "set damage modification"
 
 void ActiveEnemyIndex() "current enemy index subroutine"
 {
-    for (index = 0; CountOf(etcArray[8]); 1)
+    for (index = 0; CountOf(heroAlphabetical); 1)
     {
-        if (HeroOf(PlayersInSlot(extraVar[27], Team.Team2)) == etcArray[8][index])
+        if (HeroOf(PlayersInSlot(subindex, Team.Team2)) == heroAlphabetical[index])
         {
-            currentEnemyIndex[extraVar[27]] = index;
+            currentEnemyIndex[subindex] = index;
             break;
         }
     }

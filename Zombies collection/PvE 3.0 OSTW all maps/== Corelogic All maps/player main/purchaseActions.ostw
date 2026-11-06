@@ -1,28 +1,28 @@
-
+﻿
 rule: "202 Purchase Follower action"
 Event.OngoingPlayer
 Team.Team1
 if (IsButtonHeld(EventPlayer(), Button.Reload) == true)
 # is heroradius variable needed?
-if (IsTrueForAny(twoDvectorsArray[2], DistanceBetween(ArrayElement(), EventPlayer()) < 2) == true)
+if (IsTrueForAny(buyheros, DistanceBetween(ArrayElement(), EventPlayer()) < 2) == true)
 {
     Wait(1, WaitBehavior.AbortWhenFalse);
     # Loop through all heroes
-    for (i = 0; CountOf(etcArray[5]); 1)
+    for (i = 0; CountOf(hero); 1)
     {
-        if (DistanceBetween(EventPlayer(), twoDvectorsArray[2][i]) < 2)
+        if (DistanceBetween(EventPlayer(), buyheros[i]) < 2)
         {
-            if (points >= RoundToInteger(twoDnumbersArray[6][i] / 3 * costmultiplier - creditcardlimit, Rounding.Nearest))
+            if (points >= RoundToInteger(herobuycosts[i] / 3 * costmultiplier - creditcardlimit, Rounding.Nearest))
             {
-                followerbuy = etcArray[5][i];
+                followerbuy = hero[i];
                 MinWait();
                 Subfollowerbuy();
-                points -= RoundToInteger(twoDnumbersArray[6][i] / 3 * costmultiplier, Rounding.Nearest);
-                points2 -= RoundToInteger(twoDnumbersArray[6][i] / 3 * costmultiplier, Rounding.Nearest);
+                points -= RoundToInteger(herobuycosts[i] / 3 * costmultiplier, Rounding.Nearest);
+                points2 -= RoundToInteger(herobuycosts[i] / 3 * costmultiplier, Rounding.Nearest);
             }
             else
             {
-                SmallMessage(EventPlayer(), <"<0> <1>", HeroIconString(etcArray[5][i]), etcArray[7][i]>);
+                SmallMessage(EventPlayer(), <"<0> <1>", HeroIconString(hero[i]), followerbuyMsg[i]>);
             }
             break;
         }
@@ -33,20 +33,20 @@ rule: "Purchase Mystery Follower action"
 Event.OngoingPlayer
 Team.Team1
 if (IsButtonHeld(EventPlayer(), Button.Reload) == true)
-if (DistanceBetween(EventPlayer(), extraVar[25]) <= 2)
+if (DistanceBetween(EventPlayer(), rngbox) <= 2)
 {
     Wait(1, WaitBehavior.AbortWhenFalse);
-    if (points >= RoundToInteger(FirstOf(twoDnumbersArray[6]) / 3 * costmultiplier - creditcardlimit, Rounding.Nearest))
+    if (points >= RoundToInteger(FirstOf(herobuycosts) / 3 * costmultiplier - creditcardlimit, Rounding.Nearest))
     {
-        followerbuy = RandomValueInArray(etcArray[5]);
+        followerbuy = RandomValueInArray(hero);
         MinWait();
         Subfollowerbuy();
-        points -= RoundToInteger(FirstOf(twoDnumbersArray[6]) / 3 * costmultiplier, Rounding.Nearest);
-        points2 -= RoundToInteger(FirstOf(twoDnumbersArray[6]) / 3 * costmultiplier, Rounding.Nearest);
+        points -= RoundToInteger(FirstOf(herobuycosts) / 3 * costmultiplier, Rounding.Nearest);
+        points2 -= RoundToInteger(FirstOf(herobuycosts) / 3 * costmultiplier, Rounding.Nearest);
     }
     else
     {
-        SmallMessage(EventPlayer(), <"<0> <1>", HeroIconString(FirstOf(etcArray[5])), FirstOf(etcArray[7])>);
+        SmallMessage(EventPlayer(), <"<0> <1>", HeroIconString(FirstOf(hero)), FirstOf(followerbuyMsg)>);
     }
 }
 
@@ -55,21 +55,21 @@ rule: "229 buy perks and power activate"
 Event.OngoingPlayer
 Team.Team1
 if (IsButtonHeld(EventPlayer(), Button.Interact) == true)
-if (IsTrueForAny(twoDvectorsArray[3], [DistanceBetween(ArrayElement(), EventPlayer()) < 2]) == true)
+if (IsTrueForAny(buyperks, [DistanceBetween(ArrayElement(), EventPlayer()) < 2]) == true)
 {
     if (ServerLoadPeak() < 235)
     {
-        for (i = 0; CountOf(twoDvectorsArray[3]); 1)
+        for (i = 0; CountOf(buyperks); 1)
         {
-            if (DistanceBetween(EventPlayer(), twoDvectorsArray[3][i]) < 2 && i != 6)
+            if (DistanceBetween(EventPlayer(), buyperks[i]) < 2 && i != 6)
             {
-                if (extraVar[28] == 1)
+                if (poweron == 1)
                 {
-                    if (points >= RoundToInteger(twoDnumbersArray2[2][i] * costmultiplier - creditcardlimit, Rounding.Nearest))
+                    if (points >= RoundToInteger(perkcosts[i] * costmultiplier - creditcardlimit, Rounding.Nearest))
                     {
                         if (perk[i] < 3)
                         {
-                            points -= RoundToInteger(twoDnumbersArray2[2][i] * costmultiplier * cashback, Rounding.Nearest);
+                            points -= RoundToInteger(perkcosts[i] * costmultiplier * cashback, Rounding.Nearest);
                             Wait(0.25, WaitBehavior.IgnoreCondition);
                             perk[i] += 1;
                             PlayEffect(AllPlayers(Team.Team1), PlayEffect.RingExplosionSound, Color.White, EventPlayer(), 70);
@@ -88,7 +88,7 @@ if (IsTrueForAny(twoDvectorsArray[3], [DistanceBetween(ArrayElement(), EventPlay
                             break;
                         }
                     }
-                    else if (points < twoDnumbersArray2[2][i])
+                    else if (points < perkcosts[i])
                     {
                         SmallMessage(EventPlayer(), <"<0> No points? NO perks!", HeroIconString(Hero.Ramattra)>);
                         break;
@@ -125,13 +125,13 @@ rule: "connect power"
 Event.OngoingPlayer
 Team.Team1
 if (IsButtonHeld(EventPlayer(), Button.Interact) == true)
-if (DistanceBetween(EventPlayer(), twoDvectorsArray[3][6]) < 2)
-if (extraVar[28] == 0)
+if (DistanceBetween(EventPlayer(), buyperks[6]) < 2)
+if (poweron == 0)
 {
     PlayEffect(AllPlayers(Team.Team1), PlayEffect.BuffImpactSound, Color.White, EventPlayer(), 70);
     DestroyEffect(FirstOf(powerconnected));
     DestroyInWorldText(powerconnected[1]);
-    extraVar[28] = 1;
+    poweron = 1;
     SetUltimateCharge(AllPlayers(Team.Team2), 100);
     SmallMessage(AllPlayers(Team.All), "The power is now ON!");
 }
@@ -140,23 +140,23 @@ rule: "202 Purchase hero actions"
 Event.OngoingPlayer
 Team.Team1
 if (IsButtonHeld(EventPlayer(), Button.Interact) == true)
-if (IsTrueForAny([DistanceBetween(EventPlayer(), twoDvectorsArray[2][i]) < 2], ArrayElement()) == true)
+if (IsTrueForAny([DistanceBetween(EventPlayer(), buyheros[i]) < 2], ArrayElement()) == true)
 {
     if (ServerLoadPeak() < 235)
     {
-        for (idx = 0; CountOf(twoDvectorsArray[2]); 1)
+        for (idx = 0; CountOf(buyheros); 1)
         {
-            if (DistanceBetween(EventPlayer(), twoDvectorsArray[2][idx]) < 2)
+            if (DistanceBetween(EventPlayer(), buyheros[idx]) < 2)
             {
-                if (HeroOf(EventPlayer()) == etcArray[5][idx])
+                if (HeroOf(EventPlayer()) == hero[idx])
                 {
-                    if (points >= RoundToInteger(twoDnumbersArray[6][idx] / 2 * costmultiplier - creditcardlimit, Rounding.Nearest) && currentmagazines < 10)
+                    if (points >= RoundToInteger(herobuycosts[idx] / 2 * costmultiplier - creditcardlimit, Rounding.Nearest) && currentmagazines < 10)
                     {
-                        points -= RoundToInteger(twoDnumbersArray[6][idx] / 2 * costmultiplier * cashback, Rounding.Nearest);
+                        points -= RoundToInteger(herobuycosts[idx] / 2 * costmultiplier * cashback, Rounding.Nearest);
                         Wait(0.25, WaitBehavior.IgnoreCondition);
-                        ChaseVariableAtRate(points2, EvaluateOnce(points) * H, twoDnumbersArray[6][idx], RateChaseReevaluation.DestinationAndRate);
+                        ChaseVariableAtRate(points2, EvaluateOnce(points) * H, herobuycosts[idx], RateChaseReevaluation.DestinationAndRate);
                         currentmagazines = 10;
-                        SmallMessage(EventPlayer(), <"<0> Magazines refilled!", HeroIconString(etcArray[5][idx])>);
+                        SmallMessage(EventPlayer(), <"<0> Magazines refilled!", HeroIconString(hero[idx])>);
                         # Stop after the first match
                         break;
                     }
@@ -167,7 +167,7 @@ if (IsTrueForAny([DistanceBetween(EventPlayer(), twoDvectorsArray[2][i]) < 2], A
                         {
                             SmallMessage(EventPlayer(), "You already have full magazines!");
                         }
-                        else if (points < twoDnumbersArray[6][idx] / 2)
+                        else if (points < herobuycosts[idx] / 2)
                         {
                             SmallMessage(EventPlayer(), <"<0> No points? NO magazines!", HeroIconString(Hero.Ramattra)>);
                         }
@@ -175,36 +175,36 @@ if (IsTrueForAny([DistanceBetween(EventPlayer(), twoDvectorsArray[2][i]) < 2], A
                 }
                 else
                 {
-                    if (points >= RoundToInteger(twoDnumbersArray[6][idx] * costmultiplier - creditcardlimit, Rounding.Nearest))
+                    if (points >= RoundToInteger(herobuycosts[idx] * costmultiplier - creditcardlimit, Rounding.Nearest))
                     {
-                        ForcePlayerHero(EventPlayer(), etcArray[5][idx]);
+                        ForcePlayerHero(EventPlayer(), hero[idx]);
                         MinWait();
-                        heroswap[currentswap] = etcArray[5][idx];
+                        heroswap[currentswap] = hero[idx];
                         MinWait();
-                        heroiconswap[currentswap] = HeroIconString(etcArray[5][idx]);
+                        heroiconswap[currentswap] = HeroIconString(hero[idx]);
                         if (ServerLoad() < 235)
                         {
                             PlayEffect(AllPlayers(Team.Team1), PlayEffect.BuffImpactSound, Color.White, EventPlayer(), 70);
                             PlayEffect(AllPlayers(Team.All), PlayEffect.MoiraFadeDisappearEffect, Color.White, EventPlayer(), 1);
                         }
-                        points -= RoundToInteger(twoDnumbersArray[6][idx] * costmultiplier * cashback, Rounding.Nearest);
+                        points -= RoundToInteger(herobuycosts[idx] * costmultiplier * cashback, Rounding.Nearest);
                         Wait(0.25, WaitBehavior.IgnoreCondition);
-                        ChaseVariableAtRate(points2, EvaluateOnce(points) * H, twoDnumbersArray[6][idx], RateChaseReevaluation.DestinationAndRate);
+                        ChaseVariableAtRate(points2, EvaluateOnce(points) * H, herobuycosts[idx], RateChaseReevaluation.DestinationAndRate);
                         AttachPlayers(PlayersInSlot(SlotOf(EventPlayer()) + 4, Team.Team1), EventPlayer(), Vector(-0.5, 1.8, -0.2));
                         if (!ArrayContains(allowedheroes, HeroOf(EventPlayer())))
                         {
                             ModifyVariable(allowedheroes, Operation.AppendToArray, HeroOf(EventPlayer()));
                         }
                         currentmagazines = 10;
-                        SkipIf(HeroOf(EventPlayer()) == etcArray[5][idx], 3);
-                        SkipIf(extraVar[14] == false, 2);
+                        SkipIf(HeroOf(EventPlayer()) == hero[idx], 3);
+                        SkipIf(experiencesystem == false, 2);
                         XPlevel = false;
                         xp = false;
                     }
                     else
                     {
                         # the message to say that you can't buy it
-                        SmallMessage(EventPlayer(), <"<0>", etcArray[6][idx]>);
+                        SmallMessage(EventPlayer(), <"<0>", herobuymessages[idx]>);
                     }
                     # Stop after the first match
                     break;
@@ -264,7 +264,7 @@ if (NumberOfPlayers(Team.Team1) > 1)
 rule: "173 Purchase winston Omnic bomb"
 Event.OngoingPlayer
 Team.Team1
-if (DistanceBetween(EventPlayer(), twoDvectorsArray[3][9]) < 4)
+if (DistanceBetween(EventPlayer(), buyperks[9]) < 4)
 if (IsButtonHeld(EventPlayer(), Button.Interact) == true)
 if (points >= RoundToInteger(2500 * costmultiplier - creditcardlimit, Rounding.Nearest))
 if (powerconnected == 1)
@@ -288,7 +288,7 @@ rule: "53  mystery box"
 Event.OngoingPlayer
 Team.Team1
 if (IsButtonHeld(EventPlayer(), Button.Interact) == true)
-if (DistanceBetween(EventPlayer(), extraVar[25]) <= 2)
+if (DistanceBetween(EventPlayer(), rngbox) <= 2)
 {
     if (ServerLoadPeak() < 235)
     {
@@ -316,11 +316,11 @@ if (DistanceBetween(EventPlayer(), extraVar[25]) <= 2)
             }
             # if ruleCondition:\nloop()
             currentmagazines = 10;
-            extraVar[18] += 1;
+            boxcounter += 1;
             Wait(1, WaitBehavior.IgnoreCondition);
-            SkipIf(extraVar[18] < RandomInteger(6, 15), 2);
-            extraVar[25] = RandomValueInArray(twoDvectorsArray[1]);
-            extraVar[18] = false;
+            SkipIf(boxcounter < RandomInteger(6, 15), 2);
+            rngbox = RandomValueInArray(mysterylocations);
+            boxcounter = false;
         }
         else if (points < 950 - creditcardlimit)
         {
@@ -339,15 +339,15 @@ Event.OngoingPlayer
 Team.Team1
 if (DistanceBetween(EventPlayer(), Vector(-83.799, -160.001, 64.224)) <= 2)
 if (IsButtonHeld(EventPlayer(), Button.Interact) == true)
-if (extraVar[17] == false)
+if (trapeffect == false)
 {
     if (points >= 1000)
     {
-        extraVar[17] = 1;
+        trapeffect = 1;
         PlayEffect(AllPlayers(Team.Team1), PlayEffect.BuffImpactSound, Color.White, EventPlayer(), 70);
         points -= 2000;
         Wait(22, WaitBehavior.IgnoreCondition);
-        extraVar[17] = false;
+        trapeffect = false;
     }
     else if (points < 1000)
     {

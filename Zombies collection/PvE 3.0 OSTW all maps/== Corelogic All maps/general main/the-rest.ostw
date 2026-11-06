@@ -1,10 +1,8 @@
-import "coreindex.ostw";
-
-rule: "68 player joined invincible"
+﻿rule: "68 player joined invincible"
 Event.OnPlayerJoin
 Team.Team1
 if (HasSpawned(EventPlayer()) == true)
-if (extraVar[3] == 1)
+if (start == 1)
 {
     SetStatus(EventPlayer(), null, Status.PhasedOut, 30);
     # eventPlayer.points = 500
@@ -14,38 +12,26 @@ if (extraVar[3] == 1)
 
 rule: "120  Remove bots when players join"
 {
-    # simplify and test this more to see how much is needed with anti crash enabled
     if (NumberOfPlayers(Team.Team1) == 2)
     {
-        # need a for loop
-        DestroyDummyBot(Team.Team2, 17);
-        DestroyDummyBot(Team.Team2, 16);
-        DestroyDummyBot(Team.Team2, 15);
-        DestroyDummyBot(Team.Team2, 14);
+        for (botRemoveSlot = 14; botRemoveSlot <= 17; 1)
+        {
+            DestroyDummyBot(Team.Team2, botRemoveSlot);
+        }
     }
     else if (NumberOfPlayers(Team.Team1) == 3)
     {
-        DestroyDummyBot(Team.Team2, 17);
-        DestroyDummyBot(Team.Team2, 16);
-        DestroyDummyBot(Team.Team2, 15);
-        DestroyDummyBot(Team.Team2, 14);
-        DestroyDummyBot(Team.Team2, 13);
-        DestroyDummyBot(Team.Team2, 12);
-        DestroyDummyBot(Team.Team2, 11);
-        DestroyDummyBot(Team.Team2, 10);
+        for (botRemoveSlot = 10; botRemoveSlot <= 17; 1)
+        {
+            DestroyDummyBot(Team.Team2, botRemoveSlot);
+        }
     }
     else if (NumberOfPlayers(Team.Team1) == 4)
     {
-        DestroyDummyBot(Team.Team2, 17);
-        DestroyDummyBot(Team.Team2, 16);
-        DestroyDummyBot(Team.Team2, 15);
-        DestroyDummyBot(Team.Team2, 14);
-        DestroyDummyBot(Team.Team2, 13);
-        DestroyDummyBot(Team.Team2, 12);
-        DestroyDummyBot(Team.Team2, 11);
-        DestroyDummyBot(Team.Team2, 10);
-        DestroyDummyBot(Team.Team2, 9);
-        DestroyDummyBot(Team.Team2, 8);
+        for (botRemoveSlot = 8; botRemoveSlot <= 17; 1)
+        {
+            DestroyDummyBot(Team.Team2, botRemoveSlot);
+        }
     }
 }
 
@@ -64,29 +50,15 @@ if (ServerLoadPeak() < 150)
 disabled rule: "148 Remove bots ANTI CRASH"
 if (ServerLoadAverage() >= null)
 {
-    DestroyDummyBot(Team.Team2, 17);
-    Wait(0.25, WaitBehavior.AbortWhenFalse);
-    DestroyDummyBot(Team.Team2, 16);
-    Wait(0.25, WaitBehavior.AbortWhenFalse);
-    DestroyDummyBot(Team.Team2, 15);
-    Wait(0.25, WaitBehavior.AbortWhenFalse);
-    DestroyDummyBot(Team.Team2, 14);
-    Wait(0.25, WaitBehavior.AbortWhenFalse);
-    DestroyDummyBot(Team.Team2, 13);
-    Wait(0.25, WaitBehavior.AbortWhenFalse);
-    DestroyDummyBot(Team.Team2, 12);
-    Wait(0.25, WaitBehavior.AbortWhenFalse);
-    DestroyDummyBot(Team.Team2, 11);
-    Wait(0.25, WaitBehavior.AbortWhenFalse);
-    DestroyDummyBot(Team.Team2, 10);
-    Wait(0.25, WaitBehavior.AbortWhenFalse);
-    DestroyDummyBot(Team.Team2, 9);
-    Wait(0.25, WaitBehavior.AbortWhenFalse);
-    DestroyDummyBot(Team.Team2, 8);
-    Wait(0.25, WaitBehavior.AbortWhenFalse);
-    DestroyDummyBot(Team.Team2, 7);
-    Wait(0.25, WaitBehavior.AbortWhenFalse);
-    DestroyDummyBot(Team.Team2, 6);
+    for (botRemoveSlot = 17; botRemoveSlot >= 6; -1)
+    {
+        DestroyDummyBot(Team.Team2, botRemoveSlot);
+
+        if (botRemoveSlot > 6)
+        {
+            Wait(0.25, WaitBehavior.AbortWhenFalse);
+        }
+    }
 }
 
 rule: "Toggle edit mode"
@@ -190,13 +162,13 @@ rule: "Collision Logic"
 Event.OngoingPlayer
 Team.Team1
 if (IsAlive(EventPlayer()) == true)
-if (extraVar[3] == 1)
+if (start == 1)
 if (IsDummyBot(EventPlayer()) == false)
 if (IsTrueForAny(firstpos, [DistanceBetween(ArrayElement(), EventPlayer()) < 10]) == true)
 {
-    if (extraVar[29] == 1)
+    if (teleporterused == 1)
     {
-        WaitUntil(extraVar[29] == 0, 999999995904);
+        WaitUntil(teleporterused == 0, 999999995904);
         Wait(1.5, WaitBehavior.IgnoreCondition);
     }
     if (outofpsawn == 0)
@@ -281,10 +253,10 @@ if (IsTrueForAny(firstpos, [DistanceBetween(ArrayElement(), EventPlayer()) < 10]
                         PlayEffect(AllPlayers(Team.All), PlayEffect.GoodExplosion, Color.White, AllPos[z], 50);
                         PlayEffect(AllPlayers(Team.All), PlayEffect.LucioSoundBarrierCastSound, Color.White, AllPos[z], 100);
                         points -= RoundToInteger(1000 * costmultiplier * cashback, Rounding.Nearest);
-                        extraVar[41] = zoneDoors[extraVar[42]];
-                        for (i = 0; CountOf(extraVar[41]); 1)
+                        doorsToOpen = zoneDoors[currentZone];
+                        for (i = 0; CountOf(doorsToOpen); 1)
                         {
-                            z = extraVar[41][i];
+                            z = doorsToOpen[i];
                             if (Wall_ID[z] == 1)
                             {
                                 if (doors[z * 2] != null)
@@ -331,39 +303,39 @@ if (CountOf(RemoveFromArray(active_wall, 0)) == 0)
 }
 
 rule: "Make door arrays"
-if (extraVar[3] == 1)
+if (start == 1)
 if (doormade == 0)
 {
     i = 0;
     Wait(5, WaitBehavior.IgnoreCondition);
     looping = 0;
     Beameffectdoors = [];
-    while (i < CountOf(twoDvectorsArray[4]))
+    while (i < CountOf(doorVectors))
     {
         if (!(i % 2))
         {
             MinWait();
         }
-        ModifyVariable(Beameffectdoors, Operation.AppendToArray, twoDvectorsArray[4][i]);
-        ModifyVariable(Beameffectdoors, Operation.AppendToArray, twoDvectorsArray[4][i] + DirectionFromAngles(FirstOf(twoDnumbersArray2)[looping + 2] - 90, 0) * FirstOf(twoDnumbersArray2)[looping] + Up() * FirstOf(twoDnumbersArray2)[looping + 1]);
-        ModifyVariable(Beameffectdoors, Operation.AppendToArray, twoDvectorsArray[4][i] + Up() * FirstOf(twoDnumbersArray2)[looping + 1]);
-        ModifyVariable(Beameffectdoors, Operation.AppendToArray, twoDvectorsArray[4][i] + DirectionFromAngles(FirstOf(twoDnumbersArray2)[looping + 2] - 90, 0) * FirstOf(twoDnumbersArray2)[looping]);
+        ModifyVariable(Beameffectdoors, Operation.AppendToArray, doorVectors[i]);
+        ModifyVariable(Beameffectdoors, Operation.AppendToArray, doorVectors[i] + DirectionFromAngles(FirstOf(twoDnumbersArray2)[looping + 2] - 90, 0) * FirstOf(twoDnumbersArray2)[looping] + Up() * FirstOf(twoDnumbersArray2)[looping + 1]);
+        ModifyVariable(Beameffectdoors, Operation.AppendToArray, doorVectors[i] + Up() * FirstOf(twoDnumbersArray2)[looping + 1]);
+        ModifyVariable(Beameffectdoors, Operation.AppendToArray, doorVectors[i] + DirectionFromAngles(FirstOf(twoDnumbersArray2)[looping + 2] - 90, 0) * FirstOf(twoDnumbersArray2)[looping]);
         # if boolean is false, then use infinite height
         if (FirstOf(twoDnumbersArray2)[looping + 3] == 0)
         {
-            ModifyVariable(firstpos, Operation.AppendToArray, twoDvectorsArray[4][i]);
-            ModifyVariable(secondpos, Operation.AppendToArray, twoDvectorsArray[4][i] + DirectionFromAngles(FirstOf(twoDnumbersArray2)[looping + 2] - 90, 0) * FirstOf(twoDnumbersArray2)[looping] + Vector(0, 50, 0));
-            ModifyVariable(firstpoint2, Operation.AppendToArray, twoDvectorsArray[4][i] + Vector(0, 50, 0));
-            ModifyVariable(secondpoint2, Operation.AppendToArray, twoDvectorsArray[4][i] + DirectionFromAngles(FirstOf(twoDnumbersArray2)[looping + 2] - 90, 0) * FirstOf(twoDnumbersArray2)[looping]);
+            ModifyVariable(firstpos, Operation.AppendToArray, doorVectors[i]);
+            ModifyVariable(secondpos, Operation.AppendToArray, doorVectors[i] + DirectionFromAngles(FirstOf(twoDnumbersArray2)[looping + 2] - 90, 0) * FirstOf(twoDnumbersArray2)[looping] + Vector(0, 50, 0));
+            ModifyVariable(firstpoint2, Operation.AppendToArray, doorVectors[i] + Vector(0, 50, 0));
+            ModifyVariable(secondpoint2, Operation.AppendToArray, doorVectors[i] + DirectionFromAngles(FirstOf(twoDnumbersArray2)[looping + 2] - 90, 0) * FirstOf(twoDnumbersArray2)[looping]);
             ModifyVariable(AllPos, Operation.AppendToArray, (firstpos[i] + secondpos[i]) / 2);
             ModifyVariable(AllDir, Operation.AppendToArray, DirectionFromAngles(FirstOf(twoDnumbersArray2)[looping + 2] + 180, 0));
         }
         else if (FirstOf(twoDnumbersArray2)[looping + 3] == 1)
         {
-            ModifyVariable(firstpos, Operation.AppendToArray, twoDvectorsArray[4][i]);
-            ModifyVariable(secondpos, Operation.AppendToArray, twoDvectorsArray[4][i] + DirectionFromAngles(FirstOf(twoDnumbersArray2)[looping + 2] - 90, 0) * FirstOf(twoDnumbersArray2)[looping + 4] + Up() * FirstOf(twoDnumbersArray2)[looping + 5]);
-            ModifyVariable(firstpoint2, Operation.AppendToArray, twoDvectorsArray[4][i] + Up() * FirstOf(twoDnumbersArray2)[looping + 5]);
-            ModifyVariable(secondpoint2, Operation.AppendToArray, twoDvectorsArray[4][i] + DirectionFromAngles(FirstOf(twoDnumbersArray2)[looping + 2] - 90, 0) * FirstOf(twoDnumbersArray2)[looping + 4]);
+            ModifyVariable(firstpos, Operation.AppendToArray, doorVectors[i]);
+            ModifyVariable(secondpos, Operation.AppendToArray, doorVectors[i] + DirectionFromAngles(FirstOf(twoDnumbersArray2)[looping + 2] - 90, 0) * FirstOf(twoDnumbersArray2)[looping + 4] + Up() * FirstOf(twoDnumbersArray2)[looping + 5]);
+            ModifyVariable(firstpoint2, Operation.AppendToArray, doorVectors[i] + Up() * FirstOf(twoDnumbersArray2)[looping + 5]);
+            ModifyVariable(secondpoint2, Operation.AppendToArray, doorVectors[i] + DirectionFromAngles(FirstOf(twoDnumbersArray2)[looping + 2] - 90, 0) * FirstOf(twoDnumbersArray2)[looping + 4]);
             ModifyVariable(AllPos, Operation.AppendToArray, (firstpos[i] + secondpos[i]) / 2);
             ModifyVariable(AllDir, Operation.AppendToArray, DirectionFromAngles(FirstOf(twoDnumbersArray2)[looping + 2] + 180, 0));
         }
@@ -393,7 +365,7 @@ if (doorNotif == 1)
 }
 
 rule: "destroy all door effects on teleporter use"
-if (extraVar[29] == 1)
+if (teleporterused == 1)
 {
     for (i = doorZoneStart; doorZoneEnd; 1)
     {
@@ -403,53 +375,55 @@ if (extraVar[29] == 1)
 }
 
 rule: "set zonestart zoneend for teleporter use"
-if (extraVar[29] == 1)
+if (teleporterused == 1)
 {
-    if (extraVar[12] == 0)
+    switch (telespot)
     {
-        doorZoneStart = extraVar[33];
-        doorZoneEnd = extraVar[34];
-    }
-    else if (extraVar[12] == 1)
-    {
-        doorZoneStart = extraVar[35];
-        doorZoneEnd = extraVar[36];
-    }
-    else if (extraVar[12] == 2)
-    {
-        doorZoneStart = extraVar[37];
-        doorZoneEnd = extraVar[38];
+        case 0:
+            doorZoneStart = doorzone1count1;
+            doorZoneEnd = doorzone1count2;
+            break;
+
+        case 1:
+            doorZoneStart = doorzone2count1;
+            doorZoneEnd = doorzone2count2;
+            break;
+
+        case 2:
+            doorZoneStart = doorzone3count1;
+            doorZoneEnd = doorzone3count2;
+            break;
     }
 }
 
 rule: "create barricade effect"
 # and globalSpawnNetworkDirty == 1
-if (extraVar[3] == 1)
-if (CountOf(extraVar[65]) > null)
+if (start == 1)
+if (CountOf(globalActiveBreaches) > null)
 {
     # destroy previous effects if any
-    for (botspawnindex = 0; CountOf(extraVar[67]); true)
+    for (botspawnindex = 0; CountOf(globalActiveBreachEffects); true)
     {
         # Destroying the old visual entities first prevents stale breach effects from lingering after the network changes to a new set of pathfinding nodes.
-        DestroyEffect(extraVar[67][botspawnindex]);
+        DestroyEffect(globalActiveBreachEffects[botspawnindex]);
     }
     # Reset the effect handle list to match the newly selected breach state.
-    extraVar[67] = [];
+    globalActiveBreachEffects = [];
     # Reset health values alongside the effects so each breach starts with its current network state instead of leftover values from the previous area.
-    extraVar[68] = [];
-    for (botspawnindex = 0; CountOf(extraVar[65]); true)
+    globalActiveBreachHealth = [];
+    for (botspawnindex = 0; CountOf(globalActiveBreaches); true)
     {
         # Each chosen pathfinding node becomes one visible breach marker for the current area.
-        extraVar[44] = extraVar[65][botspawnindex];
-        ModifyVariable(extraVar[68], Operation.AppendToArray, 100);
+        node = globalActiveBreaches[botspawnindex];
+        ModifyVariable(globalActiveBreachHealth, Operation.AppendToArray, 100);
         # effect color indicates health (start green)\nGreen indicates a healthy breach that is still intact and not yet weakened by zombie spawn attempts.
-        extraVar[53] = Append(Append(ArraySlice(extraVar[53], false, botspawnindex), [CustomColor(0, 255, 0, 255)]), ArraySlice(extraVar[53], botspawnindex + true, 999999999999));
+        color = Append(Append(ArraySlice(color, false, botspawnindex), [CustomColor(0, 255, 0, 255)]), ArraySlice(color, botspawnindex + true, 999999999999));
         # The aura effect is placed slightly above the node so it visually marks the breach location as a barricade / window.
-        CreateEffect(AllPlayers(Team.All), Effect.BadAura, extraVar[53][botspawnindex], extraVar[44] + 1.5 * Up(), true, EffectRev.VisibleToAndColor);
-        ModifyVariable(extraVar[67], Operation.AppendToArray, LastCreatedEntity());
+        CreateEffect(AllPlayers(Team.All), Effect.BadAura, color[botspawnindex], node + 1.5 * Up(), true, EffectRev.VisibleToAndColor);
+        ModifyVariable(globalActiveBreachEffects, Operation.AppendToArray, LastCreatedEntity());
         # The audio effect keeps the breach readable as a clear point of interest even when the visual effect is replaced.
-        CreateEffect(AllPlayers(Team.All), Effect.BadAuraSound, Color.White, extraVar[44], 50, EffectRev.VisibleToAndColor);
-        ModifyVariable(extraVar[67], Operation.AppendToArray, LastCreatedEntity());
+        CreateEffect(AllPlayers(Team.All), Effect.BadAuraSound, Color.White, node, 50, EffectRev.VisibleToAndColor);
+        ModifyVariable(globalActiveBreachEffects, Operation.AppendToArray, LastCreatedEntity());
     }
 }
 
@@ -459,29 +433,29 @@ Event.OngoingPlayer
 Team.Team1
 if (IsAlive(EventPlayer()) == true)
 if (IsButtonHeld(EventPlayer(), Button.Reload) == true)
-if (IsTrueForAny(extraVar[65], [DistanceBetween(ArrayElement(), EventPlayer()) < 2]) == true)
+if (IsTrueForAny(globalActiveBreaches, [DistanceBetween(ArrayElement(), EventPlayer()) < 2]) == true)
 {
     # repair amount per tick (per check)
-    extraVar[54] = 25;
-    for (botspawnindex = 0; CountOf(extraVar[65]); true)
+    repairAmount = 25;
+    for (botspawnindex = 0; CountOf(globalActiveBreaches); true)
     {
-        if (botspawnindex < CountOf(extraVar[68]))
+        if (botspawnindex < CountOf(globalActiveBreachHealth))
         {
-            extraVar[44] = extraVar[65][botspawnindex];
-            extraVar[55] = extraVar[68][botspawnindex];
-            extraVar[68] = Append(Append(ArraySlice(extraVar[68], false, botspawnindex), [Min(100, extraVar[68][botspawnindex] + extraVar[54])]), ArraySlice(extraVar[68], botspawnindex + true, 999999999999));
-            if (extraVar[68][botspawnindex] != extraVar[55])
+            node = globalActiveBreaches[botspawnindex];
+            old = globalActiveBreachHealth[botspawnindex];
+            globalActiveBreachHealth = Append(Append(ArraySlice(globalActiveBreachHealth, false, botspawnindex), [Min(100, globalActiveBreachHealth[botspawnindex] + repairAmount)]), ArraySlice(globalActiveBreachHealth, botspawnindex + true, 999999999999));
+            if (globalActiveBreachHealth[botspawnindex] != old)
             {
-                extraVar[56] = extraVar[68][botspawnindex];
-                if (extraVar[56] <= null)
+                h = globalActiveBreachHealth[botspawnindex];
+                if (h <= null)
                 {
-                    extraVar[53] = Append(Append(ArraySlice(extraVar[53], false, botspawnindex), [Color.Black]), ArraySlice(extraVar[53], botspawnindex + true, 999999999999));
+                    color = Append(Append(ArraySlice(color, false, botspawnindex), [Color.Black]), ArraySlice(color, botspawnindex + true, 999999999999));
                 }
                 else
                 {
                     # use floating-point arithmetic; rgb() will handle the rounding
-                    extraVar[57] = extraVar[56] / 100;
-                    extraVar[53] = Append(Append(ArraySlice(extraVar[53], false, botspawnindex), [CustomColor(255 * (true - extraVar[57]), 255 * extraVar[57], 0, 255)]), ArraySlice(extraVar[53], botspawnindex + true, 999999999999));
+                    healthPercent = h / 100;
+                    color = Append(Append(ArraySlice(color, false, botspawnindex), [CustomColor(255 * (true - healthPercent), 255 * healthPercent, 0, 255)]), ArraySlice(color, botspawnindex + true, 999999999999));
                 }
             }
         }
@@ -489,39 +463,39 @@ if (IsTrueForAny(extraVar[65], [DistanceBetween(ArrayElement(), EventPlayer()) <
 }
 
 rule: "get nearest nodes for spawning"
-if (extraVar[3] == 1)
-if ((extraVar[47] == null || DistanceBetween(extraVar[47], FirstOf(SortedArray(FilteredArray(AllLivingPlayers(Team.All), HasSpawned(ArrayElement())), DistanceBetween(ArrayElement(), PositionOf(teamPlayers[botspawnindex]))))) > 10) == true)
+if (start == 1)
+if ((averagePosition == null || DistanceBetween(averagePosition, FirstOf(SortedArray(FilteredArray(AllLivingPlayers(Team.All), HasSpawned(ArrayElement())), DistanceBetween(ArrayElement(), PositionOf(teamPlayers[botspawnindex]))))) > 10) == true)
 {
     # This gathers the current living attackers so the breach network can follow where the team is actually fighting.
     teamPlayers = AllLivingPlayers(Team.Team1);
     # Reset the average before calculating it again.\nWe start from zero so the team center can be computed from the sum of player positions instead of reusing stale data.
-    extraVar[47] = Left() + Right();
+    averagePosition = Left() + Right();
     # Calculate the average position of all living players.
     for (botspawnindex = 0; CountOf(teamPlayers); true)
     {
-        ModifyVariable(extraVar[47], Operation.Add, PositionOf(teamPlayers[botspawnindex]));
+        ModifyVariable(averagePosition, Operation.Add, PositionOf(teamPlayers[botspawnindex]));
     }
     # Dividing by the player count produces the center of the squad, which is what the pathfinding search uses to choose breach nodes.
-    ModifyVariable(extraVar[47], Operation.Divide, CountOf(teamPlayers));
-    extraVar[59] = FilteredArray(pfLoadedMap_nodes, DistanceBetween(extraVar[47], ArrayElement()) < 35);
+    ModifyVariable(averagePosition, Operation.Divide, CountOf(teamPlayers));
+    candidates = FilteredArray(pfLoadedMap_nodes, DistanceBetween(averagePosition, ArrayElement()) < 35);
     # Select up to 8 unique random nodes.\nResetting the breach list means each recalculation creates a fresh set of active breach nodes for the current area.
-    extraVar[65] = [];
+    globalActiveBreaches = [];
     # Keeping only eight active breaches prevents the map from becoming crowded with too many simultaneous spawn points.
-    extraVar[60] = 8;
+    maxBreaches = 8;
     # This guarantees we never try to select more breach nodes than the graph actually has available.
-    extraVar[61] = Min(CountOf(extraVar[59]), extraVar[60]);
-    for (botspawnindex = 0; extraVar[61]; true)
+    count = Min(CountOf(candidates), maxBreaches);
+    for (botspawnindex = 0; count; true)
     {
         # Randomizing the chosen nodes keeps the network varied and avoids a fixed, predictable row of breaches.
-        extraVar[62] = RandomValueInArray(extraVar[59]);
-        ModifyVariable(extraVar[65], Operation.AppendToArray, extraVar[62]);
-        ModifyVariable(extraVar[59], Operation.RemoveFromArrayByValue, extraVar[62]);
+        pick = RandomValueInArray(candidates);
+        ModifyVariable(globalActiveBreaches, Operation.AppendToArray, pick);
+        ModifyVariable(candidates, Operation.RemoveFromArrayByValue, pick);
     }
 }
 
 rule: "set active zone doors"
 {
-    zoneDoors = [[0, 1, 2, 7, 8, 9], [3, 4, 35], [5, 6, 18], [10, 11, 26], [12, 14, 15], [13, 16, 17, 20, 24, 25], [19, 28, 29], [27, 31, 32, 33, 36, 37], [30, 34], [21, 22], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], []];
+    zoneDoors = [[0, 1, 2, 7, 8, 9], [3, 4, 35], [5, 6, 18], [10, 11, 26], [12, 14, 15], [13, 16, 17, 20, 24, 25], [19, 28, 29], [27, 31, 32, 33, 36, 37], [30, 34], [21, 22], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], []];
 }
 
 rule: "426 OMNIC WAVE BOSS doomfist Attack if Near"
@@ -541,7 +515,6 @@ Event.OngoingPlayer
 Team.Team2
 Player.Doomfist
 if (DistanceBetween(EventPlayer(), FirstOf(SortedArray(FilteredArray(AllLivingPlayers(Team.Team1), HasSpawned(ArrayElement())), DistanceBetween(ArrayElement(), EventPlayer())))) < 15)
-if (O == false)
 {
     Wait(0.3, WaitBehavior.AbortWhenFalse);
     StartHoldingButton(EventPlayer(), Button.SecondaryFire);
@@ -552,7 +525,6 @@ Event.OngoingPlayer
 Team.Team2
 Player.Doomfist
 if (DistanceBetween(EventPlayer(), FirstOf(SortedArray(FilteredArray(AllLivingPlayers(Team.Team1), HasSpawned(ArrayElement())), DistanceBetween(ArrayElement(), EventPlayer())))) < 10)
-if (O == false)
 {
     Wait(0.3, WaitBehavior.AbortWhenFalse);
     PressButton(EventPlayer(), Button.Ability1);
@@ -654,11 +626,10 @@ Event.OngoingPlayer
 Team.Team2
 # not sure if this rule is needed
 if (DistanceBetween(EventPlayer(), FirstOf(SortedArray(FilteredArray(AllLivingPlayers(Team.Team1), HasSpawned(ArrayElement())), DistanceBetween(ArrayElement(), EventPlayer())))) > RandomInteger(5, 20))
-if (O == false)
 # idle bots would be great in concept, its meant to feel like L4D2
 if (HorizontalSpeedOf(EventPlayer()) < 0.7)
 {
-    SkipIf(extraVar[8] == false, 3);
+    SkipIf(zombjump == false, 3);
     PressButton(EventPlayer(), Button.Jump);
     Wait(10, WaitBehavior.IgnoreCondition);
     LoopIfConditionIsTrue();
@@ -667,52 +638,52 @@ if (HorizontalSpeedOf(EventPlayer()) < 0.7)
 rule: "9 Omnic Kill all powerups)"
 Event.OnDeath
 Team.Team2
-if (FirstOf(extraVar) > 3)
+if (roundnumber > 3)
 {
-    # insta ultimate
-    if (SlotOf(EventPlayer()) == false)
+    switch (SlotOf(EventPlayer()))
     {
-        # for some reason this goes off constantly\nif  > 3:\nneed to rename event player b
-        B = RandomInteger(1, 75);
-        SkipIf(B != 1, 1);
-        M[0] = NearestWalkablePosition(EventPlayer()) + Vector(0, 0.5, 0);
-        SetUltimateCharge(EventPlayer(), 0);
-    }
-    else if (SlotOf(EventPlayer()) == 1)
-    {
-        B = RandomInteger(1, 75);
-        SkipIf(B != 1, 1);
-        M[1] = NearestWalkablePosition(EventPlayer()) + Vector(0, 0.5, 0);
-        SetUltimateCharge(EventPlayer(), 0);
-        SkipIf(extraVar[1] < 6, 1);
-    }
-    else if (SlotOf(EventPlayer()) == 2)
-    {
-        B = RandomInteger(1, 50);
-        SkipIf(B != 1, 1);
-        M[2] = NearestWalkablePosition(EventPlayer()) + Vector(0, 0.5, 0);
-        SetUltimateCharge(EventPlayer(), 0);
-    }
-    else if (SlotOf(EventPlayer()) == 3)
-    {
-        B = RandomInteger(1, 75);
-        SkipIf(B != 1, 1);
-        M[3] = NearestWalkablePosition(EventPlayer()) + Vector(0, 0.5, 0);
-        SetUltimateCharge(EventPlayer(), 0);
-    }
-    else if (SlotOf(EventPlayer()) == 4)
-    {
-        B = RandomInteger(1, 75);
-        SkipIf(B != 1, 1);
-        M[4] = NearestWalkablePosition(EventPlayer()) + Vector(0, 0.5, 0);
-        SetUltimateCharge(EventPlayer(), 0);
-    }
-    else if (SlotOf(EventPlayer()) == 5)
-    {
-        B = RandomInteger(1, 75);
-        SkipIf(B != 1, 1);
-        M[5] = NearestWalkablePosition(EventPlayer()) + Vector(0, 0.5, 0);
-        SetUltimateCharge(EventPlayer(), 0);
+        case 0:
+            B = RandomInteger(1, 75);
+            SkipIf(B != 1, 1);
+            M[0] = NearestWalkablePosition(EventPlayer()) + Vector(0, 0.5, 0);
+            SetUltimateCharge(EventPlayer(), 0);
+            break;
+
+        case 1:
+            B = RandomInteger(1, 75);
+            SkipIf(B != 1, 1);
+            M[1] = NearestWalkablePosition(EventPlayer()) + Vector(0, 0.5, 0);
+            SetUltimateCharge(EventPlayer(), 0);
+            SkipIf(numberOfZombies < 6, 1);
+            break;
+
+        case 2:
+            B = RandomInteger(1, 50);
+            SkipIf(B != 1, 1);
+            M[2] = NearestWalkablePosition(EventPlayer()) + Vector(0, 0.5, 0);
+            SetUltimateCharge(EventPlayer(), 0);
+            break;
+
+        case 3:
+            B = RandomInteger(1, 75);
+            SkipIf(B != 1, 1);
+            M[3] = NearestWalkablePosition(EventPlayer()) + Vector(0, 0.5, 0);
+            SetUltimateCharge(EventPlayer(), 0);
+            break;
+
+        case 4:
+            B = RandomInteger(1, 75);
+            SkipIf(B != 1, 1);
+            M[4] = NearestWalkablePosition(EventPlayer()) + Vector(0, 0.5, 0);
+            SetUltimateCharge(EventPlayer(), 0);
+            break;
+
+        case 5:
+            B = RandomInteger(1, 75);
+            SkipIf(B != 1, 1);
+            M[5] = NearestWalkablePosition(EventPlayer()) + Vector(0, 0.5, 0);
+            SetUltimateCharge(EventPlayer(), 0);
+            break;
     }
 }
 
@@ -741,8 +712,8 @@ Team.Team2
     M[0] = NearestWalkablePosition(EventPlayer()) + Vector(0, 0.5, 0);
     SetUltimateCharge(EventPlayer(), 0);
     Wait(0.2, WaitBehavior.IgnoreCondition);
-    extraVar[1] -= 1;
-    SkipIf(extraVar[1] < NumberOfLivingPlayers(Team.Team2), 1);
+    numberOfZombies -= 1;
+    SkipIf(numberOfZombies < NumberOfLivingPlayers(Team.Team2), 1);
     Respawn(EventPlayer());
 }
 
@@ -753,127 +724,125 @@ if (SlotOf(EventPlayer()) != PlayersInSlot(0, Team.Team2))
 if (HasSpawned(EventPlayer()) == true)
 {
     StartModifyingHeroVoiceLines(EventPlayer(), 0.5, true);
-    if (HeroOf(EventPlayer()) == Hero.Roadhog)
+
+    switch (HeroOf(EventPlayer()))
     {
-        StartScalingPlayer(EventPlayer(), 0.6, true);
-    }
-    else if (HeroOf(EventPlayer()) == Hero.Lucio)
-    {
-        StartScalingPlayer(EventPlayer(), 0.4, true);
-    }
-    else if (HeroOf(EventPlayer()) == Hero.Dva)
-    {
-        StartScalingPlayer(EventPlayer(), 0.7, true);
-        DisallowButton(EventPlayer(), Button.PrimaryFire);
-    }
-    else if (HeroOf(EventPlayer()) == Hero.WreckingBall)
-    {
-        StartScalingPlayer(EventPlayer(), 0.65, true);
-        Wait(2.5, WaitBehavior.IgnoreCondition);
-        PressButton(EventPlayer(), Button.Ability1);
-    }
-    else if (HeroOf(EventPlayer()) == Hero.Orisa)
-    {
-        StartScalingPlayer(EventPlayer(), 0.65, true);
-    }
-    else if (HeroOf(EventPlayer()) == Hero.Sigma)
-    {
-        StartScalingPlayer(EventPlayer(), 0.65, true);
-    }
-    else if (HeroOf(EventPlayer()) == Hero.Mauga)
-    {
-        StartScalingPlayer(EventPlayer(), 0.65, true);
-    }
-    else if (HeroOf(EventPlayer()) == Hero.Torbjorn)
-    {
-        StartScalingPlayer(EventPlayer(), 1.5, true);
-    }
-    else if (HeroOf(EventPlayer()) == Hero.Winston)
-    {
-        StartScalingPlayer(EventPlayer(), 0.5, true);
-        StartModifyingHeroVoiceLines(EventPlayer(), 1.5, true);
+        case Hero.Roadhog:
+            StartScalingPlayer(EventPlayer(), 0.6, true);
+            break;
+
+        case Hero.Lucio:
+            StartScalingPlayer(EventPlayer(), 0.4, true);
+            break;
+
+        case Hero.Dva:
+            StartScalingPlayer(EventPlayer(), 0.7, true);
+            DisallowButton(EventPlayer(), Button.PrimaryFire);
+            break;
+
+        case Hero.WreckingBall:
+            StartScalingPlayer(EventPlayer(), 0.65, true);
+            Wait(2.5, WaitBehavior.IgnoreCondition);
+            PressButton(EventPlayer(), Button.Ability1);
+            break;
+
+        case Hero.Orisa:
+        case Hero.Sigma:
+        case Hero.Mauga:
+            StartScalingPlayer(EventPlayer(), 0.65, true);
+            break;
+
+        case Hero.Torbjorn:
+            StartScalingPlayer(EventPlayer(), 1.5, true);
+            break;
+
+        case Hero.Winston:
+            StartScalingPlayer(EventPlayer(), 0.5, true);
+            StartModifyingHeroVoiceLines(EventPlayer(), 1.5, true);
+            break;
     }
 }
 
 rule: "519 Spawn wave director"
 # @Condition getPlayers(Team.1).hasSpawned() == true
-if (FirstOf(extraVar) >= 1)
-if (extraVar[1] >= 4)
-if (IsGameInProgress() == true)
+if (roundnumber >= 1)
+if (numberOfZombies >= 4)
+if (IsGameInProgress() == true)# needs a 3, for directors cut version, where each hero is on for 5 rounds then changes using a loop
 {
-    # needs a 3, for directors cut version, where each hero is on for 5 rounds then changes using a loop
-    if (spawntype == false)
+    switch (spawntype)
     {
-        extraVar[4] = false;
-        # needs a lot more types as well, since there will be the new addition, random, and legacy from 1.0
-        bossSpawn = [null];
-        # needs a way to make it so more than 1 wave boss can be spawned at once as well
-        bot1spawn = [Hero.Brigitte];
-        # need to make it so wave boss doesnt respawn after being killed
-        bot2spawn = [Hero.Brigitte];
-        # and need wave boss to spawn a 2nd or 3rd one if players are doing well
-        Wait(0.25, WaitBehavior.IgnoreCondition);
-        wavespawn();
-    }
-    else if (spawntype == 1)
-    {
-        extraVar[4] = false;
-        Wait(0.25, WaitBehavior.IgnoreCondition);
-        bossSpawn = [null];
-        bot1spawn = [Hero.Torbjorn];
-        bot2spawn = [Hero.Torbjorn];
-        Wait(0.25, WaitBehavior.IgnoreCondition);
-        wavespawn();
-    }
-    else if (spawntype == 2)
-    {
-        extraVar[4] = false;
-        Wait(0.25, WaitBehavior.IgnoreCondition);
-        if (FirstOf(extraVar) < 5)
-        {
-            bossSpawn = null;
-            bot1spawn = etcArray[5][RandomInteger(0, 37)];
-            bot2spawn = etcArray[5][RandomInteger(0, 37)];
+        case false:
+            g = false;
+            # needs a lot more types as well, since there will be the new addition, random, and legacy from 1.0
+            bossSpawn = [null];
+            # needs a way to make it so more than 1 wave boss can be spawned at once as well
+            bot1spawn = [Hero.Brigitte];
+            # need to make it so wave boss doesnt respawn after being killed
+            bot2spawn = [Hero.Brigitte];
+            # and need wave boss to spawn a 2nd or 3rd one if players are doing well
             Wait(0.25, WaitBehavior.IgnoreCondition);
             wavespawn();
-        }
-        else if (FirstOf(extraVar) >= 5)
-        {
-            bossSpawn = etcArray[5][RandomInteger(0, 37)];
-            bot1spawn = etcArray[5][RandomInteger(0, 37)];
-            bot2spawn = etcArray[5][RandomInteger(0, 37)];
+            break;
+
+        case 1:
+            g = false;
+            Wait(0.25, WaitBehavior.IgnoreCondition);
+            bossSpawn = [null];
+            bot1spawn = [Hero.Torbjorn];
+            bot2spawn = [Hero.Torbjorn];
             Wait(0.25, WaitBehavior.IgnoreCondition);
             wavespawn();
-        }
-    }
-    else if (spawntype == 3)
-    {
-        bossSpawn = [null, Hero.Doomfist, Hero.Torbjorn, Hero.Reinhardt, Hero.Winston, Hero.Roadhog, Hero.JunkerQueen, Hero.Zenyatta, Hero.Mauga, Hero.Sombra, Hero.Mei, Hero.Reaper, Hero.Ramattra];
-        bot1spawn = [Hero.Brigitte, Hero.Torbjorn, Hero.Torbjorn, Hero.Moira, Hero.Lucio, Hero.Torbjorn, Hero.Roadhog, Hero.Moira, Hero.Lucio, Hero.Mercy, Hero.JunkerQueen, Hero.Tracer, Hero.Doomfist];
-        bot2spawn = [Hero.Brigitte, Hero.Brigitte, Hero.Reinhardt, Hero.Winston, Hero.Genji, Hero.Winston, Hero.Genji, Hero.Brigitte, Hero.Hanzo, Hero.Mauga, Hero.Dva, Hero.Echo, Hero.Sombra];
-        Wait(0.25, WaitBehavior.IgnoreCondition);
-        wavespawn();
-    }
-    else if (spawntype == 4)
-    {
-        Wait(0.25, WaitBehavior.IgnoreCondition);
-        totalrandomspawn();
+            break;
+
+        case 2:
+            g = false;
+            Wait(0.25, WaitBehavior.IgnoreCondition);
+            if (roundnumber < 5)
+            {
+                bossSpawn = null;
+                bot1spawn = hero[RandomInteger(0, 37)];
+                bot2spawn = hero[RandomInteger(0, 37)];
+                Wait(0.25, WaitBehavior.IgnoreCondition);
+                wavespawn();
+            }
+            else if (roundnumber >= 5)
+            {
+                bossSpawn = hero[RandomInteger(0, 37)];
+                bot1spawn = hero[RandomInteger(0, 37)];
+                bot2spawn = hero[RandomInteger(0, 37)];
+                Wait(0.25, WaitBehavior.IgnoreCondition);
+                wavespawn();
+            }
+            break;
+
+        case 3:
+            bossSpawn = [null, Hero.Doomfist, Hero.Torbjorn, Hero.Reinhardt, Hero.Winston, Hero.Roadhog, Hero.JunkerQueen, Hero.Zenyatta, Hero.Mauga, Hero.Sombra, Hero.Mei, Hero.Reaper, Hero.Ramattra];
+            bot1spawn = [Hero.Brigitte, Hero.Torbjorn, Hero.Torbjorn, Hero.Moira, Hero.Lucio, Hero.Torbjorn, Hero.Roadhog, Hero.Moira, Hero.Lucio, Hero.Mercy, Hero.JunkerQueen, Hero.Tracer, Hero.Doomfist];
+            bot2spawn = [Hero.Brigitte, Hero.Brigitte, Hero.Reinhardt, Hero.Winston, Hero.Genji, Hero.Winston, Hero.Genji, Hero.Brigitte, Hero.Hanzo, Hero.Mauga, Hero.Dva, Hero.Echo, Hero.Sombra];
+            Wait(0.25, WaitBehavior.IgnoreCondition);
+            wavespawn();
+            break;
+
+        case 4:
+            Wait(0.25, WaitBehavior.IgnoreCondition);
+            totalrandomspawn();
+            break;
     }
 }
 
 rule: "wave director incramenter"
 if (spawntype == 3)
-if (FirstOf(extraVar) > 1)
+if (roundnumber > 1)
 # incrament every 3 rounds
-if (FirstOf(extraVar) / 3 == RoundToInteger(FirstOf(extraVar) / 3, Rounding.Down))
+if (roundnumber / 3 == RoundToInteger(roundnumber / 3, Rounding.Down))
 {
-    if (extraVar[4] >= 12)
+    if (g >= 12)
     {
-        extraVar[4] = 0;
+        g = 0;
     }
     else
     {
-        extraVar[4] += 1;
+        g += 1;
     }
 }
 
@@ -893,10 +862,10 @@ if (DistanceBetween(EventPlayer(), FirstOf(SortedArray(FilteredArray(AllLivingPl
 {
     for (idx = 0; 10; 1)
     {
-        extraPlayerVar[7] = twoDnumbersArray[7][etcArray[5][rrentEnemyIndex] * 10 * extraVar[2] + idx];
-        if (extraPlayerVar[7] > 0)
+        abilityFlag = abilityTable[hero[rrentEnemyIndex] * 10 * Difficulty + idx];
+        if (abilityFlag > 0)
         {
-            PressButton(EventPlayer(), etcArray[12][extraPlayerVar[7] - 1]);
+            PressButton(EventPlayer(), buttons[abilityFlag - 1]);
         }
         Wait(1, WaitBehavior.IgnoreCondition);
     }
@@ -918,16 +887,8 @@ Event.OngoingPlayer
 Team.Team2
 if (HasSpawned(EventPlayer()) == true)
 {
-    SetMaxHealth(EventPlayer(), 15 * FirstOf(extraVar));
-    if (FirstOf(extraVar) <= 6)
-    {
-        SetMoveSpeed(EventPlayer(), 80 + 8 * FirstOf(extraVar));
-    }
-    else if (FirstOf(extraVar) > 6)
-    {
-        # needs playtesting
-        SetMoveSpeed(EventPlayer(), 128);
-    }
+    SetMaxHealth(EventPlayer(), 15 * roundnumber);
+    SetMoveSpeed(EventPlayer(), roundnumber <= 6 ? 80 + 8 * roundnumber : 128);
 }
 
 rule: "17 Bots Under Player"
@@ -1014,8 +975,6 @@ if ((pfDestination == null || DistanceBetween(pfDestination, PositionOf(FirstOf(
 rule: "408 OMNIC Bots Face Nearest Player"
 Event.OngoingPlayer
 Team.Team2
-# @Condition eventPlayer.hasSpawned() == true
-if (O == false)
 {
     # if eventPlayer == Team.2:
     StartFacing(EventPlayer(), DirectionTowards(EyePosition(EventPlayer()), EyePosition(FirstOf(SortedArray(FilteredArray(AllLivingPlayers(Team.Team1), ArrayElement().p_T == false), DistanceBetween(EventPlayer(), ArrayElement()))))), 400, Relative.ToWorld, FacingRev.DirectionAndTurnRate);
@@ -1025,7 +984,6 @@ rule: "409 OMNIC Bots Attack if Near"
 Event.OngoingPlayer
 Team.Team2
 if (DistanceBetween(EventPlayer(), FirstOf(SortedArray(FilteredArray(AllLivingPlayers(Team.Team1), HasSpawned(ArrayElement())), DistanceBetween(ArrayElement(), EventPlayer())))) < 1.8)
-if (O == false)
 {
     Wait(WorkshopSettingReal("difficulty", "zombie reaction time", 0.35, 0, 1, 0), WaitBehavior.AbortWhenFalse);
     StartHoldingButton(EventPlayer(), Button.PrimaryFire);
@@ -1077,7 +1035,7 @@ if (IsMoving(EventPlayer()) == true)
     SetUltimateCharge(EventPlayer(), 100);
 }
 
-rule: "【PF Core】Prepare loaded map"
+rule: "ã€PF Coreã€‘Prepare loaded map"
 if (pfLoadedMap_nodes == true)
 if (pfIterationsThisTick != -99)
 {
@@ -1087,16 +1045,16 @@ if (pfIterationsThisTick != -99)
     }
 }
 
-rule: "【PF Core】Select next pathfinder"
-if ((!EntityExists(extraVar[24]) || extraVar[24] == null) == true)
+rule: "ã€PF Coreã€‘Select next pathfinder"
+if ((!EntityExists(pfExecOwner) || pfExecOwner == null) == true)
 if (IsTrueForAny(AllPlayers(Team.All), IsAlive(ArrayElement()) && ArrayElement().pfWait) == true)
 {
-    extraVar[24] = FirstOf(SortedArray(FilteredArray(AllPlayers(Team.All), ArrayElement().pfWait), ArrayElement().pfWait));
+    pfExecOwner = FirstOf(SortedArray(FilteredArray(AllPlayers(Team.All), ArrayElement().pfWait), ArrayElement().pfWait));
     MinWait();
     LoopIfConditionIsTrue();
 }
 
-rule: "【PF Core】Update & Execute"
+rule: "ã€PF Coreã€‘Update & Execute"
 Event.OngoingPlayer
 if (IsAlive(EventPlayer()) == true)
 if (pfDestination != null)
@@ -1111,7 +1069,7 @@ if ((!pfSavedTarget || DistanceBetween(pfDestination, pfSavedTarget) > 5) == tru
     }
     pfWait = TotalTimeElapsed();
     pfWasBroadcasted = false;
-    WaitUntil(extraVar[24] == EventPlayer() || pfWasBroadcasted, 99999);
+    WaitUntil(pfExecOwner == EventPlayer() || pfWasBroadcasted, 99999);
     # Update saved destination
     pfSavedTarget = pfDestination;
     if (!pfWasBroadcasted)
@@ -1210,7 +1168,7 @@ if ((!pfSavedTarget || DistanceBetween(pfDestination, pfSavedTarget) > 5) == tru
             }
             pfiter += 1;
         }
-        extraVar[24] = null;
+        pfExecOwner = null;
     }
     if (CountOf(pfPath))
     {
@@ -1225,7 +1183,7 @@ if ((!pfSavedTarget || DistanceBetween(pfDestination, pfSavedTarget) > 5) == tru
     LoopIfConditionIsTrue();
 }
 
-rule: "【PF Core】Node reached"
+rule: "ã€PF Coreã€‘Node reached"
 Event.OngoingPlayer
 if (IsAlive(EventPlayer()) == true)
 if (pfIsPathfinding == true)
@@ -1242,7 +1200,7 @@ if (pfCurrentNodeIndex != -1)
     LoopIfConditionIsTrue();
 }
 
-rule: "【PF Core】Stop pathfinding when the bot dies"
+rule: "ã€PF Coreã€‘Stop pathfinding when the bot dies"
 Event.OngoingPlayer
 if (IsDead(EventPlayer()) == true)
 if (pfIsPathfinding == true)
@@ -1254,7 +1212,7 @@ if (pfIsPathfinding == true)
     pfWalkingToPosition = null;
 }
 
-rule: "【PF Core】Stop throttle when pfDestination is reset"
+rule: "ã€PF Coreã€‘Stop throttle when pfDestination is reset"
 Event.OngoingPlayer
 if (IsAlive(EventPlayer()) == true)
 if (pfIsPathfinding == true)
@@ -1265,7 +1223,7 @@ if (pfDestination == null)
     pfSavedTarget = null;
 }
 
-rule: "【PF Core】Insurance"
+rule: "ã€PF Coreã€‘Insurance"
 Event.OngoingPlayer
 if (IsAlive(EventPlayer()) == true)
 if (pfIsPathfinding == true)
@@ -1297,7 +1255,7 @@ if (pfWalkingToPosition == true)
     LoopIfConditionIsTrue();
 }
 
-rule: "【PF Core】Recalibrate when off path"
+rule: "ã€PF Coreã€‘Recalibrate when off path"
 Event.OngoingPlayer
 if (IsAlive(EventPlayer()) == true)
 if (pfIsPathfinding == true)
@@ -1307,7 +1265,7 @@ if (DistanceBetween((pfWalkingFromPosition + pfWalkingToPosition) / 2, EventPlay
     pfRecalibrate();
 }
 
-rule: "【PF Core】Check throttle"
+rule: "ã€PF Coreã€‘Check throttle"
 Event.OngoingPlayer
 if (IsAlive(EventPlayer()) == true)
 if (pfIsPathfinding == true)
@@ -1319,12 +1277,12 @@ if (MagnitudeOf(VelocityOf(EventPlayer())) < 3)
     pfIsStuck = false;
 }
 
-rule: "【PF Decompress】Decompress map"
+rule: "ã€PF Decompressã€‘Decompress map"
 if (pfDecompress == true)
 {
     # Lock pathfinder until compression is completed.
     pfIterationsThisTick = -99;
-    pfcompressionTable = <"!#$%&'()*+,-./:;<=>?@[]^_`|~ ¡¢£¤¥¦§¨©«¬­®¯°±´¶·¸»¿×÷˂˃˄˅˒˓˔˕˖˗˘˙˚˛˜˝˞˟˥˦˧˨˩˪˫˭˯˰˱˲˳˴˵˶˷˸˹˺<0>", <"˻˼˽˾˿̴̵̶̷̸̡̢̧̨̛̖̗̘̙̜̝̞̟̠̣̤̥̦̩̪̫̬̭̮̯̰̱̲̳̹̺̻̼͇͈͉͍͎̀́̂̃̄̅̆̇̈̉̊̋̌̍̎̏̐̑̒̓̔̽̾̿̀́͂̓̈́͆͊͋͌̕̚ͅ͏͓͔͕͖͙͚͐͑͒͗͛ͣͤͥͦͧͨͩͪͫͬͭͮͯ͘͜͟͢͝͞͠͡͵͸͹;΀΁΂΃<0>", <"΄΅·΋΍΢϶҂҃҄҅҆҇҈҉԰՗՘՚՛՜՝՞՟։֊֋֌֍֎֏֐ְֱֲֳִֵֶַָֹֺֻּֽ֑֖֛֢֣֤֥֦֧֪֚֭֮֒֓֔֕֗֘֙֜֝֞֟֠֡֨֩֫֬֯־ֿ׀ׁׂ׃ׅׄ׆ׇ׈׉׊׋׌׍׎׏׫׬׭׮׳״׵׶׷׸׹׺׻׼׽׾׿؀؁؂؃؄؅؆؇؈؉؊؋،<0>", <"؍؎؏ؘؙؚؐؑؒؓؔؕؖؗ؛؜؝؞؟ًٌٍَُِّْٕٖٜٟٓٔٗ٘ٙٚٛٝٞ٪٫٬٭ٰ۔ۖۗۘۙۚۛۜ۝۞ۣ۟۠ۡۢۤۧۨ۩۪ۭ۫۬۽۾܀܁܂܃܄܅܆܇܈܉܊܋܌܍܎܏ܑܱܴܷܸܹܻܼܾ݂݄݆݈ܰܲܳܵܶܺܽܿ݀݁݃݅݇݉݊݋݌ަާިީުޫެޭޮ<0>", <"ޯް޲޳޴޵޶޷޸޹޺޻޼޽޾޿߲߫߬߭߮߯߰߱߳߶߷߸߹߻߼߽߾߿ࠖࠗ࠘࠙ࠛࠜࠝࠞࠟࠠࠡࠢࠣࠥࠦࠧࠩࠪࠫࠬ࠭࠮࠯࠰࠱࠲࠳࠴࠵࠶࠷࠸࠹࠺࠻࠼࠽࠾࠿࡙࡚࡛࡜࡝࡞࡟࡫࡬࡭࡮࡯ࡰࡱࡲࡳࡴࡵࡶࡷࡸࡹࡺࡻࡼࡽࡾࡿࢀࢁࢂࢃࢄࢅࢆࢇ࢈ࢉࢊࢋࢌࢍࢎ࢏࢐࢑࢒࢓࢔࢕࢖ࢗ<0>", <"࢙࢚࢛࢘࢜࢝࢞࢟ࢵࣈࣉ࣏࣐࣑࣒࣓࣊࣋࣌࣍࣎ࣔࣕࣖࣗࣘࣙࣚࣛࣜࣝࣞࣟ࣠࣡࣢ࣰࣱࣲࣣࣦࣩ࣭࣮࣯ࣶࣹࣺࣤࣥࣧࣨ࣪࣫࣬ࣳࣴࣵࣷࣸࣻࣼࣽࣾࣿऀँंःऺऻ़ािीुूृॄॅॆेैॉॊोौ्ॎॏ॒॑॓॔ॕॖॗॢॣ।॥॰ঁংঃ঄঍঎঑঒঩঱঳঴঵঺঻়ািীুূৃৄ<0>", <"৅৆েৈ৉৊োৌ্৏৐৑৒৓৔৕৖ৗ৘৙৚৛৞ৢৣ৤৥৲৳৺৻৽৾৿਀ਁਂਃ਄਋਌਍਎਑਒਩਱਴਷਺਻਼਽ਾਿੀੁੂ੃੄੅੆ੇੈ੉੊ੋੌ੍੎੏੐ੑ੒੓੔੕੖੗੘੝੟੠੡੢੣੤੥ੰੱੵ੶੷੸੹੺੻੼੽੾੿઀ઁંઃ઄઎઒઩઱઴઺઻઼ાિીુૂૃૄૅ૆ેૈ<0>", <"ૉ૊ોૌ્૎૏૑૒૓૔૕૖૗૘૙૚૛૜૝૞૟ૢૣ૤૥૰૱૲૳૴૵૶૷૸ૺૻૼ૽૾૿଀ଁଂଃ଄଍଎଑଒଩଱଴଺଻଼ାିୀୁୂୃୄ୅୆େୈ୉୊ୋୌ୍୎୏୐୑୒୓୔୕ୖୗ୘୙୚୛୞ୢୣ୤୥୰୸୹୺୻୼୽୾୿஀஁ஂ஄஋஌஍஑஖஗஘஛஝஠஡஢஥஦஧஫஬஭஺஻஼<0>", <"஽ாிீுூ௃௄௅ெேை௉ொோௌ்௎௏௑௒௓௔௕௖ௗ௘௙௚௛௜௝௞௟௠௡௢௣௤௥௳௴௵௶௷௸௹௺௻௼௽௾௿ఀఁంఃఄ఍఑఩఺఻఼ాిీుూృౄ౅ెేై౉ొోౌ్౎౏౐౑౒౓౔ౕౖ౗౛౜ౝ౞౟ౢౣ౤౥౰౱౲౳౴౵౶౷౿ಁಂಃ಄಍಑಩಴಺಻಼ಾಿೀುೂೃ<0>", <"ೄ೅ೆೇೈ೉ೊೋೌ್೎೏೐೑೒೓೔ೕೖ೗೘೙೚೛೜ೝ೟ೢೣ೤೥೰ೳ೴೵೶೷೸೹೺೻೼೽೾೿ഀഁംഃ഍഑഻഼ാിീുൂൃൄ൅െേൈ൉ൊോൌ്൏൐൑൒൓ൗൢൣ൤൥൹඀ඁංඃ඄඗඘඙඲඼඾඿෇෈෉්෋෌෍෎ාැෑිීු෕ූ෗ෘෙේෛොෝෞෟ෠෡෢෣෤෥෰෱<0>", <"ෲෳ෴෵෶෷෸෹෺෻෼෽෾෿฀ัิีึืฺุู฻฼฽฾฿็่้๊๋์ํ๎๏๚๛๜๝๞๟๠๡๢๣๤๥๦๧๨๩๪๫๬๭๮๯๰๱๲๳๴๵๶๷๸๹๺๻๼๽๾๿຀຃຅຋຤຦ັິີຶື຺ຸູົຼ຾຿໅໇່້໊໋໌ໍ໎໏໚໛໠໡໢໣໤໥໦໧໨໩໪໫໬໭໮໯໰໱໲໳<0>", <"໴໵໶໷໸໹໺໻໼໽໾໿༁༂༃༄༅༆༇༈༉༊་༌།༎༏༐༑༒༓༔༕༖༗༘༙༚༛༜༝༞༟༴༵༶༷༸༹༺༻༼༽༾༿཈཭཮཯཰ཱཱཱིིུུྲྀཷླྀཹེཻོཽཾཿ྄ཱྀྀྂྃ྅྆྇ྍྎྏྐྑྒྒྷྔྕྖྗ྘ྙྚྛྜྜྷྞྟྠྡྡྷྣྤྥྦྦྷྨྩྪྫྫྷྭྮྯྰྱྲླྴྵྶ<0>", <"ྷྸྐྵྺྻྼ྽྾྿࿀࿁࿂࿃࿄࿅࿆࿇࿈࿉࿊࿋࿌࿍࿎࿏࿐࿑࿒࿓࿔࿕࿖࿗࿘࿙࿚࿛࿜࿝࿞࿟࿠࿡࿢࿣࿤࿥࿦࿧࿨࿩࿪࿫࿬࿭࿮࿯࿰࿱࿲࿳࿴࿵࿶࿷࿸࿹࿺࿻࿼࿽࿾࿿ါာိီုူေဲဳဴဵံ့း္်ျြွှ၊။၌၍၎၏ၖၗၘၙၞၟၠၢၣၤၧၨၩၪၫၬၭၱၲၳၴႂႃႄႅႆ<0>", <"ႇႈႉႊႋႌႍႏႚႛႜႝ႞႟჆჈჉჊჋჌჎჏჻቉቎቏቗቙቞቟኉኎኏኱኶኷኿዁዆዇዗጑጖጗፛፜፝፞፟፠፡።፣፤፥፦፧፨፽፾፿᎐᎑᎒᎓᎔᎕᎖᎗᎘᎙᎚᎛᎜᎝᎞᎟᏶᏷᏾᏿᐀᙭᙮ ᚛᚜᚝᚞᚟᛫᛬᛭᛹᛺᛻᛼᛽᛾᛿ᜍᜒᜓ᜔᜕᜖᜗᜘᜙᜚᜛᜜᜝᜞ᜟᜲᜳ᜴᜵᜶᜷᜸᜹᜺᜻<0>", <"᜼᜽᜾᜿ᝒᝓ᝔᝕᝖᝗᝘᝙᝚᝛᝜᝝᝞᝟᝭᝱ᝲᝳ᝴᝵᝶᝷᝸᝹᝺᝻᝼᝽᝾᝿឴឵ាិីឹឺុូួើឿៀេែៃោៅំះៈ៉៊់៌៍៎៏័៑្៓។៕៖៘៙៚៛៝៞៟៪៫៬៭៮៯៺៻៼៽៾៿᠀᠁᠂᠃᠄᠅᠆᠇᠈᠉᠊᠋᠌᠍᠎᠏᠚᠛᠜᠝᠞᠟᡹᡺᡻᡼᡽᡾᡿ᢅᢆᢩ᢫᢬᢭᢮᢯<0>", <"᣶᣷᣸᣹᣺᣻᣼᣽᣾᣿᤟ᤠᤡᤢᤣᤤᤥᤦᤧᤨᤩᤪᤫ᤬᤭᤮᤯ᤰᤱᤲᤳᤴᤵᤶᤷᤸ᤻᤹᤺᤼᤽᤾᤿᥀᥁᥂᥃᥄᥅᥮᥯᥵᥶᥷᥸᥹᥺᥻᥼᥽᥾᥿᦬᦭᦮᦯᧊᧋᧌᧍᧎᧏᧛᧜᧝᧞᧟᧠᧡᧢᧣᧤᧥᧦᧧᧨᧩᧪᧫᧬᧭᧮᧯᧰᧱᧲᧳᧴᧵᧶᧷᧸᧹᧺᧻᧼᧽᧾᧿ᨘᨗᨙᨚᨛ᨜᨝᨞᨟ᩕᩖᩗᩘᩙᩚᩛ<0>", <"ᩜᩝᩞ᩟᩠ᩡᩢᩣᩤᩥᩦᩧᩨᩩᩪᩫᩬᩭᩮᩯᩰᩱᩲᩳᩴ᩵᩶᩷᩸᩹᩺᩻᩼᩽᩾᩿᪊᪋᪌᪍᪎᪏᪚᪛᪜᪝᪞᪟᪠᪡᪢᪣᪤᪥᪦᪨᪩᪪᪫᪬᪭᪮᪯᪵᪶᪷᪸᪹᪺᪽᪰᪱᪲᪳᪴᪻᪼᪾ᪿᫀ᫃᫄᫊᫁᫂᫅᫆᫇᫈᫉᫋ᫌᫍᫎ᫏᫐᫑᫒᫓᫔᫕᫖᫗᫘᫙᫚᫛᫜᫝᫞᫟᫠᫡᫢᫣᫤᫥᫦᫧᫨᫩᫪᫫᫬᫭<0>", <"᫮᫯᫰᫱᫲᫳᫴᫵᫶᫷᫸᫹᫺᫻᫼᫽᫾᫿ᬀᬁᬂᬃᬄ᬴ᬵᬶᬷᬸᬹᬺᬻᬼᬽᬾᬿᭀᭁᭂᭃ᭄ᭌ᭍᭎᭏᭚᭛᭜᭝᭞᭟᭠᭡᭢᭣᭤᭥᭦᭧᭨᭩᭪᭬᭫᭭᭮᭯᭰᭱᭲᭳᭴᭵᭶᭷᭸᭹᭺᭻᭼᭽᭾᭿ᮀᮁᮂᮡᮢᮣᮤᮥᮦᮧᮨᮩ᮪᮫ᮬᮭ᯦ᯧᯨᯩᯪᯫᯬᯭᯮᯯᯰᯱ᯲᯳᯴᯵᯶᯷᯸᯹᯺᯻᯼᯽᯾᯿ᰤ<0>", <"ᰥᰦᰧᰨᰩᰪᰫᰬᰭᰮᰯᰰᰱᰲᰳᰴᰵᰶ᰷᰸᰹᰺᰻᰼᰽᰾᰿᱊᱋᱌᱾᱿Ᲊᲊ᲋᲌᲍᲎᲏᲻᲼᳀᳁᳂᳃᳄᳅᳆᳇᳈᳉᳊᳋᳌᳍᳎᳏᳐᳑᳒᳓᳔᳕᳖᳗᳘᳙᳜᳝᳞᳟᳚᳛᳠᳡᳢᳣᳤᳥᳦᳧᳨᳭᳴᳷᳸᳹᳻᳼᳽᳾᳿᷐᷎᷂᷊᷏᷀᷁᷃᷄᷅᷆᷇᷈᷉᷋᷌᷑᷒ᷓᷔᷕᷖᷗᷘᷙᷚᷛᷜᷝᷞᷟᷠ᷍<0>", <"᷺᷹᷽᷿᷷᷸ᷡᷢᷣᷤᷥᷦᷧᷨᷩᷪᷫᷬᷭᷮᷯᷰᷱᷲᷳᷴ᷵᷻᷾᷶᷼἖἗἞἟὆὇὎὏὘὚὜὞὾὿᾵᾽᾿῀῁῅῍῎῏῔῕῜῝῞῟῭΅`῰῱῵´῾῿           ​‌‍‎‏‐‑‒–—―‖‗‘’‚‛“”„‟†‡•‣․‥…‧  ‪‫‬‭‮ ‰‱′″‴‵‶‷<0>", <"‸‹›※‼‽‾‿⁀⁁⁂⁃⁄⁅⁆⁇⁈⁉⁊⁋⁌⁍⁎⁏⁐⁑⁒⁓⁔⁕⁖⁗⁘⁙⁚⁛⁜⁝⁞ ⁠⁡⁢⁣⁤⁥⁦⁧⁨⁩⁪⁫⁬⁭⁮⁯⁲⁳⁺⁻⁼⁽⁾₊₋₌₍₎₏₝₞₟₠₡₢₣₤₥₦₧₨₩₪₫€₭₮₯₰₱₲₳₴₵₶₷₸₹₺₻₼₽₾₿⃀⃁⃂⃃⃄⃅⃆⃇⃈⃉⃊⃋⃌⃍⃎⃏⃒⃓⃐⃑⃔<0>", <"⃘⃙⃚⃕⃖⃗⃛⃜⃝⃞⃟⃠⃡⃢⃣⃤⃥⃦⃪⃫⃨⃬⃭⃮⃯⃧⃩⃰⃱⃲⃳⃴⃵⃶⃷⃸⃹⃺⃻⃼⃽⃾⃿℀℁℃℄℅℆℈℉℔№℗℘℞℟℠℡™℣℥℧℩℮℺℻⅀⅁⅂⅃⅄⅊⅋⅌⅍⅏↊↋↌↍↎↏←↑→↓↔↕↖↗↘↙↚↛↜↝↞↟↠↡↢↣↤↥↦↧↨↩↪↫↬↭↮↯↰↱↲↳↴↵↶↷↸↹<0>", <"↺↻↼↽↾↿⇀⇁⇂⇃⇄⇅⇆⇇⇈⇉⇊⇋⇌⇍⇎⇏⇐⇑⇒⇓⇔⇕⇖⇗⇘⇙⇚⇛⇜⇝⇞⇟⇠⇡⇢⇣⇤⇥⇦⇧⇨⇩⇪⇫⇬⇭⇮⇯⇰⇱⇲⇳⇴⇵⇶⇷⇸⇹⇺⇻⇼⇽⇾⇿∀∁∂∃∄∅∆∇∈∉∊∋∌∍∎∏∐∑−∓∔∕∖∗∘∙√∛∜∝∞∟∠∡∢∣∤∥∦∧∨∩∪∫∬∭∮∯∰∱∲∳∴∵∶<0>", <"∷∸∹∺∻∼∽∾∿≀≁≂≃≄≅≆≇≈≉≊≋≌≍≎≏≐≑≒≓≔≕≖≗≘≙≚≛≜≝≞≟≠≡≢≣≤≥≦≧≨≩≪≫≬≭≮≯≰≱≲≳≴≵≶≷≸≹≺≻≼≽≾≿⊀⊁⊂⊃⊄⊅⊆⊇⊈⊉⊊⊋⊌⊍⊎⊏⊐⊑⊒⊓⊔⊕⊖⊗⊘⊙⊚⊛⊜⊝⊞⊟⊠⊡⊢⊣⊤⊥⊦⊧⊨⊩⊪⊫⊬⊭⊮⊯⊰⊱⊲⊳<0>", <"⊴⊵⊶⊷⊸⊹⊺⊻⊼⊽⊾⊿⋀⋁⋂⋃⋄⋅⋆⋇⋈⋉⋊⋋⋌⋍⋎⋏⋐⋑⋒⋓⋔⋕⋖⋗⋘⋙⋚⋛⋜⋝⋞⋟⋠⋡⋢⋣⋤⋥⋦⋧⋨⋩⋪⋫⋬⋭⋮⋯⋰⋱⋲⋳⋴⋵⋶⋷⋸⋹⋺⋻⋼⋽⋾⋿⌀⌁⌂⌃⌄⌅⌆⌇⌈⌉⌊⌋⌌⌍⌎⌏⌐⌑⌒⌓⌔⌕⌖⌗⌘⌙⌚⌛⌜⌝⌞⌟⌠⌡⌢⌣⌤⌥⌦⌧⌨〈〉⌫⌬⌭⌮⌯⌰<0>", <"⌱⌲⌳⌴⌵⌶⌷⌸⌹⌺⌻⌼⌽⌾⌿⍀⍁⍂⍃⍄⍅⍆⍇⍈⍉⍊⍋⍌⍍⍎⍏⍐⍑⍒⍓⍔⍕⍖⍗⍘⍙⍚⍛⍜⍝⍞⍟⍠⍡⍢⍣⍤⍥⍦⍧⍨⍩⍪⍫⍬⍭⍮⍯⍰⍱⍲⍳⍴⍵⍶⍷⍸⍹⍺⍻⍼⍽⍾⍿⎀⎁⎂⎃⎄⎅⎆⎇⎈⎉⎊⎋⎌⎍⎎⎏⎐⎑⎒⎓⎔⎕⎖⎗⎘⎙⎚⎛⎜⎝⎞⎟⎠⎡⎢⎣⎤⎥⎦⎧⎨⎩⎪⎫⎬⎭<0>", <"⎮⎯⎰⎱⎲⎳⎴⎵⎶⎷⎸⎹⎺⎻⎼⎽⎾⎿⏀⏁⏂⏃⏄⏅⏆⏇⏈⏉⏊⏋⏌⏍⏎⏏⏐⏑⏒⏓⏔⏕⏖⏗⏘⏙⏚⏛⏜⏝⏞⏟⏠⏡⏢⏣⏤⏥⏦⏧⏨⏩⏪⏫⏬⏭⏮⏯⏰⏱⏲⏳⏴⏵⏶⏷⏸⏹⏺⏻⏼⏽⏾⏿␀␁␂␃␄␅␆␇␈␉␊␋␌␍␎␏␐␑␒␓␔␕␖␗␘␙␚␛␜␝␞␟␠␡␢␣␤␥␦␧␨␩␪<0>", <"␫␬␭␮␯␰␱␲␳␴␵␶␷␸␹␺␻␼␽␾␿⑀⑁⑂⑃⑄⑅⑆⑇⑈⑉⑊⑋⑌⑍⑎⑏⑐⑑⑒⑓⑔⑕⑖⑗⑘⑙⑚⑛⑜⑝⑞⑟⒜⒝⒞⒟⒠⒡⒢⒣⒤⒥⒦⒧⒨⒩⒪⒫⒬⒭⒮⒯⒰⒱⒲⒳⒴⒵ⒶⒷⒸⒹⒺⒻⒼⒽⒾⒿⓀⓁⓂⓃⓄⓅⓆⓇⓈⓉⓊⓋⓌⓍⓎⓏⓐⓑⓒⓓⓔⓕⓖⓗⓘⓙⓚⓛⓜⓝⓞⓟⓠⓡⓢⓣ<0>", <"ⓤⓥⓦⓧⓨⓩ─━│┃┄┅┆┇┈┉┊┋┌┍┎┏┐┑┒┓└┕┖┗┘┙┚┛├┝┞┟┠┡┢┣┤┥┦┧┨┩┪┫┬┭┮┯┰┱┲┳┴┵┶┷┸┹┺┻┼┽┾┿╀╁╂╃╄╅╆╇╈╉╊╋╌╍╎╏═║╒╓╔╕╖╗╘╙╚╛╜╝╞╟╠╡╢╣╤╥╦╧╨╩╪╫╬╭╮╯╰╱╲╳╴╵╶<0>", <"╷╸╹╺╻╼╽╾╿▀▁▂▃▄▅▆▇█▉▊▋▌▍▎▏▐░▒▓▔▕▖▗▘▙▚▛▜▝▞▟■□▢▣▤▥▦▧▨▩▪▫▬▭▮▯▰▱▲△▴▵▶▷▸▹►▻▼▽▾▿◀◁◂◃◄◅◆◇◈◉◊○◌◍◎●◐◑◒◓◔◕◖◗◘◙◚◛◜◝◞◟◠◡◢◣◤◥◦◧◨◩◪◫◬◭◮◯◰◱◲◳<0>", <"◴◵◶◷◸◹◺◻◼◽◾◿☀☁☂☃☄★☆☇☈☉☊☋☌☍☎☏☐☑☒☓☔☕☖☗☘☙☚☛☜☝☞☟☠☡☢☣☤☥☦☧☨☩☪☫☬☭☮☯☰☱☲☳☴☵☶☷☸☹☺☻☼☽☾☿♀♁♂♃♄♅♆♇♈♉♊♋♌♍♎♏♐♑♒♓♔♕♖♗♘♙♚♛♜♝♞♟♠♡♢♣♤♥♦♧♨♩♪♫♬♭♮♯♰<0>", <"♱♲♳♴♵♶♷♸♹♺♻♼♽♾♿⚀⚁⚂⚃⚄⚅⚆⚇⚈⚉⚊⚋⚌⚍⚎⚏⚐⚑⚒⚓⚔⚕⚖⚗⚘⚙⚚⚛⚜⚝⚞⚟⚠⚡⚢⚣⚤⚥⚦⚧⚨⚩⚪⚫⚬⚭⚮⚯⚰⚱⚲⚳⚴⚵⚶⚷⚸⚹⚺⚻⚼⚽⚾⚿⛀⛁⛂⛃⛄⛅⛆⛇⛈⛉⛊⛋⛌⛍⛎⛏⛐⛑⛒⛓⛔⛕⛖⛗⛘⛙⛚⛛⛜⛝⛞⛟⛠⛡⛢⛣⛤⛥⛦⛧⛨⛩⛪⛫⛬⛭<0>", "⛮⛯⛰⛱⛲⛳⛴⛵⛶⛷⛸⛹⛺⛻⛼⛽⛾⛿✀✁✂✃✄✅✆✇✈✉✊✋✌✍✎✏✐✑✒✓✔✕✖✗✘✙✚✛✜✝✞✟✠✡✢✣✤✥✦✧✨✩✪✫✬✭✮✯✰✱✲✳✴✵✶✷✸✹✺✻✼✽✾✿❀❁❂❃❄❅❆❇❈❉❊❋❌❍">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>;
+    pfcompressionTable = <"!#$%&'()*+,-./:;<=>?@[]^_`|~Â€ÂÂ‚ÂƒÂ„Â…Â†Â‡ÂˆÂ‰ÂŠÂ‹ÂŒÂÂŽÂÂÂ‘Â’Â“Â”Â•Â–Â—Â˜Â™ÂšÂ›ÂœÂÂžÂŸÂ Â¡Â¢Â£Â¤Â¥Â¦Â§Â¨Â©Â«Â¬Â­Â®Â¯Â°Â±Â´Â¶Â·Â¸Â»Â¿Ã—Ã·Ë‚ËƒË„Ë…Ë’Ë“Ë”Ë•Ë–Ë—Ë˜Ë™ËšË›ËœËËžËŸË¥Ë¦Ë§Ë¨Ë©ËªË«Ë­Ë¯Ë°Ë±Ë²Ë³Ë´ËµË¶Ë·Ë¸Ë¹Ëº<0>", <"Ë»Ë¼Ë½Ë¾Ë¿Ì€ÌÌ‚ÌƒÌ„Ì…Ì†Ì‡ÌˆÌ‰ÌŠÌ‹ÌŒÌÌŽÌÌÌ‘Ì’Ì“Ì”Ì•Ì–Ì—Ì˜Ì™ÌšÌ›ÌœÌÌžÌŸÌ Ì¡Ì¢Ì£Ì¤Ì¥Ì¦Ì§Ì¨Ì©ÌªÌ«Ì¬Ì­Ì®Ì¯Ì°Ì±Ì²Ì³Ì´ÌµÌ¶Ì·Ì¸Ì¹ÌºÌ»Ì¼Ì½Ì¾Ì¿Í€ÍÍ‚ÍƒÍ„Í…Í†Í‡ÍˆÍ‰ÍŠÍ‹ÍŒÍÍŽÍÍÍ‘Í’Í“Í”Í•Í–Í—Í˜Í™ÍšÍ›ÍœÍÍžÍŸÍ Í¡Í¢Í£Í¤Í¥Í¦Í§Í¨Í©ÍªÍ«Í¬Í­Í®Í¯ÍµÍ¸Í¹Í¾Î€ÎÎ‚Îƒ<0>", <"Î„Î…Î‡Î‹ÎÎ¢Ï¶Ò‚ÒƒÒ„Ò…Ò†Ò‡ÒˆÒ‰Ô°Õ—Õ˜ÕšÕ›ÕœÕÕžÕŸÖ‰ÖŠÖ‹ÖŒÖÖŽÖÖÖ‘Ö’Ö“Ö”Ö•Ö–Ö—Ö˜Ö™ÖšÖ›ÖœÖÖžÖŸÖ Ö¡Ö¢Ö£Ö¤Ö¥Ö¦Ö§Ö¨Ö©ÖªÖ«Ö¬Ö­Ö®Ö¯Ö°Ö±Ö²Ö³Ö´ÖµÖ¶Ö·Ö¸Ö¹ÖºÖ»Ö¼Ö½Ö¾Ö¿×€××‚×ƒ×„×…×†×‡×ˆ×‰×Š×‹×Œ××Ž××«×¬×­×®×³×´×µ×¶×·×¸×¹×º×»×¼×½×¾×¿Ø€ØØ‚ØƒØ„Ø…Ø†Ø‡ØˆØ‰ØŠØ‹ØŒ<0>", <"ØØŽØØØ‘Ø’Ø“Ø”Ø•Ø–Ø—Ø˜Ø™ØšØ›ØœØØžØŸÙ‹ÙŒÙÙŽÙÙÙ‘Ù’Ù“Ù”Ù•Ù–Ù—Ù˜Ù™ÙšÙ›ÙœÙÙžÙŸÙªÙ«Ù¬Ù­Ù°Û”Û–Û—Û˜Û™ÛšÛ›ÛœÛÛžÛŸÛ Û¡Û¢Û£Û¤Û§Û¨Û©ÛªÛ«Û¬Û­Û½Û¾Ü€ÜÜ‚ÜƒÜ„Ü…Ü†Ü‡ÜˆÜ‰ÜŠÜ‹ÜŒÜÜŽÜÜ‘Ü°Ü±Ü²Ü³Ü´ÜµÜ¶Ü·Ü¸Ü¹ÜºÜ»Ü¼Ü½Ü¾Ü¿Ý€ÝÝ‚ÝƒÝ„Ý…Ý†Ý‡ÝˆÝ‰ÝŠÝ‹ÝŒÞ¦Þ§Þ¨Þ©ÞªÞ«Þ¬Þ­Þ®<0>", <"Þ¯Þ°Þ²Þ³Þ´ÞµÞ¶Þ·Þ¸Þ¹ÞºÞ»Þ¼Þ½Þ¾Þ¿ß«ß¬ß­ß®ß¯ß°ß±ß²ß³ß¶ß·ß¸ß¹ß»ß¼ß½ß¾ß¿à –à —à ˜à ™à ›à œà à žà Ÿà  à ¡à ¢à £à ¥à ¦à §à ©à ªà «à ¬à ­à ®à ¯à °à ±à ²à ³à ´à µà ¶à ·à ¸à ¹à ºà »à ¼à ½à ¾à ¿à¡™à¡šà¡›à¡œà¡à¡žà¡Ÿà¡«à¡¬à¡­à¡®à¡¯à¡°à¡±à¡²à¡³à¡´à¡µà¡¶à¡·à¡¸à¡¹à¡ºà¡»à¡¼à¡½à¡¾à¡¿à¢€à¢à¢‚à¢ƒà¢„à¢…à¢†à¢‡à¢ˆà¢‰à¢Šà¢‹à¢Œà¢à¢Žà¢à¢à¢‘à¢’à¢“à¢”à¢•à¢–à¢—<0>", <"à¢˜à¢™à¢šà¢›à¢œà¢à¢žà¢Ÿà¢µà£ˆà£‰à£Šà£‹à£Œà£à£Žà£à£à£‘à£’à£“à£”à£•à£–à£—à£˜à£™à£šà£›à£œà£à£žà£Ÿà£ à£¡à£¢à££à£¤à£¥à£¦à£§à£¨à£©à£ªà£«à£¬à£­à£®à£¯à£°à£±à£²à£³à£´à£µà£¶à£·à£¸à£¹à£ºà£»à£¼à£½à£¾à£¿à¤€à¤à¤‚à¤ƒà¤ºà¤»à¤¼à¤¾à¤¿à¥€à¥à¥‚à¥ƒà¥„à¥…à¥†à¥‡à¥ˆà¥‰à¥Šà¥‹à¥Œà¥à¥Žà¥à¥‘à¥’à¥“à¥”à¥•à¥–à¥—à¥¢à¥£à¥¤à¥¥à¥°à¦à¦‚à¦ƒà¦„à¦à¦Žà¦‘à¦’à¦©à¦±à¦³à¦´à¦µà¦ºà¦»à¦¼à¦¾à¦¿à§€à§à§‚à§ƒà§„<0>", <"à§…à§†à§‡à§ˆà§‰à§Šà§‹à§Œà§à§à§à§‘à§’à§“à§”à§•à§–à§—à§˜à§™à§šà§›à§žà§¢à§£à§¤à§¥à§²à§³à§ºà§»à§½à§¾à§¿à¨€à¨à¨‚à¨ƒà¨„à¨‹à¨Œà¨à¨Žà¨‘à¨’à¨©à¨±à¨´à¨·à¨ºà¨»à¨¼à¨½à¨¾à¨¿à©€à©à©‚à©ƒà©„à©…à©†à©‡à©ˆà©‰à©Šà©‹à©Œà©à©Žà©à©à©‘à©’à©“à©”à©•à©–à©—à©˜à©à©Ÿà© à©¡à©¢à©£à©¤à©¥à©°à©±à©µà©¶à©·à©¸à©¹à©ºà©»à©¼à©½à©¾à©¿àª€àªàª‚àªƒàª„àªŽàª’àª©àª±àª´àªºàª»àª¼àª¾àª¿à«€à«à«‚à«ƒà«„à«…à«†à«‡à«ˆ<0>", <"à«‰à«Šà«‹à«Œà«à«Žà«à«‘à«’à«“à«”à«•à«–à«—à«˜à«™à«šà«›à«œà«à«žà«Ÿà«¢à«£à«¤à«¥à«°à«±à«²à«³à«´à«µà«¶à«·à«¸à«ºà«»à«¼à«½à«¾à«¿à¬€à¬à¬‚à¬ƒà¬„à¬à¬Žà¬‘à¬’à¬©à¬±à¬´à¬ºà¬»à¬¼à¬¾à¬¿à­€à­à­‚à­ƒà­„à­…à­†à­‡à­ˆà­‰à­Šà­‹à­Œà­à­Žà­à­à­‘à­’à­“à­”à­•à­–à­—à­˜à­™à­šà­›à­žà­¢à­£à­¤à­¥à­°à­¸à­¹à­ºà­»à­¼à­½à­¾à­¿à®€à®à®‚à®„à®‹à®Œà®à®‘à®–à®—à®˜à®›à®à® à®¡à®¢à®¥à®¦à®§à®«à®¬à®­à®ºà®»à®¼<0>", <"à®½à®¾à®¿à¯€à¯à¯‚à¯ƒà¯„à¯…à¯†à¯‡à¯ˆà¯‰à¯Šà¯‹à¯Œà¯à¯Žà¯à¯‘à¯’à¯“à¯”à¯•à¯–à¯—à¯˜à¯™à¯šà¯›à¯œà¯à¯žà¯Ÿà¯ à¯¡à¯¢à¯£à¯¤à¯¥à¯³à¯´à¯µà¯¶à¯·à¯¸à¯¹à¯ºà¯»à¯¼à¯½à¯¾à¯¿à°€à°à°‚à°ƒà°„à°à°‘à°©à°ºà°»à°¼à°¾à°¿à±€à±à±‚à±ƒà±„à±…à±†à±‡à±ˆà±‰à±Šà±‹à±Œà±à±Žà±à±à±‘à±’à±“à±”à±•à±–à±—à±›à±œà±à±žà±Ÿà±¢à±£à±¤à±¥à±°à±±à±²à±³à±´à±µà±¶à±·à±¿à²à²‚à²ƒà²„à²à²‘à²©à²´à²ºà²»à²¼à²¾à²¿à³€à³à³‚à³ƒ<0>", <"à³„à³…à³†à³‡à³ˆà³‰à³Šà³‹à³Œà³à³Žà³à³à³‘à³’à³“à³”à³•à³–à³—à³˜à³™à³šà³›à³œà³à³Ÿà³¢à³£à³¤à³¥à³°à³³à³´à³µà³¶à³·à³¸à³¹à³ºà³»à³¼à³½à³¾à³¿à´€à´à´‚à´ƒà´à´‘à´»à´¼à´¾à´¿àµ€àµàµ‚àµƒàµ„àµ…àµ†àµ‡àµˆàµ‰àµŠàµ‹àµŒàµàµàµàµ‘àµ’àµ“àµ—àµ¢àµ£àµ¤àµ¥àµ¹à¶€à¶à¶‚à¶ƒà¶„à¶—à¶˜à¶™à¶²à¶¼à¶¾à¶¿à·‡à·ˆà·‰à·Šà·‹à·Œà·à·Žà·à·à·‘à·’à·“à·”à·•à·–à·—à·˜à·™à·šà·›à·œà·à·žà·Ÿà· à·¡à·¢à·£à·¤à·¥à·°à·±<0>", <"à·²à·³à·´à·µà·¶à··à·¸à·¹à·ºà·»à·¼à·½à·¾à·¿à¸€à¸±à¸´à¸µà¸¶à¸·à¸¸à¸¹à¸ºà¸»à¸¼à¸½à¸¾à¸¿à¹‡à¹ˆà¹‰à¹Šà¹‹à¹Œà¹à¹Žà¹à¹šà¹›à¹œà¹à¹žà¹Ÿà¹ à¹¡à¹¢à¹£à¹¤à¹¥à¹¦à¹§à¹¨à¹©à¹ªà¹«à¹¬à¹­à¹®à¹¯à¹°à¹±à¹²à¹³à¹´à¹µà¹¶à¹·à¹¸à¹¹à¹ºà¹»à¹¼à¹½à¹¾à¹¿àº€àºƒàº…àº‹àº¤àº¦àº±àº´àºµàº¶àº·àº¸àº¹àººàº»àº¼àº¾àº¿à»…à»‡à»ˆà»‰à»Šà»‹à»Œà»à»Žà»à»šà»›à» à»¡à»¢à»£à»¤à»¥à»¦à»§à»¨à»©à»ªà»«à»¬à»­à»®à»¯à»°à»±à»²à»³<0>", <"à»´à»µà»¶à»·à»¸à»¹à»ºà»»à»¼à»½à»¾à»¿à¼à¼‚à¼ƒà¼„à¼…à¼†à¼‡à¼ˆà¼‰à¼Šà¼‹à¼Œà¼à¼Žà¼à¼à¼‘à¼’à¼“à¼”à¼•à¼–à¼—à¼˜à¼™à¼šà¼›à¼œà¼à¼žà¼Ÿà¼´à¼µà¼¶à¼·à¼¸à¼¹à¼ºà¼»à¼¼à¼½à¼¾à¼¿à½ˆà½­à½®à½¯à½°à½±à½²à½³à½´à½µà½¶à½·à½¸à½¹à½ºà½»à½¼à½½à½¾à½¿à¾€à¾à¾‚à¾ƒà¾„à¾…à¾†à¾‡à¾à¾Žà¾à¾à¾‘à¾’à¾“à¾”à¾•à¾–à¾—à¾˜à¾™à¾šà¾›à¾œà¾à¾žà¾Ÿà¾ à¾¡à¾¢à¾£à¾¤à¾¥à¾¦à¾§à¾¨à¾©à¾ªà¾«à¾¬à¾­à¾®à¾¯à¾°à¾±à¾²à¾³à¾´à¾µà¾¶<0>", <"à¾·à¾¸à¾¹à¾ºà¾»à¾¼à¾½à¾¾à¾¿à¿€à¿à¿‚à¿ƒà¿„à¿…à¿†à¿‡à¿ˆà¿‰à¿Šà¿‹à¿Œà¿à¿Žà¿à¿à¿‘à¿’à¿“à¿”à¿•à¿–à¿—à¿˜à¿™à¿šà¿›à¿œà¿à¿žà¿Ÿà¿ à¿¡à¿¢à¿£à¿¤à¿¥à¿¦à¿§à¿¨à¿©à¿ªà¿«à¿¬à¿­à¿®à¿¯à¿°à¿±à¿²à¿³à¿´à¿µà¿¶à¿·à¿¸à¿¹à¿ºà¿»à¿¼à¿½à¿¾à¿¿á€«á€¬á€­á€®á€¯á€°á€±á€²á€³á€´á€µá€¶á€·á€¸á€¹á€ºá€»á€¼á€½á€¾áŠá‹áŒááŽáá–á—á˜á™ážáŸá á¢á£á¤á§á¨á©áªá«á¬á­á±á²á³á´á‚‚á‚ƒá‚„á‚…á‚†<0>", <"á‚‡á‚ˆá‚‰á‚Šá‚‹á‚Œá‚á‚á‚šá‚›á‚œá‚á‚žá‚Ÿáƒ†áƒˆáƒ‰áƒŠáƒ‹áƒŒáƒŽáƒáƒ»á‰‰á‰Žá‰á‰—á‰™á‰žá‰ŸáŠ‰áŠŽáŠáŠ±áŠ¶áŠ·áŠ¿á‹á‹†á‹‡á‹—áŒ‘áŒ–áŒ—á›áœáážáŸá á¡á¢á£á¤á¥á¦á§á¨á½á¾á¿áŽáŽ‘áŽ’áŽ“áŽ”áŽ•áŽ–áŽ—áŽ˜áŽ™áŽšáŽ›áŽœáŽáŽžáŽŸá¶á·á¾á¿á€á™­á™®áš€áš›ášœášášžášŸá›«á›¬á›­á›¹á›ºá›»á›¼á›½á›¾á›¿áœáœ’áœ“áœ”áœ•áœ–áœ—áœ˜áœ™áœšáœ›áœœáœáœžáœŸáœ²áœ³áœ´áœµáœ¶áœ·áœ¸áœ¹áœºáœ»<0>", <"áœ¼áœ½áœ¾áœ¿á’á“á”á•á–á—á˜á™ášá›áœáážáŸá­á±á²á³á´áµá¶á·á¸á¹áºá»á¼á½á¾á¿áž´ážµáž¶áž·áž¸áž¹ážºáž»áž¼áž½áž¾áž¿áŸ€áŸáŸ‚áŸƒáŸ„áŸ…áŸ†áŸ‡áŸˆáŸ‰áŸŠáŸ‹áŸŒáŸáŸŽáŸáŸáŸ‘áŸ’áŸ“áŸ”áŸ•áŸ–áŸ˜áŸ™áŸšáŸ›áŸáŸžáŸŸáŸªáŸ«áŸ¬áŸ­áŸ®áŸ¯áŸºáŸ»áŸ¼áŸ½áŸ¾áŸ¿á €á á ‚á ƒá „á …á †á ‡á ˆá ‰á Šá ‹á Œá á Žá á šá ›á œá á žá Ÿá¡¹á¡ºá¡»á¡¼á¡½á¡¾á¡¿á¢…á¢†á¢©á¢«á¢¬á¢­á¢®á¢¯<0>", <"á£¶á£·á£¸á£¹á£ºá£»á£¼á£½á£¾á£¿á¤Ÿá¤ á¤¡á¤¢á¤£á¤¤á¤¥á¤¦á¤§á¤¨á¤©á¤ªá¤«á¤¬á¤­á¤®á¤¯á¤°á¤±á¤²á¤³á¤´á¤µá¤¶á¤·á¤¸á¤¹á¤ºá¤»á¤¼á¤½á¤¾á¤¿á¥€á¥á¥‚á¥ƒá¥„á¥…á¥®á¥¯á¥µá¥¶á¥·á¥¸á¥¹á¥ºá¥»á¥¼á¥½á¥¾á¥¿á¦¬á¦­á¦®á¦¯á§Šá§‹á§Œá§á§Žá§á§›á§œá§á§žá§Ÿá§ á§¡á§¢á§£á§¤á§¥á§¦á§§á§¨á§©á§ªá§«á§¬á§­á§®á§¯á§°á§±á§²á§³á§´á§µá§¶á§·á§¸á§¹á§ºá§»á§¼á§½á§¾á§¿á¨—á¨˜á¨™á¨šá¨›á¨œá¨á¨žá¨Ÿá©•á©–á©—á©˜á©™á©šá©›<0>", <"á©œá©á©žá©Ÿá© á©¡á©¢á©£á©¤á©¥á©¦á©§á©¨á©©á©ªá©«á©¬á©­á©®á©¯á©°á©±á©²á©³á©´á©µá©¶á©·á©¸á©¹á©ºá©»á©¼á©½á©¾á©¿áªŠáª‹áªŒáªáªŽáªáªšáª›áªœáªáªžáªŸáª áª¡áª¢áª£áª¤áª¥áª¦áª¨áª©áªªáª«áª¬áª­áª®áª¯áª°áª±áª²áª³áª´áªµáª¶áª·áª¸áª¹áªºáª»áª¼áª½áª¾áª¿á«€á«á«‚á«ƒá«„á«…á«†á«‡á«ˆá«‰á«Šá«‹á«Œá«á«Žá«á«á«‘á«’á«“á«”á«•á«–á«—á«˜á«™á«šá«›á«œá«á«žá«Ÿá« á«¡á«¢á«£á«¤á«¥á«¦á«§á«¨á«©á«ªá««á«¬á«­<0>", <"á«®á«¯á«°á«±á«²á«³á«´á«µá«¶á«·á«¸á«¹á«ºá«»á«¼á«½á«¾á«¿á¬€á¬á¬‚á¬ƒá¬„á¬´á¬µá¬¶á¬·á¬¸á¬¹á¬ºá¬»á¬¼á¬½á¬¾á¬¿á­€á­á­‚á­ƒá­„á­Œá­á­Žá­á­šá­›á­œá­á­žá­Ÿá­ á­¡á­¢á­£á­¤á­¥á­¦á­§á­¨á­©á­ªá­«á­¬á­­á­®á­¯á­°á­±á­²á­³á­´á­µá­¶á­·á­¸á­¹á­ºá­»á­¼á­½á­¾á­¿á®€á®á®‚á®¡á®¢á®£á®¤á®¥á®¦á®§á®¨á®©á®ªá®«á®¬á®­á¯¦á¯§á¯¨á¯©á¯ªá¯«á¯¬á¯­á¯®á¯¯á¯°á¯±á¯²á¯³á¯´á¯µá¯¶á¯·á¯¸á¯¹á¯ºá¯»á¯¼á¯½á¯¾á¯¿á°¤<0>", <"á°¥á°¦á°§á°¨á°©á°ªá°«á°¬á°­á°®á°¯á°°á°±á°²á°³á°´á°µá°¶á°·á°¸á°¹á°ºá°»á°¼á°½á°¾á°¿á±Šá±‹á±Œá±¾á±¿á²‰á²Šá²‹á²Œá²á²Žá²á²»á²¼á³€á³á³‚á³ƒá³„á³…á³†á³‡á³ˆá³‰á³Šá³‹á³Œá³á³Žá³á³á³‘á³’á³“á³”á³•á³–á³—á³˜á³™á³šá³›á³œá³á³žá³Ÿá³ á³¡á³¢á³£á³¤á³¥á³¦á³§á³¨á³­á³´á³·á³¸á³¹á³»á³¼á³½á³¾á³¿á·€á·á·‚á·ƒá·„á·…á·†á·‡á·ˆá·‰á·Šá·‹á·Œá·á·Žá·á·á·‘á·’á·“á·”á·•á·–á·—á·˜á·™á·šá·›á·œá·á·žá·Ÿá· <0>", <"á·¡á·¢á·£á·¤á·¥á·¦á·§á·¨á·©á·ªá·«á·¬á·­á·®á·¯á·°á·±á·²á·³á·´á·µá·¶á··á·¸á·¹á·ºá·»á·¼á·½á·¾á·¿á¼–á¼—á¼žá¼Ÿá½†á½‡á½Žá½á½˜á½šá½œá½žá½¾á½¿á¾µá¾½á¾¿á¿€á¿á¿…á¿á¿Žá¿á¿”á¿•á¿œá¿á¿žá¿Ÿá¿­á¿®á¿¯á¿°á¿±á¿µá¿½á¿¾á¿¿â€€â€â€‚â€ƒâ€„â€…â€†â€‡â€ˆâ€‰â€Šâ€‹â€Œâ€â€Žâ€â€â€‘â€’â€“â€”â€•â€–â€—â€˜â€™â€šâ€›â€œâ€â€žâ€Ÿâ€ â€¡â€¢â€£â€¤â€¥â€¦â€§â€¨â€©â€ªâ€«â€¬â€­â€®â€¯â€°â€±â€²â€³â€´â€µâ€¶â€·<0>", <"â€¸â€¹â€ºâ€»â€¼â€½â€¾â€¿â€ââ‚âƒâ„â…â†â‡âˆâ‰âŠâ‹âŒââŽâââ‘â’â“â”â•â–â—â˜â™âšâ›âœââžâŸâ â¡â¢â£â¤â¥â¦â§â¨â©âªâ«â¬â­â®â¯â²â³âºâ»â¼â½â¾â‚Šâ‚‹â‚Œâ‚â‚Žâ‚â‚â‚žâ‚Ÿâ‚ â‚¡â‚¢â‚£â‚¤â‚¥â‚¦â‚§â‚¨â‚©â‚ªâ‚«â‚¬â‚­â‚®â‚¯â‚°â‚±â‚²â‚³â‚´â‚µâ‚¶â‚·â‚¸â‚¹â‚ºâ‚»â‚¼â‚½â‚¾â‚¿âƒ€âƒâƒ‚âƒƒâƒ„âƒ…âƒ†âƒ‡âƒˆâƒ‰âƒŠâƒ‹âƒŒâƒâƒŽâƒâƒâƒ‘âƒ’âƒ“âƒ”<0>", <"âƒ•âƒ–âƒ—âƒ˜âƒ™âƒšâƒ›âƒœâƒâƒžâƒŸâƒ âƒ¡âƒ¢âƒ£âƒ¤âƒ¥âƒ¦âƒ§âƒ¨âƒ©âƒªâƒ«âƒ¬âƒ­âƒ®âƒ¯âƒ°âƒ±âƒ²âƒ³âƒ´âƒµâƒ¶âƒ·âƒ¸âƒ¹âƒºâƒ»âƒ¼âƒ½âƒ¾âƒ¿â„€â„â„ƒâ„„â„…â„†â„ˆâ„‰â„”â„–â„—â„˜â„žâ„Ÿâ„ â„¡â„¢â„£â„¥â„§â„©â„®â„ºâ„»â…€â…â…‚â…ƒâ…„â…Šâ…‹â…Œâ…â…â†Šâ†‹â†Œâ†â†Žâ†â†â†‘â†’â†“â†”â†•â†–â†—â†˜â†™â†šâ†›â†œâ†â†žâ†Ÿâ† â†¡â†¢â†£â†¤â†¥â†¦â†§â†¨â†©â†ªâ†«â†¬â†­â†®â†¯â†°â†±â†²â†³â†´â†µâ†¶â†·â†¸â†¹<0>", <"â†ºâ†»â†¼â†½â†¾â†¿â‡€â‡â‡‚â‡ƒâ‡„â‡…â‡†â‡‡â‡ˆâ‡‰â‡Šâ‡‹â‡Œâ‡â‡Žâ‡â‡â‡‘â‡’â‡“â‡”â‡•â‡–â‡—â‡˜â‡™â‡šâ‡›â‡œâ‡â‡žâ‡Ÿâ‡ â‡¡â‡¢â‡£â‡¤â‡¥â‡¦â‡§â‡¨â‡©â‡ªâ‡«â‡¬â‡­â‡®â‡¯â‡°â‡±â‡²â‡³â‡´â‡µâ‡¶â‡·â‡¸â‡¹â‡ºâ‡»â‡¼â‡½â‡¾â‡¿âˆ€âˆâˆ‚âˆƒâˆ„âˆ…âˆ†âˆ‡âˆˆâˆ‰âˆŠâˆ‹âˆŒâˆâˆŽâˆâˆâˆ‘âˆ’âˆ“âˆ”âˆ•âˆ–âˆ—âˆ˜âˆ™âˆšâˆ›âˆœâˆâˆžâˆŸâˆ âˆ¡âˆ¢âˆ£âˆ¤âˆ¥âˆ¦âˆ§âˆ¨âˆ©âˆªâˆ«âˆ¬âˆ­âˆ®âˆ¯âˆ°âˆ±âˆ²âˆ³âˆ´âˆµâˆ¶<0>", <"âˆ·âˆ¸âˆ¹âˆºâˆ»âˆ¼âˆ½âˆ¾âˆ¿â‰€â‰â‰‚â‰ƒâ‰„â‰…â‰†â‰‡â‰ˆâ‰‰â‰Šâ‰‹â‰Œâ‰â‰Žâ‰â‰â‰‘â‰’â‰“â‰”â‰•â‰–â‰—â‰˜â‰™â‰šâ‰›â‰œâ‰â‰žâ‰Ÿâ‰ â‰¡â‰¢â‰£â‰¤â‰¥â‰¦â‰§â‰¨â‰©â‰ªâ‰«â‰¬â‰­â‰®â‰¯â‰°â‰±â‰²â‰³â‰´â‰µâ‰¶â‰·â‰¸â‰¹â‰ºâ‰»â‰¼â‰½â‰¾â‰¿âŠ€âŠâŠ‚âŠƒâŠ„âŠ…âŠ†âŠ‡âŠˆâŠ‰âŠŠâŠ‹âŠŒâŠâŠŽâŠâŠâŠ‘âŠ’âŠ“âŠ”âŠ•âŠ–âŠ—âŠ˜âŠ™âŠšâŠ›âŠœâŠâŠžâŠŸâŠ âŠ¡âŠ¢âŠ£âŠ¤âŠ¥âŠ¦âŠ§âŠ¨âŠ©âŠªâŠ«âŠ¬âŠ­âŠ®âŠ¯âŠ°âŠ±âŠ²âŠ³<0>", <"âŠ´âŠµâŠ¶âŠ·âŠ¸âŠ¹âŠºâŠ»âŠ¼âŠ½âŠ¾âŠ¿â‹€â‹â‹‚â‹ƒâ‹„â‹…â‹†â‹‡â‹ˆâ‹‰â‹Šâ‹‹â‹Œâ‹â‹Žâ‹â‹â‹‘â‹’â‹“â‹”â‹•â‹–â‹—â‹˜â‹™â‹šâ‹›â‹œâ‹â‹žâ‹Ÿâ‹ â‹¡â‹¢â‹£â‹¤â‹¥â‹¦â‹§â‹¨â‹©â‹ªâ‹«â‹¬â‹­â‹®â‹¯â‹°â‹±â‹²â‹³â‹´â‹µâ‹¶â‹·â‹¸â‹¹â‹ºâ‹»â‹¼â‹½â‹¾â‹¿âŒ€âŒâŒ‚âŒƒâŒ„âŒ…âŒ†âŒ‡âŒˆâŒ‰âŒŠâŒ‹âŒŒâŒâŒŽâŒâŒâŒ‘âŒ’âŒ“âŒ”âŒ•âŒ–âŒ—âŒ˜âŒ™âŒšâŒ›âŒœâŒâŒžâŒŸâŒ âŒ¡âŒ¢âŒ£âŒ¤âŒ¥âŒ¦âŒ§âŒ¨âŒ©âŒªâŒ«âŒ¬âŒ­âŒ®âŒ¯âŒ°<0>", <"âŒ±âŒ²âŒ³âŒ´âŒµâŒ¶âŒ·âŒ¸âŒ¹âŒºâŒ»âŒ¼âŒ½âŒ¾âŒ¿â€ââ‚âƒâ„â…â†â‡âˆâ‰âŠâ‹âŒââŽâââ‘â’â“â”â•â–â—â˜â™âšâ›âœââžâŸâ â¡â¢â£â¤â¥â¦â§â¨â©âªâ«â¬â­â®â¯â°â±â²â³â´âµâ¶â·â¸â¹âºâ»â¼â½â¾â¿âŽ€âŽâŽ‚âŽƒâŽ„âŽ…âŽ†âŽ‡âŽˆâŽ‰âŽŠâŽ‹âŽŒâŽâŽŽâŽâŽâŽ‘âŽ’âŽ“âŽ”âŽ•âŽ–âŽ—âŽ˜âŽ™âŽšâŽ›âŽœâŽâŽžâŽŸâŽ âŽ¡âŽ¢âŽ£âŽ¤âŽ¥âŽ¦âŽ§âŽ¨âŽ©âŽªâŽ«âŽ¬âŽ­<0>", <"âŽ®âŽ¯âŽ°âŽ±âŽ²âŽ³âŽ´âŽµâŽ¶âŽ·âŽ¸âŽ¹âŽºâŽ»âŽ¼âŽ½âŽ¾âŽ¿â€ââ‚âƒâ„â…â†â‡âˆâ‰âŠâ‹âŒââŽâââ‘â’â“â”â•â–â—â˜â™âšâ›âœââžâŸâ â¡â¢â£â¤â¥â¦â§â¨â©âªâ«â¬â­â®â¯â°â±â²â³â´âµâ¶â·â¸â¹âºâ»â¼â½â¾â¿â€ââ‚âƒâ„â…â†â‡âˆâ‰âŠâ‹âŒââŽâââ‘â’â“â”â•â–â—â˜â™âšâ›âœââžâŸâ â¡â¢â£â¤â¥â¦â§â¨â©âª<0>", <"â«â¬â­â®â¯â°â±â²â³â´âµâ¶â·â¸â¹âºâ»â¼â½â¾â¿â‘€â‘â‘‚â‘ƒâ‘„â‘…â‘†â‘‡â‘ˆâ‘‰â‘Šâ‘‹â‘Œâ‘â‘Žâ‘â‘â‘‘â‘’â‘“â‘”â‘•â‘–â‘—â‘˜â‘™â‘šâ‘›â‘œâ‘â‘žâ‘Ÿâ’œâ’â’žâ’Ÿâ’ â’¡â’¢â’£â’¤â’¥â’¦â’§â’¨â’©â’ªâ’«â’¬â’­â’®â’¯â’°â’±â’²â’³â’´â’µâ’¶â’·â’¸â’¹â’ºâ’»â’¼â’½â’¾â’¿â“€â“â“‚â“ƒâ“„â“…â“†â“‡â“ˆâ“‰â“Šâ“‹â“Œâ“â“Žâ“â“â“‘â“’â““â“”â“•â“–â“—â“˜â“™â“šâ“›â“œâ“â“žâ“Ÿâ“ â“¡â“¢â“£<0>", <"â“¤â“¥â“¦â“§â“¨â“©â”€â”â”‚â”ƒâ”„â”…â”†â”‡â”ˆâ”‰â”Šâ”‹â”Œâ”â”Žâ”â”â”‘â”’â”“â””â”•â”–â”—â”˜â”™â”šâ”›â”œâ”â”žâ”Ÿâ” â”¡â”¢â”£â”¤â”¥â”¦â”§â”¨â”©â”ªâ”«â”¬â”­â”®â”¯â”°â”±â”²â”³â”´â”µâ”¶â”·â”¸â”¹â”ºâ”»â”¼â”½â”¾â”¿â•€â•â•‚â•ƒâ•„â•…â•†â•‡â•ˆâ•‰â•Šâ•‹â•Œâ•â•Žâ•â•â•‘â•’â•“â•”â••â•–â•—â•˜â•™â•šâ•›â•œâ•â•žâ•Ÿâ• â•¡â•¢â•£â•¤â•¥â•¦â•§â•¨â•©â•ªâ•«â•¬â•­â•®â•¯â•°â•±â•²â•³â•´â•µâ•¶<0>", <"â•·â•¸â•¹â•ºâ•»â•¼â•½â•¾â•¿â–€â–â–‚â–ƒâ–„â–…â–†â–‡â–ˆâ–‰â–Šâ–‹â–Œâ–â–Žâ–â–â–‘â–’â–“â–”â–•â––â–—â–˜â–™â–šâ–›â–œâ–â–žâ–Ÿâ– â–¡â–¢â–£â–¤â–¥â–¦â–§â–¨â–©â–ªâ–«â–¬â–­â–®â–¯â–°â–±â–²â–³â–´â–µâ–¶â–·â–¸â–¹â–ºâ–»â–¼â–½â–¾â–¿â—€â—â—‚â—ƒâ—„â—…â—†â—‡â—ˆâ—‰â—Šâ—‹â—Œâ—â—Žâ—â—â—‘â—’â—“â—”â—•â—–â——â—˜â—™â—šâ—›â—œâ—â—žâ—Ÿâ— â—¡â—¢â—£â—¤â—¥â—¦â—§â—¨â—©â—ªâ—«â—¬â—­â—®â—¯â—°â—±â—²â—³<0>", <"â—´â—µâ—¶â—·â—¸â—¹â—ºâ—»â—¼â—½â—¾â—¿â˜€â˜â˜‚â˜ƒâ˜„â˜…â˜†â˜‡â˜ˆâ˜‰â˜Šâ˜‹â˜Œâ˜â˜Žâ˜â˜â˜‘â˜’â˜“â˜”â˜•â˜–â˜—â˜˜â˜™â˜šâ˜›â˜œâ˜â˜žâ˜Ÿâ˜ â˜¡â˜¢â˜£â˜¤â˜¥â˜¦â˜§â˜¨â˜©â˜ªâ˜«â˜¬â˜­â˜®â˜¯â˜°â˜±â˜²â˜³â˜´â˜µâ˜¶â˜·â˜¸â˜¹â˜ºâ˜»â˜¼â˜½â˜¾â˜¿â™€â™â™‚â™ƒâ™„â™…â™†â™‡â™ˆâ™‰â™Šâ™‹â™Œâ™â™Žâ™â™â™‘â™’â™“â™”â™•â™–â™—â™˜â™™â™šâ™›â™œâ™â™žâ™Ÿâ™ â™¡â™¢â™£â™¤â™¥â™¦â™§â™¨â™©â™ªâ™«â™¬â™­â™®â™¯â™°<0>", <"â™±â™²â™³â™´â™µâ™¶â™·â™¸â™¹â™ºâ™»â™¼â™½â™¾â™¿âš€âšâš‚âšƒâš„âš…âš†âš‡âšˆâš‰âšŠâš‹âšŒâšâšŽâšâšâš‘âš’âš“âš”âš•âš–âš—âš˜âš™âššâš›âšœâšâšžâšŸâš âš¡âš¢âš£âš¤âš¥âš¦âš§âš¨âš©âšªâš«âš¬âš­âš®âš¯âš°âš±âš²âš³âš´âšµâš¶âš·âš¸âš¹âšºâš»âš¼âš½âš¾âš¿â›€â›â›‚â›ƒâ›„â›…â›†â›‡â›ˆâ›‰â›Šâ›‹â›Œâ›â›Žâ›â›â›‘â›’â›“â›”â›•â›–â›—â›˜â›™â›šâ››â›œâ›â›žâ›Ÿâ› â›¡â›¢â›£â›¤â›¥â›¦â›§â›¨â›©â›ªâ›«â›¬â›­<0>", "â›®â›¯â›°â›±â›²â›³â›´â›µâ›¶â›·â›¸â›¹â›ºâ›»â›¼â›½â›¾â›¿âœ€âœâœ‚âœƒâœ„âœ…âœ†âœ‡âœˆâœ‰âœŠâœ‹âœŒâœâœŽâœâœâœ‘âœ’âœ“âœ”âœ•âœ–âœ—âœ˜âœ™âœšâœ›âœœâœâœžâœŸâœ âœ¡âœ¢âœ£âœ¤âœ¥âœ¦âœ§âœ¨âœ©âœªâœ«âœ¬âœ­âœ®âœ¯âœ°âœ±âœ²âœ³âœ´âœµâœ¶âœ·âœ¸âœ¹âœºâœ»âœ¼âœ½âœ¾âœ¿â€ââ‚âƒâ„â…â†â‡âˆâ‰âŠâ‹âŒâ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>;
     pfLoadedMap_nodes = [];
     pfLoadedMap_neighbors = [];
     # Decompress nodes
@@ -1384,19 +1342,6 @@ if (pfDecompress == true)
     pfIterationsThisTick = 0;
 }
 
-rule: "arrays main"
-{
-    # [0] = tipstrings [1] = diedphrase [2] = diedtext [3] = romanN [4] = noammostrings [5] = hero [6] = herobuymessages [7] = followerbuyMsg [8] = heroAlphabetical [9] = heroDamageHeroes [10] = heroTankHeroes [11] = heroSupportHeroes
-    etcArray = [["melee to consume less ammo!", "reload only when your clip is empty to conserve ammo", "you lose your hero if not revived at end of the round", "after a playthrough, you keep all the heroes you bought", "beating the boss' is well worth the points if you are up to the challenge", "its cheaper to use the mystery box than buying a new hero", "followers stay with you till you're downed", "some custom items can be used by communicating \"i need healing)", "there is 3 zones to play in, each with its own boss", "perks and hero locations rotate randomly each playthrough on hard", "points depend on who gets the last hit!", "Every team can benefit from a good healer", "A tank is valuable for their durability to the team", "pack a punch gives new abilities!"], ["Got rekt", "met their end", "took a dirt nap!", "got owned", "'s reflexes were lacking", "'s ' 'git gud' skills were insufficient", "'s clutch' performance was... underwhelming", "'s skill issue was tragically evident", "'s luck seemed to have run out", "demonstrated a profound lack of spatial awareness.", "experienced a severe case of target fixation"], ["Got outplayed", "Needs a hug", "Not so MLG", "I'm THROWING"], ["0", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", FirstOf(extraVar), "0", "00110001", "00110010", "00110011", "00110100", "00110101", "00110110", "00110111", "00111000", "00111001", FirstOf(extraVar)], ["Tracks empty! No more beats to drop.", "No arrows remain. I must wait.", "My harmony is spent. I must restore it.", "Weapon dry—nothing left!", "Sidearm’s empty. Back to healing.", "No rockets. Payload exhausted.", "Well that’s a dud—no shots left!", "My weapon is spent. Replenishing needed.", "Weapons dry—fists will have to do.", "Clip’s empty. Nothing left!", "[frustrated beeps and whirs]", "No shells left. Guns are dry.", "My blades are not the problem. My ammo is.", "Outta bullets. This is a problem.", "Cannon dry. Must recharge.", "Gun’s empty. Nothing left to fire.", "No ammo left! Systems dry.", "Hold on i'm out of charges!", "My hammer never runs dry—but my cannon does.", "Scrap’s gone. I’ve got nothing left.", "My weapon is out—no energy remains.", "Ammunition depleted. Nothing left to draw.", "My stores are drained. I’ll need more.", "Snow’s run out! Nothing left!", "Gun’s empty. No more rounds.", "Dry already? Heh—time to get personal!", "Railgun’s dry. No charge remaining.", "Nada left. Totally empty!", "Guns are out! Nothing left!", "Magazine empty. I am dry.", "No juice left—nothing to give.", "[angry squeaks; guns click empty]", "Reserves depleted. Nothing remains.", "Out of steel—blades must wait.", "Toxins exhausted. Nothing left to burn.", "My weapon’s spent. All energy is gone.", "Bah! Outta rounds—got nothin’ left!", "My petals are spent—nothing remains.", "Mag’s empty. Nothing left inside.", "Ofuda’s gone. Nothing more to give.", "Running low? No—I’m out.", "Drills dry. Power’s gone.", "Outta lead… nothing left but knuckles.", "My wrath is endless, even without ammunition."], [Hero.Lucio, Hero.Hanzo, Hero.Zenyatta, Hero.Soldier76, Hero.Mercy, Hero.Pharah, Hero.Junkrat, Hero.Symmetra, Hero.Doomfist, Hero.Baptiste, Hero.Bastion, Hero.Reaper, Hero.Genji, Hero.Ashe, Hero.Zarya, Hero.Roadhog, Hero.Dva, Hero.Brigitte, Hero.Reinhardt, Hero.Torbjorn, Hero.Sigma, Hero.Orisa, Hero.Moira, Hero.Mei, Hero.Roadhog, Hero.Mauga, Hero.Sojourn, Hero.Sombra, Hero.Tracer, Hero.Widowmaker, Hero.Winston, Hero.WreckingBall, Hero.Echo, Hero.Freja, Hero.Hazard, Hero.Illari, Hero.JunkerQueen, Hero.Lifeweaver, Hero.Juno, Hero.Kiriko, Hero.Ana, Hero.Venture, Hero.Cassidy, Hero.Ramattra], [<"<0> Can't drop the beat without the points!", HeroIconString(FirstOf(etcArray[5]))>, <"<0> Discipline comes at a higher price.", HeroIconString(etcArray[5][1])>, <"<0> Balance cannot be bought so cheaply.", HeroIconString(etcArray[5][2])>, <"<0> Not enough firepower in your pocket.", HeroIconString(etcArray[5][3])>, <"<0> Healing doesn’t come on a budget.", HeroIconString(etcArray[5][4])>, <"<0> You’ll need more lift to fly with me.", HeroIconString(etcArray[5][5])>, <"<0> Kabooms don’t come free, mate!", HeroIconString(etcArray[5][6])>, <"<0> Perfection requires greater investment.", HeroIconString(etcArray[5][7])>, <"<0> This fist was forged with more than pocket change.", HeroIconString(etcArray[5][8])>, <"<0> No tricks this time—you’re short on points.", HeroIconString(etcArray[5][9])>, <"<0> The bird sings only for those who pay.", HeroIconString(etcArray[5][10])>, <"<0> Death doesn’t come cheap… and neither do I.", HeroIconString(etcArray[5][11])>, <"<0> You’ll need more than spare change to join me.", HeroIconString(etcArray[5][12])>, <"<0> Wrong iron, partner—you’re too broke.", HeroIconString(etcArray[5][13])>, <"<0> Strength of will isn’t enough—bring points.", HeroIconString(etcArray[5][14])>, <"<0> Scrap’s low. You can’t afford me.", HeroIconString(etcArray[5][15])>, <"<0> Ha! You thought this was free mode?", HeroIconString(etcArray[5][16])>, <"<0> Armor like this doesn’t come for free.", HeroIconString(etcArray[5][17])>, <"<0> Buy me a pint first—oh, and more points.", HeroIconString(etcArray[5][18])>, <"<0> Courage alone won’t buy me.", HeroIconString(etcArray[5][19])>, <"<0> The symphony of coins is missing a note.", HeroIconString(etcArray[5][20])>, <"<0> Protection demands more than you have.", HeroIconString(etcArray[5][21])>, <"<0> Science waits for no one—except your wallet.", HeroIconString(etcArray[5][22])>, <"<0> A-mei-zing costs extra. Get more points!", HeroIconString(etcArray[5][23])>, <"<0> You’ll need more meat on the hook… and more points.", HeroIconString(etcArray[5][24])>, <"<0> Honor isn’t cheap—bring more to prove it.", HeroIconString(etcArray[5][25])>, <"<0> Not enough funds to vanish into the shadows.", HeroIconString(etcArray[5][26])>, <"<0> Blink’s on cooldown till you can pay up.", HeroIconString(etcArray[5][27])>, <"<0> Precision like mine? Too rich for you.", HeroIconString(etcArray[5][28])>, <"<0> Even a scientist needs funding.", HeroIconString(etcArray[5][29])>, <"<0> No, I do not want a banana.", HeroIconString(etcArray[5][30])>, <"<0> *squeeking noises* he said: Get more points.", HeroIconString(etcArray[5][31])>, <"<0> A mercenary’s life don’t come cheap.", HeroIconString(etcArray[5][32])>, <"<0> Resolve like mine takes more than this.", HeroIconString(etcArray[5][33])>, <"<0> Growth requires sacrifice… and more points.", HeroIconString(etcArray[5][34])>, <"<0> Bonds are forged with more than scraps.", HeroIconString(etcArray[5][35])>, <"<0> Precision like mine is costly.", HeroIconString(etcArray[5][36])>, <"<0> You’ll need a braver spirit… and a heavier purse.", HeroIconString(etcArray[5][37])>, <"<0> Outlaw justice comes with a bounty you can’t pay.", HeroIconString(etcArray[5][38])>, <"<0> Strategy requires better resources than these.", HeroIconString(etcArray[5][39])>, <"<0> Luck’s run dry, partner—you don’t have the stake.", HeroIconString(etcArray[5][40])>, <"<0> Strength such as mine is earned, not bought.", HeroIconString(etcArray[5][41])>], ["The beat drops, but the wallet doesn't.", "You require more points to fuel the dragon's fury.", "Your emptiness hinders our path to enlightenment.", "Your mission requires adequate funding, soldier.", "Your reserves are depleted, angel.", "Refuel the jetpack with more points, commander.", "Your explosive plans require more points.", "Allocate more points for the realization of this vision.", "Our path to dominance is blocked by insufficient funds.", "To heal and protect, we require sustenance.", "Boop beep boop?", "Feed this darkness with more points.", "Your spirit is strong, but your balance is weak. Seek points.", "This heist requires more capital, partner.", "Acquire more points to fuel your power.", "No scrap metal without points, you know?", "More points, or it's game over!", "Father would be disappointed.", "Beer!", "My forge runs cold without fuel", "Our gravitational experiments require additional energy.", "Your systems require upgrades.", "Acquire more points for scientific advancement.", "My experiments require more cryogenic energy.", "Your appetite is greater than your funds.", "Mauga don’t fight for free—bring more points.", "Precision firepower demands more than pocket change.", "Secrets cost more than this—get points.", "Blink into affordability first.", "Patience. True precision is expensive.", "Even a scientist can’t fund this plan without points.", "Momentum denied—insufficient funding.", "Evolution requires greater investment.", "Freja needs more strength… and more points.", "Hazard requires more resources to unleash chaos.", "Sunlight blooms only with more offerings.", "Queens don’t fight for free—show respect with points.", "Life demands greater sacrifice than this.", "Juno waits for those who invest more.", "Even the clever fox needs more offerings.", "Vision requires funding, sharpshooter.", "Venture deeper only when you can afford it.", "A bounty hunter needs a bigger stake.", "My struggle continues, but not without points."], [Hero.Ana, Hero.Anran, Hero.Ashe, Hero.Baptiste, Hero.Bastion, Hero.Brigitte, Hero.Cassidy, Hero.Dva, Hero.Domina, Hero.Doomfist, Hero.Echo, Hero.Emre, Hero.Freja, Hero.Genji, Hero.Hanzo, Hero.Hazard, Hero.Illari, Hero.JetpackCat, Hero.JunkerQueen, Hero.Junkrat, Hero.Juno, Hero.Kiriko, Hero.Lifeweaver, Hero.Lucio, Hero.Mauga, Hero.Mei, Hero.Mercy, Hero.Mizuki, Hero.Moira, Hero.Orisa, Hero.Pharah, Hero.Ramattra, Hero.Reaper, Hero.Reinhardt, Hero.Roadhog, Hero.Sigma, Hero.Sojourn, Hero.Soldier76, Hero.Sombra, Hero.Symmetra, Hero.Torbjorn, Hero.Tracer, Hero.Vendetta, Hero.Venture, Hero.Widowmaker, Hero.Winston, Hero.WreckingBall, Hero.Wuyang, Hero.Zarya, Hero.Zenyatta], [Hero.Anran, Hero.Ashe, Hero.Bastion, Hero.Cassidy, Hero.Echo, Hero.Emre, Hero.Freja, Hero.Genji, Hero.Hanzo, Hero.Junkrat, Hero.Mei, Hero.Pharah, Hero.Reaper, Hero.Sojourn, Hero.Soldier76, Hero.Sombra, Hero.Symmetra, Hero.Torbjorn, Hero.Tracer, Hero.Vendetta, Hero.Venture, Hero.Widowmaker], [Hero.Domina, Hero.Dva, Hero.Doomfist, Hero.Hazard, Hero.JunkerQueen, Hero.Mauga, Hero.Orisa, Hero.Ramattra, Hero.Reinhardt, Hero.Roadhog, Hero.Sigma, Hero.Winston, Hero.WreckingBall, Hero.Zarya], [Hero.Ana, Hero.Baptiste, Hero.Brigitte, Hero.Illari, Hero.JetpackCat, Hero.Juno, Hero.Kiriko, Hero.Lifeweaver, Hero.Lucio, Hero.Mercy, Hero.Mizuki, Hero.Moira, Hero.Wuyang, Hero.Zenyatta]];
-    # [0] = bankCosts, [1] = creditCosts, [2] = creditLimits, [3] = cashbackRates, [4] = bankRates, [5] = ccRates, [6] = herobuycosts
-    twoDnumbersArray = ["Q0_0", "=0>0@", ">0_0", "\n<0<\n<0<	<", "<0<0)<0_<", "<0<0<0<<", <"=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=00=0<0>", "=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=">];
-    for (i = 0; CountOf(twoDnumbersArray); 1)
-    {
-        decompressN = twoDnumbersArray[i];
-        decompressNSub();
-        twoDnumbersArray[i] = decompressN;
-    }
-}
 
 rule: "56  points loss for high roller"
 Event.OnDeath
@@ -1408,16 +1353,16 @@ Team.Team1
 }
 
 rule: "global bank interest gain every round"
-if (extraVar[1] <= 0)
+if (numberOfZombies <= 0)
 if (bankPoints > 0)
-if (extraVar[3] == 1)
+if (start == 1)
 {
     Wait(0.16, WaitBehavior.IgnoreCondition);
-    for (i = 0; CountOf(twoDnumbersArray[4]); 1)
+    for (i = 0; CountOf(bankRates); 1)
     {
         if (bankTier == i)
         {
-            bankPoints += bankPoints * twoDnumbersArray[4][i];
+            bankPoints += bankPoints * bankRates[i];
         }
         break;
     }
@@ -1516,7 +1461,7 @@ if (IsAlive(EventPlayer()) == true)
 if (IsButtonHeld(EventPlayer(), Button.Interact) == true)
 if (DistanceBetween(EventPlayer(), Vector(269.882, 44.205, 179.101)) < 1)
 {
-    SmallMessage(EventPlayer(), <"<0> You have caused $<1> damage to my army!", HeroIconString(Hero.Ramattra), extraVar[30]>);
+    SmallMessage(EventPlayer(), <"<0> You have caused $<1> damage to my army!", HeroIconString(Hero.Ramattra), ramPoints>);
 }
 
 rule: "credit card system"
@@ -1528,15 +1473,15 @@ if (creditTier < 3)
 {
     if (ServerLoad() < 245)
     {
-        for (i = 0; CountOf(twoDnumbersArray[1]); 1)
+        for (i = 0; CountOf(creditCosts); 1)
         {
-            if (points >= twoDnumbersArray[1][i])
+            if (points >= creditCosts[i])
             {
-                points -= twoDnumbersArray[1][i];
+                points -= creditCosts[i];
                 ChaseVariableAtRate(points2, EvaluateOnce(points), 1000, RateChaseReevaluation.DestinationAndRate);
                 creditTier = i + 1;
-                creditcardlimit = twoDnumbersArray[2][i];
-                cashback = twoDnumbersArray[3][i];
+                creditcardlimit = creditLimits[i];
+                cashback = cashbackRates[i];
                 SmallMessage(EventPlayer(), <"Your credit card is now tier <0>", i + 1>);
                 Wait(4, WaitBehavior.IgnoreCondition);
                 SmallMessage(EventPlayer(), "Hold spacebar to see credit card details");
@@ -1545,11 +1490,11 @@ if (creditTier < 3)
             {
                 if (i == 0)
                 {
-                    SmallMessage(EventPlayer(), <"You need <0> points buy a credit card!", twoDnumbersArray[1][i]>);
+                    SmallMessage(EventPlayer(), <"You need <0> points buy a credit card!", creditCosts[i]>);
                 }
                 else
                 {
-                    SmallMessage(EventPlayer(), <"You need <0> points to upgrade!", twoDnumbersArray[1][i]>);
+                    SmallMessage(EventPlayer(), <"You need <0> points to upgrade!", creditCosts[i]>);
                 }
                 break;
             }
@@ -1564,19 +1509,19 @@ if (creditTier < 3)
 rule: "credit card interest"
 Event.OngoingPlayer
 if (points < 0)
-if (extraVar[1] < 1)
+if (numberOfZombies < 1)
 if (IsAlive(EventPlayer()) == true)
 if (creditTier > 0)
 {
-    for (i = 1; CountOf(twoDnumbersArray[5]); 1)
+    for (i = 1; CountOf(ccRates); 1)
     {
         if (creditTier == i)
         {
-            ccCurrentRate = twoDnumbersArray[5][i];
-            extraVar[32] = points * ccCurrentRate;
-            points += extraVar[32];
+            ccCurrentRate = ccRates[i];
+            ccInterest = points * ccCurrentRate;
+            points += ccInterest;
             ChaseVariableAtRate(points2, EvaluateOnce(points), 1000, RateChaseReevaluation.DestinationAndRate);
-            SmallMessage(EventPlayer(), <"You have incurred <0> interest on your credit card.", extraVar[32]>);
+            SmallMessage(EventPlayer(), <"You have incurred <0> interest on your credit card.", ccInterest>);
         }
         break;
     }
@@ -1606,8 +1551,8 @@ if (withdrawNotif == 1)
 
 rule: "1 Setup"
 {
-    extraVar[0] = 0;
-    extraVar[1] = false;
+    roundnumber = 0;
+    numberOfZombies = false;
     C = false;
     P = false;
     Q = [];
@@ -1638,7 +1583,7 @@ rule: "1 Setup"
     dooreffectsequencer = [];
     teleportercolor = Color.Blue;
     # disableInspector()
-    extraVar[2] = WorkshopSettingInteger("difficulty", "difficulty", 1, 1, 4, 0);
+    Difficulty = WorkshopSettingInteger("difficulty", "difficulty", 1, 1, 4, 0);
     Died[0] = Vector(500, 0, 500);
     Died[1] = Vector(500, 0, 500);
     Died[2] = Vector(500, 0, 500);
@@ -1647,18 +1592,17 @@ rule: "1 Setup"
 }
 
 rule: "2 round change"
-if (extraVar[1] <= 0)
-if (O == false)
-if (extraVar[3] == 1)
+if (numberOfZombies <= 0)
+if (start == 1)
 {
     Wait(0.16, WaitBehavior.IgnoreCondition);
     for (forindex = 0; CountOf(omnicspawn); 1)
     {
         DestroyDummyBot(Team.Team2, omnicspawn[forindex]);
     }
-    extraVar[0] += 1;
+    roundnumber += 1;
     Z = 1;
-    BigMessage(AllPlayers(Team.All), <@"Round <0>", etcArray[3][romanNcounter]>);
+    BigMessage(AllPlayers(Team.All), <@"Round <0>", romanN[romanNcounter]>);
     P = false;
     # this needs to change for all heroes in inventory
     AllDeadPlayers(Team.Team1).Packapunch = false;
@@ -1679,12 +1623,12 @@ if (extraVar[3] == 1)
     AllPlayers(Team.Team1).HideHints = false;
     SetStatus(AllLivingPlayers(Team.Team1), null, Status.PhasedOut, 2);
     AllPlayers(Team.Team1).Head_HP = 3;
-    extraVar[21] += 1;
-    if (FirstOf(extraVar) < 12)
+    chwaveinterval += 1;
+    if (roundnumber < 12)
     {
         romanNcounter += 1;
     }
-    extraVar[22] = RandomInteger(1, 5);
+    rngCamera = RandomInteger(1, 5);
     # definitely need to play test to see if this is fun
     costmultiplier *= RandomReal(1, 1);
     roundpointmultiplier = RandomReal(1.01, 1.03);
@@ -1692,10 +1636,9 @@ if (extraVar[3] == 1)
 
 rule: "3 Set Round Kills"
 if (Z == 1)
-if (O == false)
 {
     # modify this based on difficulty
-    extraVar[1] = 6 + FirstOf(extraVar) * 3;
+    numberOfZombies = 6 + roundnumber * 3;
     Wait(1, WaitBehavior.IgnoreCondition);
     Z = false;
 }
@@ -1734,12 +1677,12 @@ if (IsTrueForAll(AllPlayers(Team.Team1), HasSpawned(ArrayElement())) == true)
     Wait(2, WaitBehavior.IgnoreCondition);
     bankPoints += AllPlayers(Team.Team1).points * 0.75;
     AllPlayers(Team.Team1).outofpsawn = false;
-    extraVar[0] = 0;
-    extraVar[3] = false;
+    roundnumber = 0;
+    start = false;
     romanNcounter = 1;
-    extraVar[28] = 0;
+    poweron = 0;
     AllPlayers(Team.Team1).points = 0;
-    extraVar[4] = false;
+    g = false;
     AllPlayers(Team.Team1).creditcardlimit = 0;
     AllPlayers(Team.Team1).creditTier = 0;
     costmultiplier = 1;
@@ -1761,8 +1704,8 @@ rule: "8 respawn bots"
 Event.OngoingPlayer
 Team.Team2
 # need to include a condition for boss fights being active
-if (NumberOfLivingPlayers(Team.Team2) < extraVar[1])
-if (extraVar[1] >= 1)
+if (NumberOfLivingPlayers(Team.Team2) < numberOfZombies)
+if (numberOfZombies >= 1)
 {
     # check if this needs to be here\n@Condition  > 1\n@Condition eventPlayer.isDead() == true
     Wait(1, WaitBehavior.AbortWhenFalse);
@@ -1776,7 +1719,7 @@ Event.OngoingPlayer
 Team.Team1
 if (DistanceBetween(EventPlayer(), M[1]) <= 1.5)
 if (AllPlayers(Team.Team1).G[1] == false)
-if (FirstOf(extraVar) >= 1)
+if (roundnumber >= 1)
 if (IsTrueForAny(M, DistanceBetween(ArrayElement(), EventPlayer()) < 4) == true)
 {
     M[1] = Vector(500, 25, 500);
@@ -1795,7 +1738,7 @@ Event.OngoingPlayer
 Team.Team1
 if (DistanceBetween(EventPlayer(), M[2]) <= 1.5)
 if (AllPlayers(Team.Team1).G[2] == false)
-if (FirstOf(extraVar) >= 1)
+if (roundnumber >= 1)
 {
     M[2] = Vector(500, 25, 500);
     AllPlayers(Team.Team1).G[2] = true;
@@ -1813,7 +1756,7 @@ Event.OngoingPlayer
 Team.Team1
 if (DistanceBetween(EventPlayer(), M[4]) <= 1.5)
 if (AllPlayers(Team.Team1).G[4] == false)
-if (FirstOf(extraVar) >= 1)
+if (roundnumber >= 1)
 {
     M[4] = Vector(500, 25, 500);
     AllPlayers(Team.Team1).G[4] = true;
@@ -1836,7 +1779,7 @@ Event.OngoingPlayer
 Team.Team1
 if (DistanceBetween(EventPlayer(), FirstOf(M)) <= 1.5)
 if (FirstOf(AllPlayers(Team.Team1).G) == false)
-if (FirstOf(extraVar) >= 1)
+if (roundnumber >= 1)
 {
     M[0] = Vector(500, 25, 500);
     AllPlayers(Team.Team1).G[0] = true;
@@ -1886,21 +1829,21 @@ Team.Team1
 if (HasSpawned(EventPlayer()) == true)
 {
     Wait(3, WaitBehavior.IgnoreCondition);
-    extraVar[7] = WorkshopSettingToggle("difficulty", "zombies jump with no colision", true, 0);
+    walljumpers = WorkshopSettingToggle("difficulty", "zombies jump with no colision", true, 0);
     healvariable = WorkshopSettingInteger("difficulty", "healing dealt", 25, 0, 500, 0);
     SetGravity(EventPlayer(), WorkshopSettingReal("fun", "gravity", 100, 25, 200, 0));
     Wait(3, WaitBehavior.IgnoreCondition);
     SetHealingDealt(EventPlayer(), healvariable);
-    extraVar[10] = WorkshopSettingToggle("difficulty", "zombies speed varies", true, 0);
-    extraVar[9] = WorkshopSettingInteger("difficulty", "zombies strafe", 1, 0, 1, 0);
-    extraVar[8] = WorkshopSettingInteger("difficulty", "zombies jump", 1, 0, 1, 0);
-    extraVar[14] = WorkshopSettingToggle("fun", "experience system", false, 0);
-    SkipIf(extraVar[14] == false, 4);
+    zombspeed = WorkshopSettingToggle("difficulty", "zombies speed varies", true, 0);
+    zombstrafe = WorkshopSettingInteger("difficulty", "zombies strafe", 1, 0, 1, 0);
+    zombjump = WorkshopSettingInteger("difficulty", "zombies jump", 1, 0, 1, 0);
+    experiencesystem = WorkshopSettingToggle("fun", "experience system", false, 0);
+    SkipIf(experiencesystem == false, 4);
     SetSecondaryFireEnabled(EventPlayer(), false);
     SetAbility1Enabled(EventPlayer(), false);
     SetAbility2Enabled(EventPlayer(), false);
     SetUltimateAbilityEnabled(EventPlayer(), false);
-    extraVar[15] = WorkshopSettingToggle("stability", "idle bots", false, 0);
+    idlebots = WorkshopSettingToggle("stability", "idle bots", false, 0);
     SetProjectileGravity(AllPlayers(Team.Team1), WorkshopSettingInteger("fun", "projectile gravity team 1", 100, 25, 500, 0));
     SetProjectileSpeed(AllPlayers(Team.Team1), WorkshopSettingInteger("fun", "projectile speed team 1", 100, 25, 500, 0));
     SetProjectileGravity(AllPlayers(Team.Team2), WorkshopSettingInteger("fun", "projectile gravity team 2", 75, 25, 500, 0));
@@ -1910,7 +1853,7 @@ if (HasSpawned(EventPlayer()) == true)
 
 rule: "83 power challenge effects"
 if (powerconnected == 1)
-if (FirstOf(extraVar) < 15)
+if (roundnumber < 15)
 {
     # change this to be all heros on team 2
     SetUltimateCharge(PlayersOnHero(Hero.Brigitte, Team.Team2), 100);
@@ -1940,7 +1883,7 @@ rule: "498 Rule 480 start screen"
 Event.OngoingPlayer
 Team.Team1
 # need more player feedback on how they enjoy the start screen
-if (extraVar[3] == false)
+if (start == false)
 {
     StartCamera(EventPlayer(), Vector(255.366, 9.471, -169.75), Vector(261.155, 6.939, -180.808), 0);
     DisableHeroHud(EventPlayer());
@@ -1963,19 +1906,19 @@ if (extraVar[3] == false)
 rule: "497 start control"
 Event.OngoingPlayer
 Team.Team1
-if (extraVar[3] == false)
+if (start == false)
 if (IsButtonHeld(EventPlayer(), Button.Jump) == true)
 {
     setspawn = RandomInteger(0, 5);
     Wait(0.25, WaitBehavior.IgnoreCondition);
-    extraVar[3] = 1;
+    start = 1;
     aprilrng = RandomInteger(1, 100);
-    extraVar[6] = RandomInteger(0, 29);
+    startlines = RandomInteger(0, 29);
     heroswap[0] = HeroOf(EventPlayer());
     Wait(1, WaitBehavior.IgnoreCondition);
-    extraVar[0] = WorkshopSettingInteger("Set Wave number", "Set starting wave", 1, 1, 100, 0);
+    roundnumber = WorkshopSettingInteger("Set Wave number", "Set starting wave", 1, 1, 100, 0);
     EnableMusic();
-    extraVar[25] = RandomValueInArray(twoDvectorsArray[1]);
+    rngbox = RandomValueInArray(mysterylocations);
     StartCamera(AllPlayers(Team.All), Vector(283.872, 1.875, 118.717), Vector(282.782, 1.329, 109.203), 0);
     CreateInWorldText(AllPlayers(Team.All), "Good Luck...", Vector(282.782, 1.329, 109.203), 5, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleToPositionAndString, Color.White, Spectators.DefaultVisibility);
     Wait(4, WaitBehavior.IgnoreCondition);
@@ -1989,7 +1932,7 @@ if (IsButtonHeld(EventPlayer(), Button.Jump) == true)
 
 rule: "521 start screen message"
 Event.OngoingPlayer
-if (extraVar[3] == false)
+if (start == false)
 {
     SmallMessage(EventPlayer(), "Press melee for settings");
     SmallMessage(EventPlayer(), "Press jump to start");
@@ -2011,7 +1954,7 @@ Event.OngoingPlayer
 Team.Team1
 if (DistanceBetween(EventPlayer(), M[3]) <= 1.5)
 if (AllPlayers(Team.Team1).G[3] == false)
-if (FirstOf(extraVar) >= 1)
+if (roundnumber >= 1)
 {
     M[4] = Vector(500, 25, 500);
     AllPlayers(Team.Team1).G[3] = true;
@@ -2028,7 +1971,7 @@ Event.OngoingPlayer
 Team.Team1
 if (DistanceBetween(EventPlayer(), M[5]) <= 1.5)
 if (AllPlayers(Team.Team1).G[5] == false)
-if (FirstOf(extraVar) >= 1)
+if (roundnumber >= 1)
 {
     M[5] = Vector(500, 25, 500);
     AllPlayers(Team.Team1).G[5] = true;
@@ -2045,22 +1988,24 @@ Event.OngoingPlayer
 Team.Team1
 if (HasSpawned(EventPlayer()) == true)
 {
-    if (extraVar[2] == 1)
+    switch (Difficulty)
     {
-        # needs to be changed if i introduce armor
-        SetDamageReceived(EventPlayer(), 25);
-    }
-    else if (extraVar[2] == 2)
-    {
-        SetDamageReceived(EventPlayer(), 50);
-    }
-    else if (extraVar[2] == 3)
-    {
-        SetDamageReceived(EventPlayer(), 100);
-    }
-    else if (extraVar[2] == 4)
-    {
-        SetDamageReceived(EventPlayer(), 200);
+        case 1:
+            # needs to be changed if i introduce armor
+            SetDamageReceived(EventPlayer(), 25);
+            break;
+
+        case 2:
+            SetDamageReceived(EventPlayer(), 50);
+            break;
+
+        case 3:
+            SetDamageReceived(EventPlayer(), 100);
+            break;
+
+        case 4:
+            SetDamageReceived(EventPlayer(), 200);
+            break;
     }
 }
 
@@ -2076,7 +2021,7 @@ if (WorkshopSettingToggle("fun", "explosive rounds", false, 0) == true)
 }
 
 rule: "191 Trap logic"
-if (extraVar[17] == true)
+if (trapeffect == true)
 {
     CreateDummyBot(Hero.Bastion, Team.Team1, 12, Vector(-86.342, -150.729, 39.793), Vector(0, 0, 0));
     omnicspawn[18] = SlotOf(PlayersInSlot(12, Team.Team1));
@@ -2099,7 +2044,7 @@ rule: "299 out of bounce boundry"
 Event.OngoingPlayer
 Team.Team1
 if (PlayersWithinRadius(Vector(-109.55, -151.893, -6.832), 2.5, Team.Team1, RadiusLOS.Off) == true)
-if (extraVar[3] == 1)
+if (start == 1)
 {
     Teleport(EventPlayer(), Vector(-104.638, -150.413, -15.437));
 }
@@ -2107,23 +2052,23 @@ if (extraVar[3] == 1)
 rule: "403 Challenge waves"
 Event.OngoingPlayer
 Team.Team2
-if (extraVar[20] == 1)
+if (challengewave == 1)
 if (IsAlive(EventPlayer()) == true)
 {
     SetUltimateCharge(EventPlayer(), 100);
-    if (extraVar[1] < 4)
+    if (numberOfZombies < 4)
     {
-        extraVar[20] = false;
+        challengewave = false;
     }
 }
 
 rule: "404 set challenge wave every few rounds"
-if (extraVar[21] >= 4)
+if (chwaveinterval >= 4)
 {
-    extraVar[20] = RandomInteger(0, 1);
-    if (extraVar[20] == 1)
+    challengewave = RandomInteger(0, 1);
+    if (challengewave == 1)
     {
-        extraVar[21] = false;
+        chwaveinterval = false;
     }
 }
 
@@ -2137,8 +2082,14 @@ if (IsAssemblingHeroes() == false)
 }
 
 rule: "teleporter timer"
-if (extraVar[5] > 0)
+if (teleporterwait > 0)
 {
     Wait(60, WaitBehavior.IgnoreCondition);
-    extraVar[5] = false;
+    teleporterwait = false;
+}
+
+rule: "hud"
+{
+
+    CreateHudText(LocalPlayer(),null, "<0>", romanNcounter, Location.Top, 2, Color.White, Color.White, Color.Orange, HudTextRev.VisibleToAndString, Spectators.DefaultVisibility);
 }

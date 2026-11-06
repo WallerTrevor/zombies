@@ -1,6 +1,4 @@
-import "../general main/coreindex.ostw";
-
-rule: "104 fix reload disabled"
+﻿rule: "104 fix reload disabled"
 Event.OngoingPlayer
 Team.Team1
 if (HeroOf(EventPlayer()) != Hero.Ashe)
@@ -24,12 +22,12 @@ Team.Team1
 if (currentmagazines == false)
 if (IsButtonHeld(EventPlayer(), Button.PrimaryFire) == true)
 {
-    for (i = 0; CountOf(etcArray[5]); 1)
+    for (i = 0; CountOf(hero); 1)
     {
-        if (HeroOf(EventPlayer()) == etcArray[5][i])
+        if (HeroOf(EventPlayer()) == hero[i])
         {
             Wait(0.1, WaitBehavior.IgnoreCondition);
-            SmallMessage(EventPlayer(), <"<0> <1>", HeroIconString(etcArray[5][i]), etcArray[4][i]>);
+            SmallMessage(EventPlayer(), <"<0> <1>", HeroIconString(hero[i]), noammostrings[i]>);
             break;
         }
     }
@@ -91,109 +89,119 @@ if ((IsButtonHeld(EventPlayer(), Button.Ability1) || IsButtonHeld(EventPlayer(),
 {
     if (IsButtonHeld(EventPlayer(), Button.SecondaryFire))
     {
-        if (HeroOf(EventPlayer()) == Hero.Moira)
+        switch (HeroOf(EventPlayer()))
         {
-            if (perk[5] == false)
-            {
-                currentmagazines -= 0.05;
-                Wait(0.25, WaitBehavior.IgnoreCondition);
-                LoopIfConditionIsTrue();
-            }
-            else if (perk[5] == 1)
-            {
-                currentmagazines -= 0.025;
-                Wait(0.25, WaitBehavior.IgnoreCondition);
-                LoopIfConditionIsTrue();
-            }
-        }
-    }
-    if (IsButtonHeld(EventPlayer(), Button.PrimaryFire))
-    {
-        if (HeroOf(EventPlayer()) == Hero.Doomfist)
-        {
-            if (perk[5] == false)
-            {
-                currentmagazines -= 0.25;
-                Wait(0.25, WaitBehavior.IgnoreCondition);
-                LoopIfConditionIsTrue();
-            }
-        }
-        else if (HeroOf(EventPlayer()) == Hero.Dva)
-        {
-            if (!IsInAlternateForm(EventPlayer()))
-            {
+            case Hero.Moira:
                 if (perk[5] == false)
                 {
                     currentmagazines -= 0.05;
-                    Wait(0.15, WaitBehavior.IgnoreCondition);
+                    Wait(0.25, WaitBehavior.IgnoreCondition);
                     LoopIfConditionIsTrue();
                 }
                 else if (perk[5] == 1)
                 {
                     currentmagazines -= 0.025;
-                    Wait(0.125, WaitBehavior.IgnoreCondition);
+                    Wait(0.25, WaitBehavior.IgnoreCondition);
                     LoopIfConditionIsTrue();
                 }
-            }
-        }
-        else if (HeroOf(EventPlayer()) == Hero.Hanzo)
-        {
-            if (perk[5] == false)
-            {
-                currentmagazines -= 0.25;
-            }
-            else if (perk[5] == 1)
-            {
-                currentmagazines -= 0.125;
-            }
-        }
-        else if (HeroOf(EventPlayer()) == Hero.Sigma)
-        {
-            if (perk[5] == false)
-            {
-                currentmagazines -= 0.05;
-                Wait(0.1, WaitBehavior.IgnoreCondition);
-                currentmagazines -= 0.05;
-                Wait(1.5, WaitBehavior.IgnoreCondition);
-                LoopIfConditionIsTrue();
-            }
-            else if (perk[5] == 1)
-            {
-                currentmagazines -= 0.025;
-                Wait(0.1, WaitBehavior.IgnoreCondition);
-                currentmagazines -= 0.025;
-                Wait(1.5, WaitBehavior.IgnoreCondition);
-                LoopIfConditionIsTrue();
-            }
+                break;
         }
     }
-    else if (HeroOf(EventPlayer()) == Hero.Reaper)
+
+    if (IsButtonHeld(EventPlayer(), Button.PrimaryFire))
     {
-        if (IsUsingAbility1(EventPlayer()))
+        switch (HeroOf(EventPlayer()))
         {
-            currentmagazines -= 0.5;
+            case Hero.Doomfist:
+                if (perk[5] == false)
+                {
+                    currentmagazines -= 0.25;
+                    Wait(0.25, WaitBehavior.IgnoreCondition);
+                    LoopIfConditionIsTrue();
+                }
+                break;
+
+            case Hero.Dva:
+                if (!IsInAlternateForm(EventPlayer()))
+                {
+                    if (perk[5] == false)
+                    {
+                        currentmagazines -= 0.05;
+                        Wait(0.15, WaitBehavior.IgnoreCondition);
+                        LoopIfConditionIsTrue();
+                    }
+                    else if (perk[5] == 1)
+                    {
+                        currentmagazines -= 0.025;
+                        Wait(0.125, WaitBehavior.IgnoreCondition);
+                        LoopIfConditionIsTrue();
+                    }
+                }
+                break;
+
+            case Hero.Hanzo:
+                if (perk[5] == false)
+                {
+                    currentmagazines -= 0.25;
+                }
+                else if (perk[5] == 1)
+                {
+                    currentmagazines -= 0.125;
+                }
+                break;
+
+            case Hero.Sigma:
+                if (perk[5] == false)
+                {
+                    currentmagazines -= 0.05;
+                    Wait(0.1, WaitBehavior.IgnoreCondition);
+                    currentmagazines -= 0.05;
+                    Wait(1.5, WaitBehavior.IgnoreCondition);
+                    LoopIfConditionIsTrue();
+                }
+                else if (perk[5] == 1)
+                {
+                    currentmagazines -= 0.025;
+                    Wait(0.1, WaitBehavior.IgnoreCondition);
+                    currentmagazines -= 0.025;
+                    Wait(1.5, WaitBehavior.IgnoreCondition);
+                    LoopIfConditionIsTrue();
+                }
+                break;
         }
     }
-    else if (HeroOf(EventPlayer()) == Hero.Cassidy)
+    else
     {
-        if (IsUsingAbility1(EventPlayer()))
+        switch (HeroOf(EventPlayer()))
         {
-            SkipIf(Ammo(EventPlayer(), 0) == 6, 1);
-            currentmagazines -= 0.5;
-        }
-    }
-    else if (HeroOf(EventPlayer()) == Hero.Reinhardt)
-    {
-        if (IsUsingAbility2(EventPlayer()))
-        {
-            if (perk[5] == false)
-            {
-                currentmagazines -= 0.25;
-            }
-            else if (perk[5] == 1)
-            {
-                currentmagazines -= 0.125;
-            }
+            case Hero.Reaper:
+                if (IsUsingAbility1(EventPlayer()))
+                {
+                    currentmagazines -= 0.5;
+                }
+                break;
+
+            case Hero.Cassidy:
+                if (IsUsingAbility1(EventPlayer()))
+                {
+                    SkipIf(Ammo(EventPlayer(), 0) == 6, 1);
+                    currentmagazines -= 0.5;
+                }
+                break;
+
+            case Hero.Reinhardt:
+                if (IsUsingAbility2(EventPlayer()))
+                {
+                    if (perk[5] == false)
+                    {
+                        currentmagazines -= 0.25;
+                    }
+                    else if (perk[5] == 1)
+                    {
+                        currentmagazines -= 0.125;
+                    }
+                }
+                break;
         }
     }
 }
@@ -220,13 +228,16 @@ if (IsButtonHeld(EventPlayer(), Button.PrimaryFire) == true)
 if (IsButtonHeld(EventPlayer(), Button.SecondaryFire) == true)
 {
     Wait(0.1, WaitBehavior.AbortWhenFalse);
-    if (doublemag == false)
+
+    switch (doublemag)
     {
-        magazines += 0.25;
-    }
-    else if (doublemag == 1)
-    {
-        magazines += 0.125;
+        case false:
+            magazines += 0.25;
+            break;
+
+        case 1:
+            magazines += 0.125;
+            break;
     }
 }
 

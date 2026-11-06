@@ -1,4 +1,4 @@
-
+﻿
 rule: "73 Headshot maniac Perk add damage"
 Event.OnDamageDealt
 Team.Team1
@@ -27,16 +27,18 @@ Event.OnDamageTaken
 Team.Team1
 if (perk[1] > 0)
 {
-    if (perk[1] == 2)
+    switch (perk[1])
     {
-        Wait(10, WaitBehavior.RestartWhenTrue);
-        # need to make sure this doesnt stack infinitely
-        AddHealthPoolToPlayer(EventPlayer(), HealthType.Health, 25, false, false);
-    }
-    else if (perk[1] == 3)
-    {
-        Wait(10, WaitBehavior.RestartWhenTrue);
-        AddHealthPoolToPlayer(EventPlayer(), HealthType.Health, 50, false, false);
+        case 2:
+            Wait(10, WaitBehavior.RestartWhenTrue);
+            # need to make sure this doesnt stack infinitely
+            AddHealthPoolToPlayer(EventPlayer(), HealthType.Health, 25, false, false);
+            break;
+
+        case 3:
+            Wait(10, WaitBehavior.RestartWhenTrue);
+            AddHealthPoolToPlayer(EventPlayer(), HealthType.Health, 50, false, false);
+            break;
     }
 }
 
@@ -54,23 +56,25 @@ Team.Team1
 if (EventDamage() == true)
 if (perk[2] == 1)
 {
-    if (perk[1] == 1)
+    switch (perk[1])
     {
-        SetMoveSpeed(EventPlayer(), 180);
-        Wait(1, WaitBehavior.IgnoreCondition);
-        SetMoveSpeed(EventPlayer(), 105);
-    }
-    else if (perk[1] == 2)
-    {
-        SetMoveSpeed(EventPlayer(), 200);
-        Wait(1, WaitBehavior.IgnoreCondition);
-        SetMoveSpeed(EventPlayer(), 107);
-    }
-    else if (perk[1] == 3)
-    {
-        SetMoveSpeed(EventPlayer(), 220);
-        Wait(1, WaitBehavior.IgnoreCondition);
-        SetMoveSpeed(EventPlayer(), 110);
+        case 1:
+            SetMoveSpeed(EventPlayer(), 180);
+            Wait(1, WaitBehavior.IgnoreCondition);
+            SetMoveSpeed(EventPlayer(), 105);
+            break;
+
+        case 2:
+            SetMoveSpeed(EventPlayer(), 200);
+            Wait(1, WaitBehavior.IgnoreCondition);
+            SetMoveSpeed(EventPlayer(), 107);
+            break;
+
+        case 3:
+            SetMoveSpeed(EventPlayer(), 220);
+            Wait(1, WaitBehavior.IgnoreCondition);
+            SetMoveSpeed(EventPlayer(), 110);
+            break;
     }
 }
 
@@ -80,7 +84,7 @@ Team.Team1
 if (perk[3] == 1)
 {
     Died[SlotOf(EventPlayer())] = NearestWalkablePosition(EventPlayer());
-    BigMessage(AllPlayers(Team.All), <"<0> <1>", EventPlayer(), RandomValueInArray(etcArray[1])>);
+    BigMessage(AllPlayers(Team.All), <"<0> <1>", EventPlayer(), RandomValueInArray(diedphrase)>);
     E[SlotOf(EventPlayer())] = true;
     SetMaxHealth(EventPlayer(), 100);
     StopForcingHero(EventPlayer());

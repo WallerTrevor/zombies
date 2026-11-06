@@ -11,6 +11,7 @@ type Issue = {
   href: string;
 };
 
+// Each issue record drives both its library card and the corresponding preview action.
 const ISSUES: Issue[] = [
   {
     title: "Issue #1 — The First Signal",
@@ -76,6 +77,7 @@ function Toolbar({ query, setQuery }: { query: string; setQuery: (v: string) => 
         placeholder="Search issues, characters, locations…"
       />
 
+      {/* Category pills reuse the search field as quick filters instead of maintaining separate state. */}
       {CATEGORIES.map((c) => (
         <button
           className="pill"
@@ -122,6 +124,7 @@ function ComicCard({ issue, onPreview }: { issue: Issue; onPreview: (preview: st
 
 function Lightbox({ src, onClose }: { src: string; onClose: () => void }) {
   useEffect(() => {
+    // Scope Escape handling to the open preview and remove the listener when it closes.
     function onKey(e: KeyboardEvent) {
       if (e.key === "Escape") onClose();
     }
@@ -141,6 +144,7 @@ export default function Comics() {
   const [query, setQuery] = useState("");
   const [previewSrc, setPreviewSrc] = useState<string | null>(null);
 
+  // Search one combined text view so titles, tags, excerpts, and destinations are all discoverable.
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
     if (!q) return ISSUES;
@@ -154,6 +158,7 @@ export default function Comics() {
 
   return (
     <main>
+      {/* The issue list remains the primary content; the lightbox is mounted only for an active preview. */}
       <PageHero>
         <p>
           Cinematic snapshots from the Zombies: Complete Series — character arcs, boss origins,

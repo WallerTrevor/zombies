@@ -22,586 +22,586 @@ If Tkinter is missing on Linux:
 - Debian/Ubuntu: sudo apt install python3-tk
 """
 
-import json
-import os
-import tkinter as tk
-from tkinter import ttk, filedialog, messagebox
+import json  # Imports json for use in this script.
+import os  # Imports os for use in this script.
+import tkinter as tk  # Imports tkinter as tk for use in this script.
+from tkinter import ttk, filedialog, messagebox  # Imports ttk, filedialog, messagebox from tkinter for use in this script.
 
 
-DEFAULT_HEROES = [
+DEFAULT_HEROES = [  # Defines the default hero roster used by the editor.
     # Edit this list to match your roster.
     # Kept generic because hero rosters change over time.
-    "Ana", "Ashe", "Baptiste", "Bastion", "Brigitte", "Cassidy",
-    "D.Va", "Doomfist", "Echo", "Freja", "Genji", "Hanzo", "Hazard", "Illari",
-    "Junker Queen", "Junkrat", "Juno", "Kiriko", "Lifeweaver", "Lúcio",
-    "Mauga", "Mei", "Mercy", "Moira", "Orisa", "Pharah", "Ramattra",
-    "Reaper", "Reinhardt", "Roadhog", "Sigma", "Sojourn", "Soldier: 76",
-    "Sombra", "Symmetra", "Torbjörn", "Tracer", "Vendetta", "Venture", "Widowmaker",
-    "Winston", "Wrecking Ball", "Wuyang", "Zarya", "Zenyatta"
-]
+    "Ana", "Ashe", "Baptiste", "Bastion", "Brigitte", "Cassidy",  # Lists the selectable hero names used to build the switchboard.
+    "D.Va", "Doomfist", "Echo", "Freja", "Genji", "Hanzo", "Hazard", "Illari",  # Lists the selectable hero names used to build the switchboard.
+    "Junker Queen", "Junkrat", "Juno", "Kiriko", "Lifeweaver", "Lúcio",  # Lists the selectable hero names used to build the switchboard.
+    "Mauga", "Mei", "Mercy", "Moira", "Orisa", "Pharah", "Ramattra",  # Lists the selectable hero names used to build the switchboard.
+    "Reaper", "Reinhardt", "Roadhog", "Sigma", "Sojourn", "Soldier: 76",  # Lists the selectable hero names used to build the switchboard.
+    "Sombra", "Symmetra", "Torbjörn", "Tracer", "Vendetta", "Venture", "Widowmaker",  # Lists the selectable hero names used to build the switchboard.
+    "Winston", "Wrecking Ball", "Wuyang", "Zarya", "Zenyatta"  # Lists the selectable hero names used to build the switchboard.
+]  # Closes the current list or indexed expression.
 
-HERO_ROLES = {
+HERO_ROLES = {  # Maps each supported hero to its gameplay role.
     # TANKS
-    "D.Va": "tank",
-    "Doomfist": "tank",
-    "Hazard": "tank",
-    "Junker Queen": "tank",
-    "Mauga": "tank",
-    "Orisa": "tank",
-    "Ramattra": "tank",
-    "Reinhardt": "tank",
-    "Roadhog": "tank",
-    "Sigma": "tank",
-    "Winston": "tank",
-    "Wrecking Ball": "tank",
-    "Zarya": "tank",
+    "D.Va": "tank",  # Sets the 'D.Va' value in this configuration or lookup table.
+    "Doomfist": "tank",  # Sets the 'Doomfist' value in this configuration or lookup table.
+    "Hazard": "tank",  # Sets the 'Hazard' value in this configuration or lookup table.
+    "Junker Queen": "tank",  # Sets the 'Junker Queen' value in this configuration or lookup table.
+    "Mauga": "tank",  # Sets the 'Mauga' value in this configuration or lookup table.
+    "Orisa": "tank",  # Sets the 'Orisa' value in this configuration or lookup table.
+    "Ramattra": "tank",  # Sets the 'Ramattra' value in this configuration or lookup table.
+    "Reinhardt": "tank",  # Sets the 'Reinhardt' value in this configuration or lookup table.
+    "Roadhog": "tank",  # Sets the 'Roadhog' value in this configuration or lookup table.
+    "Sigma": "tank",  # Sets the 'Sigma' value in this configuration or lookup table.
+    "Winston": "tank",  # Sets the 'Winston' value in this configuration or lookup table.
+    "Wrecking Ball": "tank",  # Sets the 'Wrecking Ball' value in this configuration or lookup table.
+    "Zarya": "tank",  # Sets the 'Zarya' value in this configuration or lookup table.
 
     # SUPPORTS
-    "Ana": "support",
-    "Baptiste": "support",
-    "Brigitte": "support",
-    "Illari": "support",
-    "Juno": "support",
-    "Kiriko": "support",
-    "Lifeweaver": "support",
-    "Lúcio": "support",
-    "Mercy": "support",
-    "Moira": "support",
-    "Wuyang": "support",
-    "Zenyatta": "support",
+    "Ana": "support",  # Sets the 'Ana' value in this configuration or lookup table.
+    "Baptiste": "support",  # Sets the 'Baptiste' value in this configuration or lookup table.
+    "Brigitte": "support",  # Sets the 'Brigitte' value in this configuration or lookup table.
+    "Illari": "support",  # Sets the 'Illari' value in this configuration or lookup table.
+    "Juno": "support",  # Sets the 'Juno' value in this configuration or lookup table.
+    "Kiriko": "support",  # Sets the 'Kiriko' value in this configuration or lookup table.
+    "Lifeweaver": "support",  # Sets the 'Lifeweaver' value in this configuration or lookup table.
+    "Lúcio": "support",  # Sets the 'Lúcio' value in this configuration or lookup table.
+    "Mercy": "support",  # Sets the 'Mercy' value in this configuration or lookup table.
+    "Moira": "support",  # Sets the 'Moira' value in this configuration or lookup table.
+    "Wuyang": "support",  # Sets the 'Wuyang' value in this configuration or lookup table.
+    "Zenyatta": "support",  # Sets the 'Zenyatta' value in this configuration or lookup table.
 
     # EVERYTHING ELSE = DPS
-}
+}  # Closes the current mapping or grouped expression.
 
 
-class ScrollableFrame(ttk.Frame):
-    def __init__(self, parent):
-        super().__init__(parent)
+class ScrollableFrame(ttk.Frame):  # Defines the ScrollableFrame class.
+    def __init__(self, parent):  # Defines the   init   function.
+        super().__init__(parent)  # Calls super to perform this step.
 
-        self.canvas = tk.Canvas(self, highlightthickness=0, background="#1e1e1e")
-        self.v_scroll = ttk.Scrollbar(self, orient="vertical", command=self.canvas.yview)
-        self.canvas.configure(yscrollcommand=self.v_scroll.set)
+        self.canvas = tk.Canvas(self, highlightthickness=0, background="#1e1e1e")  # Creates a Canvas object for canvas.
+        self.v_scroll = ttk.Scrollbar(self, orient="vertical", command=self.canvas.yview)  # Creates a Scrollbar object for v scroll.
+        self.canvas.configure(yscrollcommand=self.v_scroll.set)  # Configures self.canvas for the desired interface behavior or appearance.
 
-        self.inner = ttk.Frame(self.canvas)
+        self.inner = ttk.Frame(self.canvas)  # Creates a Frame object for inner.
         self.inner.configure(style="TFrame")  # ensures ttk background applies
-        self.inner_id = self.canvas.create_window((0, 0), window=self.inner, anchor="nw")
+        self.inner_id = self.canvas.create_window((0, 0), window=self.inner, anchor="nw")  # Computes inner id from the current input.
 
-        self.canvas.grid(row=0, column=0, sticky="nsew")
-        self.v_scroll.grid(row=0, column=1, sticky="ns")
+        self.canvas.grid(row=0, column=0, sticky="nsew")  # Places self.canvas in the interface layout.
+        self.v_scroll.grid(row=0, column=1, sticky="ns")  # Places self.v_scroll in the interface layout.
 
-        self.grid_rowconfigure(0, weight=1)
-        self.grid_columnconfigure(0, weight=1)
+        self.grid_rowconfigure(0, weight=1)  # Calls self.grid_rowconfigure to perform this step.
+        self.grid_columnconfigure(0, weight=1)  # Calls self.grid_columnconfigure to perform this step.
 
-        self.inner.bind("<Configure>", self._on_inner_configure)
-        self.canvas.bind("<Configure>", self._on_canvas_configure)
+        self.inner.bind("<Configure>", self._on_inner_configure)  # Connects an event on self.inner to its handler.
+        self.canvas.bind("<Configure>", self._on_canvas_configure)  # Connects an event on self.canvas to its handler.
 
         # mousewheel support
         self.canvas.bind_all("<MouseWheel>", self._on_mousewheel)       # Windows/macOS
         self.canvas.bind_all("<Button-4>", self._on_mousewheel_linux)   # Linux up
         self.canvas.bind_all("<Button-5>", self._on_mousewheel_linux)   # Linux down
 
-    def _on_inner_configure(self, _event=None):
-        self.canvas.configure(scrollregion=self.canvas.bbox("all"))
+    def _on_inner_configure(self, _event=None):  # Defines the  on inner configure function.
+        self.canvas.configure(scrollregion=self.canvas.bbox("all"))  # Configures self.canvas for the desired interface behavior or appearance.
 
-    def _on_canvas_configure(self, event):
+    def _on_canvas_configure(self, event):  # Defines the  on canvas configure function.
         # Make the inner frame match the canvas width
-        self.canvas.itemconfigure(self.inner_id, width=event.width)
+        self.canvas.itemconfigure(self.inner_id, width=event.width)  # Calls self.canvas.itemconfigure to perform this step.
 
-    def _on_mousewheel(self, event):
+    def _on_mousewheel(self, event):  # Defines the  on mousewheel function.
         # Windows: event.delta is multiples of 120
-        self.canvas.yview_scroll(int(-1 * (event.delta / 120)), "units")
+        self.canvas.yview_scroll(int(-1 * (event.delta / 120)), "units")  # Calls self.canvas.yview_scroll to perform this step.
 
-    def _on_mousewheel_linux(self, event):
-        if event.num == 4:
-            self.canvas.yview_scroll(-3, "units")
-        elif event.num == 5:
-            self.canvas.yview_scroll(3, "units")
+    def _on_mousewheel_linux(self, event):  # Defines the  on mousewheel linux function.
+        if event.num == 4:  # Checks whether event.num == 4 before entering this branch.
+            self.canvas.yview_scroll(-3, "units")  # Calls self.canvas.yview_scroll to perform this step.
+        elif event.num == 5:  # Checks the alternate condition event.num == 5.
+            self.canvas.yview_scroll(3, "units")  # Calls self.canvas.yview_scroll to perform this step.
 
 
-class SwitchboardApp(ttk.Frame):
-    def __init__(self, root):
-        super().__init__(root)
-        self.root = root
+class SwitchboardApp(ttk.Frame):  # Defines the SwitchboardApp class.
+    def __init__(self, root):  # Defines the   init   function.
+        super().__init__(root)  # Calls super to perform this step.
+        self.root = root  # Keeps the application?s root window available to its methods.
 
-        self.heroes = list(DEFAULT_HEROES)
-        self.N = len(self.heroes)
+        self.heroes = list(DEFAULT_HEROES)  # Sets heroes from the configured value or expression.
+        self.N = len(self.heroes)  # Counts the relevant entries and stores the total as n.
 
         # Data: table[attacker_index][victim_index] = 1/2/3
         # Default everything to 2
-        self.table = [[2 for _ in range(self.N)] for __ in range(self.N)]
+        self.table = [[2 for _ in range(self.N)] for __ in range(self.N)]  # Builds table by transforming the selected input entries.
 
-        self.selected_attacker = 0
+        self.selected_attacker = 0  # Sets selected attacker from the configured value or expression.
 
-        self._build_style()
-        self._build_layout()
-        self._render_victim_rows()
+        self._build_style()  # Calls self._build_style to perform this step.
+        self._build_layout()  # Calls self._build_layout to perform this step.
+        self._render_victim_rows()  # Calls self._render_victim_rows to perform this step.
 
-        self._select_attacker(0)
+        self._select_attacker(0)  # Calls self._select_attacker to perform this step.
 
-    def _build_style(self):
-        style = ttk.Style()
+    def _build_style(self):  # Defines the  build style function.
+        style = ttk.Style()  # Creates a Style object for style.
 
-        try:
+        try:  # Starts a guarded operation whose failures are handled below.
             style.theme_use("clam")  # clam is the best base for dark themes
-        except tk.TclError:
-            pass
+        except tk.TclError:  # Handles tk.TclError raised by the guarded operation.
+            pass  # Intentionally leaves this branch empty.
 
         # --- GLOBAL COMBOBOX DROPDOWN COLORS (IMPORTANT) ---
-        self.root.option_add("*TCombobox*Listbox.background", "#1e1e1e")
-        self.root.option_add("*TCombobox*Listbox.foreground", "#d4d4d4")
-        self.root.option_add("*TCombobox*Listbox.selectBackground", "#444444")
-        self.root.option_add("*TCombobox*Listbox.selectForeground", "#ffffff")
+        self.root.option_add("*TCombobox*Listbox.background", "#1e1e1e")  # Configures self.root for the desired interface behavior or appearance.
+        self.root.option_add("*TCombobox*Listbox.foreground", "#d4d4d4")  # Configures self.root for the desired interface behavior or appearance.
+        self.root.option_add("*TCombobox*Listbox.selectBackground", "#444444")  # Configures self.root for the desired interface behavior or appearance.
+        self.root.option_add("*TCombobox*Listbox.selectForeground", "#ffffff")  # Configures self.root for the desired interface behavior or appearance.
 
         # ---- COLORS ----
         BG = "#1e1e1e"      # main background
         FG = "#d4d4d4"      # main text
         ACCENT = "#3a3a3a"  # buttons / frames
-        HOVER = "#505050"
-        ENTRY_BG = "#2a2a2a"
+        HOVER = "#505050"  # Computes hover from the current input.
+        ENTRY_BG = "#2a2a2a"  # Computes entry bg from the current input.
 
         # ---- COMBOBOX (field colors + readonly override) ----
-        style.configure(
-            "TCombobox",
-            fieldbackground=ENTRY_BG,
-            background=ENTRY_BG,
-            foreground=FG
-        )
+        style.configure(  # Configures style for the desired interface behavior or appearance.
+            "TCombobox",  # Provides this value as an entry in the enclosing data structure.
+            fieldbackground=ENTRY_BG,  # Sets fieldbackground from the configured value or expression.
+            background=ENTRY_BG,  # Sets background from the configured value or expression.
+            foreground=FG  # Sets foreground from the configured value or expression.
+        )  # Closes the continued call or expression.
 
         # This is the important part on Linux: readonly state overrides
-        style.map(
-            "TCombobox",
-            fieldbackground=[("readonly", ENTRY_BG), ("!disabled", ENTRY_BG)],
-            foreground=[("readonly", FG), ("!disabled", FG)],
-            selectbackground=[("readonly", "#444444")],
-            selectforeground=[("readonly", "#ffffff")]
-        )
+        style.map(  # Configures style for the desired interface behavior or appearance.
+            "TCombobox",  # Provides this value as an entry in the enclosing data structure.
+            fieldbackground=[("readonly", ENTRY_BG), ("!disabled", ENTRY_BG)],  # Computes fieldbackground from the current input.
+            foreground=[("readonly", FG), ("!disabled", FG)],  # Computes foreground from the current input.
+            selectbackground=[("readonly", "#444444")],  # Computes selectbackground from the current input.
+            selectforeground=[("readonly", "#ffffff")]  # Computes selectforeground from the current input.
+        )  # Closes the continued call or expression.
 
         # ---- ROOT WINDOW ----
-        self.root.configure(background=BG)
+        self.root.configure(background=BG)  # Configures self.root for the desired interface behavior or appearance.
 
         # ---- BASE STYLES ----
-        style.configure(
-            ".",
-            background=BG,
-            foreground=FG,
-            fieldbackground=ENTRY_BG,
-            bordercolor=ACCENT
-        )
+        style.configure(  # Configures style for the desired interface behavior or appearance.
+            ".",  # Provides this value as an entry in the enclosing data structure.
+            background=BG,  # Sets background from the configured value or expression.
+            foreground=FG,  # Sets foreground from the configured value or expression.
+            fieldbackground=ENTRY_BG,  # Sets fieldbackground from the configured value or expression.
+            bordercolor=ACCENT  # Sets bordercolor from the configured value or expression.
+        )  # Closes the continued call or expression.
 
-        style.configure(
-            "TFrame",
-            background=BG
-        )
+        style.configure(  # Configures style for the desired interface behavior or appearance.
+            "TFrame",  # Provides this value as an entry in the enclosing data structure.
+            background=BG  # Sets background from the configured value or expression.
+        )  # Closes the continued call or expression.
 
-        style.configure(
-            "TLabel",
-            background=BG,
-            foreground=FG,
-            padding=2
-        )
+        style.configure(  # Configures style for the desired interface behavior or appearance.
+            "TLabel",  # Provides this value as an entry in the enclosing data structure.
+            background=BG,  # Sets background from the configured value or expression.
+            foreground=FG,  # Sets foreground from the configured value or expression.
+            padding=2  # Sets padding from the configured value or expression.
+        )  # Closes the continued call or expression.
 
-        style.configure(
-            "Header.TLabel",
-            background=BG,
-            foreground=FG,
-            font=("Segoe UI", 11, "bold")
-        )
+        style.configure(  # Configures style for the desired interface behavior or appearance.
+            "Header.TLabel",  # Provides this value as an entry in the enclosing data structure.
+            background=BG,  # Sets background from the configured value or expression.
+            foreground=FG,  # Sets foreground from the configured value or expression.
+            font=("Segoe UI", 11, "bold")  # Computes font from the current input.
+        )  # Closes the continued call or expression.
 
-        style.configure(
-            "Small.TLabel",
-            background=BG,
-            foreground=FG,
-            font=("Segoe UI", 9)
-        )
+        style.configure(  # Configures style for the desired interface behavior or appearance.
+            "Small.TLabel",  # Provides this value as an entry in the enclosing data structure.
+            background=BG,  # Sets background from the configured value or expression.
+            foreground=FG,  # Sets foreground from the configured value or expression.
+            font=("Segoe UI", 9)  # Computes font from the current input.
+        )  # Closes the continued call or expression.
 
-        style.configure(
-            "Mono.TLabel",
-            background=BG,
-            foreground=FG,
-            font=("Consolas", 9)
-        )
+        style.configure(  # Configures style for the desired interface behavior or appearance.
+            "Mono.TLabel",  # Provides this value as an entry in the enclosing data structure.
+            background=BG,  # Sets background from the configured value or expression.
+            foreground=FG,  # Sets foreground from the configured value or expression.
+            font=("Consolas", 9)  # Computes font from the current input.
+        )  # Closes the continued call or expression.
 
         # ---- BUTTONS ----
-        style.configure(
-            "TButton",
-            background=ACCENT,
-            foreground=FG,
-            padding=6
-        )
+        style.configure(  # Configures style for the desired interface behavior or appearance.
+            "TButton",  # Provides this value as an entry in the enclosing data structure.
+            background=ACCENT,  # Sets background from the configured value or expression.
+            foreground=FG,  # Sets foreground from the configured value or expression.
+            padding=6  # Sets padding from the configured value or expression.
+        )  # Closes the continued call or expression.
 
-        style.map(
-            "TButton",
-            background=[("active", HOVER)]
-        )
+        style.map(  # Configures style for the desired interface behavior or appearance.
+            "TButton",  # Provides this value as an entry in the enclosing data structure.
+            background=[("active", HOVER)]  # Computes background from the current input.
+        )  # Closes the continued call or expression.
 
         # ---- COMBOBOX ----
-        style.configure(
-            "TCombobox",
-            fieldbackground=ENTRY_BG,
-            background=ENTRY_BG,
-            foreground=FG,
-            arrowcolor=FG
-        )
+        style.configure(  # Configures style for the desired interface behavior or appearance.
+            "TCombobox",  # Provides this value as an entry in the enclosing data structure.
+            fieldbackground=ENTRY_BG,  # Sets fieldbackground from the configured value or expression.
+            background=ENTRY_BG,  # Sets background from the configured value or expression.
+            foreground=FG,  # Sets foreground from the configured value or expression.
+            arrowcolor=FG  # Sets arrowcolor from the configured value or expression.
+        )  # Closes the continued call or expression.
 
         # ---- SCROLLBAR ----
-        style.configure(
-            "Vertical.TScrollbar",
-            background=ACCENT,
-            troughcolor=BG,
-            arrowcolor=FG
-        )
+        style.configure(  # Configures style for the desired interface behavior or appearance.
+            "Vertical.TScrollbar",  # Provides this value as an entry in the enclosing data structure.
+            background=ACCENT,  # Sets background from the configured value or expression.
+            troughcolor=BG,  # Sets troughcolor from the configured value or expression.
+            arrowcolor=FG  # Sets arrowcolor from the configured value or expression.
+        )  # Closes the continued call or expression.
 
-    def _build_layout(self):
-        self.root.title("OW Hero Switchboard (1/2/3)")
-        self.root.geometry("1050x700")
-        self.root.minsize(900, 600)
+    def _build_layout(self):  # Defines the  build layout function.
+        self.root.title("OW Hero Switchboard (1/2/3)")  # Sets the window title.
+        self.root.geometry("1050x700")  # Sets the window size.
+        self.root.minsize(900, 600)  # Calls self.root.minsize to perform this step.
 
-        self.pack(fill="both", expand=True)
-        self.grid_rowconfigure(0, weight=1)
-        self.grid_columnconfigure(1, weight=1)
+        self.pack(fill="both", expand=True)  # Places self in the interface layout.
+        self.grid_rowconfigure(0, weight=1)  # Calls self.grid_rowconfigure to perform this step.
+        self.grid_columnconfigure(1, weight=1)  # Calls self.grid_columnconfigure to perform this step.
 
         # Left: attacker list
-        left = ttk.Frame(self)
-        left.grid(row=0, column=0, sticky="nsew", padx=10, pady=10)
-        left.grid_rowconfigure(2, weight=1)
+        left = ttk.Frame(self)  # Creates a Frame object for left.
+        left.grid(row=0, column=0, sticky="nsew", padx=10, pady=10)  # Places left in the interface layout.
+        left.grid_rowconfigure(2, weight=1)  # Calls left.grid_rowconfigure to perform this step.
 
-        ttk.Label(left, text="Attacker Hero", style="Header.TLabel").grid(row=0, column=0, sticky="w")
+        ttk.Label(left, text="Attacker Hero", style="Header.TLabel").grid(row=0, column=0, sticky="w")  # Calls ttk.Label to perform this step.
 
-        ttk.Button(left, text="Edit Hero List…", command=self._open_hero_editor).grid(row=1, column=0, sticky="we", pady=(6, 6))
+        ttk.Button(left, text="Edit Hero List…", command=self._open_hero_editor).grid(row=1, column=0, sticky="we", pady=(6, 6))  # Calls ttk.Button to perform this step.
 
-        self.attacker_list = tk.Listbox(left, height=22, exportselection=False)
-        self.attacker_list.configure(background="#1e1e1e",    foreground="#d4d4d4",    selectbackground="#444444",    selectforeground="#ffffff",    highlightthickness=0)
-        self.attacker_list.grid(row=2, column=0, sticky="nsew")
-        self.attacker_list.bind("<<ListboxSelect>>", self._on_attacker_select)
+        self.attacker_list = tk.Listbox(left, height=22, exportselection=False)  # Creates a Listbox object for attacker list.
+        self.attacker_list.configure(background="#1e1e1e",    foreground="#d4d4d4",    selectbackground="#444444",    selectforeground="#ffffff",    highlightthickness=0)  # Configures self.attacker_list for the desired interface behavior or appearance.
+        self.attacker_list.grid(row=2, column=0, sticky="nsew")  # Places self.attacker_list in the interface layout.
+        self.attacker_list.bind("<<ListboxSelect>>", self._on_attacker_select)  # Connects an event on self.attacker_list to its handler.
 
-        for h in self.heroes:
-            self.attacker_list.insert("end", h)
+        for h in self.heroes:  # Processes each h from self.heroes.
+            self.attacker_list.insert("end", h)  # Adds the supplied value to self.attacker_list.
 
         # Right: victim grid + controls
-        right = ttk.Frame(self)
-        right.grid(row=0, column=1, sticky="nsew", padx=10, pady=10)
-        right.grid_rowconfigure(2, weight=1)
-        right.grid_columnconfigure(0, weight=1)
+        right = ttk.Frame(self)  # Creates a Frame object for right.
+        right.grid(row=0, column=1, sticky="nsew", padx=10, pady=10)  # Places right in the interface layout.
+        right.grid_rowconfigure(2, weight=1)  # Calls right.grid_rowconfigure to perform this step.
+        right.grid_columnconfigure(0, weight=1)  # Calls right.grid_columnconfigure to perform this step.
 
-        self.attacker_title = ttk.Label(right, text="Victim Modifiers", style="Header.TLabel")
-        self.attacker_title.grid(row=0, column=0, sticky="w")
+        self.attacker_title = ttk.Label(right, text="Victim Modifiers", style="Header.TLabel")  # Creates a Label object for attacker title.
+        self.attacker_title.grid(row=0, column=0, sticky="w")  # Places self.attacker_title in the interface layout.
 
-        controls = ttk.Frame(right)
-        controls.grid(row=1, column=0, sticky="we", pady=(6, 8))
-        controls.grid_columnconfigure(6, weight=1)
+        controls = ttk.Frame(right)  # Creates a Frame object for controls.
+        controls.grid(row=1, column=0, sticky="we", pady=(6, 8))  # Places controls in the interface layout.
+        controls.grid_columnconfigure(6, weight=1)  # Calls controls.grid_columnconfigure to perform this step.
 
-        ttk.Label(controls, text="Quick Fill for current attacker:", style="Small.TLabel").grid(row=0, column=0, sticky="w")
+        ttk.Label(controls, text="Quick Fill for current attacker:", style="Small.TLabel").grid(row=0, column=0, sticky="w")  # Calls ttk.Label to perform this step.
 
-        ttk.Button(controls, text="Set All = 1", command=lambda: self._fill_attacker_row(1)).grid(row=0, column=1, padx=4)
-        ttk.Button(controls, text="Set All = 2", command=lambda: self._fill_attacker_row(2)).grid(row=0, column=2, padx=4)
-        ttk.Button(controls, text="Set All = 3", command=lambda: self._fill_attacker_row(3)).grid(row=0, column=3, padx=4)
+        ttk.Button(controls, text="Set All = 1", command=lambda: self._fill_attacker_row(1)).grid(row=0, column=1, padx=4)  # Calls ttk.Button to perform this step.
+        ttk.Button(controls, text="Set All = 2", command=lambda: self._fill_attacker_row(2)).grid(row=0, column=2, padx=4)  # Calls ttk.Button to perform this step.
+        ttk.Button(controls, text="Set All = 3", command=lambda: self._fill_attacker_row(3)).grid(row=0, column=3, padx=4)  # Calls ttk.Button to perform this step.
 
-        ttk.Button(controls, text="Diagonal = 2", command=self._set_diagonal_2).grid(row=0, column=4, padx=12)
+        ttk.Button(controls, text="Diagonal = 2", command=self._set_diagonal_2).grid(row=0, column=4, padx=12)  # Calls ttk.Button to perform this step.
 
-        ttk.Button(controls, text="Compile", command=self._compile).grid(row=0, column=7, sticky="e")
-        ttk.Button(controls, text="Save JSON…", command=self._save_json).grid(row=0, column=8, padx=6)
-        ttk.Button(controls, text="Load JSON…", command=self._load_json).grid(row=0, column=9)
+        ttk.Button(controls, text="Compile", command=self._compile).grid(row=0, column=7, sticky="e")  # Calls ttk.Button to perform this step.
+        ttk.Button(controls, text="Save JSON…", command=self._save_json).grid(row=0, column=8, padx=6)  # Calls ttk.Button to perform this step.
+        ttk.Button(controls, text="Load JSON…", command=self._load_json).grid(row=0, column=9)  # Calls ttk.Button to perform this step.
 
-        self.victim_frame = ScrollableFrame(right)
-        self.victim_frame.grid(row=2, column=0, sticky="nsew")
+        self.victim_frame = ScrollableFrame(right)  # Sets victim frame from the configured value or expression.
+        self.victim_frame.grid(row=2, column=0, sticky="nsew")  # Places self.victim_frame in the interface layout.
 
         # Bottom: output
-        out = ttk.Frame(right)
-        out.grid(row=3, column=0, sticky="nsew", pady=(8, 0))
-        out.grid_columnconfigure(0, weight=1)
+        out = ttk.Frame(right)  # Creates a Frame object for out.
+        out.grid(row=3, column=0, sticky="nsew", pady=(8, 0))  # Places out in the interface layout.
+        out.grid_columnconfigure(0, weight=1)  # Calls out.grid_columnconfigure to perform this step.
 
 
-        out_header = ttk.Frame(out)
-        out_header.grid(row=0, column=0, sticky="we")
-        out_header.grid_columnconfigure(0, weight=1)
+        out_header = ttk.Frame(out)  # Creates a Frame object for out header.
+        out_header.grid(row=0, column=0, sticky="we")  # Places out_header in the interface layout.
+        out_header.grid_columnconfigure(0, weight=1)  # Calls out_header.grid_columnconfigure to perform this step.
 
-        ttk.Label(out_header, text="Output (Flattened + JSON preview):", style="Small.TLabel").grid(row=0, column=0, sticky="w")
-        ttk.Button(out_header, text="Copy", command=self._copy_output).grid(row=0, column=1, sticky="e")
-        self.output = tk.Text(out, height=10, wrap="none")
-        self.output.configure(
-            background="#1e1e1e",
-            foreground="#d4d4d4",
-            insertbackground="#ffffff",
-            selectbackground="#444444",
-            selectforeground="#ffffff"
-        )
+        ttk.Label(out_header, text="Output (Flattened + JSON preview):", style="Small.TLabel").grid(row=0, column=0, sticky="w")  # Calls ttk.Label to perform this step.
+        ttk.Button(out_header, text="Copy", command=self._copy_output).grid(row=0, column=1, sticky="e")  # Calls ttk.Button to perform this step.
+        self.output = tk.Text(out, height=10, wrap="none")  # Creates a Text object for output.
+        self.output.configure(  # Configures self.output for the desired interface behavior or appearance.
+            background="#1e1e1e",  # Computes background from the current input.
+            foreground="#d4d4d4",  # Computes foreground from the current input.
+            insertbackground="#ffffff",  # Computes insertbackground from the current input.
+            selectbackground="#444444",  # Computes selectbackground from the current input.
+            selectforeground="#ffffff"  # Computes selectforeground from the current input.
+        )  # Closes the continued call or expression.
 
-        self.output.grid(row=1, column=0, sticky="nsew")
-        self.output.configure(font=("Consolas", 9))
+        self.output.grid(row=1, column=0, sticky="nsew")  # Places self.output in the interface layout.
+        self.output.configure(font=("Consolas", 9))  # Configures self.output for the desired interface behavior or appearance.
 
         # Horizontal scrollbar for output
-        xscroll = ttk.Scrollbar(out, orient="horizontal", command=self.output.xview)
-        self.output.configure(xscrollcommand=xscroll.set)
-        xscroll.grid(row=2, column=0, sticky="we")
+        xscroll = ttk.Scrollbar(out, orient="horizontal", command=self.output.xview)  # Creates a Scrollbar object for xscroll.
+        self.output.configure(xscrollcommand=xscroll.set)  # Configures self.output for the desired interface behavior or appearance.
+        xscroll.grid(row=2, column=0, sticky="we")  # Places xscroll in the interface layout.
 
-    def _copy_output(self):
-        text = self.output.get("1.0", "end-1c")
-        self.root.clipboard_clear()
-        self.root.clipboard_append(text)
+    def _copy_output(self):  # Defines the  copy output function.
+        text = self.output.get("1.0", "end-1c")  # Retrieves the current value and stores it as text.
+        self.root.clipboard_clear()  # Clears the clipboard.
+        self.root.clipboard_append(text)  # Copies the selected text to the clipboard.
 
-    def _render_victim_rows(self):
+    def _render_victim_rows(self):  # Defines the  render victim rows function.
         # Clear existing victim rows
-        for w in self.victim_frame.inner.winfo_children():
-            w.destroy()
+        for w in self.victim_frame.inner.winfo_children():  # Processes each w from self.victim_frame.inner.winfo_children().
+            w.destroy()  # Calls w.destroy to perform this step.
 
-        header = ttk.Frame(self.victim_frame.inner)
-        header.grid(row=0, column=0, sticky="we", padx=6, pady=(6, 4))
-        header.grid_columnconfigure(0, weight=1)
+        header = ttk.Frame(self.victim_frame.inner)  # Creates a Frame object for header.
+        header.grid(row=0, column=0, sticky="we", padx=6, pady=(6, 4))  # Places header in the interface layout.
+        header.grid_columnconfigure(0, weight=1)  # Calls header.grid_columnconfigure to perform this step.
 
-        ttk.Label(header, text="Victim Hero", style="Small.TLabel").grid(row=0, column=0, sticky="w")
-        ttk.Label(header, text="Value (1/2/3)", style="Small.TLabel").grid(row=0, column=1, sticky="e")
+        ttk.Label(header, text="Victim Hero", style="Small.TLabel").grid(row=0, column=0, sticky="w")  # Calls ttk.Label to perform this step.
+        ttk.Label(header, text="Value (1/2/3)", style="Small.TLabel").grid(row=0, column=1, sticky="e")  # Calls ttk.Label to perform this step.
 
-        self.victim_vars = []
-        for i, victim in enumerate(self.heroes):
-            row = ttk.Frame(self.victim_frame.inner)
-            row.grid(row=i + 1, column=0, sticky="we", padx=6, pady=2)
-            row.grid_columnconfigure(0, weight=1)
+        self.victim_vars = []  # Initializes victim vars as an empty list for accumulating results.
+        for i, victim in enumerate(self.heroes):  # Processes each i, victim from enumerate(self.heroes).
+            row = ttk.Frame(self.victim_frame.inner)  # Creates a Frame object for row.
+            row.grid(row=i + 1, column=0, sticky="we", padx=6, pady=2)  # Places row in the interface layout.
+            row.grid_columnconfigure(0, weight=1)  # Calls row.grid_columnconfigure to perform this step.
 
-            ttk.Label(row, text=victim).grid(row=0, column=0, sticky="w")
+            ttk.Label(row, text=victim).grid(row=0, column=0, sticky="w")  # Calls ttk.Label to perform this step.
 
-            var = tk.StringVar(value="2")
-            self.victim_vars.append(var)
+            var = tk.StringVar(value="2")  # Creates a StringVar object for var.
+            self.victim_vars.append(var)  # Adds the supplied value to self.victim_vars.
 
-            combo = ttk.Combobox(row, textvariable=var, values=("1", "2", "3"), width=4, state="readonly")
-            combo.configure(background="#2a2a2a", foreground="#d4d4d4")
-            combo.grid(row=0, column=1, sticky="e")
-            combo.bind("<<ComboboxSelected>>", lambda _e, victim_index=i: self._on_victim_value_changed(victim_index))
+            combo = ttk.Combobox(row, textvariable=var, values=("1", "2", "3"), width=4, state="readonly")  # Creates a Combobox object for combo.
+            combo.configure(background="#2a2a2a", foreground="#d4d4d4")  # Configures combo for the desired interface behavior or appearance.
+            combo.grid(row=0, column=1, sticky="e")  # Places combo in the interface layout.
+            combo.bind("<<ComboboxSelected>>", lambda _e, victim_index=i: self._on_victim_value_changed(victim_index))  # Connects an event on combo to its handler.
 
-    def _on_victim_value_changed(self, victim_index: int):
-        try:
-            v = int(self.victim_vars[victim_index].get())
-        except ValueError:
-            v = 2
-        v = 1 if v < 1 else 3 if v > 3 else v
-        self.table[self.selected_attacker][victim_index] = v
+    def _on_victim_value_changed(self, victim_index: int):  # Defines the  on victim value changed function.
+        try:  # Starts a guarded operation whose failures are handled below.
+            v = int(self.victim_vars[victim_index].get())  # Retrieves the current value and stores it as v.
+        except ValueError:  # Handles ValueError raised by the guarded operation.
+            v = 2  # Sets v from the configured value or expression.
+        v = 1 if v < 1 else 3 if v > 3 else v  # Computes v from the current input.
+        self.table[self.selected_attacker][victim_index] = v  # Provides this value as an entry in the enclosing data structure.
 
-    def _on_attacker_select(self, _event=None):
-        sel = self.attacker_list.curselection()
-        if not sel:
-            return
-        self._select_attacker(sel[0])
+    def _on_attacker_select(self, _event=None):  # Defines the  on attacker select function.
+        sel = self.attacker_list.curselection()  # Sets sel from the configured value or expression.
+        if not sel:  # Checks whether not sel before entering this branch.
+            return  # Exits this function without returning a value.
+        self._select_attacker(sel[0])  # Calls self._select_attacker to perform this step.
 
-    def _select_attacker(self, attacker_index: int):
-        self.selected_attacker = attacker_index
-        attacker_name = self.heroes[attacker_index]
-        self.attacker_title.configure(text=f'Victim Modifiers (Attacker: "{attacker_name}")')
+    def _select_attacker(self, attacker_index: int):  # Defines the  select attacker function.
+        self.selected_attacker = attacker_index  # Sets selected attacker from the configured value or expression.
+        attacker_name = self.heroes[attacker_index]  # Sets attacker name from the configured value or expression.
+        self.attacker_title.configure(text=f'Victim Modifiers (Attacker: "{attacker_name}")')  # Configures self.attacker_title for the desired interface behavior or appearance.
 
         # update victim dropdowns to match this attacker row
-        for i in range(self.N):
-            self.victim_vars[i].set(str(self.table[attacker_index][i]))
+        for i in range(self.N):  # Processes each i from range(self.N).
+            self.victim_vars[i].set(str(self.table[attacker_index][i]))  # Provides this value as an entry in the enclosing data structure.
 
-    def _fill_attacker_row(self, value: int):
-        value = 1 if value < 1 else 3 if value > 3 else value
-        a = self.selected_attacker
-        for i in range(self.N):
-            self.table[a][i] = value
-            self.victim_vars[i].set(str(value))
+    def _fill_attacker_row(self, value: int):  # Defines the  fill attacker row function.
+        value = 1 if value < 1 else 3 if value > 3 else value  # Computes value from the current input.
+        a = self.selected_attacker  # Sets a from the configured value or expression.
+        for i in range(self.N):  # Processes each i from range(self.N).
+            self.table[a][i] = value  # Provides this value as an entry in the enclosing data structure.
+            self.victim_vars[i].set(str(value))  # Provides this value as an entry in the enclosing data structure.
 
-    def _set_diagonal_2(self):
-        for i in range(self.N):
-            self.table[i][i] = 2
+    def _set_diagonal_2(self):  # Defines the  set diagonal 2 function.
+        for i in range(self.N):  # Processes each i from range(self.N).
+            self.table[i][i] = 2  # Provides this value as an entry in the enclosing data structure.
         # Refresh current attacker view
-        self._select_attacker(self.selected_attacker)
+        self._select_attacker(self.selected_attacker)  # Calls self._select_attacker to perform this step.
 
-    def _compile(self):
+    def _compile(self):  # Defines the  compile function.
         # Build role index lists
-        role_indices = {
-            "damage": [],
-            "tank": [],
-            "support": []
-        }
+        role_indices = {  # Sets role indices from the configured value or expression.
+            "damage": [],  # Sets the 'damage' value in this configuration or lookup table.
+            "tank": [],  # Sets the 'tank' value in this configuration or lookup table.
+            "support": []  # Sets the 'support' value in this configuration or lookup table.
+        }  # Closes the current mapping or grouped expression.
 
-        for i, hero in enumerate(self.heroes):
-            role = HERO_ROLES.get(hero, "damage")
-            role_indices[role].append(i)
+        for i, hero in enumerate(self.heroes):  # Processes each i, hero from enumerate(self.heroes).
+            role = HERO_ROLES.get(hero, "damage")  # Retrieves the current value and stores it as role.
+            role_indices[role].append(i)  # Provides this value as an entry in the enclosing data structure.
 
         # Build separate flattened tables
-        damage_table = []
-        tank_table = []
-        support_table = []
+        damage_table = []  # Initializes damage table as an empty list for accumulating results.
+        tank_table = []  # Initializes tank table as an empty list for accumulating results.
+        support_table = []  # Initializes support table as an empty list for accumulating results.
 
-        for a in range(self.N):
-            attacker_role = HERO_ROLES.get(self.heroes[a], "damage")
+        for a in range(self.N):  # Processes each a from range(self.N).
+            attacker_role = HERO_ROLES.get(self.heroes[a], "damage")  # Retrieves the current value and stores it as attacker role.
 
-            if attacker_role == "damage":
-                target = damage_table
-            elif attacker_role == "tank":
-                target = tank_table
-            else:
-                target = support_table
+            if attacker_role == "damage":  # Checks whether attacker_role == "damage" before entering this branch.
+                target = damage_table  # Sets target from the configured value or expression.
+            elif attacker_role == "tank":  # Checks the alternate condition attacker_role == "tank".
+                target = tank_table  # Sets target from the configured value or expression.
+            else:  # Handles the remaining case when prior conditions did not match.
+                target = support_table  # Sets target from the configured value or expression.
 
-            for v in range(self.N):
-                target.append(self.table[a][v])
+            for v in range(self.N):  # Processes each v from range(self.N).
+                target.append(self.table[a][v])  # Adds the supplied value to target.
 
         # Output
-        self.output.delete("1.0", "end")
+        self.output.delete("1.0", "end")  # Removes or clears the selected data from self.output.
 
-        self.output.insert("end", "DAMAGE HERO ARRAY:\n")
-        self.output.insert("end", json.dumps(damage_table))
-        self.output.insert("end", "\n\nTANK HERO ARRAY:\n")
-        self.output.insert("end", json.dumps(tank_table))
-        self.output.insert("end", "\n\nSUPPORT HERO ARRAY:\n")
-        self.output.insert("end", json.dumps(support_table))
+        self.output.insert("end", "DAMAGE HERO ARRAY:\n")  # Adds the supplied value to self.output.
+        self.output.insert("end", json.dumps(damage_table))  # Adds the supplied value to self.output.
+        self.output.insert("end", "\n\nTANK HERO ARRAY:\n")  # Adds the supplied value to self.output.
+        self.output.insert("end", json.dumps(tank_table))  # Adds the supplied value to self.output.
+        self.output.insert("end", "\n\nSUPPORT HERO ARRAY:\n")  # Adds the supplied value to self.output.
+        self.output.insert("end", json.dumps(support_table))  # Adds the supplied value to self.output.
 
         # Copy all three as a single object for convenience
-        compiled = {
-            "damage": damage_table,
-            "tank": tank_table,
-            "support": support_table
-        }
+        compiled = {  # Sets compiled from the configured value or expression.
+            "damage": damage_table,  # Sets the 'damage' value in this configuration or lookup table.
+            "tank": tank_table,  # Sets the 'tank' value in this configuration or lookup table.
+            "support": support_table  # Sets the 'support' value in this configuration or lookup table.
+        }  # Closes the current mapping or grouped expression.
 
-        self.root.clipboard_clear()
-        self.root.clipboard_append(json.dumps(compiled))
+        self.root.clipboard_clear()  # Clears the clipboard.
+        self.root.clipboard_append(json.dumps(compiled))  # Copies the selected text to the clipboard.
 
-        messagebox.showinfo(
-            "Compiled",
-            "Compiled into 3 role-based arrays.\n\nAll arrays copied to clipboard as JSON."
-        )
+        messagebox.showinfo(  # Calls messagebox.showinfo to perform this step.
+            "Compiled",  # Provides this value as an entry in the enclosing data structure.
+            "Compiled into 3 role-based arrays.\n\nAll arrays copied to clipboard as JSON."  # Provides this value as an entry in the enclosing data structure.
+        )  # Closes the continued call or expression.
 
-    def _save_json(self):
-        path = filedialog.asksaveasfilename(
-            defaultextension=".json",
-            filetypes=[("JSON files", "*.json"), ("All files", "*.*")]
-        )
-        if not path:
-            return
+    def _save_json(self):  # Defines the  save json function.
+        path = filedialog.asksaveasfilename(  # Sets path from the configured value or expression.
+            defaultextension=".json",  # Computes defaultextension from the current input.
+            filetypes=[("JSON files", "*.json"), ("All files", "*.*")]  # Computes filetypes from the current input.
+        )  # Closes the continued call or expression.
+        if not path:  # Checks whether not path before entering this branch.
+            return  # Exits this function without returning a value.
 
-        flat = []
-        for a in range(self.N):
-            flat.extend(self.table[a])
+        flat = []  # Initializes flat as an empty list for accumulating results.
+        for a in range(self.N):  # Processes each a from range(self.N).
+            flat.extend(self.table[a])  # Adds the supplied value to flat.
 
-        payload = {
-            "heroes": self.heroes,
-            "N": self.N,
-            "flat_attacker_major": flat,
+        payload = {  # Sets payload from the configured value or expression.
+            "heroes": self.heroes,  # Sets the 'heroes' value in this configuration or lookup table.
+            "N": self.N,  # Sets the 'N' value in this configuration or lookup table.
+            "flat_attacker_major": flat,  # Sets the 'flat_attacker_major' value in this configuration or lookup table.
             "table": self.table,  # 2D, same data
-        }
+        }  # Closes the current mapping or grouped expression.
 
-        try:
-            with open(path, "w", encoding="utf-8") as f:
-                json.dump(payload, f, ensure_ascii=False, indent=2)
-            messagebox.showinfo("Saved", f"Saved to:\n{path}")
-        except Exception as e:
-            messagebox.showerror("Save failed", str(e))
+        try:  # Starts a guarded operation whose failures are handled below.
+            with open(path, "w", encoding="utf-8") as f:  # Opens the listed resource context for this block.
+                json.dump(payload, f, ensure_ascii=False, indent=2)  # Calls json.dump to perform this step.
+            messagebox.showinfo("Saved", f"Saved to:\n{path}")  # Calls messagebox.showinfo to perform this step.
+        except Exception as e:  # Handles Exception as e raised by the guarded operation.
+            messagebox.showerror("Save failed", str(e))  # Calls messagebox.showerror to perform this step.
 
-    def _load_json(self):
-        path = filedialog.askopenfilename(
-            filetypes=[("JSON files", "*.json"), ("All files", "*.*")]
-        )
-        if not path:
-            return
+    def _load_json(self):  # Defines the  load json function.
+        path = filedialog.askopenfilename(  # Sets path from the configured value or expression.
+            filetypes=[("JSON files", "*.json"), ("All files", "*.*")]  # Computes filetypes from the current input.
+        )  # Closes the continued call or expression.
+        if not path:  # Checks whether not path before entering this branch.
+            return  # Exits this function without returning a value.
 
-        try:
-            with open(path, "r", encoding="utf-8") as f:
-                data = json.load(f)
+        try:  # Starts a guarded operation whose failures are handled below.
+            with open(path, "r", encoding="utf-8") as f:  # Opens the listed resource context for this block.
+                data = json.load(f)  # Sets data from the configured value or expression.
 
-            heroes = data.get("heroes")
-            table = data.get("table")
+            heroes = data.get("heroes")  # Retrieves the current value and stores it as heroes.
+            table = data.get("table")  # Retrieves the current value and stores it as table.
 
-            if not isinstance(heroes, list) or not isinstance(table, list):
-                raise ValueError("Invalid JSON format: missing 'heroes' or 'table'.")
+            if not isinstance(heroes, list) or not isinstance(table, list):  # Checks whether not isinstance(heroes, list) or not isinstance(table, list) before entering this branch.
+                raise ValueError("Invalid JSON format: missing 'heroes' or 'table'.")  # Raises ValueError("Invalid JSON format: missing 'heroes' or 'table'.") to report this failure.
 
-            N = len(heroes)
-            if any(not isinstance(r, list) or len(r) != N for r in table) or len(table) != N:
-                raise ValueError("Invalid JSON format: 'table' must be NxN list.")
+            N = len(heroes)  # Counts the relevant entries and stores the total as n.
+            if any(not isinstance(r, list) or len(r) != N for r in table) or len(table) != N:  # Checks whether any(not isinstance(r, list) or len(r) != N for r in table) or len(table) != N before entering this branch.
+                raise ValueError("Invalid JSON format: 'table' must be NxN list.")  # Raises ValueError("Invalid JSON format: 'table' must be NxN list.") to report this failure.
 
-            self.heroes = heroes
-            self.N = N
-            self.table = table
+            self.heroes = heroes  # Sets heroes from the configured value or expression.
+            self.N = N  # Sets n from the configured value or expression.
+            self.table = table  # Sets table from the configured value or expression.
 
             # Rebuild UI
-            self.attacker_list.delete(0, "end")
-            for h in self.heroes:
-                self.attacker_list.insert("end", h)
+            self.attacker_list.delete(0, "end")  # Removes or clears the selected data from self.attacker_list.
+            for h in self.heroes:  # Processes each h from self.heroes.
+                self.attacker_list.insert("end", h)  # Adds the supplied value to self.attacker_list.
 
-            self._render_victim_rows()
-            self._select_attacker(0)
+            self._render_victim_rows()  # Calls self._render_victim_rows to perform this step.
+            self._select_attacker(0)  # Calls self._select_attacker to perform this step.
 
-            messagebox.showinfo("Loaded", f"Loaded:\n{os.path.basename(path)}")
-        except Exception as e:
-            messagebox.showerror("Load failed", str(e))
+            messagebox.showinfo("Loaded", f"Loaded:\n{os.path.basename(path)}")  # Calls messagebox.showinfo to perform this step.
+        except Exception as e:  # Handles Exception as e raised by the guarded operation.
+            messagebox.showerror("Load failed", str(e))  # Calls messagebox.showerror to perform this step.
 
-    def _open_hero_editor(self):
-        win = tk.Toplevel(self.root)
-        win.title("Edit Hero List")
-        win.geometry("520x520")
-        win.minsize(420, 420)
+    def _open_hero_editor(self):  # Defines the  open hero editor function.
+        win = tk.Toplevel(self.root)  # Creates a Toplevel object for win.
+        win.title("Edit Hero List")  # Sets the window title.
+        win.geometry("520x520")  # Sets the window size.
+        win.minsize(420, 420)  # Calls win.minsize to perform this step.
 
-        frame = ttk.Frame(win, padding=10)
-        frame.pack(fill="both", expand=True)
-        frame.grid_rowconfigure(1, weight=1)
-        frame.grid_columnconfigure(0, weight=1)
+        frame = ttk.Frame(win, padding=10)  # Creates a Frame object for frame.
+        frame.pack(fill="both", expand=True)  # Places frame in the interface layout.
+        frame.grid_rowconfigure(1, weight=1)  # Calls frame.grid_rowconfigure to perform this step.
+        frame.grid_columnconfigure(0, weight=1)  # Calls frame.grid_columnconfigure to perform this step.
 
-        ttk.Label(frame, text="One hero per line.", style="Small.TLabel").grid(row=0, column=0, sticky="w")
+        ttk.Label(frame, text="One hero per line.", style="Small.TLabel").grid(row=0, column=0, sticky="w")  # Calls ttk.Label to perform this step.
 
-        txt = tk.Text(frame, wrap="none", height=20)
-        txt.grid(row=1, column=0, sticky="nsew", pady=(6, 8))
-        txt.configure(font=("Consolas", 10))
-        txt.insert("1.0", "\n".join(self.heroes))
+        txt = tk.Text(frame, wrap="none", height=20)  # Creates a Text object for txt.
+        txt.grid(row=1, column=0, sticky="nsew", pady=(6, 8))  # Places txt in the interface layout.
+        txt.configure(font=("Consolas", 10))  # Configures txt for the desired interface behavior or appearance.
+        txt.insert("1.0", "\n".join(self.heroes))  # Adds the supplied value to txt.
 
-        btns = ttk.Frame(frame)
-        btns.grid(row=2, column=0, sticky="we")
-        btns.grid_columnconfigure(2, weight=1)
+        btns = ttk.Frame(frame)  # Creates a Frame object for btns.
+        btns.grid(row=2, column=0, sticky="we")  # Places btns in the interface layout.
+        btns.grid_columnconfigure(2, weight=1)  # Calls btns.grid_columnconfigure to perform this step.
 
-        def apply_changes():
-            lines = [ln.strip() for ln in txt.get("1.0", "end").splitlines()]
-            new_heroes = [h for h in lines if h]
-            if len(new_heroes) < 2:
-                messagebox.showerror("Invalid", "Need at least 2 heroes.")
-                return
+        def apply_changes():  # Defines the Apply changes function.
+            lines = [ln.strip() for ln in txt.get("1.0", "end").splitlines()]  # Retrieves the current value and stores it as lines.
+            new_heroes = [h for h in lines if h]  # Builds new heroes by transforming the selected input entries.
+            if len(new_heroes) < 2:  # Checks whether len(new_heroes) < 2 before entering this branch.
+                messagebox.showerror("Invalid", "Need at least 2 heroes.")  # Calls messagebox.showerror to perform this step.
+                return  # Exits this function without returning a value.
 
             # If size changes, reinitialize table conservatively:
             # - Keep overlap where possible
-            old_heroes = self.heroes
-            old_table = self.table
-            old_index = {h: i for i, h in enumerate(old_heroes)}
+            old_heroes = self.heroes  # Sets old heroes from the configured value or expression.
+            old_table = self.table  # Sets old table from the configured value or expression.
+            old_index = {h: i for i, h in enumerate(old_heroes)}  # Builds old index as a lookup table from the selected entries.
 
-            N = len(new_heroes)
-            new_table = [[2 for _ in range(N)] for __ in range(N)]
+            N = len(new_heroes)  # Counts the relevant entries and stores the total as n.
+            new_table = [[2 for _ in range(N)] for __ in range(N)]  # Builds new table by transforming the selected input entries.
 
-            for a_name in new_heroes:
-                for v_name in new_heroes:
-                    if a_name in old_index and v_name in old_index:
-                        new_table[new_heroes.index(a_name)][new_heroes.index(v_name)] = old_table[old_index[a_name]][old_index[v_name]]
+            for a_name in new_heroes:  # Processes each a_name from new_heroes.
+                for v_name in new_heroes:  # Processes each v_name from new_heroes.
+                    if a_name in old_index and v_name in old_index:  # Checks whether a_name in old_index and v_name in old_index before entering this branch.
+                        new_table[new_heroes.index(a_name)][new_heroes.index(v_name)] = old_table[old_index[a_name]][old_index[v_name]]  # Provides this value as an entry in the enclosing data structure.
 
-            self.heroes = new_heroes
-            self.N = N
-            self.table = new_table
+            self.heroes = new_heroes  # Sets heroes from the configured value or expression.
+            self.N = N  # Sets n from the configured value or expression.
+            self.table = new_table  # Sets table from the configured value or expression.
 
             # rebuild UI
-            self.attacker_list.delete(0, "end")
-            for h in self.heroes:
-                self.attacker_list.insert("end", h)
+            self.attacker_list.delete(0, "end")  # Removes or clears the selected data from self.attacker_list.
+            for h in self.heroes:  # Processes each h from self.heroes.
+                self.attacker_list.insert("end", h)  # Adds the supplied value to self.attacker_list.
 
-            self._render_victim_rows()
-            self._select_attacker(0)
-            win.destroy()
+            self._render_victim_rows()  # Calls self._render_victim_rows to perform this step.
+            self._select_attacker(0)  # Calls self._select_attacker to perform this step.
+            win.destroy()  # Calls win.destroy to perform this step.
 
-        def load_from_txt():
-            path = filedialog.askopenfilename(filetypes=[("Text files", "*.txt"), ("All files", "*.*")])
-            if not path:
-                return
-            try:
-                with open(path, "r", encoding="utf-8") as f:
-                    txt.delete("1.0", "end")
-                    txt.insert("1.0", f.read())
-            except Exception as e:
-                messagebox.showerror("Load failed", str(e))
+        def load_from_txt():  # Defines the Load from txt function.
+            path = filedialog.askopenfilename(filetypes=[("Text files", "*.txt"), ("All files", "*.*")])  # Computes path from the current input.
+            if not path:  # Checks whether not path before entering this branch.
+                return  # Exits this function without returning a value.
+            try:  # Starts a guarded operation whose failures are handled below.
+                with open(path, "r", encoding="utf-8") as f:  # Opens the listed resource context for this block.
+                    txt.delete("1.0", "end")  # Removes or clears the selected data from txt.
+                    txt.insert("1.0", f.read())  # Adds the supplied value to txt.
+            except Exception as e:  # Handles Exception as e raised by the guarded operation.
+                messagebox.showerror("Load failed", str(e))  # Calls messagebox.showerror to perform this step.
 
-        ttk.Button(btns, text="Load .txt…", command=load_from_txt).grid(row=0, column=0, padx=(0, 6))
-        ttk.Button(btns, text="Apply", command=apply_changes).grid(row=0, column=1, padx=(0, 6))
-        ttk.Button(btns, text="Cancel", command=win.destroy).grid(row=0, column=3, sticky="e")
+        ttk.Button(btns, text="Load .txt…", command=load_from_txt).grid(row=0, column=0, padx=(0, 6))  # Calls ttk.Button to perform this step.
+        ttk.Button(btns, text="Apply", command=apply_changes).grid(row=0, column=1, padx=(0, 6))  # Calls ttk.Button to perform this step.
+        ttk.Button(btns, text="Cancel", command=win.destroy).grid(row=0, column=3, sticky="e")  # Calls ttk.Button to perform this step.
 
-        ttk.Label(frame, text="Tip: keep your list order stable if you rely on attackerIndex * N + victimIndex.", style="Small.TLabel").grid(
-            row=3, column=0, sticky="w", pady=(8, 0)
-        )
-
-
-def main():
-    root = tk.Tk()
-    app = SwitchboardApp(root)
-    root.mainloop()
+        ttk.Label(frame, text="Tip: keep your list order stable if you rely on attackerIndex * N + victimIndex.", style="Small.TLabel").grid(  # Calls ttk.Label to perform this step.
+            row=3, column=0, sticky="w", pady=(8, 0)  # Computes row from the current input.
+        )  # Closes the continued call or expression.
 
 
-if __name__ == "__main__":
-    main()
+def main():  # Defines the Main function.
+    root = tk.Tk()  # Creates a Tk object for root.
+    app = SwitchboardApp(root)  # Sets app from the configured value or expression.
+    root.mainloop()  # Starts the GUI event loop.
+
+
+if __name__ == "__main__":  # Checks whether __name__ == "__main__" before entering this branch.
+    main()  # Calls main to perform this step.

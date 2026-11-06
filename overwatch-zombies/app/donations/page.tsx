@@ -35,6 +35,7 @@ function DonationCard() {
 export default function Donations() {
   return (
     <main>
+      {/* The support page pairs its purpose statement with the project's no-gameplay-benefits clarification. */}
       <PageHero eyebrow="Support the Project" title="Donations">
         <p>Support continued development. Donations do not provide gameplay advantages or exclusive items.</p>
       </PageHero>

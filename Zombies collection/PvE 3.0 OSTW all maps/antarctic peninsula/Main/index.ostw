@@ -4,23 +4,21 @@
  ========================================================================
 */
 
+import "../../== Corelogic All maps/general main/Core-arrays.ostw";
+import "../../== Corelogic All maps/general main/coreIndex.ostw";
+import "../../== Corelogic All maps/general main/CoreSubroutines.ostw";
 
-import "../../== Corelogic all maps/general main/the-rest.ostw";
-import "../../== Corelogic all maps/general main/CoreGlobal.ostw";
-import "../../== Corelogic all maps/general main/CorePlayer.ostw";
-import "../../== Corelogic all maps/general main/CoreSubroutines.ostw";
+import "../../== Corelogic All maps/player main/ammoSystem.ostw";
+import "../../== Corelogic All maps/player main/followers.ostw";
+import "../../== Corelogic All maps/player main/pack-a-punch.ostw";
+import "../../== Corelogic All maps/player main/playerlogic.ostw";
+import "../../== Corelogic All maps/player main/perklogic.ostw";
+import "../../== Corelogic All maps/player main/purchaseActions.ostw";
+import "../../== Corelogic All maps/player main/XPsystem.ostw";
 
-import "../../== Corelogic all maps/player main/ammoSystem.ostw";
-import "../../== Corelogic all maps/player main/followers.ostw";
-import "../../== Corelogic all maps/player main/pack-a-punch.ostw";
-import "../../== Corelogic all maps/player main/playerlogic.ostw";
-import "../../== Corelogic all maps/player main/perklogic.ostw";
-import "../../== Corelogic all maps/player main/purchaseActions.ostw";
-import "../../== Corelogic all maps/player main/XPsystem.ostw";
+import "../../== Corelogic All maps/bot logic/bot-logic.ostw";
 
-import "../../== Corelogic all maps/bot logic/bot-logic.ostw";
-
-import "../../== Corelogic all maps/tooling/dev-tools.ostw";
+import "../../== Corelogic All maps/tooling/dev-tools.ostw";
 
 import "../../== Core effects All Maps/effects.ostw";
 

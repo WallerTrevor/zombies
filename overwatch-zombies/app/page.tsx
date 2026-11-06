@@ -1,3 +1,4 @@
+// Feature records keep the media, heading, and summary together for the shared card layout below.
 const features = [
   ["intro.webm", "The Beginning of the Zombie Invasion", "A cinematic introduction to the corrupted world."],
   ["zones.webm", "Explore Three Unique Zones", "Learn routes, unlock new areas, and survive escalating waves."],
@@ -10,6 +11,7 @@ const features = [
 export default function Home() {
   return (
     <main>
+      {/* The hero introduces the mode; the feature grid and final CTA provide the two follow-up paths. */}
       <section className="hero">
         <div className="hero__bg" aria-hidden="true">
           <video autoPlay muted loop playsInline preload="metadata" poster="/assets/images/map-kingsrow.jpg">

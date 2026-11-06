@@ -1,20 +1,20 @@
-import "../Main/index.ostw";
+﻿import "../Main/index.ostw";
 
 rule: "202 Purchase hero message"
 Event.OngoingPlayer
 Team.Team1
-if (extraPlayerVar[4] == false)
-if (IsTrueForAny(twoDvectorsArray[2], DistanceBetween(ArrayElement(), EventPlayer()) < 2) == true)
+if (heroBuyMessTimer == false)
+if (IsTrueForAny(buyheros, DistanceBetween(ArrayElement(), EventPlayer()) < 2) == true)
 {
-    for (i = 0; CountOf(twoDvectorsArray[2]); 1)
+    for (i = 0; CountOf(buyheros); 1)
     {
-        if (DistanceBetween(EventPlayer(), twoDvectorsArray[2][i]) < 2)
+        if (DistanceBetween(EventPlayer(), buyheros[i]) < 2)
         {
             Wait(0.1, WaitBehavior.IgnoreCondition);
-            SmallMessage(EventPlayer(), <"<0> Press: <1> for Hero = <2>", HeroIconString(etcArray[5][i]), InputBindingString(Button.Interact), <"<0> Points -- Hold: <1> for follower = <2>", RoundToInteger(twoDnumbersArray[6][i] * costmultiplier, Rounding.Nearest), InputBindingString(Button.Reload), <"<0> Points --- Ammo cost <1>", RoundToInteger(twoDnumbersArray[6][i] / 3 * costmultiplier, Rounding.Nearest), RoundToInteger(twoDnumbersArray[6][i] / 2 * costmultiplier, Rounding.Nearest)>>>);
-            extraPlayerVar[4] = true;
+            SmallMessage(EventPlayer(), <"<0> Press: <1> for Hero = <2>", HeroIconString(hero[i]), InputBindingString(Button.Interact), <"<0> Points -- Hold: <1> for follower = <2>", RoundToInteger(herobuycosts[i] * costmultiplier, Rounding.Nearest), InputBindingString(Button.Reload), <"<0> Points --- Ammo cost <1>", RoundToInteger(herobuycosts[i] / 3 * costmultiplier, Rounding.Nearest), RoundToInteger(herobuycosts[i] / 2 * costmultiplier, Rounding.Nearest)>>>);
+            heroBuyMessTimer = true;
             Wait(5, WaitBehavior.IgnoreCondition);
-            extraPlayerVar[4] = false;
+            heroBuyMessTimer = false;
             break;
         }
     }
@@ -23,43 +23,43 @@ if (IsTrueForAny(twoDvectorsArray[2], DistanceBetween(ArrayElement(), EventPlaye
 rule: "Purchase Mystery Box message"
 Event.OngoingPlayer
 Team.Team1
-if (extraPlayerVar[5] == false)
-if (DistanceBetween(EventPlayer(), extraVar[25]) <= 2)
-if (extraVar[25] != null)
+if (mysteryBuyMessTimer == false)
+if (DistanceBetween(EventPlayer(), rngbox) <= 2)
+if (rngbox != null)
 {
     Wait(0.1, WaitBehavior.IgnoreCondition);
     SmallMessage(EventPlayer(), <"<0> Press: <1> for Mystery Hero = <2>", HeroIconString(Hero.Ramattra), InputBindingString(Button.Interact), <"<0> Points -- Hold: <1> for follower = <2> Points", RoundToInteger(950 * costmultiplier, Rounding.Nearest), InputBindingString(Button.Reload), RoundToInteger(316.667 * costmultiplier, Rounding.Nearest)>>);
-    extraPlayerVar[5] = true;
+    mysteryBuyMessTimer = true;
     Wait(5, WaitBehavior.IgnoreCondition);
-    extraPlayerVar[5] = false;
+    mysteryBuyMessTimer = false;
 }
 
 rule: "Purchase perk machine message"
 Event.OngoingPlayer
 Team.Team1
-if (extraPlayerVar[6] == false)
-if (IsTrueForAny(twoDvectorsArray[3], [DistanceBetween(ArrayElement(), EventPlayer()) < 2]) == true)
+if (perkBuyMessTimer == false)
+if (IsTrueForAny(buyperks, [DistanceBetween(ArrayElement(), EventPlayer()) < 2]) == true)
 if (powerconnected == true)
 {
-    for (i = 0; CountOf(twoDvectorsArray[3]); 1)
+    for (i = 0; CountOf(buyperks); 1)
     {
-        if (DistanceBetween(EventPlayer(), twoDvectorsArray[3][i]) < 2)
+        if (DistanceBetween(EventPlayer(), buyperks[i]) < 2)
         {
             if (i != 6)
             {
                 Wait(0.1, WaitBehavior.IgnoreCondition);
-                SmallMessage(EventPlayer(), <"<0> Press: <1> for Perk = <2>", HeroIconString(Hero.Ramattra), InputBindingString(Button.Interact), <"<0> == <1> Points", perkNames[i], RoundToInteger(twoDnumbersArray2[2][i] * costmultiplier, Rounding.Nearest)>>);
-                extraPlayerVar[6] = true;
+                SmallMessage(EventPlayer(), <"<0> Press: <1> for Perk = <2>", HeroIconString(Hero.Ramattra), InputBindingString(Button.Interact), <"<0> == <1> Points", perkNames[i], RoundToInteger(perkcosts[i] * costmultiplier, Rounding.Nearest)>>);
+                perkBuyMessTimer = true;
                 Wait(5, WaitBehavior.IgnoreCondition);
-                extraPlayerVar[6] = false;
+                perkBuyMessTimer = false;
                 break;
             }
             else
             {
                 SmallMessage(EventPlayer(), <"<0> Press: <1> To connect power", HeroIconString(Hero.Ramattra), InputBindingString(Button.Interact)>);
-                extraPlayerVar[6] = true;
+                perkBuyMessTimer = true;
                 Wait(5, WaitBehavior.IgnoreCondition);
-                extraPlayerVar[6] = false;
+                perkBuyMessTimer = false;
                 break;
             }
         }
@@ -76,7 +76,7 @@ disabled rule: "195 credits"
 }
 
 rule: "all the effects (local player huds)"
-if (extraVar[3] == 1)
+if (start == 1)
 {
     # if experiencesystem == 1:\nprogressBarHud(eventPlayer, eventPlayer.xp[eventPlayer.currentheroxp], \"current level {0}\".format(eventPlayer.XPlevel[eventPlayer.currentheroxp]), HudPosition.TOP, 0, Color.GREEN, Color.BLUE, ProgressHudReeval.VALUES)
     Wait(4, WaitBehavior.IgnoreCondition);
@@ -90,7 +90,7 @@ if (extraVar[3] == 1)
     CreateHudText(LocalPlayer(), null, "\n\n", null, Location.Right, 8, null, Color.Green, null, HudTextRev.VisibleTo, Spectators.VisibleNever);
     CreateHudText(LocalPlayer(), null, null, <"Heroes <0> <1>  <2>", FirstOf(LocalPlayer().heroiconswap), LocalPlayer().heroiconswap[1], InputBindingString(Button.Crouch)>, Location.Right, 9, null, null, Color.White, HudTextRev.VisibleToAndString, Spectators.DefaultVisibility);
     CreateHudText(LocalPlayer(), null, null, <"Follower: <0>", HeroIconString(HeroOf(PlayersInSlot(SlotOf(LocalPlayer()) + 4, Team.Team1)))>, Location.Left, 5, null, null, Color.White, HudTextRev.VisibleToAndString, Spectators.DefaultVisibility);
-    CreateHudText(LocalPlayer(), null, null, <"<0>", etcArray[3][romanNcounter]>, Location.Left, 7, null, null, Color.Orange, HudTextRev.VisibleToAndString, Spectators.DefaultVisibility);
+    CreateHudText(LocalPlayer(), null, null, <"<0>", romanN[romanNcounter]>, Location.Left, 7, null, null, Color.Orange, HudTextRev.VisibleToAndString, Spectators.DefaultVisibility);
     CreateHudText(LocalPlayer(), null, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", null, Location.Right, 1, null, Color.Green, null, HudTextRev.VisibleTo, Spectators.VisibleNever);
     CreateHudText(LocalPlayer(), null, "\n\n", null, Location.Right, 6, null, Color.Green, null, HudTextRev.VisibleTo, Spectators.VisibleNever);
     CreateHudText(LocalPlayer(), null, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", null, Location.Top, 1, null, Color.Green, null, HudTextRev.VisibleTo, Spectators.VisibleNever);
@@ -122,7 +122,7 @@ disabled rule: "194 achivements menu"
 rule: "info UI cancel"
 Event.OngoingPlayer
 Team.Team1
-if (extraVar[3] > 0)
+if (start > 0)
 {
     SkipIf(CountOf(InfoUI) == false, 5);
     DestroyHudText(InfoUI[CountOf(InfoUI) - 1]);
@@ -135,7 +135,7 @@ if (extraVar[3] > 0)
 
 rule: "Info UI"
 Event.OngoingPlayer
-if (extraVar[3] == false)
+if (start == false)
 {
     # might make this a subroutine and then let it be a toggle players can use to read while playing\nhudSubtext(eventPlayer, \".\", HudPosition.LEFT, 1, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)\neventPlayer.InfoUI.append(getLastCreatedText())\nwait()
     CreateHudText(EventPlayer(), null, null, "Hold spacebar for perk info, and use crouch to switch heros.", Location.Left, 15, null, null, Color.Green, HudTextRev.VisibleToAndString, Spectators.DefaultVisibility);
@@ -200,7 +200,7 @@ if (extraVar[3] == false)
 disabled rule: "fun fact system (make this on main menu, or its only when the team dies on a game over screen)"
 Event.OngoingPlayer
 Team.Team1
-if (extraVar[3] == false)
+if (start == false)
 {
     Wait(3, WaitBehavior.IgnoreCondition);
     CreateHudText(EventPlayer(), null, null, <"Tip: <0>", RandomValueInArray(FirstOf(etcArray))>, Location.Right, 0, null, null, Color.White, HudTextRev.VisibleToAndString, Spectators.DefaultVisibility);
@@ -210,7 +210,7 @@ if (extraVar[3] == false)
 
 rule: "521 settings screen message (i feel like a small message isnt what i want)"
 Event.OngoingPlayer
-if (extraVar[3] == 2)
+if (start == 2)
 {
     SmallMessage(EventPlayer(), "Press crouch to go back!");
     Wait(8, WaitBehavior.IgnoreCondition);
@@ -266,11 +266,11 @@ if (perkinfo == 1)
 disabled rule: "perk info simplified"
 Event.OngoingPlayer
 Team.Team1
-if (extraVar[3] == 1)
+if (start == 1)
 if (perkinfo == false)
 {
     # this could be a loop
-    SkipIf(FirstOf(extraVar) > 0, 1);
+    SkipIf(roundnumber > 0, 1);
     Wait(9, WaitBehavior.IgnoreCondition);
     for (i = 0; CountOf(Perkui); 1)
     {
@@ -291,32 +291,32 @@ if (perkinfo == false)
 rule: "settings page (not finished)"
 Event.OngoingPlayer
 Team.Team1
-if (extraVar[3] == 2)
+if (start == 2)
 {
     StartCamera(EventPlayer(), Vector(169.539, 51.549, 424.869), Vector(183.415, 49.892, 412.655), 0);
     CreateHudText(AllPlayers(Team.All), "Difficulty settings:", null, null, Location.Top, 0, Color.White, null, null, HudTextRev.VisibleToAndString, Spectators.DefaultVisibility);
-    CreateHudText(EventPlayer(), null, null, <"Damage recieved: <0>", extraVar[2]>, Location.Top, 0, null, null, Color.Red, HudTextRev.VisibleToAndString, Spectators.DefaultVisibility);
+    CreateHudText(EventPlayer(), null, null, <"Damage recieved: <0>", Difficulty>, Location.Top, 0, null, null, Color.Red, HudTextRev.VisibleToAndString, Spectators.DefaultVisibility);
     CreateHudText(EventPlayer(), null, null, "bonus points: 0", Location.Top, 0, null, null, Color.Red, HudTextRev.VisibleToAndString, Spectators.DefaultVisibility);
     CreateHudText(AllPlayers(Team.All), "Stability settings:", null, null, Location.Top, 0, Color.White, null, null, HudTextRev.VisibleToAndString, Spectators.DefaultVisibility);
-    CreateHudText(EventPlayer(), null, null, <"less zombies: <0>", extraVar[13]>, Location.Top, 0, null, null, Color.Red, HudTextRev.VisibleToAndString, Spectators.DefaultVisibility);
+    CreateHudText(EventPlayer(), null, null, <"less zombies: <0>", lesszomb>, Location.Top, 0, null, null, Color.Red, HudTextRev.VisibleToAndString, Spectators.DefaultVisibility);
 }
 
 rule: "settings page initial control"
 Event.OngoingPlayer
-if (extraVar[3] != 1)
+if (start != 1)
 {
     # could probably use a if-then-else here unless double if doesnt work with this
-    if (extraVar[3] == false)
+    if (start == false)
     {
         if (IsButtonHeld(EventPlayer(), Button.Melee))
         {
-            extraVar[3] = 2;
+            start = 2;
         }
-        else if (extraVar[3] == 2)
+        else if (start == 2)
         {
             if (IsButtonHeld(EventPlayer(), Button.Crouch))
             {
-                extraVar[3] = false;
+                start = false;
             }
         }
     }

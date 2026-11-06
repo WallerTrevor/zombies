@@ -17,7 +17,7 @@ rule "172 FOLLOWERS  winston Omnic bomb":
     getPlayersInSlot(6, Team.1).detach()
     wait(0.2)
     getPlayersInSlot(6, Team.1).forceButtonPress(Button.JUMP)
-    getPlayersInSlot(6, Team.1).applyImpulse(vectorTowards(eventPlayer, getPlayersInSlot(6, Team.1)), 25, Relativity.TO_WORLD, Impulse.CANCEL_CONTRARY_MOTION)
+    getPlayersInSlot(6, Team.1).applyImpulse(vectorTowards(eventPlayer, getPlayersInSlot(6, Team.1)), 25, Relativity.TO_WORLD, Impulse.CANCEL_CONTRARY_MOTION_XYZ)
     createEffect(getAllPlayers(), Effect.BAD_AURA, Color.ORANGE, getPlayersInSlot(6, Team.1), 0.5, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
     wait(2)
     getPlayersInSlot(6, Team.1).communicate(Comms.COUNTDOWN)

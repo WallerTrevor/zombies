@@ -1,6 +1,7 @@
  "use client";
 
 import React, { useEffect, useRef, useState } from "react";
+import { trackGoatCounterEvent } from "../goatcounter-events";
 
 type Track = {
   title: string;
@@ -15,6 +16,7 @@ type Vibe = {
   tracks: Track[];
 };
 
+// Stations group their own queues so tuning can select a frequency and its first available track together.
 const VIBES: Vibe[] = [
   {
     name: "Neon Afterdark",
@@ -50,6 +52,7 @@ export default function Radio() {
   const vibe = VIBES[selectedVibe];
 
   useEffect(() => {
+    // Track changes only autoplay when requested by a station or queue selection, not on initial render.
     if (!audioRef.current || !current || !shouldAutoplayRef.current) return;
     shouldAutoplayRef.current = false;
     audioRef.current.load();
@@ -93,6 +96,7 @@ export default function Radio() {
 
   return (
     <main>
+      {/* The console combines station tuning, live playback controls, and the selected station's queue. */}
       <section className="page-hero">
         <div className="wrap page-hero__content">
           <div className="eyebrow">In-universe soundtrack</div>
@@ -146,7 +150,13 @@ export default function Radio() {
                 ref={audioRef}
                 src={current?.src}
                 controls
-                onPlay={() => setIsPlaying(true)}
+                onPlay={() => {
+                  setIsPlaying(true);
+                  if (current) {
+                    const trackSlug = current.title.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+                    trackGoatCounterEvent(`radio-play/${trackSlug}`);
+                  }
+                }}
                 onPause={() => setIsPlaying(false)}
                 onEnded={playNextTrack}
               />

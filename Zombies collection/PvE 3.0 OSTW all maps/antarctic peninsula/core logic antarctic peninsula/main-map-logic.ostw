@@ -1,4 +1,4 @@
-import "../Main/index.ostw";
+﻿import "../Main/index.ostw";
 
 
 rule: "488 button held teleporter"
@@ -7,7 +7,7 @@ Team.Team1
 
 if (IsButtonHeld(EventPlayer(), Button.Interact) == true)
 if (CountOf(PlayersWithinRadius(
-    twoDvectorsArray[5][extraVar[12]],
+    teleporterpositions[telespot],
     3,
     Team.Team1,
     RadiusLOS.Off
@@ -15,13 +15,13 @@ if (CountOf(PlayersWithinRadius(
 {
     # All living Team 1 players must be inside the teleporter radius.
     if (CountOf(AllLivingPlayers(Team.Team1)) == CountOf(PlayersWithinRadius(
-        twoDvectorsArray[5][extraVar[12]],
+        teleporterpositions[telespot],
         3,
         Team.Team1,
         RadiusLOS.Off
     )))
     {
-        if (extraVar[5] == false)
+        if (teleporterwait == false)
         {
             # might need to not use destroy effect last created, and append every single one to array then delete all
             CreateEffect(
@@ -59,7 +59,7 @@ if (CountOf(PlayersWithinRadius(
 
             SetStatus(
                 PlayersWithinRadius(
-                    twoDvectorsArray[5][extraVar[12]],
+                    teleporterpositions[telespot],
                     5,
                     Team.Team2,
                     RadiusLOS.Off
@@ -83,7 +83,7 @@ if (CountOf(PlayersWithinRadius(
 
             Kill(
                 PlayersWithinRadius(
-                    twoDvectorsArray[5][101],
+                    teleporterpositions[101],
                     5,
                     Team.Team2,
                     RadiusLOS.Off
@@ -93,31 +93,31 @@ if (CountOf(PlayersWithinRadius(
 
             DestroyEffect(zzz[1]);
 
-            extraVar[5] = 1;
+            teleporterwait = 1;
             teleportercolor = Color.Red;
 
             # needs to be set to current telespot
-            if (CountOf(twoDvectorsArray[5]) > 0)
+            if (CountOf(teleporterpositions) > 0)
             {
-                extraVar[12] =
-                    (extraVar[12] + 1) % CountOf(twoDvectorsArray[5]);
+                telespot =
+                    (telespot + 1) % CountOf(teleporterpositions);
 
                 MinWait();
 
-                extraVar[29] = 1;
+                teleporterused = 1;
                 lastsavedpos = null;
 
                 Wait(0.5, WaitBehavior.IgnoreCondition);
 
                 Teleport(
                     AllPlayers(Team.Team1),
-                    twoDvectorsArray[5][extraVar[12]]
+                    teleporterpositions[telespot]
                 );
             }
 
             Wait(0.5, WaitBehavior.IgnoreCondition);
 
-            extraVar[29] = 0;
+            teleporterused = 0;
             makedoors();
         }
     }

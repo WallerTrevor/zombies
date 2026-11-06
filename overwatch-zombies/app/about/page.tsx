@@ -1,5 +1,6 @@
 ﻿import React from "react";
 
+// Small page primitives keep the repeated hero, section, and card framing consistent on this page.
 function PageHero({ eyebrow, title, children }: { eyebrow: string; title: string; children?: React.ReactNode }) {
   return (
     <section className="page-hero">
@@ -36,6 +37,7 @@ function RoadmapCard({ title, children }: { title: string; children?: React.Reac
 export default function About() {
   return (
     <main>
+      {/* Creator introduction, project/roadmap details, and contact actions form the page's three content groups. */}
       <PageHero eyebrow="About the Creator" title="Whats good, I’m DropThatBeat">
         <p>
           Solo designer/developer behind the Overwatch Workshop mode Zombies.

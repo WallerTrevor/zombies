@@ -1,6 +1,7 @@
  "use client";
 
 import React, { useMemo, useState } from "react";
+import { trackGoatCounterEvent } from "../goatcounter-events";
 
 type MapEntry = {
   title: string;
@@ -12,6 +13,7 @@ type MapEntry = {
   tags: string;
 };
 
+// Map metadata is the source for card content and the searchable code/difficulty/boss fields.
 const MAPS: MapEntry[] = [
   {
     title: "Antarctic Peninsula",
@@ -58,6 +60,7 @@ const MAPS: MapEntry[] = [
 const DIFFICULTIES = ["All", "Beginner", "Standard", "Hard", "Endgame"];
 
 function useFilteredMaps(query: string) {
+  // Keep filtering derived from the query, avoiding a second list that could drift out of sync.
   return useMemo(() => {
     const q = query.trim().toLowerCase();
     if (!q) return MAPS;
@@ -102,6 +105,8 @@ export default function MapCodes() {
   const filtered = useFilteredMaps(query);
 
   async function copyToClipboard(code: string) {
+    trackGoatCounterEvent(`copy-code/${code.toLowerCase()}`);
+
     // navigator.clipboard may be unavailable in some environments; guard defensively
     if (navigator.clipboard?.writeText) {
       try {
@@ -111,12 +116,14 @@ export default function MapCodes() {
       }
     }
 
+    // The notice is intentionally independent of clipboard success to preserve the original feedback flow.
     setCopied(code);
     setTimeout(() => setCopied(""), 1400);
   }
 
   return (
     <main>
+      {/* Search and difficulty shortcuts feed the same filtered card grid; copied codes share one transient notice. */}
       <section className="page-hero">
         <div className="page-hero__bg">
           <video autoPlay muted loop playsInline>

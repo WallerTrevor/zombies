@@ -1,8 +1,8 @@
-
+﻿
 rule: "509 bot name singleplayer"
 
 if (NumberOfPlayers(Team.Team1) == 1)
-if (FirstOf(extraVar) > 0)
+if (roundnumber > 0)
 if (aprilrng == 50)
 {
     botNames = [
@@ -28,7 +28,7 @@ if (aprilrng == 50)
 rule: "510 bot name coop"
 if (NumberOfPlayers(Team.Team1) > 1)
 if (aprilrng == 50)
-if (FirstOf(extraVar) > 0)
+if (roundnumber > 0)
 {
     StartForcingDummyBotName(PlayersInSlot(0, Team.Team2), "77 6F 72 6B 69");
     StartForcingDummyBotName(PlayersInSlot(1, Team.Team2), "6E 67 20 74 6F");
@@ -39,7 +39,8 @@ if (FirstOf(extraVar) > 0)
 }
 
 rule: "glitch in the system" #This changes the round number to show a easter egg. it changes it to be binary for the round number.
-if (FirstOf(extraVar) < 10)
+if (roundnumber < 10)
+if (aprilrng == 25)
 {
     for (forindex = 0; forindex < 4; 1)
     {

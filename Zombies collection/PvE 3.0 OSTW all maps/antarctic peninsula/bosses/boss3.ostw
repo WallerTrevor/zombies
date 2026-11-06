@@ -1,4 +1,4 @@
-import "index.ostw";
+﻿import "index.ostw";
 
 disabled rule: "283 Imperial warmech setup ================================================"
 Event.OngoingPlayer
@@ -275,7 +275,7 @@ Event.OngoingPlayer
 Team.Team2
 Player.Moira
 if (IsDummyBot(EventPlayer()) == true)
-if (FirstOf(extraVar) == 30)
+if (roundnumber == 30)
 {
     SetHealingDealt(EventPlayer(), 0);
     SetDamageDealt(EventPlayer(), 200);

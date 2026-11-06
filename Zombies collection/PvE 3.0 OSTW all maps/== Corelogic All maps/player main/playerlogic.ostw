@@ -1,23 +1,25 @@
-
+﻿
 rule: "pack a punch ability"
 Event.OngoingPlayer
 Team.Team1
 if (FirstOf(perk) > 0)
 {
-    if (FirstOf(perk) == 1)
+    switch (FirstOf(perk))
     {
-        SetDamageDealt(EventPlayer(), 250);
-        damagevariable = 250;
-    }
-    else if (FirstOf(perk) == 2)
-    {
-        SetDamageDealt(EventPlayer(), 500);
-        damagevariable = 500;
-    }
-    else if (FirstOf(perk) == 3)
-    {
-        SetDamageDealt(EventPlayer(), 1000);
-        damagevariable = 1000;
+        case 1:
+            SetDamageDealt(EventPlayer(), 250);
+            damagevariable = 250;
+            break;
+
+        case 2:
+            SetDamageDealt(EventPlayer(), 500);
+            damagevariable = 500;
+            break;
+
+        case 3:
+            SetDamageDealt(EventPlayer(), 1000);
+            damagevariable = 1000;
+            break;
     }
 }
 
@@ -39,20 +41,20 @@ if (AltitudeOf(EventPlayer()) < 100)
 
 rule: "apply fall damage"
 Event.OngoingPlayer
-if (extraPlayerVar[1] == 1)
+if (enablefalldamage == 1)
 if (IsOnGround(EventPlayer()) == true)
-if (extraPlayerVar[2] < -15)
+if (fall_Damage_Speed < -15)
 {
-    Damage(EventPlayer(), null, AbsoluteValue(extraPlayerVar[2]) * MaxHealth(EventPlayer()) / 200 * AbsoluteValue(extraPlayerVar[2]) / 8 * 3);
+    Damage(EventPlayer(), null, AbsoluteValue(fall_Damage_Speed) * MaxHealth(EventPlayer()) / 200 * AbsoluteValue(fall_Damage_Speed) / 8 * 3);
 }
 
 rule: "Find fall speed for fall damage"
 Event.OngoingPlayer
-if (extraPlayerVar[1] == 1)
+if (enablefalldamage == 1)
 if (AltitudeOf(EventPlayer()) < 1)
 if (IsInAir(EventPlayer()) == true)
 {
-    extraPlayerVar[2] = VerticalSpeedOf(EventPlayer());
+    fall_Damage_Speed = VerticalSpeedOf(EventPlayer());
 }
 
 rule: "enable/toggle fall damage regular"
@@ -62,13 +64,13 @@ if (IsUsingAbility1(EventPlayer()) == false)
 if (IsUsingAbility2(EventPlayer()) == false)
 if (IsUsingUltimate(EventPlayer()) == false)
 {
-    if (FirstOf(heroFallDamageTable) + extraPlayerVar[3] == 1)
+    if (FirstOf(heroFallDamageTable) + fallDamageOffsetTable == 1) #needs a variable to track instead of just 1 in this and the ones below
     {
-        extraPlayerVar[1] = 1;
+        enablefalldamage = 1;
     }
     else
     {
-        extraPlayerVar[1] = false;
+        enablefalldamage = false;
     }
 }
 
@@ -77,13 +79,13 @@ Event.OngoingPlayer
 if (IsInAir(EventPlayer()) == true)
 if (IsUsingAbility1(EventPlayer()) == true)
 {
-    if (heroFallDamageTable[1] + extraPlayerVar[3] == 1)
+    if (heroFallDamageTable[1] + fallDamageOffsetTable == 1)
     {
-        extraPlayerVar[1] = 1;
+        enablefalldamage = 1;
     }
     else
     {
-        extraPlayerVar[1] = false;
+        enablefalldamage = false;
     }
 }
 
@@ -92,13 +94,13 @@ Event.OngoingPlayer
 if (IsInAir(EventPlayer()) == true)
 if (IsUsingAbility2(EventPlayer()) == true)
 {
-    if (heroFallDamageTable[2] + extraPlayerVar[3] == 1)
+    if (heroFallDamageTable[2] + fallDamageOffsetTable == 1)
     {
-        extraPlayerVar[1] = 1;
+        enablefalldamage = 1;
     }
     else
     {
-        extraPlayerVar[1] = false;
+        enablefalldamage = false;
     }
 }
 
@@ -107,21 +109,21 @@ Event.OngoingPlayer
 if (IsInAir(EventPlayer()) == true)
 if (IsUsingUltimate(EventPlayer()) == true)
 {
-    if (heroFallDamageTable[3] + extraPlayerVar[3] == 1)
+    if (heroFallDamageTable[3] + fallDamageOffsetTable == 1)
     {
-        extraPlayerVar[1] = 1;
+        enablefalldamage = 1;
     }
     else
     {
-        extraPlayerVar[1] = false;
+        enablefalldamage = false;
     }
 }
 
 rule: "hero fall damage Table"
 Event.OngoingPlayer
-Player.Soldier76
+Player.Soldier76 
 {
-    heroFallDamageTable = [];
+    heroFallDamageTable = []; #fill this in later
 }
 
 rule: "99  hero ultimate adjustments"
@@ -129,47 +131,49 @@ Event.OngoingPlayer
 Team.Team1
 if (IsUsingUltimate(EventPlayer()) == true)
 {
-    if (HeroOf(EventPlayer()) == Hero.Ashe)
+    switch (HeroOf(EventPlayer()))
     {
-        SetDamageDealt(EventPlayer(), 300);
-        Wait(10, WaitBehavior.IgnoreCondition);
-        SetDamageDealt(EventPlayer(), 100);
-    }
-    else if (HeroOf(EventPlayer()) == Hero.Widowmaker)
-    {
-        SetDamageDealt(AllPlayers(Team.Team1), 300);
-        Wait(12.5, WaitBehavior.IgnoreCondition);
-        SetDamageDealt(AllPlayers(Team.Team1), 100);
-    }
-    else if (HeroOf(EventPlayer()) == Hero.Symmetra)
-    {
-        AddHealthPoolToPlayer(AllLivingPlayers(Team.Team1), HealthType.Health, 200, false, true);
-        Wait(12.5, WaitBehavior.IgnoreCondition);
-        RemoveHealthPoolFromPlayer(LastCreatedHealthPool());
-    }
-    else if (HeroOf(EventPlayer()) == Hero.Junkrat)
-    {
-        SetStatus(EventPlayer(), null, Status.PhasedOut, 10);
-    }
-    else if (HeroOf(EventPlayer()) == Hero.Mercy)
-    {
-        Resurrect(AllDeadPlayers(Team.Team1));
-    }
-    else if (HeroOf(EventPlayer()) == Hero.Zenyatta)
-    {
-        SetStatus(EventPlayer(), null, Status.PhasedOut, 6);
-    }
-    else if (HeroOf(EventPlayer()) == Hero.Cassidy)
-    {
-        SetGravity(EventPlayer(), 0);
-        WaitUntil(false, 7);
-        SetGravity(EventPlayer(), 100);
-    }
-    else if (HeroOf(EventPlayer()) == Hero.Lucio)
-    {
-        AddHealthPoolToPlayer(AllLivingPlayers(Team.Team1), HealthType.Health, 500, false, false);
-        Wait(10, WaitBehavior.IgnoreCondition);
-        RemoveAllHealthPoolsFromPlayer(AllLivingPlayers(Team.Team1));
+        case Hero.Ashe:
+            SetDamageDealt(EventPlayer(), 300);
+            Wait(10, WaitBehavior.IgnoreCondition);
+            SetDamageDealt(EventPlayer(), 100);
+            break;
+
+        case Hero.Widowmaker:
+            SetDamageDealt(AllPlayers(Team.Team1), 300);
+            Wait(12.5, WaitBehavior.IgnoreCondition);
+            SetDamageDealt(AllPlayers(Team.Team1), 100);
+            break;
+
+        case Hero.Symmetra:
+            AddHealthPoolToPlayer(AllLivingPlayers(Team.Team1), HealthType.Health, 200, false, true);
+            Wait(12.5, WaitBehavior.IgnoreCondition);
+            RemoveHealthPoolFromPlayer(LastCreatedHealthPool());
+            break;
+
+        case Hero.Junkrat:
+            SetStatus(EventPlayer(), null, Status.PhasedOut, 10);
+            break;
+
+        case Hero.Mercy:
+            Resurrect(AllDeadPlayers(Team.Team1));
+            break;
+
+        case Hero.Zenyatta:
+            SetStatus(EventPlayer(), null, Status.PhasedOut, 6);
+            break;
+
+        case Hero.Cassidy:
+            SetGravity(EventPlayer(), 0);
+            WaitUntil(false, 7);
+            SetGravity(EventPlayer(), 100);
+            break;
+
+        case Hero.Lucio:
+            AddHealthPoolToPlayer(AllLivingPlayers(Team.Team1), HealthType.Health, 500, false, false);
+            Wait(10, WaitBehavior.IgnoreCondition);
+            RemoveAllHealthPoolsFromPlayer(AllLivingPlayers(Team.Team1));
+            break;
     }
 }
 
@@ -212,21 +216,11 @@ Team.Team1
 if (AllLivingPlayers(Team.Team1) == true)
 if (NumberOfPlayers(Team.Team1) == 1)
 {
-    if (NumberOfPlayers(Team.Team1) == 1)
-    {
-        # need to disable built in health regen as well
-        StopHealOverTime(healovertime);
-        Wait(5, WaitBehavior.RestartWhenTrue);
-        StartHealOverTime(EventPlayer(), EventPlayer(), 3, 4 * healvariable);
-        healovertime = LastHealOverTime();
-    }
-    else if (NumberOfPlayers(Team.Team1) > 1)
-    {
-        StopHealOverTime(healovertime);
-        Wait(5, WaitBehavior.RestartWhenTrue);
-        StartHealOverTime(EventPlayer(), EventPlayer(), 3, 4 * healvariable);
-        healovertime = LastHealOverTime();
-    }
+    # need to disable built in health regen as well
+    StopHealOverTime(healovertime);
+    Wait(5, WaitBehavior.RestartWhenTrue);
+    StartHealOverTime(EventPlayer(), EventPlayer(), 3, 4 * healvariable);
+    healovertime = LastHealOverTime();
 }
 
 rule: "245 Rule 388 tank sheild"
@@ -235,29 +229,16 @@ Team.Team1
 if (IsButtonHeld(EventPlayer(), Button.SecondaryFire) == true)
 if (IsAlive(EventPlayer()) == true)
 {
-    if (HeroOf(EventPlayer()) == Hero.Sigma)
+    switch (HeroOf(EventPlayer()))
     {
-        AddHealthPoolToPlayer(EventPlayer(), HealthType.Health, 100, false, false);
-        Wait(10, WaitBehavior.IgnoreCondition);
-        RemoveAllHealthPoolsFromPlayer(EventPlayer());
-    }
-    else if (HeroOf(EventPlayer()) == Hero.Reinhardt)
-    {
-        AddHealthPoolToPlayer(EventPlayer(), HealthType.Health, 100, false, false);
-        Wait(10, WaitBehavior.IgnoreCondition);
-        RemoveAllHealthPoolsFromPlayer(EventPlayer());
-    }
-    else if (HeroOf(EventPlayer()) == Hero.Dva)
-    {
-        AddHealthPoolToPlayer(EventPlayer(), HealthType.Health, 100, false, false);
-        Wait(10, WaitBehavior.IgnoreCondition);
-        RemoveAllHealthPoolsFromPlayer(EventPlayer());
-    }
-    else if (HeroOf(EventPlayer()) == Hero.Ramattra)
-    {
-        AddHealthPoolToPlayer(EventPlayer(), HealthType.Health, 100, false, false);
-        Wait(10, WaitBehavior.IgnoreCondition);
-        RemoveAllHealthPoolsFromPlayer(EventPlayer());
+        case Hero.Sigma:
+        case Hero.Reinhardt:
+        case Hero.Dva:
+        case Hero.Ramattra:
+            AddHealthPoolToPlayer(EventPlayer(), HealthType.Health, 100, false, false);
+            Wait(10, WaitBehavior.IgnoreCondition);
+            RemoveAllHealthPoolsFromPlayer(EventPlayer());
+            break;
     }
 }
 
@@ -269,8 +250,8 @@ Team.Team1
     {
         if (!EventWasCriticalHit())
         {
-            points += (50 + heropoints * H) * roundpointmultiplier ^ (FirstOf(extraVar) - 1);
-            extraVar[30] += (50 + heropoints * H) * roundpointmultiplier ^ (FirstOf(extraVar) - 1);
+            points += (50 + heropoints * H) * roundpointmultiplier ^ (roundnumber - 1);
+            ramPoints += (50 + heropoints * H) * roundpointmultiplier ^ (roundnumber - 1);
             ChaseVariableAtRate(points2, EvaluateOnce(points) * H, 1000, RateChaseReevaluation.DestinationAndRate);
             SkipIf(H != 1, 1);
             SkipIf(H == 1, 1);
@@ -279,8 +260,8 @@ Team.Team1
         }
         else if (EventWasCriticalHit())
         {
-            points += (100 + heropoints * H) * roundpointmultiplier ^ (FirstOf(extraVar) - 1);
-            extraVar[30] += (100 + heropoints * H) * roundpointmultiplier ^ (FirstOf(extraVar) - 1);
+            points += (100 + heropoints * H) * roundpointmultiplier ^ (roundnumber - 1);
+            ramPoints += (100 + heropoints * H) * roundpointmultiplier ^ (roundnumber - 1);
             ChaseVariableAtRate(points2, EvaluateOnce(points) * H, 1000, RateChaseReevaluation.DestinationAndRate);
             SkipIf(H != 1, 1);
             SkipIf(H == 1, 1);
@@ -290,8 +271,8 @@ Team.Team1
     }
     else if (IsMeleeing(EventPlayer()))
     {
-        points += (60 + heropoints * H) * roundpointmultiplier ^ (FirstOf(extraVar) - 1);
-        extraVar[30] += (60 + heropoints * H) * roundpointmultiplier ^ (FirstOf(extraVar) - 1);
+        points += (60 + heropoints * H) * roundpointmultiplier ^ (roundnumber - 1);
+        ramPoints += (60 + heropoints * H) * roundpointmultiplier ^ (roundnumber - 1);
         ChaseVariableAtRate(points2, EvaluateOnce(points) * H, 250, RateChaseReevaluation.DestinationAndRate);
         SkipIf(H != 1, 1);
         SkipIf(H == 1, 1);
@@ -322,8 +303,8 @@ Team.Team1
             {
                 heropoints = 10;
             }
-            points += (40 + heropoints * H) * roundpointmultiplier ^ (FirstOf(extraVar) - 1);
-            extraVar[30] += (40 + heropoints * H) * roundpointmultiplier ^ (FirstOf(extraVar) - 1);
+            points += (40 + heropoints * H) * roundpointmultiplier ^ (roundnumber - 1);
+            ramPoints += (40 + heropoints * H) * roundpointmultiplier ^ (roundnumber - 1);
             SkipIf(H != 1, 1);
             SkipIf(H == 1, 1);
             R += 80 * H;
@@ -343,8 +324,8 @@ Team.Team1
             {
                 heropoints = 20;
             }
-            points += (80 + heropoints * H) * roundpointmultiplier ^ (FirstOf(extraVar) - 1);
-            extraVar[30] += (80 + heropoints * H) * roundpointmultiplier ^ (FirstOf(extraVar) - 1);
+            points += (80 + heropoints * H) * roundpointmultiplier ^ (roundnumber - 1);
+            ramPoints += (80 + heropoints * H) * roundpointmultiplier ^ (roundnumber - 1);
             SkipIf(H != 1, 1);
             SkipIf(H == 1, 1);
             R += 160 * H;
@@ -365,8 +346,8 @@ Team.Team1
         {
             heropoints = 30;
         }
-        points += (70 + heropoints * H) * roundpointmultiplier ^ (FirstOf(extraVar) - 1);
-        extraVar[30] += (70 + heropoints * H) * roundpointmultiplier ^ (FirstOf(extraVar) - 1);
+        points += (70 + heropoints * H) * roundpointmultiplier ^ (roundnumber - 1);
+        ramPoints += (70 + heropoints * H) * roundpointmultiplier ^ (roundnumber - 1);
         ChaseVariableAtRate(points2, EvaluateOnce(points) * H, 250, RateChaseReevaluation.DestinationAndRate);
         SkipIf(H != 1, 1);
         SkipIf(H == 1, 1);
@@ -508,11 +489,11 @@ if (Healee() != Healer())
     Healer().points += 50;
 }
 
-rule: "slowmo camera final b­low"
+rule: "slowmo camera final bÂ­low"
 Event.OnFinalBlow
 Team.Team1
-if (extraVar[1] <= 1)
-if (extraVar[22] == 1)
+if (numberOfZombies <= 1)
+if (rngCamera == 1)
 {
     StartCamera(AllPlayers(Team.All), Vector(EvaluateOnce(RandomInteger(-3, 4)), 0, EvaluateOnce(RandomInteger(-3, 4))) + EyePosition(Victim()), EyePosition(Victim()), 0);
     SetSlowMotion(25);
@@ -592,19 +573,27 @@ Event.OngoingPlayer
 if (ArrayContains(AllDamageHeroes(), HeroOf(EventPlayer())) == true)
 {
     if (spawntype < 4)
-    {
-        # these could be a for loop
-        StartDamageModification(PlayersOnHero(bossSpawn, Team.All), EventPlayer(), heroDamageModifiers[currentdamgindex + currentEnemyIndex], DamageModificationRev.ReceiversDamagersAndDamagePercent);
-        StartDamageModification(PlayersOnHero(bot1spawn, Team.All), EventPlayer(), heroDamageModifiers[currentdamgindex + currentEnemyIndex], DamageModificationRev.ReceiversDamagersAndDamagePercent);
-        StartDamageModification(PlayersOnHero(bot2spawn, Team.All), EventPlayer(), heroDamageModifiers[currentdamgindex + currentEnemyIndex], DamageModificationRev.ReceiversDamagersAndDamagePercent);
-    }
-    else
-    {
-        for (i = 1; botamount; 1)
         {
-            StartDamageModification(PlayersOnHero(currentzombiearray[i], Team.All), EventPlayer(), heroDamageModifiers[currentdamgindex + currentEnemyIndex], DamageModificationRev.ReceiversDamagersAndDamagePercent);
+            for (i = 0; i < 3; 1)
+            {
+                StartDamageModification(
+                    PlayersOnHero([bossSpawn, bot1spawn, bot2spawn][i], Team.All),
+                    EventPlayer(),
+                    heroDamageModifiers[currentdamgindex + currentEnemyIndex],
+                    DamageModificationRev.ReceiversDamagersAndDamagePercent);
+            }
         }
-    }
+    else
+        {
+            for (i = 1; botamount; 1)
+            {
+                StartDamageModification(
+                    PlayersOnHero(currentzombiearray[i], Team.All),
+                    EventPlayer(),
+                    heroDamageModifiers[currentdamgindex + currentEnemyIndex],
+                    DamageModificationRev.ReceiversDamagersAndDamagePercent);
+            }
+        }
 }
 
 rule: "set damage to player variable for all TANK heroes"
@@ -612,19 +601,27 @@ Event.OngoingPlayer
 if (ArrayContains(AllTankHeroes(), HeroOf(EventPlayer())) == true)
 {
     if (spawntype < 4)
-    {
-        # for loop
-        StartDamageModification(PlayersOnHero(bossSpawn, Team.All), EventPlayer(), heroTankModifiers[currentdamgindex + currentEnemyIndex], DamageModificationRev.ReceiversDamagersAndDamagePercent);
-        StartDamageModification(PlayersOnHero(bot1spawn, Team.All), EventPlayer(), heroTankModifiers[currentdamgindex + currentEnemyIndex], DamageModificationRev.ReceiversDamagersAndDamagePercent);
-        StartDamageModification(PlayersOnHero(bot2spawn, Team.All), EventPlayer(), heroTankModifiers[currentdamgindex + currentEnemyIndex], DamageModificationRev.ReceiversDamagersAndDamagePercent);
-    }
-    else
-    {
-        for (i = 1; botamount; 1)
         {
-            StartDamageModification(PlayersOnHero(currentzombiearray[i], Team.All), EventPlayer(), heroTankModifiers[currentdamgindex + currentEnemyIndex], DamageModificationRev.ReceiversDamagersAndDamagePercent);
+            for (i = 0; i < 3; 1)
+            {
+                StartDamageModification(
+                    PlayersOnHero([bossSpawn, bot1spawn, bot2spawn][i], Team.All),
+                    EventPlayer(),
+                    heroTankModifiers[currentdamgindex + currentEnemyIndex],
+                    DamageModificationRev.ReceiversDamagersAndDamagePercent);
+            }
         }
-    }
+    else
+        {
+            for (i = 1; botamount; 1)
+            {
+                StartDamageModification(
+                    PlayersOnHero(currentzombiearray[i], Team.All),
+                    EventPlayer(),
+                    heroTankModifiers[currentdamgindex + currentEnemyIndex],
+                    DamageModificationRev.ReceiversDamagersAndDamagePercent);
+            }
+        }
 }
 
 rule: "set damage to player variable for all SUPPORT heroes"
@@ -632,19 +629,27 @@ Event.OngoingPlayer
 if (ArrayContains(AllSupportHeroes(), HeroOf(EventPlayer())) == true)
 {
     if (spawntype < 4)
-    {
-        # for loop
-        StartDamageModification(PlayersOnHero(bossSpawn, Team.All), EventPlayer(), heroSupportModifiers[currentdamgindex + currentEnemyIndex], DamageModificationRev.ReceiversDamagersAndDamagePercent);
-        StartDamageModification(PlayersOnHero(bot1spawn, Team.All), EventPlayer(), heroSupportModifiers[currentdamgindex + currentEnemyIndex], DamageModificationRev.ReceiversDamagersAndDamagePercent);
-        StartDamageModification(PlayersOnHero(bot2spawn, Team.All), EventPlayer(), heroSupportModifiers[currentdamgindex + currentEnemyIndex], DamageModificationRev.ReceiversDamagersAndDamagePercent);
-    }
-    else
-    {
-        for (i = 1; botamount; 1)
         {
-            StartDamageModification(PlayersOnHero(currentzombiearray[i], Team.All), EventPlayer(), heroSupportModifiers[currentdamgindex + currentEnemyIndex], DamageModificationRev.ReceiversDamagersAndDamagePercent);
+            for (i = 0; i < 3; 1)
+            {
+                StartDamageModification(
+                    PlayersOnHero([bossSpawn, bot1spawn, bot2spawn][i], Team.All),
+                    EventPlayer(),
+                    heroSupportModifiers[currentdamgindex + currentEnemyIndex],
+                    DamageModificationRev.ReceiversDamagersAndDamagePercent);
+            }
         }
-    }
+    else
+        {
+            for (i = 1; botamount; 1)
+            {
+                StartDamageModification(
+                    PlayersOnHero(currentzombiearray[i], Team.All),
+                    EventPlayer(),
+                    heroSupportModifiers[currentdamgindex + currentEnemyIndex],
+                    DamageModificationRev.ReceiversDamagersAndDamagePercent);
+            }
+        }
 }
 rule: "80 player died without maniac"
 Event.OnDeath
@@ -653,7 +658,7 @@ Team.Team1
 if (Maniac == false)
 {
     Died[SlotOf(EventPlayer())] = NearestWalkablePosition(EventPlayer());
-    BigMessage(AllPlayers(Team.All), <"<0><1>", EventPlayer(), RandomValueInArray(etcArray[1])>);
+    BigMessage(AllPlayers(Team.All), <"<0><1>", EventPlayer(), RandomValueInArray(diedphrase)>);
     E[SlotOf(EventPlayer())] = true;
     Wait(0.1, WaitBehavior.IgnoreCondition);
     Jugg = false;
@@ -674,7 +679,7 @@ rule: "81 Died Low points Bonus"
 Event.OnDeath
 Team.Team1
 if (points < 1500)
-if (FirstOf(extraVar) > 5)
+if (roundnumber > 5)
 {
     points = 1500;
     points2 = 1500;
@@ -729,7 +734,7 @@ rule: "67 solo play mode effect"
 Event.OnPlayerJoin
 Team.Team1
 if (NumberOfPlayers(Team.Team1) < 2)
-if (extraVar[3] == 1)
+if (start == 1)
 {
     # might make this a perk that the player can buy, instead of just having
     Wait(15, WaitBehavior.IgnoreCondition);

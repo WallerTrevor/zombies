@@ -1,5 +1,3 @@
-import "coreindex.ostw";
-
 playervar define currentmagazines;
 playervar define points2;
 playervar define points;
@@ -10,3 +8,16 @@ playervar define active_wall;
 playervar define closestwall;
 playervar define outofpsawn;
 playervar define doorNotif;
+
+#=================================================
+#Migrated from OverPy 2.0 extraPlayerVar macros
+#=================================================
+playervar define fall_Speed!;
+playervar define enablefalldamage!;
+playervar define fall_Damage_Speed!;
+playervar define fallDamageOffsetTable!;
+playervar define heroBuyMessTimer!;
+playervar define mysteryBuyMessTimer!;
+playervar define perkBuyMessTimer!;
+playervar define abilityFlag!;
+playervar define healCounter!;

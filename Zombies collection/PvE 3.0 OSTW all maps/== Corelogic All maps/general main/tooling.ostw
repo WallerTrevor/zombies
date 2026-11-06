@@ -1,4 +1,4 @@
-/*
+﻿/*
 rule "DEV door numbers":
     @Condition doormade == 1
     
@@ -235,5 +235,5 @@ rule "show power":
 rule "Rule 246":
     @Event eachPlayer
     
-    hudHeader(eventPlayer, "candidates {0} -- avg position {1} -- breaches {2}".format(len(extraVar[59]), averagePosition, len(globalActiveBreaches)), HudPosition.LEFT, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
+    hudHeader(eventPlayer, "candidates {0} -- avg position {1} -- breaches {2}".format(len(candidates), averagePosition, len(globalActiveBreaches)), HudPosition.LEFT, 0, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)
 */

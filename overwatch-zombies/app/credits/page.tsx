@@ -2,6 +2,7 @@ import React from "react";
 
 type ActionLink = { href: string; label: string; primary?: boolean };
 
+// The shared card helpers let credits use one consistent layout for contributors, tools, and community.
 function PageHero({ eyebrow, title, children }: { eyebrow: string; title: string; children?: React.ReactNode }) {
   return (
     <section className="page-hero">
@@ -55,6 +56,7 @@ const communityPills = ["Bug hunters", "Balance feedback", "Speedrunners", "Casu
 export default function Credits() {
   return (
     <main>
+      {/* Contributor cards distinguish direct project roles from supporting community and production resources. */}
       <PageHero eyebrow="Project Acknowledgments" title="Credits">
         <p>People, tools, and communities that made this complete series possible.</p>
       </PageHero>

@@ -20,6 +20,10 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## GoatCounter analytics
+
+The root layout loads the GoatCounter script for `dropthatbeat.goatcounter.com`. It records the initial page and client-side page navigations by path. Custom events also record map-code copy-button clicks (`copy-code/<code>`) and radio playback starts (`radio-play/<song>`). View page paths and events in the GoatCounter dashboard.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:

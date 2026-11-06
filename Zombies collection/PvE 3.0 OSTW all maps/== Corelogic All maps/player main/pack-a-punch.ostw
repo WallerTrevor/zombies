@@ -1,4 +1,4 @@
-
+﻿
 rule: "Pack a punch Ongoing - player"
 Event.OngoingPlayer
 if (Packapunch >= 1)
@@ -38,7 +38,7 @@ if ((IsUsingAbility1(EventPlayer()) || IsUsingAbility2(EventPlayer()) || IsUsing
     }
     else if (HeroOf(EventPlayer()) == Hero.Torbjorn)
     {
-        if (extraVar[16] == false)
+        if (dispencerplaced == false)
         {
             if (IsCommunicating(EventPlayer(), Communication.NeedHealing))
             {
@@ -52,10 +52,10 @@ if ((IsUsingAbility1(EventPlayer()) || IsUsingAbility2(EventPlayer()) || IsUsing
                 MinWait();
                 CreateEffect(AllPlayers(Team.All), Effect.Ring, Color.Green, PositionOf(EventPlayer()), 3.5, EffectRev.VisibleTo);
                 ModifyVariable(dispencereffect, Operation.AppendToArray, LastCreatedEntity());
-                extraVar[11] = EvaluateOnce(PositionOf(EventPlayer()));
-                extraVar[16] = 1;
+                dispencerposition = EvaluateOnce(PositionOf(EventPlayer()));
+                dispencerplaced = 1;
                 Wait(30, WaitBehavior.IgnoreCondition);
-                extraVar[16] = 2;
+                dispencerplaced = 2;
                 PlayEffect(EventPlayer(), PlayEffect.DebuffImpactSound, Color.White, EventPlayer(), 60);
                 Wait(0.1, WaitBehavior.IgnoreCondition);
                 DestroyEffect(FirstOf(dispencereffect));
@@ -66,7 +66,7 @@ if ((IsUsingAbility1(EventPlayer()) || IsUsingAbility2(EventPlayer()) || IsUsing
                 ModifyVariable(dispencereffect[1], Operation.RemoveFromArrayByIndex, 0);
                 ModifyVariable(dispencereffect[2], Operation.RemoveFromArrayByIndex, 0);
                 Wait(60, WaitBehavior.IgnoreCondition);
-                extraVar[16] = false;
+                dispencerplaced = false;
             }
         }
     }
@@ -181,11 +181,11 @@ if ((IsUsingAbility1(EventPlayer()) || IsUsingAbility2(EventPlayer()) || IsUsing
         {
             SetMoveSpeed(PlayersWithinRadius(EventPlayer(), 15, Team.Team2, RadiusLOS.Off), 50);
             Wait(8, WaitBehavior.IgnoreCondition);
-            if (FirstOf(extraVar) <= 6)
+            if (roundnumber <= 6)
             {
-                SetMoveSpeed(AllPlayers(Team.Team2), 52 + 8 * FirstOf(extraVar));
+                SetMoveSpeed(AllPlayers(Team.Team2), 52 + 8 * roundnumber);
             }
-            else if (FirstOf(extraVar) > 6)
+            else if (roundnumber > 6)
             {
                 SetMoveSpeed(AllPlayers(Team.Team2), 100);
             }
@@ -289,8 +289,8 @@ if ((IsUsingAbility1(EventPlayer()) || IsUsingAbility2(EventPlayer()) || IsUsing
 rule: "Torbjorn pack a punch Dispencer active"
 Event.OngoingPlayer
 Team.Team1
-if (PlayersWithinRadius(extraVar[11], 3.5, Team.Team1, RadiusLOS.SurfacesAndEnemyBarriers) == true)
-if (extraVar[16] == 1)
+if (PlayersWithinRadius(dispencerposition, 3.5, Team.Team1, RadiusLOS.SurfacesAndEnemyBarriers) == true)
+if (dispencerplaced == 1)
 {
     Wait(0.5, WaitBehavior.AbortWhenFalse);
     Heal(EventPlayer(), null, 20);
@@ -305,6 +305,7 @@ Team.Team1
 if (Packapunch >= 1)
 if (ServerLoad() < 220)
 # this needs to check if secondary fire is the gun or not
+# the hero cassidy needs to be swapped for other heroes that relate to this. (as they are just placeholders)
 if ((IsFiringPrimary(EventPlayer()) || IsFiringSecondary(EventPlayer())) == true)
 {
     if (IsFiringPrimary(EventPlayer()))

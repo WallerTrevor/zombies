@@ -72,7 +72,7 @@ rule "Collision Logic":
                     elif Wall_ID[z] == 5:
                         eventPlayer.disableEnvironmentCollision(false)
                 if Wall_ID[z] == 1:
-                    eventPlayer.applyImpulse(directionTowards(eventPlayer.filterpos, eventPlayer.fullbodypos) * vect(1, [], 1), 0.1, Relativity.TO_WORLD, Impulse.CANCEL_CONTRARY_MOTION)
+                    eventPlayer.applyImpulse(directionTowards(eventPlayer.filterpos, eventPlayer.fullbodypos) * vect(1, [], 1), 0.1, Relativity.TO_WORLD, Impulse.CANCEL_CONTRARY_MOTION_XYZ)
                     if eventPlayer.doorNotif == 0:
                         eventPlayer.doorNotif = 1
                     if eventPlayer.isHoldingButton(Button.INTERACT) and eventPlayer.points >= 1000 * costmultiplier - eventPlayer.creditcardlimit:
@@ -96,7 +96,7 @@ rule "Collision Logic":
                         eventPlayer.setMoveSpeed(100)
                     eventPlayer.setMoveSpeed(100 - ((dotProduct(directionTowards(eventPlayer.getEyePosition(), eventPlayer.getEyePosition() + worldVector(eventPlayer.getThrottle(), eventPlayer, Transform.ROTATION)), directionTowards(eventPlayer.filterpos, eventPlayer.fullbodypos) * -1)) * 100))
                 elif Wall_ID[z] == 3:
-                    eventPlayer.applyImpulse(directionTowards(eventPlayer.filterpos, eventPlayer.fullbodypos), eventPlayer.getSpeed() + eventPlayer.getSpeed(), Relativity.TO_WORLD, Impulse.CANCEL_CONTRARY_MOTION)
+                    eventPlayer.applyImpulse(directionTowards(eventPlayer.filterpos, eventPlayer.fullbodypos), eventPlayer.getSpeed() + eventPlayer.getSpeed(), Relativity.TO_WORLD, Impulse.CANCEL_CONTRARY_MOTION_XYZ)
             else:
                 eventPlayer.active_wall[z] = 0
                 eventPlayer.setMoveSpeed(100) #needs to use gamemode wide movement speed, when player gets perks

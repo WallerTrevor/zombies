@@ -1,4 +1,4 @@
-import "index.ostw";
+﻿import "index.ostw";
 
 disabled rule: "273 Colossal charger stats Big boss 2 ==================================================="
 Event.OngoingPlayer
@@ -92,7 +92,7 @@ Event.OnDamageTaken
 Team.Team2
 Player.Reinhardt
 if (Health(EventPlayer()) == 1)
-if (FirstOf(extraVar) == 20)
+if (roundnumber == 20)
 {
     SetStatus(PlayersWithinRadius(EventPlayer(), 3, TeamOf(EventPlayer()), RadiusLOS.Off), null, Status.Stunned, 6);
     Wait(3, WaitBehavior.IgnoreCondition);
@@ -113,7 +113,7 @@ Team.Team2
 Player.Reinhardt
 if (EventWasCriticalHit() == true)
 if (Head_HP > 0)
-if (FirstOf(extraVar) == 20)
+if (roundnumber == 20)
 {
     Head_HP -= EventDamage();
 }
@@ -123,7 +123,7 @@ Event.OngoingPlayer
 Team.Team2
 Player.Reinhardt
 if (Head_HP <= 0)
-if (FirstOf(extraVar) == 20)
+if (roundnumber == 20)
 {
     SetStatus(EventPlayer(), null, Status.Stunned, 2);
     CreateEffect(AllPlayers(Team.All), Effect.BadAura, Color.Red, EyePosition(EventPlayer()), 2, EffectRev.VisibleToPositionAndRadius);
@@ -136,7 +136,7 @@ Event.OngoingPlayer
 Team.Team2
 Player.Reinhardt
 if (IsUsingUltimate(EventPlayer()) == true)
-if (FirstOf(extraVar) == 20)
+if (roundnumber == 20)
 {
     PlayEffect(AllPlayers(Team.All), PlayEffect.DoomfistMeteorStrikeImpactEffect, Color.White, PositionOf(EventPlayer()), 1);
     PlayEffect(AllPlayers(Team.All), PlayEffect.DoomfistMeteorStrikeImpactSound, Color.White, EyePosition(EventPlayer()), 200);
@@ -148,7 +148,7 @@ Event.OngoingPlayer
 Team.Team2
 Player.Reinhardt
 if (IsUsingAbility2(EventPlayer()) == true)
-if (FirstOf(extraVar) == 20)
+if (roundnumber == 20)
 {
     CancelPrimaryAction(EventPlayer());
     PressButton(EventPlayer(), Button.Ability2);
