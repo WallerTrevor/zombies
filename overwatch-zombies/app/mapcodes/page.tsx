@@ -17,7 +17,7 @@ type MapEntry = {
 const MAPS: MapEntry[] = [
   {
     title: "Antarctic Peninsula",
-    image: "/images/map-urban.jpg",
+    image: "/images/map-antarcticp.jpg",
     difficulty: "Standard",
     boss: "Orisa",
     description:
@@ -27,7 +27,7 @@ const MAPS: MapEntry[] = [
   },
   {
     title: "shambali Monastery",
-    image: "/images/map-temple.jpg",
+    image: "/images/map-shambalimonastery.jpg",
     difficulty: "Hard",
     boss: "Ramattra",
     description:
@@ -47,7 +47,7 @@ const MAPS: MapEntry[] = [
   },
   {
     title: "Kings Row",
-    image: "/images/map-arcology.jpg",
+    image: "/images/map-kingsrow.jpg",
     difficulty: "Endgame",
     boss: "D.Va",
     description:

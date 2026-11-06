@@ -328,6 +328,15 @@ footer { padding: 45px 0; color: var(--muted); font-size: 12px; text-align: cent
   display: block;
 }
 
+.media__placeholder {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  place-items: center;
+  color: #adb7c3;
+  font-size: 14px;
+}
+
 .meta {
   display: flex;
   flex-wrap: wrap;

@@ -4,8 +4,8 @@ import React, { useMemo, useState, useEffect } from "react";
 
 type Issue = {
   title: string;
-  cover: string;
-  preview: string;
+  cover: string | null;
+  preview: string | null;
   tags: string[];
   excerpt: string;
   href: string;
@@ -16,7 +16,7 @@ const ISSUES: Issue[] = [
   {
     title: "Issue #1 — The First Signal",
     cover: "/comics/issue-01-cover.webp",
-    preview: "/comics/issue-01-preview.webp",
+    preview: null,
     tags: ["Origins", "Ramattra", "Temple"],
     excerpt:
       "An anomalous frequency emanates from a radiated Omnic temple. Ramattra answers — and the code begins to rot.",
@@ -24,16 +24,16 @@ const ISSUES: Issue[] = [
   },
   {
     title: "Issue #2 — Steel and Silence",
-    cover: "/comics/issue-02-cover.webp",
-    preview: "/comics/issue-02-preview.webp",
+    cover: null,
+    preview: null,
     tags: ["Bosses", "Orisa"],
     excerpt: "The city is empty — except for the sentry that never sleeps.",
     href: "/comics/issue-02.html",
   },
   {
     title: "Issue #3 — Power Lines",
-    cover: "/comics/issue-03-cover.webp",
-    preview: "/comics/issue-03-preview.webp",
+    cover: null,
+    preview: null,
     tags: ["Zones", "Utilities Sector"],
     excerpt: "Connecting the grid is easy. Surviving what wakes up… that’s the trick.",
     href: "/comics/issue-03.html",
@@ -92,10 +92,16 @@ function Toolbar({ query, setQuery }: { query: string; setQuery: (v: string) => 
 }
 
 function ComicCard({ issue, onPreview }: { issue: Issue; onPreview: (preview: string) => void }) {
+  const preview = issue.preview;
+
   return (
     <article className="card">
       <div className="media">
-        <img src={issue.cover} alt={issue.title} />
+        {issue.cover ? (
+          <img src={issue.cover} alt={issue.title} />
+        ) : (
+          <div className="media__placeholder">Cover artwork coming soon</div>
+        )}
       </div>
 
       <h2>{issue.title}</h2>
@@ -114,9 +120,11 @@ function ComicCard({ issue, onPreview }: { issue: Issue; onPreview: (preview: st
         <a className="btn btn--primary" href={issue.href}>
           Read
         </a>
-        <button className="btn" onClick={() => onPreview(issue.preview)}>
-          Preview
-        </button>
+        {preview && (
+          <button className="btn" onClick={() => onPreview(preview)}>
+            Preview
+          </button>
+        )}
       </div>
     </article>
   );
