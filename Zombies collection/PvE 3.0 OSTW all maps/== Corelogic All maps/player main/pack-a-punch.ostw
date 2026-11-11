@@ -1,7 +1,7 @@
 ﻿
 rule: "Pack a punch Ongoing - player"
 Event.OngoingPlayer
-if (Packapunch >= 1)
+if (Packapunch>= 1)
 if ((IsUsingAbility1(EventPlayer()) || IsUsingAbility2(EventPlayer()) || IsUsingUltimate(EventPlayer()) || IsFiringPrimary(EventPlayer()) || IsFiringSecondary(EventPlayer())) == true)
 
 {

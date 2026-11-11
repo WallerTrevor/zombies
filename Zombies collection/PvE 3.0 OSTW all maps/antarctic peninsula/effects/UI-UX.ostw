@@ -4,17 +4,15 @@ rule: "202 Purchase hero message"
 Event.OngoingPlayer
 Team.Team1
 if (heroBuyMessTimer == false)
-if (IsTrueForAny(buyheros, DistanceBetween(ArrayElement(), EventPlayer()) < 2) == true)
+if (IsTrueForAny(buyheros, DistanceToEventPlayer(ArrayElement()) < 2) == true)
 {
     for (i = 0; CountOf(buyheros); 1)
     {
-        if (DistanceBetween(EventPlayer(), buyheros[i]) < 2)
+        if (DistanceToEventPlayer(buyheros[i]) < 2)
         {
             Wait(0.1, WaitBehavior.IgnoreCondition);
             SmallMessage(EventPlayer(), <"<0> Press: <1> for Hero = <2>", HeroIconString(hero[i]), InputBindingString(Button.Interact), <"<0> Points -- Hold: <1> for follower = <2>", RoundToInteger(herobuycosts[i] * costmultiplier, Rounding.Nearest), InputBindingString(Button.Reload), <"<0> Points --- Ammo cost <1>", RoundToInteger(herobuycosts[i] / 3 * costmultiplier, Rounding.Nearest), RoundToInteger(herobuycosts[i] / 2 * costmultiplier, Rounding.Nearest)>>>);
-            heroBuyMessTimer = true;
-            Wait(5, WaitBehavior.IgnoreCondition);
-            heroBuyMessTimer = false;
+            ResetPurchaseMessageTimer(heroBuyMessTimer);
             break;
         }
     }
@@ -24,42 +22,36 @@ rule: "Purchase Mystery Box message"
 Event.OngoingPlayer
 Team.Team1
 if (mysteryBuyMessTimer == false)
-if (DistanceBetween(EventPlayer(), rngbox) <= 2)
+if (DistanceToEventPlayer(rngbox) <= 2)
 if (rngbox != null)
 {
     Wait(0.1, WaitBehavior.IgnoreCondition);
     SmallMessage(EventPlayer(), <"<0> Press: <1> for Mystery Hero = <2>", HeroIconString(Hero.Ramattra), InputBindingString(Button.Interact), <"<0> Points -- Hold: <1> for follower = <2> Points", RoundToInteger(950 * costmultiplier, Rounding.Nearest), InputBindingString(Button.Reload), RoundToInteger(316.667 * costmultiplier, Rounding.Nearest)>>);
-    mysteryBuyMessTimer = true;
-    Wait(5, WaitBehavior.IgnoreCondition);
-    mysteryBuyMessTimer = false;
+    ResetPurchaseMessageTimer(mysteryBuyMessTimer);
 }
 
 rule: "Purchase perk machine message"
 Event.OngoingPlayer
 Team.Team1
 if (perkBuyMessTimer == false)
-if (IsTrueForAny(buyperks, [DistanceBetween(ArrayElement(), EventPlayer()) < 2]) == true)
+if (IsTrueForAny(buyperks, [DistanceToEventPlayer(ArrayElement()) < 2]) == true)
 if (powerconnected == true)
 {
-    for (i = 0; CountOf(buyperks); 1)
+    for (i = Buyable.Juggernaut; Buyable.Count; 1)
     {
-        if (DistanceBetween(EventPlayer(), buyperks[i]) < 2)
+        if (DistanceToEventPlayer(buyperks[i]) < 2)
         {
-            if (i != 6)
+            if (i != Buyable.Power)
             {
                 Wait(0.1, WaitBehavior.IgnoreCondition);
                 SmallMessage(EventPlayer(), <"<0> Press: <1> for Perk = <2>", HeroIconString(Hero.Ramattra), InputBindingString(Button.Interact), <"<0> == <1> Points", perkNames[i], RoundToInteger(perkcosts[i] * costmultiplier, Rounding.Nearest)>>);
-                perkBuyMessTimer = true;
-                Wait(5, WaitBehavior.IgnoreCondition);
-                perkBuyMessTimer = false;
+                ResetPurchaseMessageTimer(perkBuyMessTimer);
                 break;
             }
             else
             {
                 SmallMessage(EventPlayer(), <"<0> Press: <1> To connect power", HeroIconString(Hero.Ramattra), InputBindingString(Button.Interact)>);
-                perkBuyMessTimer = true;
-                Wait(5, WaitBehavior.IgnoreCondition);
-                perkBuyMessTimer = false;
+                ResetPurchaseMessageTimer(perkBuyMessTimer);
                 break;
             }
         }
@@ -106,7 +98,7 @@ if (start == 1)
 disabled rule: "193 achivements logic"
 {
 }
-
+/*
 disabled rule: "194 achivements menu"
 {
     CreateHudText(AllPlayers(Team.All), null, null, "achivement progress carries between playthroughs", Location.Top, 0, null, null, Color.White, HudTextRev.VisibleToAndString, Spectators.DefaultVisibility);
@@ -119,6 +111,7 @@ disabled rule: "194 achivements menu"
     CreateHudText(AllPlayers(Team.All), null, null, "earn 500 eliminations 0", Location.Top, 0, null, null, Color.White, HudTextRev.VisibleToAndString, Spectators.DefaultVisibility);
     CreateHudText(AllPlayers(Team.All), null, null, "beat all 3 boss'", Location.Top, 0, null, null, Color.White, HudTextRev.VisibleToAndString, Spectators.DefaultVisibility);
 }
+*/
 rule: "info UI cancel"
 Event.OngoingPlayer
 Team.Team1

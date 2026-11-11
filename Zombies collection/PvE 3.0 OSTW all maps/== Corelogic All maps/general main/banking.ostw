@@ -120,6 +120,7 @@ if (creditTier < 3)
 {
     if (ServerLoad() < 245)
     {
+        WaitUntil(ServerLoad() < 230, 3);
         for (i = 0; CountOf(creditCosts); 1)
         {
             if (points >= creditCosts[i])

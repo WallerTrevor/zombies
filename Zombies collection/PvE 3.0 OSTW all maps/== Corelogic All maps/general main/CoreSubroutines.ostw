@@ -13,3 +13,10 @@ void totalrandomspawn() "each bot will be random"
 		Wait(0.75, WaitBehavior.AbortWhenFalse);
 	}
 }
+
+void ResetPurchaseMessageTimer() "reset purchase message timer"
+{
+	heroBuyMessTimer = true;
+	Wait(5, WaitBehavior.IgnoreCondition);
+	heroBuyMessTimer = false;
+}

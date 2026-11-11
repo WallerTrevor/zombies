@@ -16,11 +16,11 @@ if (Bosssequencer == 3)
     StartForcingDummyBotName(EventPlayer(), "Imperial warmech ");
     Wait(3, WaitBehavior.IgnoreCondition);
     EventPlayer().warmachParts = [
-        [Hero.WreckingBall, Vector(0, 6.1, 1), "Cannon"],
-        [Hero.WreckingBall, Vector(2.15, 5.4, 1), "Cannon"],
-        [Hero.WreckingBall, Vector(-2.15, 5.4, 1), "Cannon"],
-        [Hero.Bastion, Vector(2, 3, 1), "Machine gun"],
-        [Hero.Bastion, Vector(-2, 3, 1), "Machine gun"]
+        [Hero.WreckingBall, Vector(0, 6.1, 1), BossPart.Cannon],
+        [Hero.WreckingBall, Vector(2.15, 5.4, 1), BossPart.Cannon],
+        [Hero.WreckingBall, Vector(-2.15, 5.4, 1), BossPart.Cannon],
+        [Hero.Bastion, Vector(2, 3, 1), BossPart.MachineGun],
+        [Hero.Bastion, Vector(-2, 3, 1), BossPart.MachineGun]
     ];
     for (EventPlayer().warmachPartIndex = 0; CountOf(EventPlayer().warmachParts); 1)
     {
@@ -46,7 +46,7 @@ disabled rule: "284 Cannon stats"
 Event.OngoingPlayer
 Team.Team2
 Player.WreckingBall
-if (Part == "Cannon")
+if (Part == BossPart.Cannon)
 {
     SetHealingReceived(EventPlayer(), 0);
     SetMaxHealth(EventPlayer(), 500);
@@ -74,7 +74,7 @@ Event.OngoingPlayer
 Team.Team2
 Player.Bastion
 if (IsDummyBot(EventPlayer()) == true)
-if (Part == "Machine gun")
+if (Part == BossPart.MachineGun)
 {
     SetDamageDealt(EventPlayer(), 100);
     StartScalingPlayer(EventPlayer(), 1.25, true);

@@ -92,13 +92,13 @@ if ((IsButtonHeld(EventPlayer(), Button.Ability1) || IsButtonHeld(EventPlayer(),
         switch (HeroOf(EventPlayer()))
         {
             case Hero.Moira:
-                if (perk[5] == false)
+                if (perk[Perk.SpeedCola] == false)
                 {
                     currentmagazines -= 0.05;
                     Wait(0.25, WaitBehavior.IgnoreCondition);
                     LoopIfConditionIsTrue();
                 }
-                else if (perk[5] == 1)
+                else if (perk[Perk.SpeedCola] == 1)
                 {
                     currentmagazines -= 0.025;
                     Wait(0.25, WaitBehavior.IgnoreCondition);
@@ -113,7 +113,7 @@ if ((IsButtonHeld(EventPlayer(), Button.Ability1) || IsButtonHeld(EventPlayer(),
         switch (HeroOf(EventPlayer()))
         {
             case Hero.Doomfist:
-                if (perk[5] == false)
+                if (perk[Perk.SpeedCola] == false)
                 {
                     currentmagazines -= 0.25;
                     Wait(0.25, WaitBehavior.IgnoreCondition);
@@ -124,13 +124,13 @@ if ((IsButtonHeld(EventPlayer(), Button.Ability1) || IsButtonHeld(EventPlayer(),
             case Hero.Dva:
                 if (!IsInAlternateForm(EventPlayer()))
                 {
-                    if (perk[5] == false)
+                    if (perk[Perk.SpeedCola] == false)
                     {
                         currentmagazines -= 0.05;
                         Wait(0.15, WaitBehavior.IgnoreCondition);
                         LoopIfConditionIsTrue();
                     }
-                    else if (perk[5] == 1)
+                    else if (perk[Perk.SpeedCola] == 1)
                     {
                         currentmagazines -= 0.025;
                         Wait(0.125, WaitBehavior.IgnoreCondition);
@@ -140,18 +140,18 @@ if ((IsButtonHeld(EventPlayer(), Button.Ability1) || IsButtonHeld(EventPlayer(),
                 break;
 
             case Hero.Hanzo:
-                if (perk[5] == false)
+                if (perk[Perk.SpeedCola] == false)
                 {
                     currentmagazines -= 0.25;
                 }
-                else if (perk[5] == 1)
+                else if (perk[Perk.SpeedCola] == 1)
                 {
                     currentmagazines -= 0.125;
                 }
                 break;
 
             case Hero.Sigma:
-                if (perk[5] == false)
+                if (perk[Perk.SpeedCola] == false)
                 {
                     currentmagazines -= 0.05;
                     Wait(0.1, WaitBehavior.IgnoreCondition);
@@ -159,7 +159,7 @@ if ((IsButtonHeld(EventPlayer(), Button.Ability1) || IsButtonHeld(EventPlayer(),
                     Wait(1.5, WaitBehavior.IgnoreCondition);
                     LoopIfConditionIsTrue();
                 }
-                else if (perk[5] == 1)
+                else if (perk[Perk.SpeedCola] == 1)
                 {
                     currentmagazines -= 0.025;
                     Wait(0.1, WaitBehavior.IgnoreCondition);
@@ -192,11 +192,11 @@ if ((IsButtonHeld(EventPlayer(), Button.Ability1) || IsButtonHeld(EventPlayer(),
             case Hero.Reinhardt:
                 if (IsUsingAbility2(EventPlayer()))
                 {
-                    if (perk[5] == false)
+                    if (perk[Perk.SpeedCola] == false)
                     {
                         currentmagazines -= 0.25;
                     }
-                    else if (perk[5] == 1)
+                    else if (perk[Perk.SpeedCola] == 1)
                     {
                         currentmagazines -= 0.125;
                     }
@@ -358,5 +358,3 @@ if (currentmagazines < 0)
 {
     currentmagazines = false;
 }
-
-

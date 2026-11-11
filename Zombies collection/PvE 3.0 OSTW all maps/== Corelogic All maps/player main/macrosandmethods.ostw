@@ -1,0 +1,27 @@
+Number RequiredPurchasePoints(Number baseCost): RoundToInteger(baseCost * costmultiplier - creditcardlimit, Rounding.Nearest);
+
+Number ScaledPurchaseCost(Number baseCost): RoundToInteger(baseCost * costmultiplier, Rounding.Nearest);
+
+Number CashbackPurchaseCharge(Number baseCost): RoundToInteger(baseCost * costmultiplier * cashback, Rounding.Nearest);
+
+Number DistanceToEventPlayer(Vector position): DistanceBetween(EventPlayer(), position);
+
+void PurchaseFreezeAfterEmote() "finish purchase feedback"
+{
+    Wait(0.05, WaitBehavior.IgnoreCondition);
+    SetMoveSpeed(EventPlayer(), 0);
+    Wait(2, WaitBehavior.IgnoreCondition);
+    SetMoveSpeed(EventPlayer(), 100);
+}
+
+void DestroyDoorEffects(Number doorIndex) "destroy door effects"
+{
+    if (doors[doorIndex * 2] != null)
+    {
+        DestroyEffect(doors[doorIndex * 2]);
+    }
+    if (doors[doorIndex * 2 + 1] != null)
+    {
+        DestroyEffect(doors[doorIndex * 2 + 1]);
+    }
+}

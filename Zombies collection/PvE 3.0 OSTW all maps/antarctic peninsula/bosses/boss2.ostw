@@ -25,13 +25,13 @@ if (Bosssequencer == 2)
     Wait(0.5, WaitBehavior.IgnoreCondition);
     AttachPlayers(LastCreatedEntity(), FirstOf(PlayersOnHero(Hero.Reinhardt, Team.Team2)), Vector(-1.5, 1.25, 0));
     StartFacing(LastCreatedEntity(), FacingDirectionOf(EventPlayer()), 1000, Relative.ToWorld, FacingRev.DirectionAndTurnRate);
-    LastCreatedEntity().Part = "Minigun";
+    LastCreatedEntity().Part = BossPart.Minigun;
     MinWait();
     CreateDummyBot(Hero.WreckingBall, Team.Team2, -1, EventPlayer(), Vector(0, 0, 0));
     MinWait();
     AttachPlayers(LastCreatedEntity(), FirstOf(PlayersOnHero(Hero.Reinhardt, Team.Team2)), Vector(1.25, 2.5, 0.75));
     AddHealthPoolToPlayer(EventPlayer(), HealthType.Health, 2000, true, true);
-    LastCreatedEntity().Part = "Arm connector";
+    LastCreatedEntity().Part = BossPart.ArmConnector;
     WaitUntil(IsDead(EventPlayer()), 99999);
     RemoveAllHealthPoolsFromPlayer(EventPlayer());
 }
@@ -41,7 +41,7 @@ Event.OngoingPlayer
 Team.Team2
 Player.Bastion
 if (IsDummyBot(EventPlayer()) == true)
-if (Part == "Minigun")
+if (Part == BossPart.Minigun)
 {
     Wait(0.25, WaitBehavior.AbortWhenFalse);
     SetProjectileSpeed(EventPlayer(), 125);
@@ -72,7 +72,7 @@ Event.OngoingPlayer
 Team.Team2
 Player.WreckingBall
 if (IsDummyBot(EventPlayer()) == true)
-if (Part == "Arm connector")
+if (Part == BossPart.ArmConnector)
 {
     SetHealingReceived(EventPlayer(), 0);
     SetMaxHealth(EventPlayer(), 500);
@@ -84,7 +84,7 @@ if (Part == "Arm connector")
     WaitUntil(IsDead(EventPlayer()), 99999);
     SetStatus(PlayersWithinRadius(EventPlayer(), 3, TeamOf(EventPlayer()), RadiusLOS.Off), null, Status.Stunned, 1);
     SetUltimateAbilityEnabled(PlayersWithinRadius(EventPlayer(), 3, TeamOf(EventPlayer()), RadiusLOS.Off), false);
-    PlayersWithinRadius(EventPlayer(), 3, TeamOf(EventPlayer()), RadiusLOS.Off).Part = false;
+    PlayersWithinRadius(EventPlayer(), 3, TeamOf(EventPlayer()), RadiusLOS.Off).Part = BossPart.None;
 }
 
 disabled rule: "277 Colossal charger dies"
@@ -161,7 +161,7 @@ Event.OngoingPlayer
 Team.Team2
 Player.Bastion
 if (IsButtonHeld(FirstOf(PlayersOnHero(Hero.Reinhardt, Team.Team2)), Button.PrimaryFire) == true)
-if (Part == "Minigun")
+if (Part == BossPart.Minigun)
 {
     PressButton(EventPlayer(), Button.SecondaryFire);
     Wait(0.05, WaitBehavior.IgnoreCondition);

@@ -4,6 +4,7 @@
 rule: "all the effects"
 if (start == 1)
 {
+    buyperks[Buyable.OmnicBomb] = LastOf(buyperks);
     # @Condition outofpsawn == 1\nset all this to be array elements for each perk name, so it can easily be swapped with each map file
     for (forindex = 0; 3; 1)
     {
@@ -28,11 +29,11 @@ if (start == 1)
     CreateEffect(LocalPlayer(), Effect.Sparkles, Color.Yellow, rngbox, 2, EffectRev.VisibleToPositionAndRadius);
     CreateProjectileEffect(LocalPlayer(), ProjectileType.SymmetraPhotonProjector, null, Up() + rngbox, Up(), 0.1, ProjectileEffectReeval.VisibleToFriendlyTo);
     powerconnected[0] = LastCreatedEntity();
-    CreateIcon(AllLivingPlayers(Team.Team1), Vector(0, 2, 0) + buyperks[6], Icon.Bolt, IconRev.VisibleToAndPosition, Color.Yellow, true);
+    CreateIcon(AllLivingPlayers(Team.Team1), Vector(0, 2, 0) + buyperks[Buyable.Power], Icon.Bolt, IconRev.VisibleToAndPosition, Color.Yellow, true);
     powerconnected[1] = LastTextID();
-    for (forindex = 0; 9; 1)
+    for (forindex = Buyable.Juggernaut; Buyable.Count; 1)
     {
-        if (forindex != 6)
+        if (forindex != Buyable.Power)
         {
             CreateEffect(LocalPlayer(), Effect.Ring, Color.Red, buyperks[forindex], 1, EffectRev.VisibleToAndColor);
             CreateProjectileEffect(LocalPlayer(), ProjectileType.BaptisteBioticLauncher, null, buyperks[forindex], Up(), 0.1, ProjectileEffectReeval.VisibleToFriendlyTo);
@@ -44,14 +45,14 @@ if (start == 1)
         }
     }
     # might be able to make this a loop as well, but since the perks are all different it would be more difficult to do so maybe an array
-    CreateInWorldText(LocalPlayer(), IconString(Icon.Heart), Vector(0, 2, 0) + buyperks[1], 2.25, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleToPositionAndString, Color.White, Spectators.DefaultVisibility);
-    CreateInWorldText(LocalPlayer(), IconString(Icon.Fire), Vector(0, 2, 0) + buyperks[2], 2.25, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleToPositionAndString, Color.Red, Spectators.DefaultVisibility);
-    CreateInWorldText(LocalPlayer(), IconString(Icon.Diamond), Vector(0, 2, 0) + buyperks[3], 2.25, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleToPositionAndString, Color.Blue, Spectators.DefaultVisibility);
-    CreateInWorldText(LocalPlayer(), IconString(Icon.Eye), Vector(0, 2, 0) + buyperks[4], 2.25, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleToPositionAndString, Color.White, Spectators.DefaultVisibility);
-    CreateInWorldText(LocalPlayer(), IconString(Icon.Halo), Vector(0, 2, 0) + buyperks[5], 2.25, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleToPositionAndString, Color.Blue, Spectators.DefaultVisibility);
-    CreateInWorldText(LocalPlayer(), AbilityIconString(Hero.Cassidy, Button.Ability1), Vector(0, 2, 0) + FirstOf(buyperks), 3.25, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleToPositionAndString, Color.White, Spectators.DefaultVisibility);
-    CreateInWorldText(LocalPlayer(), AbilityIconString(Hero.Soldier76, Button.Ability1), Vector(0, 2, 0) + buyperks[7], 3.25, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleToPositionAndString, Color.White, Spectators.DefaultVisibility);
-    CreateInWorldText(LocalPlayer(), AbilityIconString(Hero.Ashe, Button.Ability2), Vector(0, 2, 0) + buyperks[9], 3.25, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleToPositionAndString, Color.White, Spectators.DefaultVisibility);
+    CreateInWorldText(LocalPlayer(), IconString(Icon.Heart), Vector(0, 2, 0) + buyperks[Buyable.Sprintboost], 2.25, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleToPositionAndString, Color.White, Spectators.DefaultVisibility);
+    CreateInWorldText(LocalPlayer(), IconString(Icon.Fire), Vector(0, 2, 0) + buyperks[Buyable.SelfRevive], 2.25, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleToPositionAndString, Color.Red, Spectators.DefaultVisibility);
+    CreateInWorldText(LocalPlayer(), IconString(Icon.Diamond), Vector(0, 2, 0) + buyperks[Buyable.HeadshotManiac], 2.25, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleToPositionAndString, Color.Blue, Spectators.DefaultVisibility);
+    CreateInWorldText(LocalPlayer(), IconString(Icon.Eye), Vector(0, 2, 0) + buyperks[Buyable.SpeedCola], 2.25, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleToPositionAndString, Color.White, Spectators.DefaultVisibility);
+    CreateInWorldText(LocalPlayer(), IconString(Icon.Halo), Vector(0, 2, 0) + buyperks[Buyable.packapunch], 2.25, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleToPositionAndString, Color.Blue, Spectators.DefaultVisibility);
+    CreateInWorldText(LocalPlayer(), AbilityIconString(Hero.Cassidy, Button.Ability1), Vector(0, 2, 0) + buyperks[Buyable.Juggernaut], 3.25, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleToPositionAndString, Color.White, Spectators.DefaultVisibility);
+    CreateInWorldText(LocalPlayer(), AbilityIconString(Hero.Soldier76, Button.Ability1), Vector(0, 2, 0) + buyperks[Buyable.SprintBurst], 3.25, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleToPositionAndString, Color.White, Spectators.DefaultVisibility);
+    CreateInWorldText(LocalPlayer(), AbilityIconString(Hero.Ashe, Button.Ability2), Vector(0, 2, 0) + buyperks[Buyable.OmnicBomb], 3.25, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleToPositionAndString, Color.White, Spectators.DefaultVisibility);
     for (forindex = 0; CountOf(buyheros); 1)
     {
         CreateEffect(LocalPlayer(), Effect.Ring, Color.Yellow, buyheros[forindex], 2, EffectRev.VisibleTo);

@@ -14,7 +14,7 @@ rule "DEV door numbers":
      @Condition eventPlayer.isHoldingButton(Button.INTERACT) == true
      @Disabled
      
-     eventPlayer.Packapunch = 1
+     eventPlayer.packapunch = 1
 
 
  rule "Dev Tool Show variables":

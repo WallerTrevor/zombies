@@ -205,7 +205,7 @@ void makedoors() "make the door effects"
     for (dooreffectsequencer = doorZoneStart; doorZoneEnd; 1)
     {
         # test this
-        if (Wall_ID[dooreffectsequencer] == 1)
+        if (Wall_ID[dooreffectsequencer] == WallState.Closed)
         {
             CreateBeamEffect(AllPlayers(Team.Team1), BeamType.JunkratTrapChainBeam, Beameffectdoors[EvaluateOnce(dooreffectsequencer * 4)], Beameffectdoors[EvaluateOnce(dooreffectsequencer * 4 + 1)], Color.Red, EffectRev.VisibleToPositionAndRadius);
             # append to allow the game to delete for later

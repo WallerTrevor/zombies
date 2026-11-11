@@ -20,7 +20,7 @@ if (Bosssequencer == 1)
     MinWait();
     AttachPlayers(LastCreatedEntity(), FirstOf(PlayersOnHero(Hero.Orisa, Team.Team2)), Vector(1, 3, 1));
     MinWait();
-    LastCreatedEntity().Part = "Rocket launcher";
+    LastCreatedEntity().Part = BossPart.RocketLauncher;
     AddHealthPoolToPlayer(EventPlayer(), HealthType.Armor, 3000, true, true);
     AddHealthPoolToPlayer(EventPlayer(), HealthType.Health, 3000, true, true);
     MinWait();
@@ -28,31 +28,31 @@ if (Bosssequencer == 1)
     MinWait();
     AttachPlayers(LastCreatedEntity(), EventPlayer(), Vector(-1, 3, 1));
     MinWait();
-    LastCreatedEntity().Part = "Rocket launcher";
+    LastCreatedEntity().Part = BossPart.RocketLauncher;
     MinWait();
     CreateDummyBot(Hero.WreckingBall, Team.Team2, -1, EventPlayer(), Vector(0, 0, 0));
     MinWait();
     AttachPlayers(LastCreatedEntity(), EventPlayer(), Vector(0, 4, -1));
     MinWait();
-    LastCreatedEntity().Part = "Generator";
+    LastCreatedEntity().Part = BossPart.Generator;
     MinWait();
     CreateDummyBot(Hero.Bastion, Team.Team2, -1, EventPlayer(), Vector(0, 0, 0));
     MinWait();
     AttachPlayers(LastCreatedEntity(), EventPlayer(), Vector(1.75, 4.25, 0));
     MinWait();
-    LastCreatedEntity().Part = "Cannon";
+    LastCreatedEntity().Part = BossPart.Cannon;
     MinWait();
     CreateDummyBot(Hero.Bastion, Team.Team2, -1, EventPlayer(), Vector(0, 0, 0));
     MinWait();
     AttachPlayers(LastCreatedEntity(), EventPlayer(), Vector(-1.75, 4.25, 0));
     MinWait();
-    LastCreatedEntity().Part = "Cannon";
+    LastCreatedEntity().Part = BossPart.Cannon;
     MinWait();
     CreateDummyBot(Hero.WreckingBall, Team.Team2, -1, EventPlayer(), Vector(0, 0, 0));
     MinWait();
     AttachPlayers(LastCreatedEntity(), EventPlayer(), Vector(0, 1.75, -1.25));
     MinWait();
-    LastCreatedEntity().Part = "Leg joint";
+    LastCreatedEntity().Part = BossPart.LegJoint;
     if (IsDead(EventPlayer()))
     {
         # set this to be looped and simplified
@@ -68,14 +68,14 @@ if (Bosssequencer == 1)
     WaitUntil(IsAlive(EventPlayer()), 99999);
     switch (Part)
     {
-        case "rocket launcher":
+        case BossPart.RocketLauncher:
             StartForcingDummyBotName(EventPlayer(), "Rocket launcher");
             SetMaxHealth(EventPlayer(), 500);
             Wait(2, WaitBehavior.IgnoreCondition);
             SetHealingReceived(EventPlayer(), 0);
             break;
 
-        case "generator":
+        case BossPart.Generator:
             StartForcingDummyBotName(EventPlayer(), "Generator");
             CreateEffect(AllPlayers(Team.All), Effect.AnaNanoBoostedEffect, Color.White, EventPlayer(), 1, EffectRev.VisibleToPositionAndRadius);
             SetMaxHealth(EventPlayer(), 500);
@@ -83,7 +83,7 @@ if (Bosssequencer == 1)
             SetHealingReceived(EventPlayer(), 0);
             break;
 
-        case "Cannon":
+        case BossPart.Cannon:
             Wait(0.25, WaitBehavior.AbortWhenFalse);
             ForceThrottle(EventPlayer(), 1, 1, 0, 1, 0, 1);
             SetKnockbackDealt(EventPlayer(), 0);
@@ -94,7 +94,7 @@ if (Bosssequencer == 1)
             SetHealingReceived(EventPlayer(), 0);
             break;
 
-        case "Leg joint":
+        case BossPart.LegJoint:
             StartForcingDummyBotName(EventPlayer(), "Leg joint");
             SetMaxHealth(EventPlayer(), 500);
             StartScalingPlayer(EventPlayer(), 1.2, true);
@@ -110,7 +110,7 @@ Event.OngoingPlayer
 Team.Team2
 Player.Bastion
 if (IsUsingAbility1(EventPlayer()) == false)
-if (Part == "Cannon")
+if (Part == BossPart.Cannon)
 {
     PressButton(EventPlayer(), Button.Ability1);
     Wait(0.25, WaitBehavior.IgnoreCondition);
@@ -123,22 +123,22 @@ Team.Team2
 {
     switch (Part)
     {
-        case "leg joint":
+        case BossPart.LegJoint:
             PlayersWithinRadius(EventPlayer(), 5, TeamOf(EventPlayer()), RadiusLOS.Off).Speed = false;
             SetStatus(PlayersWithinRadius(EventPlayer(), 5, TeamOf(EventPlayer()), RadiusLOS.Off), null, Status.Stunned, 2);
             break;
 
-        case "rocket launcher":
+        case BossPart.RocketLauncher:
             SetStatus(PlayersWithinRadius(EventPlayer(), 5, TeamOf(EventPlayer()), RadiusLOS.Off), null, Status.Stunned, 2);
             break;
 
-        case "Cannon":
+        case BossPart.Cannon:
             SetStatus(PlayersWithinRadius(EventPlayer(), 5, TeamOf(EventPlayer()), RadiusLOS.Off), null, Status.Stunned, 2);
             PlayEffect(AllPlayers(Team.All), PlayEffect.AsheDynamiteExplosionEffect, Color.White, EventPlayer(), 1);
             PlayEffect(AllPlayers(Team.All), PlayEffect.AsheDynamiteExplosionSound, Color.White, EyePosition(EventPlayer()), 200);
             break;
 
-        case "Generator":
+        case BossPart.Generator:
             PlayEffect(AllPlayers(Team.All), PlayEffect.SombraEmpExplosioneffect, Color.White, EventPlayer(), 1);
             PlayEffect(AllPlayers(Team.All), PlayEffect.SombraEmpExplosionSound, Color.White, EyePosition(EventPlayer()), 200);
             SetStatus(PlayersWithinRadius(EventPlayer(), 5, TeamOf(EventPlayer()), RadiusLOS.Off), null, Status.Stunned, 4);
@@ -154,7 +154,7 @@ Event.OngoingPlayer
 Team.Team2
 Player.Bastion
 if (IsButtonHeld(FirstOf(PlayersOnHero(Hero.Orisa, Team.Team2)), Button.PrimaryFire) == true)
-if (Part == "Cannon")
+if (Part == BossPart.Cannon)
 {
     PressButton(EventPlayer(), Button.SecondaryFire);
     Wait(0.1, WaitBehavior.IgnoreCondition);
@@ -170,7 +170,7 @@ Team.Team2
 Player.WreckingBall
 if (IsButtonHeld(FirstOf(PlayersOnHero(Hero.Orisa, Team.Team2)), Button.PrimaryFire) == true)
 if (IsAlive(EventPlayer()) == true)
-if (Part == "Rocket launcher")
+if (Part == BossPart.RocketLauncher)
 {
     PlayEffect(AllPlayers(Team.All), PlayEffect.DvaMicroMissilesExplosionSound, Color.White, EyePosition(EventPlayer()), 200);
     PlayEffect(AllPlayers(Team.All), PlayEffect.DvaMicroMissilesExplosionEffect, Color.White, EventPlayer(), 1);

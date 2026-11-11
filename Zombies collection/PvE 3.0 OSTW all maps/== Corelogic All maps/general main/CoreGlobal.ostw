@@ -1,5 +1,54 @@
 import "coreIndex.ostw";
 
+enum Perk
+{
+    Juggernaut = 0,
+    Sprintboost = 1,
+    selfrevive = 2,
+    HeadshotManiac = 3,
+    SpeedCola = 4,
+    packapunch = 5
+}
+
+enum Buyable
+{
+    Juggernaut = 0,
+    Sprintboost = 1,
+    SelfRevive = 2,
+    HeadshotManiac = 3,
+    SpeedCola = 4,
+    packapunch = 5,
+    Power = 6,
+    SprintBurst = 7,
+    OmnicBomb = 8,
+    Count = 9
+}
+
+enum PerkTier
+{
+    Tier1 = 1,
+    Tier2 = 2,
+    Tier3 = 3
+}
+
+enum WallState
+{
+    Open = 0,
+    Closed = 1
+}
+
+enum BossPart
+{
+    None = 0,
+    RocketLauncher = 1,
+    Generator = 2,
+    Cannon = 3,
+    LegJoint = 4,
+    Minigun = 5,
+    ArmConnector = 6,
+    MachineGun = 7
+}
+
 globalvar define roundnumber;
 globalvar define botRemoveSlot;
 globalvar define botspawnindex;
@@ -24,7 +73,6 @@ globalvar define filterpos;
 globalvar define lastsavedpos;
 globalvar define x_;
 globalvar define intersection_length;
-globalvar define thickness;
 globalvar define is_Grounded;
 globalvar define costmultiplier;
 playervar define creditcardlimit;

@@ -8,12 +8,12 @@ import "../../== Corelogic All maps/general main/Core-arrays.ostw";
 import "../../== Corelogic All maps/general main/coreIndex.ostw";
 import "../../== Corelogic All maps/general main/CoreSubroutines.ostw";
 import "../../== Corelogic All maps/general main/banking.ostw";
-
 import "../../== Corelogic All maps/player main/ammoSystem.ostw";
 import "../../== Corelogic All maps/player main/followers.ostw";
 import "../../== Corelogic All maps/player main/pack-a-punch.ostw";
 import "../../== Corelogic All maps/player main/playerlogic.ostw";
 import "../../== Corelogic All maps/player main/perklogic.ostw";
+import "../../== Corelogic All maps/player main/macrosandmethods.ostw";
 import "../../== Corelogic All maps/player main/purchaseActions.ostw";
 import "../../== Corelogic All maps/player main/XPsystem.ostw";
 

@@ -2,21 +2,21 @@
 rule: "pack a punch ability"
 Event.OngoingPlayer
 Team.Team1
-if (FirstOf(perk) > 0)
+if (perk[Perk.packapunch] >= PerkTier.Tier1)
 {
-    switch (FirstOf(perk))
+    switch (perk[Perk.packapunch])
     {
-        case 1:
+        case PerkTier.Tier1:
             SetDamageDealt(EventPlayer(), 250);
             damagevariable = 250;
             break;
 
-        case 2:
+        case PerkTier.Tier2:
             SetDamageDealt(EventPlayer(), 500);
             damagevariable = 500;
             break;
 
-        case 3:
+        case PerkTier.Tier3:
             SetDamageDealt(EventPlayer(), 1000);
             damagevariable = 1000;
             break;
@@ -819,4 +819,3 @@ if ((IsUsingAbility1(EventPlayer()) || IsUsingAbility2(EventPlayer()) || IsUsing
         points += 50;
     }
 }
-

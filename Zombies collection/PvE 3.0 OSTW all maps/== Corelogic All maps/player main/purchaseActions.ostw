@@ -3,22 +3,21 @@ rule: "202 Purchase Follower action"
 Event.OngoingPlayer
 Team.Team1
 if (IsButtonHeld(EventPlayer(), Button.Reload) == true)
-# is heroradius variable needed?
-if (IsTrueForAny(buyheros, DistanceBetween(ArrayElement(), EventPlayer()) < 2) == true)
+if (IsTrueForAny(buyheros, DistanceToEventPlayer(ArrayElement()) < 2) == true)
 {
     Wait(1, WaitBehavior.AbortWhenFalse);
-    # Loop through all heroes
+    WaitUntil(ServerLoad() < 230, 3);
     for (i = 0; CountOf(hero); 1)
     {
-        if (DistanceBetween(EventPlayer(), buyheros[i]) < 2)
+        if (DistanceToEventPlayer(buyheros[i]) < 2)
         {
-            if (points >= RoundToInteger(herobuycosts[i] / 3 * costmultiplier - creditcardlimit, Rounding.Nearest))
+            if (points >= RequiredPurchasePoints(herobuycosts[i] / 3))
             {
                 followerbuy = hero[i];
                 MinWait();
                 Subfollowerbuy();
-                points -= RoundToInteger(herobuycosts[i] / 3 * costmultiplier, Rounding.Nearest);
-                points2 -= RoundToInteger(herobuycosts[i] / 3 * costmultiplier, Rounding.Nearest);
+                points -= ScaledPurchaseCost(herobuycosts[i] / 3);
+                points2 -= ScaledPurchaseCost(herobuycosts[i] / 3);
             }
             else
             {
@@ -33,16 +32,16 @@ rule: "Purchase Mystery Follower action"
 Event.OngoingPlayer
 Team.Team1
 if (IsButtonHeld(EventPlayer(), Button.Reload) == true)
-if (DistanceBetween(EventPlayer(), rngbox) <= 2)
+if (DistanceToEventPlayer(rngbox) <= 2)
 {
     Wait(1, WaitBehavior.AbortWhenFalse);
-    if (points >= RoundToInteger(FirstOf(herobuycosts) / 3 * costmultiplier - creditcardlimit, Rounding.Nearest))
+    if (points >= RequiredPurchasePoints(FirstOf(herobuycosts) / 3))
     {
         followerbuy = RandomValueInArray(hero);
         MinWait();
         Subfollowerbuy();
-        points -= RoundToInteger(FirstOf(herobuycosts) / 3 * costmultiplier, Rounding.Nearest);
-        points2 -= RoundToInteger(FirstOf(herobuycosts) / 3 * costmultiplier, Rounding.Nearest);
+        points -= ScaledPurchaseCost(FirstOf(herobuycosts) / 3);
+        points2 -= ScaledPurchaseCost(FirstOf(herobuycosts) / 3);
     }
     else
     {
@@ -55,31 +54,29 @@ rule: "229 buy perks and power activate"
 Event.OngoingPlayer
 Team.Team1
 if (IsButtonHeld(EventPlayer(), Button.Interact) == true)
-if (IsTrueForAny(buyperks, [DistanceBetween(ArrayElement(), EventPlayer()) < 2]) == true)
+if (IsTrueForAny(buyperks, [DistanceToEventPlayer(ArrayElement()) < 2]) == true)
 {
     if (ServerLoadPeak() < 235)
     {
-        for (i = 0; CountOf(buyperks); 1)
+        WaitUntil(ServerLoad() < 230, 3);
+        for (i = Buyable.Juggernaut; Buyable.Count; 1)
         {
-            if (DistanceBetween(EventPlayer(), buyperks[i]) < 2 && i != 6)
+            if (DistanceToEventPlayer(buyperks[i]) < 2 && i != Buyable.Power)
             {
                 if (poweron == 1)
                 {
-                    if (points >= RoundToInteger(perkcosts[i] * costmultiplier - creditcardlimit, Rounding.Nearest))
+                    if (points >= RequiredPurchasePoints(perkcosts[i]))
                     {
                         if (perk[i] < 3)
                         {
-                            points -= RoundToInteger(perkcosts[i] * costmultiplier * cashback, Rounding.Nearest);
+                            points -= CashbackPurchaseCharge(perkcosts[i]);
                             Wait(0.25, WaitBehavior.IgnoreCondition);
                             perk[i] += 1;
                             PlayEffect(AllPlayers(Team.Team1), PlayEffect.RingExplosionSound, Color.White, EventPlayer(), 70);
                             SmallMessage(EventPlayer(), <"<0> <1>", HeroIconString(Hero.Ramattra), perkmessages[i]>);
                             Wait(0.25, WaitBehavior.IgnoreCondition);
                             Communicate(EventPlayer(), Communication.EmoteUp);
-                            Wait(0.05, WaitBehavior.IgnoreCondition);
-                            SetMoveSpeed(EventPlayer(), 0);
-                            Wait(2, WaitBehavior.IgnoreCondition);
-                            SetMoveSpeed(EventPlayer(), 100);
+                            PurchaseFreezeAfterEmote();
                             break;
                         }
                         else
@@ -114,7 +111,7 @@ Event.OngoingPlayer
 Team.Team1
 if (IsButtonHeld(EventPlayer(), Button.Interact) == true)
 # needs to track cost
-if (IsTrueForAny(FirstOf(twoDvectorsArray), DistanceBetween(ArrayElement(), EventPlayer()) < 2) == true)
+if (IsTrueForAny(FirstOf(twoDvectorsArray), DistanceToEventPlayer(ArrayElement()) < 2) == true)
 {
     for (i = 0; CountOf(FirstOf(twoDvectorsArray)); 1)
     {
@@ -125,7 +122,7 @@ rule: "connect power"
 Event.OngoingPlayer
 Team.Team1
 if (IsButtonHeld(EventPlayer(), Button.Interact) == true)
-if (DistanceBetween(EventPlayer(), buyperks[6]) < 2)
+if (DistanceToEventPlayer(buyperks[Buyable.Power]) < 2)
 if (poweron == 0)
 {
     PlayEffect(AllPlayers(Team.Team1), PlayEffect.BuffImpactSound, Color.White, EventPlayer(), 70);
@@ -140,13 +137,14 @@ rule: "202 Purchase hero actions"
 Event.OngoingPlayer
 Team.Team1
 if (IsButtonHeld(EventPlayer(), Button.Interact) == true)
-if (IsTrueForAny([DistanceBetween(EventPlayer(), buyheros[i]) < 2], ArrayElement()) == true)
+if (IsTrueForAny([DistanceToEventPlayer(buyheros[i]) < 2], ArrayElement()) == true)
 {
     if (ServerLoadPeak() < 235)
     {
+        WaitUntil(ServerLoad() < 230, 3);
         for (idx = 0; CountOf(buyheros); 1)
         {
-            if (DistanceBetween(EventPlayer(), buyheros[idx]) < 2)
+            if (DistanceToEventPlayer(buyheros[idx]) < 2)
             {
                 if (HeroOf(EventPlayer()) == hero[idx])
                 {
@@ -211,7 +209,7 @@ if (IsTrueForAny([DistanceBetween(EventPlayer(), buyheros[i]) < 2], ArrayElement
                 }
             }
             # buy ending
-            if (DistanceBetween(EventPlayer(), Vector(-101.303, -150.36, -17.831)) < 2)
+            if (DistanceToEventPlayer(Vector(-101.303, -150.36, -17.831)) < 2)
             {
                 if (points >= 50000)
                 {
@@ -240,13 +238,14 @@ if (IsTrueForAny([DistanceBetween(EventPlayer(), buyheros[i]) < 2], ArrayElement
 rule: "78 buy revive multiplayer"
 Event.OngoingPlayer
 Team.Team1
-if (DistanceBetween(EventPlayer(), Vector(-83.583, -155.045, 120.352)) < 4)
+if (DistanceToEventPlayer(Vector(-83.583, -155.045, 120.352)) < 4)
 if (IsButtonHeld(EventPlayer(), Button.Interact) == true)
 if (points >= RoundToInteger(1000 * costmultiplier - creditcardlimit, Rounding.Nearest))
 if (powerconnected == 1)
 # @Condition __assignTo__(eventPlayer.revivebought, false)
 if (NumberOfPlayers(Team.Team1) > 1)
 {
+    WaitUntil(ServerLoad() < 230, 3);
     points -= RoundToInteger(1000 * costmultiplier * cashback, Rounding.Nearest);
     ChaseVariableAtRate(points2, EvaluateOnce(points) * H, 1000, RateChaseReevaluation.DestinationAndRate);
     PlayEffect(AllPlayers(Team.Team1), PlayEffect.BuffImpactSound, Color.White, EventPlayer(), 70);
@@ -255,21 +254,19 @@ if (NumberOfPlayers(Team.Team1) > 1)
     Wait(0.1, WaitBehavior.IgnoreCondition);
     Communicate(EventPlayer(), Communication.EmoteUp);
     # eventPlayer.revivebought = 1
-    Wait(0.05, WaitBehavior.IgnoreCondition);
-    SetMoveSpeed(EventPlayer(), 0);
-    Wait(2, WaitBehavior.IgnoreCondition);
-    SetMoveSpeed(EventPlayer(), 100);
+    PurchaseFreezeAfterEmote();
 }
 
 rule: "173 Purchase winston Omnic bomb"
 Event.OngoingPlayer
 Team.Team1
-if (DistanceBetween(EventPlayer(), buyperks[9]) < 4)
+if (DistanceToEventPlayer(buyperks[Buyable.OmnicBomb]) < 4)
 if (IsButtonHeld(EventPlayer(), Button.Interact) == true)
 if (points >= RoundToInteger(2500 * costmultiplier - creditcardlimit, Rounding.Nearest))
 if (powerconnected == 1)
 if (Movement == false)
 {
+    WaitUntil(ServerLoad() < 230, 3);
     points -= RoundToInteger(2500 * costmultiplier * cashback, Rounding.Nearest);
     ChaseVariableAtRate(points2, EvaluateOnce(points) * H, 2500, RateChaseReevaluation.DestinationAndRate);
     Movement = 1;
@@ -277,10 +274,7 @@ if (Movement == false)
     Wait(0.1, WaitBehavior.IgnoreCondition);
     Communicate(EventPlayer(), Communication.EmoteUp);
     Head_HP = 3;
-    Wait(0.05, WaitBehavior.IgnoreCondition);
-    SetMoveSpeed(EventPlayer(), 0);
-    Wait(2, WaitBehavior.IgnoreCondition);
-    SetMoveSpeed(EventPlayer(), 100);
+    PurchaseFreezeAfterEmote();
     Part2 = false;
 }
 
@@ -288,7 +282,7 @@ rule: "53  mystery box"
 Event.OngoingPlayer
 Team.Team1
 if (IsButtonHeld(EventPlayer(), Button.Interact) == true)
-if (DistanceBetween(EventPlayer(), rngbox) <= 2)
+if (DistanceToEventPlayer(rngbox) <= 2)
 {
     if (ServerLoadPeak() < 235)
     {
@@ -296,8 +290,10 @@ if (DistanceBetween(EventPlayer(), rngbox) <= 2)
         {
             if (ServerLoad() < 235)
             {
+                WaitUntil(ServerLoad() < 230, 1.5);
                 PlayEffect(AllPlayers(Team.Team1), PlayEffect.BuffImpactSound, Color.White, EventPlayer(), 70);
             }
+            WaitUntil(ServerLoad() < 230, 1.5);
             ForcePlayerHero(EventPlayer(), FirstOf(RandomValueInArray(RandomizedArray(AllHeroes()))));
             Wait(0.1, WaitBehavior.IgnoreCondition);
             Resurrect(EventPlayer());
@@ -337,12 +333,13 @@ if (DistanceBetween(EventPlayer(), rngbox) <= 2)
 rule: "192 Purchase trap"
 Event.OngoingPlayer
 Team.Team1
-if (DistanceBetween(EventPlayer(), Vector(-83.799, -160.001, 64.224)) <= 2)
+if (DistanceToEventPlayer(Vector(-83.799, -160.001, 64.224)) <= 2)
 if (IsButtonHeld(EventPlayer(), Button.Interact) == true)
 if (trapeffect == false)
 {
     if (points >= 1000)
     {
+        WaitUntil(ServerLoad() < 230, 3);
         trapeffect = 1;
         PlayEffect(AllPlayers(Team.Team1), PlayEffect.BuffImpactSound, Color.White, EventPlayer(), 70);
         points -= 2000;

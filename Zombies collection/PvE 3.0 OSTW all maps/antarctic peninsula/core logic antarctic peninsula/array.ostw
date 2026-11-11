@@ -13,7 +13,7 @@ rule: "arrays"
     Wall_ID = [];
     for (forindex = 0; 118; 1)
     {
-        Wall_ID[forindex] = 1;
+        Wall_ID[forindex] = WallState.Closed;
     }
     # [0] = doorParams, [1] = teleradiusef, [2] = perkcosts
     twoDnumbersArray2 = import("Local-compressed.json"); 

@@ -186,14 +186,14 @@ if (IsTrueForAny(firstpos, [DistanceBetween(ArrayElement(), EventPlayer()) < 10]
     closestwall = FilteredArray(AllPos, DistanceBetween(AllPos[CurrentArrayIndex()], EventPlayer()) <= DistanceBetween(AllPos[CurrentArrayIndex()], firstpos[CurrentArrayIndex()]) || active_wall[CurrentArrayIndex()] == 1 || DotProduct(DirectionTowards(ArrayElement(), lastsavedpos), AllDir[CurrentArrayIndex()]) > 0 != DotProduct(DirectionTowards(ArrayElement(), EventPlayer()), AllDir[CurrentArrayIndex()]) > 0);
     for (x_ = 0; CountOf(closestwall); 1)
     {
-        if (Wall_ID[z] == 0)
+        if (Wall_ID[z] == WallState.Open)
         {
             active_wall[z] = 0;
             # needs to use gamemode wide movement speed, when player gets perks
             SetMoveSpeed(EventPlayer(), 100);
         }
         z = IndexOfArrayValue(AllPos, closestwall[x_]);
-        if (Wall_ID[z] == 1 || Wall_ID[z] == 3 || Wall_ID[z] == 5)
+        if (Wall_ID[z] == WallState.Closed)
         {
             if (YOf(firstpos[z]) >= YOf(PositionOf(EventPlayer())) && YOf(firstpos[z]) <= YOf(EyePosition(EventPlayer()) + Vector(0, 0.2, 0)))
             {
@@ -209,84 +209,54 @@ if (IsTrueForAny(firstpos, [DistanceBetween(ArrayElement(), EventPlayer()) < 10]
             }
             fullbodypos = Vector(XOf(EyePosition(EventPlayer())), YOf(closestbodypos), ZOf(EyePosition(EventPlayer())));
             filterpos = fullbodypos + AllDir[z] * DotProduct(AllPos[z] - fullbodypos, AllDir[z]) / DotProduct(AllDir[z], AllDir[z]);
-            if (Wall_ID[z] == 1 || Wall_ID[z] == 3)
+            if (DotProduct(DirectionTowards(AllPos[z], lastsavedpos), AllDir[z]) > 0 != DotProduct(DirectionTowards(AllPos[z], fullbodypos), AllDir[z]) > 0)
             {
-                if (DotProduct(DirectionTowards(AllPos[z], lastsavedpos), AllDir[z]) > 0 != DotProduct(DirectionTowards(AllPos[z], fullbodypos), AllDir[z]) > 0)
+                intersection_length = DotProduct(AllPos[z] - fullbodypos, AllDir[z]) / DotProduct(DirectionTowards(lastsavedpos, fullbodypos), AllDir[z]);
+                prevpos_intersection = fullbodypos + DirectionTowards(lastsavedpos, fullbodypos) * Vector(1, 1, 1) * intersection_length;
+                if (DotProduct(DirectionTowards(firstpos[z], Vector(XOf(secondpos[z]), YOf(firstpos[z]), ZOf(secondpos[z]))), DirectionTowards(firstpos[z], prevpos_intersection)) >= 0 && DotProduct(DirectionTowards(firstpos[z], Vector(XOf(firstpos[z]), YOf(secondpos[z]), ZOf(firstpos[z]))), DirectionTowards(firstpos[z], prevpos_intersection)) >= 0 && DotProduct(DirectionTowards(secondpos[z], Vector(XOf(secondpos[z]), YOf(firstpos[z]), ZOf(secondpos[z]))), DirectionTowards(secondpos[z], prevpos_intersection)) >= 0 && DotProduct(DirectionTowards(secondpos[z], Vector(XOf(firstpos[z]), YOf(secondpos[z]), ZOf(firstpos[z]))), DirectionTowards(secondpos[z], prevpos_intersection)) >= 0)
                 {
-                    intersection_length = DotProduct(AllPos[z] - fullbodypos, AllDir[z]) / DotProduct(DirectionTowards(lastsavedpos, fullbodypos), AllDir[z]);
-                    prevpos_intersection = fullbodypos + DirectionTowards(lastsavedpos, fullbodypos) * Vector(1, 1, 1) * intersection_length;
-                    if (DotProduct(DirectionTowards(firstpos[z], Vector(XOf(secondpos[z]), YOf(firstpos[z]), ZOf(secondpos[z]))), DirectionTowards(firstpos[z], prevpos_intersection)) >= 0 && DotProduct(DirectionTowards(firstpos[z], Vector(XOf(firstpos[z]), YOf(secondpos[z]), ZOf(firstpos[z]))), DirectionTowards(firstpos[z], prevpos_intersection)) >= 0 && DotProduct(DirectionTowards(secondpos[z], Vector(XOf(secondpos[z]), YOf(firstpos[z]), ZOf(secondpos[z]))), DirectionTowards(secondpos[z], prevpos_intersection)) >= 0 && DotProduct(DirectionTowards(secondpos[z], Vector(XOf(firstpos[z]), YOf(secondpos[z]), ZOf(firstpos[z]))), DirectionTowards(secondpos[z], prevpos_intersection)) >= 0)
-                    {
-                        CancelPrimaryAction(EventPlayer());
-                        Teleport(EventPlayer(), prevpos_intersection + DirectionTowards(prevpos_intersection, lastsavedpos) * Vector(1, 0, 1) * 2);
-                    }
+                    CancelPrimaryAction(EventPlayer());
+                    Teleport(EventPlayer(), prevpos_intersection + DirectionTowards(prevpos_intersection, lastsavedpos) * Vector(1, 0, 1) * 2);
                 }
             }
-            thickness = 0;
-            if (Wall_ID[z] == 5)
-            {
-                thickness = 8;
-            }
-            else
-            {
-                thickness = 4;
-            }
-            if (DistanceBetween(fullbodypos, filterpos) <= thickness && DotProduct(DirectionTowards(firstpos[z], Vector(XOf(secondpos[z]), YOf(firstpos[z]), ZOf(secondpos[z]))), DirectionTowards(firstpos[z], filterpos)) >= 0 && DotProduct(DirectionTowards(firstpos[z], Vector(XOf(firstpos[z]), YOf(secondpos[z]), ZOf(firstpos[z]))), DirectionTowards(firstpos[z], filterpos)) >= 0 && DotProduct(DirectionTowards(secondpos[z], Vector(XOf(secondpos[z]), YOf(firstpos[z]), ZOf(secondpos[z]))), DirectionTowards(secondpos[z], filterpos)) >= 0 && DotProduct(DirectionTowards(secondpos[z], Vector(XOf(firstpos[z]), YOf(secondpos[z]), ZOf(firstpos[z]))), DirectionTowards(secondpos[z], filterpos)) >= 0)
+            if (DistanceBetween(fullbodypos, filterpos) <= 4 && DotProduct(DirectionTowards(firstpos[z], Vector(XOf(secondpos[z]), YOf(firstpos[z]), ZOf(secondpos[z]))), DirectionTowards(firstpos[z], filterpos)) >= 0 && DotProduct(DirectionTowards(firstpos[z], Vector(XOf(firstpos[z]), YOf(secondpos[z]), ZOf(firstpos[z]))), DirectionTowards(firstpos[z], filterpos)) >= 0 && DotProduct(DirectionTowards(secondpos[z], Vector(XOf(secondpos[z]), YOf(firstpos[z]), ZOf(secondpos[z]))), DirectionTowards(secondpos[z], filterpos)) >= 0 && DotProduct(DirectionTowards(secondpos[z], Vector(XOf(firstpos[z]), YOf(secondpos[z]), ZOf(firstpos[z]))), DirectionTowards(secondpos[z], filterpos)) >= 0)
             {
                 if (active_wall[z] == false)
                 {
                     active_wall[z] = 1;
-                    if ((Wall_ID[z] == 1 || Wall_ID[z] == 3) && is_Grounded == false)
+                    if (is_Grounded == false)
                     {
                         SetGravity(EventPlayer(), 100);
                     }
-                    else if (Wall_ID[z] == 5)
-                    {
-                        DisableMovementCollisionWithEnvironment(EventPlayer(), false);
-                    }
                 }
-                if (Wall_ID[z] == 1)
+                ApplyImpulse(EventPlayer(), DirectionTowards(filterpos, fullbodypos) * Vector(1, 0, 1), 1, Relative.ToWorld, ContraryMotion.Cancel);
+                if (doorNotif == 0)
                 {
-                    ApplyImpulse(EventPlayer(), DirectionTowards(filterpos, fullbodypos) * Vector(1, 0, 1), 1, Relative.ToWorld, ContraryMotion.Cancel);
-                    if (doorNotif == 0)
+                    doorNotif = 1;
+                }
+                if (IsButtonHeld(EventPlayer(), Button.Interact) && points >= 1000 * costmultiplier - creditcardlimit)
+                {
+                    PlayEffect(AllPlayers(Team.All), PlayEffect.GoodExplosion, Color.White, AllPos[z], 50);
+                    PlayEffect(AllPlayers(Team.All), PlayEffect.LucioSoundBarrierCastSound, Color.White, AllPos[z], 100);
+                    points -= RoundToInteger(1000 * costmultiplier * cashback, Rounding.Nearest);
+                    doorsToOpen = zoneDoors[currentZone];
+                    for (i = 0; CountOf(doorsToOpen); 1)
                     {
-                        doorNotif = 1;
-                    }
-                    if (IsButtonHeld(EventPlayer(), Button.Interact) && points >= 1000 * costmultiplier - creditcardlimit)
-                    {
-                        PlayEffect(AllPlayers(Team.All), PlayEffect.GoodExplosion, Color.White, AllPos[z], 50);
-                        PlayEffect(AllPlayers(Team.All), PlayEffect.LucioSoundBarrierCastSound, Color.White, AllPos[z], 100);
-                        points -= RoundToInteger(1000 * costmultiplier * cashback, Rounding.Nearest);
-                        doorsToOpen = zoneDoors[currentZone];
-                        for (i = 0; CountOf(doorsToOpen); 1)
+                        z = doorsToOpen[i];
+                        if (Wall_ID[z] == WallState.Closed)
                         {
-                            z = doorsToOpen[i];
-                            if (Wall_ID[z] == 1)
-                            {
-                                if (doors[z * 2] != null)
-                                {
-                                    DestroyEffect(doors[z * 2]);
-                                }
-                                if (doors[z * 2 + 1] != null)
-                                {
-                                    DestroyEffect(doors[z * 2 + 1]);
-                                }
-                                Wall_ID[z] = 0;
-                                active_wall[z] = 0;
-                            }
+                            DestroyDoorEffects(z);
+                            Wall_ID[z] = WallState.Open;
+                            active_wall[z] = 0;
                         }
-                        SmallMessage(EventPlayer(), "Zone bought!");
-                        doorNotif = 0;
-                        ChaseVariableAtRate(points2, EvaluateOnce(points) * H, 1000, RateChaseReevaluation.DestinationAndRate);
-                        MinWait();
-                        SetMoveSpeed(EventPlayer(), 100);
                     }
-                    SetMoveSpeed(EventPlayer(), 100 - DotProduct(DirectionTowards(EyePosition(EventPlayer()), EyePosition(EventPlayer()) + WorldVectorOf(ThrottleOf(EventPlayer()), EventPlayer(), LocalVector.Rotation)), DirectionTowards(filterpos, fullbodypos) * -1) * 100);
+                    SmallMessage(EventPlayer(), "Zone bought!");
+                    doorNotif = 0;
+                    ChaseVariableAtRate(points2, EvaluateOnce(points) * H, 1000, RateChaseReevaluation.DestinationAndRate);
+                    MinWait();
+                    SetMoveSpeed(EventPlayer(), 100);
                 }
-                else if (Wall_ID[z] == 3)
-                {
-                    ApplyImpulse(EventPlayer(), DirectionTowards(filterpos, fullbodypos), 2 * SpeedOf(EventPlayer()), Relative.ToWorld, ContraryMotion.Cancel);
-                }
+                SetMoveSpeed(EventPlayer(), 100 - DotProduct(DirectionTowards(EyePosition(EventPlayer()), EyePosition(EventPlayer()) + WorldVectorOf(ThrottleOf(EventPlayer()), EventPlayer(), LocalVector.Rotation)), DirectionTowards(filterpos, fullbodypos) * -1) * 100);
             }
             else
             {
@@ -297,13 +267,6 @@ if (IsTrueForAny(firstpos, [DistanceBetween(ArrayElement(), EventPlayer()) < 10]
         }
     }
     LoopIfConditionIsTrue();
-}
-
-rule: "Reset"
-Event.OngoingPlayer
-if (CountOf(RemoveFromArray(active_wall, 0)) == 0)
-{
-    EnableMovementCollisionWithEnvironment(EventPlayer());
 }
 
 rule: "Make door arrays"
@@ -374,8 +337,7 @@ if (teleporterused == 1)
 {
     for (i = doorZoneStart; doorZoneEnd; 1)
     {
-        DestroyEffect(doors[i * 2]);
-        DestroyEffect(doors[i * 2 + 1]);
+        DestroyDoorEffects(i);
     }
 }
 
@@ -948,7 +910,7 @@ if (IsTrueForAll(AllPlayers(Team.Team1), HasSpawned(ArrayElement())) == true)
     costmultiplier = 1;
     for (forindex = 0; 90; 1)
     {
-        Wall_ID[forindex] = 1;
+        Wall_ID[forindex] = WallState.Closed;
     }
 }
 

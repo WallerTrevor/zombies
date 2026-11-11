@@ -8,18 +8,14 @@ Team.Team1
 if (IsButtonHeld(EventPlayer(), Button.Interact) == true)
 if (CountOf(PlayersWithinRadius(teleporterpositions[telespot], 3, Team.Team1, RadiusLOS.Off)) > 0)
 {
-    # All living Team 1 players must be inside the teleporter radius.
     if (CountOf(AllLivingPlayers(Team.Team1)) == CountOf(PlayersWithinRadius(teleporterpositions[telespot], 3, Team.Team1, RadiusLOS.Off)))
     {
         if (teleporterwait == false)
         {
             teleporterwait = true;
             EventPlayer().teleporterEffects = [];
-
-            # might need to not use destroy effect last created, and append every single one to array then delete all
             CreateEffect(EventPlayer(), Effect.AnaNanoBoostedEffect, TeamOf(EventPlayer()), EventPlayer(), 1, EffectRev.VisibleToPositionAndRadius);
             ModifyVariable(EventPlayer().teleporterEffects, Operation.AppendToArray, LastCreatedEntity());
-            # need a for loop needs 4 loops
             CreateEffect(LocalPlayer(), Effect.WinstonTeslaCannonTargetEffect, Color.Black, EventPlayer(), 80, EffectRev.VisibleToPositionAndRadius);
             ModifyVariable(EventPlayer().teleporterEffects, Operation.AppendToArray, LastCreatedEntity());
             Wait(0.25, WaitBehavior.IgnoreCondition);
@@ -31,7 +27,6 @@ if (CountOf(PlayersWithinRadius(teleporterpositions[telespot], 3, Team.Team1, Ra
             DestroyEffect(EventPlayer().teleporterEffects[1]);
             EventPlayer().teleporterEffects = [];
             teleportercolor = Color.Red;
-            # needs to be set to current telespot
             if (CountOf(teleporterpositions) > 0)
             {
                 telespot = (telespot + 1) % CountOf(teleporterpositions);

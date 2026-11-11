@@ -1,8 +1,7 @@
-﻿
-rule: "73 Headshot maniac Perk add damage"
+﻿rule: "73 Headshot maniac Perk add damage"
 Event.OnDamageDealt
 Team.Team1
-if (perk[3] == 1)
+if (perk[Perk.HeadshotManiac] == 1)
 if (EventWasCriticalHit() == true)
 if (damagevariable < 391)
 {
@@ -16,7 +15,7 @@ Team.Team1
 # make it so this plays nicely with pack a punch
 if (EventWasCriticalHit() == false)
 if (damagevariable >= 55)
-if (perk[3] == 1)
+if (perk[Perk.HeadshotManiac] == 1)
 {
     damagevariable -= 2.5;
     SetDamageDealt(EventPlayer(), damagevariable);
@@ -25,9 +24,9 @@ if (perk[3] == 1)
 rule: "jugg tier 2 and 3"
 Event.OnDamageTaken
 Team.Team1
-if (perk[1] > 0)
+if (perk[Perk.Juggernaut] > 0)
 {
-    switch (perk[1])
+    switch (perk[Perk.Juggernaut])
     {
         case 2:
             Wait(10, WaitBehavior.RestartWhenTrue);
@@ -45,7 +44,7 @@ if (perk[1] > 0)
 rule: "give juggernaut perk max health"
 Event.OngoingPlayer
 Team.Team1
-if (perk[1] == 1)
+if (perk[Perk.Juggernaut] == 1)
 {
     SetMaxHealth(EventPlayer(), 200);
 }
@@ -54,9 +53,9 @@ rule: "109 PERK player hit speed boost sprint burst"
 Event.OnDamageTaken
 Team.Team1
 if (EventDamage() == true)
-if (perk[2] == 1)
+if (perk[Perk.Sprintboost] == 1)
 {
-    switch (perk[1])
+    switch (perk[Perk.Juggernaut])
     {
         case 1:
             SetMoveSpeed(EventPlayer(), 180);
@@ -81,7 +80,7 @@ if (perk[2] == 1)
 rule: "79 player died with maniac"
 Event.OnDeath
 Team.Team1
-if (perk[3] == 1)
+if (perk[Perk.HeadshotManiac] == 1)
 {
     Died[SlotOf(EventPlayer())] = NearestWalkablePosition(EventPlayer());
     BigMessage(AllPlayers(Team.All), <"<0> <1>", EventPlayer(), RandomValueInArray(diedphrase)>);
@@ -89,31 +88,30 @@ if (perk[3] == 1)
     SetMaxHealth(EventPlayer(), 100);
     StopForcingHero(EventPlayer());
     MinWait();
-    perk[1] = false;
+    perk[Perk.Juggernaut] = false;
     MinWait();
     healthmax = 50;
-    perk[3] = false;
+    perk[Perk.HeadshotManiac] = false;
     MinWait();
     SetDamageDealt(EventPlayer(), 100);
     damagevariable = 100;
     MinWait();
     healvariable = 100;
     SetHealingDealt(EventPlayer(), 100);
-    perk[5] = false;
+    perk[Perk.SpeedCola] = false;
     Wait(0.1, WaitBehavior.IgnoreCondition);
-    perk[2] = false;
+    perk[Perk.Sprintboost] = false;
     SetAllowedHeroes(EventPlayer(), allowedheroes);
 }
 
 rule: "77 multiplayer extra life Perk"
 Event.OnDeath
 Team.Team1
-if (perk[4] == 1)
+if (perk[Perk.selfrevive] == 1)
 {
     # should set this to be a quick revive perk
     SetStatus(EventPlayer(), null, Status.KnockedDown, 2);
     Resurrect(EventPlayer());
     SetStatus(EventPlayer(), null, Status.Invincible, 10);
-    perk[4] = 0;
+    perk[Perk.selfrevive] = 0;
 }
-
