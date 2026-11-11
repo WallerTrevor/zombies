@@ -6,121 +6,44 @@ Event.OngoingPlayer
 Team.Team1
 
 if (IsButtonHeld(EventPlayer(), Button.Interact) == true)
-if (CountOf(PlayersWithinRadius(
-    teleporterpositions[telespot],
-    3,
-    Team.Team1,
-    RadiusLOS.Off
-)) > 0)
+if (CountOf(PlayersWithinRadius(teleporterpositions[telespot], 3, Team.Team1, RadiusLOS.Off)) > 0)
 {
     # All living Team 1 players must be inside the teleporter radius.
-    if (CountOf(AllLivingPlayers(Team.Team1)) == CountOf(PlayersWithinRadius(
-        teleporterpositions[telespot],
-        3,
-        Team.Team1,
-        RadiusLOS.Off
-    )))
+    if (CountOf(AllLivingPlayers(Team.Team1)) == CountOf(PlayersWithinRadius(teleporterpositions[telespot], 3, Team.Team1, RadiusLOS.Off)))
     {
         if (teleporterwait == false)
         {
+            teleporterwait = true;
+            EventPlayer().teleporterEffects = [];
+
             # might need to not use destroy effect last created, and append every single one to array then delete all
-            CreateEffect(
-                EventPlayer(),
-                Effect.AnaNanoBoostedEffect,
-                TeamOf(EventPlayer()),
-                EventPlayer(),
-                1,
-                EffectRev.VisibleToPositionAndRadius
-            );
-
-            ModifyVariable(
-                zzz,
-                Operation.AppendToArray,
-                LastCreatedEntity()
-            );
-
+            CreateEffect(EventPlayer(), Effect.AnaNanoBoostedEffect, TeamOf(EventPlayer()), EventPlayer(), 1, EffectRev.VisibleToPositionAndRadius);
+            ModifyVariable(EventPlayer().teleporterEffects, Operation.AppendToArray, LastCreatedEntity());
             # need a for loop needs 4 loops
-            CreateEffect(
-                LocalPlayer(),
-                Effect.WinstonTeslaCannonTargetEffect,
-                Color.Black,
-                EventPlayer(),
-                80,
-                EffectRev.VisibleToPositionAndRadius
-            );
-
-            ModifyVariable(
-                zzz,
-                Operation.AppendToArray,
-                LastCreatedEntity()
-            );
-
+            CreateEffect(LocalPlayer(), Effect.WinstonTeslaCannonTargetEffect, Color.Black, EventPlayer(), 80, EffectRev.VisibleToPositionAndRadius);
+            ModifyVariable(EventPlayer().teleporterEffects, Operation.AppendToArray, LastCreatedEntity());
             Wait(0.25, WaitBehavior.IgnoreCondition);
-
-            SetStatus(
-                PlayersWithinRadius(
-                    teleporterpositions[telespot],
-                    5,
-                    Team.Team2,
-                    RadiusLOS.Off
-                ),
-                EventPlayer(),
-                Status.Stunned,
-                0.25
-            );
-
-            DestroyEffect(FirstOf(zzz));
-
-            PlayEffect(
-                LocalPlayer(),
-                PlayEffect.RingExplosionSound,
-                Color.White,
-                EventPlayer(),
-                80
-            );
-
+            SetStatus(PlayersWithinRadius(teleporterpositions[telespot], 5, Team.Team2, RadiusLOS.Off), EventPlayer(), Status.Stunned, 0.25);
+            DestroyEffect(FirstOf(EventPlayer().teleporterEffects));
+            PlayEffect(LocalPlayer(), PlayEffect.RingExplosionSound, Color.White, EventPlayer(), 80);
             Wait(0.25, WaitBehavior.IgnoreCondition);
-
-            Kill(
-                PlayersWithinRadius(
-                    teleporterpositions[101],
-                    5,
-                    Team.Team2,
-                    RadiusLOS.Off
-                ),
-                FirstOf(AllLivingPlayers(Team.Team1))
-            );
-
-            DestroyEffect(zzz[1]);
-
-            teleporterwait = 1;
+            Kill(PlayersWithinRadius(teleporterpositions[101], 5, Team.Team2, RadiusLOS.Off), FirstOf(AllLivingPlayers(Team.Team1)));
+            DestroyEffect(EventPlayer().teleporterEffects[1]);
+            EventPlayer().teleporterEffects = [];
             teleportercolor = Color.Red;
-
             # needs to be set to current telespot
             if (CountOf(teleporterpositions) > 0)
             {
-                telespot =
-                    (telespot + 1) % CountOf(teleporterpositions);
-
+                telespot = (telespot + 1) % CountOf(teleporterpositions);
                 MinWait();
-
                 teleporterused = 1;
                 lastsavedpos = null;
-
                 Wait(0.5, WaitBehavior.IgnoreCondition);
-
-                Teleport(
-                    AllPlayers(Team.Team1),
-                    teleporterpositions[telespot]
-                );
+                Teleport(AllPlayers(Team.Team1), teleporterpositions[telespot]);
             }
-
             Wait(0.5, WaitBehavior.IgnoreCondition);
-
             teleporterused = 0;
             makedoors();
         }
     }
 }
-
-

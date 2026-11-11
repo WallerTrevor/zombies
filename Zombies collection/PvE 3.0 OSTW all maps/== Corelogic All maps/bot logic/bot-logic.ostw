@@ -24,3 +24,136 @@ if (IsDummyBot(EventPlayer()) == true)
     Wait(6.5, WaitBehavior.IgnoreCondition);
     Loop();
 }
+
+rule: "38 Pickup vaporized"
+Event.OngoingPlayer
+Team.Team1
+if (DistanceBetween(EventPlayer(), M[3]) <= 1.5)
+if (AllPlayers(Team.Team1).G[3] == false)
+if (roundnumber >= 1)
+{
+    M[4] = Vector(500, 25, 500);
+    AllPlayers(Team.Team1).G[3] = true;
+    AllPlayers(Team.Team1).S[3] = 1;
+    BigMessage(AllPlayers(Team.All), "Vaporized");
+    Kill(AllLivingPlayers(Team.Team2), FirstOf(AllLivingPlayers(Team.Team1)));
+    Wait(3, WaitBehavior.IgnoreCondition);
+    AllPlayers(Team.Team1).G[3] = false;
+    AllPlayers(Team.Team1).S[3] = false;
+}
+
+rule: "39 Pickup max ammo"
+Event.OngoingPlayer
+Team.Team1
+if (DistanceBetween(EventPlayer(), M[5]) <= 1.5)
+if (AllPlayers(Team.Team1).G[5] == false)
+if (roundnumber >= 1)
+{
+    M[5] = Vector(500, 25, 500);
+    AllPlayers(Team.Team1).G[5] = true;
+    AllPlayers(Team.Team1).S[5] = 1;
+    AllLivingPlayers(Team.Team1).magazines += 10;
+    BigMessage(AllPlayers(Team.All), "Max ammo!");
+    Wait(3, WaitBehavior.IgnoreCondition);
+    AllPlayers(Team.Team1).G[5] = false;
+    AllPlayers(Team.Team1).S[5] = false;
+}
+
+
+
+rule: "create barricade effect"
+# and globalSpawnNetworkDirty == 1
+if (start == 1)
+if (CountOf(globalActiveBreaches) > null)
+{
+    # destroy previous effects if any
+    for (botspawnindex = 0; CountOf(globalActiveBreachEffects); true)
+    {
+        # Destroying the old visual entities first prevents stale breach effects from lingering after the network changes to a new set of pathfinding nodes.
+        DestroyEffect(globalActiveBreachEffects[botspawnindex]);
+    }
+    # Reset the effect handle list to match the newly selected breach state.
+    globalActiveBreachEffects = [];
+    # Reset health values alongside the effects so each breach starts with its current network state instead of leftover values from the previous area.
+    globalActiveBreachHealth = [];
+    for (botspawnindex = 0; CountOf(globalActiveBreaches); true)
+    {
+        # Each chosen pathfinding node becomes one visible breach marker for the current area.
+        node = globalActiveBreaches[botspawnindex];
+        ModifyVariable(globalActiveBreachHealth, Operation.AppendToArray, 100);
+        # effect color indicates health (start green)\nGreen indicates a healthy breach that is still intact and not yet weakened by zombie spawn attempts.
+        color = Append(Append(ArraySlice(color, false, botspawnindex), [CustomColor(0, 255, 0, 255)]), ArraySlice(color, botspawnindex + true, 999999999999));
+        # The aura effect is placed slightly above the node so it visually marks the breach location as a barricade / window.
+        CreateEffect(AllPlayers(Team.All), Effect.BadAura, color[botspawnindex], node + 1.5 * Up(), true, EffectRev.VisibleToAndColor);
+        ModifyVariable(globalActiveBreachEffects, Operation.AppendToArray, LastCreatedEntity());
+        # The audio effect keeps the breach readable as a clear point of interest even when the visual effect is replaced.
+        CreateEffect(AllPlayers(Team.All), Effect.BadAuraSound, Color.White, node, 50, EffectRev.VisibleToAndColor);
+        ModifyVariable(globalActiveBreachEffects, Operation.AppendToArray, LastCreatedEntity());
+    }
+}
+
+
+rule: "barricade repair by players"
+Event.OngoingPlayer
+Team.Team1
+if (IsAlive(EventPlayer()) == true)
+if (IsButtonHeld(EventPlayer(), Button.Reload) == true)
+if (IsTrueForAny(globalActiveBreaches, [DistanceBetween(ArrayElement(), EventPlayer()) < 2]) == true)
+{
+    # repair amount per tick (per check)
+    repairAmount = 25;
+    for (botspawnindex = 0; CountOf(globalActiveBreaches); true)
+    {
+        if (botspawnindex < CountOf(globalActiveBreachHealth))
+        {
+            node = globalActiveBreaches[botspawnindex];
+            old = globalActiveBreachHealth[botspawnindex];
+            globalActiveBreachHealth = Append(Append(ArraySlice(globalActiveBreachHealth, false, botspawnindex), [Min(100, globalActiveBreachHealth[botspawnindex] + repairAmount)]), ArraySlice(globalActiveBreachHealth, botspawnindex + true, 999999999999));
+            if (globalActiveBreachHealth[botspawnindex] != old)
+            {
+                h = globalActiveBreachHealth[botspawnindex];
+                if (h <= null)
+                {
+                    color = Append(Append(ArraySlice(color, false, botspawnindex), [Color.Black]), ArraySlice(color, botspawnindex + true, 999999999999));
+                }
+                else
+                {
+                    # use floating-point arithmetic; rgb() will handle the rounding
+                    healthPercent = h / 100;
+                    color = Append(Append(ArraySlice(color, false, botspawnindex), [CustomColor(255 * (true - healthPercent), 255 * healthPercent, 0, 255)]), ArraySlice(color, botspawnindex + true, 999999999999));
+                }
+            }
+        }
+    }
+}
+
+rule: "get nearest nodes for spawning"
+if (start == 1)
+if ((averagePosition == null || DistanceBetween(averagePosition, FirstOf(SortedArray(FilteredArray(AllLivingPlayers(Team.All), HasSpawned(ArrayElement())), DistanceBetween(ArrayElement(), PositionOf(teamPlayers[botspawnindex]))))) > 10) == true)
+{
+    # This gathers the current living attackers so the breach network can follow where the team is actually fighting.
+    teamPlayers = AllLivingPlayers(Team.Team1);
+    # Reset the average before calculating it again.\nWe start from zero so the team center can be computed from the sum of player positions instead of reusing stale data.
+    averagePosition = Left() + Right();
+    # Calculate the average position of all living players.
+    for (botspawnindex = 0; CountOf(teamPlayers); true)
+    {
+        ModifyVariable(averagePosition, Operation.Add, PositionOf(teamPlayers[botspawnindex]));
+    }
+    # Dividing by the player count produces the center of the squad, which is what the pathfinding search uses to choose breach nodes.
+    ModifyVariable(averagePosition, Operation.Divide, CountOf(teamPlayers));
+    candidates = FilteredArray(pfLoadedMap_nodes, DistanceBetween(averagePosition, ArrayElement()) < 35);
+    # Select up to 8 unique random nodes.\nResetting the breach list means each recalculation creates a fresh set of active breach nodes for the current area.
+    globalActiveBreaches = [];
+    # Keeping only eight active breaches prevents the map from becoming crowded with too many simultaneous spawn points.
+    maxBreaches = 8;
+    # This guarantees we never try to select more breach nodes than the graph actually has available.
+    count = Min(CountOf(candidates), maxBreaches);
+    for (botspawnindex = 0; count; true)
+    {
+        # Randomizing the chosen nodes keeps the network varied and avoids a fixed, predictable row of breaches.
+        pick = RandomValueInArray(candidates);
+        ModifyVariable(globalActiveBreaches, Operation.AppendToArray, pick);
+        ModifyVariable(candidates, Operation.RemoveFromArrayByValue, pick);
+    }
+}

@@ -1,4 +1,4 @@
-﻿import "index.ostw";
+﻿import "../Main/index.ostw";
 
 disabled rule: "283 Imperial warmech setup ================================================"
 Event.OngoingPlayer
@@ -15,41 +15,29 @@ if (Bosssequencer == 3)
     StartScalingPlayer(EventPlayer(), 3, true);
     StartForcingDummyBotName(EventPlayer(), "Imperial warmech ");
     Wait(3, WaitBehavior.IgnoreCondition);
-    # Cannon 1
-    CreateDummyBot(Hero.WreckingBall, Team.Team2, -1, EventPlayer(), Vector(0, 0, 0));
-    Wait(1, WaitBehavior.IgnoreCondition);
-    AttachPlayers(LastCreatedEntity(), FirstOf(PlayersOnHero(Hero.Dva, Team.Team2)), Vector(0, 6.1, 1));
-    LastCreatedEntity().Part = "Cannon";
-    StartFacing(LastCreatedEntity(), FacingDirectionOf(EventPlayer()), 1000, Relative.ToWorld, FacingRev.DirectionAndTurnRate);
-    MinWait();
-    # Cannon 2
-    CreateDummyBot(Hero.WreckingBall, Team.Team2, -1, EventPlayer(), Vector(0, 0, 0));
-    Wait(1, WaitBehavior.IgnoreCondition);
-    AttachPlayers(LastCreatedEntity(), FirstOf(PlayersOnHero(Hero.Dva, Team.Team2)), Vector(2.15, 5.4, 1));
-    LastCreatedEntity().Part = "Cannon";
-    StartFacing(LastCreatedEntity(), FacingDirectionOf(EventPlayer()), 1000, Relative.ToWorld, FacingRev.DirectionAndTurnRate);
-    MinWait();
-    # Cannon 3
-    CreateDummyBot(Hero.WreckingBall, Team.Team2, -1, EventPlayer(), Vector(0, 0, 0));
-    Wait(1, WaitBehavior.IgnoreCondition);
-    AttachPlayers(LastCreatedEntity(), FirstOf(PlayersOnHero(Hero.Dva, Team.Team2)), Vector(-2.15, 5.4, 1));
-    LastCreatedEntity().Part = "Cannon";
-    StartFacing(LastCreatedEntity(), FacingDirectionOf(EventPlayer()), 1000, Relative.ToWorld, FacingRev.DirectionAndTurnRate);
-    MinWait();
-    # Machine gun 1
-    CreateDummyBot(Hero.Bastion, Team.Team2, -1, EventPlayer(), Vector(0, 0, 0));
-    Wait(1, WaitBehavior.IgnoreCondition);
-    AttachPlayers(LastCreatedEntity(), FirstOf(PlayersOnHero(Hero.Dva, Team.Team2)), Vector(2, 3, 1));
-    LastCreatedEntity().Part = "Machine gun";
-    StartFacing(LastCreatedEntity(), FacingDirectionOf(EventPlayer()), 1000, Relative.ToWorld, FacingRev.DirectionAndTurnRate);
-    MinWait();
-    # Machine gun 2
-    CreateDummyBot(Hero.Bastion, Team.Team2, -1, EventPlayer(), Vector(0, 0, 0));
-    Wait(1, WaitBehavior.IgnoreCondition);
-    AttachPlayers(LastCreatedEntity(), FirstOf(PlayersOnHero(Hero.Dva, Team.Team2)), Vector(-2, 3, 1));
-    LastCreatedEntity().Part = "Machine gun";
-    AddHealthPoolToPlayer(EventPlayer(), HealthType.Armor, 9999, true, true);
-    StartFacing(LastCreatedEntity(), FacingDirectionOf(EventPlayer()), 1000, Relative.ToWorld, FacingRev.DirectionAndTurnRate);
+    EventPlayer().warmachParts = [
+        [Hero.WreckingBall, Vector(0, 6.1, 1), "Cannon"],
+        [Hero.WreckingBall, Vector(2.15, 5.4, 1), "Cannon"],
+        [Hero.WreckingBall, Vector(-2.15, 5.4, 1), "Cannon"],
+        [Hero.Bastion, Vector(2, 3, 1), "Machine gun"],
+        [Hero.Bastion, Vector(-2, 3, 1), "Machine gun"]
+    ];
+    for (EventPlayer().warmachPartIndex = 0; CountOf(EventPlayer().warmachParts); 1)
+    {
+        CreateDummyBot(EventPlayer().warmachParts[EventPlayer().warmachPartIndex][0], Team.Team2, -1, EventPlayer(), Vector(0, 0, 0));
+        Wait(1, WaitBehavior.IgnoreCondition);
+        AttachPlayers(LastCreatedEntity(), FirstOf(PlayersOnHero(Hero.Dva, Team.Team2)), EventPlayer().warmachParts[EventPlayer().warmachPartIndex][1]);
+        LastCreatedEntity().Part = EventPlayer().warmachParts[EventPlayer().warmachPartIndex][2];
+        if (EventPlayer().warmachPartIndex == 4)
+        {
+            AddHealthPoolToPlayer(EventPlayer(), HealthType.Armor, 9999, true, true);
+        }
+        StartFacing(LastCreatedEntity(), FacingDirectionOf(EventPlayer()), 1000, Relative.ToWorld, FacingRev.DirectionAndTurnRate);
+        if (EventPlayer().warmachPartIndex < 4)
+        {
+            MinWait();
+        }
+    }
     WaitUntil(IsDead(EventPlayer()), 99999);
     RemoveAllHealthPoolsFromPlayer(EventPlayer());
 }
@@ -132,60 +120,41 @@ Player.Dva
 if (IsButtonHeld(EventPlayer(), Button.PrimaryFire) == true)
 if (IsAlive(EventPlayer()) == true)
 {
-    Major_Attacks = RandomInteger(2, 6);
+    EventPlayer().Major_Attacks = RandomInteger(2, 6);
     Wait(0.25, WaitBehavior.IgnoreCondition);
-    if (Major_Attacks == 2)
+    if (EventPlayer().Major_Attacks == 2)
     {
         PlayEffect(AllPlayers(Team.All), PlayEffect.WreckingBallPiledriverImpactSound, Color.White, EyePosition(EventPlayer()), 200);
         PlayEffect(AllPlayers(Team.All), PlayEffect.WreckingBallPiledriverImpactEffect, Color.White, PositionOf(EventPlayer()), 1);
         Wait(0.75, WaitBehavior.IgnoreCondition);
-        CreateDummyBot(Hero.Pharah, Team.Team2, -1, EventPlayer(), Vector(0, 0, 0));
-        MinWait();
-        SetStatus(LastCreatedEntity(), null, Status.PhasedOut, 9999);
-        AttachPlayers(LastCreatedEntity(), EventPlayer(), Vector(0, 5, 0));
-        StartFacing(LastCreatedEntity(), FacingDirectionOf(EventPlayer()), 1000, Relative.ToWorld, FacingRev.DirectionAndTurnRate);
-        Wait(7, WaitBehavior.IgnoreCondition);
-        LoopIfConditionIsTrue();
     }
-    else if (Major_Attacks == 3)
+
+    EventPlayer().warmachAttackParts = [
+        [Hero.Pharah, Vector(0, 5, 0)],
+        [Hero.Zarya, Vector(0, 2, 0)],
+        [Hero.Sojourn, Vector(0, 5, 0)],
+        [Hero.Moira, Vector(0, 4, 0)],
+        [Hero.Junkrat, Vector(0, 4, -1)]
+    ];
+    for (EventPlayer().warmachAttackIndex = 0; CountOf(EventPlayer().warmachAttackParts); 1)
     {
-        CreateDummyBot(Hero.Zarya, Team.Team2, -1, EventPlayer(), Vector(0, 0, 0));
-        MinWait();
-        SetStatus(LastCreatedEntity(), null, Status.PhasedOut, 9999);
-        AttachPlayers(LastCreatedEntity(), EventPlayer(), Vector(0, 2, 0));
-        StartFacing(LastCreatedEntity(), FacingDirectionOf(EventPlayer()) + Vector(RandomInteger(-1, 1), 0, 0), 1000, Relative.ToPlayer, FacingRev.DirectionAndTurnRate);
-        Wait(7, WaitBehavior.IgnoreCondition);
-        LoopIfConditionIsTrue();
-    }
-    else if (Major_Attacks == 4)
-    {
-        CreateDummyBot(Hero.Sojourn, Team.Team2, -1, EventPlayer(), Vector(0, 0, 0));
-        MinWait();
-        SetStatus(LastCreatedEntity(), null, Status.PhasedOut, 9999);
-        AttachPlayers(LastCreatedEntity(), EventPlayer(), Vector(0, 5, 0));
-        StartFacing(LastCreatedEntity(), FacingDirectionOf(EventPlayer()), 1000, Relative.ToWorld, FacingRev.DirectionAndTurnRate);
-        Wait(7, WaitBehavior.IgnoreCondition);
-        LoopIfConditionIsTrue();
-    }
-    else if (Major_Attacks == 5)
-    {
-        CreateDummyBot(Hero.Moira, Team.Team2, -1, EventPlayer(), Vector(0, 0, 0));
-        MinWait();
-        SetStatus(LastCreatedEntity(), null, Status.PhasedOut, 9999);
-        AttachPlayers(LastCreatedEntity(), EventPlayer(), Vector(0, 4, 0));
-        StartFacing(LastCreatedEntity(), FacingDirectionOf(EventPlayer()), 1000, Relative.ToWorld, FacingRev.DirectionAndTurnRate);
-        Wait(7, WaitBehavior.IgnoreCondition);
-        LoopIfConditionIsTrue();
-    }
-    else if (Major_Attacks == 6)
-    {
-        CreateDummyBot(Hero.Junkrat, Team.Team2, -1, EventPlayer(), Vector(0, 0, 0));
-        MinWait();
-        SetStatus(LastCreatedEntity(), null, Status.PhasedOut, 9999);
-        AttachPlayers(LastCreatedEntity(), EventPlayer(), Vector(0, 4, -1));
-        StartFacing(LastCreatedEntity(), FacingDirectionOf(EventPlayer()), 1000, Relative.ToWorld, FacingRev.DirectionAndTurnRate);
-        Wait(7, WaitBehavior.IgnoreCondition);
-        LoopIfConditionIsTrue();
+        if (EventPlayer().warmachAttackIndex == EventPlayer().Major_Attacks - 2)
+        {
+            CreateDummyBot(EventPlayer().warmachAttackParts[EventPlayer().warmachAttackIndex][0], Team.Team2, -1, EventPlayer(), Vector(0, 0, 0));
+            MinWait();
+            SetStatus(LastCreatedEntity(), null, Status.PhasedOut, 9999);
+            AttachPlayers(LastCreatedEntity(), EventPlayer(), EventPlayer().warmachAttackParts[EventPlayer().warmachAttackIndex][1]);
+            if (EventPlayer().Major_Attacks == 3)
+            {
+                StartFacing(LastCreatedEntity(), FacingDirectionOf(EventPlayer()) + Vector(RandomInteger(-1, 1), 0, 0), 1000, Relative.ToPlayer, FacingRev.DirectionAndTurnRate);
+            }
+            else
+            {
+                StartFacing(LastCreatedEntity(), FacingDirectionOf(EventPlayer()), 1000, Relative.ToWorld, FacingRev.DirectionAndTurnRate);
+            }
+            Wait(7, WaitBehavior.IgnoreCondition);
+            LoopIfConditionIsTrue();
+        }
     }
 }
 
@@ -305,4 +274,3 @@ if (IsDummyBot(EventPlayer()) == true)
     Wait(2.25, WaitBehavior.IgnoreCondition);
     DestroyDummyBot(TeamOf(EventPlayer()), SlotOf(EventPlayer()));
 }
-

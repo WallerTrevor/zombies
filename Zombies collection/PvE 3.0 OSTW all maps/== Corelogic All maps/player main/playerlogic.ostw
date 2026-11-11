@@ -57,14 +57,14 @@ if (IsInAir(EventPlayer()) == true)
     fall_Damage_Speed = VerticalSpeedOf(EventPlayer());
 }
 
-rule: "enable/toggle fall damage regular"
+rule: "enable/toggle fall damage regular" 
 Event.OngoingPlayer
-if (IsInAir(EventPlayer()) == true)
+if (IsInAir(EventPlayer()) == true) # needs a variable to track instead of just 1 in this and the ones below
 if (IsUsingAbility1(EventPlayer()) == false)
 if (IsUsingAbility2(EventPlayer()) == false)
 if (IsUsingUltimate(EventPlayer()) == false)
 {
-    if (FirstOf(heroFallDamageTable) + fallDamageOffsetTable == 1) #needs a variable to track instead of just 1 in this and the ones below
+    if (FirstOf(heroFallDamageTable) + fallDamageOffsetTable == 1)
     {
         enablefalldamage = 1;
     }

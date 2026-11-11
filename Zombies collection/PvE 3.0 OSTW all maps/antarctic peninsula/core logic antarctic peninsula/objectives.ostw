@@ -25,3 +25,24 @@ disabled rule: "200 GOAL: The main easter egg"
 {
     CreateHudText(AllPlayers(Team.All), "stay tuned...", null, null, Location.Left, 0, Color.White, null, null, HudTextRev.VisibleToAndString, Spectators.DefaultVisibility);
 }
+
+/*
+number  | Objective
+1   | Omnic Part Collector
+2   | Gather Souls from Omnics
+3   | Save Followers
+4   | Gather 3 Teleporter Parts
+5   | Main Easter Egg
+6   | Escort the Robot
+7   | Protect the Generator
+8   | Sombra: Hack Multiple Computers
+9   | Survive the Failing Simulation (storms, floods, and other events)
+10  | Rescue the Miniature Winstons
+11  | Destroy Zombie Nests
+12  | Activate the Signal (split the team across objectives)
+13  | Reinhardt: Protect the Crusaders (a team of fellow reinhardts that fight along side you and battle for an area)
+14  | Torbjorn: Build a Mega Turret
+15  | Lucio: Broadcast Music Across the Map
+16  | Junkrat: Plant Demolition Charges for Bonus Cash (Treasure!? - junkrat probably)
+17  | Echo: Infiltrate the Zombie Horde
+*/

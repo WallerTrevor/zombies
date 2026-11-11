@@ -1,4 +1,4 @@
-import "index.ostw";
+import "../Main/index.ostw";
 
 disabled rule: "257 Devestator Big Boss 1==============================================="
 Event.OngoingPlayer
@@ -66,43 +66,42 @@ if (Bosssequencer == 1)
         Wait(0.25, WaitBehavior.IgnoreCondition);
     }
     WaitUntil(IsAlive(EventPlayer()), 99999);
-    if (Part == "rocket launcher")
+    switch (Part)
     {
-        StartForcingDummyBotName(EventPlayer(), "Rocket launcher");
-        SetMaxHealth(EventPlayer(), 500);
-        Wait(2, WaitBehavior.IgnoreCondition);
-        SetHealingReceived(EventPlayer(), 0);
-    }
-    else if (Part == "generator")
-    {
-        StartForcingDummyBotName(EventPlayer(), "Generator");
-        CreateEffect(AllPlayers(Team.All), Effect.AnaNanoBoostedEffect, Color.White, EventPlayer(), 1, EffectRev.VisibleToPositionAndRadius);
-        SetMaxHealth(EventPlayer(), 500);
-        Wait(2, WaitBehavior.IgnoreCondition);
-        SetHealingReceived(EventPlayer(), 0);
-    }
-    else if (Part == "Cannon")
-    {
-        Wait(0.25, WaitBehavior.AbortWhenFalse);
-        ForceThrottle(EventPlayer(), 1, 1, 0, 1, 0, 1);
-        SetKnockbackDealt(EventPlayer(), 0);
-        StartForcingDummyBotName(EventPlayer(), "Cannon");
-        SetMaxHealth(EventPlayer(), 1000);
-        StartScalingPlayer(EventPlayer(), 1.5, true);
-        Wait(2, WaitBehavior.IgnoreCondition);
-        SetHealingReceived(EventPlayer(), 0);
-    }
-    else if (Part == "Leg joint")
-    {
-        StartForcingDummyBotName(EventPlayer(), "Leg joint");
-        SetMaxHealth(EventPlayer(), 500);
-        StartScalingPlayer(EventPlayer(), 1.2, true);
-        CreateEffect(AllPlayers(Team.All), Effect.AnaNanoBoostedEffect, Color.White, EventPlayer(), 1, EffectRev.VisibleToPositionAndRadius);
-        Wait(2, WaitBehavior.IgnoreCondition);
-        SetHealingReceived(EventPlayer(), 0);
-    }
-    else if (Part == "Leg joint")
-    {
+        case "rocket launcher":
+            StartForcingDummyBotName(EventPlayer(), "Rocket launcher");
+            SetMaxHealth(EventPlayer(), 500);
+            Wait(2, WaitBehavior.IgnoreCondition);
+            SetHealingReceived(EventPlayer(), 0);
+            break;
+
+        case "generator":
+            StartForcingDummyBotName(EventPlayer(), "Generator");
+            CreateEffect(AllPlayers(Team.All), Effect.AnaNanoBoostedEffect, Color.White, EventPlayer(), 1, EffectRev.VisibleToPositionAndRadius);
+            SetMaxHealth(EventPlayer(), 500);
+            Wait(2, WaitBehavior.IgnoreCondition);
+            SetHealingReceived(EventPlayer(), 0);
+            break;
+
+        case "Cannon":
+            Wait(0.25, WaitBehavior.AbortWhenFalse);
+            ForceThrottle(EventPlayer(), 1, 1, 0, 1, 0, 1);
+            SetKnockbackDealt(EventPlayer(), 0);
+            StartForcingDummyBotName(EventPlayer(), "Cannon");
+            SetMaxHealth(EventPlayer(), 1000);
+            StartScalingPlayer(EventPlayer(), 1.5, true);
+            Wait(2, WaitBehavior.IgnoreCondition);
+            SetHealingReceived(EventPlayer(), 0);
+            break;
+
+        case "Leg joint":
+            StartForcingDummyBotName(EventPlayer(), "Leg joint");
+            SetMaxHealth(EventPlayer(), 500);
+            StartScalingPlayer(EventPlayer(), 1.2, true);
+            CreateEffect(AllPlayers(Team.All), Effect.AnaNanoBoostedEffect, Color.White, EventPlayer(), 1, EffectRev.VisibleToPositionAndRadius);
+            Wait(2, WaitBehavior.IgnoreCondition);
+            SetHealingReceived(EventPlayer(), 0);
+            break;
     }
 }
 
@@ -122,29 +121,31 @@ disabled rule: "266 Omnic Big Boss Part destroyed"
 Event.OnDeath
 Team.Team2
 {
-    if (Part == "leg joint")
+    switch (Part)
     {
-        PlayersWithinRadius(EventPlayer(), 5, TeamOf(EventPlayer()), RadiusLOS.Off).Speed = false;
-        SetStatus(PlayersWithinRadius(EventPlayer(), 5, TeamOf(EventPlayer()), RadiusLOS.Off), null, Status.Stunned, 2);
-    }
-    else if (Part == "rocket launcher")
-    {
-        SetStatus(PlayersWithinRadius(EventPlayer(), 5, TeamOf(EventPlayer()), RadiusLOS.Off), null, Status.Stunned, 2);
-    }
-    else if (Part == "Cannon")
-    {
-        SetStatus(PlayersWithinRadius(EventPlayer(), 5, TeamOf(EventPlayer()), RadiusLOS.Off), null, Status.Stunned, 2);
-        PlayEffect(AllPlayers(Team.All), PlayEffect.AsheDynamiteExplosionEffect, Color.White, EventPlayer(), 1);
-        PlayEffect(AllPlayers(Team.All), PlayEffect.AsheDynamiteExplosionSound, Color.White, EyePosition(EventPlayer()), 200);
-    }
-    else if (Part == "Generator")
-    {
-        PlayEffect(AllPlayers(Team.All), PlayEffect.SombraEmpExplosioneffect, Color.White, EventPlayer(), 1);
-        PlayEffect(AllPlayers(Team.All), PlayEffect.SombraEmpExplosionSound, Color.White, EyePosition(EventPlayer()), 200);
-        SetStatus(PlayersWithinRadius(EventPlayer(), 5, TeamOf(EventPlayer()), RadiusLOS.Off), null, Status.Stunned, 4);
-        Damage(PlayersWithinRadius(EventPlayer(), 5, TeamOf(EventPlayer()), RadiusLOS.Off), Attacker(), 1500);
-        PlayEffect(AllPlayers(Team.All), PlayEffect.JunkratRipTireExplosionEffect, Color.White, EventPlayer(), 1);
-        PlayEffect(AllPlayers(Team.All), PlayEffect.JunkratRipTireExplosionSound, Color.White, EyePosition(EventPlayer()), 200);
+        case "leg joint":
+            PlayersWithinRadius(EventPlayer(), 5, TeamOf(EventPlayer()), RadiusLOS.Off).Speed = false;
+            SetStatus(PlayersWithinRadius(EventPlayer(), 5, TeamOf(EventPlayer()), RadiusLOS.Off), null, Status.Stunned, 2);
+            break;
+
+        case "rocket launcher":
+            SetStatus(PlayersWithinRadius(EventPlayer(), 5, TeamOf(EventPlayer()), RadiusLOS.Off), null, Status.Stunned, 2);
+            break;
+
+        case "Cannon":
+            SetStatus(PlayersWithinRadius(EventPlayer(), 5, TeamOf(EventPlayer()), RadiusLOS.Off), null, Status.Stunned, 2);
+            PlayEffect(AllPlayers(Team.All), PlayEffect.AsheDynamiteExplosionEffect, Color.White, EventPlayer(), 1);
+            PlayEffect(AllPlayers(Team.All), PlayEffect.AsheDynamiteExplosionSound, Color.White, EyePosition(EventPlayer()), 200);
+            break;
+
+        case "Generator":
+            PlayEffect(AllPlayers(Team.All), PlayEffect.SombraEmpExplosioneffect, Color.White, EventPlayer(), 1);
+            PlayEffect(AllPlayers(Team.All), PlayEffect.SombraEmpExplosionSound, Color.White, EyePosition(EventPlayer()), 200);
+            SetStatus(PlayersWithinRadius(EventPlayer(), 5, TeamOf(EventPlayer()), RadiusLOS.Off), null, Status.Stunned, 4);
+            Damage(PlayersWithinRadius(EventPlayer(), 5, TeamOf(EventPlayer()), RadiusLOS.Off), Attacker(), 1500);
+            PlayEffect(AllPlayers(Team.All), PlayEffect.JunkratRipTireExplosionEffect, Color.White, EventPlayer(), 1);
+            PlayEffect(AllPlayers(Team.All), PlayEffect.JunkratRipTireExplosionSound, Color.White, EyePosition(EventPlayer()), 200);
+            break;
     }
 }
 

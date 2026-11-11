@@ -106,10 +106,10 @@ void setbotamount() "set bot amount subroutine"
         }
     }
 }
-
+/* this can be a for loop and array that is outside of all maps, and map specific spawn points
+*/
 void getoutofspawn() "out of spawn subroutine"
 {
-    # this can be a for loop and array that is outside of all maps, and map specific spawn points
     switch (setspawn)
     {
         case false:

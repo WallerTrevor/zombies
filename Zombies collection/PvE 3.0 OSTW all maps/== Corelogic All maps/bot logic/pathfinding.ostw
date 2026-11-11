@@ -1,0 +1,410 @@
+
+rule: "137  bots too far away"
+Event.OngoingPlayer
+Team.Team2
+if (IsAlive(EventPlayer()) == true)
+if (DistanceBetween(EventPlayer(), FirstOf(SortedArray(p_T < 2 ? AllLivingPlayers(Team.Team1) : [], ArrayElement()))) > 90)
+{
+    # good to keep but might need bigger radius when implementing pathfinding\ngood to make this 5+ seconds for teleporter maps
+    Wait(6 + SlotOf(EventPlayer()) * 0.032, WaitBehavior.AbortWhenFalse);
+    Teleport(EventPlayer(), NearestWalkablePosition(DirectionFromAngles(RandomReal(0, 360), RandomReal(-3, 3)) * RandomReal(20, 35) + PositionOf(FirstOf(AllLivingPlayers(Team.Team1)))));
+}
+
+rule: "402 Omnic movespeed + health"
+Event.OngoingPlayer
+Team.Team2
+if (HasSpawned(EventPlayer()) == true)
+{
+    SetMaxHealth(EventPlayer(), 15 * roundnumber);
+    SetMoveSpeed(EventPlayer(), roundnumber <= 6 ? 80 + 8 * roundnumber : 128);
+}
+
+rule: "17 Bots Under Player"
+Event.OngoingPlayer
+Team.Team2
+if (VerticalFacingAngleOf(EventPlayer()) < -10)
+if (pfDestination == null)
+{
+    Wait(0.25, WaitBehavior.AbortWhenFalse);
+    pfDestination = PositionOf(FirstOf(SortedArray(FilteredArray(AllLivingPlayers(Team.Team1), HasSpawned(ArrayElement())), DistanceBetween(ArrayElement(), EventPlayer()))));
+    Wait(3.5 + SlotOf(EventPlayer()) * 0.032, WaitBehavior.IgnoreCondition);
+    LoopIfConditionIsTrue();
+}
+
+rule: "force no pathfinding when close"
+Event.OngoingPlayer
+Team.Team2
+if (DistanceBetween(EventPlayer(), FirstOf(SortedArray(FilteredArray(AllLivingPlayers(Team.Team1), HasSpawned(ArrayElement())), DistanceBetween(ArrayElement(), EventPlayer())))) < 20)
+if (IsInLineOfSight(EventPlayer(), FirstOf(SortedArray(FilteredArray(AllLivingPlayers(Team.Team1), HasSpawned(ArrayElement())), DistanceBetween(ArrayElement(), EventPlayer()))), BarrierLOS.NoBarriersBlock) == true)
+{
+    # @Condition eventPlayer.pfIsPathfinding == false
+    Wait(0.25, WaitBehavior.AbortWhenFalse);
+    if (pfIsPathfinding == true)
+    {
+        pfIsPathfinding = false;
+    }
+    pfDestination = null;
+    pfSavedTarget = null;
+    pfPath = [];
+    pfWait = null;
+    pfWasBroadcasted = false;
+    pfIsPathfinding = false;
+    pfCurrentNodeIndex = -1;
+    pfActiveNode = -1;
+    pfWalkingToPosition = null;
+    pfWalkingFromPosition = null;
+    pfStartTime = 0;
+    pfAttributes = [];
+    pfopen = [];
+    pfscores_gScore = [];
+    pfscores_fScore = [];
+    pfscores_parent = [];
+    pfscores_nodeIndex = [];
+    pfiter = 0;
+    pfcurrent = -1;
+    pfgoal = -1;
+    pfStuckOnNode = -1;
+    pfIsStuck = false;
+    StopThrottleInDirection(EventPlayer());
+    StopForcingThrottle(EventPlayer());
+    Wait(0.1, WaitBehavior.IgnoreCondition);
+    StartThrottleInDirection(EventPlayer(), DirectionTowards(PositionOf(EventPlayer()), PositionOf(FirstOf(SortedArray(FilteredArray(AllLivingPlayers(Team.Team1), HasSpawned(ArrayElement())), DistanceBetween(ArrayElement(), EventPlayer()))))), 1, Relative.ToWorld, ThrottleBehavior.ReplaceExistingThrottle, ThrottleRev.DirectionAndMagnitude);
+}
+
+rule: "use pathfinding"
+Event.OngoingPlayer
+Team.Team2
+if (pfIsPathfinding == false)
+if ((DistanceBetween(EventPlayer(), FirstOf(SortedArray(FilteredArray(AllLivingPlayers(Team.Team1), HasSpawned(ArrayElement())), DistanceBetween(ArrayElement(), EventPlayer())))) >= 20 || !IsInLineOfSight(EventPlayer(), FirstOf(SortedArray(FilteredArray(AllLivingPlayers(Team.Team1), HasSpawned(ArrayElement())), DistanceBetween(ArrayElement(), EventPlayer()))), BarrierLOS.NoBarriersBlock)) == true)
+if ((pfDestination == null || DistanceBetween(pfDestination, PositionOf(FirstOf(SortedArray(FilteredArray(AllLivingPlayers(Team.Team1), HasSpawned(ArrayElement())), DistanceBetween(ArrayElement(), EventPlayer()))))) > 4) == true)
+{
+    Wait(0.25, WaitBehavior.AbortWhenFalse);
+    StopForcingThrottle(EventPlayer());
+    pfDestination = PositionOf(FirstOf(SortedArray(FilteredArray(AllLivingPlayers(Team.Team1), HasSpawned(ArrayElement())), DistanceBetween(ArrayElement(), EventPlayer()))));
+    Wait(2.5 + SlotOf(EventPlayer()) * 0.032, WaitBehavior.IgnoreCondition);
+    LoopIfConditionIsTrue();
+}
+
+rule: "use pathfinding if on wall"
+Event.OngoingPlayer
+Team.Team2
+if (pfIsPathfinding == false)
+if (SpeedOf(EventPlayer()) <= 0.7)
+if (DistanceBetween(EventPlayer(), FirstOf(SortedArray(FilteredArray(AllLivingPlayers(Team.Team1), HasSpawned(ArrayElement())), DistanceBetween(ArrayElement(), EventPlayer())))) > 2)
+if ((pfDestination == null || DistanceBetween(pfDestination, PositionOf(FirstOf(SortedArray(FilteredArray(AllLivingPlayers(Team.Team1), HasSpawned(ArrayElement())), DistanceBetween(ArrayElement(), EventPlayer()))))) > 4) == true)
+{
+    Wait(0.25, WaitBehavior.AbortWhenFalse);
+    StopForcingThrottle(EventPlayer());
+    pfDestination = PositionOf(FirstOf(SortedArray(FilteredArray(AllLivingPlayers(Team.Team1), HasSpawned(ArrayElement())), DistanceBetween(ArrayElement(), EventPlayer()))));
+    Wait(2.5 + SlotOf(EventPlayer()) * 0.032, WaitBehavior.IgnoreCondition);
+    LoopIfConditionIsTrue();
+}
+
+
+rule: "ã€PF Coreã€‘Prepare loaded map"
+if (pfLoadedMap_nodes == true)
+if (pfIterationsThisTick != -99)
+{
+    for (pfI1 = 0; CountOf(pfLoadedMap_nodes); 1)
+    {
+        pfLoadedMap_nodes[pfI1] = Vector(XOf(pfLoadedMap_nodes[pfI1]), RoundToInteger(YOf(pfLoadedMap_nodes[pfI1]), Rounding.Down) + pfI1 / 1000 * (YOf(pfLoadedMap_nodes[pfI1]) < 0 ? -1 : 1), ZOf(pfLoadedMap_nodes[pfI1]));
+    }
+}
+
+rule: "ã€PF Coreã€‘Select next pathfinder"
+if ((!EntityExists(pfExecOwner) || pfExecOwner == null) == true)
+if (IsTrueForAny(AllPlayers(Team.All), IsAlive(ArrayElement()) && ArrayElement().pfWait) == true)
+{
+    pfExecOwner = FirstOf(SortedArray(FilteredArray(AllPlayers(Team.All), ArrayElement().pfWait), ArrayElement().pfWait));
+    MinWait();
+    LoopIfConditionIsTrue();
+}
+
+rule: "ã€PF Coreã€‘Update & Execute"
+Event.OngoingPlayer
+if (IsAlive(EventPlayer()) == true)
+if (pfDestination != null)
+if (pfIsPathfinding == false)
+if ((!pfSavedTarget || DistanceBetween(pfDestination, pfSavedTarget) > 5) == true)
+{
+    # Ensure that a map is loaded.
+    if (!pfLoadedMap_nodes)
+    {
+        LogToInspector(<"Error: Attempted to pathfind player <0> without a loaded map.", EventPlayer()>);
+        Abort();
+    }
+    pfWait = TotalTimeElapsed();
+    pfWasBroadcasted = false;
+    WaitUntil(pfExecOwner == EventPlayer() || pfWasBroadcasted, 99999);
+    # Update saved destination
+    pfSavedTarget = pfDestination;
+    if (!pfWasBroadcasted)
+    {
+        pfgoal = RoundToInteger(AbsoluteValue(YOf(FirstOf(SortedArray(ArraySlice(SortedArray(pfLoadedMap_nodes, DistanceBetween(ArrayElement(), pfSavedTarget)), 0, 5), !IsInLineOfSight(ArrayElement() + Vector(0, 2, 0), pfSavedTarget + Vector(0, 2, 0), BarrierLOS.NoBarriersBlock))))) * 1000 % 1000, Rounding.Down);
+        pfTick();
+        if (pfIsPathfinding && pfCurrentNodeIndex != -1)
+        {
+            pfActiveNode = pfCurrentNodeIndex;
+        }
+        else
+        {
+            pfActiveNode = RoundToInteger(AbsoluteValue(YOf(FirstOf(SortedArray(ArraySlice(SortedArray(pfLoadedMap_nodes, DistanceBetween(ArrayElement(), PositionOf(EventPlayer()))), 0, 5), !IsInLineOfSight(ArrayElement() + Vector(0, 2, 0), PositionOf(EventPlayer()) + Vector(0, 2, 0), BarrierLOS.NoBarriersBlock))))) * 1000 % 1000, Rounding.Down);
+            pfTick();
+        }
+        pfscores_gScore = [0];
+        pfscores_fScore = [0];
+        pfscores_parent = [-1];
+        pfscores_nodeIndex = [pfgoal];
+        pfopen = [0];
+        pfcheckedNode = pfActiveNode;
+        pfiter = 0;
+        while (CountOf(pfopen) || pfiter > 30)
+        {
+            # The index of the current node in `scores`.
+            pfcurrent = FirstOf(SortedArray(pfopen, pfscores_fScore[ArrayElement()]));
+            if (pfcheckedNode != pfActiveNode)
+            {
+                pfcheckedNode = IndexOfArrayValue(pfscores_nodeIndex, pfActiveNode);
+                if (pfcheckedNode != -1)
+                {
+                    pfcurrent = pfcheckedNode;
+                    pfcheckedNode = -2;
+                }
+                else
+                {
+                    pfcheckedNode = pfActiveNode;
+                }
+            }
+            pfcurrentInExistingPath = IndexOfArrayValue(pfPath, pfscores_nodeIndex[pfcurrent]);
+            # If the goal was found, reconstruct the path.
+            if (pfscores_nodeIndex[pfcurrent] == pfActiveNode || pfcheckedNode == -2 || pfcurrentInExistingPath != -1)
+            {
+                if (pfcurrentInExistingPath == -1)
+                {
+                    pfPath = [];
+                }
+                else
+                {
+                    pfPath = ArraySlice(pfPath, 0, pfcurrentInExistingPath);
+                }
+                while (pfcurrent != -1)
+                {
+                    ModifyVariable(pfPath, Operation.AppendToArray, pfscores_nodeIndex[pfcurrent]);
+                    pfcurrent = pfscores_parent[pfcurrent];
+                }
+                ModifyVariable(pfPath, Operation.AppendToArray, [-1]);
+                pfbroadcastTo = FilteredArray(PlayersWithinRadius(PositionOf(EventPlayer()) + Up(), 4, Team.All, RadiusLOS.Off), ArrayElement() != EventPlayer() && ArrayElement().pfWait && DistanceBetween(ArrayElement().pfDestination, pfDestination) < 4 && ArrayElement().pfPlayerAttributes == pfPlayerAttributes);
+                pfbroadcastTo.pfPath = pfPath;
+                pfbroadcastTo.pfWasBroadcasted = true;
+                Skip(27);
+            }
+            ModifyVariable(pfopen, Operation.RemoveFromArrayByValue, pfcurrent);
+            # Check each neighbor to the current node.
+            for (pfneighbor = 0; CountOf(pfLoadedMap_neighbors[pfscores_nodeIndex[pfcurrent]]); 1)
+            {
+                # The neighbor index to be used like `pfLoadedMap.nodes[neighborI]`.
+                pfneighborI = FirstOf(pfLoadedMap_neighbors[pfscores_nodeIndex[pfcurrent]][pfneighbor]);
+                pfscoreIndex = IndexOfArrayValue(pfscores_nodeIndex, pfneighborI);
+                # Ensure that the path to the neighbor is enabled.
+                if (CountOf(pfLoadedMap_neighbors[pfscores_nodeIndex[pfcurrent]][pfneighbor][1]) == 0 || IsTrueForAny(pfLoadedMap_neighbors[pfscores_nodeIndex[pfcurrent]][pfneighbor][1], ArrayContains(pfPlayerAttributes, ArrayElement())))
+                {
+                    pfscore = pfscores_gScore[pfcurrent] + DistanceBetween(pfLoadedMap_nodes[pfscores_nodeIndex[pfcurrent]], pfLoadedMap_nodes[pfneighborI]);
+                    # Get neighbor index in scores.\nIf -1, the neighbor was not added to the score list yet.
+                    if (pfscoreIndex == -1)
+                    {
+                        ModifyVariable(pfopen, Operation.AppendToArray, CountOf(pfscores_gScore));
+                        ModifyVariable(pfscores_gScore, Operation.AppendToArray, pfscore);
+                        ModifyVariable(pfscores_fScore, Operation.AppendToArray, pfscore + DistanceBetween(pfLoadedMap_nodes[pfneighborI], pfLoadedMap_nodes[pfActiveNode]) * 20);
+                        ModifyVariable(pfscores_parent, Operation.AppendToArray, pfcurrent);
+                        ModifyVariable(pfscores_nodeIndex, Operation.AppendToArray, pfneighborI);
+                    }
+                    else if (pfscore < pfscores_gScore[pfscoreIndex])
+                    {
+                        pfscores_gScore[pfscoreIndex] = pfscore;
+                        pfscores_fScore[pfscoreIndex] = pfscore + DistanceBetween(pfLoadedMap_nodes[pfneighborI], pfLoadedMap_nodes[pfActiveNode]) * 20;
+                        pfscores_parent[pfscoreIndex] = pfcurrent;
+                        pfscores_nodeIndex[pfscoreIndex] = pfneighborI;
+                        if (!ArrayContains(pfopen, pfscoreIndex))
+                        {
+                            ModifyVariable(pfopen, Operation.AppendToArray, pfscoreIndex);
+                        }
+                    }
+                }
+                pfTick();
+            }
+            pfiter += 1;
+        }
+        pfExecOwner = null;
+    }
+    if (CountOf(pfPath))
+    {
+        pfIsPathfinding = true;
+        pfCurrentNodeIndex = FirstOf(pfPath);
+        pfWalkingToPosition = pfLoadedMap_nodes[pfCurrentNodeIndex];
+        pfUpdateNodeMeta();
+        pfWalkToDestination();
+    }
+    pfWait = null;
+    Wait(2, WaitBehavior.IgnoreCondition);
+    LoopIfConditionIsTrue();
+}
+
+rule: "ã€PF Coreã€‘Node reached"
+Event.OngoingPlayer
+if (IsAlive(EventPlayer()) == true)
+if (pfIsPathfinding == true)
+if (pfWalkingToPosition == true)
+# Horizontal distance to current position is less than 0.4.
+if (DistanceBetween(PositionOf(EventPlayer()) * Vector(1, 0, 1), pfWalkingToPosition * Vector(1, 0, 1)) <= 0.4)
+# Vertical distance to current position is less than 1.5.
+if (AbsoluteValue(YOf(PositionOf(EventPlayer())) - YOf(pfWalkingToPosition)) <= 1.5)
+if (CountOf(pfPath) > 0)
+if (pfCurrentNodeIndex != -1)
+{
+    pfProgressEventPlayer();
+    Wait(0.2, WaitBehavior.IgnoreCondition);
+    LoopIfConditionIsTrue();
+}
+
+rule: "ã€PF Coreã€‘Stop pathfinding when the bot dies"
+Event.OngoingPlayer
+if (IsDead(EventPlayer()) == true)
+if (pfIsPathfinding == true)
+{
+    StopThrottleInDirection(EventPlayer());
+    pfIsPathfinding = false;
+    pfSavedTarget = null;
+    pfWait = null;
+    pfWalkingToPosition = null;
+}
+
+rule: "ã€PF Coreã€‘Stop throttle when pfDestination is reset"
+Event.OngoingPlayer
+if (IsAlive(EventPlayer()) == true)
+if (pfIsPathfinding == true)
+if (pfDestination == null)
+{
+    StopThrottleInDirection(EventPlayer());
+    pfIsPathfinding = false;
+    pfSavedTarget = null;
+}
+
+rule: "ã€PF Coreã€‘Insurance"
+Event.OngoingPlayer
+if (IsAlive(EventPlayer()) == true)
+if (pfIsPathfinding == true)
+if (pfWalkingToPosition == true)
+{
+    # Smooth step
+    if (CountOf(pfPath) == 2 && DistanceBetween(EventPlayer(), pfSavedTarget) < DistanceBetween(pfWalkingToPosition, pfSavedTarget) && IsInLineOfSight(PositionOf(EventPlayer()) + Vector(0, 0.25, 0), pfSavedTarget + Vector(0, 0.25, 0), BarrierLOS.NoBarriersBlock))
+    {
+        pfProgressEventPlayer();
+    }
+    else if (pfWalkingToPosition != pfDestination && pfCurrentNodeIndex == -1 && DistanceBetween(pfSavedTarget, pfDestination) < 5 && IsInLineOfSight(pfSavedTarget + Up(), pfDestination + Up(), BarrierLOS.NoBarriersBlock))
+    {
+        pfWalkingToPosition = pfDestination;
+    }
+    else if (DistanceBetween(EventPlayer(), pfWalkingToPosition) > 0.4 && !(!pfSavedTarget || DistanceBetween(pfDestination, pfSavedTarget) > 5) && (pfIsStuck || DistanceBetween(pfWalkingFromPosition, pfWalkingToPosition) - 4.95 * (TotalTimeElapsed() - pfStartTime) < 0) && !HasStatus(EventPlayer(), Status.Rooted) && !HasStatus(EventPlayer(), Status.Frozen) && !HasStatus(EventPlayer(), Status.Asleep) && !HasStatus(EventPlayer(), Status.KnockedDown) && !HasStatus(EventPlayer(), Status.Stunned))
+    {
+        if (pfStuckOnNode - 2 == pfCurrentNodeIndex)
+        {
+            LogToInspector(<"Pathfinder <0> struggled to reach node <1> at <2>. Try adjusting your map in the editor.", EventPlayer(), pfCurrentNodeIndex, pfLoadedMap_nodes[pfCurrentNodeIndex]>);
+            Teleport(EventPlayer(), pfWalkingToPosition);
+        }
+        else
+        {
+            pfStuckOnNode = pfCurrentNodeIndex + 2;
+            pfRecalibrate();
+        }
+    }
+    Wait(2, WaitBehavior.IgnoreCondition);
+    LoopIfConditionIsTrue();
+}
+
+rule: "ã€PF Coreã€‘Recalibrate when off path"
+Event.OngoingPlayer
+if (IsAlive(EventPlayer()) == true)
+if (pfIsPathfinding == true)
+if (pfWalkingToPosition == true)
+if (DistanceBetween((pfWalkingFromPosition + pfWalkingToPosition) / 2, EventPlayer()) > (DistanceBetween(pfWalkingFromPosition, pfWalkingToPosition) + 4) * 1.2)
+{
+    pfRecalibrate();
+}
+
+rule: "ã€PF Coreã€‘Check throttle"
+Event.OngoingPlayer
+if (IsAlive(EventPlayer()) == true)
+if (pfIsPathfinding == true)
+if (MagnitudeOf(VelocityOf(EventPlayer())) < 3)
+{
+    Wait(2.1, WaitBehavior.AbortWhenFalse);
+    pfIsStuck = true;
+    WaitUntil(!(pfWalkingToPosition && pfIsPathfinding) || MagnitudeOf(VelocityOf(EventPlayer())) >= 3, 99999);
+    pfIsStuck = false;
+}
+
+rule: "ã€PF Decompressã€‘Decompress map"
+if (pfDecompress == true)
+{
+    # Lock pathfinder until compression is completed.
+    pfIterationsThisTick = -99;
+    pfcompressionTable = <"!#$%&'()*+,-./:;<=>?@[]^_`|~Â€ÂÂ‚ÂƒÂ„Â…Â†Â‡ÂˆÂ‰ÂŠÂ‹ÂŒÂÂŽÂÂÂ‘Â’Â“Â”Â•Â–Â—Â˜Â™ÂšÂ›ÂœÂÂžÂŸÂ Â¡Â¢Â£Â¤Â¥Â¦Â§Â¨Â©Â«Â¬Â­Â®Â¯Â°Â±Â´Â¶Â·Â¸Â»Â¿Ã—Ã·Ë‚ËƒË„Ë…Ë’Ë“Ë”Ë•Ë–Ë—Ë˜Ë™ËšË›ËœËËžËŸË¥Ë¦Ë§Ë¨Ë©ËªË«Ë­Ë¯Ë°Ë±Ë²Ë³Ë´ËµË¶Ë·Ë¸Ë¹Ëº<0>", <"Ë»Ë¼Ë½Ë¾Ë¿Ì€ÌÌ‚ÌƒÌ„Ì…Ì†Ì‡ÌˆÌ‰ÌŠÌ‹ÌŒÌÌŽÌÌÌ‘Ì’Ì“Ì”Ì•Ì–Ì—Ì˜Ì™ÌšÌ›ÌœÌÌžÌŸÌ Ì¡Ì¢Ì£Ì¤Ì¥Ì¦Ì§Ì¨Ì©ÌªÌ«Ì¬Ì­Ì®Ì¯Ì°Ì±Ì²Ì³Ì´ÌµÌ¶Ì·Ì¸Ì¹ÌºÌ»Ì¼Ì½Ì¾Ì¿Í€ÍÍ‚ÍƒÍ„Í…Í†Í‡ÍˆÍ‰ÍŠÍ‹ÍŒÍÍŽÍÍÍ‘Í’Í“Í”Í•Í–Í—Í˜Í™ÍšÍ›ÍœÍÍžÍŸÍ Í¡Í¢Í£Í¤Í¥Í¦Í§Í¨Í©ÍªÍ«Í¬Í­Í®Í¯ÍµÍ¸Í¹Í¾Î€ÎÎ‚Îƒ<0>", <"Î„Î…Î‡Î‹ÎÎ¢Ï¶Ò‚ÒƒÒ„Ò…Ò†Ò‡ÒˆÒ‰Ô°Õ—Õ˜ÕšÕ›ÕœÕÕžÕŸÖ‰ÖŠÖ‹ÖŒÖÖŽÖÖÖ‘Ö’Ö“Ö”Ö•Ö–Ö—Ö˜Ö™ÖšÖ›ÖœÖÖžÖŸÖ Ö¡Ö¢Ö£Ö¤Ö¥Ö¦Ö§Ö¨Ö©ÖªÖ«Ö¬Ö­Ö®Ö¯Ö°Ö±Ö²Ö³Ö´ÖµÖ¶Ö·Ö¸Ö¹ÖºÖ»Ö¼Ö½Ö¾Ö¿×€××‚×ƒ×„×…×†×‡×ˆ×‰×Š×‹×Œ××Ž××«×¬×­×®×³×´×µ×¶×·×¸×¹×º×»×¼×½×¾×¿Ø€ØØ‚ØƒØ„Ø…Ø†Ø‡ØˆØ‰ØŠØ‹ØŒ<0>", <"ØØŽØØØ‘Ø’Ø“Ø”Ø•Ø–Ø—Ø˜Ø™ØšØ›ØœØØžØŸÙ‹ÙŒÙÙŽÙÙÙ‘Ù’Ù“Ù”Ù•Ù–Ù—Ù˜Ù™ÙšÙ›ÙœÙÙžÙŸÙªÙ«Ù¬Ù­Ù°Û”Û–Û—Û˜Û™ÛšÛ›ÛœÛÛžÛŸÛ Û¡Û¢Û£Û¤Û§Û¨Û©ÛªÛ«Û¬Û­Û½Û¾Ü€ÜÜ‚ÜƒÜ„Ü…Ü†Ü‡ÜˆÜ‰ÜŠÜ‹ÜŒÜÜŽÜÜ‘Ü°Ü±Ü²Ü³Ü´ÜµÜ¶Ü·Ü¸Ü¹ÜºÜ»Ü¼Ü½Ü¾Ü¿Ý€ÝÝ‚ÝƒÝ„Ý…Ý†Ý‡ÝˆÝ‰ÝŠÝ‹ÝŒÞ¦Þ§Þ¨Þ©ÞªÞ«Þ¬Þ­Þ®<0>", <"Þ¯Þ°Þ²Þ³Þ´ÞµÞ¶Þ·Þ¸Þ¹ÞºÞ»Þ¼Þ½Þ¾Þ¿ß«ß¬ß­ß®ß¯ß°ß±ß²ß³ß¶ß·ß¸ß¹ß»ß¼ß½ß¾ß¿à –à —à ˜à ™à ›à œà à žà Ÿà  à ¡à ¢à £à ¥à ¦à §à ©à ªà «à ¬à ­à ®à ¯à °à ±à ²à ³à ´à µà ¶à ·à ¸à ¹à ºà »à ¼à ½à ¾à ¿à¡™à¡šà¡›à¡œà¡à¡žà¡Ÿà¡«à¡¬à¡­à¡®à¡¯à¡°à¡±à¡²à¡³à¡´à¡µà¡¶à¡·à¡¸à¡¹à¡ºà¡»à¡¼à¡½à¡¾à¡¿à¢€à¢à¢‚à¢ƒà¢„à¢…à¢†à¢‡à¢ˆà¢‰à¢Šà¢‹à¢Œà¢à¢Žà¢à¢à¢‘à¢’à¢“à¢”à¢•à¢–à¢—<0>", <"à¢˜à¢™à¢šà¢›à¢œà¢à¢žà¢Ÿà¢µà£ˆà£‰à£Šà£‹à£Œà£à£Žà£à£à£‘à£’à£“à£”à£•à£–à£—à£˜à£™à£šà£›à£œà£à£žà£Ÿà£ à£¡à£¢à££à£¤à£¥à£¦à£§à£¨à£©à£ªà£«à£¬à£­à£®à£¯à£°à£±à£²à£³à£´à£µà£¶à£·à£¸à£¹à£ºà£»à£¼à£½à£¾à£¿à¤€à¤à¤‚à¤ƒà¤ºà¤»à¤¼à¤¾à¤¿à¥€à¥à¥‚à¥ƒà¥„à¥…à¥†à¥‡à¥ˆà¥‰à¥Šà¥‹à¥Œà¥à¥Žà¥à¥‘à¥’à¥“à¥”à¥•à¥–à¥—à¥¢à¥£à¥¤à¥¥à¥°à¦à¦‚à¦ƒà¦„à¦à¦Žà¦‘à¦’à¦©à¦±à¦³à¦´à¦µà¦ºà¦»à¦¼à¦¾à¦¿à§€à§à§‚à§ƒà§„<0>", <"à§…à§†à§‡à§ˆà§‰à§Šà§‹à§Œà§à§à§à§‘à§’à§“à§”à§•à§–à§—à§˜à§™à§šà§›à§žà§¢à§£à§¤à§¥à§²à§³à§ºà§»à§½à§¾à§¿à¨€à¨à¨‚à¨ƒà¨„à¨‹à¨Œà¨à¨Žà¨‘à¨’à¨©à¨±à¨´à¨·à¨ºà¨»à¨¼à¨½à¨¾à¨¿à©€à©à©‚à©ƒà©„à©…à©†à©‡à©ˆà©‰à©Šà©‹à©Œà©à©Žà©à©à©‘à©’à©“à©”à©•à©–à©—à©˜à©à©Ÿà© à©¡à©¢à©£à©¤à©¥à©°à©±à©µà©¶à©·à©¸à©¹à©ºà©»à©¼à©½à©¾à©¿àª€àªàª‚àªƒàª„àªŽàª’àª©àª±àª´àªºàª»àª¼àª¾àª¿à«€à«à«‚à«ƒà«„à«…à«†à«‡à«ˆ<0>", <"à«‰à«Šà«‹à«Œà«à«Žà«à«‘à«’à«“à«”à«•à«–à«—à«˜à«™à«šà«›à«œà«à«žà«Ÿà«¢à«£à«¤à«¥à«°à«±à«²à«³à«´à«µà«¶à«·à«¸à«ºà«»à«¼à«½à«¾à«¿à¬€à¬à¬‚à¬ƒà¬„à¬à¬Žà¬‘à¬’à¬©à¬±à¬´à¬ºà¬»à¬¼à¬¾à¬¿à­€à­à­‚à­ƒà­„à­…à­†à­‡à­ˆà­‰à­Šà­‹à­Œà­à­Žà­à­à­‘à­’à­“à­”à­•à­–à­—à­˜à­™à­šà­›à­žà­¢à­£à­¤à­¥à­°à­¸à­¹à­ºà­»à­¼à­½à­¾à­¿à®€à®à®‚à®„à®‹à®Œà®à®‘à®–à®—à®˜à®›à®à® à®¡à®¢à®¥à®¦à®§à®«à®¬à®­à®ºà®»à®¼<0>", <"à®½à®¾à®¿à¯€à¯à¯‚à¯ƒà¯„à¯…à¯†à¯‡à¯ˆà¯‰à¯Šà¯‹à¯Œà¯à¯Žà¯à¯‘à¯’à¯“à¯”à¯•à¯–à¯—à¯˜à¯™à¯šà¯›à¯œà¯à¯žà¯Ÿà¯ à¯¡à¯¢à¯£à¯¤à¯¥à¯³à¯´à¯µà¯¶à¯·à¯¸à¯¹à¯ºà¯»à¯¼à¯½à¯¾à¯¿à°€à°à°‚à°ƒà°„à°à°‘à°©à°ºà°»à°¼à°¾à°¿à±€à±à±‚à±ƒà±„à±…à±†à±‡à±ˆà±‰à±Šà±‹à±Œà±à±Žà±à±à±‘à±’à±“à±”à±•à±–à±—à±›à±œà±à±žà±Ÿà±¢à±£à±¤à±¥à±°à±±à±²à±³à±´à±µà±¶à±·à±¿à²à²‚à²ƒà²„à²à²‘à²©à²´à²ºà²»à²¼à²¾à²¿à³€à³à³‚à³ƒ<0>", <"à³„à³…à³†à³‡à³ˆà³‰à³Šà³‹à³Œà³à³Žà³à³à³‘à³’à³“à³”à³•à³–à³—à³˜à³™à³šà³›à³œà³à³Ÿà³¢à³£à³¤à³¥à³°à³³à³´à³µà³¶à³·à³¸à³¹à³ºà³»à³¼à³½à³¾à³¿à´€à´à´‚à´ƒà´à´‘à´»à´¼à´¾à´¿àµ€àµàµ‚àµƒàµ„àµ…àµ†àµ‡àµˆàµ‰àµŠàµ‹àµŒàµàµàµàµ‘àµ’àµ“àµ—àµ¢àµ£àµ¤àµ¥àµ¹à¶€à¶à¶‚à¶ƒà¶„à¶—à¶˜à¶™à¶²à¶¼à¶¾à¶¿à·‡à·ˆà·‰à·Šà·‹à·Œà·à·Žà·à·à·‘à·’à·“à·”à·•à·–à·—à·˜à·™à·šà·›à·œà·à·žà·Ÿà· à·¡à·¢à·£à·¤à·¥à·°à·±<0>", <"à·²à·³à·´à·µà·¶à··à·¸à·¹à·ºà·»à·¼à·½à·¾à·¿à¸€à¸±à¸´à¸µà¸¶à¸·à¸¸à¸¹à¸ºà¸»à¸¼à¸½à¸¾à¸¿à¹‡à¹ˆà¹‰à¹Šà¹‹à¹Œà¹à¹Žà¹à¹šà¹›à¹œà¹à¹žà¹Ÿà¹ à¹¡à¹¢à¹£à¹¤à¹¥à¹¦à¹§à¹¨à¹©à¹ªà¹«à¹¬à¹­à¹®à¹¯à¹°à¹±à¹²à¹³à¹´à¹µà¹¶à¹·à¹¸à¹¹à¹ºà¹»à¹¼à¹½à¹¾à¹¿àº€àºƒàº…àº‹àº¤àº¦àº±àº´àºµàº¶àº·àº¸àº¹àººàº»àº¼àº¾àº¿à»…à»‡à»ˆà»‰à»Šà»‹à»Œà»à»Žà»à»šà»›à» à»¡à»¢à»£à»¤à»¥à»¦à»§à»¨à»©à»ªà»«à»¬à»­à»®à»¯à»°à»±à»²à»³<0>", <"à»´à»µà»¶à»·à»¸à»¹à»ºà»»à»¼à»½à»¾à»¿à¼à¼‚à¼ƒà¼„à¼…à¼†à¼‡à¼ˆà¼‰à¼Šà¼‹à¼Œà¼à¼Žà¼à¼à¼‘à¼’à¼“à¼”à¼•à¼–à¼—à¼˜à¼™à¼šà¼›à¼œà¼à¼žà¼Ÿà¼´à¼µà¼¶à¼·à¼¸à¼¹à¼ºà¼»à¼¼à¼½à¼¾à¼¿à½ˆà½­à½®à½¯à½°à½±à½²à½³à½´à½µà½¶à½·à½¸à½¹à½ºà½»à½¼à½½à½¾à½¿à¾€à¾à¾‚à¾ƒà¾„à¾…à¾†à¾‡à¾à¾Žà¾à¾à¾‘à¾’à¾“à¾”à¾•à¾–à¾—à¾˜à¾™à¾šà¾›à¾œà¾à¾žà¾Ÿà¾ à¾¡à¾¢à¾£à¾¤à¾¥à¾¦à¾§à¾¨à¾©à¾ªà¾«à¾¬à¾­à¾®à¾¯à¾°à¾±à¾²à¾³à¾´à¾µà¾¶<0>", <"à¾·à¾¸à¾¹à¾ºà¾»à¾¼à¾½à¾¾à¾¿à¿€à¿à¿‚à¿ƒà¿„à¿…à¿†à¿‡à¿ˆà¿‰à¿Šà¿‹à¿Œà¿à¿Žà¿à¿à¿‘à¿’à¿“à¿”à¿•à¿–à¿—à¿˜à¿™à¿šà¿›à¿œà¿à¿žà¿Ÿà¿ à¿¡à¿¢à¿£à¿¤à¿¥à¿¦à¿§à¿¨à¿©à¿ªà¿«à¿¬à¿­à¿®à¿¯à¿°à¿±à¿²à¿³à¿´à¿µà¿¶à¿·à¿¸à¿¹à¿ºà¿»à¿¼à¿½à¿¾à¿¿á€«á€¬á€­á€®á€¯á€°á€±á€²á€³á€´á€µá€¶á€·á€¸á€¹á€ºá€»á€¼á€½á€¾áŠá‹áŒááŽáá–á—á˜á™ážáŸá á¢á£á¤á§á¨á©áªá«á¬á­á±á²á³á´á‚‚á‚ƒá‚„á‚…á‚†<0>", <"á‚‡á‚ˆá‚‰á‚Šá‚‹á‚Œá‚á‚á‚šá‚›á‚œá‚á‚žá‚Ÿáƒ†áƒˆáƒ‰áƒŠáƒ‹áƒŒáƒŽáƒáƒ»á‰‰á‰Žá‰á‰—á‰™á‰žá‰ŸáŠ‰áŠŽáŠáŠ±áŠ¶áŠ·áŠ¿á‹á‹†á‹‡á‹—áŒ‘áŒ–áŒ—á›áœáážáŸá á¡á¢á£á¤á¥á¦á§á¨á½á¾á¿áŽáŽ‘áŽ’áŽ“áŽ”áŽ•áŽ–áŽ—áŽ˜áŽ™áŽšáŽ›áŽœáŽáŽžáŽŸá¶á·á¾á¿á€á™­á™®áš€áš›ášœášášžášŸá›«á›¬á›­á›¹á›ºá›»á›¼á›½á›¾á›¿áœáœ’áœ“áœ”áœ•áœ–áœ—áœ˜áœ™áœšáœ›áœœáœáœžáœŸáœ²áœ³áœ´áœµáœ¶áœ·áœ¸áœ¹áœºáœ»<0>", <"áœ¼áœ½áœ¾áœ¿á’á“á”á•á–á—á˜á™ášá›áœáážáŸá­á±á²á³á´áµá¶á·á¸á¹áºá»á¼á½á¾á¿áž´ážµáž¶áž·áž¸áž¹ážºáž»áž¼áž½áž¾áž¿áŸ€áŸáŸ‚áŸƒáŸ„áŸ…áŸ†áŸ‡áŸˆáŸ‰áŸŠáŸ‹áŸŒáŸáŸŽáŸáŸáŸ‘áŸ’áŸ“áŸ”áŸ•áŸ–áŸ˜áŸ™áŸšáŸ›áŸáŸžáŸŸáŸªáŸ«áŸ¬áŸ­áŸ®áŸ¯áŸºáŸ»áŸ¼áŸ½áŸ¾áŸ¿á €á á ‚á ƒá „á …á †á ‡á ˆá ‰á Šá ‹á Œá á Žá á šá ›á œá á žá Ÿá¡¹á¡ºá¡»á¡¼á¡½á¡¾á¡¿á¢…á¢†á¢©á¢«á¢¬á¢­á¢®á¢¯<0>", <"á£¶á£·á£¸á£¹á£ºá£»á£¼á£½á£¾á£¿á¤Ÿá¤ á¤¡á¤¢á¤£á¤¤á¤¥á¤¦á¤§á¤¨á¤©á¤ªá¤«á¤¬á¤­á¤®á¤¯á¤°á¤±á¤²á¤³á¤´á¤µá¤¶á¤·á¤¸á¤¹á¤ºá¤»á¤¼á¤½á¤¾á¤¿á¥€á¥á¥‚á¥ƒá¥„á¥…á¥®á¥¯á¥µá¥¶á¥·á¥¸á¥¹á¥ºá¥»á¥¼á¥½á¥¾á¥¿á¦¬á¦­á¦®á¦¯á§Šá§‹á§Œá§á§Žá§á§›á§œá§á§žá§Ÿá§ á§¡á§¢á§£á§¤á§¥á§¦á§§á§¨á§©á§ªá§«á§¬á§­á§®á§¯á§°á§±á§²á§³á§´á§µá§¶á§·á§¸á§¹á§ºá§»á§¼á§½á§¾á§¿á¨—á¨˜á¨™á¨šá¨›á¨œá¨á¨žá¨Ÿá©•á©–á©—á©˜á©™á©šá©›<0>", <"á©œá©á©žá©Ÿá© á©¡á©¢á©£á©¤á©¥á©¦á©§á©¨á©©á©ªá©«á©¬á©­á©®á©¯á©°á©±á©²á©³á©´á©µá©¶á©·á©¸á©¹á©ºá©»á©¼á©½á©¾á©¿áªŠáª‹áªŒáªáªŽáªáªšáª›áªœáªáªžáªŸáª áª¡áª¢áª£áª¤áª¥áª¦áª¨áª©áªªáª«áª¬áª­áª®áª¯áª°áª±áª²áª³áª´áªµáª¶áª·áª¸áª¹áªºáª»áª¼áª½áª¾áª¿á«€á«á«‚á«ƒá«„á«…á«†á«‡á«ˆá«‰á«Šá«‹á«Œá«á«Žá«á«á«‘á«’á«“á«”á«•á«–á«—á«˜á«™á«šá«›á«œá«á«žá«Ÿá« á«¡á«¢á«£á«¤á«¥á«¦á«§á«¨á«©á«ªá««á«¬á«­<0>", <"á«®á«¯á«°á«±á«²á«³á«´á«µá«¶á«·á«¸á«¹á«ºá«»á«¼á«½á«¾á«¿á¬€á¬á¬‚á¬ƒá¬„á¬´á¬µá¬¶á¬·á¬¸á¬¹á¬ºá¬»á¬¼á¬½á¬¾á¬¿á­€á­á­‚á­ƒá­„á­Œá­á­Žá­á­šá­›á­œá­á­žá­Ÿá­ á­¡á­¢á­£á­¤á­¥á­¦á­§á­¨á­©á­ªá­«á­¬á­­á­®á­¯á­°á­±á­²á­³á­´á­µá­¶á­·á­¸á­¹á­ºá­»á­¼á­½á­¾á­¿á®€á®á®‚á®¡á®¢á®£á®¤á®¥á®¦á®§á®¨á®©á®ªá®«á®¬á®­á¯¦á¯§á¯¨á¯©á¯ªá¯«á¯¬á¯­á¯®á¯¯á¯°á¯±á¯²á¯³á¯´á¯µá¯¶á¯·á¯¸á¯¹á¯ºá¯»á¯¼á¯½á¯¾á¯¿á°¤<0>", <"á°¥á°¦á°§á°¨á°©á°ªá°«á°¬á°­á°®á°¯á°°á°±á°²á°³á°´á°µá°¶á°·á°¸á°¹á°ºá°»á°¼á°½á°¾á°¿á±Šá±‹á±Œá±¾á±¿á²‰á²Šá²‹á²Œá²á²Žá²á²»á²¼á³€á³á³‚á³ƒá³„á³…á³†á³‡á³ˆá³‰á³Šá³‹á³Œá³á³Žá³á³á³‘á³’á³“á³”á³•á³–á³—á³˜á³™á³šá³›á³œá³á³žá³Ÿá³ á³¡á³¢á³£á³¤á³¥á³¦á³§á³¨á³­á³´á³·á³¸á³¹á³»á³¼á³½á³¾á³¿á·€á·á·‚á·ƒá·„á·…á·†á·‡á·ˆá·‰á·Šá·‹á·Œá·á·Žá·á·á·‘á·’á·“á·”á·•á·–á·—á·˜á·™á·šá·›á·œá·á·žá·Ÿá· <0>", <"á·¡á·¢á·£á·¤á·¥á·¦á·§á·¨á·©á·ªá·«á·¬á·­á·®á·¯á·°á·±á·²á·³á·´á·µá·¶á··á·¸á·¹á·ºá·»á·¼á·½á·¾á·¿á¼–á¼—á¼žá¼Ÿá½†á½‡á½Žá½á½˜á½šá½œá½žá½¾á½¿á¾µá¾½á¾¿á¿€á¿á¿…á¿á¿Žá¿á¿”á¿•á¿œá¿á¿žá¿Ÿá¿­á¿®á¿¯á¿°á¿±á¿µá¿½á¿¾á¿¿â€€â€â€‚â€ƒâ€„â€…â€†â€‡â€ˆâ€‰â€Šâ€‹â€Œâ€â€Žâ€â€â€‘â€’â€“â€”â€•â€–â€—â€˜â€™â€šâ€›â€œâ€â€žâ€Ÿâ€ â€¡â€¢â€£â€¤â€¥â€¦â€§â€¨â€©â€ªâ€«â€¬â€­â€®â€¯â€°â€±â€²â€³â€´â€µâ€¶â€·<0>", <"â€¸â€¹â€ºâ€»â€¼â€½â€¾â€¿â€ââ‚âƒâ„â…â†â‡âˆâ‰âŠâ‹âŒââŽâââ‘â’â“â”â•â–â—â˜â™âšâ›âœââžâŸâ â¡â¢â£â¤â¥â¦â§â¨â©âªâ«â¬â­â®â¯â²â³âºâ»â¼â½â¾â‚Šâ‚‹â‚Œâ‚â‚Žâ‚â‚â‚žâ‚Ÿâ‚ â‚¡â‚¢â‚£â‚¤â‚¥â‚¦â‚§â‚¨â‚©â‚ªâ‚«â‚¬â‚­â‚®â‚¯â‚°â‚±â‚²â‚³â‚´â‚µâ‚¶â‚·â‚¸â‚¹â‚ºâ‚»â‚¼â‚½â‚¾â‚¿âƒ€âƒâƒ‚âƒƒâƒ„âƒ…âƒ†âƒ‡âƒˆâƒ‰âƒŠâƒ‹âƒŒâƒâƒŽâƒâƒâƒ‘âƒ’âƒ“âƒ”<0>", <"âƒ•âƒ–âƒ—âƒ˜âƒ™âƒšâƒ›âƒœâƒâƒžâƒŸâƒ âƒ¡âƒ¢âƒ£âƒ¤âƒ¥âƒ¦âƒ§âƒ¨âƒ©âƒªâƒ«âƒ¬âƒ­âƒ®âƒ¯âƒ°âƒ±âƒ²âƒ³âƒ´âƒµâƒ¶âƒ·âƒ¸âƒ¹âƒºâƒ»âƒ¼âƒ½âƒ¾âƒ¿â„€â„â„ƒâ„„â„…â„†â„ˆâ„‰â„”â„–â„—â„˜â„žâ„Ÿâ„ â„¡â„¢â„£â„¥â„§â„©â„®â„ºâ„»â…€â…â…‚â…ƒâ…„â…Šâ…‹â…Œâ…â…â†Šâ†‹â†Œâ†â†Žâ†â†â†‘â†’â†“â†”â†•â†–â†—â†˜â†™â†šâ†›â†œâ†â†žâ†Ÿâ† â†¡â†¢â†£â†¤â†¥â†¦â†§â†¨â†©â†ªâ†«â†¬â†­â†®â†¯â†°â†±â†²â†³â†´â†µâ†¶â†·â†¸â†¹<0>", <"â†ºâ†»â†¼â†½â†¾â†¿â‡€â‡â‡‚â‡ƒâ‡„â‡…â‡†â‡‡â‡ˆâ‡‰â‡Šâ‡‹â‡Œâ‡â‡Žâ‡â‡â‡‘â‡’â‡“â‡”â‡•â‡–â‡—â‡˜â‡™â‡šâ‡›â‡œâ‡â‡žâ‡Ÿâ‡ â‡¡â‡¢â‡£â‡¤â‡¥â‡¦â‡§â‡¨â‡©â‡ªâ‡«â‡¬â‡­â‡®â‡¯â‡°â‡±â‡²â‡³â‡´â‡µâ‡¶â‡·â‡¸â‡¹â‡ºâ‡»â‡¼â‡½â‡¾â‡¿âˆ€âˆâˆ‚âˆƒâˆ„âˆ…âˆ†âˆ‡âˆˆâˆ‰âˆŠâˆ‹âˆŒâˆâˆŽâˆâˆâˆ‘âˆ’âˆ“âˆ”âˆ•âˆ–âˆ—âˆ˜âˆ™âˆšâˆ›âˆœâˆâˆžâˆŸâˆ âˆ¡âˆ¢âˆ£âˆ¤âˆ¥âˆ¦âˆ§âˆ¨âˆ©âˆªâˆ«âˆ¬âˆ­âˆ®âˆ¯âˆ°âˆ±âˆ²âˆ³âˆ´âˆµâˆ¶<0>", <"âˆ·âˆ¸âˆ¹âˆºâˆ»âˆ¼âˆ½âˆ¾âˆ¿â‰€â‰â‰‚â‰ƒâ‰„â‰…â‰†â‰‡â‰ˆâ‰‰â‰Šâ‰‹â‰Œâ‰â‰Žâ‰â‰â‰‘â‰’â‰“â‰”â‰•â‰–â‰—â‰˜â‰™â‰šâ‰›â‰œâ‰â‰žâ‰Ÿâ‰ â‰¡â‰¢â‰£â‰¤â‰¥â‰¦â‰§â‰¨â‰©â‰ªâ‰«â‰¬â‰­â‰®â‰¯â‰°â‰±â‰²â‰³â‰´â‰µâ‰¶â‰·â‰¸â‰¹â‰ºâ‰»â‰¼â‰½â‰¾â‰¿âŠ€âŠâŠ‚âŠƒâŠ„âŠ…âŠ†âŠ‡âŠˆâŠ‰âŠŠâŠ‹âŠŒâŠâŠŽâŠâŠâŠ‘âŠ’âŠ“âŠ”âŠ•âŠ–âŠ—âŠ˜âŠ™âŠšâŠ›âŠœâŠâŠžâŠŸâŠ âŠ¡âŠ¢âŠ£âŠ¤âŠ¥âŠ¦âŠ§âŠ¨âŠ©âŠªâŠ«âŠ¬âŠ­âŠ®âŠ¯âŠ°âŠ±âŠ²âŠ³<0>", <"âŠ´âŠµâŠ¶âŠ·âŠ¸âŠ¹âŠºâŠ»âŠ¼âŠ½âŠ¾âŠ¿â‹€â‹â‹‚â‹ƒâ‹„â‹…â‹†â‹‡â‹ˆâ‹‰â‹Šâ‹‹â‹Œâ‹â‹Žâ‹â‹â‹‘â‹’â‹“â‹”â‹•â‹–â‹—â‹˜â‹™â‹šâ‹›â‹œâ‹â‹žâ‹Ÿâ‹ â‹¡â‹¢â‹£â‹¤â‹¥â‹¦â‹§â‹¨â‹©â‹ªâ‹«â‹¬â‹­â‹®â‹¯â‹°â‹±â‹²â‹³â‹´â‹µâ‹¶â‹·â‹¸â‹¹â‹ºâ‹»â‹¼â‹½â‹¾â‹¿âŒ€âŒâŒ‚âŒƒâŒ„âŒ…âŒ†âŒ‡âŒˆâŒ‰âŒŠâŒ‹âŒŒâŒâŒŽâŒâŒâŒ‘âŒ’âŒ“âŒ”âŒ•âŒ–âŒ—âŒ˜âŒ™âŒšâŒ›âŒœâŒâŒžâŒŸâŒ âŒ¡âŒ¢âŒ£âŒ¤âŒ¥âŒ¦âŒ§âŒ¨âŒ©âŒªâŒ«âŒ¬âŒ­âŒ®âŒ¯âŒ°<0>", <"âŒ±âŒ²âŒ³âŒ´âŒµâŒ¶âŒ·âŒ¸âŒ¹âŒºâŒ»âŒ¼âŒ½âŒ¾âŒ¿â€ââ‚âƒâ„â…â†â‡âˆâ‰âŠâ‹âŒââŽâââ‘â’â“â”â•â–â—â˜â™âšâ›âœââžâŸâ â¡â¢â£â¤â¥â¦â§â¨â©âªâ«â¬â­â®â¯â°â±â²â³â´âµâ¶â·â¸â¹âºâ»â¼â½â¾â¿âŽ€âŽâŽ‚âŽƒâŽ„âŽ…âŽ†âŽ‡âŽˆâŽ‰âŽŠâŽ‹âŽŒâŽâŽŽâŽâŽâŽ‘âŽ’âŽ“âŽ”âŽ•âŽ–âŽ—âŽ˜âŽ™âŽšâŽ›âŽœâŽâŽžâŽŸâŽ âŽ¡âŽ¢âŽ£âŽ¤âŽ¥âŽ¦âŽ§âŽ¨âŽ©âŽªâŽ«âŽ¬âŽ­<0>", <"âŽ®âŽ¯âŽ°âŽ±âŽ²âŽ³âŽ´âŽµâŽ¶âŽ·âŽ¸âŽ¹âŽºâŽ»âŽ¼âŽ½âŽ¾âŽ¿â€ââ‚âƒâ„â…â†â‡âˆâ‰âŠâ‹âŒââŽâââ‘â’â“â”â•â–â—â˜â™âšâ›âœââžâŸâ â¡â¢â£â¤â¥â¦â§â¨â©âªâ«â¬â­â®â¯â°â±â²â³â´âµâ¶â·â¸â¹âºâ»â¼â½â¾â¿â€ââ‚âƒâ„â…â†â‡âˆâ‰âŠâ‹âŒââŽâââ‘â’â“â”â•â–â—â˜â™âšâ›âœââžâŸâ â¡â¢â£â¤â¥â¦â§â¨â©âª<0>", <"â«â¬â­â®â¯â°â±â²â³â´âµâ¶â·â¸â¹âºâ»â¼â½â¾â¿â‘€â‘â‘‚â‘ƒâ‘„â‘…â‘†â‘‡â‘ˆâ‘‰â‘Šâ‘‹â‘Œâ‘â‘Žâ‘â‘â‘‘â‘’â‘“â‘”â‘•â‘–â‘—â‘˜â‘™â‘šâ‘›â‘œâ‘â‘žâ‘Ÿâ’œâ’â’žâ’Ÿâ’ â’¡â’¢â’£â’¤â’¥â’¦â’§â’¨â’©â’ªâ’«â’¬â’­â’®â’¯â’°â’±â’²â’³â’´â’µâ’¶â’·â’¸â’¹â’ºâ’»â’¼â’½â’¾â’¿â“€â“â“‚â“ƒâ“„â“…â“†â“‡â“ˆâ“‰â“Šâ“‹â“Œâ“â“Žâ“â“â“‘â“’â““â“”â“•â“–â“—â“˜â“™â“šâ“›â“œâ“â“žâ“Ÿâ“ â“¡â“¢â“£<0>", <"â“¤â“¥â“¦â“§â“¨â“©â”€â”â”‚â”ƒâ”„â”…â”†â”‡â”ˆâ”‰â”Šâ”‹â”Œâ”â”Žâ”â”â”‘â”’â”“â””â”•â”–â”—â”˜â”™â”šâ”›â”œâ”â”žâ”Ÿâ” â”¡â”¢â”£â”¤â”¥â”¦â”§â”¨â”©â”ªâ”«â”¬â”­â”®â”¯â”°â”±â”²â”³â”´â”µâ”¶â”·â”¸â”¹â”ºâ”»â”¼â”½â”¾â”¿â•€â•â•‚â•ƒâ•„â•…â•†â•‡â•ˆâ•‰â•Šâ•‹â•Œâ•â•Žâ•â•â•‘â•’â•“â•”â••â•–â•—â•˜â•™â•šâ•›â•œâ•â•žâ•Ÿâ• â•¡â•¢â•£â•¤â•¥â•¦â•§â•¨â•©â•ªâ•«â•¬â•­â•®â•¯â•°â•±â•²â•³â•´â•µâ•¶<0>", <"â•·â•¸â•¹â•ºâ•»â•¼â•½â•¾â•¿â–€â–â–‚â–ƒâ–„â–…â–†â–‡â–ˆâ–‰â–Šâ–‹â–Œâ–â–Žâ–â–â–‘â–’â–“â–”â–•â––â–—â–˜â–™â–šâ–›â–œâ–â–žâ–Ÿâ– â–¡â–¢â–£â–¤â–¥â–¦â–§â–¨â–©â–ªâ–«â–¬â–­â–®â–¯â–°â–±â–²â–³â–´â–µâ–¶â–·â–¸â–¹â–ºâ–»â–¼â–½â–¾â–¿â—€â—â—‚â—ƒâ—„â—…â—†â—‡â—ˆâ—‰â—Šâ—‹â—Œâ—â—Žâ—â—â—‘â—’â—“â—”â—•â—–â——â—˜â—™â—šâ—›â—œâ—â—žâ—Ÿâ— â—¡â—¢â—£â—¤â—¥â—¦â—§â—¨â—©â—ªâ—«â—¬â—­â—®â—¯â—°â—±â—²â—³<0>", <"â—´â—µâ—¶â—·â—¸â—¹â—ºâ—»â—¼â—½â—¾â—¿â˜€â˜â˜‚â˜ƒâ˜„â˜…â˜†â˜‡â˜ˆâ˜‰â˜Šâ˜‹â˜Œâ˜â˜Žâ˜â˜â˜‘â˜’â˜“â˜”â˜•â˜–â˜—â˜˜â˜™â˜šâ˜›â˜œâ˜â˜žâ˜Ÿâ˜ â˜¡â˜¢â˜£â˜¤â˜¥â˜¦â˜§â˜¨â˜©â˜ªâ˜«â˜¬â˜­â˜®â˜¯â˜°â˜±â˜²â˜³â˜´â˜µâ˜¶â˜·â˜¸â˜¹â˜ºâ˜»â˜¼â˜½â˜¾â˜¿â™€â™â™‚â™ƒâ™„â™…â™†â™‡â™ˆâ™‰â™Šâ™‹â™Œâ™â™Žâ™â™â™‘â™’â™“â™”â™•â™–â™—â™˜â™™â™šâ™›â™œâ™â™žâ™Ÿâ™ â™¡â™¢â™£â™¤â™¥â™¦â™§â™¨â™©â™ªâ™«â™¬â™­â™®â™¯â™°<0>", <"â™±â™²â™³â™´â™µâ™¶â™·â™¸â™¹â™ºâ™»â™¼â™½â™¾â™¿âš€âšâš‚âšƒâš„âš…âš†âš‡âšˆâš‰âšŠâš‹âšŒâšâšŽâšâšâš‘âš’âš“âš”âš•âš–âš—âš˜âš™âššâš›âšœâšâšžâšŸâš âš¡âš¢âš£âš¤âš¥âš¦âš§âš¨âš©âšªâš«âš¬âš­âš®âš¯âš°âš±âš²âš³âš´âšµâš¶âš·âš¸âš¹âšºâš»âš¼âš½âš¾âš¿â›€â›â›‚â›ƒâ›„â›…â›†â›‡â›ˆâ›‰â›Šâ›‹â›Œâ›â›Žâ›â›â›‘â›’â›“â›”â›•â›–â›—â›˜â›™â›šâ››â›œâ›â›žâ›Ÿâ› â›¡â›¢â›£â›¤â›¥â›¦â›§â›¨â›©â›ªâ›«â›¬â›­<0>", "â›®â›¯â›°â›±â›²â›³â›´â›µâ›¶â›·â›¸â›¹â›ºâ›»â›¼â›½â›¾â›¿âœ€âœâœ‚âœƒâœ„âœ…âœ†âœ‡âœˆâœ‰âœŠâœ‹âœŒâœâœŽâœâœâœ‘âœ’âœ“âœ”âœ•âœ–âœ—âœ˜âœ™âœšâœ›âœœâœâœžâœŸâœ âœ¡âœ¢âœ£âœ¤âœ¥âœ¦âœ§âœ¨âœ©âœªâœ«âœ¬âœ­âœ®âœ¯âœ°âœ±âœ²âœ³âœ´âœµâœ¶âœ·âœ¸âœ¹âœºâœ»âœ¼âœ½âœ¾âœ¿â€ââ‚âƒâ„â…â†â‡âˆâ‰âŠâ‹âŒâ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>;
+    pfLoadedMap_nodes = [];
+    pfLoadedMap_neighbors = [];
+    # Decompress nodes
+    for (pfI1 = 0; CountOf(FirstOf(pfDecompress)); 1)
+    {
+        for (pfI2 = 0; StringLength(FirstOf(pfDecompress)[pfI1]); 3)
+        {
+            ModifyVariable(pfLoadedMap_nodes, Operation.AppendToArray, Vector((IndexOfStringChar(pfcompressionTable, CharInString(FirstOf(pfDecompress)[pfI1], pfI2)) * 2 - 4096) / 10, (IndexOfStringChar(pfcompressionTable, CharInString(FirstOf(pfDecompress)[pfI1], pfI2 + 1)) * 2 - 4096) / 10, (IndexOfStringChar(pfcompressionTable, CharInString(FirstOf(pfDecompress)[pfI1], pfI2 + 2)) * 2 - 4096) / 10));
+            MinWait();
+        }
+    }
+    # Decompress neighbors
+    pfdecompressionState = 0;
+    pfcurrentNeighbors = [];
+    for (pfI1 = 0; CountOf(pfDecompress[1]); 1)
+    {
+        for (pfI2 = 0; StringLength(pfDecompress[1][pfI1]); 1)
+        {
+            pfnext = IndexOfStringChar(pfcompressionTable, CharInString(pfDecompress[1][pfI1], pfI2));
+            # Next is the neighbor.
+            if (pfdecompressionState == 0)
+            {
+                # Current node is terminated.
+                if (!pfnext)
+                {
+                    ModifyVariable(pfLoadedMap_neighbors, Operation.AppendToArray, [pfcurrentNeighbors]);
+                    # Reset current neighbors array
+                    pfcurrentNeighbors = [];
+                }
+                else
+                {
+                    pfdecompressionState = 1;
+                    ModifyVariable(pfcurrentNeighbors, Operation.AppendToArray, [[pfnext - 1, []]]);
+                }
+            }
+            else if (pfdecompressionState == 1)
+            {
+                # Current neighbor is terminated
+                if (!pfnext)
+                {
+                    pfdecompressionState = 0;
+                }
+                else
+                {
+                    pfcurrentNeighbors[CountOf(pfcurrentNeighbors) - 1] = [FirstOf(LastOf(pfcurrentNeighbors)), Append(LastOf(pfcurrentNeighbors)[1], pfnext - 1)];
+                }
+            }
+            if (!(pfI2 % 20))
+            {
+                MinWait();
+            }
+        }
+        MinWait();
+    }
+    pfcompressionTable = null;
+    # Unlock pathfinder
+    pfIterationsThisTick = 0;
+}
+

@@ -39,20 +39,22 @@ Event.OngoingPlayer
 Team.Team1
 if (experiencesystem == true)
 {
-    if (XPlevel[currentheroxp] == 5)
+    switch (XPlevel[currentheroxp])
     {
-        SetSecondaryFireEnabled(EventPlayer(), true);
-    }
-    else if (XPlevel[currentheroxp] == 10)
-    {
-        SetAbility1Enabled(EventPlayer(), true);
-    }
-    else if (XPlevel[currentheroxp] == 15)
-    {
-        SetAbility2Enabled(EventPlayer(), true);
-    }
-    else if (XPlevel[currentheroxp] == 20)
-    {
-        SetUltimateAbilityEnabled(EventPlayer(), true);
+        case 5:
+            SetSecondaryFireEnabled(EventPlayer(), true);
+            break;
+
+        case 10:
+            SetAbility1Enabled(EventPlayer(), true);
+            break;
+
+        case 15:
+            SetAbility2Enabled(EventPlayer(), true);
+            break;
+
+        case 20:
+            SetUltimateAbilityEnabled(EventPlayer(), true);
+            break;
     }
 }

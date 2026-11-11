@@ -1,4 +1,4 @@
-﻿import "index.ostw";
+﻿import "../Main/index.ostw";
 
 disabled rule: "273 Colossal charger stats Big boss 2 ==================================================="
 Event.OngoingPlayer

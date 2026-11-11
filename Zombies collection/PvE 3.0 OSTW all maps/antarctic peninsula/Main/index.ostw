@@ -7,6 +7,7 @@
 import "../../== Corelogic All maps/general main/Core-arrays.ostw";
 import "../../== Corelogic All maps/general main/coreIndex.ostw";
 import "../../== Corelogic All maps/general main/CoreSubroutines.ostw";
+import "../../== Corelogic All maps/general main/banking.ostw";
 
 import "../../== Corelogic All maps/player main/ammoSystem.ostw";
 import "../../== Corelogic All maps/player main/followers.ostw";

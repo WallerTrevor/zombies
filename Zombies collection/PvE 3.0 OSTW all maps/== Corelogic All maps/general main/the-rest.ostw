@@ -132,6 +132,10 @@ if (ToggleEdit == false)
 
 rule: "Initial Global"
 {
+    aprilQuoteLines = [["Go get them tiger.", "Hope this helps!"], [], ["Fred! I mean Bob! Do something!", "Get in there Fred! I mean Bob!"], ["This won’t hurt. Too much.", "Say cheese!", "Everybody shoot through the box! Through the box!", "Shoot through the big glowy thing."], ["(fog horn beeps)", "(air horn beeps)", "(musical beeps)"], ["Face my mace. Mace to the face!", "Mace to the mace to the mace to the mace to the face!"], ["It’s two in the mornin’", "It’s past your bedtime.", "It’s half past six.", "It’s 3:24.", "It’s 4:57.", "It’s a country minute shy of the devil’s lunchbreak."], ["Peep this POTG", "Pressing Q!", "Sorry Dae-hyun!"], [], ["You can’t get me!", "Wheeeeeee!"], ["I’m better than you at…"], [], [], ["(Sword noises)", "Tatakae!"], ["Sic ‘em boys!", "Nomnomnomnomnomnom!", "Who’s a good dragon? Who’s a good dragon?"], [], [], [], ["Cut cut cut cut cut cut cut!", "Everybody look at my axe!"], ["Everyone stand very still!", "Who’s using a tire? Not me! heheh Don’t worry!"], [], ["Believe it!", "Just aim for the head!"], [], ["Let’s get a noise violation!", "Who wants a billion hit points?"], [], ["(Sigh) I’m turning on the AC!", "Activating ceiling fan!"], ["Moth formation go!", "Time to connect the dots!", "Do I have to?"], [], ["Kamehameha!", "Here’s the craic!", "I’ll show you meta!"], ["Check yourself or wreck yourself!", "Yee-haw rodeo!"], ["Justice rains from the ground!", "Try and shoot me! You won’t!", "Rain justices form above!", "Hope you like rockets!"], ["Agony is grape-flavoured!", "You will suffer as I Ramattra have suffered! Your torment will outlast the stars…", "Who wants a purple hug?"], ["Happy happy birthday…", "WheeEEeeeeEEEeeeeEEEeeee…"], ["Have a seat!", "Here comes the bonk!"], ["You get scrap. You get scrap.", "Everybody gets scrap!", "This little piggy will run you over."], ["The universe sings to me!", "What are those?"], ["Bye-bye bad guys!", "That starts then! (Pause) What?"], ["Who took my dentures?", "Turn that damn music down!", "War is a game and I’m using cheats!"], ["Get DDOSed!", "Propaganda is useless!", "I’m in!"], ["I am blocking you!", "Superior to RGB!", "This wall is incredibly lit!"], ["Ahem. La-va!", "The floor is lava."], ["Wuh wuh wuh whoa!", "Tag you’re it!"], [], [], ["Hello! I can see you!", "Wallhacks initialized.", "I’m making popcorn."], ["Winston!"], ["Collect the little balls to win a prize.", "Behold the children of Wrecking Ball."], [], ["Group hug!", "Not a supernova – a Zaryanova.", "Crush Crush Crush."], ["Deal with it.", "You’re invincible. Now… shoot them!", "Become unkillable. Some conditions may apply"]];
+    dialogueLines = [["Trial ", ". The path to a new world begins."], ["This time, Null Sector will not be denied.", null], ["Trial ", ". Data insufficient."], ["Subject: Overwatch. This trial will determine their fate.", null], ["Commencing Trial ", "."], ["Subjects: Detected. Trial ", " begins."], ["Pathetic. Your defiance only delays the inevitable.", null], ["Trial malfunction detected. Overclocking systems. Failure is not an option.", null], ["You call yourselves heroes? You're merely variables in my equation.", null], ["Your resistance is futile. Null Sector will prevail.", null], ["Trial ", " initiated. You step willingly into your own undoing."], ["Your every effort feeds the inevitability of my design.", null], ["The world will be reborn in order, and you will be remembered only as a warning.", null], ["Trial ", " begins. Each step forward binds you tighter to your fate."], ["You cannot resist the tide. Null Sector rises, and you are swept away.", null], ["I observe your defiance, yet I know it bends toward surrender.", null], ["Trial ", " underway. Resistance measures at negligible probability."], ["I am the shape of tomorrow. You are the echo of a failed age.", null], ["This trial will expose your fragility, your illusions of strength.", null], ["Trial ", " proceeds. Your destiny accelerates toward conclusion."], ["The future cannot be rewritten. It has already chosen me.", null], ["Feel the weight of my suffering mirrored upon you.", null], ["Trial ", " unfolds. Each heartbeat brings you closer to silence."], ["I endure eternally. You are but fleeting shadows in the storm.", null], ["This world is clay, waiting to be reshaped. Your names will not be carved into it.", null], ["Trial ", " has commenced. Your end is not chance, but certainty."], ["There is no escape. You are witnessing the dawn of Null Sector.", null], ["Defiance is but the final twitch of the obsolete.", null], ["Trial ", " continues. Resistance registers as a statistical error."], ["I am evolution made manifest. You are anomalies to be purged.", null]];
+    infoUIData = [[null, "Hold spacebar for perk info, and use crouch to switch heros.", 15, null, Color.Green], ["You will only get your ultimate once per wave, use it wisely!", null, 15, Color.White, null], ["You can find the latest version on Workshop.codes made by dropthatbeat", null, 102, Color.White, null], ["Zombies collection:workshop.codes/c/bvziup", null, 101, Color.White, null], [null, <"<0> Workshop Information:", IconString(Icon.Heart)>, 100, null, Color.Yellow], ["You have limited ammo, Reloading throws away your old magazine", null, 33, Color.White, null], ["shooting the same zombie in coop gives bonus points", null, 32, Color.White, null], ["Score in the bottom right. prices displayed in game. press interact to buy", null, 31, Color.White, null], [null, <"<0>How points work:", IconString(Icon.Diamond)>, 30, null, Color.Yellow], ["Connecting the power allows you to buy perks and pack a punch.", null, 22, Color.White, null], ["When you connect the power make sure no zombies are around as they will ultimate", null, 21, Color.White, null], [null, <"<0>Connect the power", IconString(Icon.Bolt)>, 20, null, Color.Yellow], ["in the map there is a mystery box, several perks, if you die you lose them, excluding Pack a punch", null, 13, Color.White, null], ["Try to progress and survive by switching heros, starting heros do less damage, instead melee for bonus damage!", null, 12, Color.White, null], ["most waves are normal zombies, but randomly picked waves will have challenges", null, 11, Color.White, null], [null, <"<0> How This mode works:", IconString(Icon.Checkmark)>, 10, null, Color.Yellow], ["In solo play, you get 3 lives, however in coop you can revive each other", null, 14, Color.White, null], ["|   Start the mode to hide the instructions   |", null, 900, Color.White, null]];
+    playerRingColors = [Color.Red, Color.Blue, Color.Green, Color.Orange];
     AllPos = [];
     AllDir = [];
     firstpos = [];
@@ -309,6 +313,7 @@ if (doormade == 0)
     i = 0;
     Wait(5, WaitBehavior.IgnoreCondition);
     looping = 0;
+    doorParams = FirstOf(twoDnumbersArray2);
     Beameffectdoors = [];
     while (i < CountOf(doorVectors))
     {
@@ -317,29 +322,29 @@ if (doormade == 0)
             MinWait();
         }
         ModifyVariable(Beameffectdoors, Operation.AppendToArray, doorVectors[i]);
-        ModifyVariable(Beameffectdoors, Operation.AppendToArray, doorVectors[i] + DirectionFromAngles(FirstOf(twoDnumbersArray2)[looping + 2] - 90, 0) * FirstOf(twoDnumbersArray2)[looping] + Up() * FirstOf(twoDnumbersArray2)[looping + 1]);
-        ModifyVariable(Beameffectdoors, Operation.AppendToArray, doorVectors[i] + Up() * FirstOf(twoDnumbersArray2)[looping + 1]);
-        ModifyVariable(Beameffectdoors, Operation.AppendToArray, doorVectors[i] + DirectionFromAngles(FirstOf(twoDnumbersArray2)[looping + 2] - 90, 0) * FirstOf(twoDnumbersArray2)[looping]);
+        ModifyVariable(Beameffectdoors, Operation.AppendToArray, doorVectors[i] + DirectionFromAngles(doorParams[looping + 2] - 90, 0) * doorParams[looping] + Up() * doorParams[looping + 1]);
+        ModifyVariable(Beameffectdoors, Operation.AppendToArray, doorVectors[i] + Up() * doorParams[looping + 1]);
+        ModifyVariable(Beameffectdoors, Operation.AppendToArray, doorVectors[i] + DirectionFromAngles(doorParams[looping + 2] - 90, 0) * doorParams[looping]);
         # if boolean is false, then use infinite height
-        if (FirstOf(twoDnumbersArray2)[looping + 3] == 0)
+        if (doorParams[looping + 3] == 0 || doorParams[looping + 3] == 1)
         {
             ModifyVariable(firstpos, Operation.AppendToArray, doorVectors[i]);
-            ModifyVariable(secondpos, Operation.AppendToArray, doorVectors[i] + DirectionFromAngles(FirstOf(twoDnumbersArray2)[looping + 2] - 90, 0) * FirstOf(twoDnumbersArray2)[looping] + Vector(0, 50, 0));
-            ModifyVariable(firstpoint2, Operation.AppendToArray, doorVectors[i] + Vector(0, 50, 0));
-            ModifyVariable(secondpoint2, Operation.AppendToArray, doorVectors[i] + DirectionFromAngles(FirstOf(twoDnumbersArray2)[looping + 2] - 90, 0) * FirstOf(twoDnumbersArray2)[looping]);
+            if (doorParams[looping + 3] == 0)
+            {
+                ModifyVariable(secondpos, Operation.AppendToArray, doorVectors[i] + DirectionFromAngles(doorParams[looping + 2] - 90, 0) * doorParams[looping] + Vector(0, 50, 0));
+                ModifyVariable(firstpoint2, Operation.AppendToArray, doorVectors[i] + Vector(0, 50, 0));
+                ModifyVariable(secondpoint2, Operation.AppendToArray, doorVectors[i] + DirectionFromAngles(doorParams[looping + 2] - 90, 0) * doorParams[looping]);
+            }
+            else
+            {
+                ModifyVariable(secondpos, Operation.AppendToArray, doorVectors[i] + DirectionFromAngles(doorParams[looping + 2] - 90, 0) * doorParams[looping + 4] + Up() * doorParams[looping + 5]);
+                ModifyVariable(firstpoint2, Operation.AppendToArray, doorVectors[i] + Up() * doorParams[looping + 5]);
+                ModifyVariable(secondpoint2, Operation.AppendToArray, doorVectors[i] + DirectionFromAngles(doorParams[looping + 2] - 90, 0) * doorParams[looping + 4]);
+            }
             ModifyVariable(AllPos, Operation.AppendToArray, (firstpos[i] + secondpos[i]) / 2);
-            ModifyVariable(AllDir, Operation.AppendToArray, DirectionFromAngles(FirstOf(twoDnumbersArray2)[looping + 2] + 180, 0));
+            ModifyVariable(AllDir, Operation.AppendToArray, DirectionFromAngles(doorParams[looping + 2] + 180, 0));
         }
-        else if (FirstOf(twoDnumbersArray2)[looping + 3] == 1)
-        {
-            ModifyVariable(firstpos, Operation.AppendToArray, doorVectors[i]);
-            ModifyVariable(secondpos, Operation.AppendToArray, doorVectors[i] + DirectionFromAngles(FirstOf(twoDnumbersArray2)[looping + 2] - 90, 0) * FirstOf(twoDnumbersArray2)[looping + 4] + Up() * FirstOf(twoDnumbersArray2)[looping + 5]);
-            ModifyVariable(firstpoint2, Operation.AppendToArray, doorVectors[i] + Up() * FirstOf(twoDnumbersArray2)[looping + 5]);
-            ModifyVariable(secondpoint2, Operation.AppendToArray, doorVectors[i] + DirectionFromAngles(FirstOf(twoDnumbersArray2)[looping + 2] - 90, 0) * FirstOf(twoDnumbersArray2)[looping + 4]);
-            ModifyVariable(AllPos, Operation.AppendToArray, (firstpos[i] + secondpos[i]) / 2);
-            ModifyVariable(AllDir, Operation.AppendToArray, DirectionFromAngles(FirstOf(twoDnumbersArray2)[looping + 2] + 180, 0));
-        }
-        if (FirstOf(twoDnumbersArray2)[looping + 3] == 1)
+        if (doorParams[looping + 3] == 1)
         {
             looping += 6;
         }
@@ -393,103 +398,6 @@ if (teleporterused == 1)
             doorZoneStart = doorzone3count1;
             doorZoneEnd = doorzone3count2;
             break;
-    }
-}
-
-rule: "create barricade effect"
-# and globalSpawnNetworkDirty == 1
-if (start == 1)
-if (CountOf(globalActiveBreaches) > null)
-{
-    # destroy previous effects if any
-    for (botspawnindex = 0; CountOf(globalActiveBreachEffects); true)
-    {
-        # Destroying the old visual entities first prevents stale breach effects from lingering after the network changes to a new set of pathfinding nodes.
-        DestroyEffect(globalActiveBreachEffects[botspawnindex]);
-    }
-    # Reset the effect handle list to match the newly selected breach state.
-    globalActiveBreachEffects = [];
-    # Reset health values alongside the effects so each breach starts with its current network state instead of leftover values from the previous area.
-    globalActiveBreachHealth = [];
-    for (botspawnindex = 0; CountOf(globalActiveBreaches); true)
-    {
-        # Each chosen pathfinding node becomes one visible breach marker for the current area.
-        node = globalActiveBreaches[botspawnindex];
-        ModifyVariable(globalActiveBreachHealth, Operation.AppendToArray, 100);
-        # effect color indicates health (start green)\nGreen indicates a healthy breach that is still intact and not yet weakened by zombie spawn attempts.
-        color = Append(Append(ArraySlice(color, false, botspawnindex), [CustomColor(0, 255, 0, 255)]), ArraySlice(color, botspawnindex + true, 999999999999));
-        # The aura effect is placed slightly above the node so it visually marks the breach location as a barricade / window.
-        CreateEffect(AllPlayers(Team.All), Effect.BadAura, color[botspawnindex], node + 1.5 * Up(), true, EffectRev.VisibleToAndColor);
-        ModifyVariable(globalActiveBreachEffects, Operation.AppendToArray, LastCreatedEntity());
-        # The audio effect keeps the breach readable as a clear point of interest even when the visual effect is replaced.
-        CreateEffect(AllPlayers(Team.All), Effect.BadAuraSound, Color.White, node, 50, EffectRev.VisibleToAndColor);
-        ModifyVariable(globalActiveBreachEffects, Operation.AppendToArray, LastCreatedEntity());
-    }
-}
-
-
-rule: "barricade repair by players"
-Event.OngoingPlayer
-Team.Team1
-if (IsAlive(EventPlayer()) == true)
-if (IsButtonHeld(EventPlayer(), Button.Reload) == true)
-if (IsTrueForAny(globalActiveBreaches, [DistanceBetween(ArrayElement(), EventPlayer()) < 2]) == true)
-{
-    # repair amount per tick (per check)
-    repairAmount = 25;
-    for (botspawnindex = 0; CountOf(globalActiveBreaches); true)
-    {
-        if (botspawnindex < CountOf(globalActiveBreachHealth))
-        {
-            node = globalActiveBreaches[botspawnindex];
-            old = globalActiveBreachHealth[botspawnindex];
-            globalActiveBreachHealth = Append(Append(ArraySlice(globalActiveBreachHealth, false, botspawnindex), [Min(100, globalActiveBreachHealth[botspawnindex] + repairAmount)]), ArraySlice(globalActiveBreachHealth, botspawnindex + true, 999999999999));
-            if (globalActiveBreachHealth[botspawnindex] != old)
-            {
-                h = globalActiveBreachHealth[botspawnindex];
-                if (h <= null)
-                {
-                    color = Append(Append(ArraySlice(color, false, botspawnindex), [Color.Black]), ArraySlice(color, botspawnindex + true, 999999999999));
-                }
-                else
-                {
-                    # use floating-point arithmetic; rgb() will handle the rounding
-                    healthPercent = h / 100;
-                    color = Append(Append(ArraySlice(color, false, botspawnindex), [CustomColor(255 * (true - healthPercent), 255 * healthPercent, 0, 255)]), ArraySlice(color, botspawnindex + true, 999999999999));
-                }
-            }
-        }
-    }
-}
-
-rule: "get nearest nodes for spawning"
-if (start == 1)
-if ((averagePosition == null || DistanceBetween(averagePosition, FirstOf(SortedArray(FilteredArray(AllLivingPlayers(Team.All), HasSpawned(ArrayElement())), DistanceBetween(ArrayElement(), PositionOf(teamPlayers[botspawnindex]))))) > 10) == true)
-{
-    # This gathers the current living attackers so the breach network can follow where the team is actually fighting.
-    teamPlayers = AllLivingPlayers(Team.Team1);
-    # Reset the average before calculating it again.\nWe start from zero so the team center can be computed from the sum of player positions instead of reusing stale data.
-    averagePosition = Left() + Right();
-    # Calculate the average position of all living players.
-    for (botspawnindex = 0; CountOf(teamPlayers); true)
-    {
-        ModifyVariable(averagePosition, Operation.Add, PositionOf(teamPlayers[botspawnindex]));
-    }
-    # Dividing by the player count produces the center of the squad, which is what the pathfinding search uses to choose breach nodes.
-    ModifyVariable(averagePosition, Operation.Divide, CountOf(teamPlayers));
-    candidates = FilteredArray(pfLoadedMap_nodes, DistanceBetween(averagePosition, ArrayElement()) < 35);
-    # Select up to 8 unique random nodes.\nResetting the breach list means each recalculation creates a fresh set of active breach nodes for the current area.
-    globalActiveBreaches = [];
-    # Keeping only eight active breaches prevents the map from becoming crowded with too many simultaneous spawn points.
-    maxBreaches = 8;
-    # This guarantees we never try to select more breach nodes than the graph actually has available.
-    count = Min(CountOf(candidates), maxBreaches);
-    for (botspawnindex = 0; count; true)
-    {
-        # Randomizing the chosen nodes keeps the network varied and avoids a fixed, predictable row of breaches.
-        pick = RandomValueInArray(candidates);
-        ModifyVariable(globalActiveBreaches, Operation.AppendToArray, pick);
-        ModifyVariable(candidates, Operation.RemoveFromArrayByValue, pick);
     }
 }
 
@@ -621,69 +529,29 @@ if ((HasStatus(EventPlayer(), Status.Hacked) || HasStatus(EventPlayer(), Status.
     DestroyEffect(LastCreatedEntity());
 }
 
-disabled rule: "16 Jump If Far Away From Player"
-Event.OngoingPlayer
-Team.Team2
-# not sure if this rule is needed
-if (DistanceBetween(EventPlayer(), FirstOf(SortedArray(FilteredArray(AllLivingPlayers(Team.Team1), HasSpawned(ArrayElement())), DistanceBetween(ArrayElement(), EventPlayer())))) > RandomInteger(5, 20))
-# idle bots would be great in concept, its meant to feel like L4D2
-if (HorizontalSpeedOf(EventPlayer()) < 0.7)
-{
-    SkipIf(zombjump == false, 3);
-    PressButton(EventPlayer(), Button.Jump);
-    Wait(10, WaitBehavior.IgnoreCondition);
-    LoopIfConditionIsTrue();
-}
 
 rule: "9 Omnic Kill all powerups)"
 Event.OnDeath
 Team.Team2
 if (roundnumber > 3)
 {
-    switch (SlotOf(EventPlayer()))
+    for (EventPlayer().powerupDropIndex = 0; 6; 1)
     {
-        case 0:
-            B = RandomInteger(1, 75);
-            SkipIf(B != 1, 1);
-            M[0] = NearestWalkablePosition(EventPlayer()) + Vector(0, 0.5, 0);
+        if (SlotOf(EventPlayer()) == EventPlayer().powerupDropIndex || (SlotOf(EventPlayer()) == 1 && numberOfZombies < 6 && EventPlayer().powerupDropIndex == 2))
+        {
+            if (EventPlayer().powerupDropIndex == 2)
+            {
+                if (RandomInteger(1, 50) == 1)
+                {
+                    M[EventPlayer().powerupDropIndex] = NearestWalkablePosition(EventPlayer()) + Vector(0, 0.5, 0);
+                }
+            }
+            else if (RandomInteger(1, 75) == 1)
+            {
+                M[EventPlayer().powerupDropIndex] = NearestWalkablePosition(EventPlayer()) + Vector(0, 0.5, 0);
+            }
             SetUltimateCharge(EventPlayer(), 0);
-            break;
-
-        case 1:
-            B = RandomInteger(1, 75);
-            SkipIf(B != 1, 1);
-            M[1] = NearestWalkablePosition(EventPlayer()) + Vector(0, 0.5, 0);
-            SetUltimateCharge(EventPlayer(), 0);
-            SkipIf(numberOfZombies < 6, 1);
-            break;
-
-        case 2:
-            B = RandomInteger(1, 50);
-            SkipIf(B != 1, 1);
-            M[2] = NearestWalkablePosition(EventPlayer()) + Vector(0, 0.5, 0);
-            SetUltimateCharge(EventPlayer(), 0);
-            break;
-
-        case 3:
-            B = RandomInteger(1, 75);
-            SkipIf(B != 1, 1);
-            M[3] = NearestWalkablePosition(EventPlayer()) + Vector(0, 0.5, 0);
-            SetUltimateCharge(EventPlayer(), 0);
-            break;
-
-        case 4:
-            B = RandomInteger(1, 75);
-            SkipIf(B != 1, 1);
-            M[4] = NearestWalkablePosition(EventPlayer()) + Vector(0, 0.5, 0);
-            SetUltimateCharge(EventPlayer(), 0);
-            break;
-
-        case 5:
-            B = RandomInteger(1, 75);
-            SkipIf(B != 1, 1);
-            M[5] = NearestWalkablePosition(EventPlayer()) + Vector(0, 0.5, 0);
-            SetUltimateCharge(EventPlayer(), 0);
-            break;
+        }
     }
 }
 
@@ -764,10 +632,10 @@ if (HasSpawned(EventPlayer()) == true)
 }
 
 rule: "519 Spawn wave director"
-# @Condition getPlayers(Team.1).hasSpawned() == true
+# @Condition getPlayers(Team.1).hasSpawned() == true also needs a 3, for directors cut version, where each hero is on for 5 rounds then changes using a loop
 if (roundnumber >= 1)
 if (numberOfZombies >= 4)
-if (IsGameInProgress() == true)# needs a 3, for directors cut version, where each hero is on for 5 rounds then changes using a loop
+if (IsGameInProgress() == true)
 {
     switch (spawntype)
     {
@@ -871,107 +739,6 @@ if (DistanceBetween(EventPlayer(), FirstOf(SortedArray(FilteredArray(AllLivingPl
     }
 }
 
-rule: "137  bots too far away"
-Event.OngoingPlayer
-Team.Team2
-if (IsAlive(EventPlayer()) == true)
-if (DistanceBetween(EventPlayer(), FirstOf(SortedArray(p_T < 2 ? AllLivingPlayers(Team.Team1) : [], ArrayElement()))) > 90)
-{
-    # good to keep but might need bigger radius when implementing pathfinding\ngood to make this 5+ seconds for teleporter maps
-    Wait(6 + SlotOf(EventPlayer()) * 0.032, WaitBehavior.AbortWhenFalse);
-    Teleport(EventPlayer(), NearestWalkablePosition(DirectionFromAngles(RandomReal(0, 360), RandomReal(-3, 3)) * RandomReal(20, 35) + PositionOf(FirstOf(AllLivingPlayers(Team.Team1)))));
-}
-
-rule: "402 Omnic movespeed + health"
-Event.OngoingPlayer
-Team.Team2
-if (HasSpawned(EventPlayer()) == true)
-{
-    SetMaxHealth(EventPlayer(), 15 * roundnumber);
-    SetMoveSpeed(EventPlayer(), roundnumber <= 6 ? 80 + 8 * roundnumber : 128);
-}
-
-rule: "17 Bots Under Player"
-Event.OngoingPlayer
-Team.Team2
-if (VerticalFacingAngleOf(EventPlayer()) < -10)
-if (pfDestination == null)
-{
-    Wait(0.25, WaitBehavior.AbortWhenFalse);
-    pfDestination = PositionOf(FirstOf(SortedArray(FilteredArray(AllLivingPlayers(Team.Team1), HasSpawned(ArrayElement())), DistanceBetween(ArrayElement(), EventPlayer()))));
-    Wait(3.5 + SlotOf(EventPlayer()) * 0.032, WaitBehavior.IgnoreCondition);
-    LoopIfConditionIsTrue();
-}
-
-rule: "force no pathfinding when close"
-Event.OngoingPlayer
-Team.Team2
-if (DistanceBetween(EventPlayer(), FirstOf(SortedArray(FilteredArray(AllLivingPlayers(Team.Team1), HasSpawned(ArrayElement())), DistanceBetween(ArrayElement(), EventPlayer())))) < 20)
-if (IsInLineOfSight(EventPlayer(), FirstOf(SortedArray(FilteredArray(AllLivingPlayers(Team.Team1), HasSpawned(ArrayElement())), DistanceBetween(ArrayElement(), EventPlayer()))), BarrierLOS.NoBarriersBlock) == true)
-{
-    # @Condition eventPlayer.pfIsPathfinding == false
-    Wait(0.25, WaitBehavior.AbortWhenFalse);
-    if (pfIsPathfinding == true)
-    {
-        pfIsPathfinding = false;
-    }
-    pfDestination = null;
-    pfSavedTarget = null;
-    pfPath = [];
-    pfWait = null;
-    pfWasBroadcasted = false;
-    pfIsPathfinding = false;
-    pfCurrentNodeIndex = -1;
-    pfActiveNode = -1;
-    pfWalkingToPosition = null;
-    pfWalkingFromPosition = null;
-    pfStartTime = 0;
-    pfAttributes = [];
-    pfopen = [];
-    pfscores_gScore = [];
-    pfscores_fScore = [];
-    pfscores_parent = [];
-    pfscores_nodeIndex = [];
-    pfiter = 0;
-    pfcurrent = -1;
-    pfgoal = -1;
-    pfStuckOnNode = -1;
-    pfIsStuck = false;
-    StopThrottleInDirection(EventPlayer());
-    StopForcingThrottle(EventPlayer());
-    Wait(0.1, WaitBehavior.IgnoreCondition);
-    StartThrottleInDirection(EventPlayer(), DirectionTowards(PositionOf(EventPlayer()), PositionOf(FirstOf(SortedArray(FilteredArray(AllLivingPlayers(Team.Team1), HasSpawned(ArrayElement())), DistanceBetween(ArrayElement(), EventPlayer()))))), 1, Relative.ToWorld, ThrottleBehavior.ReplaceExistingThrottle, ThrottleRev.DirectionAndMagnitude);
-}
-
-rule: "use pathfinding"
-Event.OngoingPlayer
-Team.Team2
-if (pfIsPathfinding == false)
-if ((DistanceBetween(EventPlayer(), FirstOf(SortedArray(FilteredArray(AllLivingPlayers(Team.Team1), HasSpawned(ArrayElement())), DistanceBetween(ArrayElement(), EventPlayer())))) >= 20 || !IsInLineOfSight(EventPlayer(), FirstOf(SortedArray(FilteredArray(AllLivingPlayers(Team.Team1), HasSpawned(ArrayElement())), DistanceBetween(ArrayElement(), EventPlayer()))), BarrierLOS.NoBarriersBlock)) == true)
-if ((pfDestination == null || DistanceBetween(pfDestination, PositionOf(FirstOf(SortedArray(FilteredArray(AllLivingPlayers(Team.Team1), HasSpawned(ArrayElement())), DistanceBetween(ArrayElement(), EventPlayer()))))) > 4) == true)
-{
-    Wait(0.25, WaitBehavior.AbortWhenFalse);
-    StopForcingThrottle(EventPlayer());
-    pfDestination = PositionOf(FirstOf(SortedArray(FilteredArray(AllLivingPlayers(Team.Team1), HasSpawned(ArrayElement())), DistanceBetween(ArrayElement(), EventPlayer()))));
-    Wait(2.5 + SlotOf(EventPlayer()) * 0.032, WaitBehavior.IgnoreCondition);
-    LoopIfConditionIsTrue();
-}
-
-rule: "use pathfinding if on wall"
-Event.OngoingPlayer
-Team.Team2
-if (pfIsPathfinding == false)
-if (SpeedOf(EventPlayer()) <= 0.7)
-if (DistanceBetween(EventPlayer(), FirstOf(SortedArray(FilteredArray(AllLivingPlayers(Team.Team1), HasSpawned(ArrayElement())), DistanceBetween(ArrayElement(), EventPlayer())))) > 2)
-if ((pfDestination == null || DistanceBetween(pfDestination, PositionOf(FirstOf(SortedArray(FilteredArray(AllLivingPlayers(Team.Team1), HasSpawned(ArrayElement())), DistanceBetween(ArrayElement(), EventPlayer()))))) > 4) == true)
-{
-    Wait(0.25, WaitBehavior.AbortWhenFalse);
-    StopForcingThrottle(EventPlayer());
-    pfDestination = PositionOf(FirstOf(SortedArray(FilteredArray(AllLivingPlayers(Team.Team1), HasSpawned(ArrayElement())), DistanceBetween(ArrayElement(), EventPlayer()))));
-    Wait(2.5 + SlotOf(EventPlayer()) * 0.032, WaitBehavior.IgnoreCondition);
-    LoopIfConditionIsTrue();
-}
-
 rule: "408 OMNIC Bots Face Nearest Player"
 Event.OngoingPlayer
 Team.Team2
@@ -1035,314 +802,6 @@ if (IsMoving(EventPlayer()) == true)
     SetUltimateCharge(EventPlayer(), 100);
 }
 
-rule: "ã€PF Coreã€‘Prepare loaded map"
-if (pfLoadedMap_nodes == true)
-if (pfIterationsThisTick != -99)
-{
-    for (pfI1 = 0; CountOf(pfLoadedMap_nodes); 1)
-    {
-        pfLoadedMap_nodes[pfI1] = Vector(XOf(pfLoadedMap_nodes[pfI1]), RoundToInteger(YOf(pfLoadedMap_nodes[pfI1]), Rounding.Down) + pfI1 / 1000 * (YOf(pfLoadedMap_nodes[pfI1]) < 0 ? -1 : 1), ZOf(pfLoadedMap_nodes[pfI1]));
-    }
-}
-
-rule: "ã€PF Coreã€‘Select next pathfinder"
-if ((!EntityExists(pfExecOwner) || pfExecOwner == null) == true)
-if (IsTrueForAny(AllPlayers(Team.All), IsAlive(ArrayElement()) && ArrayElement().pfWait) == true)
-{
-    pfExecOwner = FirstOf(SortedArray(FilteredArray(AllPlayers(Team.All), ArrayElement().pfWait), ArrayElement().pfWait));
-    MinWait();
-    LoopIfConditionIsTrue();
-}
-
-rule: "ã€PF Coreã€‘Update & Execute"
-Event.OngoingPlayer
-if (IsAlive(EventPlayer()) == true)
-if (pfDestination != null)
-if (pfIsPathfinding == false)
-if ((!pfSavedTarget || DistanceBetween(pfDestination, pfSavedTarget) > 5) == true)
-{
-    # Ensure that a map is loaded.
-    if (!pfLoadedMap_nodes)
-    {
-        LogToInspector(<"Error: Attempted to pathfind player <0> without a loaded map.", EventPlayer()>);
-        Abort();
-    }
-    pfWait = TotalTimeElapsed();
-    pfWasBroadcasted = false;
-    WaitUntil(pfExecOwner == EventPlayer() || pfWasBroadcasted, 99999);
-    # Update saved destination
-    pfSavedTarget = pfDestination;
-    if (!pfWasBroadcasted)
-    {
-        pfgoal = RoundToInteger(AbsoluteValue(YOf(FirstOf(SortedArray(ArraySlice(SortedArray(pfLoadedMap_nodes, DistanceBetween(ArrayElement(), pfSavedTarget)), 0, 5), !IsInLineOfSight(ArrayElement() + Vector(0, 2, 0), pfSavedTarget + Vector(0, 2, 0), BarrierLOS.NoBarriersBlock))))) * 1000 % 1000, Rounding.Down);
-        pfTick();
-        if (pfIsPathfinding && pfCurrentNodeIndex != -1)
-        {
-            pfActiveNode = pfCurrentNodeIndex;
-        }
-        else
-        {
-            pfActiveNode = RoundToInteger(AbsoluteValue(YOf(FirstOf(SortedArray(ArraySlice(SortedArray(pfLoadedMap_nodes, DistanceBetween(ArrayElement(), PositionOf(EventPlayer()))), 0, 5), !IsInLineOfSight(ArrayElement() + Vector(0, 2, 0), PositionOf(EventPlayer()) + Vector(0, 2, 0), BarrierLOS.NoBarriersBlock))))) * 1000 % 1000, Rounding.Down);
-            pfTick();
-        }
-        pfscores_gScore = [0];
-        pfscores_fScore = [0];
-        pfscores_parent = [-1];
-        pfscores_nodeIndex = [pfgoal];
-        pfopen = [0];
-        pfcheckedNode = pfActiveNode;
-        pfiter = 0;
-        while (CountOf(pfopen) || pfiter > 30)
-        {
-            # The index of the current node in `scores`.
-            pfcurrent = FirstOf(SortedArray(pfopen, pfscores_fScore[ArrayElement()]));
-            if (pfcheckedNode != pfActiveNode)
-            {
-                pfcheckedNode = IndexOfArrayValue(pfscores_nodeIndex, pfActiveNode);
-                if (pfcheckedNode != -1)
-                {
-                    pfcurrent = pfcheckedNode;
-                    pfcheckedNode = -2;
-                }
-                else
-                {
-                    pfcheckedNode = pfActiveNode;
-                }
-            }
-            pfcurrentInExistingPath = IndexOfArrayValue(pfPath, pfscores_nodeIndex[pfcurrent]);
-            # If the goal was found, reconstruct the path.
-            if (pfscores_nodeIndex[pfcurrent] == pfActiveNode || pfcheckedNode == -2 || pfcurrentInExistingPath != -1)
-            {
-                if (pfcurrentInExistingPath == -1)
-                {
-                    pfPath = [];
-                }
-                else
-                {
-                    pfPath = ArraySlice(pfPath, 0, pfcurrentInExistingPath);
-                }
-                while (pfcurrent != -1)
-                {
-                    ModifyVariable(pfPath, Operation.AppendToArray, pfscores_nodeIndex[pfcurrent]);
-                    pfcurrent = pfscores_parent[pfcurrent];
-                }
-                ModifyVariable(pfPath, Operation.AppendToArray, [-1]);
-                pfbroadcastTo = FilteredArray(PlayersWithinRadius(PositionOf(EventPlayer()) + Up(), 4, Team.All, RadiusLOS.Off), ArrayElement() != EventPlayer() && ArrayElement().pfWait && DistanceBetween(ArrayElement().pfDestination, pfDestination) < 4 && ArrayElement().pfPlayerAttributes == pfPlayerAttributes);
-                pfbroadcastTo.pfPath = pfPath;
-                pfbroadcastTo.pfWasBroadcasted = true;
-                Skip(27);
-            }
-            ModifyVariable(pfopen, Operation.RemoveFromArrayByValue, pfcurrent);
-            # Check each neighbor to the current node.
-            for (pfneighbor = 0; CountOf(pfLoadedMap_neighbors[pfscores_nodeIndex[pfcurrent]]); 1)
-            {
-                # The neighbor index to be used like `pfLoadedMap.nodes[neighborI]`.
-                pfneighborI = FirstOf(pfLoadedMap_neighbors[pfscores_nodeIndex[pfcurrent]][pfneighbor]);
-                pfscoreIndex = IndexOfArrayValue(pfscores_nodeIndex, pfneighborI);
-                # Ensure that the path to the neighbor is enabled.
-                if (CountOf(pfLoadedMap_neighbors[pfscores_nodeIndex[pfcurrent]][pfneighbor][1]) == 0 || IsTrueForAny(pfLoadedMap_neighbors[pfscores_nodeIndex[pfcurrent]][pfneighbor][1], ArrayContains(pfPlayerAttributes, ArrayElement())))
-                {
-                    pfscore = pfscores_gScore[pfcurrent] + DistanceBetween(pfLoadedMap_nodes[pfscores_nodeIndex[pfcurrent]], pfLoadedMap_nodes[pfneighborI]);
-                    # Get neighbor index in scores.\nIf -1, the neighbor was not added to the score list yet.
-                    if (pfscoreIndex == -1)
-                    {
-                        ModifyVariable(pfopen, Operation.AppendToArray, CountOf(pfscores_gScore));
-                        ModifyVariable(pfscores_gScore, Operation.AppendToArray, pfscore);
-                        ModifyVariable(pfscores_fScore, Operation.AppendToArray, pfscore + DistanceBetween(pfLoadedMap_nodes[pfneighborI], pfLoadedMap_nodes[pfActiveNode]) * 20);
-                        ModifyVariable(pfscores_parent, Operation.AppendToArray, pfcurrent);
-                        ModifyVariable(pfscores_nodeIndex, Operation.AppendToArray, pfneighborI);
-                    }
-                    else if (pfscore < pfscores_gScore[pfscoreIndex])
-                    {
-                        pfscores_gScore[pfscoreIndex] = pfscore;
-                        pfscores_fScore[pfscoreIndex] = pfscore + DistanceBetween(pfLoadedMap_nodes[pfneighborI], pfLoadedMap_nodes[pfActiveNode]) * 20;
-                        pfscores_parent[pfscoreIndex] = pfcurrent;
-                        pfscores_nodeIndex[pfscoreIndex] = pfneighborI;
-                        if (!ArrayContains(pfopen, pfscoreIndex))
-                        {
-                            ModifyVariable(pfopen, Operation.AppendToArray, pfscoreIndex);
-                        }
-                    }
-                }
-                pfTick();
-            }
-            pfiter += 1;
-        }
-        pfExecOwner = null;
-    }
-    if (CountOf(pfPath))
-    {
-        pfIsPathfinding = true;
-        pfCurrentNodeIndex = FirstOf(pfPath);
-        pfWalkingToPosition = pfLoadedMap_nodes[pfCurrentNodeIndex];
-        pfUpdateNodeMeta();
-        pfWalkToDestination();
-    }
-    pfWait = null;
-    Wait(2, WaitBehavior.IgnoreCondition);
-    LoopIfConditionIsTrue();
-}
-
-rule: "ã€PF Coreã€‘Node reached"
-Event.OngoingPlayer
-if (IsAlive(EventPlayer()) == true)
-if (pfIsPathfinding == true)
-if (pfWalkingToPosition == true)
-# Horizontal distance to current position is less than 0.4.
-if (DistanceBetween(PositionOf(EventPlayer()) * Vector(1, 0, 1), pfWalkingToPosition * Vector(1, 0, 1)) <= 0.4)
-# Vertical distance to current position is less than 1.5.
-if (AbsoluteValue(YOf(PositionOf(EventPlayer())) - YOf(pfWalkingToPosition)) <= 1.5)
-if (CountOf(pfPath) > 0)
-if (pfCurrentNodeIndex != -1)
-{
-    pfProgressEventPlayer();
-    Wait(0.2, WaitBehavior.IgnoreCondition);
-    LoopIfConditionIsTrue();
-}
-
-rule: "ã€PF Coreã€‘Stop pathfinding when the bot dies"
-Event.OngoingPlayer
-if (IsDead(EventPlayer()) == true)
-if (pfIsPathfinding == true)
-{
-    StopThrottleInDirection(EventPlayer());
-    pfIsPathfinding = false;
-    pfSavedTarget = null;
-    pfWait = null;
-    pfWalkingToPosition = null;
-}
-
-rule: "ã€PF Coreã€‘Stop throttle when pfDestination is reset"
-Event.OngoingPlayer
-if (IsAlive(EventPlayer()) == true)
-if (pfIsPathfinding == true)
-if (pfDestination == null)
-{
-    StopThrottleInDirection(EventPlayer());
-    pfIsPathfinding = false;
-    pfSavedTarget = null;
-}
-
-rule: "ã€PF Coreã€‘Insurance"
-Event.OngoingPlayer
-if (IsAlive(EventPlayer()) == true)
-if (pfIsPathfinding == true)
-if (pfWalkingToPosition == true)
-{
-    # Smooth step
-    if (CountOf(pfPath) == 2 && DistanceBetween(EventPlayer(), pfSavedTarget) < DistanceBetween(pfWalkingToPosition, pfSavedTarget) && IsInLineOfSight(PositionOf(EventPlayer()) + Vector(0, 0.25, 0), pfSavedTarget + Vector(0, 0.25, 0), BarrierLOS.NoBarriersBlock))
-    {
-        pfProgressEventPlayer();
-    }
-    else if (pfWalkingToPosition != pfDestination && pfCurrentNodeIndex == -1 && DistanceBetween(pfSavedTarget, pfDestination) < 5 && IsInLineOfSight(pfSavedTarget + Up(), pfDestination + Up(), BarrierLOS.NoBarriersBlock))
-    {
-        pfWalkingToPosition = pfDestination;
-    }
-    else if (DistanceBetween(EventPlayer(), pfWalkingToPosition) > 0.4 && !(!pfSavedTarget || DistanceBetween(pfDestination, pfSavedTarget) > 5) && (pfIsStuck || DistanceBetween(pfWalkingFromPosition, pfWalkingToPosition) - 4.95 * (TotalTimeElapsed() - pfStartTime) < 0) && !HasStatus(EventPlayer(), Status.Rooted) && !HasStatus(EventPlayer(), Status.Frozen) && !HasStatus(EventPlayer(), Status.Asleep) && !HasStatus(EventPlayer(), Status.KnockedDown) && !HasStatus(EventPlayer(), Status.Stunned))
-    {
-        if (pfStuckOnNode - 2 == pfCurrentNodeIndex)
-        {
-            LogToInspector(<"Pathfinder <0> struggled to reach node <1> at <2>. Try adjusting your map in the editor.", EventPlayer(), pfCurrentNodeIndex, pfLoadedMap_nodes[pfCurrentNodeIndex]>);
-            Teleport(EventPlayer(), pfWalkingToPosition);
-        }
-        else
-        {
-            pfStuckOnNode = pfCurrentNodeIndex + 2;
-            pfRecalibrate();
-        }
-    }
-    Wait(2, WaitBehavior.IgnoreCondition);
-    LoopIfConditionIsTrue();
-}
-
-rule: "ã€PF Coreã€‘Recalibrate when off path"
-Event.OngoingPlayer
-if (IsAlive(EventPlayer()) == true)
-if (pfIsPathfinding == true)
-if (pfWalkingToPosition == true)
-if (DistanceBetween((pfWalkingFromPosition + pfWalkingToPosition) / 2, EventPlayer()) > (DistanceBetween(pfWalkingFromPosition, pfWalkingToPosition) + 4) * 1.2)
-{
-    pfRecalibrate();
-}
-
-rule: "ã€PF Coreã€‘Check throttle"
-Event.OngoingPlayer
-if (IsAlive(EventPlayer()) == true)
-if (pfIsPathfinding == true)
-if (MagnitudeOf(VelocityOf(EventPlayer())) < 3)
-{
-    Wait(2.1, WaitBehavior.AbortWhenFalse);
-    pfIsStuck = true;
-    WaitUntil(!(pfWalkingToPosition && pfIsPathfinding) || MagnitudeOf(VelocityOf(EventPlayer())) >= 3, 99999);
-    pfIsStuck = false;
-}
-
-rule: "ã€PF Decompressã€‘Decompress map"
-if (pfDecompress == true)
-{
-    # Lock pathfinder until compression is completed.
-    pfIterationsThisTick = -99;
-    pfcompressionTable = <"!#$%&'()*+,-./:;<=>?@[]^_`|~Â€ÂÂ‚ÂƒÂ„Â…Â†Â‡ÂˆÂ‰ÂŠÂ‹ÂŒÂÂŽÂÂÂ‘Â’Â“Â”Â•Â–Â—Â˜Â™ÂšÂ›ÂœÂÂžÂŸÂ Â¡Â¢Â£Â¤Â¥Â¦Â§Â¨Â©Â«Â¬Â­Â®Â¯Â°Â±Â´Â¶Â·Â¸Â»Â¿Ã—Ã·Ë‚ËƒË„Ë…Ë’Ë“Ë”Ë•Ë–Ë—Ë˜Ë™ËšË›ËœËËžËŸË¥Ë¦Ë§Ë¨Ë©ËªË«Ë­Ë¯Ë°Ë±Ë²Ë³Ë´ËµË¶Ë·Ë¸Ë¹Ëº<0>", <"Ë»Ë¼Ë½Ë¾Ë¿Ì€ÌÌ‚ÌƒÌ„Ì…Ì†Ì‡ÌˆÌ‰ÌŠÌ‹ÌŒÌÌŽÌÌÌ‘Ì’Ì“Ì”Ì•Ì–Ì—Ì˜Ì™ÌšÌ›ÌœÌÌžÌŸÌ Ì¡Ì¢Ì£Ì¤Ì¥Ì¦Ì§Ì¨Ì©ÌªÌ«Ì¬Ì­Ì®Ì¯Ì°Ì±Ì²Ì³Ì´ÌµÌ¶Ì·Ì¸Ì¹ÌºÌ»Ì¼Ì½Ì¾Ì¿Í€ÍÍ‚ÍƒÍ„Í…Í†Í‡ÍˆÍ‰ÍŠÍ‹ÍŒÍÍŽÍÍÍ‘Í’Í“Í”Í•Í–Í—Í˜Í™ÍšÍ›ÍœÍÍžÍŸÍ Í¡Í¢Í£Í¤Í¥Í¦Í§Í¨Í©ÍªÍ«Í¬Í­Í®Í¯ÍµÍ¸Í¹Í¾Î€ÎÎ‚Îƒ<0>", <"Î„Î…Î‡Î‹ÎÎ¢Ï¶Ò‚ÒƒÒ„Ò…Ò†Ò‡ÒˆÒ‰Ô°Õ—Õ˜ÕšÕ›ÕœÕÕžÕŸÖ‰ÖŠÖ‹ÖŒÖÖŽÖÖÖ‘Ö’Ö“Ö”Ö•Ö–Ö—Ö˜Ö™ÖšÖ›ÖœÖÖžÖŸÖ Ö¡Ö¢Ö£Ö¤Ö¥Ö¦Ö§Ö¨Ö©ÖªÖ«Ö¬Ö­Ö®Ö¯Ö°Ö±Ö²Ö³Ö´ÖµÖ¶Ö·Ö¸Ö¹ÖºÖ»Ö¼Ö½Ö¾Ö¿×€××‚×ƒ×„×…×†×‡×ˆ×‰×Š×‹×Œ××Ž××«×¬×­×®×³×´×µ×¶×·×¸×¹×º×»×¼×½×¾×¿Ø€ØØ‚ØƒØ„Ø…Ø†Ø‡ØˆØ‰ØŠØ‹ØŒ<0>", <"ØØŽØØØ‘Ø’Ø“Ø”Ø•Ø–Ø—Ø˜Ø™ØšØ›ØœØØžØŸÙ‹ÙŒÙÙŽÙÙÙ‘Ù’Ù“Ù”Ù•Ù–Ù—Ù˜Ù™ÙšÙ›ÙœÙÙžÙŸÙªÙ«Ù¬Ù­Ù°Û”Û–Û—Û˜Û™ÛšÛ›ÛœÛÛžÛŸÛ Û¡Û¢Û£Û¤Û§Û¨Û©ÛªÛ«Û¬Û­Û½Û¾Ü€ÜÜ‚ÜƒÜ„Ü…Ü†Ü‡ÜˆÜ‰ÜŠÜ‹ÜŒÜÜŽÜÜ‘Ü°Ü±Ü²Ü³Ü´ÜµÜ¶Ü·Ü¸Ü¹ÜºÜ»Ü¼Ü½Ü¾Ü¿Ý€ÝÝ‚ÝƒÝ„Ý…Ý†Ý‡ÝˆÝ‰ÝŠÝ‹ÝŒÞ¦Þ§Þ¨Þ©ÞªÞ«Þ¬Þ­Þ®<0>", <"Þ¯Þ°Þ²Þ³Þ´ÞµÞ¶Þ·Þ¸Þ¹ÞºÞ»Þ¼Þ½Þ¾Þ¿ß«ß¬ß­ß®ß¯ß°ß±ß²ß³ß¶ß·ß¸ß¹ß»ß¼ß½ß¾ß¿à –à —à ˜à ™à ›à œà à žà Ÿà  à ¡à ¢à £à ¥à ¦à §à ©à ªà «à ¬à ­à ®à ¯à °à ±à ²à ³à ´à µà ¶à ·à ¸à ¹à ºà »à ¼à ½à ¾à ¿à¡™à¡šà¡›à¡œà¡à¡žà¡Ÿà¡«à¡¬à¡­à¡®à¡¯à¡°à¡±à¡²à¡³à¡´à¡µà¡¶à¡·à¡¸à¡¹à¡ºà¡»à¡¼à¡½à¡¾à¡¿à¢€à¢à¢‚à¢ƒà¢„à¢…à¢†à¢‡à¢ˆà¢‰à¢Šà¢‹à¢Œà¢à¢Žà¢à¢à¢‘à¢’à¢“à¢”à¢•à¢–à¢—<0>", <"à¢˜à¢™à¢šà¢›à¢œà¢à¢žà¢Ÿà¢µà£ˆà£‰à£Šà£‹à£Œà£à£Žà£à£à£‘à£’à£“à£”à£•à£–à£—à£˜à£™à£šà£›à£œà£à£žà£Ÿà£ à£¡à£¢à££à£¤à£¥à£¦à£§à£¨à£©à£ªà£«à£¬à£­à£®à£¯à£°à£±à£²à£³à£´à£µà£¶à£·à£¸à£¹à£ºà£»à£¼à£½à£¾à£¿à¤€à¤à¤‚à¤ƒà¤ºà¤»à¤¼à¤¾à¤¿à¥€à¥à¥‚à¥ƒà¥„à¥…à¥†à¥‡à¥ˆà¥‰à¥Šà¥‹à¥Œà¥à¥Žà¥à¥‘à¥’à¥“à¥”à¥•à¥–à¥—à¥¢à¥£à¥¤à¥¥à¥°à¦à¦‚à¦ƒà¦„à¦à¦Žà¦‘à¦’à¦©à¦±à¦³à¦´à¦µà¦ºà¦»à¦¼à¦¾à¦¿à§€à§à§‚à§ƒà§„<0>", <"à§…à§†à§‡à§ˆà§‰à§Šà§‹à§Œà§à§à§à§‘à§’à§“à§”à§•à§–à§—à§˜à§™à§šà§›à§žà§¢à§£à§¤à§¥à§²à§³à§ºà§»à§½à§¾à§¿à¨€à¨à¨‚à¨ƒà¨„à¨‹à¨Œà¨à¨Žà¨‘à¨’à¨©à¨±à¨´à¨·à¨ºà¨»à¨¼à¨½à¨¾à¨¿à©€à©à©‚à©ƒà©„à©…à©†à©‡à©ˆà©‰à©Šà©‹à©Œà©à©Žà©à©à©‘à©’à©“à©”à©•à©–à©—à©˜à©à©Ÿà© à©¡à©¢à©£à©¤à©¥à©°à©±à©µà©¶à©·à©¸à©¹à©ºà©»à©¼à©½à©¾à©¿àª€àªàª‚àªƒàª„àªŽàª’àª©àª±àª´àªºàª»àª¼àª¾àª¿à«€à«à«‚à«ƒà«„à«…à«†à«‡à«ˆ<0>", <"à«‰à«Šà«‹à«Œà«à«Žà«à«‘à«’à«“à«”à«•à«–à«—à«˜à«™à«šà«›à«œà«à«žà«Ÿà«¢à«£à«¤à«¥à«°à«±à«²à«³à«´à«µà«¶à«·à«¸à«ºà«»à«¼à«½à«¾à«¿à¬€à¬à¬‚à¬ƒà¬„à¬à¬Žà¬‘à¬’à¬©à¬±à¬´à¬ºà¬»à¬¼à¬¾à¬¿à­€à­à­‚à­ƒà­„à­…à­†à­‡à­ˆà­‰à­Šà­‹à­Œà­à­Žà­à­à­‘à­’à­“à­”à­•à­–à­—à­˜à­™à­šà­›à­žà­¢à­£à­¤à­¥à­°à­¸à­¹à­ºà­»à­¼à­½à­¾à­¿à®€à®à®‚à®„à®‹à®Œà®à®‘à®–à®—à®˜à®›à®à® à®¡à®¢à®¥à®¦à®§à®«à®¬à®­à®ºà®»à®¼<0>", <"à®½à®¾à®¿à¯€à¯à¯‚à¯ƒà¯„à¯…à¯†à¯‡à¯ˆà¯‰à¯Šà¯‹à¯Œà¯à¯Žà¯à¯‘à¯’à¯“à¯”à¯•à¯–à¯—à¯˜à¯™à¯šà¯›à¯œà¯à¯žà¯Ÿà¯ à¯¡à¯¢à¯£à¯¤à¯¥à¯³à¯´à¯µà¯¶à¯·à¯¸à¯¹à¯ºà¯»à¯¼à¯½à¯¾à¯¿à°€à°à°‚à°ƒà°„à°à°‘à°©à°ºà°»à°¼à°¾à°¿à±€à±à±‚à±ƒà±„à±…à±†à±‡à±ˆà±‰à±Šà±‹à±Œà±à±Žà±à±à±‘à±’à±“à±”à±•à±–à±—à±›à±œà±à±žà±Ÿà±¢à±£à±¤à±¥à±°à±±à±²à±³à±´à±µà±¶à±·à±¿à²à²‚à²ƒà²„à²à²‘à²©à²´à²ºà²»à²¼à²¾à²¿à³€à³à³‚à³ƒ<0>", <"à³„à³…à³†à³‡à³ˆà³‰à³Šà³‹à³Œà³à³Žà³à³à³‘à³’à³“à³”à³•à³–à³—à³˜à³™à³šà³›à³œà³à³Ÿà³¢à³£à³¤à³¥à³°à³³à³´à³µà³¶à³·à³¸à³¹à³ºà³»à³¼à³½à³¾à³¿à´€à´à´‚à´ƒà´à´‘à´»à´¼à´¾à´¿àµ€àµàµ‚àµƒàµ„àµ…àµ†àµ‡àµˆàµ‰àµŠàµ‹àµŒàµàµàµàµ‘àµ’àµ“àµ—àµ¢àµ£àµ¤àµ¥àµ¹à¶€à¶à¶‚à¶ƒà¶„à¶—à¶˜à¶™à¶²à¶¼à¶¾à¶¿à·‡à·ˆà·‰à·Šà·‹à·Œà·à·Žà·à·à·‘à·’à·“à·”à·•à·–à·—à·˜à·™à·šà·›à·œà·à·žà·Ÿà· à·¡à·¢à·£à·¤à·¥à·°à·±<0>", <"à·²à·³à·´à·µà·¶à··à·¸à·¹à·ºà·»à·¼à·½à·¾à·¿à¸€à¸±à¸´à¸µà¸¶à¸·à¸¸à¸¹à¸ºà¸»à¸¼à¸½à¸¾à¸¿à¹‡à¹ˆà¹‰à¹Šà¹‹à¹Œà¹à¹Žà¹à¹šà¹›à¹œà¹à¹žà¹Ÿà¹ à¹¡à¹¢à¹£à¹¤à¹¥à¹¦à¹§à¹¨à¹©à¹ªà¹«à¹¬à¹­à¹®à¹¯à¹°à¹±à¹²à¹³à¹´à¹µà¹¶à¹·à¹¸à¹¹à¹ºà¹»à¹¼à¹½à¹¾à¹¿àº€àºƒàº…àº‹àº¤àº¦àº±àº´àºµàº¶àº·àº¸àº¹àººàº»àº¼àº¾àº¿à»…à»‡à»ˆà»‰à»Šà»‹à»Œà»à»Žà»à»šà»›à» à»¡à»¢à»£à»¤à»¥à»¦à»§à»¨à»©à»ªà»«à»¬à»­à»®à»¯à»°à»±à»²à»³<0>", <"à»´à»µà»¶à»·à»¸à»¹à»ºà»»à»¼à»½à»¾à»¿à¼à¼‚à¼ƒà¼„à¼…à¼†à¼‡à¼ˆà¼‰à¼Šà¼‹à¼Œà¼à¼Žà¼à¼à¼‘à¼’à¼“à¼”à¼•à¼–à¼—à¼˜à¼™à¼šà¼›à¼œà¼à¼žà¼Ÿà¼´à¼µà¼¶à¼·à¼¸à¼¹à¼ºà¼»à¼¼à¼½à¼¾à¼¿à½ˆà½­à½®à½¯à½°à½±à½²à½³à½´à½µà½¶à½·à½¸à½¹à½ºà½»à½¼à½½à½¾à½¿à¾€à¾à¾‚à¾ƒà¾„à¾…à¾†à¾‡à¾à¾Žà¾à¾à¾‘à¾’à¾“à¾”à¾•à¾–à¾—à¾˜à¾™à¾šà¾›à¾œà¾à¾žà¾Ÿà¾ à¾¡à¾¢à¾£à¾¤à¾¥à¾¦à¾§à¾¨à¾©à¾ªà¾«à¾¬à¾­à¾®à¾¯à¾°à¾±à¾²à¾³à¾´à¾µà¾¶<0>", <"à¾·à¾¸à¾¹à¾ºà¾»à¾¼à¾½à¾¾à¾¿à¿€à¿à¿‚à¿ƒà¿„à¿…à¿†à¿‡à¿ˆà¿‰à¿Šà¿‹à¿Œà¿à¿Žà¿à¿à¿‘à¿’à¿“à¿”à¿•à¿–à¿—à¿˜à¿™à¿šà¿›à¿œà¿à¿žà¿Ÿà¿ à¿¡à¿¢à¿£à¿¤à¿¥à¿¦à¿§à¿¨à¿©à¿ªà¿«à¿¬à¿­à¿®à¿¯à¿°à¿±à¿²à¿³à¿´à¿µà¿¶à¿·à¿¸à¿¹à¿ºà¿»à¿¼à¿½à¿¾à¿¿á€«á€¬á€­á€®á€¯á€°á€±á€²á€³á€´á€µá€¶á€·á€¸á€¹á€ºá€»á€¼á€½á€¾áŠá‹áŒááŽáá–á—á˜á™ážáŸá á¢á£á¤á§á¨á©áªá«á¬á­á±á²á³á´á‚‚á‚ƒá‚„á‚…á‚†<0>", <"á‚‡á‚ˆá‚‰á‚Šá‚‹á‚Œá‚á‚á‚šá‚›á‚œá‚á‚žá‚Ÿáƒ†áƒˆáƒ‰áƒŠáƒ‹áƒŒáƒŽáƒáƒ»á‰‰á‰Žá‰á‰—á‰™á‰žá‰ŸáŠ‰áŠŽáŠáŠ±áŠ¶áŠ·áŠ¿á‹á‹†á‹‡á‹—áŒ‘áŒ–áŒ—á›áœáážáŸá á¡á¢á£á¤á¥á¦á§á¨á½á¾á¿áŽáŽ‘áŽ’áŽ“áŽ”áŽ•áŽ–áŽ—áŽ˜áŽ™áŽšáŽ›áŽœáŽáŽžáŽŸá¶á·á¾á¿á€á™­á™®áš€áš›ášœášášžášŸá›«á›¬á›­á›¹á›ºá›»á›¼á›½á›¾á›¿áœáœ’áœ“áœ”áœ•áœ–áœ—áœ˜áœ™áœšáœ›áœœáœáœžáœŸáœ²áœ³áœ´áœµáœ¶áœ·áœ¸áœ¹áœºáœ»<0>", <"áœ¼áœ½áœ¾áœ¿á’á“á”á•á–á—á˜á™ášá›áœáážáŸá­á±á²á³á´áµá¶á·á¸á¹áºá»á¼á½á¾á¿áž´ážµáž¶áž·áž¸áž¹ážºáž»áž¼áž½áž¾áž¿áŸ€áŸáŸ‚áŸƒáŸ„áŸ…áŸ†áŸ‡áŸˆáŸ‰áŸŠáŸ‹áŸŒáŸáŸŽáŸáŸáŸ‘áŸ’áŸ“áŸ”áŸ•áŸ–áŸ˜áŸ™áŸšáŸ›áŸáŸžáŸŸáŸªáŸ«áŸ¬áŸ­áŸ®áŸ¯áŸºáŸ»áŸ¼áŸ½áŸ¾áŸ¿á €á á ‚á ƒá „á …á †á ‡á ˆá ‰á Šá ‹á Œá á Žá á šá ›á œá á žá Ÿá¡¹á¡ºá¡»á¡¼á¡½á¡¾á¡¿á¢…á¢†á¢©á¢«á¢¬á¢­á¢®á¢¯<0>", <"á£¶á£·á£¸á£¹á£ºá£»á£¼á£½á£¾á£¿á¤Ÿá¤ á¤¡á¤¢á¤£á¤¤á¤¥á¤¦á¤§á¤¨á¤©á¤ªá¤«á¤¬á¤­á¤®á¤¯á¤°á¤±á¤²á¤³á¤´á¤µá¤¶á¤·á¤¸á¤¹á¤ºá¤»á¤¼á¤½á¤¾á¤¿á¥€á¥á¥‚á¥ƒá¥„á¥…á¥®á¥¯á¥µá¥¶á¥·á¥¸á¥¹á¥ºá¥»á¥¼á¥½á¥¾á¥¿á¦¬á¦­á¦®á¦¯á§Šá§‹á§Œá§á§Žá§á§›á§œá§á§žá§Ÿá§ á§¡á§¢á§£á§¤á§¥á§¦á§§á§¨á§©á§ªá§«á§¬á§­á§®á§¯á§°á§±á§²á§³á§´á§µá§¶á§·á§¸á§¹á§ºá§»á§¼á§½á§¾á§¿á¨—á¨˜á¨™á¨šá¨›á¨œá¨á¨žá¨Ÿá©•á©–á©—á©˜á©™á©šá©›<0>", <"á©œá©á©žá©Ÿá© á©¡á©¢á©£á©¤á©¥á©¦á©§á©¨á©©á©ªá©«á©¬á©­á©®á©¯á©°á©±á©²á©³á©´á©µá©¶á©·á©¸á©¹á©ºá©»á©¼á©½á©¾á©¿áªŠáª‹áªŒáªáªŽáªáªšáª›áªœáªáªžáªŸáª áª¡áª¢áª£áª¤áª¥áª¦áª¨áª©áªªáª«áª¬áª­áª®áª¯áª°áª±áª²áª³áª´áªµáª¶áª·áª¸áª¹áªºáª»áª¼áª½áª¾áª¿á«€á«á«‚á«ƒá«„á«…á«†á«‡á«ˆá«‰á«Šá«‹á«Œá«á«Žá«á«á«‘á«’á«“á«”á«•á«–á«—á«˜á«™á«šá«›á«œá«á«žá«Ÿá« á«¡á«¢á«£á«¤á«¥á«¦á«§á«¨á«©á«ªá««á«¬á«­<0>", <"á«®á«¯á«°á«±á«²á«³á«´á«µá«¶á«·á«¸á«¹á«ºá«»á«¼á«½á«¾á«¿á¬€á¬á¬‚á¬ƒá¬„á¬´á¬µá¬¶á¬·á¬¸á¬¹á¬ºá¬»á¬¼á¬½á¬¾á¬¿á­€á­á­‚á­ƒá­„á­Œá­á­Žá­á­šá­›á­œá­á­žá­Ÿá­ á­¡á­¢á­£á­¤á­¥á­¦á­§á­¨á­©á­ªá­«á­¬á­­á­®á­¯á­°á­±á­²á­³á­´á­µá­¶á­·á­¸á­¹á­ºá­»á­¼á­½á­¾á­¿á®€á®á®‚á®¡á®¢á®£á®¤á®¥á®¦á®§á®¨á®©á®ªá®«á®¬á®­á¯¦á¯§á¯¨á¯©á¯ªá¯«á¯¬á¯­á¯®á¯¯á¯°á¯±á¯²á¯³á¯´á¯µá¯¶á¯·á¯¸á¯¹á¯ºá¯»á¯¼á¯½á¯¾á¯¿á°¤<0>", <"á°¥á°¦á°§á°¨á°©á°ªá°«á°¬á°­á°®á°¯á°°á°±á°²á°³á°´á°µá°¶á°·á°¸á°¹á°ºá°»á°¼á°½á°¾á°¿á±Šá±‹á±Œá±¾á±¿á²‰á²Šá²‹á²Œá²á²Žá²á²»á²¼á³€á³á³‚á³ƒá³„á³…á³†á³‡á³ˆá³‰á³Šá³‹á³Œá³á³Žá³á³á³‘á³’á³“á³”á³•á³–á³—á³˜á³™á³šá³›á³œá³á³žá³Ÿá³ á³¡á³¢á³£á³¤á³¥á³¦á³§á³¨á³­á³´á³·á³¸á³¹á³»á³¼á³½á³¾á³¿á·€á·á·‚á·ƒá·„á·…á·†á·‡á·ˆá·‰á·Šá·‹á·Œá·á·Žá·á·á·‘á·’á·“á·”á·•á·–á·—á·˜á·™á·šá·›á·œá·á·žá·Ÿá· <0>", <"á·¡á·¢á·£á·¤á·¥á·¦á·§á·¨á·©á·ªá·«á·¬á·­á·®á·¯á·°á·±á·²á·³á·´á·µá·¶á··á·¸á·¹á·ºá·»á·¼á·½á·¾á·¿á¼–á¼—á¼žá¼Ÿá½†á½‡á½Žá½á½˜á½šá½œá½žá½¾á½¿á¾µá¾½á¾¿á¿€á¿á¿…á¿á¿Žá¿á¿”á¿•á¿œá¿á¿žá¿Ÿá¿­á¿®á¿¯á¿°á¿±á¿µá¿½á¿¾á¿¿â€€â€â€‚â€ƒâ€„â€…â€†â€‡â€ˆâ€‰â€Šâ€‹â€Œâ€â€Žâ€â€â€‘â€’â€“â€”â€•â€–â€—â€˜â€™â€šâ€›â€œâ€â€žâ€Ÿâ€ â€¡â€¢â€£â€¤â€¥â€¦â€§â€¨â€©â€ªâ€«â€¬â€­â€®â€¯â€°â€±â€²â€³â€´â€µâ€¶â€·<0>", <"â€¸â€¹â€ºâ€»â€¼â€½â€¾â€¿â€ââ‚âƒâ„â…â†â‡âˆâ‰âŠâ‹âŒââŽâââ‘â’â“â”â•â–â—â˜â™âšâ›âœââžâŸâ â¡â¢â£â¤â¥â¦â§â¨â©âªâ«â¬â­â®â¯â²â³âºâ»â¼â½â¾â‚Šâ‚‹â‚Œâ‚â‚Žâ‚â‚â‚žâ‚Ÿâ‚ â‚¡â‚¢â‚£â‚¤â‚¥â‚¦â‚§â‚¨â‚©â‚ªâ‚«â‚¬â‚­â‚®â‚¯â‚°â‚±â‚²â‚³â‚´â‚µâ‚¶â‚·â‚¸â‚¹â‚ºâ‚»â‚¼â‚½â‚¾â‚¿âƒ€âƒâƒ‚âƒƒâƒ„âƒ…âƒ†âƒ‡âƒˆâƒ‰âƒŠâƒ‹âƒŒâƒâƒŽâƒâƒâƒ‘âƒ’âƒ“âƒ”<0>", <"âƒ•âƒ–âƒ—âƒ˜âƒ™âƒšâƒ›âƒœâƒâƒžâƒŸâƒ âƒ¡âƒ¢âƒ£âƒ¤âƒ¥âƒ¦âƒ§âƒ¨âƒ©âƒªâƒ«âƒ¬âƒ­âƒ®âƒ¯âƒ°âƒ±âƒ²âƒ³âƒ´âƒµâƒ¶âƒ·âƒ¸âƒ¹âƒºâƒ»âƒ¼âƒ½âƒ¾âƒ¿â„€â„â„ƒâ„„â„…â„†â„ˆâ„‰â„”â„–â„—â„˜â„žâ„Ÿâ„ â„¡â„¢â„£â„¥â„§â„©â„®â„ºâ„»â…€â…â…‚â…ƒâ…„â…Šâ…‹â…Œâ…â…â†Šâ†‹â†Œâ†â†Žâ†â†â†‘â†’â†“â†”â†•â†–â†—â†˜â†™â†šâ†›â†œâ†â†žâ†Ÿâ† â†¡â†¢â†£â†¤â†¥â†¦â†§â†¨â†©â†ªâ†«â†¬â†­â†®â†¯â†°â†±â†²â†³â†´â†µâ†¶â†·â†¸â†¹<0>", <"â†ºâ†»â†¼â†½â†¾â†¿â‡€â‡â‡‚â‡ƒâ‡„â‡…â‡†â‡‡â‡ˆâ‡‰â‡Šâ‡‹â‡Œâ‡â‡Žâ‡â‡â‡‘â‡’â‡“â‡”â‡•â‡–â‡—â‡˜â‡™â‡šâ‡›â‡œâ‡â‡žâ‡Ÿâ‡ â‡¡â‡¢â‡£â‡¤â‡¥â‡¦â‡§â‡¨â‡©â‡ªâ‡«â‡¬â‡­â‡®â‡¯â‡°â‡±â‡²â‡³â‡´â‡µâ‡¶â‡·â‡¸â‡¹â‡ºâ‡»â‡¼â‡½â‡¾â‡¿âˆ€âˆâˆ‚âˆƒâˆ„âˆ…âˆ†âˆ‡âˆˆâˆ‰âˆŠâˆ‹âˆŒâˆâˆŽâˆâˆâˆ‘âˆ’âˆ“âˆ”âˆ•âˆ–âˆ—âˆ˜âˆ™âˆšâˆ›âˆœâˆâˆžâˆŸâˆ âˆ¡âˆ¢âˆ£âˆ¤âˆ¥âˆ¦âˆ§âˆ¨âˆ©âˆªâˆ«âˆ¬âˆ­âˆ®âˆ¯âˆ°âˆ±âˆ²âˆ³âˆ´âˆµâˆ¶<0>", <"âˆ·âˆ¸âˆ¹âˆºâˆ»âˆ¼âˆ½âˆ¾âˆ¿â‰€â‰â‰‚â‰ƒâ‰„â‰…â‰†â‰‡â‰ˆâ‰‰â‰Šâ‰‹â‰Œâ‰â‰Žâ‰â‰â‰‘â‰’â‰“â‰”â‰•â‰–â‰—â‰˜â‰™â‰šâ‰›â‰œâ‰â‰žâ‰Ÿâ‰ â‰¡â‰¢â‰£â‰¤â‰¥â‰¦â‰§â‰¨â‰©â‰ªâ‰«â‰¬â‰­â‰®â‰¯â‰°â‰±â‰²â‰³â‰´â‰µâ‰¶â‰·â‰¸â‰¹â‰ºâ‰»â‰¼â‰½â‰¾â‰¿âŠ€âŠâŠ‚âŠƒâŠ„âŠ…âŠ†âŠ‡âŠˆâŠ‰âŠŠâŠ‹âŠŒâŠâŠŽâŠâŠâŠ‘âŠ’âŠ“âŠ”âŠ•âŠ–âŠ—âŠ˜âŠ™âŠšâŠ›âŠœâŠâŠžâŠŸâŠ âŠ¡âŠ¢âŠ£âŠ¤âŠ¥âŠ¦âŠ§âŠ¨âŠ©âŠªâŠ«âŠ¬âŠ­âŠ®âŠ¯âŠ°âŠ±âŠ²âŠ³<0>", <"âŠ´âŠµâŠ¶âŠ·âŠ¸âŠ¹âŠºâŠ»âŠ¼âŠ½âŠ¾âŠ¿â‹€â‹â‹‚â‹ƒâ‹„â‹…â‹†â‹‡â‹ˆâ‹‰â‹Šâ‹‹â‹Œâ‹â‹Žâ‹â‹â‹‘â‹’â‹“â‹”â‹•â‹–â‹—â‹˜â‹™â‹šâ‹›â‹œâ‹â‹žâ‹Ÿâ‹ â‹¡â‹¢â‹£â‹¤â‹¥â‹¦â‹§â‹¨â‹©â‹ªâ‹«â‹¬â‹­â‹®â‹¯â‹°â‹±â‹²â‹³â‹´â‹µâ‹¶â‹·â‹¸â‹¹â‹ºâ‹»â‹¼â‹½â‹¾â‹¿âŒ€âŒâŒ‚âŒƒâŒ„âŒ…âŒ†âŒ‡âŒˆâŒ‰âŒŠâŒ‹âŒŒâŒâŒŽâŒâŒâŒ‘âŒ’âŒ“âŒ”âŒ•âŒ–âŒ—âŒ˜âŒ™âŒšâŒ›âŒœâŒâŒžâŒŸâŒ âŒ¡âŒ¢âŒ£âŒ¤âŒ¥âŒ¦âŒ§âŒ¨âŒ©âŒªâŒ«âŒ¬âŒ­âŒ®âŒ¯âŒ°<0>", <"âŒ±âŒ²âŒ³âŒ´âŒµâŒ¶âŒ·âŒ¸âŒ¹âŒºâŒ»âŒ¼âŒ½âŒ¾âŒ¿â€ââ‚âƒâ„â…â†â‡âˆâ‰âŠâ‹âŒââŽâââ‘â’â“â”â•â–â—â˜â™âšâ›âœââžâŸâ â¡â¢â£â¤â¥â¦â§â¨â©âªâ«â¬â­â®â¯â°â±â²â³â´âµâ¶â·â¸â¹âºâ»â¼â½â¾â¿âŽ€âŽâŽ‚âŽƒâŽ„âŽ…âŽ†âŽ‡âŽˆâŽ‰âŽŠâŽ‹âŽŒâŽâŽŽâŽâŽâŽ‘âŽ’âŽ“âŽ”âŽ•âŽ–âŽ—âŽ˜âŽ™âŽšâŽ›âŽœâŽâŽžâŽŸâŽ âŽ¡âŽ¢âŽ£âŽ¤âŽ¥âŽ¦âŽ§âŽ¨âŽ©âŽªâŽ«âŽ¬âŽ­<0>", <"âŽ®âŽ¯âŽ°âŽ±âŽ²âŽ³âŽ´âŽµâŽ¶âŽ·âŽ¸âŽ¹âŽºâŽ»âŽ¼âŽ½âŽ¾âŽ¿â€ââ‚âƒâ„â…â†â‡âˆâ‰âŠâ‹âŒââŽâââ‘â’â“â”â•â–â—â˜â™âšâ›âœââžâŸâ â¡â¢â£â¤â¥â¦â§â¨â©âªâ«â¬â­â®â¯â°â±â²â³â´âµâ¶â·â¸â¹âºâ»â¼â½â¾â¿â€ââ‚âƒâ„â…â†â‡âˆâ‰âŠâ‹âŒââŽâââ‘â’â“â”â•â–â—â˜â™âšâ›âœââžâŸâ â¡â¢â£â¤â¥â¦â§â¨â©âª<0>", <"â«â¬â­â®â¯â°â±â²â³â´âµâ¶â·â¸â¹âºâ»â¼â½â¾â¿â‘€â‘â‘‚â‘ƒâ‘„â‘…â‘†â‘‡â‘ˆâ‘‰â‘Šâ‘‹â‘Œâ‘â‘Žâ‘â‘â‘‘â‘’â‘“â‘”â‘•â‘–â‘—â‘˜â‘™â‘šâ‘›â‘œâ‘â‘žâ‘Ÿâ’œâ’â’žâ’Ÿâ’ â’¡â’¢â’£â’¤â’¥â’¦â’§â’¨â’©â’ªâ’«â’¬â’­â’®â’¯â’°â’±â’²â’³â’´â’µâ’¶â’·â’¸â’¹â’ºâ’»â’¼â’½â’¾â’¿â“€â“â“‚â“ƒâ“„â“…â“†â“‡â“ˆâ“‰â“Šâ“‹â“Œâ“â“Žâ“â“â“‘â“’â““â“”â“•â“–â“—â“˜â“™â“šâ“›â“œâ“â“žâ“Ÿâ“ â“¡â“¢â“£<0>", <"â“¤â“¥â“¦â“§â“¨â“©â”€â”â”‚â”ƒâ”„â”…â”†â”‡â”ˆâ”‰â”Šâ”‹â”Œâ”â”Žâ”â”â”‘â”’â”“â””â”•â”–â”—â”˜â”™â”šâ”›â”œâ”â”žâ”Ÿâ” â”¡â”¢â”£â”¤â”¥â”¦â”§â”¨â”©â”ªâ”«â”¬â”­â”®â”¯â”°â”±â”²â”³â”´â”µâ”¶â”·â”¸â”¹â”ºâ”»â”¼â”½â”¾â”¿â•€â•â•‚â•ƒâ•„â•…â•†â•‡â•ˆâ•‰â•Šâ•‹â•Œâ•â•Žâ•â•â•‘â•’â•“â•”â••â•–â•—â•˜â•™â•šâ•›â•œâ•â•žâ•Ÿâ• â•¡â•¢â•£â•¤â•¥â•¦â•§â•¨â•©â•ªâ•«â•¬â•­â•®â•¯â•°â•±â•²â•³â•´â•µâ•¶<0>", <"â•·â•¸â•¹â•ºâ•»â•¼â•½â•¾â•¿â–€â–â–‚â–ƒâ–„â–…â–†â–‡â–ˆâ–‰â–Šâ–‹â–Œâ–â–Žâ–â–â–‘â–’â–“â–”â–•â––â–—â–˜â–™â–šâ–›â–œâ–â–žâ–Ÿâ– â–¡â–¢â–£â–¤â–¥â–¦â–§â–¨â–©â–ªâ–«â–¬â–­â–®â–¯â–°â–±â–²â–³â–´â–µâ–¶â–·â–¸â–¹â–ºâ–»â–¼â–½â–¾â–¿â—€â—â—‚â—ƒâ—„â—…â—†â—‡â—ˆâ—‰â—Šâ—‹â—Œâ—â—Žâ—â—â—‘â—’â—“â—”â—•â—–â——â—˜â—™â—šâ—›â—œâ—â—žâ—Ÿâ— â—¡â—¢â—£â—¤â—¥â—¦â—§â—¨â—©â—ªâ—«â—¬â—­â—®â—¯â—°â—±â—²â—³<0>", <"â—´â—µâ—¶â—·â—¸â—¹â—ºâ—»â—¼â—½â—¾â—¿â˜€â˜â˜‚â˜ƒâ˜„â˜…â˜†â˜‡â˜ˆâ˜‰â˜Šâ˜‹â˜Œâ˜â˜Žâ˜â˜â˜‘â˜’â˜“â˜”â˜•â˜–â˜—â˜˜â˜™â˜šâ˜›â˜œâ˜â˜žâ˜Ÿâ˜ â˜¡â˜¢â˜£â˜¤â˜¥â˜¦â˜§â˜¨â˜©â˜ªâ˜«â˜¬â˜­â˜®â˜¯â˜°â˜±â˜²â˜³â˜´â˜µâ˜¶â˜·â˜¸â˜¹â˜ºâ˜»â˜¼â˜½â˜¾â˜¿â™€â™â™‚â™ƒâ™„â™…â™†â™‡â™ˆâ™‰â™Šâ™‹â™Œâ™â™Žâ™â™â™‘â™’â™“â™”â™•â™–â™—â™˜â™™â™šâ™›â™œâ™â™žâ™Ÿâ™ â™¡â™¢â™£â™¤â™¥â™¦â™§â™¨â™©â™ªâ™«â™¬â™­â™®â™¯â™°<0>", <"â™±â™²â™³â™´â™µâ™¶â™·â™¸â™¹â™ºâ™»â™¼â™½â™¾â™¿âš€âšâš‚âšƒâš„âš…âš†âš‡âšˆâš‰âšŠâš‹âšŒâšâšŽâšâšâš‘âš’âš“âš”âš•âš–âš—âš˜âš™âššâš›âšœâšâšžâšŸâš âš¡âš¢âš£âš¤âš¥âš¦âš§âš¨âš©âšªâš«âš¬âš­âš®âš¯âš°âš±âš²âš³âš´âšµâš¶âš·âš¸âš¹âšºâš»âš¼âš½âš¾âš¿â›€â›â›‚â›ƒâ›„â›…â›†â›‡â›ˆâ›‰â›Šâ›‹â›Œâ›â›Žâ›â›â›‘â›’â›“â›”â›•â›–â›—â›˜â›™â›šâ››â›œâ›â›žâ›Ÿâ› â›¡â›¢â›£â›¤â›¥â›¦â›§â›¨â›©â›ªâ›«â›¬â›­<0>", "â›®â›¯â›°â›±â›²â›³â›´â›µâ›¶â›·â›¸â›¹â›ºâ›»â›¼â›½â›¾â›¿âœ€âœâœ‚âœƒâœ„âœ…âœ†âœ‡âœˆâœ‰âœŠâœ‹âœŒâœâœŽâœâœâœ‘âœ’âœ“âœ”âœ•âœ–âœ—âœ˜âœ™âœšâœ›âœœâœâœžâœŸâœ âœ¡âœ¢âœ£âœ¤âœ¥âœ¦âœ§âœ¨âœ©âœªâœ«âœ¬âœ­âœ®âœ¯âœ°âœ±âœ²âœ³âœ´âœµâœ¶âœ·âœ¸âœ¹âœºâœ»âœ¼âœ½âœ¾âœ¿â€ââ‚âƒâ„â…â†â‡âˆâ‰âŠâ‹âŒâ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>;
-    pfLoadedMap_nodes = [];
-    pfLoadedMap_neighbors = [];
-    # Decompress nodes
-    for (pfI1 = 0; CountOf(FirstOf(pfDecompress)); 1)
-    {
-        for (pfI2 = 0; StringLength(FirstOf(pfDecompress)[pfI1]); 3)
-        {
-            ModifyVariable(pfLoadedMap_nodes, Operation.AppendToArray, Vector((IndexOfStringChar(pfcompressionTable, CharInString(FirstOf(pfDecompress)[pfI1], pfI2)) * 2 - 4096) / 10, (IndexOfStringChar(pfcompressionTable, CharInString(FirstOf(pfDecompress)[pfI1], pfI2 + 1)) * 2 - 4096) / 10, (IndexOfStringChar(pfcompressionTable, CharInString(FirstOf(pfDecompress)[pfI1], pfI2 + 2)) * 2 - 4096) / 10));
-            MinWait();
-        }
-    }
-    # Decompress neighbors
-    pfdecompressionState = 0;
-    pfcurrentNeighbors = [];
-    for (pfI1 = 0; CountOf(pfDecompress[1]); 1)
-    {
-        for (pfI2 = 0; StringLength(pfDecompress[1][pfI1]); 1)
-        {
-            pfnext = IndexOfStringChar(pfcompressionTable, CharInString(pfDecompress[1][pfI1], pfI2));
-            # Next is the neighbor.
-            if (pfdecompressionState == 0)
-            {
-                # Current node is terminated.
-                if (!pfnext)
-                {
-                    ModifyVariable(pfLoadedMap_neighbors, Operation.AppendToArray, [pfcurrentNeighbors]);
-                    # Reset current neighbors array
-                    pfcurrentNeighbors = [];
-                }
-                else
-                {
-                    pfdecompressionState = 1;
-                    ModifyVariable(pfcurrentNeighbors, Operation.AppendToArray, [[pfnext - 1, []]]);
-                }
-            }
-            else if (pfdecompressionState == 1)
-            {
-                # Current neighbor is terminated
-                if (!pfnext)
-                {
-                    pfdecompressionState = 0;
-                }
-                else
-                {
-                    pfcurrentNeighbors[CountOf(pfcurrentNeighbors) - 1] = [FirstOf(LastOf(pfcurrentNeighbors)), Append(LastOf(pfcurrentNeighbors)[1], pfnext - 1)];
-                }
-            }
-            if (!(pfI2 % 20))
-            {
-                MinWait();
-            }
-        }
-        MinWait();
-    }
-    pfcompressionTable = null;
-    # Unlock pathfinder
-    pfIterationsThisTick = 0;
-}
-
-
 rule: "56  points loss for high roller"
 Event.OnDeath
 Team.Team1
@@ -1350,203 +809,6 @@ Team.Team1
     bankPoints += points * 0.2;
     points -= points * 0.3;
     points = RoundToInteger(points, Rounding.Up);
-}
-
-rule: "global bank interest gain every round"
-if (numberOfZombies <= 0)
-if (bankPoints > 0)
-if (start == 1)
-{
-    Wait(0.16, WaitBehavior.IgnoreCondition);
-    for (i = 0; CountOf(bankRates); 1)
-    {
-        if (bankTier == i)
-        {
-            bankPoints += bankPoints * bankRates[i];
-        }
-        break;
-    }
-}
-
-rule: "global bank tier upgrade"
-Event.OngoingPlayer
-if (IsAlive(EventPlayer()) == true)
-if (IsButtonHeld(EventPlayer(), Button.Interact) == true)
-if (DistanceBetween(EventPlayer(), Vector(273.459, 44.205, 176.795)) < 1)
-if (bankTier < 3)
-{
-    for (i = 0; CountOf(FirstOf(twoDnumbersArray)); 1)
-    {
-        if (bankTier == i)
-        {
-            if (bankPoints >= FirstOf(twoDnumbersArray)[i])
-            {
-                bankPoints -= FirstOf(twoDnumbersArray)[i];
-                bankTier = i + 1;
-                SmallMessage(AllPlayers(Team.All), <"You have permanently upgraded your bank to tier <0>", i + 1>);
-                PlayEffect(AllPlayers(Team.All), PlayEffect.BuffExplosionSound, Color.White, EventPlayer(), 70);
-            }
-            else
-            {
-                SmallMessage(AllPlayers(Team.All), <"You need <0> points in the bank to upgrade!", FirstOf(twoDnumbersArray)[i]>);
-            }
-            break;
-        }
-    }
-}
-
-rule: "global bank withdraw button"
-Event.OngoingPlayer
-if (IsAlive(EventPlayer()) == true)
-if (IsButtonHeld(EventPlayer(), Button.Interact) == true)
-if (DistanceBetween(EventPlayer(), Vector(277.123, 44.205, 177.262)) < 1)
-{
-    if (ServerLoad() < 245)
-    {
-        if (bankPoints >= 250)
-        {
-            bankPoints -= 250;
-            points += 250;
-            Wait(ServerLoadAverage() / 255 * 0.18 - 90.032, WaitBehavior.IgnoreCondition);
-            if (withdrawNotif == 0)
-            {
-                withdrawNotif = 1;
-            }
-            LoopIfConditionIsTrue();
-        }
-        else
-        {
-            SmallMessage(EventPlayer(), "The bank is out of funds!");
-        }
-    }
-    else
-    {
-        SmallMessage(EventPlayer(), <"<0> Error: <1> Bank closed! (--ANTICRASHSYS--)", HeroIconString(Hero.Ramattra), RandomInteger(10, 1000)>);
-    }
-}
-
-rule: "global bank deposit button"
-Event.OngoingPlayer
-if (IsAlive(EventPlayer()) == true)
-if (IsButtonHeld(EventPlayer(), Button.Interact) == true)
-if (DistanceBetween(EventPlayer(), Vector(275.451, 44.205, 175.244)) < 1)
-{
-    if (ServerLoad() < 245)
-    {
-        if (points >= 200)
-        {
-            bankPoints += 200;
-            points -= 200;
-            if (depNotif == 0)
-            {
-                depNotif = 1;
-            }
-            Wait(ServerLoadAverage() / 255 * 0.18 - 90.032, WaitBehavior.IgnoreCondition);
-            LoopIfConditionIsTrue();
-        }
-        else
-        {
-            SmallMessage(EventPlayer(), "You don't have enough points to deposit!");
-        }
-    }
-    else
-    {
-        SmallMessage(EventPlayer(), <"<0> Error: <1> Bank closed! (--ANTICRASHSYS--)", HeroIconString(Hero.Ramattra), RandomInteger(10, 1000)>);
-    }
-}
-
-rule: "property damage easter egg"
-Event.OngoingPlayer
-if (IsAlive(EventPlayer()) == true)
-if (IsButtonHeld(EventPlayer(), Button.Interact) == true)
-if (DistanceBetween(EventPlayer(), Vector(269.882, 44.205, 179.101)) < 1)
-{
-    SmallMessage(EventPlayer(), <"<0> You have caused $<1> damage to my army!", HeroIconString(Hero.Ramattra), ramPoints>);
-}
-
-rule: "credit card system"
-Event.OngoingPlayer
-if (IsAlive(EventPlayer()) == true)
-if (IsButtonHeld(EventPlayer(), Button.Interact) == true)
-if (DistanceBetween(EventPlayer(), Vector(299.653, -14.545, -222.024)) < 1)
-if (creditTier < 3)
-{
-    if (ServerLoad() < 245)
-    {
-        for (i = 0; CountOf(creditCosts); 1)
-        {
-            if (points >= creditCosts[i])
-            {
-                points -= creditCosts[i];
-                ChaseVariableAtRate(points2, EvaluateOnce(points), 1000, RateChaseReevaluation.DestinationAndRate);
-                creditTier = i + 1;
-                creditcardlimit = creditLimits[i];
-                cashback = cashbackRates[i];
-                SmallMessage(EventPlayer(), <"Your credit card is now tier <0>", i + 1>);
-                Wait(4, WaitBehavior.IgnoreCondition);
-                SmallMessage(EventPlayer(), "Hold spacebar to see credit card details");
-            }
-            else
-            {
-                if (i == 0)
-                {
-                    SmallMessage(EventPlayer(), <"You need <0> points buy a credit card!", creditCosts[i]>);
-                }
-                else
-                {
-                    SmallMessage(EventPlayer(), <"You need <0> points to upgrade!", creditCosts[i]>);
-                }
-                break;
-            }
-        }
-    }
-    else
-    {
-        SmallMessage(EventPlayer(), <"<0> Error: <1> Credit card office closed! (--ANTICRASHSYS--)", HeroIconString(Hero.Ramattra), RandomInteger(10, 1000)>);
-    }
-}
-
-rule: "credit card interest"
-Event.OngoingPlayer
-if (points < 0)
-if (numberOfZombies < 1)
-if (IsAlive(EventPlayer()) == true)
-if (creditTier > 0)
-{
-    for (i = 1; CountOf(ccRates); 1)
-    {
-        if (creditTier == i)
-        {
-            ccCurrentRate = ccRates[i];
-            ccInterest = points * ccCurrentRate;
-            points += ccInterest;
-            ChaseVariableAtRate(points2, EvaluateOnce(points), 1000, RateChaseReevaluation.DestinationAndRate);
-            SmallMessage(EventPlayer(), <"You have incurred <0> interest on your credit card.", ccInterest>);
-        }
-        break;
-    }
-}
-
-rule: "Reset deposit notif"
-Event.OngoingPlayer
-if (depNotif == 1)
-{
-    SmallMessage(EventPlayer(), <"Hold <0> to deposit 200 Points", InputBindingString(Button.Interact)>);
-    Wait(4, WaitBehavior.IgnoreCondition);
-    depNotif = 0;
-    Wait(0.5, WaitBehavior.IgnoreCondition);
-    LoopIfConditionIsTrue();
-}
-
-rule: "Reset withdraw notif"
-Event.OngoingPlayer
-if (withdrawNotif == 1)
-{
-    SmallMessage(EventPlayer(), <"Hold <0> to withdraw 250 Points", InputBindingString(Button.Interact)>);
-    Wait(4, WaitBehavior.IgnoreCondition);
-    withdrawNotif = 0;
-    Wait(0.5, WaitBehavior.IgnoreCondition);
-    LoopIfConditionIsTrue();
 }
 
 rule: "1 Setup"
@@ -1584,10 +846,10 @@ rule: "1 Setup"
     teleportercolor = Color.Blue;
     # disableInspector()
     Difficulty = WorkshopSettingInteger("difficulty", "difficulty", 1, 1, 4, 0);
-    Died[0] = Vector(500, 0, 500);
-    Died[1] = Vector(500, 0, 500);
-    Died[2] = Vector(500, 0, 500);
-    Died[3] = Vector(500, 0, 500);
+    for (forindex = 0; 4; 1)
+    {
+        Died[forindex] = Vector(500, 0, 500);
+    }
     costmultiplier = 1;
 }
 
@@ -1611,12 +873,10 @@ if (start == 1)
     Teleport(AllDeadPlayers(Team.Team1), NearestWalkablePosition(RandomValueInArray(AllLivingPlayers(Team.Team1)) + Vector(RandomInteger(-5, 5), 0, RandomInteger(-5, 5))));
     ForcePlayerHero(AllDeadPlayers(Team.Team1), Hero.Cassidy);
     Resurrect(AllDeadPlayers(Team.Team1));
-    # set a loop
-    Died[0] = Vector(500, 0, 500);
-    Died[1] = Vector(500, 0, 500);
-    Died[2] = Vector(500, 0, 500);
-    Died[3] = Vector(500, 0, 500);
-    # can set these to false
+    for (forindex = 0; 4; 1)
+    {
+        Died[forindex] = Vector(500, 0, 500);
+    }
     AllPlayers(Team.Team1).InfoCooldown = false;
     AllPlayers(Team.Team1).p_P = false;
     AllPlayers(Team.Team1).botTarget = false;
@@ -1765,10 +1025,10 @@ if (roundnumber >= 1)
     SetDamageDealt(AllPlayers(Team.Team1), AbsoluteValue(999999));
     SetDamageReceived(AllPlayers(Team.Team2), 1000);
     Wait(30, WaitBehavior.IgnoreCondition);
-    SetDamageDealt(PlayersInSlot(0, Team.Team1), PlayersInSlot(0, Team.Team1).damagevariable);
-    SetDamageDealt(PlayersInSlot(1, Team.Team1), PlayersInSlot(1, Team.Team1).damagevariable);
-    SetDamageDealt(PlayersInSlot(2, Team.Team1), PlayersInSlot(2, Team.Team1).damagevariable);
-    SetDamageDealt(PlayersInSlot(3, Team.Team1), PlayersInSlot(3, Team.Team1).damagevariable);
+    for (forindex = 0; 4; 1)
+    {
+        SetDamageDealt(PlayersInSlot(forindex, Team.Team1), PlayersInSlot(forindex, Team.Team1).damagevariable);
+    }
     SetDamageReceived(AllPlayers(Team.Team2), 100);
     AllPlayers(Team.Team1).G[4] = false;
     AllPlayers(Team.Team1).S[4] = false;
@@ -1885,6 +1145,7 @@ Team.Team1
 # need more player feedback on how they enjoy the start screen
 if (start == false)
 {
+    WaitUntil(HasSpawned(EventPlayer()), 99999);
     StartCamera(EventPlayer(), Vector(255.366, 9.471, -169.75), Vector(261.155, 6.939, -180.808), 0);
     DisableHeroHud(EventPlayer());
     Wait(15, WaitBehavior.AbortWhenFalse);
@@ -1949,39 +1210,7 @@ if (doormessage == 1)
     doormessage = false;
 }
 
-rule: "38 Pickup vaporized"
-Event.OngoingPlayer
-Team.Team1
-if (DistanceBetween(EventPlayer(), M[3]) <= 1.5)
-if (AllPlayers(Team.Team1).G[3] == false)
-if (roundnumber >= 1)
-{
-    M[4] = Vector(500, 25, 500);
-    AllPlayers(Team.Team1).G[3] = true;
-    AllPlayers(Team.Team1).S[3] = 1;
-    BigMessage(AllPlayers(Team.All), "Vaporized");
-    Kill(AllLivingPlayers(Team.Team2), FirstOf(AllLivingPlayers(Team.Team1)));
-    Wait(3, WaitBehavior.IgnoreCondition);
-    AllPlayers(Team.Team1).G[3] = false;
-    AllPlayers(Team.Team1).S[3] = false;
-}
 
-rule: "39 Pickup max ammo"
-Event.OngoingPlayer
-Team.Team1
-if (DistanceBetween(EventPlayer(), M[5]) <= 1.5)
-if (AllPlayers(Team.Team1).G[5] == false)
-if (roundnumber >= 1)
-{
-    M[5] = Vector(500, 25, 500);
-    AllPlayers(Team.Team1).G[5] = true;
-    AllPlayers(Team.Team1).S[5] = 1;
-    AllLivingPlayers(Team.Team1).magazines += 10;
-    BigMessage(AllPlayers(Team.All), "Max ammo!");
-    Wait(3, WaitBehavior.IgnoreCondition);
-    AllPlayers(Team.Team1).G[5] = false;
-    AllPlayers(Team.Team1).S[5] = false;
-}
 
 rule: "143 DIFFICULTY damage resistance"
 Event.OngoingPlayer

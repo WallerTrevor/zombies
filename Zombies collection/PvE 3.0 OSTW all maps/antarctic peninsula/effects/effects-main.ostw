@@ -106,22 +106,13 @@ rule: "65 ring around each player"
 Event.OngoingPlayer
 Team.Team1
 {
-    # this could probably be simpler
-    if (SlotOf(EventPlayer()) == false)
+    if (playerRingCreated == false)
     {
-        CreateEffect(AllPlayers(Team.All), Effect.Ring, Color.Red, EventPlayer(), 1.2, EffectRev.VisibleToPositionAndRadius);
-    }
-    else if (SlotOf(EventPlayer()) == 1)
-    {
-        CreateEffect(AllPlayers(Team.All), Effect.Ring, Color.Blue, EventPlayer(), 1.2, EffectRev.VisibleToPositionAndRadius);
-    }
-    else if (SlotOf(EventPlayer()) == 2)
-    {
-        CreateEffect(AllPlayers(Team.All), Effect.Ring, Color.Green, EventPlayer(), 1.2, EffectRev.VisibleToPositionAndRadius);
-    }
-    else if (SlotOf(EventPlayer()) == 3)
-    {
-        CreateEffect(AllPlayers(Team.All), Effect.Ring, Color.Orange, EventPlayer(), 1.2, EffectRev.VisibleToPositionAndRadius);
+        if (SlotOf(EventPlayer()) < CountOf(playerRingColors))
+        {
+            CreateEffect(AllPlayers(Team.All), Effect.Ring, playerRingColors[SlotOf(EventPlayer())], EventPlayer(), 1.2, EffectRev.VisibleToPositionAndRadius);
+            playerRingCreated = true;
+        }
     }
 }
 
@@ -130,7 +121,6 @@ Event.OnDeath
 Team.Team2
 if (IsDummyBot(EventPlayer()) == true)
 {
-    # need to see how this looks when the bots dont instantly disappear on death
     PlayEffect(AllPlayers(Team.All), PlayEffect.JunkratFragLauncherExplosionEffect, Color.White, EventPlayer(), 5);
     PlayEffect(AllPlayers(Team.All), PlayEffect.WreckingBallMinefieldExplosionSound, Color.White, EventPlayer(), 100);
 }

@@ -1,20 +1,12 @@
-﻿
+﻿import "../Main/index.ostw";
+
 rule: "509 bot name singleplayer"
 
 if (NumberOfPlayers(Team.Team1) == 1)
 if (roundnumber > 0)
 if (aprilrng == 50)
 {
-    botNames = [
-        "01000111 01100101",
-        "01110100 00100000",
-        "01101111 01110101",
-        "01110100 00100000",
-        "01101111 01100110",
-        "00100000 01101000",
-        "01100101 01110010",
-        "01100101 00101110"
-    ];
+    botNames = ["01000111 01100101","01110100 00100000","01101111 01110101","01110100 00100000","01101111 01100110","00100000 01101000","01100101 01110010","01100101 00101110"];
 
     for (i = 0; i < CountOf(botNames); 1)
     {
@@ -30,12 +22,11 @@ if (NumberOfPlayers(Team.Team1) > 1)
 if (aprilrng == 50)
 if (roundnumber > 0)
 {
-    StartForcingDummyBotName(PlayersInSlot(0, Team.Team2), "77 6F 72 6B 69");
-    StartForcingDummyBotName(PlayersInSlot(1, Team.Team2), "6E 67 20 74 6F");
-    StartForcingDummyBotName(PlayersInSlot(2, Team.Team2), "67 65 74 68 65");
-    StartForcingDummyBotName(PlayersInSlot(3, Team.Team2), "72 20 69 73");
-    StartForcingDummyBotName(PlayersInSlot(4, Team.Team2), "20 66 75 74");
-    StartForcingDummyBotName(PlayersInSlot(5, Team.Team2), "69 6C 65 21");
+    botNames = ["77 6F 72 6B 69","6E 67 20 74 6F","67 65 74 68 65","72 20 69 73","20 66 75 74","69 6C 65 21"];
+    for (i = 0; i < CountOf(botNames); 1)
+    {
+        StartForcingDummyBotName(PlayersInSlot(i, Team.Team2), botNames[i]);
+    }
 }
 
 rule: "glitch in the system" #This changes the round number to show a easter egg. it changes it to be binary for the round number.
@@ -58,221 +49,14 @@ Team.Team1
 if (IsUsingUltimate(EventPlayer()) == true)
 if (aprilrng == 100)
 {
-    # might be an easier way to set this up
-    if (HeroOf(EventPlayer()) == Hero.Dva)
+    for (EventPlayer().aprilQuoteIndex = 0; CountOf(heroAlphabetical); 1)
     {
-        CreateInWorldText(AllPlayers(Team.All), IndexOfArrayValue(aprilquotes, RandomInteger(0, 2)), EventPlayer(), 1, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleToPositionAndString, Color.White, Spectators.DefaultVisibility);
-        Wait(5, WaitBehavior.IgnoreCondition);
-        DestroyInWorldText(LastTextID());
-    }
-    else if (HeroOf(EventPlayer()) == Hero.Doomfist)
-    {
-        CreateInWorldText(AllPlayers(Team.All), IndexOfArrayValue(aprilquotes, RandomInteger(3, 4)), EventPlayer(), 1, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleToPositionAndString, Color.White, Spectators.DefaultVisibility);
-        Wait(5, WaitBehavior.IgnoreCondition);
-        DestroyInWorldText(LastTextID());
-    }
-    else if (HeroOf(EventPlayer()) == Hero.JunkerQueen)
-    {
-        CreateInWorldText(AllPlayers(Team.All), IndexOfArrayValue(aprilquotes, RandomInteger(5, 6)), EventPlayer(), 1, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleToPositionAndString, Color.White, Spectators.DefaultVisibility);
-        Wait(5, WaitBehavior.IgnoreCondition);
-        DestroyInWorldText(LastTextID());
-    }
-    else if (HeroOf(EventPlayer()) == Hero.Ana)
-    {
-        CreateInWorldText(AllPlayers(Team.All), IndexOfArrayValue(aprilquotes, RandomInteger(7, 8)), EventPlayer(), 1, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleToPositionAndString, Color.White, Spectators.DefaultVisibility);
-        Wait(5, WaitBehavior.IgnoreCondition);
-        DestroyInWorldText(LastTextID());
-    }
-    else if (HeroOf(EventPlayer()) == Hero.Orisa)
-    {
-        CreateInWorldText(AllPlayers(Team.All), IndexOfArrayValue(aprilquotes, RandomInteger(9, 10)), EventPlayer(), 1, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleToPositionAndString, Color.White, Spectators.DefaultVisibility);
-        Wait(5, WaitBehavior.IgnoreCondition);
-        DestroyInWorldText(LastTextID());
-    }
-    else if (HeroOf(EventPlayer()) == Hero.Ramattra)
-    {
-        CreateInWorldText(AllPlayers(Team.All), IndexOfArrayValue(aprilquotes, RandomInteger(11, 13)), EventPlayer(), 1, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleToPositionAndString, Color.White, Spectators.DefaultVisibility);
-        Wait(5, WaitBehavior.IgnoreCondition);
-        DestroyInWorldText(LastTextID());
-    }
-    else if (HeroOf(EventPlayer()) == Hero.Reinhardt)
-    {
-        CreateInWorldText(AllPlayers(Team.All), IndexOfArrayValue(aprilquotes, RandomInteger(14, 15)), EventPlayer(), 1, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleToPositionAndString, Color.White, Spectators.DefaultVisibility);
-        Wait(5, WaitBehavior.IgnoreCondition);
-        DestroyInWorldText(LastTextID());
-    }
-    else if (HeroOf(EventPlayer()) == Hero.Roadhog)
-    {
-        CreateInWorldText(AllPlayers(Team.All), IndexOfArrayValue(aprilquotes, RandomInteger(16, 18)), EventPlayer(), 1, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleToPositionAndString, Color.White, Spectators.DefaultVisibility);
-        Wait(5, WaitBehavior.IgnoreCondition);
-        DestroyInWorldText(LastTextID());
-    }
-    else if (HeroOf(EventPlayer()) == Hero.Sigma)
-    {
-        CreateInWorldText(AllPlayers(Team.All), IndexOfArrayValue(aprilquotes, RandomInteger(19, 20)), EventPlayer(), 1, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleToPositionAndString, Color.White, Spectators.DefaultVisibility);
-        Wait(5, WaitBehavior.IgnoreCondition);
-        DestroyInWorldText(LastTextID());
-    }
-    else if (HeroOf(EventPlayer()) == Hero.Winston)
-    {
-        CreateInWorldText(AllPlayers(Team.All), IndexOfArrayValue(aprilquotes, RandomInteger(21, 21)), EventPlayer(), 1, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleToPositionAndString, Color.White, Spectators.DefaultVisibility);
-        Wait(5, WaitBehavior.IgnoreCondition);
-        DestroyInWorldText(LastTextID());
-    }
-    else if (HeroOf(EventPlayer()) == Hero.WreckingBall)
-    {
-        CreateInWorldText(AllPlayers(Team.All), IndexOfArrayValue(aprilquotes, RandomInteger(22, 23)), EventPlayer(), 1, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleToPositionAndString, Color.White, Spectators.DefaultVisibility);
-        Wait(5, WaitBehavior.IgnoreCondition);
-        DestroyInWorldText(LastTextID());
-    }
-    else if (HeroOf(EventPlayer()) == Hero.Zarya)
-    {
-        CreateInWorldText(AllPlayers(Team.All), IndexOfArrayValue(aprilquotes, RandomInteger(24, 26)), EventPlayer(), 1, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleToPositionAndString, Color.White, Spectators.DefaultVisibility);
-        Wait(5, WaitBehavior.IgnoreCondition);
-        DestroyInWorldText(LastTextID());
-    }
-    else if (HeroOf(EventPlayer()) == Hero.Ashe)
-    {
-        CreateInWorldText(AllPlayers(Team.All), IndexOfArrayValue(aprilquotes, RandomInteger(27, 28)), EventPlayer(), 1, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleToPositionAndString, Color.White, Spectators.DefaultVisibility);
-        Wait(5, WaitBehavior.IgnoreCondition);
-        DestroyInWorldText(LastTextID());
-    }
-    else if (HeroOf(EventPlayer()) == Hero.Bastion)
-    {
-        CreateInWorldText(AllPlayers(Team.All), IndexOfArrayValue(aprilquotes, RandomInteger(29, 31)), EventPlayer(), 1, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleToPositionAndString, Color.White, Spectators.DefaultVisibility);
-        Wait(5, WaitBehavior.IgnoreCondition);
-        DestroyInWorldText(LastTextID());
-    }
-    else if (HeroOf(EventPlayer()) == Hero.Cassidy)
-    {
-        CreateInWorldText(AllPlayers(Team.All), IndexOfArrayValue(aprilquotes, RandomInteger(32, 37)), EventPlayer(), 1, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleToPositionAndString, Color.White, Spectators.DefaultVisibility);
-        Wait(5, WaitBehavior.IgnoreCondition);
-        DestroyInWorldText(LastTextID());
-    }
-    else if (HeroOf(EventPlayer()) == Hero.Echo)
-    {
-        CreateInWorldText(AllPlayers(Team.All), IndexOfArrayValue(aprilquotes, RandomInteger(38, 38)), EventPlayer(), 1, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleToPositionAndString, Color.White, Spectators.DefaultVisibility);
-        Wait(5, WaitBehavior.IgnoreCondition);
-        DestroyInWorldText(LastTextID());
-    }
-    else if (HeroOf(EventPlayer()) == Hero.Genji)
-    {
-        CreateInWorldText(AllPlayers(Team.All), IndexOfArrayValue(aprilquotes, RandomInteger(39, 40)), EventPlayer(), 1, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleToPositionAndString, Color.White, Spectators.DefaultVisibility);
-        Wait(5, WaitBehavior.IgnoreCondition);
-        DestroyInWorldText(LastTextID());
-    }
-    else if (HeroOf(EventPlayer()) == Hero.Hanzo)
-    {
-        CreateInWorldText(AllPlayers(Team.All), IndexOfArrayValue(aprilquotes, RandomInteger(41, 43)), EventPlayer(), 1, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleToPositionAndString, Color.White, Spectators.DefaultVisibility);
-        Wait(5, WaitBehavior.IgnoreCondition);
-        DestroyInWorldText(LastTextID());
-    }
-    else if (HeroOf(EventPlayer()) == Hero.Junkrat)
-    {
-        CreateInWorldText(AllPlayers(Team.All), IndexOfArrayValue(aprilquotes, RandomInteger(44, 45)), EventPlayer(), 1, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleToPositionAndString, Color.White, Spectators.DefaultVisibility);
-        Wait(5, WaitBehavior.IgnoreCondition);
-        DestroyInWorldText(LastTextID());
-    }
-    else if (HeroOf(EventPlayer()) == Hero.Mei)
-    {
-        CreateInWorldText(AllPlayers(Team.All), IndexOfArrayValue(aprilquotes, RandomInteger(46, 47)), EventPlayer(), 1, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleToPositionAndString, Color.White, Spectators.DefaultVisibility);
-        Wait(5, WaitBehavior.IgnoreCondition);
-        DestroyInWorldText(LastTextID());
-    }
-    else if (HeroOf(EventPlayer()) == Hero.Pharah)
-    {
-        CreateInWorldText(AllPlayers(Team.All), IndexOfArrayValue(aprilquotes, RandomInteger(48, 51)), EventPlayer(), 1, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleToPositionAndString, Color.White, Spectators.DefaultVisibility);
-        Wait(5, WaitBehavior.IgnoreCondition);
-        DestroyInWorldText(LastTextID());
-    }
-    else if (HeroOf(EventPlayer()) == Hero.Reaper)
-    {
-        CreateInWorldText(AllPlayers(Team.All), IndexOfArrayValue(aprilquotes, RandomInteger(52, 53)), EventPlayer(), 1, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleToPositionAndString, Color.White, Spectators.DefaultVisibility);
-        Wait(5, WaitBehavior.IgnoreCondition);
-        DestroyInWorldText(LastTextID());
-    }
-    else if (HeroOf(EventPlayer()) == Hero.Sojourn)
-    {
-        CreateInWorldText(AllPlayers(Team.All), IndexOfArrayValue(aprilquotes, RandomInteger(54, 55)), EventPlayer(), 1, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleToPositionAndString, Color.White, Spectators.DefaultVisibility);
-        Wait(5, WaitBehavior.IgnoreCondition);
-        DestroyInWorldText(LastTextID());
-    }
-    else if (HeroOf(EventPlayer()) == Hero.Soldier76)
-    {
-        CreateInWorldText(AllPlayers(Team.All), IndexOfArrayValue(aprilquotes, RandomInteger(56, 58)), EventPlayer(), 1, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleToPositionAndString, Color.White, Spectators.DefaultVisibility);
-        Wait(5, WaitBehavior.IgnoreCondition);
-        DestroyInWorldText(LastTextID());
-    }
-    else if (HeroOf(EventPlayer()) == Hero.Sombra)
-    {
-        CreateInWorldText(AllPlayers(Team.All), IndexOfArrayValue(aprilquotes, RandomInteger(59, 61)), EventPlayer(), 1, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleToPositionAndString, Color.White, Spectators.DefaultVisibility);
-        Wait(5, WaitBehavior.IgnoreCondition);
-        DestroyInWorldText(LastTextID());
-    }
-    else if (HeroOf(EventPlayer()) == Hero.Symmetra)
-    {
-        CreateInWorldText(AllPlayers(Team.All), IndexOfArrayValue(aprilquotes, RandomInteger(62, 64)), EventPlayer(), 1, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleToPositionAndString, Color.White, Spectators.DefaultVisibility);
-        Wait(5, WaitBehavior.IgnoreCondition);
-        DestroyInWorldText(LastTextID());
-    }
-    else if (HeroOf(EventPlayer()) == Hero.Torbjorn)
-    {
-        CreateInWorldText(AllPlayers(Team.All), IndexOfArrayValue(aprilquotes, RandomInteger(65, 66)), EventPlayer(), 1, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleToPositionAndString, Color.White, Spectators.DefaultVisibility);
-        Wait(5, WaitBehavior.IgnoreCondition);
-        DestroyInWorldText(LastTextID());
-    }
-    else if (HeroOf(EventPlayer()) == Hero.Tracer)
-    {
-        CreateInWorldText(AllPlayers(Team.All), IndexOfArrayValue(aprilquotes, RandomInteger(67, 68)), EventPlayer(), 1, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleToPositionAndString, Color.White, Spectators.DefaultVisibility);
-        Wait(5, WaitBehavior.IgnoreCondition);
-        DestroyInWorldText(LastTextID());
-    }
-    else if (HeroOf(EventPlayer()) == Hero.Widowmaker)
-    {
-        CreateInWorldText(AllPlayers(Team.All), IndexOfArrayValue(aprilquotes, RandomInteger(69, 71)), EventPlayer(), 1, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleToPositionAndString, Color.White, Spectators.DefaultVisibility);
-        Wait(5, WaitBehavior.IgnoreCondition);
-        DestroyInWorldText(LastTextID());
-    }
-    else if (HeroOf(EventPlayer()) == Hero.Baptiste)
-    {
-        CreateInWorldText(AllPlayers(Team.All), IndexOfArrayValue(aprilquotes, RandomInteger(72, 75)), EventPlayer(), 1, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleToPositionAndString, Color.White, Spectators.DefaultVisibility);
-        Wait(5, WaitBehavior.IgnoreCondition);
-        DestroyInWorldText(LastTextID());
-    }
-    else if (HeroOf(EventPlayer()) == Hero.Brigitte)
-    {
-        CreateInWorldText(AllPlayers(Team.All), IndexOfArrayValue(aprilquotes, RandomInteger(76, 77)), EventPlayer(), 1, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleToPositionAndString, Color.White, Spectators.DefaultVisibility);
-        Wait(5, WaitBehavior.IgnoreCondition);
-        DestroyInWorldText(LastTextID());
-    }
-    else if (HeroOf(EventPlayer()) == Hero.Kiriko)
-    {
-        CreateInWorldText(AllPlayers(Team.All), IndexOfArrayValue(aprilquotes, RandomInteger(78, 79)), EventPlayer(), 1, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleToPositionAndString, Color.White, Spectators.DefaultVisibility);
-        Wait(5, WaitBehavior.IgnoreCondition);
-        DestroyInWorldText(LastTextID());
-    }
-    else if (HeroOf(EventPlayer()) == Hero.Lucio)
-    {
-        CreateInWorldText(AllPlayers(Team.All), IndexOfArrayValue(aprilquotes, RandomInteger(80, 81)), EventPlayer(), 1, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleToPositionAndString, Color.White, Spectators.DefaultVisibility);
-        Wait(5, WaitBehavior.IgnoreCondition);
-        DestroyInWorldText(LastTextID());
-    }
-    else if (HeroOf(EventPlayer()) == Hero.Mercy)
-    {
-        CreateInWorldText(AllPlayers(Team.All), IndexOfArrayValue(aprilquotes, RandomInteger(82, 84)), EventPlayer(), 1, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleToPositionAndString, Color.White, Spectators.DefaultVisibility);
-        Wait(5, WaitBehavior.IgnoreCondition);
-        DestroyInWorldText(LastTextID());
-    }
-    else if (HeroOf(EventPlayer()) == Hero.Moira)
-    {
-        CreateInWorldText(AllPlayers(Team.All), IndexOfArrayValue(aprilquotes, RandomInteger(85, 87)), EventPlayer(), 1, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleToPositionAndString, Color.White, Spectators.DefaultVisibility);
-        Wait(5, WaitBehavior.IgnoreCondition);
-        DestroyInWorldText(LastTextID());
-    }
-    else if (HeroOf(EventPlayer()) == Hero.Zenyatta)
-    {
-        CreateInWorldText(AllPlayers(Team.All), IndexOfArrayValue(aprilquotes, RandomInteger(88, 90)), EventPlayer(), 1, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleToPositionAndString, Color.White, Spectators.DefaultVisibility);
-        Wait(5, WaitBehavior.IgnoreCondition);
-        DestroyInWorldText(LastTextID());
+        if (HeroOf(EventPlayer()) == heroAlphabetical[EventPlayer().aprilQuoteIndex] && CountOf(aprilQuoteLines[EventPlayer().aprilQuoteIndex]) > 0)
+        {
+            CreateInWorldText(AllPlayers(Team.All), RandomValueInArray(aprilQuoteLines[EventPlayer().aprilQuoteIndex]), EventPlayer(), 1, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleToPositionAndString, Color.White, Spectators.DefaultVisibility);
+            Wait(5, WaitBehavior.IgnoreCondition);
+            DestroyInWorldText(LastTextID());
+            break;
+        }
     }
 }

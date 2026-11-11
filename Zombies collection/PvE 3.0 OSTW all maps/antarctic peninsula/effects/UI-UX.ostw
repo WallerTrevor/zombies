@@ -137,61 +137,15 @@ rule: "Info UI"
 Event.OngoingPlayer
 if (start == false)
 {
-    # might make this a subroutine and then let it be a toggle players can use to read while playing\nhudSubtext(eventPlayer, \".\", HudPosition.LEFT, 1, Color.WHITE, HudReeval.VISIBILITY_AND_STRING)\neventPlayer.InfoUI.append(getLastCreatedText())\nwait()
-    CreateHudText(EventPlayer(), null, null, "Hold spacebar for perk info, and use crouch to switch heros.", Location.Left, 15, null, null, Color.Green, HudTextRev.VisibleToAndString, Spectators.DefaultVisibility);
-    ModifyVariable(InfoUI, Operation.AppendToArray, LastTextID());
-    MinWait();
-    CreateHudText(EventPlayer(), null, "You will only get your ultimate once per wave, use it wisely!", null, Location.Left, 15, null, Color.White, null, HudTextRev.VisibleToAndString, Spectators.DefaultVisibility);
-    ModifyVariable(InfoUI, Operation.AppendToArray, LastTextID());
-    MinWait();
-    CreateHudText(EventPlayer(), null, "You can find the latest version on Workshop.codes made by dropthatbeat", null, Location.Left, 102, null, Color.White, null, HudTextRev.VisibleToAndString, Spectators.DefaultVisibility);
-    ModifyVariable(InfoUI, Operation.AppendToArray, LastTextID());
-    MinWait();
-    CreateHudText(EventPlayer(), null, "Zombies collection:workshop.codes/c/bvziup", null, Location.Left, 101, null, Color.White, null, HudTextRev.VisibleToAndString, Spectators.DefaultVisibility);
-    ModifyVariable(InfoUI, Operation.AppendToArray, LastTextID());
-    MinWait();
-    CreateHudText(EventPlayer(), null, null, <"<0> Workshop Information:", IconString(Icon.Heart)>, Location.Left, 100, null, null, Color.Yellow, HudTextRev.VisibleToAndString, Spectators.DefaultVisibility);
-    ModifyVariable(InfoUI, Operation.AppendToArray, LastTextID());
-    MinWait();
-    CreateHudText(EventPlayer(), null, "You have limited ammo, Reloading throws away your old magazine", null, Location.Left, 33, null, Color.White, null, HudTextRev.VisibleToAndString, Spectators.DefaultVisibility);
-    ModifyVariable(InfoUI, Operation.AppendToArray, LastTextID());
-    MinWait();
-    CreateHudText(EventPlayer(), null, "shooting the same zombie in coop gives bonus points", null, Location.Left, 32, null, Color.White, null, HudTextRev.VisibleToAndString, Spectators.DefaultVisibility);
-    ModifyVariable(InfoUI, Operation.AppendToArray, LastTextID());
-    MinWait();
-    CreateHudText(EventPlayer(), null, "Score in the bottom right. prices displayed in game. press interact to buy", null, Location.Left, 31, null, Color.White, null, HudTextRev.VisibleToAndString, Spectators.DefaultVisibility);
-    ModifyVariable(InfoUI, Operation.AppendToArray, LastTextID());
-    MinWait();
-    CreateHudText(EventPlayer(), null, null, <"<0>How points work:", IconString(Icon.Diamond)>, Location.Left, 30, null, null, Color.Yellow, HudTextRev.VisibleToAndString, Spectators.DefaultVisibility);
-    ModifyVariable(InfoUI, Operation.AppendToArray, LastTextID());
-    MinWait();
-    CreateHudText(EventPlayer(), null, "Connecting the power allows you to buy perks and pack a punch.", null, Location.Left, 22, null, Color.White, null, HudTextRev.VisibleToAndString, Spectators.DefaultVisibility);
-    ModifyVariable(InfoUI, Operation.AppendToArray, LastTextID());
-    MinWait();
-    CreateHudText(EventPlayer(), null, "When you connect the power make sure no zombies are around as they will ultimate", null, Location.Left, 21, null, Color.White, null, HudTextRev.VisibleToAndString, Spectators.DefaultVisibility);
-    ModifyVariable(InfoUI, Operation.AppendToArray, LastTextID());
-    MinWait();
-    CreateHudText(EventPlayer(), null, null, <"<0>Connect the power", IconString(Icon.Bolt)>, Location.Left, 20, null, null, Color.Yellow, HudTextRev.VisibleToAndString, Spectators.DefaultVisibility);
-    ModifyVariable(InfoUI, Operation.AppendToArray, LastTextID());
-    MinWait();
-    CreateHudText(EventPlayer(), null, "in the map there is a mystery box, several perks, if you die you lose them, excluding Pack a punch", null, Location.Left, 13, null, Color.White, null, HudTextRev.VisibleToAndString, Spectators.DefaultVisibility);
-    ModifyVariable(InfoUI, Operation.AppendToArray, LastTextID());
-    MinWait();
-    CreateHudText(EventPlayer(), null, "Try to progress and survive by switching heros, starting heros do less damage, instead melee for bonus damage!", null, Location.Left, 12, null, Color.White, null, HudTextRev.VisibleToAndString, Spectators.DefaultVisibility);
-    ModifyVariable(InfoUI, Operation.AppendToArray, LastTextID());
-    MinWait();
-    CreateHudText(EventPlayer(), null, "most waves are normal zombies, but randomly picked waves will have challenges", null, Location.Left, 11, null, Color.White, null, HudTextRev.VisibleToAndString, Spectators.DefaultVisibility);
-    ModifyVariable(InfoUI, Operation.AppendToArray, LastTextID());
-    MinWait();
-    CreateHudText(EventPlayer(), null, null, <"<0> How This mode works:", IconString(Icon.Checkmark)>, Location.Left, 10, null, null, Color.Yellow, HudTextRev.VisibleToAndString, Spectators.DefaultVisibility);
-    ModifyVariable(InfoUI, Operation.AppendToArray, LastTextID());
-    MinWait();
-    CreateHudText(EventPlayer(), null, "In solo play, you get 3 lives, however in coop you can revive each other", null, Location.Left, 14, null, Color.White, null, HudTextRev.VisibleToAndString, Spectators.DefaultVisibility);
-    ModifyVariable(InfoUI, Operation.AppendToArray, LastTextID());
-    MinWait();
-    # hudSubtext(eventPlayer, \".\", HudPosition.LEFT, 2, Color.ORANGE, HudReeval.VISIBILITY_AND_STRING)\neventPlayer.InfoUI.append(getLastCreatedText())
-    CreateHudText(EventPlayer(), null, "|   Start the mode to hide the instructions   |", null, Location.Left, 900, null, Color.White, null, HudTextRev.VisibleToAndString, Spectators.DefaultVisibility);
-    ModifyVariable(InfoUI, Operation.AppendToArray, LastTextID());
+    for (infoUIIndex = 0; CountOf(infoUIData); 1)
+    {
+        if (infoUIIndex > 0)
+        {
+            MinWait();
+        }
+        CreateHudText(EventPlayer(), null, infoUIData[infoUIIndex][0], infoUIData[infoUIIndex][1], Location.Left, infoUIData[infoUIIndex][2], null, infoUIData[infoUIIndex][3], infoUIData[infoUIIndex][4], HudTextRev.VisibleToAndString, Spectators.DefaultVisibility);
+        ModifyVariable(InfoUI, Operation.AppendToArray, LastTextID());
+    }
     InfoCooldown = TotalTimeElapsed() + 0.16;
     HideHints = true;
     UI = 1;
