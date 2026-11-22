@@ -1,0 +1,40 @@
+The color 'PURPLE' is hard to see. Consider using LIGHT_PURPLE instead. (w_dark_color)
+    | line 636, col 184, at optimized.opy
+Impulse.CANCEL_CONTRARY_MOTION is legacy and should not be used. Use CANCEL_CONTRARY_MOTION_XYZ instead. (w_cancel_contrary_motion)
+    | line 1563, col 108, at optimized.opy
+The getClosestPlayer() function targets dead and unspawned players (at 0,0,0). Use getRealClosestPlayer() instead. (w_closest_player)
+    | line 3297, col 66, at optimized.opy
+Wait Until does not consider non-zero numbers as true, which might cause unwanted behavior. It is recommended to explicitly compare to true. (w_wait_until)
+    | line 3788, col 19, at optimized.opy
+Impulse.CANCEL_CONTRARY_MOTION is legacy and should not be used. Use CANCEL_CONTRARY_MOTION_XYZ instead. (w_cancel_contrary_motion)
+    | line 3996, col 139, at optimized.opy
+The color 'PURPLE' is hard to see. Consider using LIGHT_PURPLE instead. (w_dark_color)
+    | line 4553, col 169, at optimized.opy
+The color 'PURPLE' is hard to see. Consider using LIGHT_PURPLE instead. (w_dark_color)
+    | line 4647, col 269, at optimized.opy
+The color 'RED' is hard to see. Consider using LIGHT_RED instead. (w_dark_color)
+    | line 4822, col 452, at optimized.opy
+The color 'RED' is hard to see. Consider using LIGHT_RED instead. (w_dark_color)
+    | line 4823, col 302, at optimized.opy
+The color 'RED' is hard to see. Consider using LIGHT_RED instead. (w_dark_color)
+    | line 4850, col 198, at optimized.opy
+Warning: The color 'PURPLE' is hard to see. Consider using LIGHT_PURPLE instead. (w_dark_color)
+    | line 636, col 184, at optimized.opy
+Warning: Impulse.CANCEL_CONTRARY_MOTION is legacy and should not be used. Use CANCEL_CONTRARY_MOTION_XYZ instead. (w_cancel_contrary_motion)
+    | line 1563, col 108, at optimized.opy
+Warning: The getClosestPlayer() function targets dead and unspawned players (at 0,0,0). Use getRealClosestPlayer() instead. (w_closest_player)
+    | line 3297, col 66, at optimized.opy
+Warning: Wait Until does not consider non-zero numbers as true, which might cause unwanted behavior. It is recommended to explicitly compare to true. (w_wait_until)
+    | line 3788, col 19, at optimized.opy
+Warning: Impulse.CANCEL_CONTRARY_MOTION is legacy and should not be used. Use CANCEL_CONTRARY_MOTION_XYZ instead. (w_cancel_contrary_motion)
+    | line 3996, col 139, at optimized.opy
+Warning: The color 'PURPLE' is hard to see. Consider using LIGHT_PURPLE instead. (w_dark_color)
+    | line 4553, col 169, at optimized.opy
+Warning: The color 'PURPLE' is hard to see. Consider using LIGHT_PURPLE instead. (w_dark_color)
+    | line 4647, col 269, at optimized.opy
+Warning: The color 'RED' is hard to see. Consider using LIGHT_RED instead. (w_dark_color)
+    | line 4822, col 452, at optimized.opy
+Warning: The color 'RED' is hard to see. Consider using LIGHT_RED instead. (w_dark_color)
+    | line 4823, col 302, at optimized.opy
+Warning: The color 'RED' is hard to see. Consider using LIGHT_RED instead. (w_dark_color)
+    | line 4850, col 198, at optimized.opy

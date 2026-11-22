@@ -1,5 +1,0 @@
-/*
-
-figure this out once the gamemode is near completion
-
-*/

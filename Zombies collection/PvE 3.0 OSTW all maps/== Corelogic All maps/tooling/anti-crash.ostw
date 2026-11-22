@@ -1,0 +1,26 @@
+Number AntiCrashSpeed(): start == 1 && ServerLoad() >= 150 ? Max(93, RoundToInteger(100 - 7 * (ServerLoad() - 150) / 105, Rounding.Up)) : 100;
+Number SlowMotionTarget(): Min(AntiCrashSpeed(), Min(slowmoPowerup ? 50 : 100, Min(slowmoCutscene ? slowmoCutscene : 100, slowmoEmergency && start == 1 ? 10 : 100)));
+
+rule: "anticrash: slow motion"
+if (SlowMotionTarget() != slowmoApplied)
+{
+    slowmoApplied = SlowMotionTarget();
+    SetSlowMotion(slowmoApplied);
+
+    Wait(0.5, WaitBehavior.IgnoreCondition);
+    LoopIfConditionIsTrue();
+}
+
+rule: "anticrash: emergency slow motion"
+
+if (start == 1)
+if (ServerLoad() >= 250)
+{
+
+    Wait(2, WaitBehavior.AbortWhenFalse);
+    slowmoEmergency = true;
+    SmallMessage(AllPlayers(Team.All), "Server overloaded: slowing down time");
+    WaitUntil(ServerLoad() < 200, 3);
+    slowmoEmergency = false;
+    LoopIfConditionIsTrue();
+}

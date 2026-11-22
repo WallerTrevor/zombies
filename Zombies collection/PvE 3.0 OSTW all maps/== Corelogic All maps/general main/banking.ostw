@@ -1,112 +1,98 @@
-
 rule: "global bank interest gain every round"
 if (numberOfZombies <= 0)
 if (bankPoints > 0)
 if (start == 1)
 {
     Wait(0.16, WaitBehavior.IgnoreCondition);
-    for (i = 0; CountOf(bankRates); 1)
-    {
-        if (bankTier == i)
-        {
-            bankPoints += bankPoints * bankRates[i];
-        }
-        break;
-    }
+    bankPoints += bankPoints * bankTiers[bankTier].InterestRate;
 }
 
 rule: "global bank tier upgrade"
 Event.OngoingPlayer
 if (IsAlive(EventPlayer()) == true)
 if (IsButtonHeld(EventPlayer(), Button.Interact) == true)
-if (DistanceBetween(EventPlayer(), Vector(273.459, 44.205, 176.795)) < 1)
-if (bankTier < 3)
+if (DistanceBetween(EventPlayer(), bankButtons[BankButton.Upgrade]) < 1)
+if (bankTier < bankTiers.Length - 1)
 {
-    for (i = 0; CountOf(FirstOf(twoDnumbersArray)); 1)
+
+    if (bankPoints >= bankTiers[bankTier + 1].Cost)
     {
-        if (bankTier == i)
-        {
-            if (bankPoints >= FirstOf(twoDnumbersArray)[i])
-            {
-                bankPoints -= FirstOf(twoDnumbersArray)[i];
-                bankTier = i + 1;
-                SmallMessage(AllPlayers(Team.All), <"You have permanently upgraded your bank to tier <0>", i + 1>);
-                PlayEffect(AllPlayers(Team.All), PlayEffect.BuffExplosionSound, Color.White, EventPlayer(), 70);
-            }
-            else
-            {
-                SmallMessage(AllPlayers(Team.All), <"You need <0> points in the bank to upgrade!", FirstOf(twoDnumbersArray)[i]>);
-            }
-            break;
-        }
+        bankPoints -= bankTiers[bankTier + 1].Cost;
+        bankTier += 1;
+        SmallMessage(AllPlayers(Team.All), <"You have permanently upgraded your bank to tier <0>", bankTier>);
+        PlayEffect(AllPlayers(Team.All), PlayEffect.BuffExplosionSound, Color.White, EventPlayer(), 70);
     }
+    else
+    {
+        SmallMessage(AllPlayers(Team.All), <"You need <0> points in the bank to upgrade!", bankTiers[bankTier + 1].Cost>);
+    }
+}
+
+Number BankStepSize(Number firstAmount): TotalTimeElapsed() - bankHoldStart < 2 ? firstAmount : (TotalTimeElapsed() - bankHoldStart < 5 ? 1000 : 10000);
+
+void ShowBankedPoints()
+{
+    StopChasingVariable(points2);
+    points2 = points;
 }
 
 rule: "global bank withdraw button"
 Event.OngoingPlayer
 if (IsAlive(EventPlayer()) == true)
 if (IsButtonHeld(EventPlayer(), Button.Interact) == true)
-if (DistanceBetween(EventPlayer(), Vector(277.123, 44.205, 177.262)) < 1)
+if (DistanceBetween(EventPlayer(), bankButtons[BankButton.Withdraw]) < 1)
 {
-    if (ServerLoad() < 245)
+
+    WaitUntil(ServerLoad() < 230, 3);
+    bankHoldStart = TotalTimeElapsed();
+
+    while (bankPoints > 0)
     {
-        if (bankPoints >= 250)
+
+        bankStep = Min(BankStepSize(250), bankPoints);
+        bankPoints -= bankStep;
+        points += bankStep;
+        ShowBankedPoints();
+        if (withdrawNotif == 0)
         {
-            bankPoints -= 250;
-            points += 250;
-            Wait(ServerLoadAverage() / 255 * 0.18 - 90.032, WaitBehavior.IgnoreCondition);
-            if (withdrawNotif == 0)
-            {
-                withdrawNotif = 1;
-            }
-            LoopIfConditionIsTrue();
+            withdrawNotif = 1;
         }
-        else
-        {
-            SmallMessage(EventPlayer(), "The bank is out of funds!");
-        }
+        Wait(0.25, WaitBehavior.AbortWhenFalse);
     }
-    else
-    {
-        SmallMessage(EventPlayer(), <"<0> Error: <1> Bank closed! (--ANTICRASHSYS--)", HeroIconString(Hero.Ramattra), RandomInteger(10, 1000)>);
-    }
+    SmallMessage(EventPlayer(), "The bank is out of funds!");
 }
 
 rule: "global bank deposit button"
 Event.OngoingPlayer
 if (IsAlive(EventPlayer()) == true)
 if (IsButtonHeld(EventPlayer(), Button.Interact) == true)
-if (DistanceBetween(EventPlayer(), Vector(275.451, 44.205, 175.244)) < 1)
+if (DistanceBetween(EventPlayer(), bankButtons[BankButton.Deposit]) < 1)
 {
-    if (ServerLoad() < 245)
+
+    WaitUntil(ServerLoad() < 230, 3);
+    bankHoldStart = TotalTimeElapsed();
+
+    while (points > 0)
     {
-        if (points >= 200)
+
+        bankStep = Min(BankStepSize(200), points);
+        bankPoints += bankStep;
+        points -= bankStep;
+        ShowBankedPoints();
+        if (depNotif == 0)
         {
-            bankPoints += 200;
-            points -= 200;
-            if (depNotif == 0)
-            {
-                depNotif = 1;
-            }
-            Wait(ServerLoadAverage() / 255 * 0.18 - 90.032, WaitBehavior.IgnoreCondition);
-            LoopIfConditionIsTrue();
+            depNotif = 1;
         }
-        else
-        {
-            SmallMessage(EventPlayer(), "You don't have enough points to deposit!");
-        }
+        Wait(0.25, WaitBehavior.AbortWhenFalse);
     }
-    else
-    {
-        SmallMessage(EventPlayer(), <"<0> Error: <1> Bank closed! (--ANTICRASHSYS--)", HeroIconString(Hero.Ramattra), RandomInteger(10, 1000)>);
-    }
+    SmallMessage(EventPlayer(), "You don't have enough points to deposit!");
 }
 
 rule: "property damage easter egg"
 Event.OngoingPlayer
 if (IsAlive(EventPlayer()) == true)
 if (IsButtonHeld(EventPlayer(), Button.Interact) == true)
-if (DistanceBetween(EventPlayer(), Vector(269.882, 44.205, 179.101)) < 1)
+if (DistanceBetween(EventPlayer(), bankButtons[BankButton.PropertyDamage]) < 1)
 {
     SmallMessage(EventPlayer(), <"<0> You have caused $<1> damage to my army!", HeroIconString(Hero.Ramattra), ramPoints>);
 }
@@ -115,42 +101,30 @@ rule: "credit card system"
 Event.OngoingPlayer
 if (IsAlive(EventPlayer()) == true)
 if (IsButtonHeld(EventPlayer(), Button.Interact) == true)
-if (DistanceBetween(EventPlayer(), Vector(299.653, -14.545, -222.024)) < 1)
-if (creditTier < 3)
+if (DistanceBetween(EventPlayer(), bankButtons[BankButton.CreditCardOffice]) < 1)
+if (creditTier < creditCardTiers.Length - 1)
 {
-    if (ServerLoad() < 245)
+
+    WaitUntil(ServerLoad() < 230, 3);
+
+    if (points >= creditCardTiers[creditTier + 1].Cost)
     {
-        WaitUntil(ServerLoad() < 230, 3);
-        for (i = 0; CountOf(creditCosts); 1)
-        {
-            if (points >= creditCosts[i])
-            {
-                points -= creditCosts[i];
-                ChaseVariableAtRate(points2, EvaluateOnce(points), 1000, RateChaseReevaluation.DestinationAndRate);
-                creditTier = i + 1;
-                creditcardlimit = creditLimits[i];
-                cashback = cashbackRates[i];
-                SmallMessage(EventPlayer(), <"Your credit card is now tier <0>", i + 1>);
-                Wait(4, WaitBehavior.IgnoreCondition);
-                SmallMessage(EventPlayer(), "Hold spacebar to see credit card details");
-            }
-            else
-            {
-                if (i == 0)
-                {
-                    SmallMessage(EventPlayer(), <"You need <0> points buy a credit card!", creditCosts[i]>);
-                }
-                else
-                {
-                    SmallMessage(EventPlayer(), <"You need <0> points to upgrade!", creditCosts[i]>);
-                }
-                break;
-            }
-        }
+        points -= creditCardTiers[creditTier + 1].Cost;
+        ChaseVariableAtRate(points2, EvaluateOnce(points), 1000, RateChaseReevaluation.DestinationAndRate);
+        creditTier += 1;
+        creditcardlimit = creditCardTiers[creditTier].Limit;
+        cashback = creditCardTiers[creditTier].Cashback;
+        SmallMessage(EventPlayer(), <"Your credit card is now tier <0>", creditTier>);
+        Wait(4, WaitBehavior.IgnoreCondition);
+        SmallMessage(EventPlayer(), "Hold spacebar to see credit card details");
+    }
+    else if (creditTier == 0)
+    {
+        SmallMessage(EventPlayer(), <"You need <0> points buy a credit card!", creditCardTiers[1].Cost>);
     }
     else
     {
-        SmallMessage(EventPlayer(), <"<0> Error: <1> Credit card office closed! (--ANTICRASHSYS--)", HeroIconString(Hero.Ramattra), RandomInteger(10, 1000)>);
+        SmallMessage(EventPlayer(), <"You need <0> points to upgrade!", creditCardTiers[creditTier + 1].Cost>);
     }
 }
 
@@ -161,25 +135,17 @@ if (numberOfZombies < 1)
 if (IsAlive(EventPlayer()) == true)
 if (creditTier > 0)
 {
-    for (i = 1; CountOf(ccRates); 1)
-    {
-        if (creditTier == i)
-        {
-            ccCurrentRate = ccRates[i];
-            ccInterest = points * ccCurrentRate;
-            points += ccInterest;
-            ChaseVariableAtRate(points2, EvaluateOnce(points), 1000, RateChaseReevaluation.DestinationAndRate);
-            SmallMessage(EventPlayer(), <"You have incurred <0> interest on your credit card.", ccInterest>);
-        }
-        break;
-    }
+    ccInterest = points * creditCardTiers[creditTier].InterestRate;
+    points += ccInterest;
+    ChaseVariableAtRate(points2, EvaluateOnce(points), 1000, RateChaseReevaluation.DestinationAndRate);
+    SmallMessage(EventPlayer(), <"You have incurred <0> interest on your credit card.", ccInterest>);
 }
 
 rule: "Reset deposit notif"
 Event.OngoingPlayer
 if (depNotif == 1)
 {
-    SmallMessage(EventPlayer(), <"Hold <0> to deposit 200 Points", InputBindingString(Button.Interact)>);
+    SmallMessage(EventPlayer(), <"Hold <0> to deposit: 200 at a time, then 1,000, then 10,000", InputBindingString(Button.Interact)>);
     Wait(4, WaitBehavior.IgnoreCondition);
     depNotif = 0;
     Wait(0.5, WaitBehavior.IgnoreCondition);
@@ -190,9 +156,18 @@ rule: "Reset withdraw notif"
 Event.OngoingPlayer
 if (withdrawNotif == 1)
 {
-    SmallMessage(EventPlayer(), <"Hold <0> to withdraw 250 Points", InputBindingString(Button.Interact)>);
+    SmallMessage(EventPlayer(), <"Hold <0> to withdraw: 250 at a time, then 1,000, then 10,000", InputBindingString(Button.Interact)>);
     Wait(4, WaitBehavior.IgnoreCondition);
     withdrawNotif = 0;
     Wait(0.5, WaitBehavior.IgnoreCondition);
     LoopIfConditionIsTrue();
+}
+
+rule: "56  points loss for high roller"
+Event.OnDeath
+Team.Team1
+{
+    bankPoints += points * 0.2;
+    points -= points * 0.3;
+    points = RoundToInteger(points, Rounding.Up);
 }

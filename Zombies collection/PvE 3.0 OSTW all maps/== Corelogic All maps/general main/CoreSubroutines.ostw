@@ -1,22 +1,335 @@
-﻿
-void totalrandomspawn() "each bot will be random"
+﻿void totalrandomspawn() "each bot will be random"
 {
+
+	waveBoss = null;
 	wavevoicecall();
 	setbotamount();
-	for (forindex = 0; botamount; 1)
+
+	for (waveSlot = 0; botamount; 1)
 	{
-		current_hero = hero[RandomInteger(0, 37)];
-		CreateDummyBot(current_hero, Team.Team2, forindex, FirstOf(SpawnPoints(Team.Team2)), Vector(0, 0, 0));
-		omnicspawn[forindex] = SlotOf(PlayersInSlot(forindex, Team.Team2));
-		subindex = forindex;
-		ActiveEnemyIndex();
+
+		WaitUntil(zoneLoading == false, 99999);
+		if (PlayersInSlot(waveSlot, Team.Team2) == null)
+		{
+			current_hero = hero[RandomInteger(0, 37)];
+			CreateDummyBot(current_hero, Team.Team2, waveSlot, FirstOf(SpawnPoints(Team.Team2)), Vector(0, 0, 0));
+			omnicspawn[waveSlot] = SlotOf(PlayersInSlot(waveSlot, Team.Team2));
+		}
+		subindex = waveSlot;
 		Wait(0.75, WaitBehavior.AbortWhenFalse);
 	}
 }
 
-void ResetPurchaseMessageTimer() "reset purchase message timer"
+void followerattack1() "391 FOLLOWERS attack subroutine 1"
 {
-	heroBuyMessTimer = true;
-	Wait(5, WaitBehavior.IgnoreCondition);
-	heroBuyMessTimer = false;
+    StartHoldingButton(EventPlayer(), Button.PrimaryFire);
+    Wait(1, WaitBehavior.IgnoreCondition);
+    StopHoldingButton(EventPlayer(), Button.PrimaryFire);
+    Wait(6, WaitBehavior.IgnoreCondition);
+    LoopIfConditionIsTrue();
+}
+
+void followerattack2() "392 FOLLOWERS attack subroutine 2"
+{
+    PressButton(EventPlayer(), Button.PrimaryFire);
+    Wait(6, WaitBehavior.IgnoreCondition);
+    LoopIfConditionIsTrue();
+}
+
+void Subheroswap() "hero swap subroutine"
+{
+    PreloadHero(EventPlayer(), heroswap[FirstOf(swapvar)]);
+
+    herohp[swapvar[1]] = Health(EventPlayer());
+
+    ultcharge[swapvar[1]] = UltimateChargePercent(EventPlayer());
+
+    papSlotTier[swapvar[1]] = perk[Perk.packapunch];
+    abilitycooldown[swapvar[2]] = AbilityCooldown(EventPlayer(), Button.Ability1);
+    abilitycooldown[swapvar[3]] = AbilityCooldown(EventPlayer(), Button.Ability2);
+    abilitycooldown[swapvar[4]] = AbilityCooldown(EventPlayer(), Button.SecondaryFire);
+    PressButton(EventPlayer(), Button.Reload);
+    MinWait();
+    magazines[swapvar[1]] = currentmagazines;
+    currentswap = FirstOf(swapvar);
+    MinWait();
+    currentmagazines = magazines[FirstOf(swapvar)];
+    currentultcharge = ultcharge[FirstOf(swapvar)];
+
+    perk[Perk.packapunch] = papSlotTier[FirstOf(swapvar)];
+}
+
+void Subfollowerbuy() "follower subroutine"
+{
+    DestroyDummyBot(Team.Team1, SlotOf(EventPlayer()) + 4);
+    Wait(0.25, WaitBehavior.IgnoreCondition);
+    CreateDummyBot(followerbuy, Team.Team1, SlotOf(EventPlayer()) + 4, Vector(0, 0, 0), Vector(0, 0, 0));
+    Wait(0.03, WaitBehavior.IgnoreCondition);
+    AttachPlayers(PlayersInSlot(SlotOf(EventPlayer()) + 4, Team.Team1), EventPlayer(), Vector(-0.5, 1.8, -0.2));
+    Wait(0.1, WaitBehavior.IgnoreCondition);
+    StartScalingPlayer(PlayersInSlot(SlotOf(EventPlayer()) + 4, Team.Team1), 0.2, true);
+
+    StartModifyingHeroVoiceLines(PlayersInSlot(SlotOf(EventPlayer()) + 4, Team.Team1), 1.3, true);
+
+    PlayersInSlot(SlotOf(EventPlayer()) + 4, Team.Team1).isMonkeyBomb = false;
+}
+
+void PaPsound() "PaP Sound subroutine"
+{
+    PlayEffect(AllPlayers(Team.All), PlayEffect.BaptisteBioticLauncherExplosionSound, Color.White, EventPlayer(), 80);
+    Wait(0.2, WaitBehavior.IgnoreCondition);
+    LoopIfConditionIsTrue();
+}
+
+void wavespawn() "518 spawn bots subroutine"
+{
+    wavevoicecall();
+
+    WaitUntil(zoneLoading == false, 99999);
+    if (PlayersInSlot(0, Team.Team2) == null)
+    {
+        CreateDummyBot(bossSpawn[g], Team.Team2, 0, FirstOf(SpawnPoints(Team.Team2)), Vector(0, 0, 0));
+    }
+    omnicspawn[0] = SlotOf(PlayersInSlot(0, Team.Team2));
+
+    waveBoss = PlayersInSlot(0, Team.Team2);
+    subindex = 0;
+    Wait(0.5, WaitBehavior.AbortWhenFalse);
+    setbotamount();
+
+    for (waveSlot = 1; botamount + 1; 2)
+    {
+
+        WaitUntil(zoneLoading == false, 99999);
+        if (PlayersInSlot(waveSlot, Team.Team2) == null)
+        {
+            CreateDummyBot(bot1spawn[g], Team.Team2, waveSlot, FirstOf(SpawnPoints(Team.Team2)), Vector(0, 0, 0));
+            omnicspawn[waveSlot] = SlotOf(PlayersInSlot(waveSlot, Team.Team2));
+        }
+        subindex = waveSlot;
+        Wait(0.75, WaitBehavior.AbortWhenFalse);
+        if (waveSlot + 1 <= botamount)
+        {
+            WaitUntil(zoneLoading == false, 99999);
+            if (PlayersInSlot(waveSlot + 1, Team.Team2) == null)
+            {
+                CreateDummyBot(bot2spawn[g], Team.Team2, waveSlot + 1, FirstOf(SpawnPoints(Team.Team2)), Vector(0, 0, 0));
+                omnicspawn[waveSlot + 1] = SlotOf(PlayersInSlot(waveSlot + 1, Team.Team2));
+            }
+            subindex = waveSlot + 1;
+            Wait(0.75, WaitBehavior.AbortWhenFalse);
+        }
+    }
+}
+
+void wavevoicecall() "player voiceline call subroutine"
+{
+    Wait(9, WaitBehavior.AbortWhenFalse);
+    Communicate(RandomValueInArray(AllLivingPlayers(Team.Team1)), Communication.Countdown);
+    Wait(RandomReal(4.5, 5.5), WaitBehavior.AbortWhenFalse);
+    Communicate(RandomValueInArray(AllLivingPlayers(Team.Team1)), Communication.Incoming);
+    Wait(0.5, WaitBehavior.AbortWhenFalse);
+}
+
+void setbotamount() "set bot amount subroutine"
+{
+
+    botamount = Min(5 + roundnumber - (RealPlayerCount() == 1 ? 2 : 0), 10 - RealPlayerCount());
+    if (botamount < 1)
+    {
+        botamount = 1;
+    }
+}
+
+void makedoors() "make the door effects"
+{
+    Wait(3, WaitBehavior.IgnoreCondition);
+
+    WaitUntil(doormade == 1, 99999);
+    dooreffectsequencer = 0;
+    while (dooreffectsequencer < allDoors.Length)
+    {
+
+        if (allDoors[dooreffectsequencer].State == WallState.Closed)
+        {
+
+            CreateBeamEffect(AllPlayers(Team.Team1), BeamType.JunkratTrapChainBeam, allDoors[dooreffectsequencer].Corner, allDoors[dooreffectsequencer].Corner + allDoors[dooreffectsequencer].BeamSpan, Color.Red, EffectRev.VisibleTo);
+
+            allDoors[dooreffectsequencer].BeamA = LastCreatedEntity();
+            CreateBeamEffect(AllPlayers(Team.Team1), BeamType.JunkratTrapChainBeam, allDoors[dooreffectsequencer].Corner + Vector(0, YOf(allDoors[dooreffectsequencer].BeamSpan), 0), allDoors[dooreffectsequencer].Corner + allDoors[dooreffectsequencer].BeamSpan * Vector(1, 0, 1), Color.Red, EffectRev.VisibleTo);
+
+            allDoors[dooreffectsequencer].BeamB = LastCreatedEntity();
+            if (!(dooreffectsequencer % 3))
+            {
+                LoadingPause();
+            }
+        }
+        dooreffectsequencer += 1;
+    }
+}
+
+struct PackedList
+{
+    public String type;
+    public Number count;
+    public Number width;
+    public Number scale;
+    public Number offset;
+    public String[] data;
+}
+
+Any[] Unpack(PackedList packed): [packed.width, packed.scale, packed.offset, packed.data];
+
+Number DecodeDigit(Number position): IndexOfStringChar(decodeTable, CharInString(decodeIn[3][decodeString], position));
+
+Number DecodeWhole(Number position): DecodeDigit(position)
+    + (decodeIn[0] > 1 ? DecodeDigit(position + 1) * 1024 : 0)
+    + (decodeIn[0] > 2 ? DecodeDigit(position + 2) * 1048576 : 0);
+
+Number DecodeValue(Number position): (DecodeWhole(position) + decodeIn[2]) / decodeIn[1];
+
+void decompressNSub() "Subroutine decompressNSub"
+{
+
+    decodeOut = [];
+    for (decodeString = 0; CountOf(decodeIn[3]); 1)
+    {
+
+        decodePosition = 0;
+        while (decodePosition < StringLength(decodeIn[3][decodeString]))
+        {
+            decodeOut = Append(decodeOut, DecodeValue(decodePosition));
+            if (!(CountOf(decodeOut) % 20))
+            {
+                LoadingPause();
+            }
+            decodePosition += decodeIn[0];
+        }
+    }
+}
+
+void decompressVSub() "Subroutine decompressVSub"
+{
+
+    decodeOut = [];
+    for (decodeString = 0; CountOf(decodeIn[3]); 1)
+    {
+
+        decodePosition = 0;
+        while (decodePosition < StringLength(decodeIn[3][decodeString]))
+        {
+            decodeOut = Append(decodeOut, Vector(DecodeValue(decodePosition), DecodeValue(decodePosition + decodeIn[0]), DecodeValue(decodePosition + 2 * decodeIn[0])));
+            if (!(CountOf(decodeOut) % 20))
+            {
+                LoadingPause();
+            }
+            decodePosition += 3 * decodeIn[0];
+        }
+    }
+}
+
+Number TextPieceStart(): textToken % 62 * 2;
+void decompressTextSub() "decode text list"
+{
+    decodeOut = [];
+    textGroup = [];
+    textItem = "";
+    decodeString = 0;
+    while (decodeString < CountOf(decodeIn))
+    {
+        decodePosition = 0;
+        while (decodePosition < StringLength(decodeIn[decodeString]))
+        {
+            textToken = IndexOfStringChar(decodeTable, StringSlice(decodeIn[decodeString], decodePosition, 1));
+            if (textToken == 0)
+            {
+
+                textGroup[CountOf(textGroup)] = textItem == "" ? null : StringSlice(textItem, 0, StringLength(textItem));
+                textItem = "";
+
+                if (infoDecoding == true)
+                {
+                    infoText[CountOf(textGroup) - 1] = LastOf(textGroup);
+                    Wait(0.15, WaitBehavior.IgnoreCondition);
+                }
+            }
+            else if (textToken == 1)
+            {
+
+                decodeOut[CountOf(decodeOut)] = textGroup;
+                textGroup = [];
+            }
+            else
+            {
+                textPiece = textPairTable[RoundToInteger(textToken / 62, Rounding.Down)];
+                textItem = <"<0><1>", textItem, StringSlice(textPiece, TextPieceStart(), StringSlice(textPiece, TextPieceStart() + 1, 1) == textPad ? 1 : 2)>;
+
+                if (infoDecoding == true)
+                {
+                    infoText[CountOf(textGroup)] = textItem;
+                }
+            }
+            if (!(decodePosition % 12))
+            {
+                LoadingPause();
+            }
+            decodePosition += 1;
+        }
+        decodeString += 1;
+    }
+
+    if (CountOf(decodeOut) == 0)
+    {
+        decodeOut = textGroup;
+    }
+}
+
+Number CounterTypeCount(): 3;
+
+Number CounterType(Player who): counterHeroType[IndexOfArrayValue(hero, HeroOf(who))];
+
+void StartCounterMods() "start hero counter damage"
+{
+
+    for (counterSlot = 0; CountOf(counterMods); 1)
+    {
+        StopDamageModification(counterMods[counterSlot]);
+    }
+    counterMods = [];
+    if (counterIsFollower == true)
+    {
+        StartDamageModification(AllPlayers(Team.Team2), EventPlayer(), counterChart[CounterType(PlayersInSlot(SlotOf(EventPlayer()) - 4, Team.Team1)) * CounterTypeCount() + CounterType(EventPlayer())] > 100 ? 150 : 100, DamageModificationRev.ReceiversDamagersAndDamagePercent);
+        ModifyVariable(counterMods, Operation.AppendToArray, LastDamageModificationID());
+    }
+    else
+    {
+        for (counterSlot = 0; CounterTypeCount(); 1)
+        {
+            StartDamageModification(FilteredArray(AllPlayers(Team.Team2), CounterType(ArrayElement()) == EvaluateOnce(counterSlot)), EventPlayer(), counterChart[CounterType(EventPlayer()) * CounterTypeCount() + EvaluateOnce(counterSlot)], DamageModificationRev.ReceiversDamagersAndDamagePercent);
+            ModifyVariable(counterMods, Operation.AppendToArray, LastDamageModificationID());
+        }
+    }
+}
+
+rule: "hero counters: damage players do to zombies"
+Event.OngoingPlayer
+Team.Team1
+if (IsDummyBot(EventPlayer()) == false)
+if (HasSpawned(EventPlayer()) == true)
+{
+    counterIsFollower = false;
+    StartCounterMods();
+}
+
+rule: "hero counters: damage followers do to zombies"
+Event.OngoingPlayer
+Team.Team1
+if (IsDummyBot(EventPlayer()) == true)
+if (SlotOf(EventPlayer()) >= 4)
+if (SlotOf(EventPlayer()) <= 7)
+if (isMonkeyBomb != true)
+if (HasSpawned(EventPlayer()) == true)
+{
+    counterIsFollower = true;
+    StartCounterMods();
 }

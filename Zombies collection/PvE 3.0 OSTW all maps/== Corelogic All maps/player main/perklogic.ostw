@@ -1,43 +1,23 @@
-﻿rule: "73 Headshot maniac Perk add damage"
-Event.OnDamageDealt
-Team.Team1
-if (perk[Perk.HeadshotManiac] == 1)
-if (EventWasCriticalHit() == true)
-if (damagevariable < 391)
-{
-    damagevariable += 10;
-    SetDamageDealt(EventPlayer(), damagevariable);
-}
+﻿Number DoormanPriceShare(): [1, 0.5, 0.4, 0.3][perk[Perk.Doorman]];
+Number DoorPrice(): 1000 * costmultiplier * DoormanPriceShare();
 
-rule: "74 headshot maniac Perk remove damage"
-Event.OnDamageDealt
-Team.Team1
-# make it so this plays nicely with pack a punch
-if (EventWasCriticalHit() == false)
-if (damagevariable >= 55)
-if (perk[Perk.HeadshotManiac] == 1)
-{
-    damagevariable -= 2.5;
-    SetDamageDealt(EventPlayer(), damagevariable);
-}
+Number StaminUpBurst(): [100, 180, 200, 220][perk[Perk.Sprintboost]];
+Number StaminUpAfter(): [100, 105, 107, 110][perk[Perk.Sprintboost]];
+
+Number JuggernogHeal(): [0, 0, 25, 50][perk[Perk.Juggernaut]];
+
+Number SpeedColaAmmo(): [1, 0.5, 0.35, 0.25][perk[Perk.SpeedCola]];
 
 rule: "jugg tier 2 and 3"
 Event.OnDamageTaken
 Team.Team1
 if (perk[Perk.Juggernaut] > 0)
 {
-    switch (perk[Perk.Juggernaut])
-    {
-        case 2:
-            Wait(10, WaitBehavior.RestartWhenTrue);
-            # need to make sure this doesnt stack infinitely
-            AddHealthPoolToPlayer(EventPlayer(), HealthType.Health, 25, false, false);
-            break;
 
-        case 3:
-            Wait(10, WaitBehavior.RestartWhenTrue);
-            AddHealthPoolToPlayer(EventPlayer(), HealthType.Health, 50, false, false);
-            break;
+    if (JuggernogHeal() > 0)
+    {
+        Wait(10, WaitBehavior.IgnoreCondition);
+        Heal(EventPlayer(), null, JuggernogHeal());
     }
 }
 
@@ -52,35 +32,20 @@ if (perk[Perk.Juggernaut] == 1)
 rule: "109 PERK player hit speed boost sprint burst"
 Event.OnDamageTaken
 Team.Team1
-if (EventDamage() == true)
-if (perk[Perk.Sprintboost] == 1)
+
+if (EventDamage() > 0)
+if (perk[Perk.Sprintboost] >= 1)
 {
-    switch (perk[Perk.Juggernaut])
-    {
-        case 1:
-            SetMoveSpeed(EventPlayer(), 180);
-            Wait(1, WaitBehavior.IgnoreCondition);
-            SetMoveSpeed(EventPlayer(), 105);
-            break;
 
-        case 2:
-            SetMoveSpeed(EventPlayer(), 200);
-            Wait(1, WaitBehavior.IgnoreCondition);
-            SetMoveSpeed(EventPlayer(), 107);
-            break;
-
-        case 3:
-            SetMoveSpeed(EventPlayer(), 220);
-            Wait(1, WaitBehavior.IgnoreCondition);
-            SetMoveSpeed(EventPlayer(), 110);
-            break;
-    }
+    SetMoveSpeed(EventPlayer(), StaminUpBurst());
+    Wait(1, WaitBehavior.IgnoreCondition);
+    SetMoveSpeed(EventPlayer(), StaminUpAfter());
 }
 
 rule: "79 player died with maniac"
 Event.OnDeath
 Team.Team1
-if (perk[Perk.HeadshotManiac] == 1)
+if (perk[Perk.Doorman] >= 1)
 {
     Died[SlotOf(EventPlayer())] = NearestWalkablePosition(EventPlayer());
     BigMessage(AllPlayers(Team.All), <"<0> <1>", EventPlayer(), RandomValueInArray(diedphrase)>);
@@ -91,7 +56,7 @@ if (perk[Perk.HeadshotManiac] == 1)
     perk[Perk.Juggernaut] = false;
     MinWait();
     healthmax = 50;
-    perk[Perk.HeadshotManiac] = false;
+    perk[Perk.Doorman] = false;
     MinWait();
     SetDamageDealt(EventPlayer(), 100);
     damagevariable = 100;
@@ -107,11 +72,13 @@ if (perk[Perk.HeadshotManiac] == 1)
 rule: "77 multiplayer extra life Perk"
 Event.OnDeath
 Team.Team1
-if (perk[Perk.selfrevive] == 1)
+
+if (perk[Perk.selfrevive] >= 1)
 {
-    # should set this to be a quick revive perk
+
     SetStatus(EventPlayer(), null, Status.KnockedDown, 2);
     Resurrect(EventPlayer());
     SetStatus(EventPlayer(), null, Status.Invincible, 10);
-    perk[Perk.selfrevive] = 0;
+
+    perk[Perk.selfrevive] -= 1;
 }

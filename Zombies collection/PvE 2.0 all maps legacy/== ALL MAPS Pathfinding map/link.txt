@@ -1,3 +1,0 @@
-This pathfinding folder has been migrated to this link below.
-
-https://github.com/WallerTrevor/pathGraphs/tree/main

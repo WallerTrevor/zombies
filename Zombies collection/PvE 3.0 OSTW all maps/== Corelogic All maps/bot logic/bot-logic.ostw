@@ -1,4 +1,3 @@
-
 rule: "bastion re enter turret mode (need to add cooldown reduction to seemlessly re-enter turret mode)"
 Event.OngoingPlayer
 Team.Team1
@@ -32,7 +31,8 @@ if (DistanceBetween(EventPlayer(), M[3]) <= 1.5)
 if (AllPlayers(Team.Team1).G[3] == false)
 if (roundnumber >= 1)
 {
-    M[4] = Vector(500, 25, 500);
+
+    M[3] = Vector(500, 25, 500);
     AllPlayers(Team.Team1).G[3] = true;
     AllPlayers(Team.Team1).S[3] = 1;
     BigMessage(AllPlayers(Team.All), "Vaporized");
@@ -59,91 +59,438 @@ if (roundnumber >= 1)
     AllPlayers(Team.Team1).S[5] = false;
 }
 
+globalvar define breachAttemptDamage!;
+globalvar define breachMinPlayerDistance!;
+globalvar define breachRange!;
+globalvar define breachNewAverage!;
+globalvar define breachKeep!;
+globalvar define breachKeepHealth!;
+globalvar define breachMoveDistance!;
+playervar define breachPick;
 
-
-rule: "create barricade effect"
-if (start == 1)
-if (CountOf(globalActiveBreaches) > null)
+void UpdateBreachColor(Number index)
 {
-    for (botspawnindex = 0; CountOf(globalActiveBreachEffects); true)
+    if (globalActiveBreachHealth[index] <= 0)
+    {
+        color[index] = Color.Black;
+    }
+    else
+    {
+        color[index] = CustomColor(255 * (1 - globalActiveBreachHealth[index] / 100), 255 * globalActiveBreachHealth[index] / 100, 0, 255);
+    }
+}
+
+void RebuildBreachEffects() "rebuild barricade effects"
+{
+    for (botspawnindex = 0; CountOf(globalActiveBreachEffects); 1)
     {
         DestroyEffect(globalActiveBreachEffects[botspawnindex]);
     }
     globalActiveBreachEffects = [];
-    globalActiveBreachHealth = [];
-    for (botspawnindex = 0; CountOf(globalActiveBreaches); true)
+    color = [];
+    for (botspawnindex = 0; CountOf(globalActiveBreaches); 1)
     {
-        node = globalActiveBreaches[botspawnindex];
-        ModifyVariable(globalActiveBreachHealth, Operation.AppendToArray, 100);
-        color = Append(Append(ArraySlice(color, false, botspawnindex), [CustomColor(0, 255, 0, 255)]), ArraySlice(color, botspawnindex + true, 999999999999));
-        CreateEffect(AllPlayers(Team.All), Effect.BadAura, color[botspawnindex], node + 1.5 * Up(), true, EffectRev.VisibleToAndColor);
+        UpdateBreachColor(botspawnindex);
+
+        CreateEffect(AllPlayers(Team.All), Effect.BadAura, color[EvaluateOnce(botspawnindex)], globalActiveBreaches[botspawnindex] + 1.5 * Up(), 1, EffectRev.VisibleToAndColor);
         ModifyVariable(globalActiveBreachEffects, Operation.AppendToArray, LastCreatedEntity());
-        CreateEffect(AllPlayers(Team.All), Effect.BadAuraSound, Color.White, node, 50, EffectRev.VisibleToAndColor);
+        LoadingPause();
+        CreateEffect(AllPlayers(Team.All), Effect.BadAuraSound, Color.White, globalActiveBreaches[botspawnindex], 50, EffectRev.VisibleToAndColor);
         ModifyVariable(globalActiveBreachEffects, Operation.AppendToArray, LastCreatedEntity());
+        LoadingPause();
     }
 }
 
+rule: "137  get out of spawn bots"
+Event.OngoingPlayer
+Team.Team2
+if (IsAlive(EventPlayer()) == true)
+if (IsInSpawnRoom(EventPlayer()) == true)
+if (CountOf(globalActiveBreaches) > 0)
+{
+
+    SetStatus(EventPlayer(), null, Status.Rooted, 9999);
+
+    Wait(0.25 + SlotOf(EventPlayer()) * 0.05, WaitBehavior.AbortWhenFalse);
+    breachPick = RandomInteger(0, CountOf(globalActiveBreaches) - 1);
+    if (globalActiveBreachHealth[breachPick] > 0)
+    {
+
+        globalActiveBreachHealth[breachPick] = Max(0, globalActiveBreachHealth[breachPick] - breachAttemptDamage);
+        UpdateBreachColor(breachPick);
+        if (globalActiveBreachHealth[breachPick] <= 0)
+        {
+
+            PlayEffect(AllPlayers(Team.All), PlayEffect.BadExplosion, Color.Orange, globalActiveBreaches[breachPick], 3);
+        }
+        Wait(1.5, WaitBehavior.AbortWhenFalse);
+    }
+    else
+    {
+
+        StartForcingPlayerOutlines(EventPlayer(), AllPlayers(Team.Team1), true, CustomColor(RandomInteger(0, 255), RandomInteger(0, 255), RandomInteger(0, 255), 255), OutlineType.Default);
+        ClearStatus(EventPlayer(), Status.Rooted);
+        Teleport(EventPlayer(), globalActiveBreaches[breachPick]);
+        Wait(0.25, WaitBehavior.IgnoreCondition);
+    }
+    LoopIfConditionIsTrue();
+}
 
 rule: "barricade repair by players"
 Event.OngoingPlayer
 Team.Team1
 if (IsAlive(EventPlayer()) == true)
 if (IsButtonHeld(EventPlayer(), Button.Reload) == true)
-if (IsTrueForAny(globalActiveBreaches, [DistanceBetween(ArrayElement(), EventPlayer()) < 2]) == true)
+
+if (IsTrueForAny(globalActiveBreaches, DistanceBetween(ArrayElement(), EventPlayer()) < 2) == true)
 {
     repairAmount = 25;
-    for (botspawnindex = 0; CountOf(globalActiveBreaches); true)
+
+    breachPick = IndexOfArrayValue(globalActiveBreaches, FirstOf(SortedArray(globalActiveBreaches, DistanceBetween(ArrayElement(), EventPlayer()))));
+    if (globalActiveBreachHealth[breachPick] < 100)
     {
-        if (botspawnindex < CountOf(globalActiveBreachHealth))
-        {
-            node = globalActiveBreaches[botspawnindex];
-            old = globalActiveBreachHealth[botspawnindex];
-            globalActiveBreachHealth = Append(Append(ArraySlice(globalActiveBreachHealth, false, botspawnindex), [Min(100, globalActiveBreachHealth[botspawnindex] + repairAmount)]), ArraySlice(globalActiveBreachHealth, botspawnindex + true, 999999999999));
-            if (globalActiveBreachHealth[botspawnindex] != old)
-            {
-                h = globalActiveBreachHealth[botspawnindex];
-                if (h <= null)
-                {
-                    color = Append(Append(ArraySlice(color, false, botspawnindex), [Color.Black]), ArraySlice(color, botspawnindex + true, 999999999999));
-                }
-                else
-                {
-                    healthPercent = h / 100;
-                    color = Append(Append(ArraySlice(color, false, botspawnindex), [CustomColor(255 * (true - healthPercent), 255 * healthPercent, 0, 255)]), ArraySlice(color, botspawnindex + true, 999999999999));
-                }
-            }
-        }
+        globalActiveBreachHealth[breachPick] = Min(100, globalActiveBreachHealth[breachPick] + repairAmount);
+        UpdateBreachColor(breachPick);
+        PlayEffect(EventPlayer(), PlayEffect.BuffImpactSound, Color.White, EventPlayer(), 50);
+
+        points += 10;
+        ChaseVariableAtRate(points2, EvaluateOnce(points) * H, 1000, RateChaseReevaluation.DestinationAndRate);
     }
+
+    Wait(1, WaitBehavior.AbortWhenFalse);
+    LoopIfConditionIsTrue();
 }
 
 rule: "barricade notification"
 Event.OngoingPlayer
 Team.Team1
 if (IsAlive(EventPlayer()) == true)
-if (IsTrueForAny(globalActiveBreaches, [DistanceBetween(ArrayElement(), EventPlayer()) < 2]) == true)
+
+if (IsTrueForAny(globalActiveBreaches, DistanceBetween(ArrayElement(), EventPlayer()) < 2) == true)
 {
-    SmallMessage(EventPlayer(), "Press Reload to barricade!");
+    SmallMessage(EventPlayer(), <"Press <0> to barricade! +10 points", InputBindingString(Button.Reload)>);
 }
 
 rule: "get nearest nodes for spawning"
 if (start == 1)
-if ((averagePosition == null || DistanceBetween(averagePosition, FirstOf(SortedArray(FilteredArray(AllLivingPlayers(Team.All), HasSpawned(ArrayElement())), DistanceBetween(ArrayElement(), PositionOf(teamPlayers[botspawnindex]))))) > 10) == true)
 {
-    teamPlayers = AllLivingPlayers(Team.Team1);
-    averagePosition = Left() + Right();
-    for (botspawnindex = 0; CountOf(teamPlayers); true)
-    {
-        ModifyVariable(averagePosition, Operation.Add, PositionOf(teamPlayers[botspawnindex]));
-    }
-    ModifyVariable(averagePosition, Operation.Divide, CountOf(teamPlayers));
-    candidates = FilteredArray(pfLoadedMap_nodes, DistanceBetween(averagePosition, ArrayElement()) < 35);
-    globalActiveBreaches = [];
+
+    breachAttemptDamage = 25;
+    breachMinPlayerDistance = 8;
+    breachRange = 35;
+    breachMoveDistance = 15;
     maxBreaches = 8;
-    count = Min(CountOf(candidates), maxBreaches);
-    for (botspawnindex = 0; count; true)
+
+    teamPlayers = FilteredArray(AllLivingPlayers(Team.Team1), ArrayElement().outofpsawn == 1 && !IsInSpawnRoom(ArrayElement()));
+    if (CountOf(teamPlayers) > 0 && CountOf(pfLoadedMap_nodes) > 0)
     {
-        pick = RandomValueInArray(candidates);
-        ModifyVariable(globalActiveBreaches, Operation.AppendToArray, pick);
-        ModifyVariable(candidates, Operation.RemoveFromArrayByValue, pick);
+
+        breachNewAverage = Left() + Right();
+        for (botspawnindex = 0; CountOf(teamPlayers); 1)
+        {
+            ModifyVariable(breachNewAverage, Operation.Add, PositionOf(teamPlayers[botspawnindex]));
+        }
+        ModifyVariable(breachNewAverage, Operation.Divide, CountOf(teamPlayers));
+
+        if (averagePosition == null || CountOf(globalActiveBreaches) == 0 || DistanceBetween(breachNewAverage, averagePosition) > breachMoveDistance)
+        {
+            averagePosition = breachNewAverage;
+
+            breachKeep = [];
+            breachKeepHealth = [];
+            for (botspawnindex = 0; CountOf(globalActiveBreaches); 1)
+            {
+                if (DistanceBetween(averagePosition, globalActiveBreaches[botspawnindex]) < breachRange)
+                {
+                    ModifyVariable(breachKeep, Operation.AppendToArray, globalActiveBreaches[botspawnindex]);
+                    ModifyVariable(breachKeepHealth, Operation.AppendToArray, globalActiveBreachHealth[botspawnindex]);
+                }
+            }
+
+            candidates = FilteredArray(pfLoadedMap_nodes, DistanceBetween(averagePosition, ArrayElement()) < breachRange);
+            LoadingPause();
+
+            candidates = FilteredArray(candidates, DistanceBetween(ArrayElement(), ClosestPlayerTo(ArrayElement(), Team.Team1)) >= breachMinPlayerDistance && !ArrayContains(breachKeep, ArrayElement()));
+            LoadingPause();
+            count = Min(CountOf(candidates), maxBreaches - CountOf(breachKeep));
+            for (botspawnindex = 0; count; 1)
+            {
+                pick = RandomValueInArray(candidates);
+                ModifyVariable(breachKeep, Operation.AppendToArray, pick);
+
+                ModifyVariable(breachKeepHealth, Operation.AppendToArray, roundnumber > 5 ? 0 : 100);
+                ModifyVariable(candidates, Operation.RemoveFromArrayByValue, pick);
+            }
+            LoadingPause();
+
+            globalActiveBreaches = breachKeep;
+            globalActiveBreachHealth = breachKeepHealth;
+            RebuildBreachEffects();
+        }
     }
+
+    Wait(5, WaitBehavior.AbortWhenFalse);
+    LoopIfConditionIsTrue();
+}
+
+rule: "9 Omnic Kill all powerups)"
+Event.OnDeath
+Team.Team2
+if (roundnumber > 3)
+{
+
+    if (SlotOf(EventPlayer()) <= 6 && RandomInteger(1, SlotOf(EventPlayer()) == 2 ? 50 : 75) == 1)
+    {
+        M[SlotOf(EventPlayer())] = NearestWalkablePosition(EventPlayer()) + Vector(0, 0.5, 0);
+    }
+    if (SlotOf(EventPlayer()) == 1 && numberOfZombies < 6 && RandomInteger(1, 50) == 1)
+    {
+        M[2] = NearestWalkablePosition(EventPlayer()) + Vector(0, 0.5, 0);
+    }
+    SetUltimateCharge(EventPlayer(), 0);
+}
+
+rule: "50 is hacked"
+Event.OngoingPlayer
+Team.Team2
+if (HasStatus(EventPlayer(), Status.Hacked) == true)
+{
+
+    zombieBusy = true;
+    SetMoveSpeed(EventPlayer(), 0);
+    SetPrimaryFireEnabled(EventPlayer(), false);
+    SetStatus(EventPlayer(), null, Status.Burning, 4);
+    StartDamageOverTime(EventPlayer(), null, 10, 60);
+    DisallowButton(EventPlayer(), Button.Jump);
+    Wait(4, WaitBehavior.IgnoreCondition);
+
+    zombieBusy = false;
+    zombieAppliedSpeed = 0;
+    SetPrimaryFireEnabled(EventPlayer(), true);
+}
+
+rule: "118  Omnic Kill (Global Var B) ALL SLOTS"
+Event.OnDeath
+Team.Team2
+
+if (IsBossBot(EventPlayer()) == false)
+{
+
+    numberOfZombies -= 1;
+
+    B = RandomInteger(1, 50);
+    SkipIf(B != 1, 1);
+    M[0] = NearestWalkablePosition(EventPlayer()) + Vector(0, 0.5, 0);
+    SetUltimateCharge(EventPlayer(), 0);
+}
+
+rule: "436 OMNIC set features ALL"
+Event.OngoingPlayer
+Team.Team2
+
+if (IsBossBot(EventPlayer()) == false)
+if (SlotOf(EventPlayer()) != PlayersInSlot(0, Team.Team2))
+if (HasSpawned(EventPlayer()) == true)
+{
+    StartModifyingHeroVoiceLines(EventPlayer(), 0.5, true);
+
+    switch (HeroOf(EventPlayer()))
+    {
+        case Hero.Roadhog:
+            StartScalingPlayer(EventPlayer(), 0.6, true);
+            break;
+
+        case Hero.Lucio:
+            StartScalingPlayer(EventPlayer(), 0.4, true);
+            break;
+
+        case Hero.Dva:
+            StartScalingPlayer(EventPlayer(), 0.7, true);
+            DisallowButton(EventPlayer(), Button.PrimaryFire);
+            break;
+
+        case Hero.WreckingBall:
+            StartScalingPlayer(EventPlayer(), 0.65, true);
+            Wait(2.5, WaitBehavior.IgnoreCondition);
+            PressButton(EventPlayer(), Button.Ability1);
+            break;
+
+        case Hero.Orisa:
+        case Hero.Sigma:
+        case Hero.Mauga:
+            StartScalingPlayer(EventPlayer(), 0.65, true);
+            break;
+
+        case Hero.Torbjorn:
+            StartScalingPlayer(EventPlayer(), 1.5, true);
+            break;
+
+        case Hero.Winston:
+            StartScalingPlayer(EventPlayer(), 0.5, true);
+            StartModifyingHeroVoiceLines(EventPlayer(), 1.5, true);
+            break;
+    }
+}
+
+rule: "519 Spawn wave director"
+
+if (roundnumber >= 1)
+if (numberOfZombies >= 4)
+if (IsGameInProgress() == true)
+{
+
+    if (spawntype < 3)
+    {
+        g = false;
+    }
+    switch (spawntype)
+    {
+        case false:
+            bossSpawn = [null];
+            bot1spawn = [Hero.Brigitte];
+            bot2spawn = bot1spawn;
+            break;
+
+        case 1:
+            bossSpawn = [null];
+            bot1spawn = [Hero.Torbjorn];
+            bot2spawn = bot1spawn;
+            break;
+
+        case 2:
+
+            bossSpawn = roundnumber < 5 ? null : hero[RandomInteger(0, 37)];
+            bot1spawn = hero[RandomInteger(0, 37)];
+            bot2spawn = hero[RandomInteger(0, 37)];
+            break;
+
+        case 3:
+            bossSpawn = [null, Hero.Doomfist, Hero.Torbjorn, Hero.Reinhardt, Hero.Winston, Hero.Roadhog, Hero.JunkerQueen, Hero.Zenyatta, Hero.Mauga, Hero.Sombra, Hero.Mei, Hero.Reaper, Hero.Ramattra];
+            bot1spawn = [Hero.Brigitte, Hero.Torbjorn, Hero.Torbjorn, Hero.Moira, Hero.Lucio, Hero.Torbjorn, Hero.Roadhog, Hero.Moira, Hero.Lucio, Hero.Mercy, Hero.JunkerQueen, Hero.Tracer, Hero.Doomfist];
+            bot2spawn = [Hero.Brigitte, Hero.Brigitte, Hero.Reinhardt, Hero.Winston, Hero.Genji, Hero.Winston, Hero.Genji, Hero.Brigitte, Hero.Hanzo, Hero.Mauga, Hero.Dva, Hero.Echo, Hero.Sombra];
+            break;
+    }
+    Wait(0.25, WaitBehavior.IgnoreCondition);
+
+    if (spawntype == 4)
+    {
+        totalrandomspawn();
+    }
+    else
+    {
+        wavespawn();
+    }
+}
+
+rule: "wave director incramenter"
+if (spawntype == 3)
+if (roundnumber > 1)
+
+if (roundnumber / 3 == RoundToInteger(roundnumber / 3, Rounding.Down))
+{
+    if (g >= 12)
+    {
+        g = 0;
+    }
+    else
+    {
+        g += 1;
+    }
+}
+
+rule: "use ability loop"
+Event.OngoingPlayer
+Team.Team2
+if (IsAlive(EventPlayer()) == true)
+
+if (IsBossBot(EventPlayer()) == false)
+if (zombieTargetDistance < 10)
+{
+    for (idx = 0; 10; 1)
+    {
+        abilityFlag = abilityTable[hero[rrentEnemyIndex] * 10 * Difficulty + idx];
+        if (abilityFlag > 0)
+        {
+            PressButton(EventPlayer(), buttons[abilityFlag - 1]);
+        }
+        Wait(1, WaitBehavior.IgnoreCondition);
+    }
+}
+
+rule: "408 OMNIC Bots Face Nearest Player"
+Event.OngoingPlayer
+Team.Team2
+{
+
+    StartFacing(EventPlayer(), DirectionTowards(EyePosition(EventPlayer()), EyePosition(FirstOf(SortedArray(FilteredArray(AllLivingPlayers(Team.Team1), ArrayElement().p_T == false), DistanceBetween(EventPlayer(), ArrayElement()))))), 400, Relative.ToWorld, FacingRev.DirectionAndTurnRate);
+}
+
+rule: "409 OMNIC Bots Attack if Near"
+Event.OngoingPlayer
+Team.Team2
+
+if (IsBossBot(EventPlayer()) == false)
+if (zombieTargetDistance < 1.8)
+{
+
+    Wait(ZombieReactionTime(), WaitBehavior.AbortWhenFalse);
+    StartHoldingButton(EventPlayer(), Button.PrimaryFire);
+}
+
+rule: "410 OMNIC Bots Dont Attack if Not Near"
+Event.OngoingPlayer
+Team.Team2
+if (IsBossBot(EventPlayer()) == false)
+if (zombieTargetDistance >= 1.8)
+if (IsFiringPrimary(EventPlayer()) == true)
+if (IsUsingUltimate(EventPlayer()) == false)
+{
+    StopHoldingButton(EventPlayer(), Button.PrimaryFire);
+    SetAbility2Enabled(EventPlayer(), true);
+}
+
+rule: "power on: zombies charge their ultimates"
+Event.OngoingPlayer
+Team.Team2
+if (powerUltPending == true)
+{
+
+    Wait(RandomReal(0, 2), WaitBehavior.IgnoreCondition);
+    powerUltPending = false;
+    SetUltimateCharge(EventPlayer(), 100);
+}
+
+rule: "411 OMNIC Bots AutoUlt"
+Event.OngoingPlayer
+Team.Team2
+if (UltimateChargePercent(EventPlayer()) == 100)
+if (HeroOf(EventPlayer()) != Hero.Zenyatta)
+{
+    Wait(0.16 * SlotOf(EventPlayer()) + 1, WaitBehavior.AbortWhenFalse);
+    PressButton(EventPlayer(), Button.Ultimate);
+    Wait(RandomInteger(0.25, 0.45), WaitBehavior.IgnoreCondition);
+    LoopIfConditionIsTrue();
+}
+
+rule: "412 OMNIC Bots Ult Attack"
+Event.OngoingPlayer
+Team.Team2
+if (IsUsingUltimate(EventPlayer()) == true)
+if (HeroOf(EventPlayer()) != Hero.Genji)
+if (HeroOf(EventPlayer()) != Hero.Moira)
+if (HeroOf(EventPlayer()) != Hero.Zenyatta)
+if (HeroOf(EventPlayer()) != Hero.Mercy)
+{
+    StartHoldingButton(EventPlayer(), Button.PrimaryFire);
+    Wait(2, WaitBehavior.IgnoreCondition);
+    LoopIfConditionIsTrue();
+}
+
+rule: "419 OMNIC set winston always has ult"
+Event.OngoingPlayer
+Team.Team2
+if (ArrayContains([Hero.Winston, Hero.Genji], HeroOf(EventPlayer())) == true)
+if (IsMoving(EventPlayer()) == true)
+{
+    SetUltimateCharge(EventPlayer(), 100);
 }

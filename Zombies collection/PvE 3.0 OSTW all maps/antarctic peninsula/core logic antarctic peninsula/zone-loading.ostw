@@ -1,0 +1,98 @@
+import "../Main/index.ostw";
+
+rule: "zone loading: set up the team's zone"
+if (mapDataLoaded == true)
+if (pfLoadedZone != telespot)
+{
+    zoneLoading = true;
+    pfLoadedZone = telespot;
+
+    waveBossWasAlive = waveBoss != null && IsAlive(waveBoss) == true;
+    for (zoneLoadSlot = 0; 12; 1)
+    {
+        if (PlayersInSlot(zoneLoadSlot, Team.Team2) != null)
+        {
+            DestroyDummyBot(Team.Team2, zoneLoadSlot);
+
+            Wait(0.25, WaitBehavior.IgnoreCondition);
+            LoadingPause();
+        }
+    }
+
+    zoneZombiesGone = true;
+
+    globalActiveBreaches = [];
+    globalActiveBreachHealth = [];
+    averagePosition = null;
+    RebuildBreachEffects();
+
+    BuildZoneDoors();
+
+    Wait(1.5, WaitBehavior.IgnoreCondition);
+    WaitUntil(zoneMarkersBusy == false && doorsNeedDrawing == false, 30);
+
+    pfMapReady = false;
+    pfDecompress = 0;
+    LoadingPause();
+    if (pfLoadedZone == 0)
+    {
+        pfDecompress = [import("Local-pathfinding-zones.json").zone1.nodes, import("Local-pathfinding-zones.json").zone1.neighbors, import("Local-pathfinding-zones.json").zone1.nextHops, import("Local-pathfinding-zones.json").zone1.nodeInfo];
+    }
+    else if (pfLoadedZone == 1)
+    {
+        pfDecompress = [import("Local-pathfinding-zones.json").zone2.nodes, import("Local-pathfinding-zones.json").zone2.neighbors, import("Local-pathfinding-zones.json").zone2.nextHops, import("Local-pathfinding-zones.json").zone2.nodeInfo];
+    }
+    else
+    {
+        pfDecompress = [import("Local-pathfinding-zones.json").zone3.nodes, import("Local-pathfinding-zones.json").zone3.neighbors, import("Local-pathfinding-zones.json").zone3.nextHops, import("Local-pathfinding-zones.json").zone3.nodeInfo];
+    }
+    WaitUntil(pfMapReady == true, 60);
+    zoneLoading = false;
+    zoneRefillPending = true;
+
+    LoopIfConditionIsTrue();
+}
+
+rule: "zone loading: bring the zombies back"
+if (zoneRefillPending == true)
+{
+    zoneRefillPending = false;
+    if (start == 1 && numberOfZombies >= 1 && Bosssequencer == 0)
+    {
+        setbotamount();
+
+        botamount = Min(botamount, numberOfZombies - (spawntype != 4 && waveBossWasAlive == true ? 1 : 0));
+
+        if (spawntype != 4 && waveBossWasAlive == true && PlayersInSlot(0, Team.Team2) == null)
+        {
+            CreateDummyBot(bossSpawn[g], Team.Team2, 0, FirstOf(SpawnPoints(Team.Team2)), Vector(0, 0, 0));
+            waveBoss = PlayersInSlot(0, Team.Team2);
+            Wait(0.75, WaitBehavior.IgnoreCondition);
+        }
+
+        zoneRefillSlot = spawntype == 4 ? 0 : 1;
+        while (zoneRefillSlot <= (spawntype == 4 ? botamount - 1 : botamount) && zoneLoading == false)
+        {
+            if (PlayersInSlot(zoneRefillSlot, Team.Team2) == null)
+            {
+                CreateDummyBot(spawntype == 4 ? hero[RandomInteger(0, 37)] : (zoneRefillSlot % 2 == 1 ? bot1spawn[g] : bot2spawn[g]), Team.Team2, zoneRefillSlot, FirstOf(SpawnPoints(Team.Team2)), Vector(0, 0, 0));
+                omnicspawn[zoneRefillSlot] = zoneRefillSlot;
+                Wait(0.75, WaitBehavior.IgnoreCondition);
+            }
+            zoneRefillSlot += 1;
+        }
+    }
+}
+
+void LoadZoneDoorData() "load the zone's door data"
+{
+    decodeIn = [Unpack(import("Local-compressed.json").doors.zone1Vectors), Unpack(import("Local-compressed.json").doors.zone2Vectors), Unpack(import("Local-compressed.json").doors.zone3Vectors)][telespot];
+    decompressVSub();
+    doorVectors = decodeOut;
+    decodeIn = [Unpack(import("Local-compressed.json").doors.zone1Params), Unpack(import("Local-compressed.json").doors.zone2Params), Unpack(import("Local-compressed.json").doors.zone3Params)][telespot];
+    decompressNSub();
+    doorParams = decodeOut;
+    decodeIn = [Unpack(import("Local-compressed.json").doors.zone1Groups), Unpack(import("Local-compressed.json").doors.zone2Groups), Unpack(import("Local-compressed.json").doors.zone3Groups)][telespot];
+    decompressNSub();
+    doorGroups = decodeOut;
+}

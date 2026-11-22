@@ -1,0 +1,99 @@
+rule: "426 OMNIC WAVE BOSS doomfist Attack if Near"
+Event.OngoingPlayer
+Team.Team2
+Player.Doomfist
+if (DistanceBetween(EventPlayer(), FirstOf(SortedArray(FilteredArray(AllLivingPlayers(Team.Team1), HasSpawned(ArrayElement())), DistanceBetween(ArrayElement(), EventPlayer())))) < 2)
+{
+
+    Wait(0.3, WaitBehavior.AbortWhenFalse);
+    PressButton(EventPlayer(), Button.Melee);
+    LoopIfConditionIsTrue();
+}
+
+rule: "427 OMNIC WAVE BOSS doomfist Attack if Near"
+Event.OngoingPlayer
+Team.Team2
+Player.Doomfist
+if (DistanceBetween(EventPlayer(), FirstOf(SortedArray(FilteredArray(AllLivingPlayers(Team.Team1), HasSpawned(ArrayElement())), DistanceBetween(ArrayElement(), EventPlayer())))) < 15)
+{
+    Wait(0.3, WaitBehavior.AbortWhenFalse);
+    StartHoldingButton(EventPlayer(), Button.SecondaryFire);
+}
+
+rule: "428 OMNIC WAVE BOSS doomfist Attack if Near"
+Event.OngoingPlayer
+Team.Team2
+Player.Doomfist
+if (DistanceBetween(EventPlayer(), FirstOf(SortedArray(FilteredArray(AllLivingPlayers(Team.Team1), HasSpawned(ArrayElement())), DistanceBetween(ArrayElement(), EventPlayer())))) < 10)
+{
+    Wait(0.3, WaitBehavior.AbortWhenFalse);
+    PressButton(EventPlayer(), Button.Ability1);
+}
+
+rule: "429 OMNIC WAVE BOSS zenyatta Attack if Near"
+Event.OngoingPlayer
+Team.Team2
+Player.Zenyatta
+if (DistanceBetween(EventPlayer(), FirstOf(SortedArray(FilteredArray(AllLivingPlayers(Team.Team1), HasSpawned(ArrayElement())), DistanceBetween(ArrayElement(), EventPlayer())))) < 2)
+{
+
+    Wait(0.3, WaitBehavior.AbortWhenFalse);
+    PressButton(EventPlayer(), Button.Melee);
+    LoopIfConditionIsTrue();
+}
+
+rule: "430 OMNIC WAVE BOSS zenyatta stay crouched"
+Event.OngoingPlayer
+Team.Team2
+Player.Zenyatta
+if (HasSpawned(EventPlayer()) == true)
+{
+    Wait(0.25, WaitBehavior.IgnoreCondition);
+    StartHoldingButton(EventPlayer(), Button.Crouch);
+    SetUltimateCharge(EventPlayer(), 100);
+}
+
+rule: "431 OMNIC WAVE BOSS zenyatta give ult halfl health"
+Event.OngoingPlayer
+Team.Team2
+Player.Zenyatta
+if (NormalizedHealth(EventPlayer()) <= 0.5)
+{
+    PressButton(EventPlayer(), Button.Ultimate);
+}
+
+rule: "432 OMNIC WAVE BOSS zenyatta discord if Near"
+Event.OngoingPlayer
+Team.Team2
+Player.Zenyatta
+if (DistanceBetween(EventPlayer(), FirstOf(SortedArray(FilteredArray(AllLivingPlayers(Team.Team1), HasSpawned(ArrayElement())), DistanceBetween(ArrayElement(), EventPlayer())))) < 10)
+{
+
+    Wait(0.3, WaitBehavior.AbortWhenFalse);
+    PressButton(EventPlayer(), Button.Ability2);
+}
+
+rule: "433 OMNIC WAVE BOSS roadhog use hook"
+Event.OngoingPlayer
+Team.Team2
+Player.Roadhog
+if (DistanceBetween(EventPlayer(), FirstOf(SortedArray(FilteredArray(AllLivingPlayers(Team.Team1), HasSpawned(ArrayElement())), DistanceBetween(ArrayElement(), EventPlayer())))) < 20)
+if (DistanceBetween(EventPlayer(), FirstOf(SortedArray(FilteredArray(AllLivingPlayers(Team.Team1), HasSpawned(ArrayElement())), DistanceBetween(ArrayElement(), EventPlayer())))) > 10)
+if (SlotOf(EventPlayer()) == PlayersInSlot(0, Team.Team2))
+{
+    PressButton(EventPlayer(), Button.Ability2);
+    Wait(1, WaitBehavior.IgnoreCondition);
+    PressButton(EventPlayer(), Button.Ability1);
+    Wait(15, WaitBehavior.IgnoreCondition);
+}
+
+rule: "434 OMNIC WAVE BOSS roadhog use heal"
+Event.OngoingPlayer
+Team.Team2
+Player.Roadhog
+if (NormalizedHealth(EventPlayer()) <= 0.5)
+{
+    StartHoldingButton(EventPlayer(), Button.SecondaryFire);
+    Wait(3, WaitBehavior.IgnoreCondition);
+    StopHoldingButton(EventPlayer(), Button.SecondaryFire);
+}

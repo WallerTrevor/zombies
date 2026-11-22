@@ -1,0 +1,36 @@
+rule: "68 player joined invincible"
+Event.OnPlayerJoin
+Team.Team1
+if (HasSpawned(EventPlayer()) == true)
+if (start == 1)
+{
+    SetStatus(EventPlayer(), null, Status.PhasedOut, 30);
+
+    points2 = points;
+    cashback = 1;
+}
+
+rule: "120  Remove bots when players join"
+{
+    if (NumberOfPlayers(Team.Team1) == 2)
+    {
+        for (botRemoveSlot = 14; botRemoveSlot <= 17; 1)
+        {
+            DestroyDummyBot(Team.Team2, botRemoveSlot);
+        }
+    }
+    else if (NumberOfPlayers(Team.Team1) == 3)
+    {
+        for (botRemoveSlot = 10; botRemoveSlot <= 17; 1)
+        {
+            DestroyDummyBot(Team.Team2, botRemoveSlot);
+        }
+    }
+    else if (NumberOfPlayers(Team.Team1) == 4)
+    {
+        for (botRemoveSlot = 8; botRemoveSlot <= 17; 1)
+        {
+            DestroyDummyBot(Team.Team2, botRemoveSlot);
+        }
+    }
+}

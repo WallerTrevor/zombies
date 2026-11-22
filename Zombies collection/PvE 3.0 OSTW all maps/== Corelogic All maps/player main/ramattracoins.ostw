@@ -1,0 +1,92 @@
+void SaveRamattraCoins() "save ramattra coins"
+{
+    coinNameIndex = IndexOfArrayValue(coinOwnerNames, <"<0>", EventPlayer()>);
+    if (coinNameIndex < 0)
+    {
+        coinNameIndex = CountOf(coinOwnerNames);
+        coinOwnerNames[coinNameIndex] = <"<0>", EventPlayer()>;
+    }
+    coinOwnerCounts[coinNameIndex] = ramattraCoins;
+}
+
+void SpendRamattraCoins(Number pricePerUse) "spend ramattra coins"
+{
+    if (coinUses > 0)
+    {
+        ramattraCoins -= coinUses * pricePerUse;
+        coinUses = 0;
+        SaveRamattraCoins();
+    }
+}
+
+rule: "Ramattra coins: bring back a returning player's coins"
+Event.OngoingPlayer
+Team.Team1
+if (IsDummyBot(EventPlayer()) == false)
+if (HasSpawned(EventPlayer()) == true)
+{
+    coinNameIndex = IndexOfArrayValue(coinOwnerNames, <"<0>", EventPlayer()>);
+    if (coinNameIndex >= 0)
+    {
+        ramattraCoins = coinOwnerCounts[coinNameIndex];
+    }
+}
+
+rule: "Ramattra coins: say I need healing to use one"
+Event.OngoingPlayer
+Team.Team1
+if (IsDummyBot(EventPlayer()) == false)
+if (start == 1)
+if (IsCommunicating(EventPlayer(), Communication.NeedHealing) == true)
+{
+    coinPrice = CoinPriceHere();
+    if (coinPrice == 0)
+    {
+
+    }
+    else if (coinUses >= 3)
+    {
+        SmallMessage(EventPlayer(), "Already using 3 Ramattra coins here (an eighth of the price)");
+    }
+    else if (ramattraCoins >= (coinUses + 1) * coinPrice)
+    {
+        coinUses += 1;
+        SmallMessage(EventPlayer(), <"<0> Ramattra coins used: <1>. Price x <2>. Buy as usual", HeroIconString(Hero.Ramattra), coinUses, CoinDiscount()>);
+    }
+    else
+    {
+        SmallMessage(EventPlayer(), <"Not enough Ramattra coins: this costs <0> a use (you have <1>)", coinPrice, ramattraCoins>);
+    }
+}
+
+rule: "Ramattra coins: reminder at buy spots"
+Event.OngoingPlayer
+Team.Team1
+if (ramattraCoins > 0)
+if (coinUses == 0)
+if (start == 1)
+if (IsDummyBot(EventPlayer()) == false)
+if (CoinPriceHere() > 0)
+{
+    SmallMessage(EventPlayer(), <"<0> You have <1> Ramattra coin(s): say I need healing here to halve the price", HeroIconString(Hero.Ramattra), ramattraCoins>);
+}
+
+rule: "Ramattra coins: walking away cancels the uses"
+Event.OngoingPlayer
+Team.Team1
+if (coinUses > 0)
+{
+    Wait(1, WaitBehavior.AbortWhenFalse);
+    coinPrice = CoinPriceHere();
+    if (coinPrice == 0)
+    {
+        coinUses = 0;
+    }
+    LoopIfConditionIsTrue();
+}
+
+rule: "Ramattra coins: HUD"
+if (start == 1)
+{
+    CreateHudText(FilteredArray(AllPlayers(Team.Team1), ArrayElement().ramattraCoins > 0 || ArrayElement().coinUses > 0), null, null, <"<0> Ramattra coins: <1><2>", HeroIconString(Hero.Ramattra), LocalPlayer().ramattraCoins, LocalPlayer().coinUses > 0 ? <"   (using <0>: price x <1>)", LocalPlayer().coinUses, 0.5 ^ LocalPlayer().coinUses> : "">, Location.Left, 4, null, null, Color.Yellow, HudTextRev.VisibleToAndString, Spectators.DefaultVisibility);
+}

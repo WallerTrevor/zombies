@@ -1,0 +1,2 @@
+#!/bin/sh
+cat > "/home/trey/Documents/programming stuff/workshop/zombies/Zombies collection/PvE 3.0 OSTW all maps/tools/build/ostw.txt"

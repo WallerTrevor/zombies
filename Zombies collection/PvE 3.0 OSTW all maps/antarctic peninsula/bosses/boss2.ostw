@@ -1,45 +1,39 @@
 ﻿import "../Main/index.ostw";
 
-disabled rule: "273 Colossal charger stats Big boss 2 ==================================================="
-Event.OngoingPlayer
-Team.Team2
-Player.Reinhardt
-if (IsAlive(EventPlayer()) == true)
-if (Bosssequencer == 2)
+void SpawnColossalCharger() "spawn boss 2: Colossal Charger"
 {
-    CreateDummyBot(Hero.Reinhardt, Team.Team2, 0, Vector(-80.776, -159.164, 59.549), Vector(0, 0, 0));
-    omnicspawn[0] = SlotOf(PlayersInSlot(0, Team.Team2));
-    SetDamageDealt(EventPlayer(), 50);
-    SetMoveSpeed(EventPlayer(), 50);
-    Part = 1;
-    SetKnockbackReceived(EventPlayer(), 20);
-    Head_HP = 1500;
-    SetStatus(EventPlayer(), null, Status.Unkillable, 9999);
-    SetMaxHealth(EventPlayer(), 1000);
-    StartForcingDummyBotName(EventPlayer(), "Colossal Charger ");
-    StartScalingPlayer(EventPlayer(), 2, true);
-    Wait(0.25, WaitBehavior.IgnoreCondition);
-    CreateEffect(AllPlayers(Team.All), Effect.EchoCloningEffect, Color.White, EventPlayer(), 1, EffectRev.VisibleToPositionAndRadius);
-    MinWait();
-    CreateDummyBot(Hero.Bastion, Team.Team2, -1, EventPlayer(), Vector(0, 0, 0));
+    CreateDummyBot(Hero.Reinhardt, Team.Team2, -1, bossSpot, Vector(0, 0, 0));
+    bossBody = LastCreatedEntity();
+    bossBots = [bossBody];
+
+    bossBody.Head_HP = 1500;
+
     Wait(0.5, WaitBehavior.IgnoreCondition);
-    AttachPlayers(LastCreatedEntity(), FirstOf(PlayersOnHero(Hero.Reinhardt, Team.Team2)), Vector(-1.5, 1.25, 0));
-    StartFacing(LastCreatedEntity(), FacingDirectionOf(EventPlayer()), 1000, Relative.ToWorld, FacingRev.DirectionAndTurnRate);
-    LastCreatedEntity().Part = BossPart.Minigun;
-    MinWait();
-    CreateDummyBot(Hero.WreckingBall, Team.Team2, -1, EventPlayer(), Vector(0, 0, 0));
-    MinWait();
-    AttachPlayers(LastCreatedEntity(), FirstOf(PlayersOnHero(Hero.Reinhardt, Team.Team2)), Vector(1.25, 2.5, 0.75));
-    AddHealthPoolToPlayer(EventPlayer(), HealthType.Health, 2000, true, true);
-    LastCreatedEntity().Part = BossPart.ArmConnector;
-    WaitUntil(IsDead(EventPlayer()), 99999);
-    RemoveAllHealthPoolsFromPlayer(EventPlayer());
+    SetDamageDealt(bossBody, 50);
+    SetMoveSpeed(bossBody, 50);
+    SetKnockbackReceived(bossBody, 20);
+    SetStatus(bossBody, null, Status.Unkillable, 9999);
+    SetMaxHealth(bossBody, 1000);
+    StartForcingDummyBotName(bossBody, "Colossal Charger ");
+    StartScalingPlayer(bossBody, 2 * BossScale(), true);
+    AddHealthPoolToPlayer(bossBody, HealthType.Health, 2000, true, true);
+
+    bossBody.zombieBusy = true;
+    Wait(0.25, WaitBehavior.IgnoreCondition);
+    CreateEffect(AllPlayers(Team.All), Effect.EchoCloningEffect, Color.White, bossBody, 1, EffectRev.VisibleToPositionAndRadius);
+    ModifyVariable(bossEffects, Operation.AppendToArray, LastCreatedEntity());
+    bossPartList = [
+        [Hero.Bastion, Vector(-1.5, 1.25, 0), BossPart.Minigun],
+        [Hero.WreckingBall, Vector(1.25, 2.5, 0.75), BossPart.ArmConnector]
+    ];
+    SpawnBossParts();
 }
 
-disabled rule: "274 Minigun stats"
+rule: "274 Minigun stats"
 Event.OngoingPlayer
 Team.Team2
 Player.Bastion
+if (Bosssequencer == 2)
 if (IsDummyBot(EventPlayer()) == true)
 if (Part == BossPart.Minigun)
 {
@@ -50,15 +44,17 @@ if (Part == BossPart.Minigun)
     StartForcingDummyBotName(EventPlayer(), "Minigun");
     ForceThrottle(EventPlayer(), 1, 1, 0, 1, 0, 1);
     Wait(0.25, WaitBehavior.IgnoreCondition);
-    # createEffect(getAllPlayers(), Effect.ECHO_CLONING, Color.WHITE, eventPlayer, 1, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
+
     WaitUntil(IsDead(EventPlayer()), 99999);
     SetStatus(PlayersWithinRadius(EventPlayer(), 3, TeamOf(EventPlayer()), RadiusLOS.Off), null, Status.Stunned, 1);
 }
 
-disabled rule: "Minigun stay in form"
+rule: "Minigun stay in form"
 Event.OngoingPlayer
 Team.Team2
 Player.Bastion
+if (Bosssequencer == 2)
+if (Part == BossPart.Minigun)
 if (IsUsingAbility1(EventPlayer()) == false)
 {
     PressButton(EventPlayer(), Button.Ability1);
@@ -67,32 +63,34 @@ if (IsUsingAbility1(EventPlayer()) == false)
     LoopIfConditionIsTrue();
 }
 
-disabled rule: "276 Arm connector stats"
+rule: "276 Arm connector stats"
 Event.OngoingPlayer
 Team.Team2
 Player.WreckingBall
+if (Bosssequencer == 2)
 if (IsDummyBot(EventPlayer()) == true)
 if (Part == BossPart.ArmConnector)
 {
     SetHealingReceived(EventPlayer(), 0);
     SetMaxHealth(EventPlayer(), 500);
     StartForcingDummyBotName(EventPlayer(), "Arm connector");
-    StartScalingPlayer(EventPlayer(), 0.8, true);
+    StartScalingPlayer(EventPlayer(), 0.8 * BossScale(), true);
     Part2 = true;
     Wait(0.25, WaitBehavior.IgnoreCondition);
     CreateEffect(AllPlayers(Team.All), Effect.EchoCloningEffect, Color.White, EventPlayer(), 1, EffectRev.VisibleToPositionAndRadius);
+    ModifyVariable(bossEffects, Operation.AppendToArray, LastCreatedEntity());
     WaitUntil(IsDead(EventPlayer()), 99999);
     SetStatus(PlayersWithinRadius(EventPlayer(), 3, TeamOf(EventPlayer()), RadiusLOS.Off), null, Status.Stunned, 1);
     SetUltimateAbilityEnabled(PlayersWithinRadius(EventPlayer(), 3, TeamOf(EventPlayer()), RadiusLOS.Off), false);
     PlayersWithinRadius(EventPlayer(), 3, TeamOf(EventPlayer()), RadiusLOS.Off).Part = BossPart.None;
 }
 
-disabled rule: "277 Colossal charger dies"
+rule: "277 Colossal charger dies"
 Event.OnDamageTaken
 Team.Team2
 Player.Reinhardt
 if (Health(EventPlayer()) == 1)
-if (roundnumber == 20)
+if (Bosssequencer == 2)
 {
     SetStatus(PlayersWithinRadius(EventPlayer(), 3, TeamOf(EventPlayer()), RadiusLOS.Off), null, Status.Stunned, 6);
     Wait(3, WaitBehavior.IgnoreCondition);
@@ -102,53 +100,53 @@ if (roundnumber == 20)
     Wait(1, WaitBehavior.IgnoreCondition);
     ClearStatus(EventPlayer(), Status.Unkillable);
     MinWait();
+
     Kill(PlayersWithinRadius(EventPlayer(), 3, TeamOf(EventPlayer()), RadiusLOS.Off), null);
-    WaitUntil(IsAlive(EventPlayer()), 99999);
-    DestroyAllEffects();
 }
 
-disabled rule: "278 Colossal charger head hp function"
+rule: "278 Colossal charger head hp function"
 Event.OnDamageTaken
 Team.Team2
 Player.Reinhardt
 if (EventWasCriticalHit() == true)
 if (Head_HP > 0)
-if (roundnumber == 20)
+if (Bosssequencer == 2)
 {
     Head_HP -= EventDamage();
 }
 
-disabled rule: "279 Colossal charger lose head"
+rule: "279 Colossal charger lose head"
 Event.OngoingPlayer
 Team.Team2
 Player.Reinhardt
 if (Head_HP <= 0)
-if (roundnumber == 20)
+if (Bosssequencer == 2)
 {
     SetStatus(EventPlayer(), null, Status.Stunned, 2);
     CreateEffect(AllPlayers(Team.All), Effect.BadAura, Color.Red, EyePosition(EventPlayer()), 2, EffectRev.VisibleToPositionAndRadius);
+    ModifyVariable(bossEffects, Operation.AppendToArray, LastCreatedEntity());
     PlayEffect(AllPlayers(Team.All), PlayEffect.WreckingBallMinefieldExplosionEffect, Color.White, EyePosition(EventPlayer()), 1);
     PlayEffect(AllPlayers(Team.All), PlayEffect.WreckingBallMinefieldExplosionSound, Color.White, EyePosition(EventPlayer()), 200);
 }
 
-disabled rule: "280 Colossal charger slam"
+rule: "280 Colossal charger slam"
 Event.OngoingPlayer
 Team.Team2
 Player.Reinhardt
 if (IsUsingUltimate(EventPlayer()) == true)
-if (roundnumber == 20)
+if (Bosssequencer == 2)
 {
     PlayEffect(AllPlayers(Team.All), PlayEffect.DoomfistMeteorStrikeImpactEffect, Color.White, PositionOf(EventPlayer()), 1);
     PlayEffect(AllPlayers(Team.All), PlayEffect.DoomfistMeteorStrikeImpactSound, Color.White, EyePosition(EventPlayer()), 200);
     Damage(PlayersWithinRadius(EventPlayer(), 15, OppositeTeamOf(TeamOf(EventPlayer())), RadiusLOS.SurfacesAndEnemyBarriers), EventPlayer(), 75);
 }
 
-disabled rule: "281 Colossal charger firestrike barrage"
+rule: "281 Colossal charger firestrike barrage"
 Event.OngoingPlayer
 Team.Team2
 Player.Reinhardt
 if (IsUsingAbility2(EventPlayer()) == true)
-if (roundnumber == 20)
+if (Bosssequencer == 2)
 {
     CancelPrimaryAction(EventPlayer());
     PressButton(EventPlayer(), Button.Ability2);
@@ -156,10 +154,11 @@ if (roundnumber == 20)
     SetAbilityCooldown(EventPlayer(), Button.Ability2, 8);
 }
 
-disabled rule: "282 Making minigun shoot"
+rule: "282 Making minigun shoot"
 Event.OngoingPlayer
 Team.Team2
 Player.Bastion
+if (Bosssequencer == 2)
 if (IsButtonHeld(FirstOf(PlayersOnHero(Hero.Reinhardt, Team.Team2)), Button.PrimaryFire) == true)
 if (Part == BossPart.Minigun)
 {

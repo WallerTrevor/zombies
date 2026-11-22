@@ -1,6 +1,5 @@
 ﻿import "../Main/index.ostw";
 
-
 rule: "488 button held teleporter"
 Event.OngoingPlayer
 Team.Team1
@@ -8,7 +7,8 @@ Team.Team1
 if (IsButtonHeld(EventPlayer(), Button.Interact) == true)
 if (CountOf(PlayersWithinRadius(teleporterpositions[telespot], 3, Team.Team1, RadiusLOS.Off)) > 0)
 {
-    if (CountOf(AllLivingPlayers(Team.Team1)) == CountOf(PlayersWithinRadius(teleporterpositions[telespot], 3, Team.Team1, RadiusLOS.Off)))
+
+    if (CountOf(FilteredArray(AllLivingPlayers(Team.Team1), !IsDummyBot(ArrayElement()))) == CountOf(FilteredArray(PlayersWithinRadius(teleporterpositions[telespot], 3, Team.Team1, RadiusLOS.Off), IsAlive(ArrayElement()) && !IsDummyBot(ArrayElement()))))
     {
         if (teleporterwait == false)
         {
@@ -23,22 +23,50 @@ if (CountOf(PlayersWithinRadius(teleporterpositions[telespot], 3, Team.Team1, Ra
             DestroyEffect(FirstOf(EventPlayer().teleporterEffects));
             PlayEffect(LocalPlayer(), PlayEffect.RingExplosionSound, Color.White, EventPlayer(), 80);
             Wait(0.25, WaitBehavior.IgnoreCondition);
-            Kill(PlayersWithinRadius(teleporterpositions[101], 5, Team.Team2, RadiusLOS.Off), FirstOf(AllLivingPlayers(Team.Team1)));
+
+            Kill(PlayersWithinRadius(teleporterpositions[telespot], 5, Team.Team2, RadiusLOS.Off), FirstOf(AllLivingPlayers(Team.Team1)));
             DestroyEffect(EventPlayer().teleporterEffects[1]);
             EventPlayer().teleporterEffects = [];
             teleportercolor = Color.Red;
             if (CountOf(teleporterpositions) > 0)
             {
+
+                zoneZombiesGone = false;
                 telespot = (telespot + 1) % CountOf(teleporterpositions);
                 MinWait();
                 teleporterused = 1;
                 lastsavedpos = null;
                 Wait(0.5, WaitBehavior.IgnoreCondition);
+
+                WaitUntil(zoneZombiesGone == true, 15);
                 Teleport(AllPlayers(Team.Team1), teleporterpositions[telespot]);
+
+                for (forindex = 0; 4; 1)
+                {
+                    if (IsDead(PlayersInSlot(forindex, Team.Team1)) && DistanceBetween(Died[forindex], Vector(500, 0, 500)) > 1)
+                    {
+                        Died[forindex] = NearestWalkablePosition(teleporterpositions[telespot] + Vector(forindex * 1.5 - 2.25, 0, 2));
+                    }
+                }
+
+                switch (telespot)
+                {
+                    case 0:
+                        zone1();
+                        break;
+
+                    case 1:
+                        zone2();
+                        break;
+
+                    case 2:
+                        zone3();
+                        break;
+                }
             }
             Wait(0.5, WaitBehavior.IgnoreCondition);
             teleporterused = 0;
-            makedoors();
+            doorsNeedDrawing = true;
         }
     }
 }

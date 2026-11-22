@@ -1,3 +1,54 @@
+Number ZoneOf(Vector position): IndexOfArrayValue(teleporterpositions, FirstOf(SortedArray(teleporterpositions, DistanceBetween(position, ArrayElement()))));
+Boolean InCurrentZone(Vector position): ZoneOf(position) == telespot;
+
+Boolean NearMysteryBox(): start == 1 && rngbox != null && (DistanceToEventPlayer(rngbox) <= 2 || (fireSale == true && IsTrueForAny(fireSaleBoxes, DistanceToEventPlayer(ArrayElement()) <= 2)));
+
+Number MysteryBoxCost(): fireSale == true ? 10 : 950;
+
+Number RealPlayerCount(): CountOf(FilteredArray(AllPlayers(Team.Team1), !IsDummyBot(ArrayElement())));
+
+Number DifficultyDamageTaken(): difficultyStats[0];
+
+Number DifficultyHealing(): difficultyStats[1];
+
+Number ZombieReactionTime(): difficultyStats[2];
+
+Number ZombiesPerWaveMax(): difficultyStats[3];
+
+Number ReviveTimeLimit(): difficultyStats[4];
+
+Number StartingMagazines(): Difficulty == 5 ? 3 : 5;
+Number FullMagazines(): Difficulty == 5 ? 6 : 10;
+
+Number UltChargePerKill(): difficultyStats[5] * (ArrayContains(AllSupportHeroes(), HeroOf(EventPlayer())) ? 1.5 : (ArrayContains(AllTankHeroes(), HeroOf(EventPlayer())) ? 1.25 : 1));
+
+Boolean MeleeStun(): Difficulty == 1;
+
+Boolean SpeedBoostWhenHit(): Difficulty < 5;
+
+void LoadingPause() "loading pause"
+{
+    MinWait();
+    if (start == false)
+    {
+        WaitUntil(ServerLoad() < 180 && ServerLoadAverage() < 180, 10);
+    }
+    else
+    {
+        WaitUntil(ServerLoad() < 200, 2);
+    }
+}
+
+Number CoinDiscount(): 0.5 ^ coinUses;
+
+Number CoinPriceHere(): (IsTrueForAny(buyheros, DistanceToEventPlayer(ArrayElement()) < 2) || IsTrueForAny(bossbuypositions, DistanceToEventPlayer(ArrayElement()) < 2) || NearMysteryBox()) ? 1 : (DistanceToEventPlayer(buyperks[Buyable.packapunch]) < 2 ? 5 : (IsTrueForAny(ArraySlice(buyperks, 0, 5), DistanceToEventPlayer(ArrayElement()) < 2) ? 3 : 0));
+
+Boolean XPUnlocked(Number level): experiencesystem == false || XPlevel[currentheroxp] >= level;
+
+Boolean IsBossBot(Player bot): ArrayContains(bossBots, bot);
+
+Boolean IsBossPart(Player bot): ArrayContains(bossBots, bot) && bot != bossBody;
+
 Number RequiredPurchasePoints(Number baseCost): RoundToInteger(baseCost * costmultiplier - creditcardlimit, Rounding.Nearest);
 
 Number ScaledPurchaseCost(Number baseCost): RoundToInteger(baseCost * costmultiplier, Rounding.Nearest);
@@ -14,14 +65,35 @@ void PurchaseFreezeAfterEmote() "finish purchase feedback"
     SetMoveSpeed(EventPlayer(), 100);
 }
 
+void FirstFollowerEmote()
+{
+    if (!firstFollowerShown)
+    {
+        firstFollowerShown = true;
+        Wait(0.25, WaitBehavior.IgnoreCondition);
+        Communicate(EventPlayer(), Communication.EmoteUp);
+        PurchaseFreezeAfterEmote();
+    }
+}
+
 void DestroyDoorEffects(Number doorIndex) "destroy door effects"
 {
-    if (doors[doorIndex * 2] != null)
+    if (allDoors[doorIndex].BeamA != null)
     {
-        DestroyEffect(doors[doorIndex * 2]);
+        DestroyEffect(allDoors[doorIndex].BeamA);
     }
-    if (doors[doorIndex * 2 + 1] != null)
+    if (allDoors[doorIndex].BeamB != null)
     {
-        DestroyEffect(doors[doorIndex * 2 + 1]);
+        DestroyEffect(allDoors[doorIndex].BeamB);
     }
+
+    allDoors[doorIndex].BeamA = null;
+    allDoors[doorIndex].BeamB = null;
+}
+
+void ResetPurchaseMessageTimer(ref define timer)
+{
+	timer = true;
+	Wait(5, WaitBehavior.IgnoreCondition);
+	timer = false;
 }

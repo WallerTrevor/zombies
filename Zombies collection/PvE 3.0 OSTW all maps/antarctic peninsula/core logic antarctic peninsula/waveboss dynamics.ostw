@@ -1,0 +1,131 @@
+globalvar define smBossHeroes!;
+globalvar define smButtons!;
+globalvar define smActions;
+globalvar define smHealthTriggers!;
+globalvar define smSpawnCodes!;
+globalvar define smStepTimes!;
+
+playervar define smRow;
+playervar define smSlot!;
+playervar define smDist!;
+playervar define smEntry;
+playervar define smCode;
+playervar define smCodeHoldTime!;
+playervar define smHolding;
+playervar define smHoldButton!;
+playervar define smHoldTime!;
+playervar define smSpecial;
+
+void SmDispatch() "wave boss dispatch"
+{
+    if (smCode >= 11)
+    {
+
+        smSpecial = smCode;
+    }
+    else if (smCode >= 6)
+    {
+
+        if (smHolding == false)
+        {
+            smHoldButton = smButtons[smCode - 6];
+            smHoldTime = smCodeHoldTime;
+            smHolding = true;
+        }
+    }
+    else if (smCode >= 1)
+    {
+
+        PressButton(EventPlayer(), smButtons[smCode - 1]);
+    }
+}
+
+rule: "wave boss tables"
+{
+    smBossHeroes = [Hero.Doomfist, Hero.Zenyatta, Hero.Roadhog];
+
+    smButtons = [Button.Ability1, Button.Ability2, Button.SecondaryFire, Button.Ultimate, Button.Melee];
+
+}
+
+rule: "wave boss: find my row"
+Event.OngoingPlayer
+Team.Team2
+if (HasSpawned(EventPlayer()) == true)
+{
+    smRow = IsBossBot(EventPlayer()) ? 0 : IndexOfArrayValue(smBossHeroes, HeroOf(EventPlayer())) + 1;
+    if (smRow > 0)
+    {
+        smCode = smSpawnCodes[smRow - 1];
+        smCodeHoldTime = 0;
+        SmDispatch();
+    }
+}
+
+rule: "wave boss: timed sequence"
+Event.OngoingPlayer
+Team.Team2
+if (IsAlive(EventPlayer()) == true)
+if (smRow > 0)
+{
+    for (smSlot = 0; 6; 1)
+    {
+        smEntry = ((smRow - 1) * 6 + smSlot) * 5;
+        smDist = zombieTargetDistance;
+
+        if (Difficulty >= smActions[smEntry + 4] && smDist >= smActions[smEntry + 2] && smDist < smActions[smEntry + 3])
+        {
+            smCode = smActions[smEntry];
+            smCodeHoldTime = smActions[smEntry + 1];
+            SmDispatch();
+        }
+
+        Wait(smStepTimes[Difficulty - 1], WaitBehavior.AbortWhenFalse);
+    }
+    LoopIfConditionIsTrue();
+}
+
+rule: "wave boss: health trigger"
+Event.OngoingPlayer
+Team.Team2
+if (smRow > 0)
+if (smHealthTriggers[(smRow - 1) * 3] > 0)
+if (NormalizedHealth(EventPlayer()) <= smHealthTriggers[(smRow - 1) * 3])
+{
+    smCode = smHealthTriggers[(smRow - 1) * 3 + 1];
+    smCodeHoldTime = smHealthTriggers[(smRow - 1) * 3 + 2];
+    SmDispatch();
+}
+
+rule: "wave boss: hold button"
+Event.OngoingPlayer
+Team.Team2
+if (smHolding == true)
+{
+    StartHoldingButton(EventPlayer(), smHoldButton);
+    Wait(smHoldTime, WaitBehavior.IgnoreCondition);
+    StopHoldingButton(EventPlayer(), smHoldButton);
+
+    smHolding = false;
+}
+
+rule: "wave boss: special 11 ground slam"
+Event.OngoingPlayer
+Team.Team2
+if (smSpecial == 11)
+{
+    PlayEffect(AllPlayers(Team.All), PlayEffect.BadExplosion, Color.Orange, EventPlayer(), 8);
+    Damage(PlayersWithinRadius(EventPlayer(), 8, Team.Team1, RadiusLOS.Off), EventPlayer(), 40);
+    smSpecial = 0;
+}
+
+rule: "wave boss: special 12 crouch with full ultimate"
+Event.OngoingPlayer
+Team.Team2
+if (smSpecial == 12)
+{
+    Wait(0.25, WaitBehavior.IgnoreCondition);
+    StartHoldingButton(EventPlayer(), Button.Crouch);
+    SetUltimateCharge(EventPlayer(), 100);
+    smSpecial = 0;
+}

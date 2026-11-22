@@ -1,0 +1,181 @@
+import "../Main/index.ostw";
+
+rule: "boss buy"
+Event.OngoingPlayer
+Team.Team1
+if (IsButtonHeld(EventPlayer(), Button.Interact) == true)
+if (IsTrueForAny(bossbuypositions, DistanceToEventPlayer(ArrayElement()) < 2) == true)
+{
+
+    WaitUntil(ServerLoad() < 230, 3);
+    if (Bosssequencer != 0)
+    {
+        SmallMessage(EventPlayer(), <"<0> One champion at a time!", HeroIconString(Hero.Ramattra)>);
+    }
+    else if (points >= RequiredPurchasePoints(15000 * CoinDiscount()))
+    {
+        points -= CashbackPurchaseCharge(15000 * CoinDiscount());
+
+        SpendRamattraCoins(1);
+        ChaseVariableAtRate(points2, EvaluateOnce(points), 15000, RateChaseReevaluation.DestinationAndRate);
+        PlayEffect(AllPlayers(Team.Team1), PlayEffect.BuffImpactSound, Color.White, EventPlayer(), 70);
+        bossSpot = FirstOf(SortedArray(bossbuypositions, DistanceToEventPlayer(ArrayElement())));
+
+        Bosssequencer = IndexOfArrayValue(bossbuypositions, bossSpot) + 1;
+    }
+    else
+    {
+        SmallMessage(EventPlayer(), <"<0> You cannot afford to face my champion!", HeroIconString(Hero.Ramattra)>);
+    }
+}
+
+rule: "boss fight: clear the wave, then the boss comes"
+if (Bosssequencer != 0)
+{
+
+    WaitUntil(Z == false, 2);
+    numberOfZombies = 1;
+    waveBoss = null;
+    bossBots = [];
+    bossEffects = [];
+
+    for (bossIndex = 0; 12; 1)
+    {
+        if (PlayersInSlot(bossIndex, Team.Team2) != null)
+        {
+            DestroyDummyBot(Team.Team2, bossIndex);
+
+            Wait(0.25, WaitBehavior.IgnoreCondition);
+            LoadingPause();
+        }
+    }
+    BigMessage(AllPlayers(Team.All), "A champion approaches!");
+    SmallMessage(AllPlayers(Team.All), <"<0> You want a real fight? Face my champion!", HeroIconString(Hero.Ramattra)>);
+    Wait(2, WaitBehavior.AbortWhenFalse);
+    switch (Bosssequencer)
+    {
+        case 1:
+            SpawnDevastator();
+            break;
+
+        case 2:
+            SpawnColossalCharger();
+            break;
+
+        case 3:
+            SpawnImperialWarmech();
+            break;
+    }
+}
+
+Number BossScale(): 0.7;
+
+void SpawnBossParts() "spawn boss parts"
+{
+    for (bossIndex = 0; CountOf(bossPartList); 1)
+    {
+        CreateDummyBot(bossPartList[bossIndex][0], Team.Team2, -1, bossSpot, Vector(0, 0, 0));
+
+        ModifyVariable(bossBots, Operation.AppendToArray, LastCreatedEntity());
+        LastOf(bossBots).Part = bossPartList[bossIndex][2];
+
+        StartScalingPlayer(LastOf(bossBots), BossScale(), true);
+        MinWait();
+
+        AttachPlayers(LastOf(bossBots), bossBody, bossPartList[bossIndex][1] * BossScale());
+        StartFacing(LastOf(bossBots), FacingDirectionOf(bossBody), 1000, Relative.ToWorld, FacingRev.DirectionAndTurnRate);
+        MinWait();
+    }
+}
+
+rule: "boss fight: the boss attacks players in range"
+Event.OngoingPlayer
+Team.Team2
+if (Bosssequencer != 0)
+if (EventPlayer() == bossBody)
+if (IsAlive(EventPlayer()) == true)
+{
+
+    if (zombieTarget != null && DistanceBetween(EventPlayer(), zombieTarget) < 25)
+    {
+        StartHoldingButton(EventPlayer(), Button.PrimaryFire);
+    }
+    else
+    {
+        StopHoldingButton(EventPlayer(), Button.PrimaryFire);
+    }
+    Wait(0.5, WaitBehavior.AbortWhenFalse);
+    LoopIfConditionIsTrue();
+}
+
+rule: "boss fight: the boss is defeated"
+Event.OnDeath
+Team.Team2
+if (EventPlayer() == bossBody)
+{
+    BigMessage(AllPlayers(Team.All), "Champion defeated! +20,000 points");
+
+    FilteredArray(AllLivingPlayers(Team.Team1), !IsDummyBot(ArrayElement())).bossRewardPending = true;
+
+    Wait(2, WaitBehavior.IgnoreCondition);
+    EndBossFight();
+
+    numberOfZombies = 0;
+}
+
+rule: "boss reward for each player"
+Event.OngoingPlayer
+Team.Team1
+if (bossRewardPending == true)
+{
+    bossRewardPending = false;
+
+    ramattraCoins += 1;
+    SaveRamattraCoins();
+    SmallMessage(EventPlayer(), <"<0> +1 Ramattra coin! Say I need healing at a buy spot to use it", HeroIconString(Hero.Ramattra)>);
+    points += 20000;
+    ChaseVariableAtRate(points2, EvaluateOnce(points), 20000, RateChaseReevaluation.DestinationAndRate);
+}
+
+rule: "boss fight: called off when the team teleports away"
+if (Bosssequencer != 0)
+
+if (telespot != Bosssequencer - 1)
+{
+    SmallMessage(AllPlayers(Team.All), <"<0> Running away? My champion will wait for you.", HeroIconString(Hero.Ramattra)>);
+    EndBossFight();
+    numberOfZombies = 0;
+}
+
+rule: "boss fight: forgotten after a soft restart"
+if (start == false)
+if (Bosssequencer != 0)
+{
+
+    bossEffects = [];
+    bossBots = [];
+    bossBody = null;
+    Bosssequencer = 0;
+}
+
+void EndBossFight() "end boss fight"
+{
+    for (bossIndex = 0; 12; 1)
+    {
+        if (PlayersInSlot(bossIndex, Team.Team2) != null)
+        {
+            DestroyDummyBot(Team.Team2, bossIndex);
+
+            Wait(0.25, WaitBehavior.IgnoreCondition);
+            LoadingPause();
+        }
+    }
+    for (bossIndex = 0; CountOf(bossEffects); 1)
+    {
+        DestroyEffect(bossEffects[bossIndex]);
+    }
+    bossEffects = [];
+    bossBots = [];
+    bossBody = null;
+    Bosssequencer = 0;
+}

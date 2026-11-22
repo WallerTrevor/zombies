@@ -1,60 +1,39 @@
-﻿
-disabled rule: "516 rounds add points and XP"
+﻿rule: "517 set xp to hero"
 Event.OngoingPlayer
 Team.Team1
-if (roundnumber >= 1)
-if (WorkshopSettingToggle("difficulty", "Each round adds XP and points in co-op", true, 0) == true)
-{
-    # modify these to scale based off difficulty
-    xp += 30;
-    # if getNumberOfPlayers(Team.1) > 2: set starting points
-    points2 += 500;
-}
 
-rule: "517 set xp to hero"
-Event.OngoingPlayer
-Team.Team1
-if (IsAlive(EventPlayer()) == true)
+if (currentheroxp != IndexOfArrayValue(hero, HeroOf(EventPlayer())))
 {
-    for (i = 0; 35; 1)
-    {
-        if (HeroOf(EventPlayer()) == hero[i])
-        {
-            currentheroxp = xp[i];
-        }
-    }
+    currentheroxp = IndexOfArrayValue(hero, HeroOf(EventPlayer()));
 }
 
 rule: "512 gain level"
 Event.OngoingPlayer
-if (xp[currentheroxp] >= 100)
+Team.Team1
 if (experiencesystem == true)
+if (xp[currentheroxp] >= 100)
 {
+
+    xp[currentheroxp] -= 100;
     XPlevel[currentheroxp] += 1;
-    xp[currentheroxp] = false;
+    SmallMessage(EventPlayer(), <"<0> level <1>! <2>", HeroIconString(HeroOf(EventPlayer())), XPlevel[currentheroxp], XPlevel[currentheroxp] == 5 ? "Secondary fire unlocked!" : (XPlevel[currentheroxp] == 10 ? <"<0> unlocked!", AbilityIconString(HeroOf(EventPlayer()), Button.Ability1)> : (XPlevel[currentheroxp] == 15 ? <"<0> unlocked!", AbilityIconString(HeroOf(EventPlayer()), Button.Ability2)> : (XPlevel[currentheroxp] == 20 ? <"<0> unlocked!", AbilityIconString(HeroOf(EventPlayer()), Button.Ultimate)> : "")))>);
+
+    MinWait();
+    LoopIfConditionIsTrue();
 }
 
 rule: "513 Rule 321 lvl gain stat changes"
 Event.OngoingPlayer
 Team.Team1
 if (experiencesystem == true)
+if (start == 1)
+
+if (xpAppliedKey != currentheroxp * 1000 + XPlevel[currentheroxp])
 {
-    switch (XPlevel[currentheroxp])
-    {
-        case 5:
-            SetSecondaryFireEnabled(EventPlayer(), true);
-            break;
+    xpAppliedKey = currentheroxp * 1000 + XPlevel[currentheroxp];
 
-        case 10:
-            SetAbility1Enabled(EventPlayer(), true);
-            break;
-
-        case 15:
-            SetAbility2Enabled(EventPlayer(), true);
-            break;
-
-        case 20:
-            SetUltimateAbilityEnabled(EventPlayer(), true);
-            break;
-    }
+    SetSecondaryFireEnabled(EventPlayer(), XPUnlocked(5) && currentmagazines > 0);
+    SetAbility1Enabled(EventPlayer(), XPUnlocked(10));
+    SetAbility2Enabled(EventPlayer(), XPUnlocked(15));
+    SetUltimateAbilityEnabled(EventPlayer(), XPUnlocked(20));
 }

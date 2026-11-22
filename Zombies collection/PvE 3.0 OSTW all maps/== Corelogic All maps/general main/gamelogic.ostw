@@ -1,0 +1,747 @@
+rule: "1 Setup"
+{
+
+    DisableInspectorRecording();
+    roundnumber = 0;
+    numberOfZombies = false;
+    C = false;
+    P = false;
+    Q = [];
+    T = [];
+    Y = [];
+    hudappend = [];
+
+    O = false;
+    M[0] = Vector(500, 25, 500);
+    M[1] = Vector(500, 25, 500);
+    M[2] = Vector(500, 25, 500);
+    M[3] = Vector(500, 25, 500);
+    M[4] = Vector(500, 25, 500);
+    M[5] = Vector(500, 25, 500);
+
+    M[6] = Vector(500, 25, 500);
+    appenddoorsequencer = [];
+    dooreffectsequencer = [];
+    teleportercolor = Color.Blue;
+
+    Difficulty = 2;
+    spawntype = 3;
+    experiencesystem = false;
+    for (forindex = 0; 4; 1)
+    {
+        Died[forindex] = Vector(500, 0, 500);
+    }
+    costmultiplier = 1;
+
+    zoneMarkersZone = -1;
+}
+
+rule: "power-up effects and HUDs"
+if (start == 1)
+{
+    CreateEffect(AllPlayers(Team.Team1), Effect.Orb, Color.White, FirstOf(M), 1, EffectRev.VisibleToPositionAndRadius);
+    CreateEffect(AllPlayers(Team.Team1), Effect.Orb, Color.Yellow, M[1], 1, EffectRev.VisibleToPositionAndRadius);
+    CreateEffect(AllPlayers(Team.Team1), Effect.Orb, Color.Green, M[2], 1, EffectRev.VisibleToPositionAndRadius);
+    CreateEffect(AllPlayers(Team.Team1), Effect.Orb, Color.Violet, M[3], 0.1, EffectRev.None);
+    CreateEffect(AllPlayers(Team.Team1), Effect.Orb, Color.Red, M[4], 1, EffectRev.PositionAndRadius);
+    CreateEffect(AllPlayers(Team.Team1), Effect.Orb, Color.Orange, M[5], 1, EffectRev.PositionAndRadius);
+    CreateHudText(FilteredArray(AllPlayers(Team.Team1), ArrayElement().S[1] == 1), <"<0>", HeroIconString(Hero.Ramattra)>, null, "Double points!", Location.Top, 1, Color.White, Color.White, Color.Orange, HudTextRev.VisibleToAndString, Spectators.VisibleNever);
+    CreateHudText(FilteredArray(AllPlayers(Team.Team1), ArrayElement().S[2] == 1), <"<0>", HeroIconString(Hero.Ramattra)>, null, "Time Freeze", Location.Top, 1, Color.White, Color.White, Color.Orange, HudTextRev.VisibleToAndString, Spectators.VisibleNever);
+    CreateHudText(FilteredArray(AllPlayers(Team.Team1), ArrayElement().S[4] == 1), <"<0>", HeroIconString(Hero.Ramattra)>, null, "Insta-Kill!", Location.Top, 1, Color.White, Color.White, Color.Orange, HudTextRev.VisibleToAndString, Spectators.VisibleNever);
+    CreateHudText(FilteredArray(AllPlayers(Team.Team1), FirstOf(ArrayElement().S) == 1), <"<0>", HeroIconString(Hero.Ramattra)>, null, "Ultimate Mayhem!", Location.Top, 1, Color.White, Color.White, Color.Orange, HudTextRev.VisibleToAndString, Spectators.VisibleNever);
+    CreateHudText(FilteredArray(AllPlayers(Team.Team1), ArrayElement().S[5] == 1), <"<0>", HeroIconString(Hero.Ramattra)>, null, "Max Ammo!", Location.Top, 1, Color.White, Color.White, Color.Orange, HudTextRev.VisibleToAndString, Spectators.VisibleNever);
+    CreateHudText(FilteredArray(AllPlayers(Team.Team1), ArrayElement().S[3] == 1), <"<0>", HeroIconString(Hero.Ramattra)>, null, "Data Reset.", Location.Top, 1, Color.White, Color.White, Color.Orange, HudTextRev.VisibleToAndString, Spectators.VisibleNever);
+
+    CreateEffect(AllPlayers(Team.Team1), Effect.Orb, Color.Purple, M[6], 1, EffectRev.VisibleToPositionAndRadius);
+    CreateHudText(FilteredArray(AllPlayers(Team.Team1), ArrayElement().S[6] == 1), <"<0>", HeroIconString(Hero.Ramattra)>, null, "Fire Sale!", Location.Top, 1, Color.White, Color.White, Color.Purple, HudTextRev.VisibleToAndString, Spectators.VisibleNever);
+}
+
+rule: "2 round change"
+if (numberOfZombies <= 0)
+if (start == 1)
+
+if (IsTrueForAny(AllPlayers(Team.Team1), ArrayElement().outofpsawn == 1) == true)
+{
+    Wait(0.16, WaitBehavior.IgnoreCondition);
+    for (forindex = 0; CountOf(omnicspawn); 1)
+    {
+        DestroyDummyBot(Team.Team2, omnicspawn[forindex]);
+    }
+    roundnumber += 1;
+    Z = 1;
+    BigMessage(AllPlayers(Team.All), <@"Round <0>", romanN[romanNcounter]>);
+    P = false;
+
+    roundRespawns = FilteredArray(AllDeadPlayers(Team.Team1), !IsDummyBot(ArrayElement()));
+    roundTeammate = RandomValueInArray(FilteredArray(AllLivingPlayers(Team.Team1), !IsDummyBot(ArrayElement())));
+    roundRespawns.perk[Perk.packapunch] = 0;
+    roundRespawns.papSlotTier = [];
+    Resurrect(roundRespawns);
+    ClearStatus(roundRespawns, Status.Burning);
+    if (roundTeammate != null)
+    {
+        Teleport(roundRespawns, PositionOf(roundTeammate));
+
+        roundRespawns.doorSkipCheck = true;
+    }
+
+    ForcePlayerHero(roundRespawns, Hero.Ashe);
+
+    Resurrect(FilteredArray(AllDeadPlayers(Team.Team1), IsDummyBot(ArrayElement())));
+    for (forindex = 0; 4; 1)
+    {
+        Died[forindex] = Vector(500, 0, 500);
+    }
+    AllPlayers(Team.Team1).InfoCooldown = false;
+    AllPlayers(Team.Team1).p_P = false;
+    AllPlayers(Team.Team1).botTarget = false;
+    AllPlayers(Team.Team1).HideHints = false;
+    SetStatus(AllLivingPlayers(Team.Team1), null, Status.PhasedOut, 2);
+
+    AllPlayers(Team.Team1).monkeyBombsLeft = 3;
+    chwaveinterval += 1;
+    if (roundnumber < 12)
+    {
+        romanNcounter += 1;
+    }
+    rngCamera = RandomInteger(1, 5);
+
+    costmultiplier *= RandomReal(1, 1);
+    roundpointmultiplier = RandomReal(1.01, 1.03);
+}
+
+rule: "3 Set Round Kills"
+if (Z == 1)
+{
+
+    numberOfZombies = Min(6 + roundnumber * 3, ZombiesPerWaveMax());
+    Wait(1, WaitBehavior.IgnoreCondition);
+    Z = false;
+}
+
+rule: "5 Time manager"
+if (IsAssemblingHeroes() == true)
+{
+    SetMatchTime(5);
+}
+
+rule: "5 Time manager: the objective never unlocks"
+if (IsGameInProgress() == true)
+if (start == false)
+{
+    SetMatchTime(3599);
+    PauseMatchTime();
+}
+
+rule: "6 Defeat (needs to be refined for soft restart)"
+
+if (IsTrueForAll(FilteredArray(AllPlayers(Team.Team1), !IsDummyBot(ArrayElement())), IsDead(ArrayElement())) == true)
+if (IsTrueForAll(FilteredArray(AllPlayers(Team.Team1), !IsDummyBot(ArrayElement())), HasSpawned(ArrayElement())) == true)
+{
+    Wait(2, WaitBehavior.AbortWhenFalse);
+    setspawn = RandomInteger(0, 5);
+    DestroyAllDummyBots();
+    StartCamera(AllPlayers(Team.Team1), Vector(317.328, -25.644, -140.906), Vector(320.513, -24.05, -134.612), 0);
+    DestroyAllHudText();
+
+    DestroyAllProgressBarHudText();
+    DestroyAllEffects();
+
+    DestroyAllInworldText();
+    DestroyAllIcons();
+
+    globalActiveBreaches = [];
+    globalActiveBreachHealth = [];
+    globalActiveBreachEffects = [];
+    averagePosition = null;
+
+    Wait(4, WaitBehavior.IgnoreCondition);
+
+    for (forindex = 0; 4; 1)
+    {
+        PlayersInSlot(forindex, Team.Team1).allowedheroes = Append([Hero.Ashe, Hero.Dva], RemoveFromArray(PlayersInSlot(forindex, Team.Team1).allowedheroes, [Hero.Ashe, Hero.Dva]));
+        SetAllowedHeroes(PlayersInSlot(forindex, Team.Team1), PlayersInSlot(forindex, Team.Team1).allowedheroes);
+    }
+    GoToAssembleHeroes();
+
+    Resurrect(AllPlayers(Team.Team1));
+    Wait(2, WaitBehavior.IgnoreCondition);
+    bankPoints += AllPlayers(Team.Team1).points * 0.75;
+    AllPlayers(Team.Team1).outofpsawn = false;
+    teamOutOfSpawn = false;
+    roundnumber = 0;
+    start = false;
+
+    romanNcounter = 0;
+    poweron = 0;
+    AllPlayers(Team.Team1).points = 0;
+    g = false;
+    AllPlayers(Team.Team1).creditcardlimit = 0;
+    AllPlayers(Team.Team1).creditTier = 0;
+    costmultiplier = 1;
+    doorsOpen = [];
+    for (forindex = 0; allDoors.Length; 1)
+    {
+        allDoors[forindex].State = WallState.Closed;
+
+        allDoors[forindex].BeamA = null;
+        allDoors[forindex].BeamB = null;
+    }
+
+    numberOfZombies = 0;
+    Z = 0;
+    omnicspawn = [];
+
+    for (forindex = 0; 7; 1)
+    {
+        M[forindex] = Vector(500, 25, 500);
+    }
+
+    fireSaleEffects = [];
+    fireSaleTexts = [];
+    fireSaleBoxes = [];
+    fireSale = false;
+
+    slowmoPowerup = false;
+    slowmoCutscene = 0;
+    for (forindex = 0; 4; 1)
+    {
+        Died[forindex] = Vector(500, 0, 500);
+    }
+    teleporterwait = false;
+    teleporterused = 0;
+    teleportercolor = Color.Blue;
+    trapeffect = false;
+    boxcounter = 0;
+    chwaveinterval = 0;
+    challengewave = 0;
+    ramPoints = 0;
+
+    zoneEffects = [];
+    zoneTexts = [];
+    zoneIcons = [];
+    zoneMarkersZone = -1;
+    powerconnected = null;
+
+    gameNumber += 1;
+}
+
+rule: "soft restart: a hero for players who did not pick one"
+Event.OngoingPlayer
+Team.Team1
+if (IsDummyBot(EventPlayer()) == false)
+if (gameNumber > 0)
+if (IsAssemblingHeroes() == false)
+if (HasSpawned(EventPlayer()) == false)
+{
+
+    Wait(0.016, WaitBehavior.AbortWhenFalse);
+
+    ForcePlayerHero(EventPlayer(), RandomValueInArray(Append([Hero.Ashe, Hero.Dva], allowedheroes)));
+}
+
+rule: "soft restart: reset each player"
+Event.OngoingPlayer
+Team.Team1
+if (IsDummyBot(EventPlayer()) == false)
+if (playerGameNumber != gameNumber)
+{
+    playerGameNumber = gameNumber;
+
+    perk = [];
+    papAppliedTier = -1;
+    Packapunch = 0;
+    damagevariable = 100;
+    healvariable = 100;
+    healthmax = 50;
+    SetDamageDealt(EventPlayer(), 100);
+    SetHealingDealt(EventPlayer(), 100);
+    SetMaxHealth(EventPlayer(), 100);
+    SetMoveSpeed(EventPlayer(), 100);
+    doublemag = false;
+    sprintburstperk = false;
+    Jugg = false;
+
+    magazines = [5, 5];
+    currentmagazines = 5;
+    currentswap = 0;
+    ultcharge = [0, 0];
+    papSlotTier = [];
+    herohp = [];
+    abilitycooldown = [];
+    heroswap = [Hero.Ashe, Hero.Dva];
+    heroiconswap = [HeroIconString(Hero.Ashe), HeroIconString(Hero.Dva)];
+
+    followerbuy = null;
+    firstFollowerShown = false;
+    monkeyBombOwned = false;
+    monkeyBombsLeft = 0;
+    monkeyBombActive = false;
+    monkeyBomb = null;
+
+    p_T = 0;
+    S = [];
+    G = [];
+    singlelives = 0;
+    perkinfo = 0;
+
+    active_wall = [];
+    lastsavedpos = null;
+
+    lastOutsideSpawn = null;
+
+    playerRingCreated = false;
+}
+
+rule: "7 Disable Bot Respawn"
+Event.OnPlayerJoin
+Team.Team2
+{
+
+    DisableRespawning(EventPlayer());
+}
+
+rule: "8 respawn bots"
+if (numberOfZombies >= 1)
+if (NumberOfLivingPlayers(Team.Team2) < numberOfZombies)
+
+if (Bosssequencer == 0)
+
+if (IsTrueForAny(AllDeadPlayers(Team.Team2), ArrayElement() != waveBoss) == true)
+{
+
+    Wait(0.25, WaitBehavior.AbortWhenFalse);
+    Respawn(RandomValueInArray(RemoveFromArray(AllDeadPlayers(Team.Team2), waveBoss)));
+    LoopIfConditionIsTrue();
+}
+
+rule: "36 Pickup perk drops(should be able to write this as one rule)"
+Event.OngoingPlayer
+Team.Team1
+if (DistanceBetween(EventPlayer(), M[1]) <= 1.5)
+if (AllPlayers(Team.Team1).G[1] == false)
+if (roundnumber >= 1)
+if (IsTrueForAny(M, DistanceBetween(ArrayElement(), EventPlayer()) < 4) == true)
+{
+    M[1] = Vector(500, 25, 500);
+    AllPlayers(Team.Team1).G[1] = true;
+    AllPlayers(Team.Team1).S[1] = 1;
+    BigMessage(AllPlayers(Team.All), "Double points!");
+    AllPlayers(Team.Team1).H = 2;
+    Wait(60, WaitBehavior.IgnoreCondition);
+    AllPlayers(Team.Team1).H = 1;
+    AllPlayers(Team.Team1).G[1] = false;
+    AllPlayers(Team.Team1).S[1] = false;
+}
+
+rule: "37 Pickup slowmotion"
+Event.OngoingPlayer
+Team.Team1
+if (DistanceBetween(EventPlayer(), M[2]) <= 1.5)
+if (AllPlayers(Team.Team1).G[2] == false)
+if (roundnumber >= 1)
+{
+    M[2] = Vector(500, 25, 500);
+    AllPlayers(Team.Team1).G[2] = true;
+    AllPlayers(Team.Team1).S[2] = 1;
+    BigMessage(AllPlayers(Team.All), <"<0> <1> -> <2>", @"Slower", @"Time", <@"<0> sec", 10>>);
+
+    slowmoPowerup = true;
+    Wait(5, WaitBehavior.IgnoreCondition);
+    slowmoPowerup = false;
+    AllPlayers(Team.Team1).G[2] = false;
+    AllPlayers(Team.Team1).S[2] = false;
+}
+
+rule: "38 Pickup insta kill"
+Event.OngoingPlayer
+Team.Team1
+if (DistanceBetween(EventPlayer(), M[4]) <= 1.5)
+if (AllPlayers(Team.Team1).G[4] == false)
+if (roundnumber >= 1)
+{
+    M[4] = Vector(500, 25, 500);
+    AllPlayers(Team.Team1).G[4] = true;
+    AllPlayers(Team.Team1).S[4] = 1;
+    BigMessage(AllPlayers(Team.All), "Insta-Kill!");
+    SetDamageDealt(AllPlayers(Team.Team1), AbsoluteValue(999999));
+    SetDamageReceived(AllPlayers(Team.Team2), 1000);
+    Wait(30, WaitBehavior.IgnoreCondition);
+
+    for (forindex = 0; 8; 1)
+    {
+        SetDamageDealt(PlayersInSlot(forindex, Team.Team1), Max(100, PlayersInSlot(forindex, Team.Team1).damagevariable));
+    }
+    SetDamageReceived(AllPlayers(Team.Team2), 100);
+    AllPlayers(Team.Team1).G[4] = false;
+    AllPlayers(Team.Team1).S[4] = false;
+}
+
+rule: "39 Pickup InstaUlt"
+Event.OngoingPlayer
+Team.Team1
+if (DistanceBetween(EventPlayer(), FirstOf(M)) <= 1.5)
+if (FirstOf(AllPlayers(Team.Team1).G) == false)
+if (roundnumber >= 1)
+{
+    M[0] = Vector(500, 25, 500);
+    AllPlayers(Team.Team1).G[0] = true;
+    AllPlayers(Team.Team1).S[0] = 1;
+    BigMessage(AllPlayers(Team.All), "Unlimited Ultimate Ability -> 15 sec");
+    Wait(15, WaitBehavior.IgnoreCondition);
+    AllPlayers(Team.Team1).G[0] = false;
+    AllPlayers(Team.Team1).S[0] = false;
+}
+
+rule: "Pickup fire sale"
+Event.OngoingPlayer
+Team.Team1
+if (DistanceBetween(EventPlayer(), M[6]) <= 1.5)
+if (AllPlayers(Team.Team1).G[6] == false)
+if (roundnumber >= 1)
+{
+    M[6] = Vector(500, 25, 500);
+    AllPlayers(Team.Team1).G[6] = true;
+    AllPlayers(Team.Team1).S[6] = 1;
+    BigMessage(AllPlayers(Team.All), "Fire Sale!");
+    fireSale = true;
+    Wait(30, WaitBehavior.IgnoreCondition);
+    fireSale = false;
+    AllPlayers(Team.Team1).G[6] = false;
+    AllPlayers(Team.Team1).S[6] = false;
+}
+
+rule: "40 InstaUlt Active"
+Event.OngoingPlayer
+Team.Team1
+if (FirstOf(G) == true)
+{
+    SetUltimateCharge(EventPlayer(), 100);
+    Wait(2, WaitBehavior.AbortWhenFalse);
+    LoopIfConditionIsTrue();
+}
+
+rule: "no going back into spawn: remember the last spot outside"
+Event.OngoingPlayer
+Team.Team1
+if (outofpsawn == 1)
+if (IsDummyBot(EventPlayer()) == false)
+if (IsAlive(EventPlayer()) == true)
+if (IsInSpawnRoom(EventPlayer()) == false)
+{
+    lastOutsideSpawn = PositionOf(EventPlayer());
+    Wait(0.25, WaitBehavior.AbortWhenFalse);
+    LoopIfConditionIsTrue();
+}
+
+rule: "no going back into spawn"
+Event.OngoingPlayer
+Team.Team1
+if (outofpsawn == 1)
+if (IsDummyBot(EventPlayer()) == false)
+if (IsAlive(EventPlayer()) == true)
+if (IsInSpawnRoom(EventPlayer()) == true)
+
+if (lastOutsideSpawn != null)
+{
+    Teleport(EventPlayer(), lastOutsideSpawn);
+
+    doorSkipCheck = true;
+    SmallMessage(EventPlayer(), <"<0> No going back!", HeroIconString(Hero.Ramattra)>);
+    Wait(0.5, WaitBehavior.IgnoreCondition);
+    LoopIfConditionIsTrue();
+}
+
+rule: "48 WORKSHOP SETTINGS"
+Event.OngoingPlayer
+Team.Team1
+if (HasSpawned(EventPlayer()) == true)
+{
+
+    Wait(3, WaitBehavior.IgnoreCondition);
+    SetGravity(EventPlayer(), WorkshopSettingReal("Cheats", "Gravity", 100, 25, 200, 5));
+    SetProjectileGravity(AllPlayers(Team.Team1), WorkshopSettingInteger("Cheats", "Projectile gravity team 1", 100, 25, 500, 6));
+    SetProjectileSpeed(AllPlayers(Team.Team1), WorkshopSettingInteger("Cheats", "Projectile speed team 1", 100, 25, 500, 7));
+    SetProjectileGravity(AllPlayers(Team.Team2), WorkshopSettingInteger("Cheats", "Projectile gravity team 2", 75, 25, 500, 8));
+    SetProjectileSpeed(AllPlayers(Team.Team2), WorkshopSettingInteger("Cheats", "Projectile speed team 2", 50, 25, 500, 9));
+}
+
+rule: "83 power challenge effects"
+
+if (poweron == 1)
+if (roundnumber < 15)
+{
+
+    PlayersOnHero(Hero.Brigitte, Team.Team2).powerUltPending = true;
+}
+
+rule: "88 disable vanilla features"
+Event.OnPlayerJoin
+{
+    DisableMusic();
+    DisableKillFeed(AllPlayers(Team.All));
+    DisableAnnouncer();
+
+    DisableNameplates(AllLivingPlayers(Team.Team2), AllPlayers(Team.Team1));
+
+    DisableScoring();
+    DisableCompletion();
+    DisableGameModeInworldUI(AllPlayers(Team.All));
+    DisableGameModeHud(AllPlayers(Team.All));
+    DisableRespawning(AllPlayers(Team.All));
+    F = false;
+    H = 1;
+    Wait(10, WaitBehavior.IgnoreCondition);
+    allowedheroes = [FirstOf(heroswap), heroswap[1]];
+}
+
+rule: "start screen: the hero does nothing"
+Event.OngoingPlayer
+Team.Team1
+if (IsDummyBot(EventPlayer()) == false)
+if (start == false)
+{
+    DisallowButton(EventPlayer(), Button.PrimaryFire);
+    DisallowButton(EventPlayer(), Button.SecondaryFire);
+    DisallowButton(EventPlayer(), Button.Ability1);
+    DisallowButton(EventPlayer(), Button.Ability2);
+    DisallowButton(EventPlayer(), Button.Ultimate);
+    DisallowButton(EventPlayer(), Button.Interact);
+    DisallowButton(EventPlayer(), Button.Jump);
+    DisallowButton(EventPlayer(), Button.Crouch);
+    DisallowButton(EventPlayer(), Button.Melee);
+    DisallowButton(EventPlayer(), Button.Reload);
+    WaitUntil(start != false, 99999);
+    ClearStatus(EventPlayer(), Status.Rooted);
+    AllowButton(EventPlayer(), Button.PrimaryFire);
+    AllowButton(EventPlayer(), Button.SecondaryFire);
+    AllowButton(EventPlayer(), Button.Ability1);
+    AllowButton(EventPlayer(), Button.Ability2);
+    AllowButton(EventPlayer(), Button.Ultimate);
+    AllowButton(EventPlayer(), Button.Interact);
+    AllowButton(EventPlayer(), Button.Jump);
+    AllowButton(EventPlayer(), Button.Reload);
+}
+
+rule: "start screen: rooted"
+Event.OngoingPlayer
+Team.Team1
+if (start == false)
+if (IsDummyBot(EventPlayer()) == false)
+if (IsAlive(EventPlayer()) == true)
+if (HasStatus(EventPlayer(), Status.Rooted) == false)
+{
+    SetStatus(EventPlayer(), null, Status.Rooted, 9999);
+}
+
+rule: "498 Rule 480 start screen"
+Event.OngoingPlayer
+Team.Team1
+
+if (start == false)
+
+if (settingsViewers == null)
+{
+    WaitUntil(HasSpawned(EventPlayer()), 99999);
+    StartCamera(EventPlayer(), Vector(255.366, 9.471, -169.75), Vector(261.155, 6.939, -180.808), 0);
+    DisableHeroHud(EventPlayer());
+    Wait(15, WaitBehavior.AbortWhenFalse);
+    StartCamera(EventPlayer(), Vector(159.409, 82.32, 212.576), Vector(267.128, 50, 130.027), 0);
+    Wait(0.25, WaitBehavior.AbortWhenFalse);
+    StartCamera(EventPlayer(), Vector(343.545, 75.093, 219.552), Vector(267.128, 50, 130.027), 0.2);
+    Wait(15, WaitBehavior.AbortWhenFalse);
+    StartCamera(EventPlayer(), Vector(353.189, 30.177, -98.238), Vector(284.894, -20, -243.771), 0);
+    Wait(0.25, WaitBehavior.AbortWhenFalse);
+    StartCamera(EventPlayer(), Vector(272.905, 4.398, -171.199), Vector(284.894, -20, -243.771), 0.2);
+    Wait(15, WaitBehavior.AbortWhenFalse);
+    StartCamera(EventPlayer(), Vector(-135.745, 21.786, -75.565), Vector(50.301, 14.262, 24.728), 0);
+    Wait(0.25, WaitBehavior.AbortWhenFalse);
+    StartCamera(EventPlayer(), Vector(-140.759, 19.998, 77.008), Vector(50.301, 14.262, 24.728), 0.2);
+    Wait(15, WaitBehavior.AbortWhenFalse);
+    LoopIfConditionIsTrue();
+}
+
+rule: "497 start control"
+Event.OngoingPlayer
+Team.Team1
+if (start == false)
+
+if (textListsLoaded == true)
+
+if (settingsViewers == null)
+
+if ((IsButtonHeld(EventPlayer(), Button.Jump) || arcadeCodeStep >= 6) == true)
+{
+    setspawn = RandomInteger(0, 5);
+    Wait(0.25, WaitBehavior.IgnoreCondition);
+
+    if (Difficulty >= 4)
+    {
+        buyheros = RandomizedArray(buyherosHome);
+        buyperks = Append(RandomizedArray(ArraySlice(buyperksHome, 0, 5)), ArraySlice(buyperksHome, 5, CountOf(buyperksHome)));
+    }
+    else
+    {
+        buyheros = buyherosHome;
+        buyperks = buyperksHome;
+    }
+
+    if (WorkshopSettingToggle("Cheats", "Power on from the start", false, 2) == true)
+    {
+        poweron = 1;
+    }
+
+    arcadeMode = arcadeCodeStep >= 6;
+
+    if (arcadeMode)
+    {
+        Difficulty = 1;
+        difficultyStats = ArraySlice(difficultyTable, 0, 6);
+    }
+    AllPlayers(Team.Team1).arcadeCodeStep = 0;
+
+    roundnumber = WorkshopSettingInteger("Cheats", "Starting wave", 1, 1, 100, 1) - 1;
+    start = 1;
+    aprilrng = RandomInteger(1, 100);
+    startlines = RandomInteger(0, 29);
+    heroswap[0] = HeroOf(EventPlayer());
+    Wait(1, WaitBehavior.IgnoreCondition);
+    EnableMusic();
+    rngbox = RandomValueInArray(mysterylocations);
+    StartCamera(AllPlayers(Team.All), Vector(283.872, 1.875, 118.717), Vector(282.782, 1.329, 109.203), 0);
+    CreateInWorldText(AllPlayers(Team.All), "Good Luck...", Vector(282.782, 1.329, 109.203), 5, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleToPositionAndString, Color.White, Spectators.DefaultVisibility);
+    Wait(4, WaitBehavior.IgnoreCondition);
+    StopCamera(AllPlayers(Team.All));
+    Wait(0.1, WaitBehavior.IgnoreCondition);
+    EnableHeroHud(AllPlayers(Team.All));
+
+    startingPoints = WorkshopSettingInteger("Cheats", "Starting points", 500, 500, 1000000, 0);
+    AllPlayers(Team.All).points = startingPoints;
+    AllPlayers(Team.All).points2 = AllPlayers(Team.All).points;
+    AllPlayers(Team.All).cashback = 1;
+}
+
+rule: "521 start screen message"
+Event.OngoingPlayer
+if (start == false)
+
+if (textListsLoaded == true)
+{
+
+    SmallMessage(EventPlayer(), settingsViewers != null ? <"Press <0> to go back", InputBindingString(Button.Melee)> : <"Press jump to start, <0> for settings", InputBindingString(Button.Melee)>);
+    Wait(8, WaitBehavior.IgnoreCondition);
+    LoopIfConditionIsTrue();
+}
+
+rule: "565 door message"
+Event.OngoingPlayer
+Team.Team1
+if (doormessage == 1)
+{
+    Wait(5, WaitBehavior.IgnoreCondition);
+    doormessage = false;
+}
+
+rule: "143 DIFFICULTY damage taken, healing and XP system"
+Event.OngoingPlayer
+Team.Team1
+if (HasSpawned(EventPlayer()) == true)
+
+if (start == 1)
+{
+
+    SetDamageReceived(EventPlayer(), WorkshopSettingToggle("Cheats", "God mode", false, 3) ? 0 : DifficultyDamageTaken());
+    healvariable = DifficultyHealing();
+    SetHealingDealt(EventPlayer(), healvariable);
+
+    magazines = [StartingMagazines(), StartingMagazines()];
+    currentmagazines = StartingMagazines();
+
+    xpAppliedKey = -1;
+}
+
+rule: "159 workshop setting explosive rounds(could add a cheats menu somewhere)"
+Event.OnDamageDealt
+Team.Team1
+if (IsButtonHeld(EventPlayer(), Button.PrimaryFire) == true)
+if (WorkshopSettingToggle("Cheats", "Explosive rounds", false, 4) == true)
+{
+
+    Damage(PlayersWithinRadius(Victim(), 3, Team.Team2, RadiusLOS.Off), null, 300);
+    PlayEffect(AllPlayers(Team.All), PlayEffect.GoodExplosion, Color.Red, Victim(), 3);
+    Wait(0.45, WaitBehavior.IgnoreCondition);
+}
+
+rule: "191 Trap logic"
+if (trapeffect == true)
+{
+    CreateDummyBot(Hero.Bastion, Team.Team1, 12, Vector(-86.342, -150.729, 39.793), Vector(0, 0, 0));
+    omnicspawn[18] = SlotOf(PlayersInSlot(12, Team.Team1));
+    CreateDummyBot(Hero.Bastion, Team.Team1, 13, Vector(-82.277, -150.687, 80.335), Vector(0, 0, 0));
+    omnicspawn[19] = SlotOf(PlayersInSlot(13, Team.Team1));
+    StartHoldingButton(PlayersInSlot(12, Team.Team1), Button.PrimaryFire);
+    Wait(0.25, WaitBehavior.IgnoreCondition);
+    PlayersInSlot(12, Team.Team1).p_T = 1;
+    PlayersInSlot(13, Team.Team1).p_T = 1;
+    PressButton(PlayersInSlot(12, Team.Team1), Button.Ability1);
+    PressButton(PlayersInSlot(13, Team.Team1), Button.Ability1);
+    StartHoldingButton(PlayersInSlot(13, Team.Team1), Button.PrimaryFire);
+    Wait(20, WaitBehavior.IgnoreCondition);
+    DestroyDummyBot(Team.Team1, omnicspawn[18]);
+    DestroyDummyBot(Team.Team1, omnicspawn[19]);
+}
+
+rule: "299 out of bounce boundry"
+Event.OngoingPlayer
+Team.Team1
+if (PlayersWithinRadius(Vector(-109.55, -151.893, -6.832), 2.5, Team.Team1, RadiusLOS.Off) == true)
+if (start == 1)
+{
+    Teleport(EventPlayer(), Vector(-104.638, -150.413, -15.437));
+}
+
+rule: "403 Challenge waves"
+Event.OngoingPlayer
+Team.Team2
+if (challengewave == 1)
+if (IsAlive(EventPlayer()) == true)
+{
+    SetUltimateCharge(EventPlayer(), 100);
+    if (numberOfZombies < 4)
+    {
+        challengewave = false;
+    }
+}
+
+rule: "404 set challenge wave every few rounds"
+if (chwaveinterval >= 4)
+{
+    challengewave = RandomInteger(0, 1);
+    if (challengewave == 1)
+    {
+        chwaveinterval = false;
+    }
+}
+
+rule: "235 the match timer in a game"
+if (IsGameInProgress() == true)
+if (start == 1)
+{
+    SetMatchTime(3599);
+    UnpauseMatchTime();
+    Wait(5, WaitBehavior.AbortWhenFalse);
+    SmallMessage(FilteredArray(AllPlayers(Team.Team1), ArrayElement().outofpsawn == 0), "Leave the spawn room to start!");
+    while (true)
+    {
+        Wait(3000, WaitBehavior.AbortWhenFalse);
+        SetMatchTime(3599);
+    }
+}
+
+rule: "teleporter timer"
+
+if (teleporterwait == true)
+{
+    Wait(60, WaitBehavior.IgnoreCondition);
+    teleporterwait = false;
+}

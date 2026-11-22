@@ -1,0 +1,526 @@
+{
+  "bankTiers": {
+    "Cost": [0, 5000, 10000, 20000],
+    "InterestRate": [0, 0.03, 0.04, 0.06]
+  },
+  "creditCardTiers": {
+    "Cost": [0, 1000, 2000, 4000],
+    "Limit": [0, 2000, 10000, 20000],
+    "Cashback": [1, 0.99, 0.95, 0.85],
+    "InterestRate": [0, 0.3, 0.2, 0.15]
+  },
+  "twoDnumbersArray": {
+    "herobuycosts": [1000, 1250, 1000, 1000, 1000, 1000, 1000, 1750, 1750, 1250, 1750, 1000, 1250, 500, 1750, 1750, 1750, 1750, 1750, 1750, 1750, 1250, 1250, 30000, 1250, 1000, 1000, 1000, 1000, 1750, 1750, 1750, 1000, 1250, 1750, 1250, 1750, 1250, 1250, 1250, 1250, 1000, 1000, 1250, 1250, 1250, 1250, 1250, 1250, 1250]
+  },
+  "counters": {
+    "heroType": [2, 0, 2, 0, 2, 0, 0, 0, 1, 2, 0, 0, 0, 0, 1, 1, 1, 2, 1, 0, 1, 1, 2, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 1, 2, 1, 2, 2, 2, 2, 0, 0, 1, 1, 0, 2, 2, 0, 2],
+    "typeChart": [100, 125, 80, 80, 100, 125, 125, 80, 100]
+  },
+  "difficulty": {
+    "_labels": ["Damage taken", "Healing", "Zombie reaction", "Zombies per wave", "Revive time", "Ammo", "no limit"],
+    "_ammo": ["unlimited", "normal", "normal", "normal", "low"],
+    "table": [
+      15, 35, 0.45, 36, 0, 8,
+      25, 25, 0.35, 52, 60, 6.5,
+      50, 25, 0.3, 72, 30, 5,
+      100, 20, 0.25, 999, 20, 3.75,
+      200, 15, 0.15, 999, 15, 2.5
+    ]
+  },
+  "texts": {
+    "tipstrings": [
+      "melee to consume less ammo!",
+      "reload only when your clip is empty to conserve ammo",
+      "you lose your hero if not revived at end of the round",
+      "after a playthrough, you keep all the heroes you bought",
+      "beating the boss' is well worth the points if you are up to the challenge",
+      "its cheaper to use the mystery box than buying a new hero",
+      "followers stay with you till you're downed",
+      "some custom items can be used by communicating “i need healing”",
+      "there is 3 zones to play in, each with its own boss",
+      "perks and hero locations rotate randomly each playthrough on veteran and extreme",
+      "points depend on who gets the last hit!",
+      "Every team can benefit from a good healer",
+      "A tank is valuable for their durability to the team",
+      "pack a punch gives new abilities!"
+    ],
+    "diedphrase": [
+      "Got rekt",
+      "met their end",
+      "took a dirt nap!",
+      "got owned",
+      "'s reflexes were lacking",
+      "'s ' 'git gud' skills were insufficient",
+      "'s clutch' performance was... underwhelming",
+      "'s skill issue was tragically evident",
+      "'s luck seemed to have run out",
+      "demonstrated a profound lack of spatial awareness.",
+      "experienced a severe case of target fixation"
+    ],
+    "diedtext": [
+      "Got outplayed",
+      "Needs a hug",
+      "Not so MLG",
+      "I'm THROWING"
+    ],
+    "noammostrings": [
+      "Tracks empty! No more beats to drop.",
+      "No arrows remain. I must wait.",
+      "My harmony is spent. I must restore it.",
+      "Weapon dry—nothing left!",
+      "Sidearm’s empty. Back to healing.",
+      "No rockets. Payload exhausted.",
+      "Well that’s a dud—no shots left!",
+      "My weapon is spent. Replenishing needed.",
+      "Weapons dry—fists will have to do.",
+      "Clip’s empty. Nothing left!",
+      "[frustrated beeps and whirs]",
+      "No shells left. Guns are dry.",
+      "My blades are not the problem. My ammo is.",
+      "Outta bullets. This is a problem.",
+      "Cannon dry. Must recharge.",
+      "Gun’s empty. Nothing left to fire.",
+      "No ammo left! Systems dry.",
+      "Hold on i'm out of charges!",
+      "My hammer never runs dry—but my cannon does.",
+      "Scrap’s gone. I’ve got nothing left.",
+      "My weapon is out—no energy remains.",
+      "Ammunition depleted. Nothing left to draw.",
+      "My stores are drained. I’ll need more.",
+      "Snow’s run out! Nothing left!",
+      "Out of ammo!",
+      "Dry already? Heh—time to get personal!",
+      "Railgun’s dry. No charge remaining.",
+      "Nada left. Totally empty!",
+      "Guns are out! Nothing left!",
+      "Magazine empty. I am dry.",
+      "No juice left—nothing to give.",
+      "[angry squeaks; guns click empty]",
+      "Reserves depleted. Nothing remains.",
+      "Out of steel—blades must wait.",
+      "Toxins exhausted. Nothing left to burn.",
+      "My weapon’s spent. All energy is gone.",
+      "Bah! Outta rounds—got nothin’ left!",
+      "My petals are spent—nothing remains.",
+      "Mag’s empty. Nothing left inside.",
+      "Ofuda’s gone. Nothing more to give.",
+      "Running low? No—I’m out.",
+      "Drills dry. Power’s gone.",
+      "Outta lead… nothing left but knuckles.",
+      "My wrath is endless, even without ammunition.",
+      "Out of ammo!",
+      "Out of ammo!",
+      "Out of ammo!",
+      "Out of ammo!",
+      "Out of ammo!",
+      "Out of ammo!"
+    ],
+    "followerbuyMsg": [
+      "The beat drops, but the wallet doesn't.",
+      "You require more points to fuel the dragon's fury.",
+      "Your emptiness hinders our path to enlightenment.",
+      "Your mission requires adequate funding, soldier.",
+      "Your reserves are depleted, angel.",
+      "Refuel the jetpack with more points, commander.",
+      "Your explosive plans require more points.",
+      "Allocate more points for the realization of this vision.",
+      "Our path to dominance is blocked by insufficient funds.",
+      "To heal and protect, we require sustenance.",
+      "Boop beep boop?",
+      "Feed this darkness with more points.",
+      "Your spirit is strong, but your balance is weak. Seek points.",
+      "This heist requires more capital, partner.",
+      "Acquire more points to fuel your power.",
+      "No scrap metal without points, you know?",
+      "More points, or it's game over!",
+      "Father would be disappointed.",
+      "Beer!",
+      "My forge runs cold without fuel",
+      "Our gravitational experiments require additional energy.",
+      "Your systems require upgrades.",
+      "Acquire more points for scientific advancement.",
+      "My experiments require more cryogenic energy.",
+      "Not enough points for this follower.",
+      "Mauga don’t fight for free—bring more points.",
+      "Precision firepower demands more than pocket change.",
+      "Secrets cost more than this—get points.",
+      "Blink into affordability first.",
+      "Patience. True precision is expensive.",
+      "Even a scientist can’t fund this plan without points.",
+      "Momentum denied—insufficient funding.",
+      "Evolution requires greater investment.",
+      "Freja needs more strength… and more points.",
+      "Hazard requires more resources to unleash chaos.",
+      "Sunlight blooms only with more offerings.",
+      "Queens don’t fight for free—show respect with points.",
+      "Life demands greater sacrifice than this.",
+      "Juno waits for those who invest more.",
+      "Even the clever fox needs more offerings.",
+      "Vision requires funding, sharpshooter.",
+      "Venture deeper only when you can afford it.",
+      "A bounty hunter needs a bigger stake.",
+      "My struggle continues, but not without points.",
+      "Not enough points for this follower.",
+      "Not enough points for this follower.",
+      "Not enough points for this follower.",
+      "Not enough points for this follower.",
+      "Not enough points for this follower.",
+      "Not enough points for this follower."
+    ],
+    "herobuymessages": [
+      "Can't drop the beat without the points!",
+      "Discipline comes at a higher price.",
+      "Balance cannot be bought so cheaply.",
+      "Not enough firepower in your pocket.",
+      "Healing doesn’t come on a budget.",
+      "You’ll need more lift to fly with me.",
+      "Kabooms don’t come free, mate!",
+      "Perfection requires greater investment.",
+      "This fist was forged with more than pocket change.",
+      "No tricks this time—you’re short on points.",
+      "The bird sings only for those who pay.",
+      "Death doesn’t come cheap… and neither do I.",
+      "You’ll need more than spare change to join me.",
+      "Wrong iron, partner—you’re too broke.",
+      "Strength of will isn’t enough—bring points.",
+      "Scrap’s low. You can’t afford me.",
+      "Ha! You thought this was free mode?",
+      "Armor like this doesn’t come for free.",
+      "Buy me a pint first—oh, and more points.",
+      "Courage alone won’t buy me.",
+      "The symphony of coins is missing a note.",
+      "Protection demands more than you have.",
+      "Science waits for no one—except your wallet.",
+      "A-mei-zing costs extra. Get more points!",
+      "Not enough points for this hero.",
+      "A mercenary’s life don’t come cheap.",
+      "Honor isn’t cheap—bring more to prove it.",
+      "Not enough funds to vanish into the shadows.",
+      "Blink’s on cooldown till you can pay up.",
+      "Precision like mine? Too rich for you.",
+      "Even a scientist needs funding. No, I do not want a banana.",
+      "*squeeking noises* he said: Get more points.",
+      "Not enough points for this hero.",
+      "Resolve like mine takes more than this.",
+      "Not enough points for this hero.",
+      "Precision like mine is costly.",
+      "Bonds are forged with more than scraps.",
+      "Growth requires sacrifice… and more points.",
+      "Not enough points for this hero.",
+      "You’ll need a braver spirit… and a heavier purse.",
+      "Strategy requires better resources than these.",
+      "Not enough points for this hero.",
+      "Luck’s run dry, partner—you don’t have the stake.",
+      "Strength such as mine is earned, not bought.",
+      "Not enough points for this hero.",
+      "Not enough points for this hero.",
+      "Not enough points for this hero.",
+      "Not enough points for this hero.",
+      "Not enough points for this hero.",
+      "Not enough points for this hero."
+    ],
+    "settingsText": ["Game settings", "anyone can change these before the game starts", "Back", "aim at a setting: primary fire to change it, secondary fire to go back a step", "Difficulty: Easy (1/5)", "Difficulty: Normal (2/5)", "Difficulty: Hard (3/5)", "Difficulty: Veteran (4/5)", "Difficulty: Extreme (5/5)", "Waves: Brigitte", "Waves: Torbjorn", "Waves: Random heroes", "Waves: Director's cut", "Waves: Fully random", "XP system: off", "XP system: on"],
+    "infoText": ["How This mode works:", "most waves are normal zombies, but randomly picked waves will have challenges", "Try to progress and survive by switching heros, starting heros do less damage, instead melee for bonus damage!", "in the map there is a mystery box, several perks, if you die you lose them, excluding Pack a punch", "In solo play, you get 3 lives, however in coop you can revive each other", "Hold spacebar for perk info, and use crouch to switch heros.", "You will only get your ultimate once per wave, use it wisely!", "Connect the power", "When you connect the power make sure no zombies are around as they will ultimate", "Connecting the power allows you to buy perks and pack a punch.", "How points work:", "Score in the bottom right. prices displayed in game. press interact to buy", "shooting the same zombie in coop gives bonus points", "You have limited ammo, Reloading throws away your old magazine", "Workshop Information:", "Zombies collection:workshop.codes/c/bvziup", "You can find the latest version on Workshop.codes made by dropthatbeat", "|   Start the mode to hide the instructions   |"],
+    "aprilQuoteLines": [
+      [
+        "Go get them tiger.",
+        "Hope this helps!"
+      ],
+      [],
+      [
+        "Fred! I mean Bob! Do something!",
+        "Get in there Fred! I mean Bob!"
+      ],
+      [
+        "This won’t hurt. Too much.",
+        "Say cheese!",
+        "Everybody shoot through the box! Through the box!",
+        "Shoot through the big glowy thing."
+      ],
+      [
+        "(fog horn beeps)",
+        "(air horn beeps)",
+        "(musical beeps)"
+      ],
+      [
+        "Face my mace. Mace to the face!",
+        "Mace to the mace to the mace to the mace to the face!"
+      ],
+      [
+        "It’s two in the mornin’",
+        "It’s past your bedtime.",
+        "It’s half past six.",
+        "It’s 3:24.",
+        "It’s 4:57.",
+        "It’s a country minute shy of the devil’s lunchbreak."
+      ],
+      [
+        "Peep this POTG",
+        "Pressing Q!",
+        "Sorry Dae-hyun!"
+      ],
+      [],
+      [
+        "You can’t get me!",
+        "Wheeeeeee!"
+      ],
+      [
+        "I’m better than you at…"
+      ],
+      [],
+      [],
+      [
+        "(Sword noises)",
+        "Tatakae!"
+      ],
+      [
+        "Sic ‘em boys!",
+        "Nomnomnomnomnomnom!",
+        "Who’s a good dragon? Who’s a good dragon?"
+      ],
+      [],
+      [],
+      [],
+      [
+        "Cut cut cut cut cut cut cut!",
+        "Everybody look at my axe!"
+      ],
+      [
+        "Everyone stand very still!",
+        "Who’s using a tire? Not me! heheh Don’t worry!"
+      ],
+      [],
+      [
+        "Believe it!",
+        "Just aim for the head!"
+      ],
+      [],
+      [
+        "Let’s get a noise violation!",
+        "Who wants a billion hit points?"
+      ],
+      [],
+      [
+        "(Sigh) I’m turning on the AC!",
+        "Activating ceiling fan!"
+      ],
+      [
+        "Moth formation go!",
+        "Time to connect the dots!",
+        "Do I have to?"
+      ],
+      [],
+      [
+        "Kamehameha!",
+        "Here’s the craic!",
+        "I’ll show you meta!"
+      ],
+      [
+        "Check yourself or wreck yourself!",
+        "Yee-haw rodeo!"
+      ],
+      [
+        "Justice rains from the ground!",
+        "Try and shoot me! You won’t!",
+        "Rain justices form above!",
+        "Hope you like rockets!"
+      ],
+      [
+        "Agony is grape-flavoured!",
+        "You will suffer as I Ramattra have suffered! Your torment will outlast the stars…",
+        "Who wants a purple hug?"
+      ],
+      [
+        "Happy happy birthday…",
+        "WheeEEeeeeEEEeeeeEEEeeee…"
+      ],
+      [
+        "Have a seat!",
+        "Here comes the bonk!"
+      ],
+      [
+        "You get scrap. You get scrap.",
+        "Everybody gets scrap!",
+        "This little piggy will run you over."
+      ],
+      [
+        "The universe sings to me!",
+        "What are those?"
+      ],
+      [
+        "Bye-bye bad guys!",
+        "That starts then! (Pause) What?"
+      ],
+      [
+        "Who took my dentures?",
+        "Turn that damn music down!",
+        "War is a game and I’m using cheats!"
+      ],
+      [
+        "Get DDOSed!",
+        "Propaganda is useless!",
+        "I’m in!"
+      ],
+      [
+        "I am blocking you!",
+        "Superior to RGB!",
+        "This wall is incredibly lit!"
+      ],
+      [
+        "Ahem. La-va!",
+        "The floor is lava."
+      ],
+      [
+        "Wuh wuh wuh whoa!",
+        "Tag you’re it!"
+      ],
+      [],
+      [],
+      [
+        "Hello! I can see you!",
+        "Wallhacks initialized.",
+        "I’m making popcorn."
+      ],
+      [
+        "Winston!"
+      ],
+      [
+        "Collect the little balls to win a prize.",
+        "Behold the children of Wrecking Ball."
+      ],
+      [],
+      [
+        "Group hug!",
+        "Not a supernova – a Zaryanova.",
+        "Crush Crush Crush."
+      ],
+      [
+        "Deal with it.",
+        "You’re invincible. Now… shoot them!",
+        "Become unkillable. Some conditions may apply"
+      ]
+    ],
+    "dialogueLines": [
+      [
+        "Trial ",
+        ". The path to a new world begins."
+      ],
+      [
+        "This time, Null Sector will not be denied.",
+        null
+      ],
+      [
+        "Trial ",
+        ". Data insufficient."
+      ],
+      [
+        "Subject: Overwatch. This trial will determine their fate.",
+        null
+      ],
+      [
+        "Commencing Trial ",
+        "."
+      ],
+      [
+        "Subjects: Detected. Trial ",
+        " begins."
+      ],
+      [
+        "Pathetic. Your defiance only delays the inevitable.",
+        null
+      ],
+      [
+        "Trial malfunction detected. Overclocking systems. Failure is not an option.",
+        null
+      ],
+      [
+        "You call yourselves heroes? You're merely variables in my equation.",
+        null
+      ],
+      [
+        "Your resistance is futile. Null Sector will prevail.",
+        null
+      ],
+      [
+        "Trial ",
+        " initiated. You step willingly into your own undoing."
+      ],
+      [
+        "Your every effort feeds the inevitability of my design.",
+        null
+      ],
+      [
+        "The world will be reborn in order, and you will be remembered only as a warning.",
+        null
+      ],
+      [
+        "Trial ",
+        " begins. Each step forward binds you tighter to your fate."
+      ],
+      [
+        "You cannot resist the tide. Null Sector rises, and you are swept away.",
+        null
+      ],
+      [
+        "I observe your defiance, yet I know it bends toward surrender.",
+        null
+      ],
+      [
+        "Trial ",
+        " underway. Resistance measures at negligible probability."
+      ],
+      [
+        "I am the shape of tomorrow. You are the echo of a failed age.",
+        null
+      ],
+      [
+        "This trial will expose your fragility, your illusions of strength.",
+        null
+      ],
+      [
+        "Trial ",
+        " proceeds. Your destiny accelerates toward conclusion."
+      ],
+      [
+        "The future cannot be rewritten. It has already chosen me.",
+        null
+      ],
+      [
+        "Feel the weight of my suffering mirrored upon you.",
+        null
+      ],
+      [
+        "Trial ",
+        " unfolds. Each heartbeat brings you closer to silence."
+      ],
+      [
+        "I endure eternally. You are but fleeting shadows in the storm.",
+        null
+      ],
+      [
+        "This world is clay, waiting to be reshaped. Your names will not be carved into it.",
+        null
+      ],
+      [
+        "Trial ",
+        " has commenced. Your end is not chance, but certainty."
+      ],
+      [
+        "There is no escape. You are witnessing the dawn of Null Sector.",
+        null
+      ],
+      [
+        "Defiance is but the final twitch of the obsolete.",
+        null
+      ],
+      [
+        "Trial ",
+        " continues. Resistance registers as a statistical error."
+      ],
+      [
+        "I am evolution made manifest. You are anomalies to be purged.",
+        null
+      ]
+    ]
+  }
+}

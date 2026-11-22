@@ -5,7 +5,7 @@ enum Perk
     Juggernaut = 0,
     Sprintboost = 1,
     selfrevive = 2,
-    HeadshotManiac = 3,
+    Doorman = 3,
     SpeedCola = 4,
     packapunch = 5
 }
@@ -15,7 +15,7 @@ enum Buyable
     Juggernaut = 0,
     Sprintboost = 1,
     SelfRevive = 2,
-    HeadshotManiac = 3,
+    Doorman = 3,
     SpeedCola = 4,
     packapunch = 5,
     Power = 6,
@@ -37,6 +37,65 @@ enum WallState
     Closed = 1
 }
 
+struct Door
+{
+
+    public Vector Corner;
+    public Vector OppositeCorner;
+    public Vector Center;
+    public Vector Facing;
+    public Vector Side;
+    public Number Width;
+    public WallState State;
+    public Number Zone;
+
+    public Vector BeamSpan;
+    public Any BeamA;
+    public Any BeamB;
+}
+
+struct BankTier
+{
+    public Number Cost;
+    public Number InterestRate;
+}
+
+struct CreditCardTier
+{
+    public Number Cost;
+    public Number Limit;
+    public Number Cashback;
+    public Number InterestRate;
+}
+
+enum ZombieMode
+{
+    Idle = 0,
+    Pathfinding = 1,
+    Straight = 2
+}
+
+enum BankButton
+{
+    Upgrade = 0,
+    Withdraw = 1,
+    Deposit = 2,
+    PropertyDamage = 3,
+    CreditCardOffice = 4
+}
+
+enum SettingsText
+{
+    GameSettings = 0,
+    AnyoneCanChange = 1,
+    Back = 2,
+    Hint = 3,
+    DifficultyEasy = 4,
+    WavesBrigitte = 9,
+    XPSystemOff = 14,
+    DifficultyDetails = 16
+}
+
 enum BossPart
 {
     None = 0,
@@ -53,123 +112,146 @@ globalvar define roundnumber;
 globalvar define botRemoveSlot;
 globalvar define botspawnindex;
 globalvar define teamPlayers;
-globalvar define extraVar;
 playervar define cashback;
-globalvar define ToggleEdit;
-globalvar define Noclip;
-globalvar define AllPos;
-globalvar define AllDir;
-globalvar define firstpos;
-globalvar define secondpos;
-globalvar define firstpoint2;
-globalvar define secondpoint2;
+globalvar Door[] allDoors;
 globalvar define z;
-globalvar define second;
-globalvar define Wall_ID;
-globalvar define g_beamType;
-globalvar define doors;
-globalvar define zoneDoors;
-globalvar define filterpos;
-globalvar define lastsavedpos;
-globalvar define x_;
-globalvar define intersection_length;
-globalvar define is_Grounded;
+globalvar define second!;
+globalvar define is_Grounded!;
 globalvar define costmultiplier;
 playervar define creditcardlimit;
 globalvar define i;
 playervar define H;
-globalvar define doormade;
+globalvar define doormade!;
+globalvar define doorsNeedDrawing;
+globalvar define doorBuildIndex;
 globalvar define looping;
-globalvar define Beameffectdoors;
-globalvar define twoDvectorsArray;
-globalvar define twoDnumbersArray2;
-globalvar define doorZoneStart;
-globalvar define doorZoneEnd;
+globalvar define doorZoneStart!;
+globalvar define doorZoneEnd!;
 globalvar define pfLoadedMap_nodes;
-globalvar define O;
-globalvar define B;
+globalvar define O!;
+globalvar define B!;
 globalvar define M;
 globalvar define spawntype;
-globalvar define bossSpawn;
+globalvar define bossSpawn!;
+
+globalvar define waveBoss!;
+
+globalvar define zoneLoading;
+
+globalvar define waveSlot;
+
+globalvar define startingPoints!;
+
+globalvar define settingsText!;
+
+globalvar define counterHeroType;
+globalvar define counterChart!;
+
+globalvar define coinOwnerNames!;
+globalvar define coinOwnerCounts!;
+
+globalvar define roundRespawns;
+globalvar define roundTeammate!;
+
+globalvar define bossBody;
+globalvar define bossBots;
 globalvar define bot1spawn;
-globalvar define bot2spawn;
-globalvar define etcArray;
+globalvar define bot2spawn!;
 globalvar define idx;
-playervar define extraPlayerVar;
-globalvar define twoDnumbersArray;
-globalvar define rrentEnemyIndex;
+playervar define extraPlayerVar!;
+globalvar define rrentEnemyIndex!;
 playervar define p_T;
-playervar define pfDestination;
-globalvar define pfIsPathfinding;
-globalvar define pfSavedTarget;
-playervar define pfPath;
-playervar define pfWait;
-playervar define pfWasBroadcasted;
-globalvar define pfCurrentNodeIndex;
-globalvar define pfActiveNode;
-globalvar define pfWalkingToPosition;
-globalvar define pfWalkingFromPosition;
-globalvar define pfStartTime;
-globalvar define pfAttributes;
-globalvar define pfopen;
-globalvar define pfscores_gScore;
-globalvar define pfscores_fScore;
-globalvar define pfscores_parent;
-globalvar define pfscores_nodeIndex;
-globalvar define pfiter;
-globalvar define pfcurrent;
-globalvar define pfgoal;
-globalvar define pfStuckOnNode;
-globalvar define pfIsStuck;
-globalvar define pfcheckedNode;
-globalvar define pfcurrentInExistingPath;
-globalvar define pfbroadcastTo;
-globalvar define pfneighbor;
-globalvar define pfneighborI;
-globalvar define pfscoreIndex;
-globalvar define pfscore;
+
 globalvar define pfDecompress;
-globalvar define pfIterationsThisTick;
 globalvar define pfI1;
 globalvar define pfI2;
 globalvar define pfcompressionTable;
-globalvar define pfdecompressionState;
+globalvar define pfdecompressionState!;
 globalvar define pfcurrentNeighbors;
 globalvar define pfnext;
-globalvar define decompressN;
+globalvar define pfLoadedMap_neighbors;
+globalvar define pfNodeComponent;
+globalvar define pfNodeIndices!;
+globalvar define pfComponentNodes!;
+globalvar define pfMapReady;
+
+playervar define pfDestination;
+playervar define pfSavedTarget;
+playervar define pfIsPathfinding;
+playervar define pfCurrentNodeIndex;
+playervar define pfGoalNode;
+playervar define pfPreviousNode;
+playervar define pfWalkingToPosition;
+playervar define pfWalkingFromPosition;
+playervar define pfStartTime!;
+playervar define pfAttributes!;
+playervar define pfStuckOnNode!;
+playervar define pfIsStuck;
+playervar define pfSlowSince;
+playervar define pfSpeedFactor!;
+playervar define pfHopPosition;
+playervar define pfHopRemaining!;
+playervar define pfHopChar;
+playervar define pfHopRuns!;
+playervar define pfHopSlot!;
+
+globalvar define zombieLoadLimit;
+globalvar define zombiePathfindSetting!;
+globalvar define zombieRunFasterSetting!;
+globalvar define zombieExtrasAllowed;
+playervar define zombieTarget;
+playervar define zombieMode;
+playervar define zombieModeSince;
+playervar define zombieStuckChecks;
+playervar define zombieAboveChecks;
+playervar define zombieFlatDistance;
+playervar define zombieHeightDifference;
+playervar define zombieWantsPath!;
+playervar define zombieCloseEnough!;
+playervar define zombieSpeedBoost;
+playervar define zombieAppliedSpeed;
+playervar define zombieBusy;
+
+playervar define zombieTargetDistance!;
+
+globalvar define decodeTable;
+globalvar define decodeIn;
+globalvar define decodeOut;
+globalvar define decodeString;
+globalvar define decodePosition;
 globalvar define bankPoints;
 globalvar define bankTier;
-globalvar define withdrawNotif;
-globalvar define depNotif;
+globalvar BankTier[] bankTiers;
+globalvar CreditCardTier[] creditCardTiers;
+globalvar define bankButtons;
+playervar define withdrawNotif;
+playervar define depNotif;
 playervar define creditTier;
-globalvar define ccCurrentRate;
-globalvar define C;
-globalvar define P;
-globalvar define Q;
-globalvar define T;
-globalvar define Y;
-globalvar define hudappend;
+globalvar define C!;
+globalvar define P!;
+globalvar define Q!;
+globalvar define T!;
+globalvar define Y!;
+globalvar define hudappend!;
 globalvar define Died;
 globalvar define forindex;
 globalvar define omnicspawn;
-globalvar define Z;
+globalvar define Z!;
 globalvar define romanNcounter;
-globalvar define setspawn;
-globalvar define numberOfZombies!;
-globalvar define Difficulty!;
-globalvar define start!;
-globalvar define g!;
-globalvar define teleporterwait!;
-globalvar define startlines!;
-globalvar define walljumpers!;
-globalvar define zombjump!;
-globalvar define zombstrafe!;
-globalvar define zombspeed!;
+globalvar define setspawn!;
+globalvar define numberOfZombies;
+
+globalvar define Difficulty;
+
+globalvar define difficultyTable!;
+globalvar define difficultyStats;
+globalvar define start;
+globalvar define g;
+globalvar define teleporterwait;
+globalvar define startlines;
 globalvar define dispencerposition!;
-globalvar define telespot!;
-globalvar define lesszomb!;
-globalvar define experiencesystem!;
-globalvar define idlebots!;
+globalvar define telespot;
+globalvar define experiencesystem;
 globalvar define dispencerplaced!;
 globalvar define trapeffect!;
 globalvar define boxcounter!;
@@ -177,37 +259,67 @@ globalvar define boxcounter2!;
 globalvar define challengewave!;
 globalvar define chwaveinterval!;
 globalvar define rngCamera!;
-globalvar define pfExecOwner!;
-globalvar define rngbox!;
+
+globalvar define rngbox;
 globalvar define current_hero!;
 globalvar define subindex!;
-globalvar define poweron!;
+globalvar define poweron;
+
+globalvar define gameNumber!;
+
+globalvar define slowmoPowerup!;
+globalvar define slowmoCutscene;
+globalvar define slowmoApplied!;
+
+globalvar define slowmoEmergency!;
+
+globalvar define teamOutOfSpawn!;
 globalvar define teleporterused!;
 globalvar define ramPoints!;
 globalvar define ccInterest!;
-globalvar define bankCosts!;
-globalvar define creditCosts!;
-globalvar define creditLimits!;
-globalvar define cashbackRates!;
-globalvar define bankRates!;
-globalvar define ccRates!;
-globalvar define herobuycosts!;
+globalvar define herobuycosts;
+
+globalvar define decodeIndex;
+
+globalvar define textPairTable!;
+globalvar define textPad!;
+globalvar define textToken;
+globalvar define textPiece!;
+globalvar define textItem;
+globalvar define textGroup;
+
+globalvar define mapDataLoaded;
+
+globalvar define textListsLoaded;
+
+globalvar define arcadeMode!;
+
+globalvar define infoText;
+globalvar define infoDecoding!;
 globalvar define abilityTable!;
-globalvar define bossbuypositions!;
-globalvar define mysterylocations!;
-globalvar define buyheros!;
-globalvar define buyperks!;
-globalvar define doorVectors!;
-globalvar define teleporterpositions!;
-globalvar define doorParams!;
+globalvar define bossbuypositions;
+globalvar define mysterylocations;
+globalvar define buyheros;
+globalvar define buyperks;
+
+globalvar define buyherosHome!;
+globalvar define buyperksHome;
+
+globalvar define doorVectors;
+
+globalvar define doorsOpen!;
+globalvar define teleporterpositions;
+globalvar define doorParams;
+
+globalvar define doorGroups!;
 globalvar define teleradiusef!;
-globalvar define perkcosts!;
+globalvar define perkcosts;
 globalvar define tipstrings!;
 globalvar define diedphrase!;
 globalvar define diedtext!;
-globalvar define romanN;
+globalvar define romanN!;
 globalvar define noammostrings!;
-globalvar define hero!;
+globalvar define hero;
 globalvar define herobuymessages!;
 globalvar define followerbuyMsg!;
 globalvar define heroAlphabetical!;
@@ -228,24 +340,24 @@ globalvar define currentZone!;
 globalvar define node!;
 globalvar define targetPos!;
 globalvar define tempPos!;
-globalvar define averagePosition!;
+globalvar define averagePosition;
 globalvar define globalSpawnEffectCount!;
 globalvar define globalSpawnEffectIDs!;
-globalvar define color!;
+globalvar define color;
 globalvar define repairAmount!;
 globalvar define old!;
 globalvar define h!;
 globalvar define healthPercent!;
 globalvar define recalc!;
-globalvar define candidates!;
+globalvar define candidates;
 globalvar define maxBreaches!;
 globalvar define count!;
 globalvar define pick!;
 globalvar define spawnPos!;
-globalvar define globalActiveBreaches!;
+globalvar define globalActiveBreaches;
 globalvar define globalSpawnNetworkDirty!;
 globalvar define globalActiveBreachEffects!;
-globalvar define globalActiveBreachHealth!;
+globalvar define globalActiveBreachHealth;
 globalvar define globalSpawnNetworkLastCenter!;
 globalvar define globalSpawnNetworkLastChangeTime!;
 globalvar define globalBotSpawnNode!;

@@ -3,11 +3,12 @@
 rule: "starting voice lines"
 if (start == 1)
 {
-    Wait(14, WaitBehavior.IgnoreCondition);
+
+    Wait(6, WaitBehavior.IgnoreCondition);
     cutscene = true;
     Character_Nr = 0;
     Wait(SlotOf(LocalPlayer()) * 0.16, WaitBehavior.IgnoreCondition);
-    CreateHudText(LocalPlayer(), HeroIconString(Hero.Ramattra), null, <"­\n<0>", StringSlice(Dialogue_Text, 0, Character_Nr)>, Location.Top, 2, Color.White, Color.White, Color.Orange, HudTextRev.VisibleToAndString, Spectators.DefaultVisibility);
+    CreateHudText(LocalPlayer(), HeroIconString(Hero.Ramattra), null, <"­<0>", StringSlice(Dialogue_Text, 0, Character_Nr)>, Location.Top, 2, Color.White, Color.White, Color.Orange, HudTextRev.VisibleToAndString, Spectators.DefaultVisibility);
     ModifyVariable(hudappend, Operation.AppendToArray, LastTextID());
     Wait(10, WaitBehavior.IgnoreCondition);
     for (i = 0; CountOf(hudappend); 1)

@@ -23,7 +23,7 @@ const VIBES: Vibe[] = [
     frequency: "88.4",
     description: "Rain-slick streets, broken lights, and a beat that refuses to die.",
     tracks: [
-      { title: "Circuit Breaker", duration: "4:42", src: "/assets/audio/kingsrow/circuit-breaker.mp3" },
+      { title: "Circuit Breaker", duration: "4:42", src: "/assets/audio/station-1/circuit-breaker.mp3" },
     ],
   },
   {
@@ -31,8 +31,8 @@ const VIBES: Vibe[] = [
     frequency: "101.7",
     description: "Low frequencies from the monastery, carried through the dust and static.",
     tracks: [
-      { title: "Battle at the Temple", duration: "3:55", src: "/assets/audio/shambalimonastery/battle-temple.mp3" },
-      { title: "Temple Descent", duration: "3:12", src: "/assets/audio/shambalimonastery/temple-descent.mp3" },
+      { title: "Battle at the Temple", duration: "3:55", src: "/assets/audio/station-2/battle-temple.mp3" },
+      { title: "Temple Descent", duration: "3:12", src: "/assets/audio/station-2/temple-descent.mp3" },
     ],
   },
   {

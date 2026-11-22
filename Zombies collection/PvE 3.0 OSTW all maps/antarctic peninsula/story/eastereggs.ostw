@@ -2,7 +2,7 @@
 
 rule: "509 bot name singleplayer"
 
-if (NumberOfPlayers(Team.Team1) == 1)
+if (RealPlayerCount() == 1)
 if (roundnumber > 0)
 if (aprilrng == 50)
 {
@@ -18,7 +18,7 @@ if (aprilrng == 50)
 }
 
 rule: "510 bot name coop"
-if (NumberOfPlayers(Team.Team1) > 1)
+if (RealPlayerCount() > 1)
 if (aprilrng == 50)
 if (roundnumber > 0)
 {
@@ -29,7 +29,7 @@ if (roundnumber > 0)
     }
 }
 
-rule: "glitch in the system" #This changes the round number to show a easter egg. it changes it to be binary for the round number.
+rule: "glitch in the system"
 if (roundnumber < 10)
 if (aprilrng == 25)
 {

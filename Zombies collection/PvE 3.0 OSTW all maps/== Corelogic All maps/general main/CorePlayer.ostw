@@ -9,15 +9,76 @@ playervar define closestwall;
 playervar define outofpsawn;
 playervar define doorNotif;
 
-#=================================================
-#Migrated from OverPy 2.0 extraPlayerVar macros
-#=================================================
+playervar define filterpos;
+playervar define lastsavedpos;
+playervar define x_!;
+playervar define intersection_length!;
+
+playervar define bankHoldStart;
+playervar define bankStep;
+
+playervar define reviveTarget;
+playervar define joinTeammate!;
+playervar define doorSkipCheck;
+
+playervar define lastOutsideSpawn;
+
+playervar define arcadeCodeStep;
+playervar define arcadeCodeTime!;
+
+playervar define buySpot;
+
+playervar define messageSpot;
+playervar define papSlotTier!;
+
+playervar define ramattraCoins;
+playervar define coinUses;
+playervar define coinNameIndex;
+
+playervar define coinPrice;
+
+playervar define killKind;
+playervar define killPoints;
+
+playervar define counterSlot;
+
+playervar define counterMods;
+
+playervar define counterIsFollower!;
+
+playervar define papShotDamage;
+playervar define papShotDelay;
+
 playervar define fall_Speed!;
-playervar define enablefalldamage!;
-playervar define fall_Damage_Speed!;
-playervar define fallDamageOffsetTable!;
+playervar define enablefalldamage;
+playervar define fall_Damage_Speed;
+playervar define fallDamageOffsetTable;
 playervar define heroBuyMessTimer!;
 playervar define mysteryBuyMessTimer!;
-playervar define perkBuyMessTimer!;
+playervar define perkBuyMessTimer;
+
+playervar define powerUltPending!;
+
+playervar define followerTarget;
+
+playervar define followerFiring;
+
+playervar define firstFollowerShown;
+
+playervar define monkeyBombOwned;
+playervar define monkeyBombsLeft;
+playervar define monkeyBombActive;
+playervar define monkeyBombSlot;
+playervar define monkeyBombHadFollower!;
+playervar define monkeyBomb;
+playervar define monkeyBombTargets;
+playervar define monkeyBombHit!;
+playervar define monkeyBombEffect!;
+playervar define isMonkeyBomb;
+
+playervar define playerGameNumber!;
+playervar define endingHeroes;
+playervar define endingRewardPending!;
+playervar define papAppliedTier;
 playervar define abilityFlag!;
 playervar define healCounter!;

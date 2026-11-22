@@ -1,19 +1,20 @@
-﻿
+﻿void PapRocket() "pack a punch rocket"
+{
+    CreateHomingProjectile(ProjectileType.PharahRocket, EventPlayer(), EyePosition(EventPlayer()) + FacingDirectionOf(EventPlayer()), FacingDirectionOf(EventPlayer()), Relative.ToWorld, ModifyHealthType.Damage, Team.Team2, papShotDamage, 1, 15, PlayEffect.AsheDynamiteExplosionEffect, PlayEffect.ExplosionSound, papShotDelay, 25, 5, 0, FirstOf(AllLivingPlayers(Team.Team2)), 0.5);
+}
+
+void PapStickyBomb() "pack a punch sticky bomb"
+{
+    CreateHomingProjectile(ProjectileType.EchoStickyBomb, EventPlayer(), EyePosition(EventPlayer()) + FacingDirectionOf(EventPlayer()), FacingDirectionOf(EventPlayer()), Relative.ToWorld, ModifyHealthType.Damage, Team.Team2, papShotDamage, 1, 15, PlayEffect.AsheDynamiteExplosionEffect, PlayEffect.ExplosionSound, papShotDelay, 25, 5, 0, FirstOf(AllLivingPlayers(Team.Team2)), 0.5);
+}
+
 rule: "Pack a punch Ongoing - player"
 Event.OngoingPlayer
 if (Packapunch>= 1)
 if ((IsUsingAbility1(EventPlayer()) || IsUsingAbility2(EventPlayer()) || IsUsingUltimate(EventPlayer()) || IsFiringPrimary(EventPlayer()) || IsFiringSecondary(EventPlayer())) == true)
 
 {
-    #if (HeroOf(EventPlayer()) == Hero.Ashe)
-    #{
-    #    if (EventWasCriticalHit())
-    #    {
-    #        # fix this and the positions for status, and damage over time. - dealt damage
-    #        SetStatus(RayCastHitPlayer(EventPlayer(), Vector(0, 0, 0), AllPlayers(Team.Team2), AllPlayers(Team.Team1), true), EventPlayer(), Status.Burning, 4);
-    #        StartDamageOverTime(RayCastHitPlayer(Vector(0, 0, 0), Vector(0, 0, 0), AllPlayers(Team.Team2), EventPlayer(), true), EventPlayer(), 4, 150);
-    #    }
-    #}
+
     if (HeroOf(EventPlayer()) == Hero.Baptiste)
     {
         if (IsUsingAbility1(EventPlayer()))
@@ -30,7 +31,9 @@ if ((IsUsingAbility1(EventPlayer()) || IsUsingAbility2(EventPlayer()) || IsUsing
             if (IsInAlternateForm(EventPlayer()))
             {
                 Wait(0.5, WaitBehavior.AbortWhenFalse);
-                CreateHomingProjectile(ProjectileType.PharahRocket, EventPlayer(), EyePosition(EventPlayer()) + FacingDirectionOf(EventPlayer()), FacingDirectionOf(EventPlayer()), Relative.ToWorld, ModifyHealthType.Damage, Team.Team2, 500, 1, 15, PlayEffect.AsheDynamiteExplosionEffect, PlayEffect.ExplosionSound, 0.2, 25, 5, 0, FirstOf(AllLivingPlayers(Team.Team2)), 0.5);
+                papShotDamage = 500;
+                papShotDelay = 0.2;
+                PapRocket();
                 Wait(1.5, WaitBehavior.AbortWhenFalse);
                 LoopIfConditionIsTrue();
             }
@@ -84,18 +87,24 @@ if ((IsUsingAbility1(EventPlayer()) || IsUsingAbility2(EventPlayer()) || IsUsing
         }
         else if (HeroOf(EventPlayer()) == Hero.Soldier76)
         {
-            CreateHomingProjectile(ProjectileType.PharahRocket, EventPlayer(), EyePosition(EventPlayer()) + FacingDirectionOf(EventPlayer()), FacingDirectionOf(EventPlayer()), Relative.ToWorld, ModifyHealthType.Damage, Team.Team2, 500, 1, 15, PlayEffect.AsheDynamiteExplosionEffect, PlayEffect.ExplosionSound, 0.2, 25, 5, 0, FirstOf(AllLivingPlayers(Team.Team2)), 0.5);
+            papShotDamage = 500;
+                papShotDelay = 0.2;
+                PapRocket();
         }
         else if (HeroOf(EventPlayer()) == Hero.Echo)
         {
-            # needs more than 1 but will fix later
-            CreateHomingProjectile(ProjectileType.EchoStickyBomb, EventPlayer(), EyePosition(EventPlayer()) + FacingDirectionOf(EventPlayer()), FacingDirectionOf(EventPlayer()), Relative.ToWorld, ModifyHealthType.Damage, Team.Team2, 500, 1, 15, PlayEffect.AsheDynamiteExplosionEffect, PlayEffect.ExplosionSound, 0.2, 25, 5, 0, FirstOf(AllLivingPlayers(Team.Team2)), 0.5);
+
+            papShotDamage = 500;
+            papShotDelay = 0.2;
+            PapStickyBomb();
             Wait(0.2, WaitBehavior.AbortWhenFalse);
             LoopIfConditionIsTrue();
         }
         else if (HeroOf(EventPlayer()) == Hero.Juno)
         {
-            CreateHomingProjectile(ProjectileType.EchoStickyBomb, EventPlayer(), EyePosition(EventPlayer()) + FacingDirectionOf(EventPlayer()), FacingDirectionOf(EventPlayer()), Relative.ToWorld, ModifyHealthType.Damage, Team.Team2, 500, 1, 15, PlayEffect.AsheDynamiteExplosionEffect, PlayEffect.ExplosionSound, 0, 25, 5, 0, FirstOf(AllLivingPlayers(Team.Team2)), 0.5);
+            papShotDamage = 500;
+            papShotDelay = 0;
+            PapStickyBomb();
             Wait(0.15, WaitBehavior.AbortWhenFalse);
             LoopIfConditionIsTrue();
         }
@@ -142,12 +151,12 @@ if ((IsUsingAbility1(EventPlayer()) || IsUsingAbility2(EventPlayer()) || IsUsing
         else if (HeroOf(EventPlayer()) == Hero.Widowmaker)
         {
             p_T = 1;
-            if (NumberOfPlayers(Team.Team1) < 2)
+            if (RealPlayerCount() < 2)
             {
                 WaitUntil(false, 4);
                 p_T = false;
             }
-            else if (NumberOfPlayers(Team.Team1) >= 2)
+            else if (RealPlayerCount() >= 2)
             {
                 WaitUntil(false, 16);
                 p_T = false;
@@ -214,7 +223,9 @@ if ((IsUsingAbility1(EventPlayer()) || IsUsingAbility2(EventPlayer()) || IsUsing
         else if (HeroOf(EventPlayer()) == Hero.Dva)
         {
             Wait(0.2, WaitBehavior.AbortWhenFalse);
-            CreateHomingProjectile(ProjectileType.PharahRocket, EventPlayer(), EyePosition(EventPlayer()) + FacingDirectionOf(EventPlayer()), FacingDirectionOf(EventPlayer()), Relative.ToWorld, ModifyHealthType.Damage, Team.Team2, 400, 1, 15, PlayEffect.AsheDynamiteExplosionEffect, PlayEffect.ExplosionSound, 0, 25, 5, 0, FirstOf(AllLivingPlayers(Team.Team2)), 0.5);
+            papShotDamage = 400;
+                papShotDelay = 0;
+                PapRocket();
         }
         else if (HeroOf(EventPlayer()) == Hero.Lifeweaver)
         {
@@ -222,7 +233,9 @@ if ((IsUsingAbility1(EventPlayer()) || IsUsingAbility2(EventPlayer()) || IsUsing
         }
         else if (HeroOf(EventPlayer()) == Hero.Pharah)
         {
-            CreateHomingProjectile(ProjectileType.PharahRocket, EventPlayer(), EyePosition(EventPlayer()) + FacingDirectionOf(EventPlayer()), FacingDirectionOf(EventPlayer()), Relative.ToWorld, ModifyHealthType.Damage, Team.Team2, 500, 1, 15, PlayEffect.AsheDynamiteExplosionEffect, PlayEffect.ExplosionSound, 0.2, 25, 5, 0, FirstOf(AllLivingPlayers(Team.Team2)), 0.5);
+            papShotDamage = 500;
+                papShotDelay = 0.2;
+                PapRocket();
             Wait(0.2, WaitBehavior.AbortWhenFalse);
             LoopIfConditionIsTrue();
         }
@@ -240,21 +253,23 @@ if ((IsUsingAbility1(EventPlayer()) || IsUsingAbility2(EventPlayer()) || IsUsing
     {
         if (IsButtonHeld(EventPlayer(), Button.PrimaryFire))
         {
-            Damage(PlayersWithinRadius(Victim(), 3, Team.Team2, RadiusLOS.Off), Attacker(), 420);
+
+            Damage(PlayersWithinRadius(Victim(), 3, Team.Team2, RadiusLOS.Off), null, 420);
             PlayEffect(AllPlayers(Team.All), PlayEffect.GoodExplosion, Color.White, Victim(), 3);
             Wait(0.45, WaitBehavior.IgnoreCondition);
         }
     }
     else if (HeroOf(Attacker()) == Hero.Sigma)
     {
-        Damage(PlayersWithinRadius(Victim(), 5, Team.All, RadiusLOS.Off), EventPlayer(), 200);
+
+        Damage(PlayersWithinRadius(Victim(), 5, Team.Team2, RadiusLOS.Off), null, 200);
         PlayEffect(AllPlayers(Team.All), PlayEffect.GoodExplosion, Color.Blue, Victim(), 5);
     }
     else if (HeroOf(Attacker()) == Hero.Junkrat)
     {
         PlayEffect(AllPlayers(Team.All), PlayEffect.GoodExplosion, Color.Orange, Victim(), 8);
-        # make sure this doesnt damage self
-        Damage(PlayersWithinRadius(Victim(), 8, Team.Team2, RadiusLOS.Off), Attacker(), 300);
+
+        Damage(PlayersWithinRadius(Victim(), 8, Team.Team2, RadiusLOS.Off), null, 300);
     }
     else if (IsUsingUltimate(EventPlayer()))
     {
@@ -285,7 +300,6 @@ if ((IsUsingAbility1(EventPlayer()) || IsUsingAbility2(EventPlayer()) || IsUsing
     }
 }
 
-
 rule: "Torbjorn pack a punch Dispencer active"
 Event.OngoingPlayer
 Team.Team1
@@ -304,8 +318,7 @@ Event.OngoingPlayer
 Team.Team1
 if (Packapunch >= 1)
 if (ServerLoad() < 220)
-# this needs to check if secondary fire is the gun or not
-# the hero cassidy needs to be swapped for other heroes that relate to this. (as they are just placeholders)
+
 if ((IsFiringPrimary(EventPlayer()) || IsFiringSecondary(EventPlayer())) == true)
 {
     if (IsFiringPrimary(EventPlayer()))
@@ -321,5 +334,32 @@ if ((IsFiringPrimary(EventPlayer()) || IsFiringSecondary(EventPlayer())) == true
         {
             PaPsound();
         }
+    }
+}
+
+rule: "Pack a Punch - final blow bonuses (Venture, Mauga, Sigma)"
+Event.OnFinalBlow
+Team.Team1
+if (ArrayContains([Hero.Venture, Hero.Mauga, Hero.Sigma], HeroOf(EventPlayer())) == true)
+if (Packapunch >= 1)
+if ((IsUsingAbility1(EventPlayer()) || IsUsingAbility2(EventPlayer()) || IsUsingUltimate(EventPlayer()) || IsFiringPrimary(EventPlayer()) || IsFiringSecondary(EventPlayer()) || IsMeleeing(EventPlayer())) == true)
+{
+    if (HeroOf(Attacker()) == Hero.Venture)
+    {
+        if (IsMeleeing(EventPlayer()) == true)
+        {
+            PlayEffect(AllPlayers(Team.All), PlayEffect.GoodExplosion, Color.Blue, Victim(), 5);
+
+            Damage(PlayersWithinRadius(Victim(), 5, Team.Team2, RadiusLOS.Off), null, 800);
+        }
+    }
+    else if (HeroOf(Attacker()) == Hero.Mauga)
+    {
+        SetAbilityCooldown(EventPlayer(), Button.Ability1, 0);
+        SetAbilityCooldown(EventPlayer(), Button.Ability2, 0);
+    }
+    else if (HeroOf(Attacker()) == Hero.Sigma)
+    {
+        points += 50;
     }
 }

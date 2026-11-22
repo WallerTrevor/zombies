@@ -6,12 +6,16 @@ Team.Team1
 if (heroBuyMessTimer == false)
 if (IsTrueForAny(buyheros, DistanceToEventPlayer(ArrayElement()) < 2) == true)
 {
+
+    Wait(0.1, WaitBehavior.IgnoreCondition);
     for (i = 0; CountOf(buyheros); 1)
     {
-        if (DistanceToEventPlayer(buyheros[i]) < 2)
+
+        if (DistanceToEventPlayer(buyheros[i]) < 2 && hero[i] != null)
         {
-            Wait(0.1, WaitBehavior.IgnoreCondition);
-            SmallMessage(EventPlayer(), <"<0> Press: <1> for Hero = <2>", HeroIconString(hero[i]), InputBindingString(Button.Interact), <"<0> Points -- Hold: <1> for follower = <2>", RoundToInteger(herobuycosts[i] * costmultiplier, Rounding.Nearest), InputBindingString(Button.Reload), <"<0> Points --- Ammo cost <1>", RoundToInteger(herobuycosts[i] / 3 * costmultiplier, Rounding.Nearest), RoundToInteger(herobuycosts[i] / 2 * costmultiplier, Rounding.Nearest)>>>);
+
+            messageSpot = i;
+            SmallMessage(EventPlayer(), <"<0> Press: <1> for Hero = <2>", HeroIconString(hero[messageSpot]), InputBindingString(Button.Interact), <"<0> Points -- Hold: <1> for follower = <2>", RoundToInteger(herobuycosts[messageSpot] * costmultiplier, Rounding.Nearest), InputBindingString(Button.Reload), <"<0> Points --- Ammo cost <1>", RoundToInteger(herobuycosts[messageSpot] / 3 * costmultiplier, Rounding.Nearest), RoundToInteger(herobuycosts[messageSpot] / 2 * costmultiplier, Rounding.Nearest)>>>);
             ResetPurchaseMessageTimer(heroBuyMessTimer);
             break;
         }
@@ -22,11 +26,11 @@ rule: "Purchase Mystery Box message"
 Event.OngoingPlayer
 Team.Team1
 if (mysteryBuyMessTimer == false)
-if (DistanceToEventPlayer(rngbox) <= 2)
-if (rngbox != null)
+
+if (NearMysteryBox())
 {
     Wait(0.1, WaitBehavior.IgnoreCondition);
-    SmallMessage(EventPlayer(), <"<0> Press: <1> for Mystery Hero = <2>", HeroIconString(Hero.Ramattra), InputBindingString(Button.Interact), <"<0> Points -- Hold: <1> for follower = <2> Points", RoundToInteger(950 * costmultiplier, Rounding.Nearest), InputBindingString(Button.Reload), RoundToInteger(316.667 * costmultiplier, Rounding.Nearest)>>);
+    SmallMessage(EventPlayer(), <"<0> Press: <1> for Mystery Hero = <2>", HeroIconString(Hero.Ramattra), InputBindingString(Button.Interact), <"<0> Points -- Hold: <1> for follower = <2> Points", RoundToInteger(MysteryBoxCost() * costmultiplier, Rounding.Nearest), InputBindingString(Button.Reload), RoundToInteger(316.667 * costmultiplier, Rounding.Nearest)>>);
     ResetPurchaseMessageTimer(mysteryBuyMessTimer);
 }
 
@@ -34,55 +38,92 @@ rule: "Purchase perk machine message"
 Event.OngoingPlayer
 Team.Team1
 if (perkBuyMessTimer == false)
-if (IsTrueForAny(buyperks, [DistanceToEventPlayer(ArrayElement()) < 2]) == true)
-if (powerconnected == true)
+
+if (outofpsawn == 1)
+
+if (IsTrueForAny(buyperks, DistanceToEventPlayer(ArrayElement()) < 2) == true)
 {
-    for (i = Buyable.Juggernaut; Buyable.Count; 1)
+
+    Wait(0.1, WaitBehavior.IgnoreCondition);
+
+    for (i = Buyable.Juggernaut; Buyable.Power + 1; 1)
     {
         if (DistanceToEventPlayer(buyperks[i]) < 2)
         {
-            if (i != Buyable.Power)
+            if (poweron == 0 && i == Buyable.Power)
             {
-                Wait(0.1, WaitBehavior.IgnoreCondition);
-                SmallMessage(EventPlayer(), <"<0> Press: <1> for Perk = <2>", HeroIconString(Hero.Ramattra), InputBindingString(Button.Interact), <"<0> == <1> Points", perkNames[i], RoundToInteger(perkcosts[i] * costmultiplier, Rounding.Nearest)>>);
-                ResetPurchaseMessageTimer(perkBuyMessTimer);
-                break;
+
+                SmallMessage(EventPlayer(), <"<0> Dont you dare touch that!", HeroIconString(Hero.Ramattra)>);
             }
-            else
+            else if (poweron == 0)
             {
-                SmallMessage(EventPlayer(), <"<0> Press: <1> To connect power", HeroIconString(Hero.Ramattra), InputBindingString(Button.Interact)>);
-                ResetPurchaseMessageTimer(perkBuyMessTimer);
-                break;
+
+                SmallMessage(EventPlayer(), <"<0> What a Mysterious Machine for my Trials!", HeroIconString(Hero.Ramattra)>);
             }
+            else if (i != Buyable.Power)
+            {
+
+                messageSpot = i;
+                SmallMessage(EventPlayer(), <"<0> Press: <1> for Perk = <2>", HeroIconString(Hero.Ramattra), InputBindingString(Button.Interact), <"<0> == <1> Points", perkNames[messageSpot], RoundToInteger(perkcosts[messageSpot] * costmultiplier, Rounding.Nearest)>>);
+            }
+            ResetPurchaseMessageTimer(perkBuyMessTimer);
+            break;
         }
     }
 }
 
-disabled rule: "195 credits"
+rule: "Purchase monkey bomb message"
+Event.OngoingPlayer
+Team.Team1
+if (perkBuyMessTimer == false)
+if (outofpsawn == 1)
+if (DistanceToEventPlayer(buyperks[Buyable.OmnicBomb]) < 2)
 {
-    CreateInWorldText(AllPlayers(Team.All), "by Dropthatbeat#11756", Vector(0, 0, 0), 1, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleToPositionAndString, Color.White, Spectators.DefaultVisibility);
-    CreateInWorldText(AllPlayers(Team.All), "B73NS#2325 for the boss fights", Vector(0, 0, 0), 1, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleToPositionAndString, Color.White, Spectators.DefaultVisibility);
-    CreateInWorldText(AllPlayers(Team.All), "with the help of the people over at workshop.codes", Vector(0, 0, 0), 1, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleToPositionAndString, Color.White, Spectators.DefaultVisibility);
-    CreateInWorldText(AllPlayers(Team.All), "and lastly: you guys, Thanks for playing!", Vector(0, 0, 0), 1, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleToPositionAndString, Color.White, Spectators.DefaultVisibility);
-    StartCamera(AllPlayers(Team.Team1), Vector(0, 0, 0), Vector(0, 0, 0), 0);
+    SmallMessage(EventPlayer(), poweron == 0 ? <"<0> What a Mysterious Machine for my Trials!", HeroIconString(Hero.Ramattra)> : (monkeyBombOwned == true ? <"<0> Use the Ultimate Status voice line to throw a monkey bomb", HeroIconString(Hero.Ramattra)> : <"<0> Press: <1> for Monkey bomb == <2> Points", HeroIconString(Hero.Ramattra), InputBindingString(Button.Interact), RoundToInteger(2500 * costmultiplier, Rounding.Nearest)>));
+    ResetPurchaseMessageTimer(perkBuyMessTimer);
+}
+
+rule: "perk HUD and Pack-a-Punch tier"
+Event.OngoingPlayer
+Team.Team1
+if (start == 1)
+if (IsDummyBot(EventPlayer()) == false)
+{
+    for (EventPlayer().perkHudIndex = Perk.Juggernaut; Perk.SpeedCola + 1; 1)
+    {
+        CreateHudText(EventPlayer().perk[EvaluateOnce(EventPlayer().perkHudIndex)] > 0 ? EventPlayer() : null, null, null, EventPlayer().perkinfo == 2 ? <"<0> <1>: <2>", perkIcons[EvaluateOnce(EventPlayer().perkHudIndex)], perkNames[EvaluateOnce(EventPlayer().perkHudIndex)], perkInfo[EvaluateOnce(EventPlayer().perkHudIndex)]> : perkIcons[EvaluateOnce(EventPlayer().perkHudIndex)], Location.Left, 3, null, null, [Color.White, Color.Blue, Color.Orange, Color.Red][EventPlayer().perk[EvaluateOnce(EventPlayer().perkHudIndex)]], HudTextRev.VisibleToStringAndColor, Spectators.DefaultVisibility);
+    }
+    CreateHudText(EventPlayer().papAppliedTier > 0 ? EventPlayer() : null, null, null, EventPlayer().perkinfo == 2 ? <"\n\n\n<0> <1>: <2>", perkNames[Perk.packapunch], EventPlayer().papAppliedTier, perkInfo[Perk.packapunch]> : <"\n\n\n<0>", EventPlayer().papAppliedTier>, Location.Left, 9, null, null, [Color.White, Color.Blue, Color.Orange, Color.Red][EventPlayer().papAppliedTier], HudTextRev.VisibleToStringAndColor, Spectators.DefaultVisibility);
+    CreateEffect(EventPlayer().papAppliedTier > 0 ? AllPlayers(Team.Team1) : null, Effect.BaptisteImmortalityFieldProtectedEffect, Color.White, EventPlayer(), 1, EffectRev.VisibleToPositionAndRadius);
 }
 
 rule: "all the effects (local player huds)"
 if (start == 1)
 {
-    # if experiencesystem == 1:\nprogressBarHud(eventPlayer, eventPlayer.xp[eventPlayer.currentheroxp], \"current level {0}\".format(eventPlayer.XPlevel[eventPlayer.currentheroxp]), HudPosition.TOP, 0, Color.GREEN, Color.BLUE, ProgressHudReeval.VALUES)
+
     Wait(4, WaitBehavior.IgnoreCondition);
     Died[0] = Vector(500, 0, 500);
     Died[1] = Vector(500, 0, 500);
     Died[2] = Vector(500, 0, 500);
     Died[3] = Vector(500, 0, 500);
-    # wait(4)\nif not ruleCondition:\nreturn
+
     CreateHudText(LocalPlayer(), null, null, <"lives used: <0>", LocalPlayer().singlelives>, Location.Right, 0, null, null, Color.White, HudTextRev.VisibleToAndString, Spectators.DefaultVisibility);
-    CreateHudText(LocalPlayer(), null, null, <"Magazines <0>", LocalPlayer().currentmagazines>, Location.Right, 7, null, null, Color.White, HudTextRev.VisibleToAndString, Spectators.DefaultVisibility);
+    CreateHudText(LocalPlayer(), null, null, <"Magazines <0>", Difficulty == 1 ? "unlimited" : LocalPlayer().currentmagazines>, Location.Right, 7, null, null, Color.White, HudTextRev.VisibleToAndString, Spectators.DefaultVisibility);
     CreateHudText(LocalPlayer(), null, "\n\n", null, Location.Right, 8, null, Color.Green, null, HudTextRev.VisibleTo, Spectators.VisibleNever);
     CreateHudText(LocalPlayer(), null, null, <"Heroes <0> <1>  <2>", FirstOf(LocalPlayer().heroiconswap), LocalPlayer().heroiconswap[1], InputBindingString(Button.Crouch)>, Location.Right, 9, null, null, Color.White, HudTextRev.VisibleToAndString, Spectators.DefaultVisibility);
     CreateHudText(LocalPlayer(), null, null, <"Follower: <0>", HeroIconString(HeroOf(PlayersInSlot(SlotOf(LocalPlayer()) + 4, Team.Team1)))>, Location.Left, 5, null, null, Color.White, HudTextRev.VisibleToAndString, Spectators.DefaultVisibility);
-    CreateHudText(LocalPlayer(), null, null, <"<0>", romanN[romanNcounter]>, Location.Left, 7, null, null, Color.Orange, HudTextRev.VisibleToAndString, Spectators.DefaultVisibility);
+
+    CreateProgressBarHudText(experiencesystem == true ? LocalPlayer() : null, LocalPlayer().xp[LocalPlayer().currentheroxp], <"<0> level <1>", HeroIconString(HeroOf(LocalPlayer())), LocalPlayer().XPlevel[LocalPlayer().currentheroxp]>, Location.Top, 0, Color.SkyBlue, Color.White, ProgressBarHudEvaluation.VisibleToValuesAndColor, Spectators.DefaultVisibility);
+
+    CreateHudText(LocalPlayer(), null, null, <"                                                                           <0>", romanNcounter == 11 ? roundnumber : romanN[romanNcounter]>, Location.Left, 7, null, null, Color.Orange, HudTextRev.VisibleToAndString, Spectators.DefaultVisibility);
+
+    CreateHudText(LocalPlayer().monkeyBombOwned == true ? LocalPlayer() : null, null, null, <"                                                                           <0>", LocalPlayer().monkeyBombsLeft >= 3 ? <"<0> <1> <2>", HeroIconString(Hero.Winston), HeroIconString(Hero.Winston), HeroIconString(Hero.Winston)> : (LocalPlayer().monkeyBombsLeft == 2 ? <"<0> <1>", HeroIconString(Hero.Winston), HeroIconString(Hero.Winston)> : (LocalPlayer().monkeyBombsLeft == 1 ? HeroIconString(Hero.Winston) : "")) >, Location.Left, 8, null, null, Color.White, HudTextRev.VisibleToAndString, Spectators.DefaultVisibility);
+
+    CreateHudText(LocalPlayer().perkinfo == 2 && LocalPlayer().creditTier > 0 ? LocalPlayer() : null,
+        <"Credit card: tier <0>", LocalPlayer().creditTier>,
+        <"Debt: <0>   Limit: <1>   Discount: <2>%", Max(0, RoundToInteger(0 - LocalPlayer().points, Rounding.Up)), LocalPlayer().creditcardlimit, RoundToInteger((1 - LocalPlayer().cashback) * 100, Rounding.Nearest)>,
+        <"Interest: <0>% per round (<1> points)   <2>", RoundToInteger(creditCardTiers[LocalPlayer().creditTier].InterestRate * 100, Rounding.Nearest), Max(0, RoundToInteger((0 - LocalPlayer().points) * creditCardTiers[LocalPlayer().creditTier].InterestRate, Rounding.Up)), LocalPlayer().creditTier < creditCardTiers.Length - 1 ? <"Next tier: <0> points", creditCardTiers[LocalPlayer().creditTier + 1].Cost> : "Max tier">,
+        Location.Left, 3, [Color.White, Color.Green, Color.SkyBlue, Color.Yellow][LocalPlayer().creditTier], Color.White, Color.White, HudTextRev.VisibleToStringAndColor, Spectators.DefaultVisibility);
     CreateHudText(LocalPlayer(), null, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", null, Location.Right, 1, null, Color.Green, null, HudTextRev.VisibleTo, Spectators.VisibleNever);
     CreateHudText(LocalPlayer(), null, "\n\n", null, Location.Right, 6, null, Color.Green, null, HudTextRev.VisibleTo, Spectators.VisibleNever);
     CreateHudText(LocalPlayer(), null, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", null, Location.Top, 1, null, Color.Green, null, HudTextRev.VisibleTo, Spectators.VisibleNever);
@@ -95,23 +136,6 @@ if (start == 1)
     CreateHudText(LocalPlayer(), null, null, <"<0> : <1> : <2>", HeroIconString(HeroOf(PlayersInSlot(3, Team.Team1))), PlayersInSlot(3, Team.Team1), PlayersInSlot(3, Team.Team1).points2>, Location.Right, 5, Color.White, Color.White, Color.Orange, HudTextRev.VisibleToAndString, Spectators.DefaultVisibility);
 }
 
-disabled rule: "193 achivements logic"
-{
-}
-/*
-disabled rule: "194 achivements menu"
-{
-    CreateHudText(AllPlayers(Team.All), null, null, "achivement progress carries between playthroughs", Location.Top, 0, null, null, Color.White, HudTextRev.VisibleToAndString, Spectators.DefaultVisibility);
-    CreateHudText(AllPlayers(Team.All), null, null, "deal 50000 damage 0", Location.Top, 0, null, null, Color.White, HudTextRev.VisibleToAndString, Spectators.DefaultVisibility);
-    CreateHudText(AllPlayers(Team.All), null, null, "teleport 20 times 0", Location.Top, 0, null, null, Color.White, HudTextRev.VisibleToAndString, Spectators.DefaultVisibility);
-    CreateHudText(AllPlayers(Team.All), null, null, "play as each hero once 0", Location.Top, 0, null, null, Color.White, HudTextRev.VisibleToAndString, Spectators.DefaultVisibility);
-    CreateHudText(AllPlayers(Team.All), null, null, "complete the easteregg 0", Location.Top, 0, null, null, Color.White, HudTextRev.VisibleToAndString, Spectators.DefaultVisibility);
-    CreateHudText(AllPlayers(Team.All), null, null, "buy the trap 10 times 0", Location.Top, 0, null, null, Color.White, HudTextRev.VisibleToAndString, Spectators.DefaultVisibility);
-    CreateHudText(AllPlayers(Team.All), null, null, "pack a punch the wonderweapon 0", Location.Top, 0, null, null, Color.White, HudTextRev.VisibleToAndString, Spectators.DefaultVisibility);
-    CreateHudText(AllPlayers(Team.All), null, null, "earn 500 eliminations 0", Location.Top, 0, null, null, Color.White, HudTextRev.VisibleToAndString, Spectators.DefaultVisibility);
-    CreateHudText(AllPlayers(Team.All), null, null, "beat all 3 boss'", Location.Top, 0, null, null, Color.White, HudTextRev.VisibleToAndString, Spectators.DefaultVisibility);
-}
-*/
 rule: "info UI cancel"
 Event.OngoingPlayer
 Team.Team1
@@ -126,42 +150,39 @@ if (start > 0)
     Abort();
 }
 
+rule: "loading message"
+{
+    CreateHudText(textListsLoaded == false ? AllPlayers(Team.Team1) : null, "Loading, please wait...", mapDataLoaded == false ? "map data" : (pfMapReady == false || zoneLoading == true ? "doors and pathfinding" : "text"), null, Location.Top, 0, Color.Yellow, Color.White, null, HudTextRev.VisibleToAndString, Spectators.DefaultVisibility);
+}
+
 rule: "Info UI"
 Event.OngoingPlayer
 if (start == false)
 {
-    for (infoUIIndex = 0; CountOf(infoUIData); 1)
+
+    for (infoUIIndex = 0; 18; 1)
     {
         if (infoUIIndex > 0)
         {
-            MinWait();
+            LoadingPause();
         }
-        CreateHudText(EventPlayer(), null, infoUIData[infoUIIndex][0], infoUIData[infoUIIndex][1], Location.Left, infoUIData[infoUIIndex][2], null, infoUIData[infoUIIndex][3], infoUIData[infoUIIndex][4], HudTextRev.VisibleToAndString, Spectators.DefaultVisibility);
+        if (ArrayContains([0, 7, 10, 14], infoUIIndex))
+        {
+            CreateHudText(settingsViewers == null ? EventPlayer() : null, null, null, <"<0> <1>", EvaluateOnce([IconString(Icon.Checkmark), IconString(Icon.Bolt), IconString(Icon.Diamond), IconString(Icon.Heart)][IndexOfArrayValue([0, 7, 10, 14], infoUIIndex)]), infoText[EvaluateOnce(infoUIIndex)]>, Location.Left, 10 + infoUIIndex, null, null, Color.Yellow, HudTextRev.VisibleToAndString, Spectators.DefaultVisibility);
+        }
+        else if (infoUIIndex == 5)
+        {
+            CreateHudText(settingsViewers == null ? EventPlayer() : null, null, null, infoText[5], Location.Left, 15, null, null, Color.Green, HudTextRev.VisibleToAndString, Spectators.DefaultVisibility);
+        }
+        else
+        {
+            CreateHudText(settingsViewers == null ? EventPlayer() : null, null, infoText[EvaluateOnce(infoUIIndex)], null, Location.Left, 10 + infoUIIndex, null, Color.White, null, HudTextRev.VisibleToAndString, Spectators.DefaultVisibility);
+        }
         ModifyVariable(InfoUI, Operation.AppendToArray, LastTextID());
     }
     InfoCooldown = TotalTimeElapsed() + 0.16;
     HideHints = true;
     UI = 1;
-}
-
-disabled rule: "fun fact system (make this on main menu, or its only when the team dies on a game over screen)"
-Event.OngoingPlayer
-Team.Team1
-if (start == false)
-{
-    Wait(3, WaitBehavior.IgnoreCondition);
-    CreateHudText(EventPlayer(), null, null, <"Tip: <0>", RandomValueInArray(FirstOf(etcArray))>, Location.Right, 0, null, null, Color.White, HudTextRev.VisibleToAndString, Spectators.DefaultVisibility);
-    Wait(15, WaitBehavior.IgnoreCondition);
-    DestroyHudText(LastTextID());
-}
-
-rule: "521 settings screen message (i feel like a small message isnt what i want)"
-Event.OngoingPlayer
-if (start == 2)
-{
-    SmallMessage(EventPlayer(), "Press crouch to go back!");
-    Wait(8, WaitBehavior.IgnoreCondition);
-    LoopIfConditionIsTrue();
 }
 
 rule: "toggle perk info"
@@ -180,91 +201,76 @@ if (IsButtonHeld(EventPlayer(), Button.Jump) == true)
     perkinfo = false;
 }
 
-rule: "perk info expanded"
+define SettingsRowText(Number row): [SettingsText.GameSettings, SettingsText.AnyoneCanChange, SettingsText.DifficultyEasy - 1 + Difficulty, SettingsText.WavesBrigitte + spawntype, SettingsText.XPSystemOff + (experiencesystem ? 1 : 0), SettingsText.Back, SettingsText.DifficultyDetails - 2 + 2 * Difficulty, SettingsText.DifficultyDetails - 1 + 2 * Difficulty, SettingsText.Hint][row];
+
+rule: "settings menu: open and close with Melee"
 Event.OngoingPlayer
 Team.Team1
-if (perkinfo == 2)
+if (start == false)
+if (textListsLoaded == true)
+if (IsButtonHeld(EventPlayer(), Button.Melee) == true)
 {
-    for (i = 0; CountOf(Perkui); 1)
+
+    settingsViewers = settingsViewers == null ? AllPlayers(Team.Team1) : null;
+
+    StartCamera(settingsViewers, FirstOf(settingsCamera), settingsCamera[1], 0);
+    SetFacing(settingsViewers, DirectionTowards(FirstOf(settingsCamera), settingsCamera[1]), Relative.ToWorld);
+}
+
+rule: "settings menu: show it"
+if (start == false)
+
+if (textListsLoaded == true)
+if (mapDataLoaded == true)
+{
+
+    LoadingPause();
+
+    CreateInWorldText(settingsViewers, "+", FirstOf(settingsCamera) + FacingDirectionOf(LocalPlayer()) * 12, 3, Clipping.DoNotClip, InworldTextRev.VisibleToPositionAndString, Color.Yellow, Spectators.DefaultVisibility);
+    settingsHuds = [LastTextID()];
+
+    for (settingsRow = 0; 9; 1)
     {
-        CreateHudText(EventPlayer(), <"<0>", perkicon[i]>, "Perk", "Perk info:", Location.Left, 3, perkcolor[i], perkcolor[i], Color.White, HudTextRev.VisibleTo, Spectators.DefaultVisibility);
-        ModifyVariable(Perkui, Operation.AppendToArray, LastTextID());
+        CreateInWorldText(settingsViewers, settingsText[SettingsRowText(EvaluateOnce(settingsRow))], settingsCamera[1] + settingsCamera[2] * (3 - settingsRow * 0.75), settingsRow == 0 ? 3 : (AbsoluteValue(settingsRow - 3.5) < 2 ? 2.2 : 1.3), Clipping.DoNotClip, InworldTextRev.VisibleToAndString, settingsRow == 0 ? Color.Yellow : (AbsoluteValue(settingsRow - 3.5) < 2 ? Color.Orange : Color.White), Spectators.DefaultVisibility);
+        ModifyVariable(settingsHuds, Operation.AppendToArray, LastTextID());
     }
-    for (i = 0; 3 - (CountOf(Perkui) - 1); 1)
+
+    WaitUntil(start != false, 99999);
+    for (settingsRow = 0; CountOf(settingsHuds); 1)
     {
-        # this adds blank lines if less than 4 perks
-        CreateHudText(EventPlayer(), null, "\n", null, Location.Left, 3, Color.Green, Color.SkyBlue, Color.White, HudTextRev.VisibleTo, Spectators.DefaultVisibility);
-        ModifyVariable(Perkui, Operation.AppendToArray, LastTextID());
+        DestroyInWorldText(settingsHuds[settingsRow]);
     }
 }
 
-rule: "perk delete"
+rule: "settings menu: click a setting"
 Event.OngoingPlayer
 Team.Team1
-if (perkinfo == 1)
+if (settingsViewers != null)
+if ((IsButtonHeld(EventPlayer(), Button.PrimaryFire) || IsButtonHeld(EventPlayer(), Button.SecondaryFire)) == true)
 {
-    DestroyHudText(Perkui[CountOf(Perkui) - 1]);
-    ModifyVariable(Perkui, Operation.RemoveFromArrayByIndex, CountOf(Perkui) - 1);
-    MinWait();
-    LoopIf(CountOf(Perkui) != 0);
-    Abort();
-}
-
-disabled rule: "perk info simplified"
-Event.OngoingPlayer
-Team.Team1
-if (start == 1)
-if (perkinfo == false)
-{
-    # this could be a loop
-    SkipIf(roundnumber > 0, 1);
-    Wait(9, WaitBehavior.IgnoreCondition);
-    for (i = 0; CountOf(Perkui); 1)
+    menuStep = IsButtonHeld(EventPlayer(), Button.PrimaryFire) ? 1 : -1;
+    menuPick = RoundToInteger(2 - 16 * DotProduct(FacingDirectionOf(EventPlayer()), settingsCamera[2]), Rounding.Nearest);
+    if (menuPick == 0)
     {
-        Wait(0.1, WaitBehavior.IgnoreCondition);
-        CreateHudText(EventPlayer(), <"<0>", Perkui[i]>, null, null, Location.Left, 3, perkcolor[i], null, null, HudTextRev.VisibleTo, Spectators.DefaultVisibility);
-        ModifyVariable(Perkui, Operation.AppendToArray, LastTextID());
-    }
-    for (i = 0; 3 - (CountOf(Perkui) - 1); 1)
-    {
-        # this adds blank lines if less than 4 perks
-        CreateHudText(EventPlayer(), null, "\n", null, Location.Left, 3, Color.Green, Color.SkyBlue, Color.White, HudTextRev.VisibleTo, Spectators.DefaultVisibility);
-        ModifyVariable(Perkui, Operation.AppendToArray, LastTextID());
-    }
-    CreateHudText(EventPlayer(), null, "\n\n", null, Location.Left, 6, null, Color.Green, null, HudTextRev.VisibleTo, Spectators.VisibleNever);
-    ModifyVariable(Perkui, Operation.AppendToArray, LastTextID());
-}
 
-rule: "settings page (not finished)"
-Event.OngoingPlayer
-Team.Team1
-if (start == 2)
-{
-    StartCamera(EventPlayer(), Vector(169.539, 51.549, 424.869), Vector(183.415, 49.892, 412.655), 0);
-    CreateHudText(AllPlayers(Team.All), "Difficulty settings:", null, null, Location.Top, 0, Color.White, null, null, HudTextRev.VisibleToAndString, Spectators.DefaultVisibility);
-    CreateHudText(EventPlayer(), null, null, <"Damage recieved: <0>", Difficulty>, Location.Top, 0, null, null, Color.Red, HudTextRev.VisibleToAndString, Spectators.DefaultVisibility);
-    CreateHudText(EventPlayer(), null, null, "bonus points: 0", Location.Top, 0, null, null, Color.Red, HudTextRev.VisibleToAndString, Spectators.DefaultVisibility);
-    CreateHudText(AllPlayers(Team.All), "Stability settings:", null, null, Location.Top, 0, Color.White, null, null, HudTextRev.VisibleToAndString, Spectators.DefaultVisibility);
-    CreateHudText(EventPlayer(), null, null, <"less zombies: <0>", lesszomb>, Location.Top, 0, null, null, Color.Red, HudTextRev.VisibleToAndString, Spectators.DefaultVisibility);
-}
-
-rule: "settings page initial control"
-Event.OngoingPlayer
-if (start != 1)
-{
-    # could probably use a if-then-else here unless double if doesnt work with this
-    if (start == false)
-    {
-        if (IsButtonHeld(EventPlayer(), Button.Melee))
-        {
-            start = 2;
-        }
-        else if (start == 2)
-        {
-            if (IsButtonHeld(EventPlayer(), Button.Crouch))
-            {
-                start = false;
-            }
-        }
+        Difficulty = Max(1, Min(5, Difficulty + menuStep));
+        difficultyStats = ArraySlice(difficultyTable, Difficulty * 6 - 6, 6);
     }
+    else if (menuPick == 1)
+    {
+
+        spawntype = (spawntype + menuStep + 5) % 5;
+    }
+    else if (menuPick == 2)
+    {
+        experiencesystem = !experiencesystem;
+    }
+    else if (menuPick == 3)
+    {
+
+        settingsViewers = null;
+    }
+    PlayEffect(EventPlayer(), PlayEffect.BuffImpactSound, Color.White, EventPlayer(), 40);
+
+    Wait(0.25, WaitBehavior.IgnoreCondition);
 }

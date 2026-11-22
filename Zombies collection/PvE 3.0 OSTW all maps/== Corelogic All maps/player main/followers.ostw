@@ -1,8 +1,14 @@
+Number FollowerRange(): 15;
+
 rule: "351 followers ult"
 Event.OngoingPlayer
 Team.Team1
-if (DistanceBetween(EventPlayer(), FirstOf(SortedArray(FilteredArray(AllLivingPlayers(Team.Team2), HasSpawned(ArrayElement())), DistanceBetween(ArrayElement(), EventPlayer())))) < 8)
+
+if (followerTarget != null)
+if (DistanceBetween(EventPlayer(), followerTarget) < 8)
 if (IsDummyBot(EventPlayer()) == true)
+
+if (isMonkeyBomb != true)
 if (UltimateChargePercent(EventPlayer()) == 100)
 if (HeroOf(EventPlayer()) != Hero.Reinhardt)
 if (HeroOf(EventPlayer()) != Hero.Bastion)
@@ -18,69 +24,110 @@ rule: "172 FOLLOWERS  winston Omnic bomb"
 Event.OngoingPlayer
 Team.Team1
 if (IsCommunicating(EventPlayer(), Communication.UltimateStatus) == true)
-# variable conflict with boss' need fix later
-if (Movement == 1)
-if (Head_HP > 0)
+if (monkeyBombOwned == true)
+if (monkeyBombsLeft > 0)
+
+if (monkeyBombActive != true)
+if (IsAlive(EventPlayer()) == true)
+if (IsDummyBot(EventPlayer()) == false)
 {
-    CreateDummyBot(Hero.Winston, Team.Team1, 6, EyePosition(EventPlayer()), Vector(0, 0, 0));
+    monkeyBombsLeft -= 1;
+    monkeyBombActive = true;
+    monkeyBombSlot = SlotOf(EventPlayer()) + 4;
+
+    monkeyBombHadFollower = EntityExists(PlayersInSlot(monkeyBombSlot, Team.Team1));
+    DestroyDummyBot(Team.Team1, monkeyBombSlot);
+    Wait(0.1, WaitBehavior.IgnoreCondition);
+    CreateDummyBot(Hero.Winston, Team.Team1, monkeyBombSlot, EyePosition(EventPlayer()), Vector(0, 0, 0));
     Wait(0.03, WaitBehavior.IgnoreCondition);
-    Head_HP -= 1;
+
+    monkeyBomb = PlayersInSlot(monkeyBombSlot, Team.Team1);
+
+    monkeyBomb.isMonkeyBomb = true;
+
     p_T = 1;
-    AttachPlayers(PlayersInSlot(6, Team.Team1), EventPlayer(), Vector(0, 0, 2));
-    StartScalingPlayer(PlayersInSlot(6, Team.Team1), 0.2, true);
-    StartModifyingHeroVoiceLines(PlayersInSlot(6, Team.Team1), 1.3, true);
+    AttachPlayers(monkeyBomb, EventPlayer(), Vector(0, 0, 2));
+    StartScalingPlayer(monkeyBomb, 0.2, true);
+    StartModifyingHeroVoiceLines(monkeyBomb, 1.3, true);
     Wait(1, WaitBehavior.IgnoreCondition);
-    DetachPlayers(PlayersInSlot(6, Team.Team1));
+    DetachPlayers(monkeyBomb);
     Wait(0.2, WaitBehavior.IgnoreCondition);
-    PressButton(PlayersInSlot(6, Team.Team1), Button.Jump);
-    ApplyImpulse(PlayersInSlot(6, Team.Team1), VectorTowards(EventPlayer(), PlayersInSlot(6, Team.Team1)), 25, Relative.ToWorld, ContraryMotion.Cancel);
-    CreateEffect(AllPlayers(Team.All), Effect.BadAura, Color.Orange, PlayersInSlot(6, Team.Team1), 0.5, EffectRev.VisibleToPositionAndRadius);
+    PressButton(monkeyBomb, Button.Jump);
+    ApplyImpulse(monkeyBomb, VectorTowards(EventPlayer(), monkeyBomb), 25, Relative.ToWorld, ContraryMotion.Cancel);
+    CreateEffect(AllPlayers(Team.All), Effect.BadAura, Color.Orange, monkeyBomb, 0.5, EffectRev.VisibleToPositionAndRadius);
+
+    monkeyBombEffect = LastCreatedEntity();
     Wait(2, WaitBehavior.IgnoreCondition);
-    Communicate(PlayersInSlot(6, Team.Team1), Communication.Countdown);
+    Communicate(monkeyBomb, Communication.Countdown);
     Wait(4, WaitBehavior.IgnoreCondition);
-    Damage(PlayersWithinRadius(PlayersInSlot(6, Team.All), 2, Team.Team2, RadiusLOS.SurfacesAndAllBarriers), EventPlayer(), 100);
-    Damage(PlayersWithinRadius(PlayersInSlot(6, Team.All), 4, Team.Team2, RadiusLOS.SurfacesAndAllBarriers), EventPlayer(), 50);
-    PlayEffect(AllPlayers(Team.All), PlayEffect.DoomfistMeteorStrikeImpactEffect, Color.White, EventPlayer(), 1);
-    Wait(0.5, WaitBehavior.IgnoreCondition);
-    Communicate(PlayersInSlot(6, Team.Team1), Communication.Goodbye);
-    DestroyEffect(LastCreatedEntity());
-    Wait(0.5, WaitBehavior.IgnoreCondition);
-    DestroyDummyBot(Team.Team1, 6);
+
+    if (EntityExists(monkeyBomb))
+    {
+        PlayEffect(AllPlayers(Team.All), PlayEffect.DoomfistMeteorStrikeImpactEffect, Color.White, PositionOf(monkeyBomb), 1);
+
+        monkeyBombTargets = PlayersWithinRadius(PositionOf(monkeyBomb), 4, Team.Team2, RadiusLOS.SurfacesAndAllBarriers);
+        for (monkeyBombHit = 0; CountOf(monkeyBombTargets); 1)
+        {
+
+            Damage(monkeyBombTargets[monkeyBombHit], null, DistanceBetween(monkeyBombTargets[monkeyBombHit], PositionOf(monkeyBomb)) <= 2 ? 150 : 50);
+            MinWait();
+        }
+        Wait(0.5, WaitBehavior.IgnoreCondition);
+        Communicate(monkeyBomb, Communication.Goodbye);
+    }
+    DestroyEffect(monkeyBombEffect);
+    monkeyBombEffect = null;
     p_T = false;
+    Wait(0.5, WaitBehavior.IgnoreCondition);
+
+    if (PlayersInSlot(monkeyBombSlot, Team.Team1) == monkeyBomb)
+    {
+        DestroyDummyBot(Team.Team1, monkeyBombSlot);
+    }
+    monkeyBomb = null;
+
+    if (monkeyBombHadFollower && IsAlive(EventPlayer()))
+    {
+        Wait(0.1, WaitBehavior.IgnoreCondition);
+        Subfollowerbuy();
+    }
+    monkeyBombActive = false;
 }
 
-rule: "352 FOLLOWERS attack All"
+rule: "352 FOLLOWERS attack nearest zombie"
 Event.OngoingPlayer
 Team.Team1
-if (DistanceBetween(EventPlayer(), FirstOf(SortedArray(FilteredArray(AllLivingPlayers(Team.Team2), HasSpawned(ArrayElement())), DistanceBetween(ArrayElement(), EventPlayer())))) < 6)
 if (IsDummyBot(EventPlayer()) == true)
+
+if (SlotOf(EventPlayer()) >= 4)
+if (SlotOf(EventPlayer()) <= 7)
+if (IsAlive(EventPlayer()) == true)
+
+if (isMonkeyBomb != true)
 {
-    # needs to be a variable
-    Skip(1);
-    followerattack1();
-    Skip(1);
-    followerattack2();
-    Skip(1);
-    PressButton(EventPlayer(), Button.Ability2);
-    Wait(6, WaitBehavior.IgnoreCondition);
-    LoopIfConditionIsTrue();
-    Skip(1);
-    followerattack2();
-    Skip(1);
-    StartHoldingButton(EventPlayer(), Button.SecondaryFire);
-    Wait(1, WaitBehavior.IgnoreCondition);
-    StopHoldingButton(EventPlayer(), Button.SecondaryFire);
-    Wait(6, WaitBehavior.IgnoreCondition);
-    LoopIfConditionIsTrue();
-    Skip(1);
-    StartHoldingButton(EventPlayer(), Button.PrimaryFire);
-    Wait(1, WaitBehavior.IgnoreCondition);
-    PressButton(EventPlayer(), Button.SecondaryFire);
-    StopHoldingButton(EventPlayer(), Button.PrimaryFire);
-    Wait(6, WaitBehavior.IgnoreCondition);
-    LoopIfConditionIsTrue();
-    Skip(1);
-    PressButton(EventPlayer(), Button.Ability1);
-    Wait(6, WaitBehavior.IgnoreCondition);
-    LoopIfConditionIsTrue();
+    followerFiring = false;
+    while (true)
+    {
+
+        followerTarget = FirstOf(SortedArray(FilteredArray(AllLivingPlayers(Team.Team2), HasSpawned(ArrayElement()) && DistanceBetween(EventPlayer(), ArrayElement()) < FollowerRange() && IsInLineOfSight(EyePosition(EventPlayer()), EyePosition(ArrayElement()), BarrierLOS.NoBarriersBlock)), DistanceBetween(EventPlayer(), ArrayElement())));
+        if (followerTarget != null)
+        {
+            if (!followerFiring)
+            {
+
+                StartFacing(EventPlayer(), DirectionTowards(EyePosition(EventPlayer()), EyePosition(followerTarget)), 720, Relative.ToWorld, FacingRev.DirectionAndTurnRate);
+                followerFiring = true;
+            }
+
+            StartHoldingButton(EventPlayer(), Button.PrimaryFire);
+        }
+        else if (followerFiring)
+        {
+
+            StopHoldingButton(EventPlayer(), Button.PrimaryFire);
+            StopFacing(EventPlayer());
+            followerFiring = false;
+        }
+        Wait(0.25, WaitBehavior.AbortWhenFalse);
+    }
 }

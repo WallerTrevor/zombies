@@ -1,41 +1,62 @@
 import "index.ostw";
 
-#=================================================
-#Global Variables
-#================================================= 
-globalvar define damageheroes;
-globalvar define roundpointmultiplier;
-globalvar define E;
-globalvar define cutscene;
-globalvar define supportheroes;
-globalvar define tankheroes;
-globalvar define R;
-globalvar define infoUIData;
-globalvar define playerRingColors;
+globalvar define roundpointmultiplier!;
+globalvar define E!;
+globalvar define cutscene!;
+globalvar define R!;
+globalvar define playerRingColors!;
 globalvar define teleportercolor!;
 globalvar define heroFallDamageTable;
-globalvar define currentEnemyIndex;
-globalvar define powerconnected!;
-globalvar define heroDamageModifiers;
-globalvar define index;
-globalvar define aprilquotes;
-globalvar define perkmessages;
-globalvar define currentzombiearray;
-globalvar define heroSupportModifiers;
-globalvar define heroTankModifiers;
+globalvar define powerconnected;
+globalvar define perkmessages!;
 globalvar define botamount;
 globalvar define CameraDistanceFactor!;
-globalvar define Dialogue_Text;
+globalvar define Dialogue_Text!;
 globalvar define dialogueLines;
-globalvar define aprilQuoteLines;
+globalvar define aprilQuoteLines!;
 globalvar define Character_Nr;
-globalvar define appenddoorsequencer;
-globalvar define Bosssequencer!;
-globalvar define aprilrng;
+globalvar define appenddoorsequencer!;
+
+globalvar define Bosssequencer;
+globalvar define bossSpot;
+globalvar define bossPartList;
+globalvar define bossEffects;
+globalvar define bossIndex;
+globalvar define aprilrng!;
 globalvar define indexofbosseffect!;
-globalvar define pfLoadedMap_neighbors!;
+
+globalvar define zoneMarkersZone!;
+globalvar define zoneEffects;
+globalvar define zoneTexts;
+globalvar define zoneIcons!;
+globalvar define zoneMarkerIndex;
+
+globalvar define fireSale;
+globalvar define fireSaleEffects!;
+globalvar define fireSaleTexts!;
+globalvar define fireSaleZone!;
+globalvar define fireSaleBoxes;
+globalvar define fireSaleIndex;
+
+globalvar define settingsHuds!;
+
+globalvar define pfLoadedZone!;
+globalvar define zoneMarkersBusy!;
+globalvar define zoneZombiesGone!;
+globalvar define zoneRefillPending!;
+globalvar define waveBossWasAlive!;
+globalvar define zoneLoadSlot!;
+globalvar define zoneRefillSlot;
+
+globalvar define spawnBlockers!;
+globalvar define spawnBlockerExits!;
+
+globalvar define settingsCamera;
+globalvar define settingsViewers;
+globalvar define settingsRow;
 globalvar define perkNames!;
-globalvar define decompressV!;
-globalvar define dooreffectsequencer!;
+globalvar define perkIcons!;
+globalvar define perkInfo!;
+globalvar define dooreffectsequencer;
 globalvar define doorindexsequencer!;
 globalvar define botNames;

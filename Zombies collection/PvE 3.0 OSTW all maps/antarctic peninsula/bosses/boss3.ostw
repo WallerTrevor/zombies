@@ -1,51 +1,38 @@
 ﻿import "../Main/index.ostw";
 
-disabled rule: "283 Imperial warmech setup ================================================"
-Event.OngoingPlayer
-Team.Team2
-Player.Dva
-if (Bosssequencer == 3)
+void SpawnImperialWarmech() "spawn boss 3: Imperial Warmech"
 {
-    CreateDummyBot(Hero.Dva, Team.Team2, 0, Vector(-80.776, -159.164, 59.549), Vector(0, 0, 0));
-    omnicspawn[0] = SlotOf(PlayersInSlot(0, Team.Team2));
-    # Imperial warmech
-    SetKnockbackReceived(EventPlayer(), 0);
-    SetMoveSpeed(EventPlayer(), 100);
-    SetDamageDealt(EventPlayer(), 200);
-    StartScalingPlayer(EventPlayer(), 3, true);
-    StartForcingDummyBotName(EventPlayer(), "Imperial warmech ");
+    CreateDummyBot(Hero.Dva, Team.Team2, -1, bossSpot, Vector(0, 0, 0));
+    bossBody = LastCreatedEntity();
+    bossBots = [bossBody];
+
+    Wait(0.5, WaitBehavior.IgnoreCondition);
+    SetKnockbackReceived(bossBody, 0);
+    SetMoveSpeed(bossBody, 100);
+    SetDamageDealt(bossBody, 200);
+    StartScalingPlayer(bossBody, 3 * BossScale(), true);
+    StartForcingDummyBotName(bossBody, "Imperial warmech ");
+
+    SetUltimateAbilityEnabled(bossBody, false);
+
+    bossBody.zombieBusy = true;
     Wait(3, WaitBehavior.IgnoreCondition);
-    EventPlayer().warmachParts = [
+    bossPartList = [
         [Hero.WreckingBall, Vector(0, 6.1, 1), BossPart.Cannon],
         [Hero.WreckingBall, Vector(2.15, 5.4, 1), BossPart.Cannon],
         [Hero.WreckingBall, Vector(-2.15, 5.4, 1), BossPart.Cannon],
         [Hero.Bastion, Vector(2, 3, 1), BossPart.MachineGun],
         [Hero.Bastion, Vector(-2, 3, 1), BossPart.MachineGun]
     ];
-    for (EventPlayer().warmachPartIndex = 0; CountOf(EventPlayer().warmachParts); 1)
-    {
-        CreateDummyBot(EventPlayer().warmachParts[EventPlayer().warmachPartIndex][0], Team.Team2, -1, EventPlayer(), Vector(0, 0, 0));
-        Wait(1, WaitBehavior.IgnoreCondition);
-        AttachPlayers(LastCreatedEntity(), FirstOf(PlayersOnHero(Hero.Dva, Team.Team2)), EventPlayer().warmachParts[EventPlayer().warmachPartIndex][1]);
-        LastCreatedEntity().Part = EventPlayer().warmachParts[EventPlayer().warmachPartIndex][2];
-        if (EventPlayer().warmachPartIndex == 4)
-        {
-            AddHealthPoolToPlayer(EventPlayer(), HealthType.Armor, 9999, true, true);
-        }
-        StartFacing(LastCreatedEntity(), FacingDirectionOf(EventPlayer()), 1000, Relative.ToWorld, FacingRev.DirectionAndTurnRate);
-        if (EventPlayer().warmachPartIndex < 4)
-        {
-            MinWait();
-        }
-    }
-    WaitUntil(IsDead(EventPlayer()), 99999);
-    RemoveAllHealthPoolsFromPlayer(EventPlayer());
+    SpawnBossParts();
+    AddHealthPoolToPlayer(bossBody, HealthType.Armor, 9999, true, true);
 }
 
-disabled rule: "284 Cannon stats"
+rule: "284 Cannon stats"
 Event.OngoingPlayer
 Team.Team2
 Player.WreckingBall
+if (Bosssequencer == 3)
 if (Part == BossPart.Cannon)
 {
     SetHealingReceived(EventPlayer(), 0);
@@ -56,10 +43,12 @@ if (Part == BossPart.Cannon)
     SetStatus(PlayersWithinRadius(EventPlayer(), 5, TeamOf(EventPlayer()), RadiusLOS.Off), null, Status.Stunned, 2);
 }
 
-disabled rule: "285 Cannon shoot"
+rule: "285 Cannon shoot"
 Event.OngoingPlayer
 Team.Team2
 Player.WreckingBall
+if (Bosssequencer == 3)
+if (Part == BossPart.Cannon)
 if (IsButtonHeld(FirstOf(PlayersOnHero(Hero.Dva, Team.Team2)), Button.PrimaryFire) == true)
 {
     CreateHomingProjectile(ProjectileType.SigmaHypersphere, EventPlayer(), null, null, Relative.ToWorld, ModifyHealthType.Damage, OppositeTeamOf(TeamOf(EventPlayer())), 75, 0, 5, PlayEffect.BastionTankCannonExplosionEffect, PlayEffect.BastionTankCannonExplosionSound, 0.1, 30, 5, 5, FirstOf(SortedArray(FilteredArray(AllLivingPlayers(OppositeTeamOf(TeamOf(EventPlayer()))), HasSpawned(ArrayElement()) && ArrayElement() != EventPlayer()), AngleBetweenVectors(FacingDirectionOf(EventPlayer()), ArrayElement() - EyePosition(EventPlayer())))), 0.5);
@@ -69,15 +58,16 @@ if (IsButtonHeld(FirstOf(PlayersOnHero(Hero.Dva, Team.Team2)), Button.PrimaryFir
     LoopIfConditionIsTrue();
 }
 
-disabled rule: "286 Machine gun stats"
+rule: "286 Machine gun stats"
 Event.OngoingPlayer
 Team.Team2
 Player.Bastion
+if (Bosssequencer == 3)
 if (IsDummyBot(EventPlayer()) == true)
 if (Part == BossPart.MachineGun)
 {
     SetDamageDealt(EventPlayer(), 100);
-    StartScalingPlayer(EventPlayer(), 1.25, true);
+    StartScalingPlayer(EventPlayer(), 1.25 * BossScale(), true);
     SetMaxHealth(EventPlayer(), 1000);
     StartForcingDummyBotName(EventPlayer(), "Machine gun");
     ForceThrottle(EventPlayer(), 1, 1, 0, 1, 0, 1);
@@ -86,10 +76,12 @@ if (Part == BossPart.MachineGun)
     SetStatus(PlayersWithinRadius(EventPlayer(), 5, TeamOf(EventPlayer()), RadiusLOS.Off), null, Status.Stunned, 2);
 }
 
-disabled rule: "287 Machine gun keep form"
+rule: "287 Machine gun keep form"
 Event.OngoingPlayer
 Team.Team2
 Player.Bastion
+if (Bosssequencer == 3)
+if (Part == BossPart.MachineGun)
 if (IsUsingAbility1(EventPlayer()) == false)
 if (IsDummyBot(EventPlayer()) == true)
 {
@@ -99,10 +91,12 @@ if (IsDummyBot(EventPlayer()) == true)
     LoopIfConditionIsTrue();
 }
 
-disabled rule: "288 Machine gun shoot"
+rule: "288 Machine gun shoot"
 Event.OngoingPlayer
 Team.Team2
 Player.Bastion
+if (Bosssequencer == 3)
+if (Part == BossPart.MachineGun)
 if (IsButtonHeld(FirstOf(PlayersOnHero(Hero.Dva, Team.Team2)), Button.PrimaryFire) == true)
 if (IsDummyBot(EventPlayer()) == true)
 {
@@ -113,10 +107,12 @@ if (IsDummyBot(EventPlayer()) == true)
     LoopIfConditionIsTrue();
 }
 
-disabled rule: "289 Imperial warmech set attacks"
+rule: "289 Imperial warmech set attacks"
 Event.OngoingPlayer
 Team.Team2
 Player.Dva
+if (Bosssequencer == 3)
+if (EventPlayer() == bossBody)
 if (IsButtonHeld(EventPlayer(), Button.PrimaryFire) == true)
 if (IsAlive(EventPlayer()) == true)
 {
@@ -141,16 +137,20 @@ if (IsAlive(EventPlayer()) == true)
         if (EventPlayer().warmachAttackIndex == EventPlayer().Major_Attacks - 2)
         {
             CreateDummyBot(EventPlayer().warmachAttackParts[EventPlayer().warmachAttackIndex][0], Team.Team2, -1, EventPlayer(), Vector(0, 0, 0));
+
+            ModifyVariable(bossBots, Operation.AppendToArray, LastCreatedEntity());
             MinWait();
-            SetStatus(LastCreatedEntity(), null, Status.PhasedOut, 9999);
-            AttachPlayers(LastCreatedEntity(), EventPlayer(), EventPlayer().warmachAttackParts[EventPlayer().warmachAttackIndex][1]);
+            SetStatus(LastOf(bossBots), null, Status.PhasedOut, 9999);
+
+            StartScalingPlayer(LastOf(bossBots), BossScale(), true);
+            AttachPlayers(LastOf(bossBots), EventPlayer(), EventPlayer().warmachAttackParts[EventPlayer().warmachAttackIndex][1] * BossScale());
             if (EventPlayer().Major_Attacks == 3)
             {
-                StartFacing(LastCreatedEntity(), FacingDirectionOf(EventPlayer()) + Vector(RandomInteger(-1, 1), 0, 0), 1000, Relative.ToPlayer, FacingRev.DirectionAndTurnRate);
+                StartFacing(LastOf(bossBots), FacingDirectionOf(EventPlayer()) + Vector(RandomInteger(-1, 1), 0, 0), 1000, Relative.ToPlayer, FacingRev.DirectionAndTurnRate);
             }
             else
             {
-                StartFacing(LastCreatedEntity(), FacingDirectionOf(EventPlayer()), 1000, Relative.ToWorld, FacingRev.DirectionAndTurnRate);
+                StartFacing(LastOf(bossBots), FacingDirectionOf(EventPlayer()), 1000, Relative.ToWorld, FacingRev.DirectionAndTurnRate);
             }
             Wait(7, WaitBehavior.IgnoreCondition);
             LoopIfConditionIsTrue();
@@ -158,10 +158,11 @@ if (IsAlive(EventPlayer()) == true)
     }
 }
 
-disabled rule: "290 Rockets function"
+rule: "290 Rockets function"
 Event.OngoingPlayer
 Team.Team2
 Player.Pharah
+if (Bosssequencer == 3)
 if (IsDummyBot(EventPlayer()) == true)
 {
     SetDamageDealt(EventPlayer(), 100);
@@ -177,10 +178,11 @@ if (IsDummyBot(EventPlayer()) == true)
     DestroyDummyBot(TeamOf(EventPlayer()), SlotOf(EventPlayer()));
 }
 
-disabled rule: "291 Artillery setup"
+rule: "291 Artillery setup"
 Event.OngoingPlayer
 Team.Team2
 Player.Zarya
+if (Bosssequencer == 3)
 if (IsDummyBot(EventPlayer()) == true)
 {
     SetDamageDealt(EventPlayer(), 100);
@@ -192,10 +194,11 @@ if (IsDummyBot(EventPlayer()) == true)
     DestroyDummyBot(TeamOf(EventPlayer()), SlotOf(EventPlayer()));
 }
 
-disabled rule: "292 Artillery function"
+rule: "292 Artillery function"
 Event.OngoingPlayer
 Team.Team2
 Player.Zarya
+if (Bosssequencer == 3)
 if (IsDummyBot(EventPlayer()) == true)
 {
     StartHoldingButton(EventPlayer(), Button.SecondaryFire);
@@ -204,10 +207,12 @@ if (IsDummyBot(EventPlayer()) == true)
     LoopIfConditionIsTrue();
 }
 
-disabled rule: "293 Imperial warmech destroyed"
+rule: "293 Imperial warmech destroyed"
 Event.OngoingPlayer
 Team.Team2
 Player.Dva
+if (Bosssequencer == 3)
+if (EventPlayer() == bossBody)
 if (IsInAlternateForm(EventPlayer()) == true)
 {
     Wait(0.1, WaitBehavior.AbortWhenFalse);
@@ -216,14 +221,14 @@ if (IsInAlternateForm(EventPlayer()) == true)
     PlayEffect(AllPlayers(Team.All), PlayEffect.BastionTankCannonExplosionEffect, Color.White, EyePosition(EventPlayer()) + Vector(RandomInteger(-4, 4), RandomInteger(-3, 3), RandomInteger(-3, 3)), 1);
     Wait(0.25, WaitBehavior.IgnoreCondition);
     WaitUntil(IsDead(EventPlayer()), 99999);
-    DestroyAllEffects();
     ClearStatus(EventPlayer(), Status.Burning);
 }
 
-disabled rule: "294 Electric field bombs function"
+rule: "294 Electric field bombs function"
 Event.OngoingPlayer
 Team.Team2
 Player.Sojourn
+if (Bosssequencer == 3)
 if (IsDummyBot(EventPlayer()) == true)
 {
     SetDamageDealt(EventPlayer(), 100);
@@ -239,12 +244,12 @@ if (IsDummyBot(EventPlayer()) == true)
     DestroyDummyBot(TeamOf(EventPlayer()), SlotOf(EventPlayer()));
 }
 
-disabled rule: "295 Laser function"
+rule: "295 Laser function"
 Event.OngoingPlayer
 Team.Team2
 Player.Moira
 if (IsDummyBot(EventPlayer()) == true)
-if (roundnumber == 30)
+if (Bosssequencer == 3)
 {
     SetHealingDealt(EventPlayer(), 0);
     SetDamageDealt(EventPlayer(), 200);
@@ -257,10 +262,11 @@ if (roundnumber == 30)
     DestroyDummyBot(TeamOf(EventPlayer()), SlotOf(EventPlayer()));
 }
 
-disabled rule: "296 Seeking Mega mine function"
+rule: "296 Seeking Mega mine function"
 Event.OngoingPlayer
 Team.Team2
 Player.Junkrat
+if (Bosssequencer == 3)
 if (IsDummyBot(EventPlayer()) == true)
 {
     SetMaxHealth(EventPlayer(), 300);

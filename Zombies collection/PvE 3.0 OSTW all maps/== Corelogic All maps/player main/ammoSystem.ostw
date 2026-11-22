@@ -16,21 +16,24 @@ if (IsReloading(EventPlayer()) == true)
     SetAmmo(EventPlayer(), 0, 12);
 }
 
+rule: "Easy: magazines never run out"
+Event.OngoingPlayer
+Team.Team1
+if (Difficulty == 1)
+if (currentmagazines < FullMagazines())
+{
+    currentmagazines = FullMagazines();
+}
+
 rule: "115  ammo message force melee when out of ammo"
 Event.OngoingPlayer
 Team.Team1
 if (currentmagazines == false)
 if (IsButtonHeld(EventPlayer(), Button.PrimaryFire) == true)
 {
-    for (i = 0; CountOf(hero); 1)
-    {
-        if (HeroOf(EventPlayer()) == hero[i])
-        {
-            Wait(0.1, WaitBehavior.IgnoreCondition);
-            SmallMessage(EventPlayer(), <"<0> <1>", HeroIconString(hero[i]), noammostrings[i]>);
-            break;
-        }
-    }
+    Wait(0.1, WaitBehavior.IgnoreCondition);
+
+    SmallMessage(EventPlayer(), <"<0> <1>", HeroIconString(HeroOf(EventPlayer())), noammostrings[IndexOfArrayValue(hero, HeroOf(EventPlayer()))]>);
     BigMessage(EventPlayer(), "USE MELEE");
     Wait(5, WaitBehavior.IgnoreCondition);
     SmallMessage(EventPlayer(), "MELEE BONUS DAMAGE");
@@ -44,7 +47,7 @@ Team.Team1
 Player.Lifeweaver
 if (currentmagazines == false)
 {
-    # this doesnt seem to work, need to measure time instead of reloads
+
     DisallowButton(EventPlayer(), Button.PrimaryFire);
     DisallowButton(EventPlayer(), Button.SecondaryFire);
 }
@@ -81,7 +84,6 @@ if (IsButtonHeld(EventPlayer(), Button.PrimaryFire) == true)
     LoopIfConditionIsTrue();
 }
 
-
 rule: "105 specific hero ammo and double mag"
 Event.OngoingPlayer
 Team.Team1
@@ -92,18 +94,10 @@ if ((IsButtonHeld(EventPlayer(), Button.Ability1) || IsButtonHeld(EventPlayer(),
         switch (HeroOf(EventPlayer()))
         {
             case Hero.Moira:
-                if (perk[Perk.SpeedCola] == false)
-                {
-                    currentmagazines -= 0.05;
-                    Wait(0.25, WaitBehavior.IgnoreCondition);
-                    LoopIfConditionIsTrue();
-                }
-                else if (perk[Perk.SpeedCola] == 1)
-                {
-                    currentmagazines -= 0.025;
-                    Wait(0.25, WaitBehavior.IgnoreCondition);
-                    LoopIfConditionIsTrue();
-                }
+
+                currentmagazines -= 0.05 * SpeedColaAmmo();
+                Wait(0.25, WaitBehavior.IgnoreCondition);
+                LoopIfConditionIsTrue();
                 break;
         }
     }
@@ -124,49 +118,22 @@ if ((IsButtonHeld(EventPlayer(), Button.Ability1) || IsButtonHeld(EventPlayer(),
             case Hero.Dva:
                 if (!IsInAlternateForm(EventPlayer()))
                 {
-                    if (perk[Perk.SpeedCola] == false)
-                    {
-                        currentmagazines -= 0.05;
-                        Wait(0.15, WaitBehavior.IgnoreCondition);
-                        LoopIfConditionIsTrue();
-                    }
-                    else if (perk[Perk.SpeedCola] == 1)
-                    {
-                        currentmagazines -= 0.025;
-                        Wait(0.125, WaitBehavior.IgnoreCondition);
-                        LoopIfConditionIsTrue();
-                    }
+                    currentmagazines -= 0.05 * SpeedColaAmmo();
+                    Wait(0.15, WaitBehavior.IgnoreCondition);
+                    LoopIfConditionIsTrue();
                 }
                 break;
 
             case Hero.Hanzo:
-                if (perk[Perk.SpeedCola] == false)
-                {
-                    currentmagazines -= 0.25;
-                }
-                else if (perk[Perk.SpeedCola] == 1)
-                {
-                    currentmagazines -= 0.125;
-                }
+                currentmagazines -= 0.25 * SpeedColaAmmo();
                 break;
 
             case Hero.Sigma:
-                if (perk[Perk.SpeedCola] == false)
-                {
-                    currentmagazines -= 0.05;
-                    Wait(0.1, WaitBehavior.IgnoreCondition);
-                    currentmagazines -= 0.05;
-                    Wait(1.5, WaitBehavior.IgnoreCondition);
-                    LoopIfConditionIsTrue();
-                }
-                else if (perk[Perk.SpeedCola] == 1)
-                {
-                    currentmagazines -= 0.025;
-                    Wait(0.1, WaitBehavior.IgnoreCondition);
-                    currentmagazines -= 0.025;
-                    Wait(1.5, WaitBehavior.IgnoreCondition);
-                    LoopIfConditionIsTrue();
-                }
+                currentmagazines -= 0.05 * SpeedColaAmmo();
+                Wait(0.1, WaitBehavior.IgnoreCondition);
+                currentmagazines -= 0.05 * SpeedColaAmmo();
+                Wait(1.5, WaitBehavior.IgnoreCondition);
+                LoopIfConditionIsTrue();
                 break;
         }
     }
@@ -192,14 +159,7 @@ if ((IsButtonHeld(EventPlayer(), Button.Ability1) || IsButtonHeld(EventPlayer(),
             case Hero.Reinhardt:
                 if (IsUsingAbility2(EventPlayer()))
                 {
-                    if (perk[Perk.SpeedCola] == false)
-                    {
-                        currentmagazines -= 0.25;
-                    }
-                    else if (perk[Perk.SpeedCola] == 1)
-                    {
-                        currentmagazines -= 0.125;
-                    }
+                    currentmagazines -= 0.25 * SpeedColaAmmo();
                 }
                 break;
         }
@@ -218,26 +178,6 @@ if (IsButtonHeld(EventPlayer(), Button.PrimaryFire) == true)
         currentmagazines -= 0.025;
         Wait(0.15, WaitBehavior.IgnoreCondition);
         LoopIfConditionIsTrue();
-    }
-}
-
-disabled rule: "350 hanzo ammo cancel (wip)"
-Event.OngoingPlayer
-Player.Hanzo
-if (IsButtonHeld(EventPlayer(), Button.PrimaryFire) == true)
-if (IsButtonHeld(EventPlayer(), Button.SecondaryFire) == true)
-{
-    Wait(0.1, WaitBehavior.AbortWhenFalse);
-
-    switch (doublemag)
-    {
-        case false:
-            magazines += 0.25;
-            break;
-
-        case 1:
-            magazines += 0.125;
-            break;
     }
 }
 
@@ -264,7 +204,7 @@ if (doublemag == false)
 rule: "84 reloading all heros without doublemag"
 Event.OngoingPlayer
 Team.Team1
-# can be made into one rule with or without perk
+
 if (IsReloading(EventPlayer()) == true)
 if (doublemag == false)
 {
@@ -273,7 +213,7 @@ if (doublemag == false)
 
 rule: "89 out of ammo"
 Event.OngoingPlayer
-# can just have an if else statement for specific heros
+
 if (HeroOf(EventPlayer()) != Hero.Moira)
 if (HeroOf(EventPlayer()) != Hero.Mercy)
 if (HeroOf(EventPlayer()) != Hero.Reinhardt)
@@ -308,10 +248,13 @@ Event.OngoingPlayer
 rule: "91 enable guns when they have ammo"
 Event.OngoingPlayer
 if (currentmagazines > 0)
+
+if (start == 1)
 if (HeroOf(EventPlayer()) != Hero.Mei)
 {
     SetPrimaryFireEnabled(EventPlayer(), true);
-    SetSecondaryFireEnabled(EventPlayer(), true);
+
+    SetSecondaryFireEnabled(EventPlayer(), XPUnlocked(5));
     AllowButton(EventPlayer(), Button.PrimaryFire);
     AllowButton(EventPlayer(), Button.SecondaryFire);
 }

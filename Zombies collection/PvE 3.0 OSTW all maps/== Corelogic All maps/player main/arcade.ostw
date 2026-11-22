@@ -1,0 +1,77 @@
+import "../../antarctic peninsula/Main/index.ostw";
+
+rule: "arcade: the secret code"
+Event.OngoingPlayer
+Team.Team1
+if (start == false)
+if (textListsLoaded == true)
+
+if (settingsViewers == null)
+if (IsDummyBot(EventPlayer()) == false)
+if ((IsButtonHeld(EventPlayer(), Button.PrimaryFire) || IsButtonHeld(EventPlayer(), Button.SecondaryFire)) == true)
+{
+
+    if (TotalTimeElapsed() - arcadeCodeTime > 1)
+    {
+        arcadeCodeStep = 0;
+    }
+    arcadeCodeTime = TotalTimeElapsed();
+
+    if (IsButtonHeld(EventPlayer(), Button.PrimaryFire) == (arcadeCodeStep % 2 == 0))
+    {
+        arcadeCodeStep += 1;
+    }
+    else
+    {
+        arcadeCodeStep = IsButtonHeld(EventPlayer(), Button.PrimaryFire) ? 1 : 0;
+    }
+}
+
+rule: "arcade: Soldier, aimbot and overhead camera"
+Event.OngoingPlayer
+Team.Team1
+if (arcadeMode == true)
+if (start == 1)
+if (outofpsawn == 1)
+if (IsDummyBot(EventPlayer()) == false)
+{
+    ForcePlayerHero(EventPlayer(), Hero.Soldier76);
+    heroswap[0] = Hero.Soldier76;
+    heroiconswap[0] = HeroIconString(Hero.Soldier76);
+    StartFacing(EventPlayer(), DirectionTowards(EyePosition(EventPlayer()), EyePosition(FirstOf(SortedArray(FilteredArray(AllLivingPlayers(Team.Team2), !IsInSpawnRoom(ArrayElement())), DistanceBetween(EventPlayer(), ArrayElement()))))), 800, Relative.ToWorld, FacingRev.DirectionAndTurnRate);
+    StartTransformingThrottle(EventPlayer(), 1, 1, Vector(-0.109, 0, 0.994));
+    while (start == 1)
+    {
+        if (IsAlive(EventPlayer()))
+        {
+            StartCamera(EventPlayer(), RayCastHitPosition(EyePosition(EventPlayer()), EyePosition(EventPlayer()) + Vector(0.778, 14.866, -7.117), null, EventPlayer(), false) - Vector(0.024, 0.451, -0.216), EyePosition(EventPlayer()), 20);
+            if (HeroOf(EventPlayer()) != Hero.Soldier76)
+            {
+                SetUltimateCharge(EventPlayer(), UltimateChargePercent(EventPlayer()) + 40);
+            }
+        }
+        Wait(2, WaitBehavior.IgnoreCondition);
+    }
+    StopFacing(EventPlayer());
+    StopTransformingThrottle(EventPlayer());
+}
+
+rule: "arcade: Soldier's ultimate changes your hero"
+Event.OngoingPlayer
+Team.Team1
+if (arcadeMode == true)
+if (HeroOf(EventPlayer()) == Hero.Soldier76)
+if (IsUsingUltimate(EventPlayer()) == true)
+if (IsDummyBot(EventPlayer()) == false)
+{
+    Wait(0.25, WaitBehavior.IgnoreCondition);
+    ForcePlayerHero(EventPlayer(), RandomValueInArray(hero));
+    SetStatus(EventPlayer(), null, Status.PhasedOut, 2);
+    Wait(30, WaitBehavior.IgnoreCondition);
+    WaitUntil(IsAlive(EventPlayer()), 99999);
+
+    if (start == 1)
+    {
+        ForcePlayerHero(EventPlayer(), Hero.Soldier76);
+    }
+}

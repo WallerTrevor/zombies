@@ -1,0 +1,229 @@
+rule: "Initial Global"
+{
+    playerRingColors = [Color.Red, Color.Blue, Color.Green, Color.Orange];
+    allDoors = [];
+    second = [];
+    z = [];
+}
+
+rule: "Initial Player"
+Event.OngoingPlayer
+{
+    filterpos = false;
+    lastsavedpos = false;
+    closestbodypos = false;
+    fullbodypos = false;
+    prevpos_intersection = false;
+    active_wall = [];
+    closestwall = [];
+}
+
+Boolean InsideDoorBox(Vector point): AbsoluteValue(DotProduct(point - allDoors[z].Corner, allDoors[z].Side) - allDoors[z].Width / 2) <= allDoors[z].Width / 2 && AbsoluteValue(YOf(point) - YOf(allDoors[z].Center)) <= (YOf(allDoors[z].OppositeCorner) - YOf(allDoors[z].Corner)) / 2;
+
+rule: "Collision Logic"
+Event.OngoingPlayer
+Team.Team1
+if (IsAlive(EventPlayer()) == true)
+if (start == 1)
+if (IsDummyBot(EventPlayer()) == false)
+{
+    if (teleporterused == 1)
+    {
+        WaitUntil(teleporterused == 0, 999999995904);
+        Wait(1.5, WaitBehavior.IgnoreCondition);
+    }
+    if (outofpsawn == 0)
+    {
+        WaitUntil(outofpsawn == 1, 999999995904);
+        Wait(1.5, WaitBehavior.IgnoreCondition);
+    }
+    lastsavedpos = (EyePosition(EventPlayer()) + PositionOf(EventPlayer())) / 2;
+    Wait(0.16 + 0.32 * ServerLoadPeak() / 255 + SlotOf(EventPlayer()) * 0.016, WaitBehavior.IgnoreCondition);
+    WaitUntil(Max(ServerLoadAverage(), ServerLoad()) < 245, 0.5);
+
+    if (DistanceBetween(lastsavedpos, EventPlayer()) > 40 || doorSkipCheck == true)
+    {
+        doorSkipCheck = false;
+        LoopIfConditionIsTrue();
+        return;
+    }
+
+    closestwall = allDoors.Map((d, doorNum) => doorNum).FilteredArray(doorNum => DistanceBetween(allDoors[doorNum].Center, EventPlayer()) <= DistanceBetween(allDoors[doorNum].Center, allDoors[doorNum].Corner) || active_wall[doorNum] == 1 || DotProduct(DirectionTowards(allDoors[doorNum].Center, lastsavedpos), allDoors[doorNum].Facing) > 0 != DotProduct(DirectionTowards(allDoors[doorNum].Center, EventPlayer()), allDoors[doorNum].Facing) > 0);
+    for (x_ = 0; CountOf(closestwall); 1)
+    {
+        if (allDoors[z].State == WallState.Open)
+        {
+            active_wall[z] = 0;
+
+            SetMoveSpeed(EventPlayer(), 100);
+        }
+        z = closestwall[x_];
+        if (allDoors[z].State == WallState.Closed)
+        {
+            if (YOf(allDoors[z].Corner) >= YOf(PositionOf(EventPlayer())) && YOf(allDoors[z].Corner) <= YOf(EyePosition(EventPlayer()) + Vector(0, 0.2, 0)))
+            {
+                closestbodypos = allDoors[z].Corner;
+            }
+            else if (YOf(allDoors[z].OppositeCorner) >= YOf(PositionOf(EventPlayer())) && YOf(allDoors[z].OppositeCorner) <= YOf(EyePosition(EventPlayer()) + Vector(0, 0.2, 0)))
+            {
+                closestbodypos = allDoors[z].OppositeCorner;
+            }
+            else
+            {
+                closestbodypos = PositionOf(EventPlayer());
+            }
+            fullbodypos = Vector(XOf(EyePosition(EventPlayer())), YOf(closestbodypos), ZOf(EyePosition(EventPlayer())));
+            filterpos = fullbodypos + allDoors[z].Facing * DotProduct(allDoors[z].Center - fullbodypos, allDoors[z].Facing) / DotProduct(allDoors[z].Facing, allDoors[z].Facing);
+            if (DotProduct(DirectionTowards(allDoors[z].Center, lastsavedpos), allDoors[z].Facing) > 0 != DotProduct(DirectionTowards(allDoors[z].Center, fullbodypos), allDoors[z].Facing) > 0)
+            {
+                intersection_length = DotProduct(allDoors[z].Center - fullbodypos, allDoors[z].Facing) / DotProduct(DirectionTowards(lastsavedpos, fullbodypos), allDoors[z].Facing);
+                prevpos_intersection = fullbodypos + DirectionTowards(lastsavedpos, fullbodypos) * Vector(1, 1, 1) * intersection_length;
+                if (InsideDoorBox(prevpos_intersection))
+                {
+                    CancelPrimaryAction(EventPlayer());
+                    Teleport(EventPlayer(), prevpos_intersection + DirectionTowards(prevpos_intersection, lastsavedpos) * Vector(1, 0, 1) * 2);
+                }
+            }
+            if (DistanceBetween(fullbodypos, filterpos) <= 4 && InsideDoorBox(filterpos))
+            {
+                if (active_wall[z] == false)
+                {
+                    active_wall[z] = 1;
+                    if (is_Grounded == false)
+                    {
+                        SetGravity(EventPlayer(), 100);
+                    }
+                }
+                ApplyImpulse(EventPlayer(), DirectionTowards(filterpos, fullbodypos) * Vector(1, 0, 1), 1, Relative.ToWorld, ContraryMotion.Cancel);
+                if (doorNotif == 0)
+                {
+                    doorNotif = 1;
+                }
+                if (IsButtonHeld(EventPlayer(), Button.Interact) && points >= DoorPrice() - creditcardlimit)
+                {
+                    PlayEffect(AllPlayers(Team.All), PlayEffect.GoodExplosion, Color.White, allDoors[z].Center, 50);
+                    PlayEffect(AllPlayers(Team.All), PlayEffect.LucioSoundBarrierCastSound, Color.White, allDoors[z].Center, 100);
+
+                    points -= RoundToInteger(DoorPrice() * cashback, Rounding.Nearest);
+
+                    currentZone = allDoors[z].Zone;
+                    doorsToOpen = currentZone == -1 ? [z] : allDoors.Map((d, doorNum) => doorNum).FilteredArray(doorNum => allDoors[doorNum].Zone == currentZone);
+                    for (i = 0; CountOf(doorsToOpen); 1)
+                    {
+                        z = doorsToOpen[i];
+                        if (allDoors[z].State == WallState.Closed)
+                        {
+                            DestroyDoorEffects(z);
+                            allDoors[z].State = WallState.Open;
+                            active_wall[z] = 0;
+
+                            ModifyVariable(doorsOpen, Operation.AppendToArray, doorZoneStart + z);
+                        }
+                    }
+                    SmallMessage(EventPlayer(), "Zone bought!");
+                    doorNotif = 0;
+                    ChaseVariableAtRate(points2, EvaluateOnce(points) * H, 1000, RateChaseReevaluation.DestinationAndRate);
+                    MinWait();
+                    SetMoveSpeed(EventPlayer(), 100);
+                }
+                SetMoveSpeed(EventPlayer(), 100 - DotProduct(DirectionTowards(EyePosition(EventPlayer()), EyePosition(EventPlayer()) + WorldVectorOf(ThrottleOf(EventPlayer()), EventPlayer(), LocalVector.Rotation)), DirectionTowards(filterpos, fullbodypos) * -1) * 100);
+            }
+            else
+            {
+                active_wall[z] = 0;
+
+                SetMoveSpeed(EventPlayer(), 100);
+            }
+        }
+    }
+    LoopIfConditionIsTrue();
+}
+
+void BuildZoneDoors() "build the zone's doors"
+{
+
+    doormade = 0;
+
+    for (doorBuildIndex = 0; allDoors.Length; 1)
+    {
+        DestroyDoorEffects(doorBuildIndex);
+    }
+
+    AllPlayers(Team.Team1).active_wall = [];
+    doorZoneStart = [doorzone1count1, doorzone2count1, doorzone3count1][telespot];
+
+    LoadZoneDoorData();
+    doorBuildIndex = 0;
+    looping = 0;
+    allDoors = [];
+
+    while (doorBuildIndex < CountOf(doorVectors))
+    {
+        if (!(doorBuildIndex % 2))
+        {
+            LoadingPause();
+        }
+        allDoors += [{
+            Corner: doorVectors[doorBuildIndex],
+
+            OppositeCorner: null,
+            Center: null,
+            Facing: DirectionFromAngles(doorParams[looping + 2] + 180, 0),
+            Side: DirectionFromAngles(doorParams[looping + 2] - 90, 0),
+            Width: doorParams[looping],
+
+            State: ArrayContains(doorsOpen, doorZoneStart + doorBuildIndex) ? WallState.Open : WallState.Closed,
+            Zone: doorGroups[doorBuildIndex],
+
+            BeamSpan: DirectionFromAngles(doorParams[looping + 2] - 90, 0) * doorParams[looping] + Up() * doorParams[looping + 1],
+            BeamA: null,
+            BeamB: null
+        }];
+        if (doorParams[looping + 3] == 1)
+        {
+
+            allDoors[doorBuildIndex].Width = doorParams[looping + 4];
+            allDoors[doorBuildIndex].OppositeCorner = doorVectors[doorBuildIndex] + allDoors[doorBuildIndex].Side * doorParams[looping + 4] + Up() * doorParams[looping + 5];
+            looping += 6;
+        }
+        else
+        {
+
+            allDoors[doorBuildIndex].OppositeCorner = doorVectors[doorBuildIndex] + allDoors[doorBuildIndex].Side * doorParams[looping] + Vector(0, 50, 0);
+            looping += 4;
+        }
+        allDoors[doorBuildIndex].Center = (allDoors[doorBuildIndex].Corner + allDoors[doorBuildIndex].OppositeCorner) / 2;
+        doorBuildIndex += 1;
+    }
+
+    doorVectors = [];
+    doorParams = [];
+    doorGroups = [];
+    doormade = 1;
+}
+
+rule: "Reset door notif"
+Event.OngoingPlayer
+if (doorNotif == 1)
+{
+    SmallMessage(EventPlayer(), <"Hold <0> to buy zone - cost: <1>", InputBindingString(Button.Interact), RoundToInteger(DoorPrice(), Rounding.Nearest)>);
+    Wait(4, WaitBehavior.IgnoreCondition);
+    doorNotif = 0;
+    Wait(0.5, WaitBehavior.IgnoreCondition);
+    LoopIfConditionIsTrue();
+}
+
+rule: "draw the doors"
+if (doorsNeedDrawing == true)
+{
+    makedoors();
+    doorsNeedDrawing = false;
+}
+
+rule: "Reset"
+Event.OngoingPlayer
+if (CountOf(FilteredArray(active_wall, ArrayElement() != 0)) == 0)
+{
+
+    EnableMovementCollisionWithEnvironment(EventPlayer());
+}
