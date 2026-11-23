@@ -27,9 +27,9 @@ if (IsDummyBot(EventPlayer()) == true)
 rule: "38 Pickup vaporized"
 Event.OngoingPlayer
 Team.Team1
+if (roundnumber >= 1)
 if (DistanceBetween(EventPlayer(), M[3]) <= 1.5)
 if (AllPlayers(Team.Team1).G[3] == false)
-if (roundnumber >= 1)
 {
 
     M[3] = Vector(500, 25, 500);
@@ -45,9 +45,9 @@ if (roundnumber >= 1)
 rule: "39 Pickup max ammo"
 Event.OngoingPlayer
 Team.Team1
+if (roundnumber >= 1)
 if (DistanceBetween(EventPlayer(), M[5]) <= 1.5)
 if (AllPlayers(Team.Team1).G[5] == false)
-if (roundnumber >= 1)
 {
     M[5] = Vector(500, 25, 500);
     AllPlayers(Team.Team1).G[5] = true;
@@ -104,8 +104,8 @@ void RebuildBreachEffects() "rebuild barricade effects"
 rule: "137  get out of spawn bots"
 Event.OngoingPlayer
 Team.Team2
-if (IsAlive(EventPlayer()) == true)
 if (IsInSpawnRoom(EventPlayer()) == true)
+if (IsAlive(EventPlayer()) == true)
 if (CountOf(globalActiveBreaches) > 0)
 {
 
@@ -139,8 +139,8 @@ if (CountOf(globalActiveBreaches) > 0)
 rule: "barricade repair by players"
 Event.OngoingPlayer
 Team.Team1
-if (IsAlive(EventPlayer()) == true)
 if (IsButtonHeld(EventPlayer(), Button.Reload) == true)
+if (IsAlive(EventPlayer()) == true)
 
 if (IsTrueForAny(globalActiveBreaches, DistanceBetween(ArrayElement(), EventPlayer()) < 2) == true)
 {
@@ -288,9 +288,9 @@ rule: "436 OMNIC set features ALL"
 Event.OngoingPlayer
 Team.Team2
 
-if (IsBossBot(EventPlayer()) == false)
 if (SlotOf(EventPlayer()) != PlayersInSlot(0, Team.Team2))
 if (HasSpawned(EventPlayer()) == true)
+if (IsBossBot(EventPlayer()) == false)
 {
     StartModifyingHeroVoiceLines(EventPlayer(), 0.5, true);
 
@@ -401,10 +401,10 @@ if (roundnumber / 3 == RoundToInteger(roundnumber / 3, Rounding.Down))
 rule: "use ability loop"
 Event.OngoingPlayer
 Team.Team2
-if (IsAlive(EventPlayer()) == true)
-
-if (IsBossBot(EventPlayer()) == false)
 if (zombieTargetDistance < 10)
+
+if (IsAlive(EventPlayer()) == true)
+if (IsBossBot(EventPlayer()) == false)
 {
     for (idx = 0; 10; 1)
     {
@@ -429,8 +429,8 @@ rule: "409 OMNIC Bots Attack if Near"
 Event.OngoingPlayer
 Team.Team2
 
-if (IsBossBot(EventPlayer()) == false)
 if (zombieTargetDistance < 1.8)
+if (IsBossBot(EventPlayer()) == false)
 {
 
     Wait(ZombieReactionTime(), WaitBehavior.AbortWhenFalse);
@@ -440,10 +440,10 @@ if (zombieTargetDistance < 1.8)
 rule: "410 OMNIC Bots Dont Attack if Not Near"
 Event.OngoingPlayer
 Team.Team2
-if (IsBossBot(EventPlayer()) == false)
-if (zombieTargetDistance >= 1.8)
 if (IsFiringPrimary(EventPlayer()) == true)
+if (zombieTargetDistance >= 1.8)
 if (IsUsingUltimate(EventPlayer()) == false)
+if (IsBossBot(EventPlayer()) == false)
 {
     StopHoldingButton(EventPlayer(), Button.PrimaryFire);
     SetAbility2Enabled(EventPlayer(), true);
@@ -489,8 +489,8 @@ if (HeroOf(EventPlayer()) != Hero.Mercy)
 rule: "419 OMNIC set winston always has ult"
 Event.OngoingPlayer
 Team.Team2
-if (ArrayContains([Hero.Winston, Hero.Genji], HeroOf(EventPlayer())) == true)
 if (IsMoving(EventPlayer()) == true)
+if (ArrayContains([Hero.Winston, Hero.Genji], HeroOf(EventPlayer())) == true)
 {
     SetUltimateCharge(EventPlayer(), 100);
 }

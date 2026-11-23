@@ -10,8 +10,8 @@ void PapStickyBomb() "pack a punch sticky bomb"
 
 rule: "Pack a punch Ongoing - player"
 Event.OngoingPlayer
-if (Packapunch>= 1)
 if ((IsUsingAbility1(EventPlayer()) || IsUsingAbility2(EventPlayer()) || IsUsingUltimate(EventPlayer()) || IsFiringPrimary(EventPlayer()) || IsFiringSecondary(EventPlayer())) == true)
+if (Packapunch>= 1)
 
 {
 
@@ -245,9 +245,9 @@ if ((IsUsingAbility1(EventPlayer()) || IsUsingAbility2(EventPlayer()) || IsUsing
 rule: "Pack a Punch - Damage dealt"
 Event.OnDamageDealt
 Team.Team1
-if (ArrayContains([Hero.Soldier76, Hero.Cassidy, Hero.Sigma, Hero.Junkrat, Hero.Moira, Hero.Brigitte, Hero.Doomfist], HeroOf(EventPlayer())) == true)
-if (Packapunch >= 1)
 if ((IsUsingAbility1(EventPlayer()) || IsUsingAbility2(EventPlayer()) || IsUsingUltimate(EventPlayer()) || IsFiringPrimary(EventPlayer()) || IsFiringSecondary(EventPlayer())) == true)
+if (Packapunch >= 1)
+if (ArrayContains([Hero.Soldier76, Hero.Cassidy, Hero.Sigma, Hero.Junkrat, Hero.Moira, Hero.Brigitte, Hero.Doomfist], HeroOf(EventPlayer())) == true)
 {
     if (HeroOf(Attacker()) == Hero.Cassidy)
     {
@@ -303,8 +303,8 @@ if ((IsUsingAbility1(EventPlayer()) || IsUsingAbility2(EventPlayer()) || IsUsing
 rule: "Torbjorn pack a punch Dispencer active"
 Event.OngoingPlayer
 Team.Team1
-if (PlayersWithinRadius(dispencerposition, 3.5, Team.Team1, RadiusLOS.SurfacesAndEnemyBarriers) == true)
 if (dispencerplaced == 1)
+if (PlayersWithinRadius(dispencerposition, 3.5, Team.Team1, RadiusLOS.SurfacesAndEnemyBarriers) == true)
 {
     Wait(0.5, WaitBehavior.AbortWhenFalse);
     Heal(EventPlayer(), null, 20);
@@ -316,10 +316,10 @@ if (dispencerplaced == 1)
 rule: "give pack a punch a sound"
 Event.OngoingPlayer
 Team.Team1
-if (Packapunch >= 1)
-if (ServerLoad() < 220)
-
 if ((IsFiringPrimary(EventPlayer()) || IsFiringSecondary(EventPlayer())) == true)
+if (Packapunch >= 1)
+
+if (ServerLoad() < 220)
 {
     if (IsFiringPrimary(EventPlayer()))
     {
@@ -340,9 +340,9 @@ if ((IsFiringPrimary(EventPlayer()) || IsFiringSecondary(EventPlayer())) == true
 rule: "Pack a Punch - final blow bonuses (Venture, Mauga, Sigma)"
 Event.OnFinalBlow
 Team.Team1
-if (ArrayContains([Hero.Venture, Hero.Mauga, Hero.Sigma], HeroOf(EventPlayer())) == true)
-if (Packapunch >= 1)
 if ((IsUsingAbility1(EventPlayer()) || IsUsingAbility2(EventPlayer()) || IsUsingUltimate(EventPlayer()) || IsFiringPrimary(EventPlayer()) || IsFiringSecondary(EventPlayer()) || IsMeleeing(EventPlayer())) == true)
+if (Packapunch >= 1)
+if (ArrayContains([Hero.Venture, Hero.Mauga, Hero.Sigma], HeroOf(EventPlayer())) == true)
 {
     if (HeroOf(Attacker()) == Hero.Venture)
     {

@@ -279,9 +279,9 @@ if (playerRingCreated == false)
 rule: "Bot effect (each player team 2)"
 Event.OnDeath
 Team.Team2
-if (IsDummyBot(EventPlayer()) == true)
-
 if (ServerLoad() < 200)
+
+if (IsDummyBot(EventPlayer()) == true)
 {
     PlayEffect(AllPlayers(Team.All), PlayEffect.JunkratFragLauncherExplosionEffect, Color.White, EventPlayer(), 5);
     PlayEffect(AllPlayers(Team.All), PlayEffect.WreckingBallMinefieldExplosionSound, Color.White, EventPlayer(), 100);

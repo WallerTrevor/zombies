@@ -35,9 +35,9 @@ if (HasSpawned(EventPlayer()) == true)
 rule: "Ramattra coins: say I need healing to use one"
 Event.OngoingPlayer
 Team.Team1
-if (IsDummyBot(EventPlayer()) == false)
-if (start == 1)
 if (IsCommunicating(EventPlayer(), Communication.NeedHealing) == true)
+if (start == 1)
+if (IsDummyBot(EventPlayer()) == false)
 {
     coinPrice = CoinPriceHere();
     if (coinPrice == 0)

@@ -3,12 +3,12 @@ import "../../antarctic peninsula/Main/index.ostw";
 rule: "arcade: the secret code"
 Event.OngoingPlayer
 Team.Team1
+if ((IsButtonHeld(EventPlayer(), Button.PrimaryFire) || IsButtonHeld(EventPlayer(), Button.SecondaryFire)) == true)
 if (start == false)
-if (textListsLoaded == true)
 
+if (textListsLoaded == true)
 if (settingsViewers == null)
 if (IsDummyBot(EventPlayer()) == false)
-if ((IsButtonHeld(EventPlayer(), Button.PrimaryFire) || IsButtonHeld(EventPlayer(), Button.SecondaryFire)) == true)
 {
 
     if (TotalTimeElapsed() - arcadeCodeTime > 1)
@@ -59,9 +59,9 @@ if (IsDummyBot(EventPlayer()) == false)
 rule: "arcade: Soldier's ultimate changes your hero"
 Event.OngoingPlayer
 Team.Team1
-if (arcadeMode == true)
 if (HeroOf(EventPlayer()) == Hero.Soldier76)
 if (IsUsingUltimate(EventPlayer()) == true)
+if (arcadeMode == true)
 if (IsDummyBot(EventPlayer()) == false)
 {
     Wait(0.25, WaitBehavior.IgnoreCondition);

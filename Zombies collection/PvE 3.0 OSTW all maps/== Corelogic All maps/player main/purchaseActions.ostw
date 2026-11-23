@@ -2,8 +2,8 @@
 Event.OngoingPlayer
 Team.Team1
 
-if (monkeyBombActive != true)
 if (IsButtonHeld(EventPlayer(), Button.Reload) == true)
+if (monkeyBombActive != true)
 if (IsTrueForAny(buyheros, DistanceToEventPlayer(ArrayElement()) < 2) == true)
 {
     Wait(1, WaitBehavior.AbortWhenFalse);
@@ -40,8 +40,8 @@ rule: "Purchase Mystery Follower action"
 Event.OngoingPlayer
 Team.Team1
 
-if (monkeyBombActive != true)
 if (IsButtonHeld(EventPlayer(), Button.Reload) == true)
+if (monkeyBombActive != true)
 
 if (NearMysteryBox())
 {
@@ -124,8 +124,8 @@ rule: "connect power"
 Event.OngoingPlayer
 Team.Team1
 if (IsButtonHeld(EventPlayer(), Button.Interact) == true)
-if (DistanceToEventPlayer(buyperks[Buyable.Power]) < 2)
 if (poweron == 0)
+if (DistanceToEventPlayer(buyperks[Buyable.Power]) < 2)
 {
     PlayEffect(AllPlayers(Team.Team1), PlayEffect.BuffImpactSound, Color.White, EventPlayer(), 70);
 
@@ -188,6 +188,26 @@ if (IsTrueForAny(buyheros, DistanceToEventPlayer(ArrayElement()) < 2) == true)
                     }
                 }
             }
+            else if (heroswap[1 - currentswap] == hero[buySpot])
+            {
+                if (points >= RoundToInteger(herobuycosts[buySpot] / 2 * costmultiplier - creditcardlimit, Rounding.Nearest) && magazines[1 - currentswap] < FullMagazines())
+                {
+                    points -= RoundToInteger(herobuycosts[buySpot] / 2 * costmultiplier * cashback, Rounding.Nearest);
+                    Wait(0.25, WaitBehavior.IgnoreCondition);
+                    ChaseVariableAtRate(points2, EvaluateOnce(points) * H, herobuycosts[buySpot], RateChaseReevaluation.DestinationAndRate);
+                    magazines[1 - currentswap] = FullMagazines();
+                    SmallMessage(EventPlayer(), <"<0> Magazines refilled for your other hero!", HeroIconString(hero[buySpot])>);
+                }
+                else if (magazines[1 - currentswap] >= FullMagazines())
+                {
+                    SmallMessage(EventPlayer(), <"<0> You already have this hero, with full magazines!", HeroIconString(hero[buySpot])>);
+                }
+                else
+                {
+                    SmallMessage(EventPlayer(), <"<0> No points? NO magazines!", HeroIconString(Hero.Ramattra)>);
+                }
+                break;
+            }
             else
             {
                 if (points >= RoundToInteger(herobuycosts[buySpot] * CoinDiscount() * costmultiplier - creditcardlimit, Rounding.Nearest))
@@ -232,8 +252,8 @@ rule: "buy the ending"
 Event.OngoingPlayer
 Team.Team1
 if (IsButtonHeld(EventPlayer(), Button.Interact) == true)
-if (DistanceToEventPlayer(Vector(-101.303, -150.36, -17.831)) < 2)
 if (IsAlive(EventPlayer()) == true)
+if (DistanceToEventPlayer(Vector(-101.303, -150.36, -17.831)) < 2)
 {
     if (points >= 50000)
     {
@@ -274,10 +294,10 @@ if (endingRewardPending == true)
 rule: "78 buy revive multiplayer"
 Event.OngoingPlayer
 Team.Team1
-if (DistanceToEventPlayer(Vector(-83.583, -155.045, 120.352)) < 4)
 if (IsButtonHeld(EventPlayer(), Button.Interact) == true)
 if (points >= RoundToInteger(1000 * costmultiplier - creditcardlimit, Rounding.Nearest))
 if (powerconnected == 1)
+if (DistanceToEventPlayer(Vector(-83.583, -155.045, 120.352)) < 4)
 
 if (RealPlayerCount() > 1)
 {
@@ -296,9 +316,9 @@ if (RealPlayerCount() > 1)
 rule: "173 Purchase winston Omnic bomb"
 Event.OngoingPlayer
 Team.Team1
-if (DistanceToEventPlayer(buyperks[Buyable.OmnicBomb]) < 2)
 if (IsButtonHeld(EventPlayer(), Button.Interact) == true)
 if (monkeyBombOwned != true)
+if (DistanceToEventPlayer(buyperks[Buyable.OmnicBomb]) < 2)
 {
 
     if (poweron != 1)
@@ -340,7 +360,7 @@ if (NearMysteryBox())
             PlayEffect(AllPlayers(Team.Team1), PlayEffect.BuffImpactSound, Color.White, EventPlayer(), 70);
         }
         WaitUntil(ServerLoad() < 230, 1.5);
-        ForcePlayerHero(EventPlayer(), FirstOf(RandomValueInArray(RandomizedArray(AllHeroes()))));
+        ForcePlayerHero(EventPlayer(), RandomValueInArray(RemoveFromArray(AllHeroes(), heroswap)));
 
         perk[Perk.packapunch] = 0;
         Wait(0.1, WaitBehavior.IgnoreCondition);
@@ -377,9 +397,9 @@ if (NearMysteryBox())
 rule: "192 Purchase trap"
 Event.OngoingPlayer
 Team.Team1
-if (DistanceToEventPlayer(Vector(-83.799, -160.001, 64.224)) <= 2)
 if (IsButtonHeld(EventPlayer(), Button.Interact) == true)
 if (trapeffect == false)
+if (DistanceToEventPlayer(Vector(-83.799, -160.001, 64.224)) <= 2)
 {
     if (points >= 1000)
     {

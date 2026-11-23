@@ -248,9 +248,8 @@ playervar XPlevel 117
 playervar healvariable 118
 playervar damagevariable 119
 playervar healthmax 120
-playervar doublemag 121
-playervar index 122
-playervar index_0 123
+playervar index 121
+playervar index_0 122
 
 #Subroutine names
 
@@ -370,35 +369,35 @@ rule "load text and hero lists":
     waitUntil(mapDataLoaded == true and pfMapReady == true and zoneLoading == false, 90)
     waitUntil(mapDataLoaded == true, 60)
     _extendedGlobalCollection[53] = true
-    decodeIn = ["ؗ\u05f9\u0380˰˵ֹ˗֧\u05cc؟!̜́˶͢˭˦˛̲˧̧̑݁֡͋׆˼̩̔˲͡ࡶ˹͍ۚ̓˶͢˭˶̡̺̑˽˺̡̏˱̮¶!֔˹̈˪̗\u05ff˭˘˲˿֑٘\u03a2˗۾˯̀܄̉˷̕˟\u0530̼̦́̀˷̕˟\u0530̇˴̛՟̷̇·۟˸͐̋΅˵̒͜˳˧˼˩̷͚̇·ֵ!˚˙˥˵͝˙˥˛˸˘̤\u05f8́˟˹;ੈ˯", "ͨ˟̆˪˟ׁ̢̼֛˞̢̇͋˞̪\u0530˗˝̼͆֯\u05f7܂˚̠؋͍˦˪̸̨!࣑˯ͥ˴֊՜̼̙̭̮˜߷̬˽׆̳ͨ̕˟˸˫̢͈֕˞˺˲̔ͨ\u03a2˗̸̖̃˝˟!ִؗ˯\u058b̵\u0601˨̚˨̓\u05cc˸࠲࠭˦̞̱ͮ˺̗ؓ̊̈˯̀܄̊˥̗̹!̭͊̀̏̃־˹̮˜̙̝ͮ׳\u0382̘˗˩̵˪˟˶̱۟ͮ͢", "˸˜̱̀\u038b%!؊ּ͌˜˝˗̐͟´!\u05c9˱̢˞˺˩̟͞˙˥˪̳˟˵֙˗֑˛̲˴݁֡͋˘̦˗̦˞̞˦˘˝\u0a4a˶̧̺̑֩̀̋!؊ּ͌̀˷˙˥˪̳˟˦̳̏˘̙̭̈˼ٚ˪˟ׁ˦̞˪̈́\u0383ْ̤͕ٝ!ؗ\u05f9̐˚̄˶˧ੋ!݉˧˗˚˙˥˼̻͖̅̈ͬ̽˪̵̽˘ָ֨ͩ܅˿˚̷̯̾", "˪˛՟˸˻˟̈́˜̈˼ٚ!ͫͤ̀˷˙˥˯̷˗݁֡͋˸˫͈֕̾\u03a2˭˼˩͚˪̥˻¶!̡̭͊˽̪\u0382˾̓˦֢ͪ࠭͜۩֨˷˙،̳˘ٟ՜̢˞˨ͥ˿̧؉\u074c̟!࣓\u05ccͫ֕\u058c࠲˧̧̀˩~!\u05c8֡͋˘͈̏͌̀˩ੌ˧̴੍ׁ͈̿ؔ\u0a4fੑ\u074c\u05ee!̭͊ͧ˫̞͗˙˥̪̘˭˜˽֎͇˫˩\u07bc˧ׁ", "̴͈̿ؔ˘̴̧˼˹҄֕˝̘͙̘!\u0a54̶ُ̦˜˝˗̴̜˙˴̴̉˙˥˸͐\u0557ؓ̀˩˘̶˃!"]
+    decodeIn = ["ؘ\u05f9\u0381˰˳ָ˗֨\u05ceً!̠˿˶͡˭˦˛̳˧̧݄֣̑͌׆˼̪̔˲͠ࡴ˹͎̘ۙ˶͡˭˶̡̼̑˽˺̡̏˱̮¶!֕˹̈˪̕\u05ff˭˘˲̀֒ٗ\u03a2˗܃˯̀܈̉˷̒˟҉̺˿̦́˷̒˟҉̆˴̖։̷̆ͨ۞˸͐̎·˳̗͜˵˧˼˩̷ֳ͚̆ͨ!˚˙˥˳͝˙˥˛˸˘̣\u05f8˿˟˹\u0380\u0a49˯", "ͣ˟̇˪˟ׁ̺̥֝˞̥̆͌˞̨҉˗˝̺֭̈́\u05f7܆˚̝؍͎˦˪̸̩!࣐˯ͬ˴\u058b՛̛̺̯̮˜̭݀˽׆̲̒ͣ˟˸˫֖̥͆˞˺˲̔ͣ\u03a2˗̸̓̂˝˟!ֲؘ˯\u058c̵\u0602˨̚˨͉\u05ce˸\u082fࠪ˦̟̱ͯ˺ؔ̊̈̕˯̀܈̊˥̹̕!̯͊̀̏̂־˹̮˜̛̜ͯ\u05f5\u0383̙˗˩̵˪˟˶͡۞̱ͯ", "˸˜̱̀\u038b%!ּܷ͍˜˝˗̐͟´!\u05c9˱̥˞˺˩̞͞˙˥˪̲˟˳֛˗֒˛̳˴݄֣͌˘̦˗̦˞̟˦˘˝ੋ˶̧̼̑֩́̎!ּܷ͍́˷˙˥˪̲˟˦̲̏˘̛̯̈˼ٙ˪˟ׁ˦̟˪̓΄̣ٜ͖ٔ!ؘ\u05f9̐˚̄˶˧ੌ!\u074b˧˗˚˙˥˼̻̅̈ͭ̽͒˪̵̽˘ַ֜ͪ܉̀˚̷̬̾", "˪˛։˸˻˟̓˜̈˼ٙ!ͩͤ́˷˙˥˯̷˗݄֣͌˸˫֖͆̾\u03a2˭˼˩͚˪̤˻¶!̡̯͊˽̨\u0383˾̘˦֤ͫࠪ͜܂֜˷˙؎̲˘ٞ՛̥˞˨̧ͬ̀\u05cb̞ٓ!࣒\u05ce֖ͩ֍\u082f˧̧́˩~!\u05c8֣͌˘͍͆̏́˩੍˧̴ׁ̿ؕ͆\u0a4e\u0a50\u0a52ٓ״!̯͊ͧ˫̟͗˙˥̨̙˭˜˽֏ͅ˫˩\u07bd˧ׁ", "̴̿ؕ͆˘̴̧˼˹֖҄˝̙͙̙!\u0a55̶ِ̦˜˝˗̴̠˙˴̴̉˙˥˸͐\u0530ؔ́˩˘̶˃!"]
     decompressTextSub()
     infoText = decodeOut
     _extendedGlobalCollection[53] = false
-    decodeIn = ["̛̌˗̈˺˩֑̪̌˭˘̷̜%!˛͒΅̃־˹\u05f5˱̢˞˨\u05f7߶˸˘֦͆˹̈˺˩̱٘˗̷̜!̢̙̭̱͒˞˨˥̗˸͓̂˜˛΄˽˿̘̞͓̎̃˝˗̨̗£!۪̋˨̤֊՜˝̗́ࡲ̢˞ّ̒՝̆̑˝˗˥̗˭̢˞˼˞̻·!͙̘˚̠˝˗;՟ܾ˰˶֧̑֜̊͜˝˗̐˚̄˸͓̙̭̦", "˗\u05ee˙˴˝˗̸̛̆˷¤!˾˘̸̖̓˨̱̈ͮ˙˥˵\u05cb̋͏˼ٙ˙̡˫։ँ˷˦̲ܿ̕˟¯!̳̏̚˟˘́՜˶˾̢̙̭̊̀̏˞ࡴ˗ؑ̓͡!׀̌˺͚̈ͬ˾͆˘ͧ˫͙̱ͮ˿۾˺̫\u05fa՛ͧ̀˷ंऺ̟̖̬̓̕˷˕!˝˟˗˰ٜ݀˩˭˙˴֊՜˸ࡵ̎̈́̊̀˝˸̄̃ؑ˼\u0530¶!̓", "\u05cc˘˲˿˥ׂ̗̪̘͇̘͐̔̅˗͉̞̫\u038b̎̈́̊֊՜˝̗́̊˩\u0605̣˟˲˦̞̎߸˛̌!̐˚̄̇\u0378˱˿˩˶̣̿̾˘˝˗ͩ́̕˾%!\u05fb˟˹̷̋˺˲˼˱ͭ˾˳ֹ̛̗̤̖ͬ֓̕´!߹͂܀˸˘\u05cd\u05ce׃̛˳˧˙˥̝̇ͅ׃̺˾˹̈˙˥˙̖\z!\u058b͍˦˪̸̨̾\u03a2˭̲ܿ˦̬̀͠", "˭%!"]
+    decodeIn = ["̖̌˗̈˺˩̨֒̌˭˘̷̠%!˛͔·̂־˹\u05f6˱̥˞˨\u05f7߳˸˘֧̈́˹̈˺˩̱ٗ˗̷̠!̛̯͔̱̥˞˨˥̕˸͓̃˜˛΅˽̙̟͓̀̋̂˝˗̩̕£!۽̎˨̣\u058b՛˝́̕ࡰ̥˞ْ̗՞̇̑˝˗˥̕˭̥˞˼˞̻·!͙̙˚̝˝˗\u0380։݁˰˶̑֨֞̊͜˝˗̐˚̄˸̛͓̯̦", "˗״˙˴˝˗̸̖̇˷¤!˾˘̸͉̓˨̱̈ͯ˙˥˳\u05cd̎͋˼٘˙̡˫֊ऺ˷˦̳݂̒˟¯!̲̏̚˟˘˿՛˶˾̛̯̥̊́̏˞ࡲ˗̘ؒ͠!׀̌˺͚̈ͭ˾̈́˘ͧ˫͙̱ͯ̀܃˺̫\u05fa\u0558ͧ́˷ऻा̞̘̭̒̓˷˕!˝˟˗˰ٛ݃˩˭˙˴\u058b՛˸ࡳ̋̓̊̀˝˸̄̂ؒ˼҉¶!͉", "\u05ce˘˲̀˥ׂ̨̙̙͐̔̅̕ͅ˗͇̟̫\u038b̋̓̊\u058b՛˝́̊̕˩؇̢˟˲˦̟̋߶˛̌!̐˚̄̆\u0379˱̀˩˶̢̿̾˘˝˗ͪ˿̒˾%!\u05fb˟˹̷̎˺˲˼˱ͮ˾˵ָ̣̖ͭ֔̒̓̕´!߷͂܄˸˘\u05cf\u05eb׃̖˵˧˙˥͈̜̆׃̼˾˹̈˙˥˙̓\z!\u058c͎˦˪̸̩̾\u03a2˭̳݂˦̭ͦ́", "˭%!"]
     decompressTextSub()
     _extendedGlobalCollection[59] = decodeOut
-    decodeIn = ["߽˜˛़!̌˜˝\u05f6˨˱£!݂̈˦̇ͅ˜֫ࡷ!֓˜̳̟£!؆̛̔ͭࡸ˘͟˛̪̈́\u05fd˷!؆ࡹࡹְ˜݃ि˯\u05fd̏˘͟˛˸͐ؒ͗\u0590˱·!؆˺\u05ce܄ी˪˟̚՚˲̵˶϶ࡼ̴̨݄̍˥ु˚¦!؆˯\u05fd̏˸՟ׅ˶϶˙ְ͉ͧ̏˹ͨٞ˱·!؆̪ؓ\u0383̱͆̓˙˴̡˽̨̩̔̃!̴̜͐\u0557", "̘̓˦˪̨̗̚˿ָ͍͓̘ͩ̃\u038dٟ̦̑˱˭̹!֯̓̽˱̵˿̤̱˽˛˺϶˗͘˙̦̮˜͗ू̀˩!"]
+    decodeIn = ["\u07fb˜˛ी!̌˜˝؈˨˱£!̈݅˦͈̆˜֫ࡵ!֔˜̲̞£!؉̖̔ͮࡶ˘͟˛̨̓\u05fd˷!؉ࡷࡷ֮˜݆ू˯\u05fd̏˘͟˛˸֑͐ؓ͗˱·!؉˺\u05eb܈ृ˪˟̚՜˲̵˶϶ࡺ̴̩̍݇˥ॄ˚¦!؉˯\u05fd̏˸։ׅ˶϶˙͇֮ͧ̏˹ͣٝ˱·!؉̨ؔ΄̱̘̈́˙˴̡˽̩̪̔̂!̴̠͐\u0530", "̙̘˦˪ַ̩͎͓̙̀ͪ̂̕̚\u038d̦̑ٞ˱˭̹!͉֭̽˱̵̣̱̀˽˛˺϶˗͘˙̦̮˜͗ॅ́˩!"]
     decompressTextSub()
     _extendedGlobalCollection[60] = decodeOut
-    decodeIn = ["߽˜˞ࡾͩ܅£!ृ̓˘̤܆¦!̰˜׀݅ॅ!ॆͬेॉो्!"]
+    decodeIn = ["\u07fb˜˞ࡼͪ܉£!ॆ̘˘̣܊¦!̰˜׀ّै!ॉͭॊौॎ॑!"]
     decompressTextSub()
     _extendedGlobalCollection[61] = decodeOut
-    decodeIn = ["ֿׁ֔̈́̎\u0379̰֞˵˧˗͙̘˘̗̈̇ؔ!̰˦̳ؕ˘˛̧˚̍֟\u05fá˶͵͖!ֱ̦̜̕܈˸˘ָ˱͖\u058c˵͚˜˛́˧˗˾;!߿͝˩̇͏܉̅̉˷̪ͭ֒!̴̦ࠗॎ˘֦͆ͯ܊̈́\u0383̖̬̈̕˷;!ׂ̰̔ͦ̄̍؋ॏ۩˿̡͚֯̋֏!߿̏˙̡؇˘̤\u07fcࢁ̂˯̪̿̄ͭ֒!ֱ˶̖̐˫", "˰˯̓˻֣̍֊˱˰̉˷̴̲̒֏!߿͝˩˘҄ࠖ͗́˘̀̏̕͢˗֭̈̇!॒߶ֿͣ̎\u0379̰̍˝˚̛̠҉%!֤͉॓́̋˿͙\u0378˘˲˿\u05f5॔ͅ!̰˯˥̏˘̛҉̍ࠛ͐˦˛̇͏;!ֱ˼̴ͩ˘̦˗̂˜˝˗̛݈֝ؖ݅˹̷̜˸̹!ֲֳ̤։̣̹֥̏̉˘˰˦˪̗֚͆;!ࢂּ˩̇͏", "̍ॕֺ̡̯́̔͌!ࠛ\u0381˘֦͆ͯ҃̅̉˷̪ͭ˜̈˳̯ͅ!̰˦ͪ˴̛҉֞ॖ́͆˘҄ͯ!ִؗ̃˫ॗͬ˞˜͘˺ֺ̡˭%!̷ֱ̌̕˨̟˽˨֤͐̇͏܌̩˵˹ּͧ˩̇\u0604̹!͉݉࠘˘̟֓̍\u05fe˽̲̾̅̅̉˷̪͖ͭ!ֱ˶̖̐˫˰̩̃܉˴˱˟٫̔͆͵͐;!٬\u05fa՛̀˩̇\u0378̛", "̋֏҃̅̉˷̪ͭ˜͉̈̇ࠜ!ֱ˯̈˛˘̦˗҄͵̟֏\u058c܍̟̑̓˵˧̯!ॣ̨̳̩̰ͣ̔̃֞˝˚̛̠҉%!ֲ˜͘˦ֽͪ!ࢃ˹̆˛΅॥ؘٰ॰\u0382˗̣̈̾˪˟׀֫ࢆ!\u074b̺݃\u0381˘҄ͯ҃˴̸̦̮̔͆͵՛˷;!ংַ̪͖֥ͭ̅̆\u038bֿ̎\u0379%!ࠛ͐˦˛̩̰̃֞˝˚̛̠҉%!", "\u070f؉\u074cֿ̟̎\u0379̷̍֟̇͏;!̰ަ̵̪҆ͭ݊̂˝˚̠̈̾\u03a2̯!ঃ˷͏˯ׁ̖҅\u098d݃͐˺ֿ̬͍̎\u0379\u009e!֣̱٘˭̇\u0378̛̋֏҃̅̉˷̔͆͵͐;!ֲ˜͘˯̋͜܌̴ͩ˘\u05fá˶͵͖!۔\u0992͐̎ࢀ̰ۨ́̓̍˝˚̛̠҉˙˴։֘;!ֱ˶̖̐\u0381˘ָ˱ֺؙ͖̟̏̎˹˰̾˩̯!܋", "\u09b1̩ࠞ͂̔˞̞ࢊ֓˜̂˝˚\u09b3̛҉%!ֱ˪̣̆˘̦˗ָ˱݊̂˝˚̠˛̧˚̹!\u070f\u09b4˘֦͆ͯ҃̅̉˷̪ͭ˜˚̴͛;!\u09b5܂\u09ba˘̟̰֓̍˝˚̠̜˛˙˴ְ˽;!\u09bbּ˚̠͒ࢌ়҃\u05feͬ˞͖!ࢃ̺܃̇͏̍ি͟ী˘̟֓;!ֲֳ̛̤΅ۗ̂˝˚̛̠҉˼ّ̛̩͍̹ۘ!ֱ˶͉˝", "˸˘˱ৃ˭׆̎˽˫̀˝˞˜̷\u05fa՛̀˩;!ֲ˜͘˦ֽͪ!ֲ˜͘˦ֽͪ!ֲ˜͘˦ֽͪ!ֲ˜͘˦ֽͪ!ֲ˜͘˦ֽͪ!ֲ˜͘˦ֽͪ!"]
+    decodeIn = ["ֿׁ֕̓̋;̰֠˳˧˗͙̙˘̈̆ؕ̕!̰˦̲ؖ˘˛̧˚̍֡\u05fa˿˶\u0378͒!̦̠֯̒܌˸˘ַ˱͒֍˳͚˜˛˿˧˗˾;!߽͝˩̆͋܍̅̉˷̨ͮ֓!߿̴̦॒˘֧̈́͵\u070e̓΄̭̈̒̓˷;!ׂ̰̔ͥ̄̍؍॓܂̡͚֭̀̎\u0590!߽̏˙̡؊˘̣߹ࡿ̃˯̨̿̄ͮ֓!֯˶̓̐˫", "˰˯͉˻֚̍\u058b˱˰̉˷̴̳̗\u0590!߽͝˩˘҄߾͗˿˘̀̏̒͡˗ֺ̈̆!ॕֿ߳̋͢;̰̍˝˚̝̖҈%!ॖ֥˿͇͙̎̀\u0379˘˲̀\u05f6͈ॗ!̰˯˥̏˘̖҈̍࠘͐˦˛̆͋;!֯˼̴ͪ˘̦˗̃˜˝˗ّ̖֟ؗ݊˹̷̠˸̹!ְֱ̣֊̢̹֦̏̉˘˰˦˪̕՝̈́;!ࢀּ˩̆͋", "̍ॢ˿ֹ̡͍̬̔!࠘\u0382˘֧̈́͵҃̅̉˷̨ͮ˜̈˵͈̬!̰˦ͫ˴̖҈֠ॣ˿̈́˘҄͵!ֲؘ̂˫।ͭ˞˜͘˺ֹ̡˭%!̷֯̒̌˨̞˽˨ܑ֥̪͐̆͋˳˹ּͧ˩̆؆̹!\u074b͇ࠖ˘̞֔̍\u05fe˽̳̾̅̅̉˷̨ͮ͒!֯˶̓̐˫˰̪̂܍˴˱˟٪̔̈́\u0378͐;!٫\u05fa\u0558́˩̆\u0379̖", "̎\u0590҃̅̉˷̨ͮ˜͇̈̆࠙!֯˯̈˛˘̦˗҄\u0378̞\u0590֍̞̘ܰ̑˳˧̬!॰̲̩̪̰̔̂֠͢˝˚̝̖҈%!ְ˜͘˦ֽͫ!ࢁ˹̇˛·ংؙ٭ঃ\u0383˗̢̈̾˪˟׀֫ࢄ!ަ̼݆\u0382˘҄͵҃˴̸̦̮̔̈́\u0378\u0558˷;!\u098dֵ̨֦ͮ͒̅̇\u038bֿ̋;%!࠘͐˦˛̪̰̂֠˝˚̝̖҈%!", "،\u05cbֿ̞ٓ̋;̷̍֡̆͋;!̰ާ̵̨҆ͮ\u074c̃˝˚̝̈̾\u03a2̬!\u098e˷͋˯ׁ҅̓\u0992݆͐˺ֿ̭͎̋;\u009e!̱֚ٗ˭̆\u0379̖̎\u0590҃̅̉˷̔̈́\u0378͐;!ְ˜͘˯̴ܑ̎ͪ͜˘\u05fa˿˶\u0378͒!ٰ\u09b3͐̋ࡾ۪˿̘̰̍˝˚̝̖҈˙˴֊֙;!֯˶̓̐\u0382˘ַ˱ֹؚ̞͒̏̋˹˰̾˩̬!\u070f", "\u09b5̪ࠛ͂̔˞̟࢈֔˜̃˝˚\u09ba̖҈%!֯˪̢̇˘̦˗ַ˱\u074c̃˝˚̝˛̧˚̹!،\u09bb˘֧̈́͵҃̅̉˷̨ͮ˜˚̴͛;!়܆া˘̞̰֔̍˝˚̝̠˛˙˴֮˽;!িּ˚̝͔ࢊ҃ী\u05feͭ˞͒!ࢁ̼܇̆͋̍ূ͟ৃ˘̞֔;!ְֱ̣̖·ۖ̃˝˚̝̖҈˼ْ̪͎̖̹ۗ!֯˶͇˝", "˸˘˱\u09c6˭׆̋˽˫̀˝˞˜̷\u05fa\u0558́˩;!ְ˜͘˦ֽͫ!ְ˜͘˦ֽͫ!ְ˜͘˦ֽͫ!ְ˜͘˦ֽͫ!ְ˜͘˦ֽͫ!ְ˜͘˦ֽͫ!"]
     decompressTextSub()
     _extendedGlobalCollection[63] = decodeOut
-    decodeIn = ["\u0380˗͙̘̗̇\u05ca̼։˜˝˗͔̣̏̇\u0604ۙࢍ;!̭͊˛҅ͅ˗̜˛˪̥˻˘̈˳ׅ̑˝˗҄·˩؆˳̝ͯ!ֿ̝̟͊̎̀՟̕˚̴֎̝̃˪̘̊̈̎־՞ֶ˱̌˻;!̝͊˵˰͛˩̔֗҆˛˘΅֗\u07fb̋˳̨֨˷̼׀ִ͋҇!̝͊̔˭˟˽˘̦˗̴֊̣̼̓˲̮ࠢ!֣֖͜˙˥ަ̣\u058b͍", "˶˾̜̊˛˪̥˻׆˺̧̫̞˟;!̝͊̎٪͒͛˽˪ͩ͐̔֗҆˛˵˧˗̐˚̄;!ࢉ͒ͧ̋˵˧˗̐˚̄˳˧˙˥̖̬̔࢏̀˩͓̃˝˰\u0605˰͇\u05cf!ֲ˨\u058b˝˙˴͡\u0558͕֫˗˰˼͍͒̓˼˹˚֑҂͑͋˻˳̨҈;!۔̖̑̕˲˿֝̅͌\u0890˶˗˛҅ͅ˗֑́˱˲̵;!ި֕˼̒՝;", "֕\u0081!\u0891̓˙̉˘ַ\u05cc̟՟˶˾̜̊˛˪̥˻̹!̝͊˯ۚ̽˜˰˯\u0557˩ࠡ˼̢̩˞˨\u0601͕ͩ˗˰˶̖\u0892؈̒\u0383̐˚̄;!\u0380˰̕\u05f6́̔֗҆˛˘̜˛˺͝˾̼̆\u058b̟֜҇!ࠦ҅ͅ˗̜˛˪̥˻˘̈˳ׅ̙̝̑˪̳˟;!̰˯֪͝˵̣̆˶˾̩̿˪̥˻׆̢˞ّ̂ࢌ!ࠧ˛˪̥˻׆̃", "˨˾؆̷̾˗ۛ˟%!ࠩ˝˟˶˞ִ˼˗ܑ֨ު̥˻̓;!ޫ˟%!ֱ˳˧̨̮̔˘ִ͈˶˾̩̿˳ׅ¬!ֲ˨\u05ff͢˾̘͇֫̑֯̓̽̌˻˘˛҅ͅ˗΅֨̀˩ֺ̟̆̎ͯ!̝͊˯\u05cb̋ٛ̔֗҆˛ͮ\u09c9̴͉̹!ࠦ҅ͅ˗̜˛˪̥˻˘̚˨\u05ec͋˻֛͑˦\u09ca˲̵̌˻;!ֱ̎٪˟\u0382˱̄̔", "֗҆˛˵˧˗֪̙̮՛ެ˱˟٫;!̰˜˱˞̻˪̥˻˘̚˨˝˰˳ͥ͒҇͟!\u070f̤́͡\u0381˜̻͗˜̚˨\u05fc̒܌̽˷˵˧˗̐˚̄;!\u06dd͌˰͇˫͗˛̐͟˨̴̧̞˘̜˛˙̡˫͍̣̐˺̡˷̯!ؚ֪̣˘͈́˵˧˗˝˲˙̉ࢊ̮˜̐˚̄;!\u0895˚\u0383˚̈˦҂˧ַ̬͠\u0379˳́ͅ;!؋", "̀˱̵ׅ̍֔˪˛\u0590͛˩˸˘֯̓͐\u03a2̯!\u05fb˱˦˯\u0590˱̀́˺˲֍˳̨˿˝˰˪ͩ˫̀˝˞˜̐˚̄;!ࠧ̌˻ࡰ̇˱͋ࢁ˚֑҂͑͋˻˳̨֨˷;!\u05fb̩͇ͥ˫˛҅ͅ˭̾˛̘˟˸۽˭\u0896˱͖!ࠫৌ̤̟̓˘̜˛˯\u0557˱ޮ\u09cf˦̞˵˧˗̐˚̄;!ܱ࢏ׇ̔֗҆˛˘̜˛̔˭˞ޯ˭", "˙˴̨̛϶̸̊\u09d0̹!ް־՞ֶ˼̫͒˘˩\u038b˶˾̜̊˛̃҂˟˚۞;!߫̒͐̇˩֍˳՞ֶ˳˧˳˛ޭ̳ͫ̔˭̓͞˶˾̊̐˚̄;!\u09d2ֻ̇͆˲҈̾˛̘˟˯̵̈́̽͗˙̡˫˝˰;!ۤ̂˶͵̄˳˧˙̱̿˶̿˸۽˭˜̜˛;!\u05fb˱˙˥˺̛˽˨̟߯̓̚˘̜˛̃҂˟˚۞;!\u09d3", "͛˩̔֗҆˛˘֖̞˚ࠡ˯̡ࢗͫͤ̋҇!࢘˻̝˗̴\u0378˟̃־˹\u05f5˱̢˞˺˲˦҂˧˿˾;!߹;̨\u0379̨̋̕˨̟̓˘̤ۧ͠˟˯͂ͦ;!ֱ˯\u0557́\u07b2˗͈˻˚ׅ׆˼̩̲̅˶˾̩̿˪̥˻̹!̰˜˱˞̻˪̥˻˘̚˨˝˰˳ͥ͒҇͟!̰˜˱˞̻˪̥˻˘̚˨˝˰˳ͥ͒҇͟!̰", "˜˱˞̻˪̥˻˘̚˨˝˰˳ͥ͒҇͟!̰˜˱˞̻˪̥˻˘̚˨˝˰˳ͥ͒҇͟!̰˜˱˞̻˪̥˻˘̚˨˝˰˳ͥ͒҇͟!̰˜˱˞̻˪̥˻˘̚˨˝˰˳ͥ͒҇͟!"]
+    decodeIn = ["\u0381˗͙̙̆̕\u05ca̺֊˜˝˗̢͕̏̆؆ۘࢋ;!̯͊˛͈҅˗̠˛˪̤˻˘̈˵ׅ̑˝˗҄ͨ˩؉˵̜͵!ֿ̜̞͊̋́։̒˚̴֏̜̂˪̙̊̈̋־՟ִ˱̌˻;!̜͊˳˰͛˩̔֘҆˛˘·֘߸̎˵̩֜˷̺׀ֲ͌՚!̜͊̔˭˟˽˘̦˗̴\u058b̢̘̺˲̮ࠟ!֚֗͜˙˥ާ̢\u058c͎", "˶˾̠̊˛˪̤˻׆˺̧̫̟˟;!̜ٟ͔͊̋͛˽˪ͪ͐̔֘҆˛˳˧˗̐˚̄;!ࢇ͔ͧ̎˳˧˗̐˚̄˵˧˙˥̭̔̓ࢍ́˩͓̂˝˰؇˰ͅ\u05ec!ְ˨\u058c˝˙˴͠\u0557͖֫˗˰˼͔͎̘˼˹˚֒҂͑͌˻˵̩҇;!ٰ̒̓̑˲͍̀֟̅ࢎ˶˗˛͈҅˗֒˿˱˲̵;!ީ֖˼̗՞\u0380", "֖\u0081!࢏̘˙̉˘ֵ\u05ce̞։˶˾̠̊˛˪̤˻̹!̜͊˯ۙ̽˜˰˯\u0530˩ࠞ˼̪̥˞˨\u0602͖ͪ˗˰˶̓\u0890؋̗΄̐˚̄;!\u0381˰̒؈˿̔֘҆˛˘̠˛˺͝˾̺̇\u058c̞֞՚!͈ࠢ҅˗̠˛˪̤˻˘̈˵̛ׅ̜̑˪̲˟;!̰˯֪͝˳̢̇˶˾̪̿˪̤˻׆̥˞ْ̃ࢊ!ࠣ˛˪̤˻׆̂", "˨˾؉̷̾˗ۚ˟%!ࠥ˝˟˶˞ֲ˼˗֜ܲޫ̤˻̘;!ެ˟%!֯˵˧̮̩̔˘ֲ͆˶˾̪̿˵ׅ¬!ְ˨\u05ff͡˾̙͉֭֫̑̽̌ͅ˻˘˛͈҅˗·֜́˩ֹ̞̇̋͵!̜͊˯\u05cd̎ٚ̔֘҆˛ͯৌ̴͇̹!͈ࠢ҅˗̠˛˪̤˻˘̚˨\u05ee͌˻֝͑˦্˲̵̌˻;!ٟ֯̋˟\u0383˱̄̔", "֘҆˛˳˧˗̛֪̮\u0558ޭ˱˟٪;!̰˜˱˞̻˪̤˻˘̚˨˝˰˵͔ͬ͟՚!،̣́͠\u0382˜̻͗˜̚˨\u05fcܑ̗̽˷˳˧˗̐˚̄;!͍ۜ˰ͅ˫͗˛̐͟˨̴̧̟˘̠˛˙̡˫̢͎̐˺̡˷̬!؛̢֪˘͆˿˳˧˗˝˲˙̉࢈̮˜̐˚̄;!\u0893˚΄˚̈˦҂˧ֵ̭ͦ;˵͈˿;!؍", "́˱̵ׅ̍֕˪˛֑͛˩˸˘͉֭͐\u03a2̬!\u05fb˱˦˯֑˱́˿˺˲֎˵̩̀˝˰˪ͪ˫̀˝˞˜̐˚̄;!ࠣ̌˻\u086ĕ˱͌ࡿ˚֒҂͑͌˻˵̩֜˷;!\u05fb̪ͬͅ˫˛͈҅˭̾˛̙˟˸܁˭\u0894˱͒!ࠧ\u09d0̣̞̘˘̠˛˯\u0530˱ޯ\u09d2˦̟˳˧˗̐˚̄;!ܴࢍׇ̔֘҆˛˘̠˛̔˭˞ް˭", "˙˴̩̖϶̸̊\u09d3̹!\u07b2־՟ִ˼͔̫˘˩\u038b˶˾̠̊˛̂҂˟˚\u06dd;!̗߬͐̆˩֎˵՟ִ˵˧˵˛ޮ̲ͩ̔˭͉͞˶˾̊̐˚̄;!\u09d5ֻ̆̈́˲҇̾˛̙˟˯̵̓̽͗˙̡˫˝˰;!ۧ̃˶\u0378̄˵˧˙̱̿˶̿˸܁˭˜̠˛;!\u05fb˱˙˥˺̖˽˨̞̘߮̚˘̠˛̂҂˟˚\u06dd;!\u09d6", "͛˩̔֘҆˛˘̟֗˚ࠞ˯̡\u0895ͩͤ̎՚!\u0896˻̜˗̴\u0379˟̂־˹\u05f6˱̥˞˺˲˦҂˧̀˾;!߷\u0380̩;̩̒̎˨̞̘˘̣ͦۨ˟˯͂ͥ;!֯˯\u0530́\u07b3˗͆˻˚ׅ׆˼̪̳̅˶˾̪̿˪̤˻̹!̰˜˱˞̻˪̤˻˘̚˨˝˰˵͔ͬ͟՚!̰˜˱˞̻˪̤˻˘̚˨˝˰˵͔ͬ͟՚!̰", "˜˱˞̻˪̤˻˘̚˨˝˰˵͔ͬ͟՚!̰˜˱˞̻˪̤˻˘̚˨˝˰˵͔ͬ͟՚!̰˜˱˞̻˪̤˻˘̚˨˝˰˵͔ͬ͟՚!̰˜˱˞̻˪̤˻˘̚˨˝˰˵͔ͬ͟՚!"]
     decompressTextSub()
     _extendedGlobalCollection[65] = decodeOut
-    decodeIn = ["ࢂࠠ˜҄֕˙˥˼̖˜̀˝˞˜˝˗̐˚̄%!\u061c\u05ec߶̬̟˺̫˭˦˜̤̻̉˟˪̵̽;!܋͕ͩ˗ּͧ̅˼˗;ֶ́˯˴̸̖֊ͯ!̰˜˱˞̻˳ͅ\u0378̳˟˸˫̙̝˪ׂ͖ͦ!\u05eb̆˚̠͡˭\u0381˜͈̌̃˫̤։\u09d4̣;!͊؝̲̏̒˿̜˛̪֛˜̈˳\u038b˶˾̊̌;!࢙;̫˘͡\u0381˜͈̌", "˳˛۟˵ֵ̘!࢚ࡻ͌̀˩̔֗҆˛˘\u05ff̖̋˨˚˽́̌˻;!\u0380˰˳˰˜͔˘ֺ̓̚˶˾̜̊˛˙̡˫͍̣̐˺̡˷̯!̰˙͍̽˘˝˰˙\u0382ޭ̙؝˛˯̿֜̃˫̐˚̄;!\u0380˗ׇ͠˯˚۞̃־˹̚˨˝\u0530˗\u05f5˴\u058bͯ!\u07b4̘̊͡˭\u0381˜͈̌˺˥ۗ͝˲˿̟˾˥˨͡\u058c;!͊؝̲̏̒", "˿̜˛˙̡˫ָ̦˗̸˲̮˙˴࢛˚˵̯!࢜˩̠ͅ˩̼\u058b̟̙֜࢝؝˛˙ͤ˼̗ͦ;!ُ˛˷˝͓̃̀̏˸ۙ֍̎̂́ࢅ؛˚̠̐˚̄;!͉݉࠘˘͒ࠜ֠˞˺˲֍˦҂˧˿̌;!ܱ̭֞͊˝˞̻˜˝˰˶϶˳˛˗̴̜\u0081!ৗ̜˨̬ͦ˙̉˘͡˭\u0381˜͈̌˳˧˳˛̯!\u09d8˹̌˦˪˚", "˜͗֎݊\u09da̼˲˿̜˛˪̥˻̹!؊̝·˗̆˩˗֧\u0381˜։˹̌;!\u0380˗ֿۜ̿܈͓͈̃˚˘˰˵˰͛˷˦̲̯̅!\u06dd̅͌̀˩̇͆˲҈˵˧˗˝˲̢˞̯̕͢!͕݉͋˗͔˾˘̚˨̟̂̃ৢ࢞\u0378˜̙̝˶̛͖̆!ৣ̌\u09e5\u074c˷˺\u0530̄̎߸͉̍\u07b7˜̜˛˪̥˻ׄ!̰˜˱˞̻˪̥˻˘̚", "˨˝˰̕˟֭!߹̌ޯ˱̦৳˘ֻ̬̇˩֍˺̫˗̸̖ؔ!ؗ̂˨˰\u0381˜̸̖৺؛˚̠̜˛˙˴֝ۛ˗˾;!̰˜˱˞̻˳̨҈˙˴\u05cd՛ͫ˸˻˴˝˗ͫ΅̳̹!\u0895˚࢟˘˩˺ִ̳ͤ˫̢̀̏˞˺˲˪՜ͮؔ!\u06dd͌˰͇˫̬ͦ˵˚\u07b5֥ͤ̔͑̊̚˨̙ࢵ!\u05fb˱˦˯\u0590˱̲̀́̒҈˳̨", "֨˷̰̼̲̍֟̅͡˶˲˜̤\u0601֫֫;!৻҅̒\u05fd˷̲̥̱৽̕˗ܑ͎ٞ\u07b7˜̜˛˪̥˻̹!̰˜˱˞̻˪̥˻˘̚˨˝˰̕˟֭!֣׀ࣈ˗̬ͦ˵˚˗͂ͦ˘̜˛˙̡˫˝˰;!̰˜˱˞̻˪̥˻˘̚˨˝˰̕˟֭!\u06dd͌˰͇˫̬ͦ˵˚˗˰˺\u0530\u07b8ͯ!ި̞˘̦˗ֺ̓̚˶˾̜̊˛", "˙̡˫\u05ec͉\u05ca;!ࣉ̳˝̔֗҆˛˘ܑ֪֛͑࣊˦̞˵˧˗̐˚̄;!̰˜˱˞̻˪̥˻˘̚˨˝˰̕˟֭!͊؝̲̏̒˿̤؛͢˟˯ۚ̽࣋˦̞˦̖̕΄˟˪̝̱;!ُ͉̋٫̔֗҆˛˘ֳ͙˟̔˭˞ޯ˭˙̡˫˝˭̯!̰˜˱˞̻˪̥˻˘̚˨˝˰̕˟֭!ਁ̨͍ͣ̔̇͏̼\u058b֜", "̟̙̭࢝͡\u0381˜̡˽˙˥˯͂ͦ;!ُ˛˷˝˯ؓ̊϶˵˚˗˰̦̟̎ࢎ̲̅˼˞̻͖!̰˜˱˞̻˪̥˻˘̚˨˝˰̕˟֭!̰˜˱˞̻˪̥˻˘̚˨˝˰̕˟֭!̰˜˱˞̻˪̥˻˘̚˨˝˰̕˟֭!̰˜˱˞̻˪̥˻˘̚˨˝˰̕˟֭!̰˜˱˞̻˪̥˻˘̚˨˝˰̕˟֭!̰", "˜˱˞̻˪̥˻˘̚˨˝˰̕˟֭!"]
+    decodeIn = ["ࢀࠝ˜֖҄˙˥˼̓˜̀˝˞˜˝˗̐˚̄%!؝\u05eḙ̞߳˺̫˭˦˜̣̻̉˟˪̵̽;!\u070f͖ͪ˗ּͧ̅˼˗\u0380ִ́˯˴̸̓\u058b͵!̰˜˱˞̻˵͈\u0379̲˟˸˫̛̜˪ׂͥ͒!\u05eḋ˚̝͠˭\u0382˜͆̌̂˫̣֊ৗ̢;!͊؞̳̗̠̏̀˛̨֝˜̈˵\u038b˶˾̊̌;!ࢗ\u0380̫˘͠\u0382˜͆̌", "˵˛۞˳ֳ̙!࢘ࡹ͍́˩̔֘҆˛˘\u05ff̓̎˨˚˽˿̌˻;!\u0381˰˵˰˜͕˘ֹ̘̚˶˾̠̊˛˙̡˫̢͎̐˺̡˷̬!̰˙͎̽˘˝˰˙\u0383ޮ̛؞˛˯̿֞̂˫̐˚̄;!\u0381˗ׇͦ˯˚\u06dd̂־˹̚˨˝҉˗\u05f6˴\u058c͵!\u07b5̙̊͠˭\u0382˜͆̌˺˥ۖ͝˲̞̀˾˥˨͠֍;!͊؞̳̗̏", "̠̀˛˙̡˫ַ̦˗̸˲̮˙˴࢙˚˳̬!࢚˩̝͈˩̺\u058c̛̞࢛֞؞˛˙ͤ˼ͥ̕;!ِ˛˷˝͓̂̀̏˸ۘ֎̋̃́ࢃ\u061c˚̝̐˚̄;!\u074b͇ࠖ˘͔֢࠙˞˺˲֎˦҂˧̀̌;!ܴ̯֠͊˝˞̻˜˝˰˶϶˵˛˗̴̠\u0081!\u09da̠˨̭ͥ˙̉˘͠˭\u0382˜͆̌˵˧˵˛̬!\u09db˹̌˦˪˚", "˜͗֏\u074cৢ̺˲̠̀˛˪̤˻̹!ܷ̜ͨ˗̇˩˗֨\u0382˜֊˹̌;!\u0381˗ֿۛ̿܌͓̂͆˚˘˰˳˰͛˷˦̳̬̅!͍ۜ̅́˩̆̈́˲҇˳˧˗˝˲̥˞̬̒͡!\u074b͖͌˗͕˾˘̚˨̞̃̂\u09e5࢜\u0379˜̛̜˶̖̇͒!৲̌৺ٓ˷˺҉̄̋߶͇̍\u07b8˜̠˛˪̤˻ׄ!̰˜˱˞̻˪̤˻˘̚", "˨˝˰̒˟ֺ!߷̌ް˱̦৽˘ֻ̭̆˩֎˺̫˗̸̓ؕ!ؘ̃˨˰\u0382˜̸̓৾\u061c˚̝̠˛˙˴֟ۚ˗˾;!̰˜˱˞̻˵̩҇˙˴\u05cf\u0558ͩ˸˻˴˝˗ͩ·̲̹!\u0893˚࢝˘˩˺ֲ̲ͤ˫̥́̏˞˺˲˪՛ͯؕ!͍ۜ˰ͅ˫̭ͥ˳˚\u07b6֦ͤ̔͑̊̚˨̛࢞!\u05fb˱˦˯֑˱́˿̳̗҇˵̩", "֜˷̰̺̳̍֡̅͠˶˲˜̣\u0602֫֫;!\u09ff̗҅\u05fd˷̳̤̱\u0a00̒˗ܲٝ͏\u07b8˜̠˛˪̤˻̹!̰˜˱˞̻˪̤˻˘̚˨˝˰̒˟ֺ!֚׀࢟˗̭ͥ˳˚˗͂ͥ˘̠˛˙̡˫˝˰;!̰˜˱˞̻˪̤˻˘̚˨˝˰̒˟ֺ!͍ۜ˰ͅ˫̭ͥ˳˚˗˰˺҉\u07b9͵!ީ̟˘̦˗ֹ̘̚˶˾̠̊˛", "˙̡˫\u05ee͇\u05ca;!ࢵ̲˝̔֘҆˛˘֪ܲ֝͑ࣈ˦̟˳˧˗̐˚̄;!̰˜˱˞̻˪̤˻˘̚˨˝˰̒˟ֺ!͊؞̳̗̣̏̀\u061c͡˟˯ۙ̽ࣉ˦̟˦̒̓΅˟˪̜̱;!ِ͇̎٪̔֘҆˛˘ֱ͙˟̔˭˞ް˭˙̡˫˝˭̬!̰˜˱˞̻˪̤˻˘̚˨˝˰̒˟ֺ!\u0a04͎̩̺̔̆͋͢\u058c֞", "̛̞࢛̯͠\u0382˜̡˽˙˥˯͂ͥ;!ِ˛˷˝˯ؔ̊϶˳˚˗˰̦̞̋ࢌ̳̅˼˞̻͒!̰˜˱˞̻˪̤˻˘̚˨˝˰̒˟ֺ!̰˜˱˞̻˪̤˻˘̚˨˝˰̒˟ֺ!̰˜˱˞̻˪̤˻˘̚˨˝˰̒˟ֺ!̰˜˱˞̻˪̤˻˘̚˨˝˰̒˟ֺ!̰˜˱˞̻˪̤˻˘̚˨˝˰̒˟ֺ!̰", "˜˱˞̻˪̤˻˘̚˨˝˰̒˟ֺ!"]
     decompressTextSub()
     _extendedGlobalCollection[64] = decodeOut
-    decodeIn = ["֔\u038d̑!̍\u0380˗\u058b˝˙˴̤̟\u05f9֧࠺˿ְ͙͐;!#\u0380˰˙\u0382ؚ۟҃֩̑͞˧˶̺̑̂˜͙̇˱͋֏!!#֔\u038d̑!̍\u0603͂˸͐ؒ͗\u0590˱͖!#ް\u082f͌\u086bࠞ˽̸݄̘̍\u0380˰˙̽̆˶̴̺̑̋՚˚˗˝\u05f6˨؍̋;!!#؊ͪ˱\u0590˷֥̽̆$!;!#ް\u082f͎͌̄\u07b4̋̓̍֔͞\u038d̑!˼۠˚", "̹!#؋˝̣̝͑̍͊̇ͭ\u038d͕˗˩\u038ḃ͜՜˘˝˗˚ͨ˾׃̛;!!#֔\u038ḑ̨ۭ͇̑͞˫̴̋̓̍ࣨ͞˟\u05f7ׂ\u05fd˷˯\u05cb̺̝̋ٛ̍ࠩ˗˰̲̅˦˫֕̀˩;!!#̢̭͊ͧ̏˞֎͜˽˘˥̗˭٭͊ࡳ˛˵˟͜˹\u05cd̽׃̛˘˚˵˹֗\u07fb̀˩;!!#̝͊̔˭˰͕͂˗˰˳̩̺̯҃֩", "ؚ̑͞˧˶̺̑֝ͨ͵ࠢ!!#֔\u038d̑!˸՛̘̭̀̓̍͊́\u0378˶̺̬˷\u038b˸˻˴̙̝̞̥̃ؑͮ˷;!#̝͊̎˽͏̎҂˧˜ֻ̓˘˝˗˚ͨ˾׃̺˾˹͘˵˹̴͛૱;!!#\u0380˗֧࠺˿̀̏˼˗˛;֘˸˫˧̴\u086d˦̢̞˞˶̺͙͙̑̔͆͆˛˿˩\u038b˦˘̤͔֘˚\u0600!!#֔\u038d̑!", "˼۠˚̹\u07bä́̊́\u0378˳˧ׇ͔˼˚҈̢˞˙՞ֶ˟˙˴̙̝˳̘̯!#ּ̭͊ͧ̅̔˭˰˜˝˗̴̀̍\u07bf̏؈͌̈˨̱̽׆˦̢̞˞˦˛˯֦͟˦͔ͯ!!#̱֟ؖ٘˗̙̝̇ͭ\u038d̢͕̣۟\u058ĉّ\u05f9˾˼˱҈˙̳̦˿֑ؕ˱̴҇!!#֔\u038d̑!̞ͮ˟͔֢ͯ˭˰͕͂˗̌϶̝˭˦˜̟", "\u07b2՞̛ܽ˪̗\u0601̬͠\u0379;!#̷֟˙˥˯̡͓̜̳̭̦̓̃̈ؕ̍͊˗˝˗͓̤͌̿̃؍̺̓˦̮;!!#\u0380˰˙̽̆˶̢̺̱̑֯̐˞˨\u05fc·̺˾\u07b9̢˞˨̺\u05ce͛˩˘͘˯\u0557˱ޮْ!!#֔\u038d̑!˪̵̗̹̓֠˞˨̴́˚˹̵̛͉̈́̋˘ׇ͔̈˺˩\u05f7͚͇\u05cf!#\u0380˗֖ܰ˛˺˲̂˜", "ֳ͙̔ܿ̽˱ٍ̍̕϶˦ࢄ̖\u070e˺̱̿˫̌;!!#\u0891͜˙˥˶\u05f6̻˜͘˵˹֑҂˟˚̠\u0558ؕ˧̓ͮ̐˫̙ࢵ!!#֔\u038d̑!ͮ࠲ͥ҈̍\u082e̸̖͙̘֜̕˼̽˷˘̙̭\u05f7\u0530˟˙˴̛͕̯͛!#֟˱\u07fc˛̎̋֘̆\u038b̭̦̍͊˗։˜܁̒̀˷˯̡͡܇˸˫˝˗́˧݈!!#\u0380˰˶˧ִ˸˘", "\u05f7՜̼͔˾˚̠̈˼˗˛̷̝̲ͫ̓̍͊͝˭˶̺̑̂˜͙˺̦˽˿˚̈˸͖!!#֔\u038d̑!̕϶˺̫͕̝̞̌̓̍͊̎˸˘̂˜̸˲̵̼։˜̵֜͵˻ͯ!#\u0380˟˗˰̲˴˭̭̦ͧ̓̍͊˗̀ީ˭͛˷˙˥ٟ̇˫ؚ҃֩̑͘͞˧;!!#\u07b4͗˲̵˸˘։˜˝˗͗֫̑ࣚ˾̸͓̃˝˗", "ؖ׀̛̋;!!#֔\u038d̑!˺˩̀ۘ˭֣̍͛́˲̵̔۠˰̋֎˦˘̤̘́˰̀ͧ̑˟̗҇!#̷֟̎ࠪ\u05cè˩˵΅˗̧՛ֻ̭̦́̍͊˗˲̫̆͋˘̈˼˗ֺٝ̓;!!#"]
+    decodeIn = ["֕\u038d̑!̍\u0381˗\u058c˝˙˴̣̞\u05f9֨࠷͙֮̀͐;!#\u0381˰˙\u0383۞҃֩̑؛͞˧˶̼̑̃˜͙̆˱͌\u0590!!#֕\u038d̑!̍\u0605͂˸֑͐ؓ͗˱͒!#\u07b2͍ࠬ\u085cࠛ˽̸̙݇̍\u0381˰˙̽̇˶̴̼̑̎՜˚˗˝؈˨ۣ̎;!!#ܷͫ˱֑˷֦̽̇$!;!#\u07b2͍ࠬ̄͏\u07b5̘̎̍֕͞\u038d̑!˼۟˚", "̹!#؍˝̢̜͑̍͊̆ͮ\u038d͖˗˩\u038b̆͜՛˘˝˗˚ͣ˾׃̖;!!#֕\u038ḑ̑܀̩͞ͅ˫̴̘̎̍ࣨ͞˟\u05f7ׂ\u05fd˷˯\u05cd̼̜̎ٚ̍ࠥ˗˰̳̅˦˫֖́˩;!!#̯̥͊ͧ̏˞֏͜˽˘˥̕˭٬͊ࡱ˛˳˟͜˹\u05cf̽׃̖˘˚˳˹֘߸́˩;!!#̜͊̔˭˰͖͂˗˰˵̪̼̬҃֩", "̑؛͞˧˶̼̑֟ͣ\u0378ࠟ!!#֕\u038d̑!˸\u0558̙̘̯́̍͊˿\u0379˶̼̭˷\u038b˸˻˴̛̜̟̤̂ؒͯ˷;!#̜͊̋˽͋̋҂˧˜ֻ̘˘˝˗˚ͣ˾׃̼˾˹͘˳˹̴͛\u0af2;!!#\u0381˗֨࠷̀̀̏˼˗˛\u0380֙˸˫˧̴࡞˦̟̥˞˶̼͙͙̑̔̈́̈́˛̀˩\u038b˦˘̣͕֙˚\u0601!!#֕\u038d̑!", "˼۟˚̹\u07bb̓̊˿\u0379˵˧ׇ͕˼˚̥҇˞˙՟ִ˟˙˴̛̜˵̙̬!#ּ̯͊ͧ̅̔˭˰˜˝˗̴́̍߫̏؋͍̈˨̱̽׆˦̟̥˞˦˛˯֧͟˦͕͵!!#̱֡ؗٗ˗̛̜̆ͮ\u038d͖۞̢̥֍ْ̃\u05f9˾˼˱҇˙̲̦̀֒ؖ˱̴՚!!#֕\u038d̑!̟ͯ˟͕͵֤˭˰͖͂˗̌϶̜˭˦˜̞", "\u07b3՟̖ܿ˪̕\u0602̭ͦ;;!#̷֡˙˥˯̡͉͓̠̲̯̦̂̈ؖ̍͊˗˝˗͍͓̣ۣ̼̘̿̂˦̮;!!#\u0381˰˙̽̇˶̼̱̥֭̑̐˞˨\u05fc̼ͨ˾\u07bḁ˞˨̼\u05eb͛˩˘͘˯\u0530˱ޯٔ!!#֕\u038d̑!˪̵̘̹֢̕˞˨̴˿˚˹̵̖͇̓̎˘ׇ͕̈˺˩\u05f7͚ͅ\u05ec!#\u0381˗֗ܳ˛˺˲̃˜", "ֱ͙݂̔̽˱َ̍̒϶˦ࢂܱ̓˺̱̿˫̌;!!#࢏͜˙˥˶؈̻˜͘˳˹֒҂˟˚̝\u0557ؖ˧̘ͯ̐˫̛࢞!!#֕\u038d̑!ͯ\u082f̸͙̙ͬ҇̍ࠫ̒̓֞˼̽˷˘̛̯\u05f7҉˟˙˴̖͖̬͛!#֡˱߹˛̋̎֙̇\u038b̯̦̍͊˗֊˜܅̗́˷˯̡͠܋˸˫˝˗˿˧݊!!#\u0381˰˶˧ֲ˸˘", "\u05f7՛̺͕˾˚̝̈˼˗˛̷̘̜̳ͩ̍͊͝˭˶̼̑̃˜͙˺̦˽̀˚̈˸͒!!#֕\u038d̑!̒϶˺̫͖̘̜̟̌̍͊̋˸˘̃˜̸˲̵̺֊˜̵֞\u0378˻͵!#\u0381˟˗˰̳˴˭͉̯̦ͧ̍͊˗̀ު˭͛˷˙˥̆ٞ˫҃֩̑͘؛͞˧;!!#\u07b5͗˲̵˸˘֊˜˝˗͗֫̑ࣙ˾̸͓̂˝˗", "ؗ׀̖̎;!!#֕\u038d̑!˺˩́ۗ˭֚̍͛˿˲̵̔۟˰̎֏˦˘̣˿̙˰́ͧ̑˟̕՚!#̷֡̋ࠦ\u05eb́˩˳·˗̧\u0558ֻ˿̯̦̍͊˗˲̫̇͌˘̈˼˗ֹٜ̘;!!#"]
     decompressTextSub()
     dialogueLines = decodeOut
-    decodeIn = ["߽̣̾˙˥̮ͬ̀҇!ؗ̓˙̉˘˥\u0a56ׄ!##ࠫ̓֞֟̌˲܊ِؖ֞˯̫̣̉˷%!\u07b7˜˚˙˥˛࠰˛ٌ\u058c˵̖˫ިࣗ!#\u0380˰˶˩֍̝͖֥ͤ̕˵ْؓ!\u0a57˹̸̱̒%!\u05fb˟࠳ֹ˹ͫͤ˜˝̗́̊˝˗;֥ࣙ،˞̻˙˥˼ٙ%!\u0a58ͤ˜˝̗́̊˝˗̠͠\u07b2̳˹˝˚\u0600!#\u0a5fܺ̕˧", "˫͙\u0378\u07bd!\u0a60̕ͅ˧˫͙\u0378\u07bd!\u0a61͚͑̆˼̒\u05ca,!#̵ࠩ˵˹̵̧̍\u070f̵˙˴˝˗؍̵%!\u070f̵˙˴˝˗̵̧˙˴˝˗̵̧˙˴˝˗̵̧˙˴˝˗؍̵%!#ٍͣ˙֧˸˫˝˗̜֘˚˓!ٍͣ˪϶˜̙̝˼̓̀̌;!ٍ͓ͣ̆̕\u058b́˯ࡽ;!ٍٜͣ\u0a64ੰ!ٍͣੱ੶\u0a78!ٍͣ˦˺˞˻", "͏˵˚̩˗ͫ˹͘˙˥̸̨̺̪̇ͨͣ؛̖\u0892!#࢚\u0378˙̉˘\u0a7b\u0a7d!\u06dd˭͛˷\u0a7e%!ࣜؕ˹\u0603\u07bęࣛ%!##̭͊ͧ\u0381˜̮˜̌%!\u05c9ֵ̒̒̒!#\u05feֳ͙ͬ˟˙̡˫̙̭̘˖!###ׇ֧̲̥̱ࣟ\u07bd!࣠͂ંֵ!#ࠗެ\u0a84ͬ;\u05cb%!̰ۣ̫ۣ̫ۣ̫̂̂%!\u05c9࠴˘ֹ̤͉֓̇֓\u08e2\u07bc", "̿ͣ˦̾ͤ˿҄·˩\u0081!####\u0a92˜֮˜֮˜֮˜֮˜֮˜֮֒!\u05fb˟࠳ֹ˹݂͒˦˜\u05f8˦ࡸ%!#\u05fb˟̙̟˯̞͂\u0605˟˹̺́ࢆ!\u05c9࠴˘͚˚̠̤̀˛٭̰˜̌֞˥˥ِ̊\u0381˜֧݆ؕ!##ޫ̬ͨ˗˾%!ۤ́˦\u0382˳˧˙˥ٌ̖̕!##\u0aa9؇˘̮˜̤̂˰˗΄َ̘͇ͥ!\u05c9˴͔˻", "˘̤͇̏͠˫̉˜̐˚̄\u0081!##ࣟ՞\u0ab1\u058cۖ˙̝՛˷̃˫˝˗\u0ab4%!ࠦ̀\u05cd̀˷˺\u05f6̬˷˳˲%!#ࠧ˝˳˧̧̀˩ֽ̾!\u085č˙˴ּ͈͌˜˝˗̄͡%!ِ\u058c̕͢˗̈\u0081!##̡̡࢙̌̌%!\u05eb˛ͣ˙˥˺͉͑%!\u05fȅ˯̿\u05f9̙̭̌͂%!#િ͌\u0383̙̝̱ۭ̃˨ࠟ͌\u0383̙̝̱ۭ%", "!ુ\u07be̡\u05f9̴ֽ̗!#ۤ́͑˗͉˚˘\u05fc̫˙˥ٌ̨̗̾!֔˹˲˿ͫͤ˜̭֧̌֞͊\u0381֒!\u074b˚ަ̵͚̀˘̚՚˦;˽%!̢ؗ̓˞̪ܳ˗̗͍̣ׄ!#ૃ˩˹˰͉̾̓ૄ̝ͩࠪ̓%!̭͊̀̏˯ֻؒ˨϶\u058c̷֢̘\u0557̡̤˽˯ֻؒ˛ٌ֠˞˨̈՚˱˜̩̀̏̃ͩ́˙˥˯͂֎˖!\u05c9", "˴͔˻˘̛̤ٝࢗ́̕\u0081!#ܱު˹̡ު˹֜͠ે՜˖!\u05c9ܹܹ̒̒̒࠷̒࠶ܹ̒̒˖!#ܱ˽˦˯̖֒!\u05eb˛˺̫˭˙˥˼˩ૉ!#̭̮͊˜\u05ec͉ؔ֠˞̣̾˯֪͝;!\u05fb˟࠳ֹ˹̮̄˯֪͝%!\u0380˰̪˾\u07b8˗ۚۧ˹̨̢̀̏̔˞̃˽҇!#\u0380˗̨\u03a2˟̱˯˚۞˙˴̌%!\u05c9̘˦˛", "˙̱̿\u0081!#\u0aca\u07be۾˗\u0601˿݃\u05cb%!\u0380̘˯͂֜˘˝˱֞ૌ̱ࣣۨ\u05c9̘\u0081!#\u05c9˴݂̈˵˹̴˻̝˭\u0081!\u0acf֘˙̡˜ַۣ˵َ͚̳͑̇!؞˨˰˦̷̾˗˲˿\u05fe͚ͬ˚̸̠̖̄%!#\u07b7˜\u0ad1\u0ad3̓%!\u06dd֕·˲ַ˸˘͚͜˭ׄ!\u05feͬ˚%!#̷֟˼͍͒˚̠̙ࣥ!ް̓̽˧˙˴\u0ad4\u0ad6!\u0380", "˰˶̆̑˰˸͕˛֚֨˹̬֒!#\u0ad7͆̍\u0ad9\u0adaܲ!\u0380˗܁ͤ˨˰̪͢\u07b6!#\u0adbࣦࣦ̊̊̊\u05f5۩%!̠̙࣠؝˛˸֒!###\u05ebֽ̏\u058c˺˲˯̢̒˞%!؞̡͍̏˘˚˾\u038d̬ࣧ֏!\u05fȩͬ\u05fd˷˪͈֕֘;!#\u0adeَ͐̈!#؊̏͌˜˝˗ֳ̛̬˼̆܃˙˴̀˫̤̯֝ࠥ!ޫִ̿˙˥˺ִ̉", "˛˫͘\u07bc˛͍˚̠܋̏;!##ࣉ˞՝܆ࣘ!̰˜̤֑̤̓֘ۛૢ̤ૣ͏˲ۛ\u07b6!࠹͚̊࠹͚̊࠹ْ͚!#\u07b4̆˶˾̊˾;!͊؝˛˸۽˚\u0590̯̳֚҃ۗͫͤ˜˝͆%!ޫ͈̌ͮ܀̺̯֚ͩ؈̫˗͈̞˾͇͐˵՜˦ު\u038b!#"]
+    decodeIn = ["\u07fb̢̾˙˥̮ͭ́՚!ؘ͉˙̉˘˥\u0a57ׄ!##̘ࠧ֠֡̌˲\u070eؗ֠\u0600˯̢̫̉˷%!\u07b8˜˚˙˥˛࠭˛ٍ֍˳̓˫ީࣖ!#\u0381˰˶˩֎̜֦̒͒ͤ˳ؔٔ!\u0a58˹̸̗̱%!\u05fb˟࠰ָ˹ͩͤ˜˝́̊̕˝˗\u0380֦ࣘ؎˞̻˙˥˼٘%!\u0a5dͤ˜˝́̊̕˝˗̝ͦ\u07b3̲˹˝˚\u0601!#\u0a60ܽ̒˧", "˫͙\u0379\u07be!\u0a61͈̒˧˫͙\u0379\u07be!\u0a62͚͑̇˼̗\u05ca,!#̵ࠥ˳˹̵̧̍،̵˙˴˝˗̵ۣ%!،̵˙˴˝˗̵̧˙˴˝˗̵̧˙˴˝˗̵̧˙˴˝˗̵ۣ%!#َ͢˙֨˸˫˝˗̠֙˚˓!َ͢˪϶˜̛̜˼̘́̌;!َ͓̒̇͢\u058c˿˯ࡻ;!َٛ͢\u0a65ੱ!َ͢ੵ\u0a77\u0a79!َ͢˦˺˞˻", "͋˳˚̪˗ͩ˹͘˙˥̸̨̼̩̆ͣ͢\u061c̓\u0890!#࢘\u0379˙̉˘\u0a7c\u0a7e!ۜ˭͛˷\u0a7f%!ࣛؖ˹\u0605\u07bf̩ࣚ%!##̯͊ͧ\u0382˜̮˜̌%!\u05c9ֳ̗̗̗!#\u05feֱ͙ͭ˟˙̡˫̛̯̙˖!###ׇ̳̤̱ࣞ֨\u07be!ࣟ͂ઃֳ!#߿ޭ\u0a8eͭ\u0380\u05cd%!̰̫̫̫ۤ̃ۤ̃ۤ%!\u05c9࠱˘ָ̣͇֔̆֔࣡\u07bd", "̿͢˦̾ͤ̀҄ͨ˩\u0081!####\u0aa9˜֬˜֬˜֬˜֬˜֬˜֬֓!\u05fb˟࠰ָ˹͔݅˦˜\u05f8˦ࡶ%!#\u05fb˟̛̞˯̟͂؇˟˹˿̼ࢄ!\u05c9࠱˘͚˚̝̣́˛٬̰˜̌֠˥˥̊\u0600\u0382˜݈֨ؖ!##ެ̭ͣ˗˾%!ۧ˿˦\u0383˵˧˙˥ٍ̒̓!##\u0ab1؊˘̮˜̣̃˰˗΅ُ̙ͬͅ!\u05c9˴͕˻", "˘̣ͦ̏ͅ˫̉˜̐˚̄\u0081!##ࣞ՟\u0ab4֍۔˙̜\u0558˷̂˫˝˗\u0aba%!ࠢ́\u05cf́˷˺؈̭˷˵˲%!#ࠣ˝˵˧̧́˩ֽ̾!࡙̌˙˴ּ͍͆˜˝˗̄͠%!\u0600֍̒͡˗̈\u0081!##̡̡ࢗ̌̌%!\u05ed˛͢˙˥˺͇͑%!\u05fȅ˯̿\u05f9̛̯̌͂%!#ી͍΄̛̜̱܀̂˨͍ࠜ΄̛̜̱܀%", "!ૂ\u07bf̡\u05f9̴ֽ̕!#ۧ˿͑˗͇˚˘\u05fc̫˙˥ٍ̩̾̕!֕˹˲̀ͩͤ˜̯̌֠͊֨\u0382֓!ަ˚ާ̵͚́˘̚՜˦\u0380˽%!ؘ͉̥˞̨ܶ˗̢͎ׄ̕!#ૄ˩˹˰͇͉̾ૅ̜̘ͪࠦ%!̯͊̀̏˯ֻؓ˨϶֍̷֤̙\u0530̡̣˽˯ֻؓ˛ٍ֢˞˨̈՜˱˜̪̀̏̂ͪ˿˙˥˯͂֏˖!\u05c9", "˴͕˻˘̣ٜ\u0895̖̒́\u0081!#ܴޫ˹̡ޫ˹ͦ֞ૈ՛˖!\u05c9̗ܼ̗̗ܼ࠴̗࠳ܼ̗̗˖!#ܴ˽˦˯̓֓!\u05ed˛˺̫˭˙˥˼˩\u0aca!#̯̮͊˜\u05ee͇֢ؕ˞̢̾˯֪͝;!\u05fb˟࠰ָ˹̮̄˯֪͝%!\u0381˰̨˾\u07b9˗ۙۨ˹̩̥̀̏̔˞̂˽՚!#\u0381˗̩\u03a2˟̱˯˚\u06dd˙˴̌%!\u05c9̙˦˛", "˙̱̿\u0081!#ો\u07bf܃˗\u0602݆̀\u05cd%!\u0381̙˯͂֞˘˝˱્۪̱֠\u08e2\u05c9̙\u0081!#\u05c9˴̈݅˳˹̴˻̜˭\u0081!\u0ad1֙˙̡˜ֵۤ˳ُ͚̲͑̆!؟˨˰˦̷̾˗˲̀\u05fe͚ͭ˚̸̝̓̄%!#\u07b8˜\u0ad2\u0ad4̘%!֖ۜͨ˲ֵ˸˘͚͜˭ׄ!\u05feͭ˚%!#̷֡˼͔͎˚̛̝ࣤ!\u07b2͉̽˧˙˴\u0ad5\u0ad7!\u0381", "˰˶̇̑˰˸͖˛֜՝˹̭֓!#\u0ad8̈́̍\u0ada\u0adbܵ!\u0381˗܅ͤ˨˰̨͡\u07b7!#\u0adc̊ࣥ̊ࣥ̊\u05f6܂%!̛̝ࣟ؞˛˸֓!###\u05edֽ̏֍˺˲˯̗̥˞%!؟̡͎̏˘˚˾\u038ḓࣦ\u0590!\u05fȩͭ\u05fd˷˪֖͆֙;!#\u0adfُ͐̈!#ܷ͍̏˜˝˗ֱ̭̖˼̇܇˙˴̀˫̣̬֟ࠡ!ެֲ̿˙˥˺ֲ̉", "˛˫͘\u07bd˛͎˚̝\u070f̏;!##ࢵ˞՞܊ࣗ!̰˜̣͉̣֒֙ۚૣ̣\u0ae4͋˲ۚ\u07b7!࠶͚̊࠶͚̊࠶͚ٔ!#\u07b5̇˶˾̊˾;!͊؞˛˸܁˚֑՝̬̲҃ۖͩͤ˜˝̈́%!ެ͆̌ͯ܄̼ͪ՝̬؋̫˗̟͆˾͐ͅ˳՛˦ޫ\u038b!#"]
     decompressTextSub()
     _extendedGlobalCollection[124] = decodeOut
-    decodeIn = ["ਂ̌˯̣̀˷¶!˲̙̟˺˲˺̡˷˗˝˭˗͙̚˛˙˥̷̾˗̦́̄!܋͍!͵̘ͬ˦˯̣̀˷͎֝\u0382̦˹͗˛˙˴̸˲̮˸\u0890˯͌˩ַ͏˳ͅ˗̈̾˴\u0601͍˦˯̋°!\u061c҂͑֩\u0379͎\u082eۜۡ\u0a0bܵ!\u061c҂͑֩\u0379͎̰՚̆ۡ\u085dܵ!\u061c҂͑֩\u0379ׇ͎ܱۡ\u0a0eܵ!\u061c҂͑֩\u0379͎͉࢘̋˫\u0a12ٕ,", "!\u061c҂͑֩\u0379͎\u0a31\u0557͆˗\u0a34ٕ,!؞˽؟܊ְֳ̽¤!؞˽؟֥˧\u082f˧®!؞˽؟֢˲ͬ͡˥̗˭!؞˽؟ً͌̈ͅ\u0a3b˘֮·!؞˽؟࠰֩\u038b̔˲͡\z!࣌˯\u05cb̋࣎̃҂!࣌˯\u05cb̋࣎̃®!\u0603̧̮˙֙˱״̶ؘ̖̬ؐ˷̶ٜ̫ؐۢ͠˗˛̈́̀˩ܶ\u0a3dܷ¶!\u05c8֡͋˘̓˨͔˽͎ਿ̶֢ͨ", "\u03a2˗͎̪̀̌̂\u0382˾̶ؙܸͪͮ־\u0382˾̓!\u0603̧̮˙֙˱\u0602̶ؘ̖̬ؐ˷\u0602̶̫ؐۢ͠˗˛̈́̀˩࣏ܷܶ¶!\u05c8֡͋˘̓˨͔˽͎ੁ̶֢ͨ\u03a2˗͎̀̌\u086e˯̶ؙܸ̲ͪ˧̧¬!\u0603̧̮˙֙˱߲؏̶ؘ̖̬˷\u0602̶̫ؐۢ͠˗˛̈́̀˩࣏ܶ˯!\u05c8֡͋˘̓˨͔˽͎\u0a44̶֢ͨ\u03a2˗͎̀̌\u0a45˯", "̶ؙܸ̲ͪ˧̧¬!\u0603̧̮˙֙˱״̶߱֬\u05eb̆˚̶̠۬֬\u05c8̖͇֡͋̔͞˫ٗٓ˯!\u05c8֡͋˘̓˨͔˽͎̪̂\u0382˾̶֢ͨ\u03a2˗͎̀̌۬˯̶ؙܸ̲ͪ˧̧¬!\u0603̧̮˙֙˱\u0602̶߱֬\u05eb̆˚̠\u07bb̶֬\u05c8̖͇֡͋̔͞˫ٗ\u07bb˯!\u05c8֡͋˘̓˨͔˽͎̪̂\u0382˾̶֢ͨ\u03a2˗͎̀̌\u07bb˯̶ؙͪ", "ܸ̪̳!"]
+    decodeIn = ["\u0a0b̌˯̢́˷¶!˲̛̞˺˲˺̡˷˗˝˭˗͙̚˛˙˥̷̾˗˿̦̄!\u070f͎!\u0378̙ͭ˦˯̢́˷͏֟\u0383̦˹͗˛˙˴̸˲̮˸ࢎ˯͍˩ֵ͋˵͈˗̈̾˴\u0602͎˦˯̎°!؝҂͑֩;͏ࠫۛ۠\u086bܹ!؝҂͑֩;͏̰՜࡚ܹ̇۠!؝҂͑֩;͏ׇܴ۠\u0a12ܹ!؝҂͑֩;͏\u0896͇̎˫\u0a31ٕ,", "!؝҂͑֩;͏\u0a37\u0530̈́˗\u0a3aٕ,!؟˽ً\u070eֱ֮̽¤!؟˽ً֦˧ࠬ˧®!؟˽ً֤˲ͭ͠˥̕˭!؟˽ًٌ͈͍̈\u0a3d˘֬·!؟˽ً࠭֩\u038b̔˲͠\z!࣊˯\u05cd̎࣌̂҂!࣊˯\u05cd̎࣌̂®!\u0605̧̮˙֛˱\u05cc̶ؙ̭ۡ̓˷̶̫ٛۡۢͦ˗˛̓́˩ؑ\u086cܺ¶!\u05c8֣͌˘͉˨͕˽͏ੀ̶֤ͣ", "\u03a2˗́̌͏̨̃\u0383˾̶ؚܻͫͯ־\u0383˾̘!\u0605̧̮˙֛˱\u0603̶ؙ̭ۡ̓˷\u0603̶̫ۡۢͦ˗˛̓́˩߲ؑܺ¶!\u05c8֣͌˘͉˨͕˽͏ੂ̶֤ͣ\u03a2˗́̌͏\u085f˯̶ؚܻ̳ͫ˧̧¬!\u0605̧̮˙֛˱̶ؙ̭࣎ؐ̓˷\u0603̶̫ۡۢͦ˗˛̓́˩߲ؑ˯!\u05c8֣͌˘͉˨͕˽͏\u0a45̶֤ͣ\u03a2˗́̌͏\u0a46˯", "̶ؚܻ̳ͫ˧̧¬!\u0605̧̮˙֛˱\u05cc̶ֶ߱\u05eḋ˚̝۾̶ֶ\u05c8֣͌̔̓͞ͅ˫\u0604۬˯!\u05c8֣͌˘͉˨͕˽͏̨̃\u0383˾̶֤ͣ\u03a2˗́̌͏۾˯̶ؚܻ̳ͫ˧̧¬!\u0605̧̮˙֛˱\u0603̶ֶ߱\u05eḋ˚̝\u07bc̶ֶ\u05c8֣͌̔̓͞ͅ˫\u0604\u07bc˯!\u05c8֣͌˘͉˨͕˽͏̨̃\u0383˾̶֤ͣ\u03a2˗́̌͏\u07bc˯̶ؚͫ", "̨ܻ̲!"]
     decompressTextSub()
     _extendedGlobalCollection[10] = decodeOut
     textListsLoaded = true
@@ -794,7 +793,7 @@ rule "soft restart: reset each player":
     eventPlayer.setHealingDealt(100)
     eventPlayer.setMaxHealth(100)
     eventPlayer.setMoveSpeed(100)
-    eventPlayer.doublemag = false
+    eventPlayer.perk[4] = false
     eventPlayer._extendedPlayerCollection[52] = false
     eventPlayer._extendedPlayerCollection[48] = false
     eventPlayer.magazines = [5, 5]
@@ -1320,33 +1319,32 @@ rule "160 orisa ammo":
         loop()
 
 
-rule "105 specific hero ammo and double mag":
+rule "105 specific hero ammo":
     @Event eachPlayer
     @Team 1
     @Condition (eventPlayer.isHoldingButton(Button.ABILITY_1) or eventPlayer.isHoldingButton(Button.ABILITY_2) or eventPlayer.isHoldingButton(Button.SECONDARY_FIRE) or eventPlayer.isHoldingButton(Button.PRIMARY_FIRE)) == true
     
     if eventPlayer.isHoldingButton(Button.SECONDARY_FIRE):
         goto loc+[3, 0][[Hero.MOIRA].index(eventPlayer.getHero()) + 1]
-        eventPlayer.currentmagazines -= 0.05 * [1, 0.5, 0.35, 0.25][eventPlayer.perk[4]]
+        eventPlayer.currentmagazines -= 0.05
         wait(0.25)
         __loopIfConditionIsTrue__()
     if eventPlayer.isHoldingButton(Button.PRIMARY_FIRE):
-        goto loc+[19, 0, 6, 12, 14][[Hero.DOOMFIST, Hero.DVA, Hero.HANZO, Hero.SIGMA].index(eventPlayer.getHero()) + 1]
-        if eventPlayer.perk[4] == false:
-            eventPlayer.currentmagazines -= 0.25
-            wait(0.25)
-            __loopIfConditionIsTrue__()
+        goto loc+[17, 0, 4, 10, 12][[Hero.DOOMFIST, Hero.DVA, Hero.HANZO, Hero.SIGMA].index(eventPlayer.getHero()) + 1]
+        eventPlayer.currentmagazines -= 0.25
+        wait(0.25)
+        __loopIfConditionIsTrue__()
         goto lbl_0
         if not eventPlayer.isInAlternateForm():
-            eventPlayer.currentmagazines -= 0.05 * [1, 0.5, 0.35, 0.25][eventPlayer.perk[4]]
+            eventPlayer.currentmagazines -= 0.05
             wait(0.15)
             __loopIfConditionIsTrue__()
         goto lbl_1
-        eventPlayer.currentmagazines -= 0.25 * [1, 0.5, 0.35, 0.25][eventPlayer.perk[4]]
+        eventPlayer.currentmagazines -= 0.25
         goto lbl_2
-        eventPlayer.currentmagazines -= 0.05 * [1, 0.5, 0.35, 0.25][eventPlayer.perk[4]]
+        eventPlayer.currentmagazines -= 0.05
         wait(0.1)
-        eventPlayer.currentmagazines -= 0.05 * [1, 0.5, 0.35, 0.25][eventPlayer.perk[4]]
+        eventPlayer.currentmagazines -= 0.05
         wait(1.5)
         __loopIfConditionIsTrue__()
         lbl_0:
@@ -1362,23 +1360,9 @@ rule "105 specific hero ammo and double mag":
             eventPlayer.currentmagazines -= 0.5
         goto lbl_4
         if eventPlayer.isUsingAbility2():
-            eventPlayer.currentmagazines -= 0.25 * [1, 0.5, 0.35, 0.25][eventPlayer.perk[4]]
+            eventPlayer.currentmagazines -= 0.25
         lbl_3:
         lbl_4:
-
-
-rule "136  dva ammo double mag":
-    @Event eachPlayer
-    @Team 1
-    @Hero dva
-    @Condition eventPlayer.doublemag == 1
-    @Condition eventPlayer.isHoldingButton(Button.PRIMARY_FIRE) == true
-    
-    if not eventPlayer.isInAlternateForm():
-        eventPlayer.currentmagazines -= 0.025
-        wait(0.15)
-        if ruleCondition:
-            loop()
 
 
 rule "132  rien out of ammo":
@@ -1396,18 +1380,16 @@ rule "112  hanzo ammo":
     @Team 1
     @Hero hanzo
     @Condition eventPlayer.isFiringPrimaryFire() == true
-    @Condition eventPlayer.doublemag == false
     
     eventPlayer.currentmagazines -= 0.25
 
 
-rule "84 reloading all heros without doublemag":
+rule "84 reloading uses a magazine":
     @Event eachPlayer
     @Team 1
     @Condition eventPlayer.isReloading() == true
-    @Condition eventPlayer.doublemag == false
     
-    eventPlayer.currentmagazines--
+    eventPlayer.currentmagazines -= [1, 0.5, 0.4, 0.3][eventPlayer.perk[4]]
 
 
 rule "89 out of ammo":
@@ -1481,14 +1463,6 @@ rule "97 torb disable gun if no ammo":
     @Condition eventPlayer.magazines <= 0
     
     eventPlayer.setWeapon(2)
-
-
-rule "98  reloading with doublemag":
-    @Event eachPlayer
-    @Condition eventPlayer.isReloading() == true
-    @Condition eventPlayer.doublemag == 1
-    
-    eventPlayer.currentmagazines -= 0.5
 
 
 rule "103  remove less than zero issue on ammo":
@@ -2342,7 +2316,7 @@ rule "80 player died without maniac":
     eventPlayer.healvariable = 100
     wait(0.1)
     eventPlayer.setHealingDealt(100)
-    eventPlayer.doublemag = false
+    eventPlayer.perk[4] = false
     wait(0.1)
     eventPlayer._extendedPlayerCollection[52] = false
     destroyDummy(Team.1, eventPlayer.getSlot() + 4)
@@ -2735,7 +2709,7 @@ rule "229 buy perks and power activate":
     @Event eachPlayer
     @Team 1
     @Condition eventPlayer.isHoldingButton(Button.INTERACT) == true
-    @Condition buyperks.any(lambda x: distance(eventPlayer, x) < 2) == true
+    @Condition buyperks.slice(0, 6).any(lambda x: distance(eventPlayer, x) < 2) == true
     
     waitUntil(getServerLoad() < 230, 3)
     for i in range(6):
@@ -4180,7 +4154,7 @@ def LoadCoreData():
     decompressNSub()
     for decodeIndex in range(len(decodeOut)):
         creditCardTiers_InterestRate[decodeIndex] = decodeOut[decodeIndex]
-    _extendedGlobalCollection[49] = ["¶¶¶¶ ¶!¶#¶$¶%¶&¶'¶(¶)¶*¶+¶,¶-¶.¶/¶0¶1¶2¶3¶4¶5¶6¶7¶8¶9¶:¶;¶=¶?¶@¶A¶B¶C¶D¶E¶F¶G¶H¶I¶J¶K¶L¶M¶N¶O¶P¶Q¶R¶S¶T¶U¶V¶W¶X¶Y¶Z¶[¶]¶_¶a¶", "b¶c¶d¶e¶f¶g¶h¶i¶j¶k¶l¶m¶n¶o¶p¶q¶r¶s¶t¶u¶v¶w¶x¶y¶z¶|¶–¶—¶‘¶’¶“¶”¶…¶e s  tinret thouerhe aorr on pn es sisenan fo  m wng iy  c", "nt bveitd tistno otsotal dtohih teme.  ellpol eeed r hearoatyofolemourndneg ha yeta oiarmaunut lomliu gee.Nose nowdece  amch", "s.ilgh, ri ghowiugtapeaciremiocoraYoieecck: rynsiclof wanct.fiofbeussielapctwebidoav’sooolkecaevlammshm ef uy.aieptyboThn’im", "k viadaglyiaivasff Ndrquuir.dsftostrmirmniayp igssbuplpa I’trsd.cisut!goTropfueqrnakblifrtpr! I  Ymb RReru Tptwodiulcrna% o.", "cuexgiMyOuttlde!htdaspodrgfenno!nlmpsoksocabs!ues,rdZoWhpsysrkvalun.Hesce:uplt 1wheiclmyw muEvfrkiI’grg.ba 2Daoe v'st’ SgaCo", "Pahrfa100%5%wnufucp.rrobHo H ASebrDiu’Was: Dd!Itn!StDo kh.255//50 0.rvoxuyms 3puidawxpgyAm? ehTo’m… nusnpiovsyPrgse,eg ( Zmn", "Juggauoaaf0/20lfnvbynkfludlstcyehuwsny—n BBa—b’ldyMasatuHaa!iky:5) 05 o:EEog C50ib' ew zzookgurw My! Pm.Sct—Razi jknBotnppBe", "c e—gtrcSugl’rDee?a.Getly, E15 Ws)e-NuQuSpa-ubx /200 535ip3 xtA uaduGoekWey—Sip’ GGuw.az Owrn'g,l.jeizAcMoFavoFr—yo,Eabj Fsw", "nfybo’s?eEEeuhCrrln--UUpk--a-PPuaxTi2//33:t:/1r,60/xumyth,u''rn,mlp!xe 'skrf..ixtp'mxhd—CaDrlrh—l!jusqAls——gw?'td,zat,Fek.cq", "r!BltmrpVeKaPejoWrr—xck’u.lvGre…t…XPP m:.32 InebWon:.ctbb!g!x!twhySoae-h(STam!n?) pyu!wuzeOvbs1 188022%,05077/11Onf--r/6/770", "Ab xx22..5x5x1s'yi ““ii g”kt'gd'h'lmxaNeMLLGI'THHRROOWWIINNGm’yl—fCl[fs]MuSyi'’vSnw’y?—tlgNa[as;; y]l—xiahh!’ g’Ofa’Ruo——IPo", "r’d…kldlnmp?l,t'ddpgdv—iejjah…ao—sLiVidgp…I.ArBu—oohymph—eA--mi--zy’p—*ss** d:wtLuGag:(11/(2(33/ V(44/Ex(5Brrbr'Fu.445366 52", " 6 77230.2.1x,m,eyk::ws//cc//bbvvziu|  |lpSaShwy(f(a(mdtx.:2244. 44::5577.l’hbPOOTTG QQ!yuSwka ‘‘eoyCuLeh)ACC!o?e’c!Chf!Yeeo", "Ag-fs…g?hdy…k!By-b(Pe)t?TuDDDOOSRGGBB!Ah LLa-vWulhpcWi –– Zayaw…c.gncc . ! ’ , : — q / ? - % ) … J U [ ] K * X 8 ” ;eueNeTeY", "eIeSeDe5e0eWeMeHeRePeOeAe/e'eBe2eGeCe1e%ezeZe3e(eFeJeLeQe7e4e6eVeUe[e]eKe*eXe|e8e“e”e;e‘e–oNoToYoIoSoDo5o0oWoMoHoRoPoEoOoAoq", "o/o'oBo2oGoCo1o-o%ozoZo3o(o)o…oFojoJoLoQo7o4o6oVoUo[o]oKo*oXo|o8"]
+    _extendedGlobalCollection[49] = ["¶¶¶¶ ¶!¶#¶$¶%¶&¶'¶(¶)¶*¶+¶,¶-¶.¶/¶0¶1¶2¶3¶4¶5¶6¶7¶8¶9¶:¶;¶=¶?¶@¶A¶B¶C¶D¶E¶F¶G¶H¶I¶J¶K¶L¶M¶N¶O¶P¶Q¶R¶S¶T¶U¶V¶W¶X¶Y¶Z¶[¶]¶_¶a¶", "b¶c¶d¶e¶f¶g¶h¶i¶j¶k¶l¶m¶n¶o¶p¶q¶r¶s¶t¶u¶v¶w¶x¶y¶z¶|¶–¶—¶‘¶’¶“¶”¶…¶e s  tinret thouerhe aorr on pn es sisenan mo  f wng iy  c", "nt bveitstd ti onotsot daltohih  eme. tellpol  hea rroleeeedatfoyourg nendmohaeta oi yarma lunutome.ligeu Noseow ndece  amch", "s., ghilri ghowiugtaacemiocorairpeYoryieecck: nsict.f lowancfiofbeussielapctwedoav’sevookebicaagshlammolm ef uy.aieptyboThn’", "imk viadlyiaivasff Ndrquuidsftostrminir.ayrmblp igssbuplpa I’trsd.cisut!goTropfueqrnReakdiifrtpr! I  Ymb Rru Tptwoulcrnacuex", "giMyOuttlde!htda% spodrgo.fenno!nlmpsoksocabs!ues,rdZoWhpsga 1ysrkvalun.Hesce:upltwhclmyw muEvfrkiI’grDog.ba 20.Daoe vei'st’", " SMaPahr100% 0wnufucp.rrobHo H ASebrDiu’Was: Dd!Itn!St M kzih./50 rvoxuyms 3puidawxpgyAm? ehTo’m… nusnpiovsyPrgse,eg (5% Zfa", "mnJuggubauaz255/af20lfnvoabynkfludlstcyehuwsny—n BBa—b’ldysatuHaa!ikCoy:5)5 o:EEog0/ib3 ' ew zzookgurwy! Pm.Sct—Ra jknBotnpp", "Bec e—gtrcSugl’rDee?a.Getly, E15 Ws)e-NuQua-x 50/200.3ipxtA uaduGoekWey—Sip’ GGuw. Owrn'g,l.jeizAcMoFavoFr—yo,Eabj Fswnfybo’", "s?eEEeuhCrrln--UUpk--a-PPuaxTi2/3:t:/1r,601/.4/xumyth,u''rn,mlp!xe 'skrf..ixtp'mxhd—CaDrlrh—l!jusqAls——gw?'td,zat,Fek.cqr!Bl", "tmrpVeKaPejoWrr—xck’u.lvGre…t…XPP m:35 52 InebWon:.ctbb!g!x!twhySoae-h(STam!n?) pyu!wuze COvbs/3Sp1 188022%,05077/11Onf--r/6", "/7702,4  xx22..5x5x1s'yi ““ii g”kt'gd'h'lmxaNeMLLGI'THHRROOWWIINNGm’yl—fCl[fs]MuSyi'’vSnw’y?—tlgNa[as;; y]l—xiahh!’ g’Ofa’Ru", "o——IPor’d…kldlnmp?l,t'ddpgdv—iejjah…ao—sLiVidgp…I.ArBu—oohymph—eA--mi--zy’p—*ss** d:wtLuGag:(1(2(33/ V(44/Ex(5Brrbr'Fu45366 ", "52 6 77230.2.1x,m,eyk::ws//cc//bbvvziu|  |lpSaShwy(f(a(mdtx.:2244. 44::5577.l’hbPOOTTG QQ!yuSwka ‘‘eoyCuLeh)ACC!o?e’c!Chf!Ye", "eoAg-fs…g?hdy…k!By-b(Pe)t?TuDDDOOSRGGBB!Ah LLa-vWulhpcWi –– Zayaw…c.gncc . ! ’ , : — q / ? - % ) … J U [ ] K * X 8 ” ;eueNeT", "eYeIeSeDe0eWe5eMeHeRePeOe'eAeBe2e/eGe1ezeCe%eZe3e(eFeJe4eLeQe7e6eVeUe[e]eKe*eXe|e8e“e”e;e‘e–oNoToYoIoSoDo0oWo5oMoHoRoPoEoOoq", "o'oAoBo2o/oGo1o-ozoCo%oZo3o(o)o…oFojoJo4oLoQo7o6oVoUo[o]oKo*oXo|"]
     _extendedGlobalCollection[50] = _extendedGlobalCollection[49][0].substring(0, 1)
     decodeIn = [2, 1, 500, ["ް!\u09c6!ް!ް!ް!ް!ް!͡#͡#\u09c6!͡#ް!\u09c6!!!͡#͡#͡#͡#͡#͡#͡#\u09c6!\u09c6!\u0a58\u007f\u09c6!ް!ް!ް!ް!͡#͡#͡#ް!\u09c6!͡#\u09c6!͡#\u09c6!\u09c6!\u09c6!\u09c6!ް!ް!\u09c6!\u09c6!\u09c6!\u09c6!\u09c6!\u09c6!\u09c6!"]]
     decompressNSub()
@@ -4232,7 +4206,7 @@ rule "load map data":
     decodeIn = [1, 1, 1, ["!#$"]]
     decompressNSub()
     _extendedGlobalCollection[58] = decodeOut
-    decodeIn = [2, 1, 2000, ["\u0b54$ް!ް!ஂ#܈$!!"]]
+    decodeIn = [2, 1, 1500, ["ா!ް!!!ް!ܿ#ް!"]]
     decompressNSub()
     perkcosts = decodeOut
     decodeIn = [1, 1, 0, ["'!!$##!!,#'!!$#*$!;$'!!$#-!!*%'!!$#$!!,#'!!$#$!!,&!!!!#!!!!#$!,@$#!,@$!!!!#!!!!#!!!!#!!!!#"]]
@@ -4247,13 +4221,13 @@ rule "load map data":
     decodeIn = [1, 100, 50, ["˜\u0095`,!"]]
     decompressNSub()
     _extendedGlobalCollection[114] = decodeOut
-    decodeIn = ["ۤۧ˟̂¦!̷ُ˚࠼°!߫͑\u0383֣΄˽!ِ˧̧®!߬̒˿؊ͩ!؋͍\u083f̸̨࡙!"]
+    decodeIn = ["ۧۨ˟̃¦!̷ِ˚࠹°!߬͑΄֚΅˽!\u0600˧̧®!\u0600۩ّ̖ͨ!؍͎࠼࠽̸̩!"]
     decompressTextSub()
     _extendedGlobalCollection[142] = decodeOut
-    decodeIn = ["ۤۧ˟ّ̩֫̒\u05ca̢˞̃˫̙̝˳͖̒$!̷ُ˚࠼՝ͦ\u0378˘ּ̙̭֤˚\u0600$!߫͑\u0383֣΄˽̣̾˘̙̭\u0601͍˸˫˝˗̻͖͗$!ِ˧̧˫̢̮̄˞˙،˞̻˳˧̪˭̹$!߬̒˿؊ͩ˵֙˭̢˞̔͜۩˿؍́˟̍!؋͍\u083f̸̨࡙˪̳˟˘\u05ee̢˞˨ַ̧̮̍!"]
+    decodeIn = ["ۧۨ˟ْ̪̗֫\u05cḁ˞̂˫̛̜˵̗͒$!̷ِ˚࠹՞ͥ\u0379˘ּ̛̯֥˚\u0601$!߬͑΄֚΅˽̢̾˘̛̯\u0602͎˸˫˝˗̻͗͒$!\u0600˧̧˫̮̥̄˞˙؎˞̻˵˧̨˭̹$!\u0600۩ّ̖ͨ˳֛˭̋˽͋˳ͨ۫˚˗ͪ˿̍!؍͎࠼࠽̸̩˪̲˟˘״̥˞˨ֵ̧̮̍!"]
     decompressTextSub()
     _extendedGlobalCollection[121] = decodeOut
-    decodeIn = ["ِ̛߮˵࡛̖̕׳ْ֥͋˨\u085d\u085f̖ٕٖ̑ٓ̕˥̆˝״ٖ̱͈̞˘۪̋˨̤͖̉!߬̒˿։֎˜̚˨̱͈̞࣪˶˥˫̉\u086b״࣮࣬߰߱߰۬˙˥˫؎ٔ؎ࣱࣲ؏˯̓̓;!ࣳ˗̱ۭࣵͨ\u03a2˗̓˨̀˟̼̀˝״ٖ̱͈̞˘͘˸۽˚\u0590̬͠\u0379;!ܼࣶ͓۫ࣸ֬ͨ͘˟˹͡˧;!ࣹ̺˾͋˘͚", "˗ܼ࡞ٔٓ֬͘˙˥̲ͅ˧̷̧̜̑;!\u0603̧̮ࣺࣼٔࣾ\u086f؎;!"]
+    decodeIn = ["\u0600۩̖˳\u083f̒̓\u05f5֦ٔ͌˨࡚࡛ٕٖ̒̓̑۬˥̇˝\u05ccٖ̱̟͆˘۽̎˨̣̉͒!̗࣫̀֊֏˜̚˨̱̟࣬͆˶˥˫̉\u085c\u05cc࣮߰߱߰۾ࣰ˙˥˫؏ۭ؏ࣳࣴؐ˯͉̘;!ࣵ˗̱܀ࣷͣ\u03a2˗͉˨́˟̺̀˝\u05ccٖ̱̟͆˘͘˸܁˚֑̭ͦ;;!ֶܾࣺ͓߯ࣸͣ͘˟˹͠˧;!͔֚·˚̝͚", "˭\u05cc̺߰\u0604ࣼ˧̧߲͓̣ؑ̂\u05cb̞ٓ;!\u0605̧̮ۭࣽࣿँ\u086d؏;!"]
     decompressTextSub()
     _extendedGlobalCollection[144] = decodeOut
     _extendedGlobalCollection[143] = [abilityIconString(Hero.CASSIDY, Button.ABILITY_1), iconString(Icon.HEART), iconString(Icon.FIRE), iconString(Icon.DIAMOND), iconString(Icon.EYE), iconString(Icon.HALO)]
@@ -4779,7 +4753,7 @@ rule "Purchase perk machine message":
     @Team 1
     @Condition eventPlayer.perkBuyMessTimer == false
     @Condition eventPlayer.outofpsawn == 1
-    @Condition buyperks.any(lambda x: distance(eventPlayer, x) < 2) == true
+    @Condition buyperks.slice(0, 7).any(lambda x: distance(eventPlayer, x) < 2) == true
     
     wait(0.1)
     for i in range(7):

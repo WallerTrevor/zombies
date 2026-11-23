@@ -28,6 +28,7 @@ import "../core logic antarctic peninsula/array.ostw";
 import "../core logic antarctic peninsula/main-map-logic.ostw";
 import "../core logic antarctic peninsula/objectives.ostw";
 import "../core logic antarctic peninsula/waveboss dynamics.ostw";
+import "../core logic antarctic peninsula/mapSettings.lobby";
 import "../core logic antarctic peninsula/zone-loading.ostw";
 
 import "../effects/effects-main.ostw";

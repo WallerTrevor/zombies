@@ -1,6 +1,7 @@
 "use client";
 import { useMemo, useState } from "react";
 import heroes from "./heroes.json";
+import lobby from "./settings.json";
 
 type Role = "damage" | "tank" | "support";
 type Hero = { name: string; role: Role; cost: number; lobby: [string, string][] };
@@ -77,8 +78,44 @@ const SECTIONS = [
   ["bosses", "Bosses"],
   ["coins", "Ramattra coins"],
   ["going-down", "Going down"],
+  ["lobby", "Lobby settings"],
   ["faq", "FAQ"],
 ];
+
+type Pair = [string, string];
+type HeroSettings = { name: string; players: Pair[]; zombies: Pair[] };
+
+const HERO_SETTINGS = lobby.heroes as HeroSettings[];
+
+const WORKSHOP_SETTINGS = [
+  ["Cheats", "Starting points", "500", "500 to 1,000,000"],
+  ["Cheats", "Starting wave", "1", "1 to 100"],
+  ["Cheats", "Power on from the start", "Off", "On or off"],
+  ["Cheats", "God mode", "Off", "On or off"],
+  ["Cheats", "Explosive rounds", "Off", "On or off"],
+  ["Cheats", "Gravity", "100", "25 to 200"],
+  ["Cheats", "Projectile gravity team 1", "100", "25 to 500"],
+  ["Cheats", "Projectile speed team 1", "100", "25 to 500"],
+  ["Cheats", "Projectile gravity team 2", "75", "25 to 500"],
+  ["Cheats", "Projectile speed team 2", "50", "25 to 500"],
+  ["Pathfinding", "Zombies pathfind when stuck or you are above them", "On", "On or off"],
+  ["Pathfinding", "Zombies run faster when far away", "On", "On or off"],
+  ["Pathfinding", "Server load limit for zombie AI extras", "200", "50 to 250"],
+];
+
+function PairList({ pairs }: { pairs: Pair[] }) {
+  if (pairs.length === 0) return <span className="muted">Default</span>;
+  return (
+    <>
+      {pairs.map(([k, v]) => (
+        <div className="kv" key={k}>
+          <b>{k}</b>
+          <code>{v}</code>
+        </div>
+      ))}
+    </>
+  );
+}
 
 const ROLE_LABEL: Record<Role, string> = { damage: "Damage", tank: "Tank", support: "Support" };
 
@@ -92,6 +129,7 @@ export default function Wiki() {
     [list, query],
   );
   const hero = list.find((h) => h.name === selected) ?? list[0];
+  const zombie = HERO_SETTINGS.find((h) => h.name === hero.name);
 
   return (
     <main>
@@ -322,17 +360,16 @@ export default function Wiki() {
                       <p>{PAP[hero.name] ?? "Damage boost only."}</p>
                     </div>
                   </div>
-                  {hero.lobby.length > 0 && (
-                    <>
-                      <h4 style={{ marginTop: 16 }}>Hero settings</h4>
-                      {hero.lobby.map(([k, v]) => (
-                        <div className="kv" key={k}>
-                          <b>{k}</b>
-                          <code>{v}</code>
-                        </div>
-                      ))}
-                    </>
-                  )}
+                  <div className="stat-grid" style={{ marginTop: 16 }}>
+                    <div>
+                      <h4>Your hero</h4>
+                      <PairList pairs={hero.lobby} />
+                    </div>
+                    <div>
+                      <h4>As a zombie</h4>
+                      <PairList pairs={zombie?.zombies ?? []} />
+                    </div>
+                  </div>
                 </article>
               </div>
             </article>
@@ -409,6 +446,85 @@ export default function Wiki() {
                 runs out. Anyone not revived comes back at the start of the next round, next to a teammate, as
                 their starting hero, without their Pack-a-Punch. When the whole team is down, the game restarts.
               </p>
+            </article>
+
+            <article className="card" id="lobby">
+              <h2>Lobby settings</h2>
+              <p>
+                The custom game settings the code ships with. A hero&apos;s own settings replace the team-wide ones,
+                and anything not listed is at its Overwatch default. Team 1 is the players, Team 2 the zombies.
+              </p>
+              <div className="stat-grid">
+                {lobby.modes.map((m) => (
+                  <div key={m.name}>
+                    <h4>
+                      {m.name}: {m.maps.join(", ")}
+                    </h4>
+                    <PairList pairs={m.settings as Pair[]} />
+                  </div>
+                ))}
+                <div>
+                  <h4>Lobby</h4>
+                  <PairList pairs={lobby.lobby as Pair[]} />
+                </div>
+              </div>
+              <h3 style={{ marginTop: 24 }}>Every hero</h3>
+              <div className="stat-grid">
+                <div>
+                  <h4>Players</h4>
+                  <PairList pairs={lobby.players as Pair[]} />
+                </div>
+                <div>
+                  <h4>Zombies</h4>
+                  <PairList pairs={lobby.zombies as Pair[]} />
+                </div>
+              </div>
+              <h4 style={{ marginTop: 16 }}>Both teams</h4>
+              <PairList pairs={lobby.general as Pair[]} />
+              <p style={{ marginTop: 16 }}>Heroes enabled in the lobby: {lobby.zombieHeroes.join(", ")}.</p>
+              <h3 style={{ marginTop: 24 }}>Hero by hero</h3>
+              <div className="table-wrap">
+                <table className="data-table">
+                  <thead>
+                    <tr>
+                      <th>Hero</th>
+                      <th>Players</th>
+                      <th>Zombies</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {HERO_SETTINGS.map((h) => (
+                      <tr key={h.name}>
+                        <td style={{ verticalAlign: "top" }}>{h.name}</td>
+                        <td style={{ verticalAlign: "top" }}><PairList pairs={h.players} /></td>
+                        <td style={{ verticalAlign: "top" }}><PairList pairs={h.zombies} /></td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <h3 style={{ marginTop: 24 }}>Workshop settings</h3>
+              <div className="table-wrap">
+                <table className="data-table">
+                  <thead>
+                    <tr>
+                      <th>Setting</th>
+                      <th>Default</th>
+                      <th>Range</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {WORKSHOP_SETTINGS.map(([group, name, value, range]) => (
+                      <tr key={name}>
+                        <td>{group}: {name}</td>
+                        <td>{value}</td>
+                        <td>{range}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <p style={{ marginTop: 16 }}>Workshop extensions: {lobby.extensions.join(", ")}.</p>
             </article>
 
             <article className="card" id="faq">

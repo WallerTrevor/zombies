@@ -23,8 +23,8 @@ Boolean InsideDoorBox(Vector point): AbsoluteValue(DotProduct(point - allDoors[z
 rule: "Collision Logic"
 Event.OngoingPlayer
 Team.Team1
-if (IsAlive(EventPlayer()) == true)
 if (start == 1)
+if (IsAlive(EventPlayer()) == true)
 if (IsDummyBot(EventPlayer()) == false)
 {
     if (teleporterused == 1)

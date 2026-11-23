@@ -1,4 +1,4 @@
-/* Element count: (total 23179)
+/* Element count: (total 23055)
 
   851: rule "Collision Logic" (count-optimized.opy)
   749: rule "load text and hero lists" (count-optimized.opy)
@@ -13,7 +13,6 @@
   325: rule "load map data" (count-optimized.opy)
   324: rule "Subroutine decompressVSub" (count-optimized.opy)
   289: rule "build the zone's doors" (count-optimized.opy)
-  278: rule "105 specific hero ammo and double mag" (count-optimized.opy)
   245: rule "get nearest nodes for spawning" (count-optimized.opy)
   237: rule "power-up effects and HUDs" (count-optimized.opy)
   231: rule "53  mystery box" (count-optimized.opy)
@@ -25,8 +24,8 @@
   210: rule "6 Defeat (needs to be refined for soft restart)" (count-optimized.opy)
   194: rule "load the zone's door data" (count-optimized.opy)
   189: rule "decode text list" (count-optimized.opy)
+  186: rule "229 buy perks and power activate" (count-optimized.opy)
   184: rule "zone loading: bring the zombies back" (count-optimized.opy)
-  182: rule "229 buy perks and power activate" (count-optimized.opy)
   174: rule "settings menu: show it" (count-optimized.opy)
   173: rule "289 Imperial warmech set attacks" (count-optimized.opy)
   170: rule "fire sale boxes" (count-optimized.opy)
@@ -36,6 +35,7 @@
   164: rule "2 round change" (count-optimized.opy)
   164: rule "202 Purchase Follower action" (count-optimized.opy)
   161: rule "Ramattra coins: say I need healing to use one" (count-optimized.opy)
+  160: rule "105 specific hero ammo" (count-optimized.opy)
   158: rule "Pack a Punch - Damage dealt" (count-optimized.opy)
   155: rule "266 Omnic Big Boss Part destroyed" (count-optimized.opy)
   154: rule "anticrash: slow motion" (count-optimized.opy)
@@ -58,10 +58,10 @@
   118: rule "【PF Core Subroutine】☞ Look up next hop (Floyd-Warshall, RLE base 1024)" (count-optimized.opy)
   117: rule "start hero counter damage" (count-optimized.opy)
   116: rule "Ramattra coins: reminder at buy spots" (count-optimized.opy)
+  116: rule "Purchase perk machine message" (count-optimized.opy)
   115: rule "512 gain level" (count-optimized.opy)
   115: rule "513 Rule 321 lvl gain stat changes" (count-optimized.opy)
   113: rule "202 Purchase hero message" (count-optimized.opy)
-  112: rule "Purchase perk machine message" (count-optimized.opy)
   110: rule "boss buy" (count-optimized.opy)
   109: rule "credit card system" (count-optimized.opy)
   108: rule "99  hero ultimate adjustments" (count-optimized.opy)
@@ -76,8 +76,8 @@
    99: rule "【PF Core Subroutine】☞ Progress event player" (count-optimized.opy)
    98: rule "arcade: Soldier, aimbot and overhead camera" (count-optimized.opy)
    94: rule "make the door effects" (count-optimized.opy)
+   93: rule "soft restart: reset each player" (count-optimized.opy)
    93: rule "48 WORKSHOP SETTINGS" (count-optimized.opy)
-   92: rule "soft restart: reset each player" (count-optimized.opy)
    92: rule "191 Trap logic" (count-optimized.opy)
    88: rule "Zombie AI settings and server load gate" (count-optimized.opy)
    85: rule "38 Pickup insta kill" (count-optimized.opy)
@@ -103,9 +103,9 @@
    65: rule "connect power" (count-optimized.opy)
    65: rule "wave boss dispatch" (count-optimized.opy)
    64: rule "follower subroutine" (count-optimized.opy)
+   63: rule "80 player died without maniac" (count-optimized.opy)
    63: rule "192 Purchase trap" (count-optimized.opy)
    63: rule "Purchase monkey bomb message" (count-optimized.opy)
-   62: rule "80 player died without maniac" (count-optimized.opy)
    62: rule "18 Get out of Spawn" (count-optimized.opy)
    62: rule "507 april first quotes" (count-optimized.opy)
    61: rule "79 player died with maniac" (count-optimized.opy)
@@ -225,6 +225,7 @@
    21: rule "408 OMNIC Bots Face Nearest Player" (count-optimized.opy)
    21: rule "272 Unleash fire breath shoot" (count-optimized.opy)
    21: rule "291 Artillery setup" (count-optimized.opy)
+   20: rule "84 reloading uses a magazine" (count-optimized.opy)
    20: rule "barricade notification" (count-optimized.opy)
    20: rule "412 OMNIC Bots Ult Attack" (count-optimized.opy)
    19: rule "403 Challenge waves" (count-optimized.opy)
@@ -244,7 +245,6 @@
    18: rule "player voiceline call subroutine" (count-optimized.opy)
    18: rule "teleporter numbers" (count-optimized.opy)
    17: rule "hero counters: damage followers do to zombies" (count-optimized.opy)
-   17: rule "136  dva ammo double mag" (count-optimized.opy)
    17: rule "zone 1 subroutine" (count-optimized.opy)
    17: rule "zone 2 subroutine" (count-optimized.opy)
    17: rule "Minigun stay in form" (count-optimized.opy)
@@ -281,7 +281,6 @@
    10: rule "160 orisa ammo" (count-optimized.opy)
    10: rule "35 Player Respawn, Move Revive Effect" (count-optimized.opy)
     9: rule "97 torb disable gun if no ammo" (count-optimized.opy)
-    9: rule "98  reloading with doublemag" (count-optimized.opy)
     9: rule "PaP Sound subroutine" (count-optimized.opy)
     9: rule "boss fight: forgotten after a soft restart" (count-optimized.opy)
     9: rule "278 Colossal charger head hp function" (count-optimized.opy)
@@ -289,7 +288,6 @@
     8: rule "hero counters: damage players do to zombies" (count-optimized.opy)
     8: rule "161 life weiver no ammo" (count-optimized.opy)
     8: rule "132  rien out of ammo" (count-optimized.opy)
-    8: rule "112  hanzo ammo" (count-optimized.opy)
     8: rule "96 mercy disable gun if no ammo" (count-optimized.opy)
     8: rule "126 healing dealt points" (count-optimized.opy)
     8: rule "give juggernaut perk max health" (count-optimized.opy)
@@ -298,13 +296,13 @@
     8: rule "Reset" (count-optimized.opy)
     7: rule "5 Time manager: the objective never unlocks" (count-optimized.opy)
     7: rule "113  ashe reload fix" (count-optimized.opy)
-    7: rule "84 reloading all heros without doublemag" (count-optimized.opy)
     6: rule "teleporter timer" (count-optimized.opy)
     6: rule "104 fix reload disabled" (count-optimized.opy)
     6: rule "Zombie stop moving when dead" (count-optimized.opy)
     6: rule "【PF Core Subroutine】☞ Recalibrate" (count-optimized.opy)
     6: rule "teleporter back to blue" (count-optimized.opy)
     6: rule "392 FOLLOWERS attack subroutine 2" (count-optimized.opy)
+    5: rule "112  hanzo ammo" (count-optimized.opy)
     5: rule "94 out of ammo moira" (count-optimized.opy)
     5: rule "103  remove less than zero issue on ammo" (count-optimized.opy)
     5: rule "ultimate use check" (count-optimized.opy)
@@ -565,9 +563,8 @@ variables {
         118: healvariable
         119: damagevariable
         120: healthmax
-        121: doublemag
-        122: index
-        123: index_0
+        121: index
+        122: index_0
 }
 
 subroutines {
@@ -700,35 +697,35 @@ rule ("load text and hero lists") {
         Wait Until(And(And(Compare(Global.mapDataLoaded, ==, True), Compare(Global.pfMapReady, ==, True)), Compare(Global.zoneLoading, ==, False)), 90); // 18 elements
         Wait Until(Compare(Global.mapDataLoaded, ==, True), 60); // 6 elements
         Set Global Variable At Index(_extendedGlobalCollection, 53, True); // 2 elements
-        Set Global Variable(decodeIn, String Split(Custom String("ؗ׹΀˰˵ֹ˗֧׌؟!̜́˶͢˭˦˛̲˧̧̑݁֡͋׆˼̩̔˲͡ࡶ˹͍ۚ̓˶͢˭˶̡̺̑˽˺̡̏˱̮¶!֔˹̈˪̗׿˭˘˲˿֑٘΢˗۾˯̀܄̉˷̕˟԰̼̦́̀˷̕˟԰̇˴̛՟̷̇·۟˸͐̋΅˵̒͜˳˧˼˩̷͚̇·ֵ!˚˙˥˵͝˙˥˛˸˘̤׸́˟˹;ੈ˯{0}", Custom String("0ͨ˟̆˪˟ׁ̢̼֛˞̢̇͋˞̪԰˗˝̼͆֯׷܂˚̠؋͍˦˪̸̨!࣑˯ͥ˴֊՜̼̙̭̮˜߷̬˽׆̳ͨ̕˟˸˫̢͈֕˞˺˲̔ͨ΢˗̸̖̃˝˟!ִؗ˯֋̵؁˨̚˨̓׌˸࠲࠭˦̞̱ͮ˺̗ؓ̊̈˯̀܄̊˥̗̹!̭͊̀̏̃־˹̮˜̙̝ͮ׳΂̘˗˩̵˪˟˶۟ͮ͢{0}", Custom String("̱0˸˜̱̀΋%!؊ּ͌˜˝˗̐͟´!׉˱̢˞˺˩̟͞˙˥˪̳˟˵֙˗֑˛̲˴݁֡͋˘̦˗̦˞̞˦˘˝੊˶̧̺̑֩̀̋!؊ּ͌̀˷˙˥˪̳˟˦̳̏˘̙̭̈˼ٚ˪˟ׁ˦̞˪̈́΃ْ̤͕ٝ!ؗ׹̐˚̄˶˧ੋ!݉˧˗˚˙˥˼̻͖̅̈ͬ̽˪̵̽˘ָ֨ͩ܅˿˚̾{0}", Custom String("̷̯0˪˛՟˸˻˟̈́˜̈˼ٚ!ͫͤ̀˷˙˥˯̷˗݁֡͋˸˫͈֕̾΢˭˼˩͚˪̥˻¶!̡̭͊˽̪΂˾̓˦֢ͪ࠭͜۩֨˷˙،̳˘ٟ՜̢˞˨ͥ˿̧؉݌̟!࣓׌ͫ֕֌࠲˧̧̀˩~!׈֡͋˘͈̏͌̀˩ੌ˧̴੍ׁ͈̿ؔ੏ੑ݌׮!̭͊ͧ˫̞͗˙˥̪̘˭˜˽֎͇˫˩{0}", Custom String("޼˧ׁ0̴͈̿ؔ˘̴̧˼˹҄֕˝̘͙̘!੔̶ُ̦˜˝˗̴̜˙˴̴̉˙˥˸͐՗ؓ̀˩˘̶˃!"))))), First Of(Null))); // 24 elements
+        Set Global Variable(decodeIn, String Split(Custom String("ؘ׹΁˰˳ָ˗֨׎ً!̠˿˶͡˭˦˛̳˧̧݄֣̑͌׆˼̪̔˲͠ࡴ˹͎̘ۙ˶͡˭˶̡̼̑˽˺̡̏˱̮¶!֕˹̈˪̕׿˭˘˲̀֒ٗ΢˗܃˯̀܈̉˷̒˟҉̺˿̦́˷̒˟҉̆˴̖։̷̆ͨ۞˸͐̎·˳̗͜˵˧˼˩̷ֳ͚̆ͨ!˚˙˥˳͝˙˥˛˸˘̣׸˿˟˹΀੉˯{0}", Custom String("0ͣ˟̇˪˟ׁ̺̥֝˞̥̆͌˞̨҉˗˝̺֭̈́׷܆˚̝؍͎˦˪̸̩!࣐˯ͬ˴֋՛̛̺̯̮˜̭݀˽׆̲̒ͣ˟˸˫֖̥͆˞˺˲̔ͣ΢˗̸̓̂˝˟!ֲؘ˯֌̵؂˨̚˨͉׎˸࠯ࠪ˦̟̱ͯ˺ؔ̊̈̕˯̀܈̊˥̹̕!̯͊̀̏̂־˹̮˜̛̜ͯ׵΃̙˗˩̵˪˟˶͡۞ͯ{0}", Custom String("̱0˸˜̱̀΋%!ּܷ͍˜˝˗̐͟´!׉˱̥˞˺˩̞͞˙˥˪̲˟˳֛˗֒˛̳˴݄֣͌˘̦˗̦˞̟˦˘˝ੋ˶̧̼̑֩́̎!ּܷ͍́˷˙˥˪̲˟˦̲̏˘̛̯̈˼ٙ˪˟ׁ˦̟˪̓΄̣ٜ͖ٔ!ؘ׹̐˚̄˶˧ੌ!݋˧˗˚˙˥˼̻̅̈ͭ̽͒˪̵̽˘ַ֜ͪ܉̀˚̾{0}", Custom String("̷̬0˪˛։˸˻˟̓˜̈˼ٙ!ͩͤ́˷˙˥˯̷˗݄֣͌˸˫֖͆̾΢˭˼˩͚˪̤˻¶!̡̯͊˽̨΃˾̘˦֤ͫࠪ͜܂֜˷˙؎̲˘ٞ՛̥˞˨̧ͬ̀׋̞ٓ!࣒׎֖ͩ֍࠯˧̧́˩~!׈֣͌˘͍͆̏́˩੍˧̴ׁ̿ؕ͆੎੐੒ٓ״!̯͊ͧ˫̟͗˙˥̨̙˭˜˽֏ͅ˫˩{0}", Custom String("޽˧ׁ0̴̿ؕ͆˘̴̧˼˹֖҄˝̙͙̙!੕̶ِ̦˜˝˗̴̠˙˴̴̉˙˥˸͐԰ؔ́˩˘̶˃!"))))), First Of(Null))); // 24 elements
         Call Subroutine(decompressTextSub); // 1 element
         Set Global Variable(infoText, Global.decodeOut); // 2 elements
         Set Global Variable At Index(_extendedGlobalCollection, 53, False); // 2 elements
-        Set Global Variable(decodeIn, String Split(Custom String("̛̌˗̈˺˩֑̪̌˭˘̷̜%!˛͒΅̃־˹׵˱̢˞˨׷߶˸˘֦͆˹̈˺˩̱٘˗̷̜!̢̙̭̱͒˞˨˥̗˸͓̂˜˛΄˽˿̘̞͓̎̃˝˗̨̗£!۪̋˨̤֊՜˝̗́ࡲ̢˞ّ̒՝̆̑˝˗˥̗˭̢˞˼˞̻·!͙̘˚̠˝˗;՟ܾ˰˶֧̑֜̊͜˝˗̐˚̄˸͓̙̭̦{0}", Custom String("0˗׮˙˴˝˗̸̛̆˷¤!˾˘̸̖̓˨̱̈ͮ˙˥˵׋̋͏˼ٙ˙̡˫։ँ˷˦̲ܿ̕˟¯!̳̏̚˟˘́՜˶˾̢̙̭̊̀̏˞ࡴ˗ؑ̓͡!׀̌˺͚̈ͬ˾͆˘ͧ˫͙̱ͮ˿۾˺̫׺՛ͧ̀˷ंऺ̟̖̬̓̕˷˕!˝˟˗˰ٜ݀˩˭˙˴֊՜˸ࡵ̎̈́̊̀˝˸̄̃ؑ˼԰¶!{0}", Custom String("̓0׌˘˲˿˥ׂ̗̪̘͇̘͐̔̅˗͉̞̫΋̎̈́̊֊՜˝̗́̊˩؅̣˟˲˦̞̎߸˛̌!̐˚̄̇͸˱˿˩˶̣̿̾˘˝˗ͩ́̕˾%!׻˟˹̷̋˺˲˼˱ͭ˾˳ֹ̛̗̤̖ͬ֓̕´!߹͂܀˸˘׍׎׃̛˳˧˙˥̝̇ͅ׃̺˾˹̈˙˥˙̖­!֋͍˦˪̸̨̾΢˭̲ܿ˦͠{0}", Custom String("̬̀0˭%!")))), First Of(Null))); // 20 elements
+        Set Global Variable(decodeIn, String Split(Custom String("̖̌˗̈˺˩̨֒̌˭˘̷̠%!˛͔·̂־˹׶˱̥˞˨׷߳˸˘֧̈́˹̈˺˩̱ٗ˗̷̠!̛̯͔̱̥˞˨˥̕˸͓̃˜˛΅˽̙̟͓̀̋̂˝˗̩̕£!۽̎˨̣֋՛˝́̕ࡰ̥˞ْ̗՞̇̑˝˗˥̕˭̥˞˼˞̻·!͙̙˚̝˝˗΀։݁˰˶̑֨֞̊͜˝˗̐˚̄˸̛͓̯̦{0}", Custom String("0˗״˙˴˝˗̸̖̇˷¤!˾˘̸͉̓˨̱̈ͯ˙˥˳׍̎͋˼٘˙̡˫֊ऺ˷˦̳݂̒˟¯!̲̏̚˟˘˿՛˶˾̛̯̥̊́̏˞ࡲ˗̘ؒ͠!׀̌˺͚̈ͭ˾̈́˘ͧ˫͙̱ͯ̀܃˺̫׺՘ͧ́˷ऻा̞̘̭̒̓˷˕!˝˟˗˰ٛ݃˩˭˙˴֋՛˸ࡳ̋̓̊̀˝˸̄̂ؒ˼҉¶!{0}", Custom String("͉0׎˘˲̀˥ׂ̨̙̙͐̔̅̕ͅ˗͇̟̫΋̋̓̊֋՛˝́̊̕˩؇̢˟˲˦̟̋߶˛̌!̐˚̄̆͹˱̀˩˶̢̿̾˘˝˗ͪ˿̒˾%!׻˟˹̷̎˺˲˼˱ͮ˾˵ָ̣̖ͭ֔̒̓̕´!߷͂܄˸˘׏׫׃̖˵˧˙˥͈̜̆׃̼˾˹̈˙˥˙̓­!֌͎˦˪̸̩̾΢˭̳݂˦ͦ{0}", Custom String("̭́0˭%!")))), First Of(Null))); // 20 elements
         Call Subroutine(decompressTextSub); // 1 element
         Set Global Variable At Index(_extendedGlobalCollection, 59, Global.decodeOut); // 3 elements
-        Set Global Variable(decodeIn, String Split(Custom String("߽˜˛़!̌˜˝׶˨˱£!݂̈˦̇ͅ˜֫ࡷ!֓˜̳̟£!؆̛̔ͭࡸ˘͟˛̪̈́׽˷!؆ࡹࡹְ˜݃ि˯׽̏˘͟˛˸͐ؒ͗֐˱·!؆˺׎܄ी˪˟̚՚˲̵˶϶ࡼ̴̨݄̍˥ु˚¦!؆˯׽̏˸՟ׅ˶϶˙ְ͉ͧ̏˹ͨٞ˱·!؆̪ؓ΃̱͆̓˙˴̡˽̨̩̔̃!̴̜͐՗{0}", Custom String("0̘̓˦˪̨̗̚˿ָ͍͓̘ͩ̃΍ٟ̦̑˱˭̹!֯̓̽˱̵˿̤̱˽˛˺϶˗͘˙̦̮˜͗ू̀˩!")), First Of(Null))); // 12 elements
+        Set Global Variable(decodeIn, String Split(Custom String("߻˜˛ी!̌˜˝؈˨˱£!̈݅˦͈̆˜֫ࡵ!֔˜̲̞£!؉̖̔ͮࡶ˘͟˛̨̓׽˷!؉ࡷࡷ֮˜݆ू˯׽̏˘͟˛˸֑͐ؓ͗˱·!؉˺׫܈ृ˪˟̚՜˲̵˶϶ࡺ̴̩̍݇˥ॄ˚¦!؉˯׽̏˸։ׅ˶϶˙͇֮ͧ̏˹ͣٝ˱·!؉̨ؔ΄̱̘̈́˙˴̡˽̩̪̔̂!̴̠͐԰{0}", Custom String("0̙̘˦˪ַ̩͎͓̙̀ͪ̂̕̚΍̦̑ٞ˱˭̹!͉֭̽˱̵̣̱̀˽˛˺϶˗͘˙̦̮˜͗ॅ́˩!")), First Of(Null))); // 12 elements
         Call Subroutine(decompressTextSub); // 1 element
         Set Global Variable At Index(_extendedGlobalCollection, 60, Global.decodeOut); // 3 elements
-        Set Global Variable(decodeIn, String Split(Custom String("߽˜˞ࡾͩ܅£!ृ̓˘̤܆¦!̰˜׀݅ॅ!ॆͬेॉो्!"), First Of(Null))); // 8 elements
+        Set Global Variable(decodeIn, String Split(Custom String("߻˜˞ࡼͪ܉£!ॆ̘˘̣܊¦!̰˜׀ّै!ॉͭॊौॎ॑!"), First Of(Null))); // 8 elements
         Call Subroutine(decompressTextSub); // 1 element
         Set Global Variable At Index(_extendedGlobalCollection, 61, Global.decodeOut); // 3 elements
-        Set Global Variable(decodeIn, String Split(Custom String("ֿׁ֔̈́̎͹̰֞˵˧˗͙̘˘̗̈̇ؔ!̰˦̳ؕ˘˛̧˚̍֟׺́˶͵͖!ֱ̦̜̕܈˸˘ָ˱͖֌˵͚˜˛́˧˗˾;!߿͝˩̇͏܉̅̉˷̪ͭ֒!̴̦ࠗॎ˘֦͆ͯ܊̈́΃̖̬̈̕˷;!ׂ̰̔ͦ̄̍؋ॏ۩˿̡͚֯̋֏!߿̏˙̡؇˘̤߼ࢁ̂˯̪̿̄ͭ֒!ֱ˶̖̐˫{0}", Custom String("0˰˯̓˻֣̍֊˱˰̉˷̴̲̒֏!߿͝˩˘҄ࠖ͗́˘̀̏̕͢˗֭̈̇!॒߶ֿͣ̎͹̰̍˝˚̛̠҉%!֤͉॓́̋˿͙͸˘˲˿׵॔ͅ!̰˯˥̏˘̛҉̍ࠛ͐˦˛̇͏;!ֱ˼̴ͩ˘̦˗̂˜˝˗̛݈֝ؖ݅˹̷̜˸̹!ֲֳ̤։̣̹֥̏̉˘˰˦˪̗֚͆;!ࢂּ˩̇{0}", Custom String("͏0̍ॕֺ̡̯́̔͌!ࠛ΁˘֦͆ͯ҃̅̉˷̪ͭ˜̈˳̯ͅ!̰˦ͪ˴̛҉֞ॖ́͆˘҄ͯ!ִؗ̃˫ॗͬ˞˜͘˺ֺ̡˭%!̷ֱ̌̕˨̟˽˨֤͐̇͏܌̩˵˹ּͧ˩̇؄̹!͉݉࠘˘̟֓̍׾˽̲̾̅̅̉˷̪͖ͭ!ֱ˶̖̐˫˰̩̃܉˴˱˟٫̔͆͵͐;!٬׺՛̀˩̇{0}", Custom String("͸̛0̋֏҃̅̉˷̪ͭ˜͉̈̇ࠜ!ֱ˯̈˛˘̦˗҄͵̟֏֌܍̟̑̓˵˧̯!ॣ̨̳̩̰ͣ̔̃֞˝˚̛̠҉%!ֲ˜͘˦ֽͪ!ࢃ˹̆˛΅॥ؘٰ॰΂˗̣̈̾˪˟׀֫ࢆ!݋̺݃΁˘҄ͯ҃˴̸̦̮̔͆͵՛˷;!ংַ̪͖֥ͭ̅̆΋ֿ̎͹%!ࠛ͐˦˛̩̰̃֞˝˚̛̠{0}", Custom String("҉%!0܏؉݌ֿ̟̎͹̷̍֟̇͏;!̰ަ̵̪҆ͭ݊̂˝˚̠̈̾΢̯!ঃ˷͏˯ׁ̖҅঍݃͐˺ֿ̬͍̎͹!֣̱٘˭̇͸̛̋֏҃̅̉˷̔͆͵͐;!ֲ˜͘˯̋͜܌̴ͩ˘׺́˶͵͖!۔঒͐̎ࢀ̰ۨ́̓̍˝˚̛̠҉˙˴։֘;!ֱ˶̖̐΁˘ָ˱ֺؙ͖̟̏̎˹˰̾{0}", Custom String("˩̯!܋0঱̩ࠞ͂̔˞̞ࢊ֓˜̂˝˚঳̛҉%!ֱ˪̣̆˘̦˗ָ˱݊̂˝˚̠˛̧˚̹!܏঴˘֦͆ͯ҃̅̉˷̪ͭ˜˚̴͛;!঵܂঺˘̟̰֓̍˝˚̠̜˛˙˴ְ˽;!঻ּ˚̠͒ࢌ়҃׾ͬ˞͖!ࢃ̺܃̇͏̍ি͟ী˘̟֓;!ֲֳ̛̤΅ۗ̂˝˚̛̠҉˼ّ̛̩͍̹ۘ{0}", Custom String("!ֱ˶͉˝0˸˘˱ৃ˭׆̎˽˫̀˝˞˜̷׺՛̀˩;!ֲ˜͘˦ֽͪ!ֲ˜͘˦ֽͪ!ֲ˜͘˦ֽͪ!ֲ˜͘˦ֽͪ!ֲ˜͘˦ֽͪ!ֲ˜͘˦ֽͪ!"))))))), First Of(Null))); // 32 elements
+        Set Global Variable(decodeIn, String Split(Custom String("ֿׁ֕̓̋;̰֠˳˧˗͙̙˘̈̆ؕ̕!̰˦̲ؖ˘˛̧˚̍֡׺˿˶͸͒!̦̠֯̒܌˸˘ַ˱͒֍˳͚˜˛˿˧˗˾;!߽͝˩̆͋܍̅̉˷̨ͮ֓!߿̴̦॒˘֧̈́͵܎̓΄̭̈̒̓˷;!ׂ̰̔ͥ̄̍؍॓܂̡͚֭̀̎֐!߽̏˙̡؊˘̣߹ࡿ̃˯̨̿̄ͮ֓!֯˶̓̐˫{0}", Custom String("0˰˯͉˻֚̍֋˱˰̉˷̴̳̗֐!߽͝˩˘҄߾͗˿˘̀̏̒͡˗ֺ̈̆!ॕֿ߳̋͢;̰̍˝˚̝̖҈%!ॖ֥˿͇͙̎̀͹˘˲̀׶͈ॗ!̰˯˥̏˘̖҈̍࠘͐˦˛̆͋;!֯˼̴ͪ˘̦˗̃˜˝˗ّ̖֟ؗ݊˹̷̠˸̹!ְֱ̣֊̢̹֦̏̉˘˰˦˪̕՝̈́;!ࢀּ˩̆{0}", Custom String("͋0̍ॢ˿ֹ̡͍̬̔!࠘΂˘֧̈́͵҃̅̉˷̨ͮ˜̈˵͈̬!̰˦ͫ˴̖҈֠ॣ˿̈́˘҄͵!ֲؘ̂˫।ͭ˞˜͘˺ֹ̡˭%!̷֯̒̌˨̞˽˨ܑ֥̪͐̆͋˳˹ּͧ˩̆؆̹!݋͇ࠖ˘̞֔̍׾˽̳̾̅̅̉˷̨ͮ͒!֯˶̓̐˫˰̪̂܍˴˱˟٪̔̈́͸͐;!٫׺՘́˩̆{0}", Custom String("͹̖0̎֐҃̅̉˷̨ͮ˜͇̈̆࠙!֯˯̈˛˘̦˗҄͸̞֐֍̞̘ܰ̑˳˧̬!॰̲̩̪̰̔̂֠͢˝˚̝̖҈%!ְ˜͘˦ֽͫ!ࢁ˹̇˛·ংؙ٭ঃ΃˗̢̈̾˪˟׀֫ࢄ!ަ̼݆΂˘҄͵҃˴̸̦̮̔̈́͸՘˷;!঍ֵ̨֦ͮ͒̅̇΋ֿ̋;%!࠘͐˦˛̪̰̂֠˝˚̝̖{0}", Custom String("҈%!0،׋ֿ̞ٓ̋;̷̍֡̆͋;!̰ާ̵̨҆ͮ݌̃˝˚̝̈̾΢̬!঎˷͋˯ׁ҅̓঒݆͐˺ֿ̭͎̋;!̱֚ٗ˭̆͹̖̎֐҃̅̉˷̔̈́͸͐;!ְ˜͘˯̴ܑ̎ͪ͜˘׺˿˶͸͒!ٰ঳͐̋ࡾ۪˿̘̰̍˝˚̝̖҈˙˴֊֙;!֯˶̓̐΂˘ַ˱ֹؚ̞͒̏̋˹˰̾{0}", Custom String("˩̬!܏0঵̪ࠛ͂̔˞̟࢈֔˜̃˝˚঺̖҈%!֯˪̢̇˘̦˗ַ˱݌̃˝˚̝˛̧˚̹!،঻˘֧̈́͵҃̅̉˷̨ͮ˜˚̴͛;!়܆া˘̞̰֔̍˝˚̝̠˛˙˴֮˽;!িּ˚̝͔ࢊ҃ী׾ͭ˞͒!ࢁ̼܇̆͋̍ূ͟ৃ˘̞֔;!ְֱ̣̖·ۖ̃˝˚̝̖҈˼ْ̪͎̖̹ۗ{0}", Custom String("!֯˶͇˝0˸˘˱৆˭׆̋˽˫̀˝˞˜̷׺՘́˩;!ְ˜͘˦ֽͫ!ְ˜͘˦ֽͫ!ְ˜͘˦ֽͫ!ְ˜͘˦ֽͫ!ְ˜͘˦ֽͫ!ְ˜͘˦ֽͫ!"))))))), First Of(Null))); // 32 elements
         Call Subroutine(decompressTextSub); // 1 element
         Set Global Variable At Index(_extendedGlobalCollection, 63, Global.decodeOut); // 3 elements
-        Set Global Variable(decodeIn, String Split(Custom String("΀˗͙̘̗̇׊̼։˜˝˗͔̣̏̇؄ۙࢍ;!̭͊˛҅ͅ˗̜˛˪̥˻˘̈˳ׅ̑˝˗҄·˩؆˳̝ͯ!ֿ̝̟͊̎̀՟̕˚̴֎̝̃˪̘̊̈̎־՞ֶ˱̌˻;!̝͊˵˰͛˩̔֗҆˛˘΅֗߻̋˳̨֨˷̼׀ִ͋҇!̝͊̔˭˟˽˘̦˗̴֊̣̼̓˲̮ࠢ!֣֖͜˙˥ަ̣֋͍{0}", Custom String("0˶˾̜̊˛˪̥˻׆˺̧̫̞˟;!̝͊̎٪͒͛˽˪ͩ͐̔֗҆˛˵˧˗̐˚̄;!ࢉ͒ͧ̋˵˧˗̐˚̄˳˧˙˥̖̬̔࢏̀˩͓̃˝˰؅˰͇׏!ֲ˨֋˝˙˴͡՘͕֫˗˰˼͍͒̓˼˹˚֑҂͑͋˻˳̨҈;!۔̖̑̕˲˿֝̅͌࢐˶˗˛҅ͅ˗֑́˱˲̵;!ި֕˼̒՝{0}", Custom String(";0֕!࢑̓˙̉˘ַ׌̟՟˶˾̜̊˛˪̥˻̹!̝͊˯ۚ̽˜˰˯՗˩ࠡ˼̢̩˞˨؁͕ͩ˗˰˶̖࢒؈̒΃̐˚̄;!΀˰̕׶́̔֗҆˛˘̜˛˺͝˾̼̆֋̟֜҇!ࠦ҅ͅ˗̜˛˪̥˻˘̈˳ׅ̙̝̑˪̳˟;!̰˯֪͝˵̣̆˶˾̩̿˪̥˻׆̢˞ّ̂ࢌ!ࠧ˛˪̥˻{0}", Custom String("׆̃0˨˾؆̷̾˗ۛ˟%!ࠩ˝˟˶˞ִ˼˗ܑ֨ު̥˻̓;!ޫ˟%!ֱ˳˧̨̮̔˘ִ͈˶˾̩̿˳ׅ¬!ֲ˨׿͢˾̘͇֫̑֯̓̽̌˻˘˛҅ͅ˗΅֨̀˩ֺ̟̆̎ͯ!̝͊˯׋̋ٛ̔֗҆˛ͮ৉̴͉̹!ࠦ҅ͅ˗̜˛˪̥˻˘̚˨׬͋˻֛͑˦৊˲̵̌˻;!ֱ̎٪˟΂{0}", Custom String("˱̄̔0֗҆˛˵˧˗֪̙̮՛ެ˱˟٫;!̰˜˱˞̻˪̥˻˘̚˨˝˰˳ͥ͒҇͟!܏̤́͡΁˜̻͗˜̚˨׼̒܌̽˷˵˧˗̐˚̄;!۝͌˰͇˫͗˛̐͟˨̴̧̞˘̜˛˙̡˫͍̣̐˺̡˷̯!ؚ֪̣˘͈́˵˧˗˝˲˙̉ࢊ̮˜̐˚̄;!࢕˚΃˚̈˦҂˧ַ̬͠͹˳ͅ{0}", Custom String("́;!؋0̀˱̵ׅ̍֔˪˛֐͛˩˸˘֯̓͐΢̯!׻˱˦˯֐˱̀́˺˲֍˳̨˿˝˰˪ͩ˫̀˝˞˜̐˚̄;!ࠧ̌˻ࡰ̇˱͋ࢁ˚֑҂͑͋˻˳̨֨˷;!׻̩͇ͥ˫˛҅ͅ˭̾˛̘˟˸۽˭࢖˱͖!ࠫৌ̤̟̓˘̜˛˯՗˱ޮ৏˦̞˵˧˗̐˚̄;!ܱ࢏ׇ̔֗҆˛˘̜˛{0}", Custom String("̔˭˞ޯ˭0˙˴̨̛϶̸̊৐̹!ް־՞ֶ˼̫͒˘˩΋˶˾̜̊˛̃҂˟˚۞;!߫̒͐̇˩֍˳՞ֶ˳˧˳˛ޭ̳ͫ̔˭̓͞˶˾̊̐˚̄;!৒ֻ̇͆˲҈̾˛̘˟˯̵̈́̽͗˙̡˫˝˰;!ۤ̂˶͵̄˳˧˙̱̿˶̿˸۽˭˜̜˛;!׻˱˙˥˺̛˽˨̟߯̓̚˘̜˛̃҂{0}", Custom String("˟˚۞;!৓0͛˩̔֗҆˛˘֖̞˚ࠡ˯̡ࢗͫͤ̋҇!࢘˻̝˗̴͸˟̃־˹׵˱̢˞˺˲˦҂˧˿˾;!߹;̨͹̨̋̕˨̟̓˘̤ۧ͠˟˯͂ͦ;!ֱ˯՗́޲˗͈˻˚ׅ׆˼̩̲̅˶˾̩̿˪̥˻̹!̰˜˱˞̻˪̥˻˘̚˨˝˰˳ͥ͒҇͟!̰˜˱˞̻˪̥˻˘̚˨˝˰{0}", Custom String("˳ͥ͒҇͟!̰0˜˱˞̻˪̥˻˘̚˨˝˰˳ͥ͒҇͟!̰˜˱˞̻˪̥˻˘̚˨˝˰˳ͥ͒҇͟!̰˜˱˞̻˪̥˻˘̚˨˝˰˳ͥ͒҇͟!̰˜˱˞̻˪̥˻˘̚˨˝˰˳ͥ͒҇͟!"))))))))), First Of(Null))); // 40 elements
+        Set Global Variable(decodeIn, String Split(Custom String("΁˗͙̙̆̕׊̺֊˜˝˗̢͕̏̆؆ۘࢋ;!̯͊˛͈҅˗̠˛˪̤˻˘̈˵ׅ̑˝˗҄ͨ˩؉˵̜͵!ֿ̜̞͊̋́։̒˚̴֏̜̂˪̙̊̈̋־՟ִ˱̌˻;!̜͊˳˰͛˩̔֘҆˛˘·֘߸̎˵̩֜˷̺׀ֲ͌՚!̜͊̔˭˟˽˘̦˗̴֋̢̘̺˲̮ࠟ!֚֗͜˙˥ާ̢֌͎{0}", Custom String("0˶˾̠̊˛˪̤˻׆˺̧̫̟˟;!̜ٟ͔͊̋͛˽˪ͪ͐̔֘҆˛˳˧˗̐˚̄;!ࢇ͔ͧ̎˳˧˗̐˚̄˵˧˙˥̭̔̓ࢍ́˩͓̂˝˰؇˰ͅ׬!ְ˨֌˝˙˴͠՗͖֫˗˰˼͔͎̘˼˹˚֒҂͑͌˻˵̩҇;!ٰ̒̓̑˲͍̀֟̅ࢎ˶˗˛͈҅˗֒˿˱˲̵;!ީ֖˼̗՞{0}", Custom String("΀0֖!࢏̘˙̉˘ֵ׎̞։˶˾̠̊˛˪̤˻̹!̜͊˯ۙ̽˜˰˯԰˩ࠞ˼̪̥˞˨؂͖ͪ˗˰˶̓࢐؋̗΄̐˚̄;!΁˰̒؈˿̔֘҆˛˘̠˛˺͝˾̺̇֌̞֞՚!͈ࠢ҅˗̠˛˪̤˻˘̈˵̛ׅ̜̑˪̲˟;!̰˯֪͝˳̢̇˶˾̪̿˪̤˻׆̥˞ْ̃ࢊ!ࠣ˛˪̤˻{0}", Custom String("׆̂0˨˾؉̷̾˗ۚ˟%!ࠥ˝˟˶˞ֲ˼˗֜ܲޫ̤˻̘;!ެ˟%!֯˵˧̮̩̔˘ֲ͆˶˾̪̿˵ׅ¬!ְ˨׿͡˾̙͉֭֫̑̽̌ͅ˻˘˛͈҅˗·֜́˩ֹ̞̇̋͵!̜͊˯׍̎ٚ̔֘҆˛ͯৌ̴͇̹!͈ࠢ҅˗̠˛˪̤˻˘̚˨׮͌˻֝͑˦্˲̵̌˻;!ٟ֯̋˟΃{0}", Custom String("˱̄̔0֘҆˛˳˧˗̛֪̮՘ޭ˱˟٪;!̰˜˱˞̻˪̤˻˘̚˨˝˰˵͔ͬ͟՚!،̣́͠΂˜̻͗˜̚˨׼ܑ̗̽˷˳˧˗̐˚̄;!͍ۜ˰ͅ˫͗˛̐͟˨̴̧̟˘̠˛˙̡˫̢͎̐˺̡˷̬!؛̢֪˘͆˿˳˧˗˝˲˙̉࢈̮˜̐˚̄;!࢓˚΄˚̈˦҂˧ֵ̭ͦ;˵͈{0}", Custom String("˿;!؍0́˱̵ׅ̍֕˪˛֑͛˩˸˘͉֭͐΢̬!׻˱˦˯֑˱́˿˺˲֎˵̩̀˝˰˪ͪ˫̀˝˞˜̐˚̄;!ࠣ̌˻࡮̆˱͌ࡿ˚֒҂͑͌˻˵̩֜˷;!׻̪ͬͅ˫˛͈҅˭̾˛̙˟˸܁˭࢔˱͒!ࠧ৐̣̞̘˘̠˛˯԰˱ޯ৒˦̟˳˧˗̐˚̄;!ܴࢍׇ̔֘҆˛˘̠˛{0}", Custom String("̔˭˞ް˭0˙˴̩̖϶̸̊৓̹!޲־՟ִ˼͔̫˘˩΋˶˾̠̊˛̂҂˟˚۝;!̗߬͐̆˩֎˵՟ִ˵˧˵˛ޮ̲ͩ̔˭͉͞˶˾̊̐˚̄;!৕ֻ̆̈́˲҇̾˛̙˟˯̵̓̽͗˙̡˫˝˰;!ۧ̃˶͸̄˵˧˙̱̿˶̿˸܁˭˜̠˛;!׻˱˙˥˺̖˽˨̞̘߮̚˘̠˛̂҂{0}", Custom String("˟˚۝;!৖0͛˩̔֘҆˛˘̟֗˚ࠞ˯̡࢕ͩͤ̎՚!࢖˻̜˗̴͹˟̂־˹׶˱̥˞˺˲˦҂˧̀˾;!߷΀̩;̩̒̎˨̞̘˘̣ͦۨ˟˯͂ͥ;!֯˯԰́޳˗͆˻˚ׅ׆˼̪̳̅˶˾̪̿˪̤˻̹!̰˜˱˞̻˪̤˻˘̚˨˝˰˵͔ͬ͟՚!̰˜˱˞̻˪̤˻˘̚˨˝˰{0}", Custom String("˵͔ͬ͟՚!̰0˜˱˞̻˪̤˻˘̚˨˝˰˵͔ͬ͟՚!̰˜˱˞̻˪̤˻˘̚˨˝˰˵͔ͬ͟՚!̰˜˱˞̻˪̤˻˘̚˨˝˰˵͔ͬ͟՚!̰˜˱˞̻˪̤˻˘̚˨˝˰˵͔ͬ͟՚!"))))))))), First Of(Null))); // 40 elements
         Call Subroutine(decompressTextSub); // 1 element
         Set Global Variable At Index(_extendedGlobalCollection, 65, Global.decodeOut); // 3 elements
-        Set Global Variable(decodeIn, String Split(Custom String("ࢂࠠ˜҄֕˙˥˼̖˜̀˝˞˜˝˗̐˚̄%!؜׬߶̬̟˺̫˭˦˜̤̻̉˟˪̵̽;!܋͕ͩ˗ּͧ̅˼˗;ֶ́˯˴̸̖֊ͯ!̰˜˱˞̻˳ͅ͸̳˟˸˫̙̝˪ׂ͖ͦ!׫̆˚̠͡˭΁˜͈̌̃˫̤։৔̣;!͊؝̲̏̒˿̜˛̪֛˜̈˳΋˶˾̊̌;!࢙;̫˘͡΁˜͈̌{0}", Custom String("0˳˛۟˵ֵ̘!࢚ࡻ͌̀˩̔֗҆˛˘׿̖̋˨˚˽́̌˻;!΀˰˳˰˜͔˘ֺ̓̚˶˾̜̊˛˙̡˫͍̣̐˺̡˷̯!̰˙͍̽˘˝˰˙΂ޭ̙؝˛˯̿֜̃˫̐˚̄;!΀˗ׇ͠˯˚۞̃־˹̚˨˝԰˗׵˴֋ͯ!޴̘̊͡˭΁˜͈̌˺˥ۗ͝˲˿̟˾˥˨͡֌;!͊؝̲̏{0}", Custom String("̒0˿̜˛˙̡˫ָ̦˗̸˲̮˙˴࢛˚˵̯!࢜˩̠ͅ˩̼֋̟̙֜࢝؝˛˙ͤ˼̗ͦ;!ُ˛˷˝͓̃̀̏˸ۙ֍̎̂́ࢅ؛˚̠̐˚̄;!͉݉࠘˘͒ࠜ֠˞˺˲֍˦҂˧˿̌;!ܱ̭֞͊˝˞̻˜˝˰˶϶˳˛˗̴̜!ৗ̜˨̬ͦ˙̉˘͡˭΁˜͈̌˳˧˳˛̯!৘˹̌˦{0}", Custom String("˪˚0˜͗֎݊৚̼˲˿̜˛˪̥˻̹!؊̝·˗̆˩˗֧΁˜։˹̌;!΀˗ֿۜ̿܈͓͈̃˚˘˰˵˰͛˷˦̲̯̅!۝̅͌̀˩̇͆˲҈˵˧˗˝˲̢˞̯̕͢!͕݉͋˗͔˾˘̚˨̟̂̃ৢ࢞͸˜̙̝˶̛͖̆!ৣ̌৥݌˷˺԰̄̎߸͉̍޷˜̜˛˪̥˻ׄ!̰˜˱˞̻˪̥{0}", Custom String("˻˘̚0˨˝˰̕˟֭!߹̌ޯ˱̦৳˘ֻ̬̇˩֍˺̫˗̸̖ؔ!ؗ̂˨˰΁˜̸̖৺؛˚̠̜˛˙˴֝ۛ˗˾;!̰˜˱˞̻˳̨҈˙˴׍՛ͫ˸˻˴˝˗ͫ΅̳̹!࢕˚࢟˘˩˺ִ̳ͤ˫̢̀̏˞˺˲˪՜ͮؔ!۝͌˰͇˫̬ͦ˵˚޵֥ͤ̔͑̊̚˨̙ࢵ!׻˱˦˯֐˱̲̀́{0}", Custom String("̒҈˳̨0֨˷̰̼̲̍֟̅͡˶˲˜̤؁֫֫;!৻҅̒׽˷̲̥̱৽̕˗ܑ͎ٞ޷˜̜˛˪̥˻̹!̰˜˱˞̻˪̥˻˘̚˨˝˰̕˟֭!֣׀ࣈ˗̬ͦ˵˚˗͂ͦ˘̜˛˙̡˫˝˰;!̰˜˱˞̻˪̥˻˘̚˨˝˰̕˟֭!۝͌˰͇˫̬ͦ˵˚˗˰˺԰޸ͯ!ި̞˘̦˗ֺ̓̚{0}", Custom String("˶˾̜̊˛0˙̡˫׬͉׊;!ࣉ̳˝̔֗҆˛˘ܑ֪֛͑࣊˦̞˵˧˗̐˚̄;!̰˜˱˞̻˪̥˻˘̚˨˝˰̕˟֭!͊؝̲̏̒˿̤؛͢˟˯ۚ̽࣋˦̞˦̖̕΄˟˪̝̱;!ُ͉̋٫̔֗҆˛˘ֳ͙˟̔˭˞ޯ˭˙̡˫˝˭̯!̰˜˱˞̻˪̥˻˘̚˨˝˰̕˟֭!ਁ͍ͣ̔{0}", Custom String("̨̇͏̼֋֜0̟̙̭࢝͡΁˜̡˽˙˥˯͂ͦ;!ُ˛˷˝˯ؓ̊϶˵˚˗˰̦̟̎ࢎ̲̅˼˞̻͖!̰˜˱˞̻˪̥˻˘̚˨˝˰̕˟֭!̰˜˱˞̻˪̥˻˘̚˨˝˰̕˟֭!̰˜˱˞̻˪̥˻˘̚˨˝˰̕˟֭!̰˜˱˞̻˪̥˻˘̚˨˝˰̕˟֭!̰˜˱˞̻˪̥˻˘̚˨{0}", Custom String("˝˰̕˟֭!̰0˜˱˞̻˪̥˻˘̚˨˝˰̕˟֭!"))))))))), First Of(Null))); // 40 elements
+        Set Global Variable(decodeIn, String Split(Custom String("ࢀࠝ˜֖҄˙˥˼̓˜̀˝˞˜˝˗̐˚̄%!؝׮̭̞߳˺̫˭˦˜̣̻̉˟˪̵̽;!܏͖ͪ˗ּͧ̅˼˗΀ִ́˯˴̸̓֋͵!̰˜˱˞̻˵͈͹̲˟˸˫̛̜˪ׂͥ͒!׭̇˚̝͠˭΂˜͆̌̂˫̣֊ৗ̢;!͊؞̳̗̠̏̀˛̨֝˜̈˵΋˶˾̊̌;!ࢗ΀̫˘͠΂˜͆̌{0}", Custom String("0˵˛۞˳ֳ̙!࢘ࡹ͍́˩̔֘҆˛˘׿̓̎˨˚˽˿̌˻;!΁˰˵˰˜͕˘ֹ̘̚˶˾̠̊˛˙̡˫̢͎̐˺̡˷̬!̰˙͎̽˘˝˰˙΃ޮ̛؞˛˯̿֞̂˫̐˚̄;!΁˗ׇͦ˯˚۝̂־˹̚˨˝҉˗׶˴֌͵!޵̙̊͠˭΂˜͆̌˺˥ۖ͝˲̞̀˾˥˨͠֍;!͊؞̳̏{0}", Custom String("̗0̠̀˛˙̡˫ַ̦˗̸˲̮˙˴࢙˚˳̬!࢚˩̝͈˩̺֌̛̞࢛֞؞˛˙ͤ˼ͥ̕;!ِ˛˷˝͓̂̀̏˸ۘ֎̋̃́ࢃ؜˚̝̐˚̄;!݋͇ࠖ˘͔֢࠙˞˺˲֎˦҂˧̀̌;!ܴ̯֠͊˝˞̻˜˝˰˶϶˵˛˗̴̠!৚̠˨̭ͥ˙̉˘͠˭΂˜͆̌˵˧˵˛̬!৛˹̌˦{0}", Custom String("˪˚0˜͗֏݌ৢ̺˲̠̀˛˪̤˻̹!ܷ̜ͨ˗̇˩˗֨΂˜֊˹̌;!΁˗ֿۛ̿܌͓̂͆˚˘˰˳˰͛˷˦̳̬̅!͍ۜ̅́˩̆̈́˲҇˳˧˗˝˲̥˞̬̒͡!݋͖͌˗͕˾˘̚˨̞̃̂৥࢜͹˜̛̜˶̖̇͒!৲̌৺ٓ˷˺҉̄̋߶͇̍޸˜̠˛˪̤˻ׄ!̰˜˱˞̻˪̤{0}", Custom String("˻˘̚0˨˝˰̒˟ֺ!߷̌ް˱̦৽˘ֻ̭̆˩֎˺̫˗̸̓ؕ!ؘ̃˨˰΂˜̸̓৾؜˚̝̠˛˙˴֟ۚ˗˾;!̰˜˱˞̻˵̩҇˙˴׏՘ͩ˸˻˴˝˗ͩ·̲̹!࢓˚࢝˘˩˺ֲ̲ͤ˫̥́̏˞˺˲˪՛ͯؕ!͍ۜ˰ͅ˫̭ͥ˳˚޶֦ͤ̔͑̊̚˨̛࢞!׻˱˦˯֑˱́˿̳{0}", Custom String("̗҇˵̩0֜˷̰̺̳̍֡̅͠˶˲˜̣؂֫֫;!৿̗҅׽˷̳̤̱਀̒˗ܲٝ͏޸˜̠˛˪̤˻̹!̰˜˱˞̻˪̤˻˘̚˨˝˰̒˟ֺ!֚׀࢟˗̭ͥ˳˚˗͂ͥ˘̠˛˙̡˫˝˰;!̰˜˱˞̻˪̤˻˘̚˨˝˰̒˟ֺ!͍ۜ˰ͅ˫̭ͥ˳˚˗˰˺҉޹͵!ީ̟˘̦˗ֹ̘̚{0}", Custom String("˶˾̠̊˛0˙̡˫׮͇׊;!ࢵ̲˝̔֘҆˛˘֪ܲ֝͑ࣈ˦̟˳˧˗̐˚̄;!̰˜˱˞̻˪̤˻˘̚˨˝˰̒˟ֺ!͊؞̳̗̣̏̀؜͡˟˯ۙ̽ࣉ˦̟˦̒̓΅˟˪̜̱;!ِ͇̎٪̔֘҆˛˘ֱ͙˟̔˭˞ް˭˙̡˫˝˭̬!̰˜˱˞̻˪̤˻˘̚˨˝˰̒˟ֺ!਄͎̔͢{0}", Custom String("̩̺̆͋֌֞0̛̞࢛̯͠΂˜̡˽˙˥˯͂ͥ;!ِ˛˷˝˯ؔ̊϶˳˚˗˰̦̞̋ࢌ̳̅˼˞̻͒!̰˜˱˞̻˪̤˻˘̚˨˝˰̒˟ֺ!̰˜˱˞̻˪̤˻˘̚˨˝˰̒˟ֺ!̰˜˱˞̻˪̤˻˘̚˨˝˰̒˟ֺ!̰˜˱˞̻˪̤˻˘̚˨˝˰̒˟ֺ!̰˜˱˞̻˪̤˻˘̚˨{0}", Custom String("˝˰̒˟ֺ!̰0˜˱˞̻˪̤˻˘̚˨˝˰̒˟ֺ!"))))))))), First Of(Null))); // 40 elements
         Call Subroutine(decompressTextSub); // 1 element
         Set Global Variable At Index(_extendedGlobalCollection, 64, Global.decodeOut); // 3 elements
-        Set Global Variable(decodeIn, String Split(Custom String("֔΍̑!̍΀˗֋˝˙˴̤̟׹֧࠺˿ְ͙͐;!#΀˰˙΂ؚ۟҃֩̑͞˧˶̺̑̂˜͙̇˱͋֏!!#֔΍̑!̍؃͂˸͐ؒ͗֐˱͖!#ް࠯͌࡫ࠞ˽̸݄̘̍΀˰˙̽̆˶̴̺̑̋՚˚˗˝׶˨؍̋;!!#؊ͪ˱֐˷֥̽̆$!;!#ް࠯͎͌̄޴̋̓̍֔͞΍̑!˼۠˚{0}", Custom String("0̹!#؋˝̣̝͑̍͊̇ͭ΍͕˗˩΋̇͜՜˘˝˗˚ͨ˾׃̛;!!#֔΍̧̨ۭ͇̑͞˫̴̋̓̍ࣨ͞˟׷ׂ׽˷˯׋̺̝̋ٛ̍ࠩ˗˰̲̅˦˫֕̀˩;!!#̢̭͊ͧ̏˞֎͜˽˘˥̗˭٭͊ࡳ˛˵˟͜˹׍̽׃̛˘˚˵˹֗߻̀˩;!!#̝͊̔˭˰͕͂˗˰˳̩̺̯҃{0}", Custom String("֩0ؚ̑͞˧˶̺̑֝ͨ͵ࠢ!!#֔΍̑!˸՛̘̭̀̓̍͊́͸˶̺̬˷΋˸˻˴̙̝̞̥̃ؑͮ˷;!#̝͊̎˽͏̎҂˧˜ֻ̓˘˝˗˚ͨ˾׃̺˾˹͘˵˹̴͛૱;!!#΀˗֧࠺˿̀̏˼˗˛;֘˸˫˧̴࡭˦̢̞˞˶̺͙͙̑̔͆͆˛˿˩΋˦˘̤͔֘˚؀!!#֔΍{0}", Custom String("̑!0˼۠˚̹޺̈́̊́͸˳˧ׇ͔˼˚҈̢˞˙՞ֶ˟˙˴̙̝˳̘̯!#ּ̭͊ͧ̅̔˭˰˜˝˗̴̀̍޿̏؈͌̈˨̱̽׆˦̢̞˞˦˛˯֦͟˦͔ͯ!!#̱֟ؖ٘˗̙̝̇ͭ΍̢͕̣۟֌ّ̂׹˾˼˱҈˙̳̦˿֑ؕ˱̴҇!!#֔΍̑!̞ͮ˟͔֢ͯ˭˰͕͂˗̌϶̝˭{0}", Custom String("˦˜̟0޲՞̛ܽ˪̗؁̬͠͹;!#̷֟˙˥˯̡͓̜̳̭̦̓̃̈ؕ̍͊˗˝˗͓̤͌̿̃؍̺̓˦̮;!!#΀˰˙̽̆˶̢̺̱̑֯̐˞˨׼·̺˾޹̢˞˨̺׎͛˩˘͘˯՗˱ޮْ!!#֔΍̑!˪̵̗̹̓֠˞˨̴́˚˹̵̛͉̈́̋˘ׇ͔̈˺˩׷͚͇׏!#΀˗֖ܰ˛{0}", Custom String("˺˲̂˜0ֳ͙̔ܿ̽˱ٍ̍̕϶˦ࢄ̖܎˺̱̿˫̌;!!#࢑͜˙˥˶׶̻˜͘˵˹֑҂˟˚̠՘ؕ˧̓ͮ̐˫̙ࢵ!!#֔΍̑!ͮ࠲ͥ҈̍࠮̸̖͙̘֜̕˼̽˷˘̙̭׷԰˟˙˴̛͕̯͛!#֟˱߼˛̎̋֘̆΋̭̦̍͊˗։˜܁̒̀˷˯̡͡܇˸˫˝˗́˧݈!!#΀˰{0}", Custom String("˶˧ִ˸˘0׷՜̼͔˾˚̠̈˼˗˛̷̝̲ͫ̓̍͊͝˭˶̺̑̂˜͙˺̦˽˿˚̈˸͖!!#֔΍̑!̕϶˺̫͕̝̞̌̓̍͊̎˸˘̂˜̸˲̵̼։˜̵֜͵˻ͯ!#΀˟˗˰̲˴˭̭̦ͧ̓̍͊˗̀ީ˭͛˷˙˥ٟ̇˫ؚ҃֩̑͘͞˧;!!#޴͗˲̵˸˘։˜˝˗͗֫̑ࣚ{0}", Custom String("˾̸͓̃˝˗0ؖ׀̛̋;!!#֔΍̑!˺˩̀ۘ˭֣̍͛́˲̵̔۠˰̋֎˦˘̤̘́˰̀ͧ̑˟̗҇!#̷֟̎ࠪ׎̀˩˵΅˗̧՛ֻ̭̦́̍͊˗˲̫̆͋˘̈˼˗ֺٝ̓;!!#")))))))), First Of(Null))); // 36 elements
+        Set Global Variable(decodeIn, String Split(Custom String("֕΍̑!̍΁˗֌˝˙˴̣̞׹֨࠷͙֮̀͐;!#΁˰˙΃۞҃֩̑؛͞˧˶̼̑̃˜͙̆˱͌֐!!#֕΍̑!̍؅͂˸֑͐ؓ͗˱͒!#޲͍ࠬ࡜ࠛ˽̸̙݇̍΁˰˙̽̇˶̴̼̑̎՜˚˗˝؈˨ۣ̎;!!#ܷͫ˱֑˷֦̽̇$!;!#޲͍ࠬ̄͏޵̘̎̍֕͞΍̑!˼۟˚{0}", Custom String("0̹!#؍˝̢̜͑̍͊̆ͮ΍͖˗˩΋̆͜՛˘˝˗˚ͣ˾׃̖;!!#֕΍̧̑܀̩͞ͅ˫̴̘̎̍ࣨ͞˟׷ׂ׽˷˯׍̼̜̎ٚ̍ࠥ˗˰̳̅˦˫֖́˩;!!#̯̥͊ͧ̏˞֏͜˽˘˥̕˭٬͊ࡱ˛˳˟͜˹׏̽׃̖˘˚˳˹֘߸́˩;!!#̜͊̔˭˰͖͂˗˰˵̪̼̬҃{0}", Custom String("֩0̑؛͞˧˶̼̑֟ͣ͸ࠟ!!#֕΍̑!˸՘̙̘̯́̍͊˿͹˶̼̭˷΋˸˻˴̛̜̟̤̂ؒͯ˷;!#̜͊̋˽͋̋҂˧˜ֻ̘˘˝˗˚ͣ˾׃̼˾˹͘˳˹̴͛૲;!!#΁˗֨࠷̀̀̏˼˗˛΀֙˸˫˧̴࡞˦̟̥˞˶̼͙͙̑̔̈́̈́˛̀˩΋˦˘̣͕֙˚؁!!#֕΍{0}", Custom String("̑!0˼۟˚̹޻̓̊˿͹˵˧ׇ͕˼˚̥҇˞˙՟ִ˟˙˴̛̜˵̙̬!#ּ̯͊ͧ̅̔˭˰˜˝˗̴́̍߫̏؋͍̈˨̱̽׆˦̟̥˞˦˛˯֧͟˦͕͵!!#̱֡ؗٗ˗̛̜̆ͮ΍͖۞̢̥֍ْ̃׹˾˼˱҇˙̲̦̀֒ؖ˱̴՚!!#֕΍̑!̟ͯ˟͕͵֤˭˰͖͂˗̌϶̜˭{0}", Custom String("˦˜̞0޳՟̖ܿ˪̕؂̭ͦ;;!#̷֡˙˥˯̡͉͓̠̲̯̦̂̈ؖ̍͊˗˝˗͍͓̣ۣ̼̘̿̂˦̮;!!#΁˰˙̽̇˶̼̱̥֭̑̐˞˨׼̼ͨ˾޺̥˞˨̼׫͛˩˘͘˯԰˱ޯٔ!!#֕΍̑!˪̵̘̹֢̕˞˨̴˿˚˹̵̖͇̓̎˘ׇ͕̈˺˩׷͚ͅ׬!#΁˗֗ܳ˛{0}", Custom String("˺˲̃˜0ֱ͙݂̔̽˱َ̍̒϶˦ࢂܱ̓˺̱̿˫̌;!!#࢏͜˙˥˶؈̻˜͘˳˹֒҂˟˚̝՗ؖ˧̘ͯ̐˫̛࢞!!#֕΍̑!ͯ࠯̸͙̙ͬ҇̍ࠫ̒̓֞˼̽˷˘̛̯׷҉˟˙˴̖͖̬͛!#֡˱߹˛̋̎֙̇΋̯̦̍͊˗֊˜܅̗́˷˯̡͠܋˸˫˝˗˿˧݊!!#΁˰{0}", Custom String("˶˧ֲ˸˘0׷՛̺͕˾˚̝̈˼˗˛̷̘̜̳ͩ̍͊͝˭˶̼̑̃˜͙˺̦˽̀˚̈˸͒!!#֕΍̑!̒϶˺̫͖̘̜̟̌̍͊̋˸˘̃˜̸˲̵̺֊˜̵֞͸˻͵!#΁˟˗˰̳˴˭͉̯̦ͧ̍͊˗̀ު˭͛˷˙˥̆ٞ˫҃֩̑͘؛͞˧;!!#޵͗˲̵˸˘֊˜˝˗͗֫̑ࣙ{0}", Custom String("˾̸͓̂˝˗0ؗ׀̖̎;!!#֕΍̑!˺˩́ۗ˭֚̍͛˿˲̵̔۟˰̎֏˦˘̣˿̙˰́ͧ̑˟̕՚!#̷֡̋ࠦ׫́˩˳·˗̧՘ֻ˿̯̦̍͊˗˲̫̇͌˘̈˼˗ֹٜ̘;!!#")))))))), First Of(Null))); // 36 elements
         Call Subroutine(decompressTextSub); // 1 element
         Set Global Variable(dialogueLines, Global.decodeOut); // 2 elements
-        Set Global Variable(decodeIn, String Split(Custom String("߽̣̾˙˥̮ͬ̀҇!ؗ̓˙̉˘˥੖ׄ!##ࠫ̓֞֟̌˲܊ِؖ֞˯̫̣̉˷%!޷˜˚˙˥˛࠰˛ٌ֌˵̖˫ިࣗ!#΀˰˶˩֍̝͖֥ͤ̕˵ْؓ!੗˹̸̱̒%!׻˟࠳ֹ˹ͫͤ˜˝̗́̊˝˗;֥ࣙ،˞̻˙˥˼ٙ%!੘ͤ˜˝̗́̊˝˗̠͠޲̳˹˝˚؀!#੟ܺ̕˧{0}", Custom String("0˫͙͸޽!੠̕ͅ˧˫͙͸޽!੡͚͑̆˼̒׊,!#̵ࠩ˵˹̵̧̍܏̵˙˴˝˗؍̵%!܏̵˙˴˝˗̵̧˙˴˝˗̵̧˙˴˝˗̵̧˙˴˝˗؍̵%!#ٍͣ˙֧˸˫˝˗̜֘˚˓!ٍͣ˪϶˜̙̝˼̓̀̌;!ٍ͓ͣ̆̕֋́˯ࡽ;!ٍٜͣ੤ੰ!ٍͣੱ੶੸!ٍͣ˦˺˞{0}", Custom String("˻0͏˵˚̩˗ͫ˹͘˙˥̸̨̺̪̇ͨͣ؛̖࢒!#࢚͸˙̉˘੻੽!۝˭͛˷੾%!ࣜؕ˹؃޾̨ࣛ%!##̭͊ͧ΁˜̮˜̌%!׉ֵ̒̒̒!#׾ֳ͙ͬ˟˙̡˫̙̭̘˖!###ׇ֧̲̥̱ࣟ޽!࣠͂ંֵ!#ࠗެ઄ͬ;׋%!̰ۣ̫ۣ̫ۣ̫̂̂%!׉࠴˘ֹ̤͉֓̇֓{0}", Custom String("࣢޼0̿ͣ˦̾ͤ˿҄·˩!####઒˜֮˜֮˜֮˜֮˜֮˜֮֒!׻˟࠳ֹ˹݂͒˦˜׸˦ࡸ%!#׻˟̙̟˯̞͂؅˟˹̺́ࢆ!׉࠴˘͚˚̠̤̀˛٭̰˜̌֞˥˥ِ̊΁˜֧݆ؕ!##ޫ̬ͨ˗˾%!ۤ́˦΂˳˧˙˥ٌ̖̕!##઩؇˘̮˜̤̂˰˗΄َ̘͇ͥ!׉{0}", Custom String("˴͔˻0˘̤͇̏͠˫̉˜̐˚̄!##ࣟ՞઱֌ۖ˙̝՛˷̃˫˝˗઴%!ࠦ̀׍̀˷˺׶̬˷˳˲%!#ࠧ˝˳˧̧̀˩ֽ̾!࡜̌˙˴ּ͈͌˜˝˗̄͡%!ِ֌̕͢˗̈!##̡̡࢙̌̌%!׫˛ͣ˙˥˺͉͑%!׾̏˯̿׹̙̭̌͂%!#િ͌΃̙̝̱ۭ̃˨ࠟ͌΃̙{0}", Custom String("̝̱ۭ%0!ુ޾̡׹̴ֽ̗!#ۤ́͑˗͉˚˘׼̫˙˥ٌ̨̗̾!֔˹˲˿ͫͤ˜̭֧̌֞͊΁֒!݋˚ަ̵͚̀˘̚՚˦;˽%!̢ؗ̓˞̪ܳ˗̗͍̣ׄ!#ૃ˩˹˰͉̾̓ૄ̝ͩࠪ̓%!̭͊̀̏˯ֻؒ˨϶֌̷֢̘՗̡̤˽˯ֻؒ˛ٌ֠˞˨̈՚˱˜̩̀̏̃ͩ́˙˥˯{0}", Custom String("͂֎˖!׉0˴͔˻˘̛̤ٝࢗ́̕!#ܱު˹̡ު˹֜͠ે՜˖!׉ܹܹ̒̒̒࠷̒࠶ܹ̒̒˖!#ܱ˽˦˯̖֒!׫˛˺̫˭˙˥˼˩ૉ!#̭̮͊˜׬͉ؔ֠˞̣̾˯֪͝;!׻˟࠳ֹ˹̮̄˯֪͝%!΀˰̪˾޸˗ۚۧ˹̨̢̀̏̔˞̃˽҇!#΀˗̨΢˟̱˯˚۞˙˴̌{0}", Custom String("%!׉̘˦˛0˙̱̿!#૊޾۾˗؁˿݃׋%!΀̘˯͂֜˘˝˱֞ૌ̱ࣣۨ׉̘!#׉˴݂̈˵˹̴˻̝˭!૏֘˙̡˜ַۣ˵َ͚̳͑̇!؞˨˰˦̷̾˗˲˿׾͚ͬ˚̸̠̖̄%!#޷˜૑૓̓%!۝֕·˲ַ˸˘͚͜˭ׄ!׾ͬ˚%!#̷֟˼͍͒˚̠̙ࣥ!ް̓̽{0}", Custom String("˧˙˴૔૖!΀0˰˶̆̑˰˸͕˛֚֨˹̬֒!#૗͆̍૙૚ܲ!΀˗܁ͤ˨˰̪͢޶!#૛ࣦࣦ̊̊̊׵۩%!̠̙࣠؝˛˸֒!###׫ֽ̏֌˺˲˯̢̒˞%!؞̡͍̏˘˚˾΍̬ࣧ֏!׾̧ͬ׽˷˪͈֕֘;!#૞َ͐̈!#؊̏͌˜˝˗ֳ̛̬˼̆܃˙˴̀˫̤̯֝ࠥ!{0}", Custom String("ޫִ̿˙˥˺ִ̉0˛˫͘޼˛͍˚̠܋̏;!##ࣉ˞՝܆ࣘ!̰˜̤֑̤̓֘ۛૢ̤ૣ͏˲ۛ޶!࠹͚̊࠹͚̊࠹ْ͚!#޴̆˶˾̊˾;!͊؝˛˸۽˚֐̯̳֚҃ۗͫͤ˜˝͆%!ޫ͈̌ͮ܀̺̯֚ͩ؈̫˗͈̞˾͇͐˵՜˦ު΋!#")))))))))), First Of(Null))); // 44 elements
+        Set Global Variable(decodeIn, String Split(Custom String("߻̢̾˙˥̮ͭ́՚!ؘ͉˙̉˘˥੗ׄ!##̘ࠧ֠֡̌˲܎ؗ֠؀˯̢̫̉˷%!޸˜˚˙˥˛࠭˛ٍ֍˳̓˫ީࣖ!#΁˰˶˩֎̜֦̒͒ͤ˳ؔٔ!੘˹̸̗̱%!׻˟࠰ָ˹ͩͤ˜˝́̊̕˝˗΀֦ࣘ؎˞̻˙˥˼٘%!੝ͤ˜˝́̊̕˝˗̝ͦ޳̲˹˝˚؁!#੠ܽ̒˧{0}", Custom String("0˫͙͹޾!੡͈̒˧˫͙͹޾!੢͚͑̇˼̗׊,!#̵ࠥ˳˹̵̧̍،̵˙˴˝˗̵ۣ%!،̵˙˴˝˗̵̧˙˴˝˗̵̧˙˴˝˗̵̧˙˴˝˗̵ۣ%!#َ͢˙֨˸˫˝˗̠֙˚˓!َ͢˪϶˜̛̜˼̘́̌;!َ͓̒̇͢֌˿˯ࡻ;!َٛ͢੥ੱ!َ͢ੵ੷੹!َ͢˦˺˞{0}", Custom String("˻0͋˳˚̪˗ͩ˹͘˙˥̸̨̼̩̆ͣ͢؜̓࢐!#࢘͹˙̉˘੼੾!ۜ˭͛˷੿%!ࣛؖ˹؅޿̩ࣚ%!##̯͊ͧ΂˜̮˜̌%!׉ֳ̗̗̗!#׾ֱ͙ͭ˟˙̡˫̛̯̙˖!###ׇ̳̤̱ࣞ֨޾!ࣟ͂ઃֳ!#߿ޭ઎ͭ΀׍%!̰̫̫̫ۤ̃ۤ̃ۤ%!׉࠱˘ָ̣͇֔̆֔{0}", Custom String("࣡޽0̿͢˦̾ͤ̀҄ͨ˩!####઩˜֬˜֬˜֬˜֬˜֬˜֬֓!׻˟࠰ָ˹͔݅˦˜׸˦ࡶ%!#׻˟̛̞˯̟͂؇˟˹˿̼ࢄ!׉࠱˘͚˚̝̣́˛٬̰˜̌֠˥˥̊؀΂˜݈֨ؖ!##ެ̭ͣ˗˾%!ۧ˿˦΃˵˧˙˥ٍ̒̓!##઱؊˘̮˜̣̃˰˗΅ُ̙ͬͅ!׉{0}", Custom String("˴͕˻0˘̣ͦ̏ͅ˫̉˜̐˚̄!##ࣞ՟઴֍۔˙̜՘˷̂˫˝˗઺%!ࠢ́׏́˷˺؈̭˷˵˲%!#ࠣ˝˵˧̧́˩ֽ̾!࡙̌˙˴ּ͍͆˜˝˗̄͠%!؀֍̒͡˗̈!##̡̡ࢗ̌̌%!׭˛͢˙˥˺͇͑%!׾̏˯̿׹̛̯̌͂%!#ી͍΄̛̜̱܀̂˨͍ࠜ΄̛{0}", Custom String("̜̱܀%0!ૂ޿̡׹̴ֽ̕!#ۧ˿͑˗͇˚˘׼̫˙˥ٍ̩̾̕!֕˹˲̀ͩͤ˜̯̌֠͊֨΂֓!ަ˚ާ̵͚́˘̚՜˦΀˽%!ؘ͉̥˞̨ܶ˗̢͎ׄ̕!#ૄ˩˹˰͇͉̾ૅ̜̘ͪࠦ%!̯͊̀̏˯ֻؓ˨϶֍̷֤̙԰̡̣˽˯ֻؓ˛ٍ֢˞˨̈՜˱˜̪̀̏̂ͪ˿˙˥˯{0}", Custom String("͂֏˖!׉0˴͕˻˘̣ٜ࢕̖̒́!#ܴޫ˹̡ޫ˹ͦ֞ૈ՛˖!׉̗ܼ̗̗ܼ࠴̗࠳ܼ̗̗˖!#ܴ˽˦˯̓֓!׭˛˺̫˭˙˥˼˩૊!#̯̮͊˜׮͇֢ؕ˞̢̾˯֪͝;!׻˟࠰ָ˹̮̄˯֪͝%!΁˰̨˾޹˗ۙۨ˹̩̥̀̏̔˞̂˽՚!#΁˗̩΢˟̱˯˚۝˙˴̌{0}", Custom String("%!׉̙˦˛0˙̱̿!#ો޿܃˗؂݆̀׍%!΁̙˯͂֞˘˝˱્۪̱֠࣢׉̙!#׉˴̈݅˳˹̴˻̜˭!૑֙˙̡˜ֵۤ˳ُ͚̲͑̆!؟˨˰˦̷̾˗˲̀׾͚ͭ˚̸̝̓̄%!#޸˜૒૔̘%!֖ۜͨ˲ֵ˸˘͚͜˭ׄ!׾ͭ˚%!#̷֡˼͔͎˚̛̝ࣤ!޲͉̽{0}", Custom String("˧˙˴૕૗!΁0˰˶̇̑˰˸͖˛֜՝˹̭֓!#૘̈́̍૚૛ܵ!΁˗܅ͤ˨˰̨͡޷!#૜̊ࣥ̊ࣥ̊׶܂%!̛̝ࣟ؞˛˸֓!###׭ֽ̏֍˺˲˯̗̥˞%!؟̡͎̏˘˚˾΍̭ࣦ֐!׾̧ͭ׽˷˪֖͆֙;!#૟ُ͐̈!#ܷ͍̏˜˝˗ֱ̭̖˼̇܇˙˴̀˫̣̬֟ࠡ!{0}", Custom String("ެֲ̿˙˥˺ֲ̉0˛˫͘޽˛͎˚̝܏̏;!##ࢵ˞՞܊ࣗ!̰˜̣͉̣֒֙ۚૣ̣૤͋˲ۚ޷!࠶͚̊࠶͚̊࠶͚ٔ!#޵̇˶˾̊˾;!͊؞˛˸܁˚֑՝̬̲҃ۖͩͤ˜˝̈́%!ެ͆̌ͯ܄̼ͪ՝̬؋̫˗̟͆˾͐ͅ˳՛˦ޫ΋!#")))))))))), First Of(Null))); // 44 elements
         Call Subroutine(decompressTextSub); // 1 element
         Set Global Variable At Index(_extendedGlobalCollection, 124, Global.decodeOut); // 3 elements
-        Set Global Variable(decodeIn, String Split(Custom String("ਂ̌˯̣̀˷¶!˲̙̟˺˲˺̡˷˗˝˭˗͙̚˛˙˥̷̾˗̦́̄!܋͍!͵̘ͬ˦˯̣̀˷͎֝΂̦˹͗˛˙˴̸˲̮˸࢐˯͌˩ַ͏˳ͅ˗̈̾˴؁͍˦˯̋°!؜҂͑֩͹͎࠮ۜۡ਋ܵ!؜҂͑֩͹͎̰՚̆ۡ࡝ܵ!؜҂͑֩͹ׇ͎ܱۡ਎ܵ!؜҂͑֩͹͎͉࢘̋˫਒ٕ,{0}", Custom String("0!؜҂͑֩͹͎਱՗͆˗਴ٕ,!؞˽؟܊ְֳ̽¤!؞˽؟֥˧࠯˧®!؞˽؟֢˲ͬ͡˥̗˭!؞˽؟ً͌̈ͅ਻˘֮·!؞˽؟࠰֩΋̔˲͡­!࣌˯׋̋࣎̃҂!࣌˯׋̋࣎̃®!؃̧̮˙֙˱״̶ؘ̖̬ؐ˷̶ٜ̫ؐۢ͠˗˛̈́̀˩ܶ਽ܷ¶!׈֡͋˘̓˨͔˽͎ਿ̶֢{0}", Custom String("ͨ0΢˗͎̪̀̌̂΂˾̶ؙܸͪͮ־΂˾̓!؃̧̮˙֙˱؂̶ؘ̖̬ؐ˷؂̶̫ؐۢ͠˗˛̈́̀˩࣏ܷܶ¶!׈֡͋˘̓˨͔˽͎ੁ̶֢ͨ΢˗͎̀̌࡮˯̶ؙܸ̲ͪ˧̧¬!؃̧̮˙֙˱߲؏̶ؘ̖̬˷؂̶̫ؐۢ͠˗˛̈́̀˩࣏ܶ˯!׈֡͋˘̓˨͔˽͎੄̶֢ͨ΢˗͎̀̌{0}", Custom String("੅˯0̶ؙܸ̲ͪ˧̧¬!؃̧̮˙֙˱״̶߱֬׫̆˚̶̠۬֬׈̖͇֡͋̔͞˫ٗٓ˯!׈֡͋˘̓˨͔˽͎̪̂΂˾̶֢ͨ΢˗͎̀̌۬˯̶ؙܸ̲ͪ˧̧¬!؃̧̮˙֙˱؂̶߱֬׫̆˚̠޻̶֬׈̖͇֡͋̔͞˫ٗ޻˯!׈֡͋˘̓˨͔˽͎̪̂΂˾̶֢ͨ΢˗͎̀̌޻˯{0}", Custom String("̶ؙͪ0ܸ̪̳!"))))), First Of(Null))); // 24 elements
+        Set Global Variable(decodeIn, String Split(Custom String("਋̌˯̢́˷¶!˲̛̞˺˲˺̡˷˗˝˭˗͙̚˛˙˥̷̾˗˿̦̄!܏͎!͸̙ͭ˦˯̢́˷͏֟΃̦˹͗˛˙˴̸˲̮˸ࢎ˯͍˩ֵ͋˵͈˗̈̾˴؂͎˦˯̎°!؝҂͑֩;͏ࠫۛ۠࡫ܹ!؝҂͑֩;͏̰՜࡚ܹ̇۠!؝҂͑֩;͏ׇܴ۠਒ܹ!؝҂͑֩;͏࢖͇̎˫਱ٕ,{0}", Custom String("0!؝҂͑֩;͏਷԰̈́˗਺ٕ,!؟˽ً܎ֱ֮̽¤!؟˽ً֦˧ࠬ˧®!؟˽ً֤˲ͭ͠˥̕˭!؟˽ًٌ͈͍̈਽˘֬·!؟˽ً࠭֩΋̔˲͠­!࣊˯׍̎࣌̂҂!࣊˯׍̎࣌̂®!؅̧̮˙֛˱׌̶ؙ̭ۡ̓˷̶̫ٛۡۢͦ˗˛̓́˩ؑ࡬ܺ¶!׈֣͌˘͉˨͕˽͏ੀ̶֤{0}", Custom String("ͣ0΢˗́̌͏̨̃΃˾̶ؚܻͫͯ־΃˾̘!؅̧̮˙֛˱؃̶ؙ̭ۡ̓˷؃̶̫ۡۢͦ˗˛̓́˩߲ؑܺ¶!׈֣͌˘͉˨͕˽͏ੂ̶֤ͣ΢˗́̌͏࡟˯̶ؚܻ̳ͫ˧̧¬!؅̧̮˙֛˱̶ؙ̭࣎ؐ̓˷؃̶̫ۡۢͦ˗˛̓́˩߲ؑ˯!׈֣͌˘͉˨͕˽͏੅̶֤ͣ΢˗́̌͏{0}", Custom String("੆˯0̶ؚܻ̳ͫ˧̧¬!؅̧̮˙֛˱׌̶ֶ߱׭̇˚̝۾̶ֶ׈֣͌̔̓͞ͅ˫؄۬˯!׈֣͌˘͉˨͕˽͏̨̃΃˾̶֤ͣ΢˗́̌͏۾˯̶ؚܻ̳ͫ˧̧¬!؅̧̮˙֛˱؃̶ֶ߱׭̇˚̝޼̶ֶ׈֣͌̔̓͞ͅ˫؄޼˯!׈֣͌˘͉˨͕˽͏̨̃΃˾̶֤ͣ΢˗́̌͏޼˯{0}", Custom String("̶ؚͫ0̨ܻ̲!"))))), First Of(Null))); // 24 elements
         Call Subroutine(decompressTextSub); // 1 element
         Set Global Variable At Index(_extendedGlobalCollection, 10, Global.decodeOut); // 3 elements
         Set Global Variable(textListsLoaded, True); // 1 element
@@ -1272,7 +1269,7 @@ rule ("soft restart: a hero for players who did not pick one") {
     }
 }
 
-//92 elements
+//93 elements
 rule ("soft restart: reset each player") {
     event {
         Ongoing - Each Player;
@@ -1295,7 +1292,7 @@ rule ("soft restart: reset each player") {
         Set Healing Dealt(Event Player, 100); // 2 elements
         Set Max Health(Event Player, 100); // 2 elements
         Set Move Speed(Event Player, 100); // 2 elements
-        Set Player Variable(Event Player, doublemag, False); // 1 element
+        Set Player Variable At Index(Event Player, perk, 4, False); // 2 elements
         Set Player Variable At Index(Event Player, _extendedPlayerCollection, 52, False); // 2 elements
         Set Player Variable At Index(Event Player, _extendedPlayerCollection, 48, False); // 2 elements
         Set Player Variable(Event Player, magazines, Array(5, 5)); // 6 elements
@@ -2058,8 +2055,8 @@ rule ("160 orisa ammo") {
     }
 }
 
-//278 elements
-rule ("105 specific hero ammo and double mag") {
+//160 elements
+rule ("105 specific hero ammo") {
     event {
         Ongoing - Each Player;
         Team 1;
@@ -2071,31 +2068,29 @@ rule ("105 specific hero ammo and double mag") {
     actions {
         If(Is Button Held(Event Player, Button(Secondary Fire))); // 4 elements
             Skip(Value In Array(Array(3, Null), Add(Index Of Array Value(Array(Hero(Moira)), Hero Of(Event Player)), True))); // 15 elements
-            Modify Player Variable(Event Player, currentmagazines, Subtract, Multiply(0.05, Value In Array(Array(1, 0.5, 0.35, 0.25), Value In Array((Event Player).perk, 4)))); // 20 elements
+            Modify Player Variable(Event Player, currentmagazines, Subtract, 0.05); // 2 elements
             Wait(0.25, Ignore Condition); // 2 elements
             Loop If Condition Is True; // 1 element
         End; // 1 element
         If(Is Button Held(Event Player, Button(Primary Fire))); // 4 elements
-            Skip(Value In Array(Array(19, Null, 6, 12, 14), Add(Index Of Array Value(Array(Hero(Doomfist), Hero(D.Va), Hero(Hanzo), Hero(Sigma)), Hero Of(Event Player)), True))); // 29 elements
-            If(Compare(Value In Array((Event Player).perk, 4), ==, False)); // 9 elements
-                Modify Player Variable(Event Player, currentmagazines, Subtract, 0.25); // 2 elements
-                Wait(0.25, Ignore Condition); // 2 elements
-                Loop If Condition Is True; // 1 element
-            End; // 1 element
+            Skip(Value In Array(Array(17, Null, 4, 10, 12), Add(Index Of Array Value(Array(Hero(Doomfist), Hero(D.Va), Hero(Hanzo), Hero(Sigma)), Hero Of(Event Player)), True))); // 29 elements
+            Modify Player Variable(Event Player, currentmagazines, Subtract, 0.25); // 2 elements
+            Wait(0.25, Ignore Condition); // 2 elements
+            Loop If Condition Is True; // 1 element
             Skip(13); // 2 elements
             Skip If(Is In Alternate Form(Event Player), 3); // 3 elements
-            Modify Player Variable(Event Player, currentmagazines, Subtract, Multiply(0.05, Value In Array(Array(1, 0.5, 0.35, 0.25), Value In Array((Event Player).perk, 4)))); // 20 elements
+            Modify Player Variable(Event Player, currentmagazines, Subtract, 0.05); // 2 elements
             Wait(0.15, Ignore Condition); // 2 elements
             Loop If Condition Is True; // 1 element
             //__label_if_8__:
             "pass"
             disabled Abort; // 1 element
             Skip(7); // 2 elements
-            Modify Player Variable(Event Player, currentmagazines, Subtract, Multiply(0.25, Value In Array(Array(1, 0.5, 0.35, 0.25), Value In Array((Event Player).perk, 4)))); // 20 elements
+            Modify Player Variable(Event Player, currentmagazines, Subtract, 0.25); // 2 elements
             Skip(5); // 2 elements
-            Modify Player Variable(Event Player, currentmagazines, Subtract, Multiply(0.05, Value In Array(Array(1, 0.5, 0.35, 0.25), Value In Array((Event Player).perk, 4)))); // 20 elements
+            Modify Player Variable(Event Player, currentmagazines, Subtract, 0.05); // 2 elements
             Wait(0.1, Ignore Condition); // 2 elements
-            Modify Player Variable(Event Player, currentmagazines, Subtract, Multiply(0.05, Value In Array(Array(1, 0.5, 0.35, 0.25), Value In Array((Event Player).perk, 4)))); // 20 elements
+            Modify Player Variable(Event Player, currentmagazines, Subtract, 0.05); // 2 elements
             Wait(1.5, Ignore Condition); // 2 elements
             Loop If Condition Is True; // 1 element
             //lbl_0:
@@ -2113,30 +2108,10 @@ rule ("105 specific hero ammo and double mag") {
             End; // 1 element
             Skip(3); // 2 elements
             If(Is Using Ability 2(Event Player)); // 2 elements
-                Modify Player Variable(Event Player, currentmagazines, Subtract, Multiply(0.25, Value In Array(Array(1, 0.5, 0.35, 0.25), Value In Array((Event Player).perk, 4)))); // 20 elements
+                Modify Player Variable(Event Player, currentmagazines, Subtract, 0.25); // 2 elements
             End; // 1 element
             //lbl_3:
             //lbl_4:
-    }
-}
-
-//17 elements
-rule ("136  dva ammo double mag") {
-    event {
-        Ongoing - Each Player;
-        Team 1;
-        D.Va;
-    }
-    conditions {
-        (Event Player).doublemag == 1; // 4 elements
-        Is Button Held(Event Player, Button(Primary Fire)) == True; // 4 elements
-    }
-    actions {
-        Skip If(Is In Alternate Form(Event Player), 3); // 3 elements
-        Modify Player Variable(Event Player, currentmagazines, Subtract, 0.025); // 2 elements
-        Wait(0.15, Ignore Condition); // 2 elements
-        Loop If Condition Is True; // 1 element
-        //__label_if_9__:
     }
 }
 
@@ -2156,7 +2131,7 @@ rule ("132  rien out of ammo") {
     }
 }
 
-//8 elements
+//5 elements
 rule ("112  hanzo ammo") {
     event {
         Ongoing - Each Player;
@@ -2165,15 +2140,14 @@ rule ("112  hanzo ammo") {
     }
     conditions {
         Is Firing Primary(Event Player) == True; // 2 elements
-        (Event Player).doublemag == False; // 3 elements
     }
     actions {
         Modify Player Variable(Event Player, currentmagazines, Subtract, 0.25); // 2 elements
     }
 }
 
-//7 elements
-rule ("84 reloading all heros without doublemag") {
+//20 elements
+rule ("84 reloading uses a magazine") {
     event {
         Ongoing - Each Player;
         Team 1;
@@ -2181,10 +2155,9 @@ rule ("84 reloading all heros without doublemag") {
     }
     conditions {
         Is Reloading(Event Player) == True; // 2 elements
-        (Event Player).doublemag == False; // 3 elements
     }
     actions {
-        Modify Player Variable(Event Player, currentmagazines, Subtract, True); // 1 element
+        Modify Player Variable(Event Player, currentmagazines, Subtract, Value In Array(Array(1, 0.5, 0.4, 0.3), Value In Array((Event Player).perk, 4))); // 17 elements
     }
 }
 
@@ -2299,22 +2272,6 @@ rule ("97 torb disable gun if no ammo") {
     }
     actions {
         Set Weapon(Event Player, 2); // 2 elements
-    }
-}
-
-//9 elements
-rule ("98  reloading with doublemag") {
-    event {
-        Ongoing - Each Player;
-        All;
-        All;
-    }
-    conditions {
-        Is Reloading(Event Player) == True; // 2 elements
-        (Event Player).doublemag == 1; // 4 elements
-    }
-    actions {
-        Modify Player Variable(Event Player, currentmagazines, Subtract, 0.5); // 2 elements
     }
 }
 
@@ -2435,7 +2392,7 @@ rule ("172 FOLLOWERS  winston Omnic bomb") {
         Wait(0.5, Ignore Condition); // 2 elements
         Skip If(Compare(Players In Slot((Event Player).monkeyBombSlot, Team 1), !=, (Event Player).monkeyBomb), True); // 11 elements
         Destroy Dummy Bot(Team 1, (Event Player).monkeyBombSlot); // 4 elements
-        //__label_if_10__:
+        //__label_if_9__:
         Set Player Variable(Event Player, monkeyBomb, Null); // 1 element
         If(And(Value In Array((Event Player)._extendedPlayerCollection, 21), Is Alive(Event Player))); // 9 elements
             Wait(0.1, Ignore Condition); // 2 elements
@@ -2467,7 +2424,7 @@ rule ("352 FOLLOWERS attack nearest zombie") {
                 Skip If((Event Player).followerFiring, 2); // 4 elements
                 Start Facing(Event Player, Direction Towards(Eye Position(Event Player), Eye Position((Event Player).followerTarget)), 720, To World, Direction and Turn Rate); // 8 elements
                 Set Player Variable(Event Player, followerFiring, True); // 1 element
-                //__label_if_11__:
+                //__label_if_10__:
                 Start Holding Button(Event Player, Button(Primary Fire)); // 2 elements
             Else If((Event Player).followerFiring); // 3 elements
                 Stop Holding Button(Event Player, Button(Primary Fire)); // 2 elements
@@ -2644,7 +2601,7 @@ rule ("Pack a punch Ongoing - player") {
         Else If(Is Using Ability 1(Event Player)); // 2 elements
             Skip If(Compare(Hero Of(Event Player), !=, Hero(Sojourn)), True); // 6 elements
             Set Status(Players Within Radius(Event Player, 3, Team 2, Off), Event Player, Knocked Down, 4); // 8 elements
-            //__label_if_12__:
+            //__label_if_11__:
         Else If(Is Using Ability 2(Event Player)); // 2 elements
             If(Compare(Hero Of(Event Player), ==, Hero(Tracer))); // 6 elements
                 Set Status(Players Within Radius(Evaluate Once(Position Of(Event Player)), 5, Team 2, Off), Event Player, Stunned, 4); // 11 elements
@@ -3150,7 +3107,7 @@ rule ("393 POINTS Omnic kill (final hit)") {
         Chase Player Variable At Rate(Event Player, points2, Multiply(Evaluate Once((Event Player).points), (Event Player).H), Value In Array(Array(1000, 1000, 250), (Event Player).killKind), Destination and Rate); // 20 elements
         Skip If(Compare((Event Player).H, ==, 1), True); // 7 elements
         Modify Global Variable At Index(_extendedGlobalCollection, 118, Add, Multiply(Value In Array(Array(100, 200, 120), (Event Player).killKind), (Event Player).H)); // 17 elements
-        //__label_if_13__:
+        //__label_if_12__:
         Modify Player Variable At Index(Event Player, xp, (Event Player).currentheroxp, Add, Value In Array(Array(5, 10, 6), (Event Player).killKind)); // 14 elements
         Set Ultimate Charge(Event Player, Add(Ultimate Charge Percent(Event Player), Divide(Multiply(Value In Array(Global.difficultyStats, 5), If-Then-Else(Array Contains(All Support Heroes, Hero Of(Event Player)), 1.5, If-Then-Else(Array Contains(All Tank Heroes, Hero Of(Event Player)), 1.25, 1))), 2))); // 28 elements
     }
@@ -3177,10 +3134,10 @@ rule ("396 POINTS Omnic kill (elimination)") {
         Modify Global Variable At Index(_extendedGlobalCollection, 47, Add, (Event Player).killPoints); // 4 elements
         Skip If(Compare((Event Player).killKind, !=, 2), True); // 7 elements
         Chase Player Variable At Rate(Event Player, points2, Multiply(Evaluate Once((Event Player).points), (Event Player).H), 250, Destination and Rate); // 10 elements
-        //__label_if_14__:
+        //__label_if_13__:
         Skip If(Compare((Event Player).H, ==, 1), True); // 7 elements
         Modify Global Variable At Index(_extendedGlobalCollection, 118, Add, Multiply(Value In Array(Array(80, 160, 70), (Event Player).killKind), (Event Player).H)); // 17 elements
-        //__label_if_15__:
+        //__label_if_14__:
         Modify Player Variable At Index(Event Player, xp, (Event Player).currentheroxp, Add, Value In Array(Array(5, 10, 7), (Event Player).killKind)); // 14 elements
         Set Ultimate Charge(Event Player, Add(Ultimate Charge Percent(Event Player), Divide(Multiply(Value In Array(Global.difficultyStats, 5), If-Then-Else(Array Contains(All Support Heroes, Hero Of(Event Player)), 1.5, If-Then-Else(Array Contains(All Tank Heroes, Hero Of(Event Player)), 1.25, 1))), 2))); // 28 elements
     }
@@ -3507,7 +3464,7 @@ rule ("died Camera") {
     }
 }
 
-//62 elements
+//63 elements
 rule ("80 player died without maniac") {
     event {
         Player Died;
@@ -3531,7 +3488,7 @@ rule ("80 player died without maniac") {
         Set Player Variable(Event Player, healvariable, 100); // 2 elements
         Wait(0.1, Ignore Condition); // 2 elements
         Set Healing Dealt(Event Player, 100); // 2 elements
-        Set Player Variable(Event Player, doublemag, False); // 1 element
+        Set Player Variable At Index(Event Player, perk, 4, False); // 2 elements
         Wait(0.1, Ignore Condition); // 2 elements
         Set Player Variable At Index(Event Player, _extendedPlayerCollection, 52, False); // 2 elements
         Destroy Dummy Bot(Team 1, Add(Slot Of(Event Player), 4)); // 6 elements
@@ -4044,7 +4001,7 @@ rule ("202 Purchase Follower action") {
                     Wait(0.25, Ignore Condition); // 2 elements
                     Communicate(Event Player, Emote Up); // 1 element
                     Call Subroutine(PurchaseFreezeAfterEmote); // 1 element
-                    //__label_if_16__:
+                    //__label_if_15__:
                 Else; // 1 element
                     Set Player Variable(Event Player, messageSpot, Global.i); // 2 elements
                     Small Message(Event Player, Custom String("{0} {1}", Hero Icon String(Value In Array(Global.hero, (Event Player).messageSpot)), Value In Array(Value In Array(Global._extendedGlobalCollection, 65), (Event Player).messageSpot))); // 19 elements
@@ -4084,13 +4041,13 @@ rule ("Purchase Mystery Follower action") {
             Wait(0.25, Ignore Condition); // 2 elements
             Communicate(Event Player, Emote Up); // 1 element
             Call Subroutine(PurchaseFreezeAfterEmote); // 1 element
-            //__label_if_17__:
+            //__label_if_16__:
         Else; // 1 element
             Small Message(Event Player, Custom String("{0} {1}", Hero Icon String(First Of(Global.hero)), First Of(Value In Array(Global._extendedGlobalCollection, 65)))); // 13 elements
     }
 }
 
-//182 elements
+//186 elements
 rule ("229 buy perks and power activate") {
     event {
         Ongoing - Each Player;
@@ -4099,7 +4056,7 @@ rule ("229 buy perks and power activate") {
     }
     conditions {
         Is Button Held(Event Player, Button(Interact)) == True; // 4 elements
-        Is True For Any(Global.buyperks, Compare(Distance Between(Event Player, Current Array Element), <, 2)) == True; // 10 elements
+        Is True For Any(Array Slice(Global.buyperks, False, 6), Compare(Distance Between(Event Player, Current Array Element), <, 2)) == True; // 14 elements
     }
     actions {
         Wait Until(Compare(Server Load, <, 230), 3); // 6 elements
@@ -4216,7 +4173,7 @@ rule ("202 Purchase hero actions") {
                         Attach Players(Players In Slot(Add(Slot Of(Event Player), 4), Team 1), Event Player, Vector(-0.5, 1.8, -0.2)); // 14 elements
                         Skip If(Array Contains((Event Player).allowedheroes, Hero Of(Event Player)), True); // 6 elements
                         Modify Player Variable(Event Player, allowedheroes, Append To Array, Hero Of(Event Player)); // 2 elements
-                        //__label_if_18__:
+                        //__label_if_17__:
                         Set Player Variable(Event Player, currentmagazines, If-Then-Else(Compare(Global.Difficulty, ==, 5), 6, 10)); // 11 elements
                     Else; // 1 element
                         Small Message(Event Player, Custom String("{0} {1}", Hero Icon String(Value In Array(Global.hero, (Event Player).buySpot)), Value In Array(Value In Array(Global._extendedGlobalCollection, 64), (Event Player).buySpot))); // 19 elements
@@ -4272,7 +4229,7 @@ rule ("ending reward for each player") {
         Set Player Variable At Index(Event Player, _extendedPlayerCollection, 25, False); // 2 elements
         Skip If(Array Contains((Event Player).endingHeroes, Hero Of(Event Player)), True); // 6 elements
         Modify Player Variable(Event Player, endingHeroes, Append To Array, Hero Of(Event Player)); // 2 elements
-        //__label_if_19__:
+        //__label_if_18__:
         Small Message(Event Player, Custom String("{0} now has tier 3 Pack-a-Punch in every playthrough.", Hero Icon String(Hero Of(Event Player)))); // 7 elements
     }
 }
@@ -4375,7 +4332,7 @@ rule ("53  mystery box") {
             Set Player Variable At Index(Event Player, heroiconswap, (Event Player).currentswap, Hero Icon String(Hero Of(Event Player))); // 5 elements
             Skip If(Array Contains((Event Player).allowedheroes, Hero Of(Event Player)), True); // 6 elements
             Modify Player Variable(Event Player, allowedheroes, Append To Array, Hero Of(Event Player)); // 2 elements
-            //__label_if_20__:
+            //__label_if_19__:
             Set Player Variable(Event Player, currentmagazines, If-Then-Else(Compare(Global.Difficulty, ==, 5), 6, 10)); // 11 elements
             Modify Global Variable At Index(_extendedGlobalCollection, 34, Add, True); // 2 elements
             Wait(True, Ignore Condition); // 1 element
@@ -4547,7 +4504,7 @@ rule ("Ramattra coins: walking away cancels the uses") {
         Set Player Variable(Event Player, coinPrice, If-Then-Else(Or(Or(Is True For Any(Global.buyheros, Compare(Distance Between(Event Player, Current Array Element), <, 2)), Is True For Any(Global.bossbuypositions, Compare(Distance Between(Event Player, Current Array Element), <, 2))), And(And(Compare(Global.start, ==, 1), Compare(Global.rngbox, !=, Null)), Or(Compare(Distance Between(Event Player, Global.rngbox), <=, 2), And(Compare(Global.fireSale, ==, True), Is True For Any(Global.fireSaleBoxes, Compare(Distance Between(Event Player, Current Array Element), <=, 2)))))), 1, If-Then-Else(Compare(Distance Between(Event Player, Value In Array(Global.buyperks, 5)), <, 2), 5, If-Then-Else(Is True For Any(Array Slice(Global.buyperks, False, 5), Compare(Distance Between(Event Player, Current Array Element), <, 2)), 3, Null)))); // 95 elements
         Skip If(Compare((Event Player).coinPrice, !=, Null), True); // 6 elements
         Set Player Variable(Event Player, coinUses, Null); // 1 element
-        //__label_if_21__:
+        //__label_if_20__:
         Loop If Condition Is True; // 1 element
     }
 }
@@ -4582,7 +4539,7 @@ rule ("arcade: the secret code") {
     actions {
         Skip If(Compare(Subtract(Total Time Elapsed, Value In Array((Event Player)._extendedPlayerCollection, 14)), <=, 1), True); // 12 elements
         Set Player Variable(Event Player, arcadeCodeStep, Null); // 1 element
-        //__label_if_22__:
+        //__label_if_21__:
         Set Player Variable At Index(Event Player, _extendedPlayerCollection, 14, Total Time Elapsed); // 2 elements
         If(Compare(Is Button Held(Event Player, Button(Primary Fire)), ==, Compare(Modulo((Event Player).arcadeCodeStep, 2), ==, Null))); // 15 elements
             Modify Player Variable(Event Player, arcadeCodeStep, Add, True); // 1 element
@@ -4615,7 +4572,7 @@ rule ("arcade: Soldier, aimbot and overhead camera") {
                 Start Camera(Event Player, Subtract(Ray Cast Hit Position(Eye Position(Event Player), Add(Eye Position(Event Player), Vector(0.778, 14.866, -7.117)), Null, Event Player, False), Vector(0.024, 0.451, -0.216)), Eye Position(Event Player), 20); // 26 elements
                 Skip If(Compare(Hero Of(Event Player), ==, Hero(Soldier: 76)), True); // 6 elements
                 Set Ultimate Charge(Event Player, Add(Ultimate Charge Percent(Event Player), 40)); // 5 elements
-                //__label_if_23__:
+                //__label_if_22__:
             End; // 1 element
             Wait(2, Ignore Condition); // 2 elements
         End; // 1 element
@@ -4760,7 +4717,7 @@ rule ("137  get out of spawn bots") {
             End; // 1 element
             Skip If(Compare(Value In Array(Global.globalActiveBreachHealth, (Event Player).breachPick), >, Null), True); // 9 elements
             Play Effect(All Players(All Teams), Bad Explosion, Color(Orange), Value In Array(Global.globalActiveBreaches, (Event Player).breachPick), 3); // 10 elements
-            //__label_if_24__:
+            //__label_if_23__:
             Wait(1.5, Abort When False); // 2 elements
         Else; // 1 element
             Start Forcing Player Outlines(Event Player, All Players(Team 1), True, Custom Color(Random Integer(False, 255), Random Integer(False, 255), Random Integer(False, 255), 255), Default); // 17 elements
@@ -5033,7 +4990,7 @@ rule ("set bot amount subroutine") {
         Set Global Variable(botamount, Min(Subtract(Add(5, Global.roundnumber), If-Then-Else(Compare(Count Of(Filtered Array(All Players(Team 1), Not(Is Dummy Bot(Current Array Element)))), ==, 1), 2, Null)), Subtract(10, Count Of(Filtered Array(All Players(Team 1), Not(Is Dummy Bot(Current Array Element))))))); // 34 elements
         Skip If(Compare(Global.botamount, >=, 1), True); // 6 elements
         Set Global Variable(botamount, 1); // 2 elements
-        //__label_if_25__:
+        //__label_if_24__:
     }
 }
 
@@ -5071,7 +5028,7 @@ rule ("518 spawn bots subroutine") {
         Wait Until(Compare(Global.zoneLoading, ==, False), 99999); // 6 elements
         Skip If(Compare(Players In Slot(False, Team 2), !=, Null), True); // 7 elements
         Create Dummy Bot(Value In Array(Value In Array(Global._extendedGlobalCollection, 7), Global.g), Team 2, False, First Of(Spawn Points(Team 2)), Null); // 12 elements
-        //__label_if_26__:
+        //__label_if_25__:
         Set Global Variable At Index(omnicspawn, False, Slot Of(Players In Slot(False, Team 2))); // 5 elements
         Set Global Variable At Index(_extendedGlobalCollection, 8, Players In Slot(False, Team 2)); // 5 elements
         Set Global Variable At Index(_extendedGlobalCollection, 40, Null); // 2 elements
@@ -5111,7 +5068,7 @@ rule ("519 Spawn wave director") {
     actions {
         Skip If(Compare(Global.spawntype, >=, 3), True); // 6 elements
         Set Global Variable(g, False); // 1 element
-        //__label_if_27__:
+        //__label_if_26__:
         Skip(Value In Array(Array(15, Null, 4, 8, 12), Add(Index Of Array Value(Array(False, 1, 2, 3), Global.spawntype), True))); // 26 elements
         Set Global Variable At Index(_extendedGlobalCollection, 7, Array(Null)); // 4 elements
         Set Global Variable(bot1spawn, Array(Hero(Brigitte))); // 4 elements
@@ -5174,7 +5131,7 @@ rule ("use ability loop") {
             Set Player Variable At Index(Event Player, _extendedPlayerCollection, 26, Value In Array(Value In Array(Global._extendedGlobalCollection, 54), Add(Multiply(Multiply(Value In Array(Global.hero, Value In Array(Global._extendedGlobalCollection, 16)), 10), Global.Difficulty), Global.idx))); // 24 elements
             Skip If(Compare(Value In Array((Event Player)._extendedPlayerCollection, 26), <=, Null), True); // 9 elements
             Press Button(Event Player, Value In Array(Value In Array(Global._extendedGlobalCollection, 70), Subtract(Value In Array((Event Player)._extendedPlayerCollection, 26), True))); // 14 elements
-            //__label_if_28__:
+            //__label_if_27__:
             Wait(True, Ignore Condition); // 1 element
         End; // 1 element
     }
@@ -5419,7 +5376,7 @@ rule ("Zombie chase: straight at you, pathfinding only when stuck or you are abo
         Set Player Variable(Event Player, zombieTarget, First Of(Sorted Array(Filtered Array(All Living Players(Team 1), Compare((Current Array Element).p_T, ==, Null)), Distance Between(Event Player, Current Array Element)))); // 15 elements
         Skip If(Compare((Event Player).zombieTarget, !=, Null), True); // 6 elements
         Set Player Variable(Event Player, zombieTarget, First Of(Sorted Array(All Living Players(Team 1), Distance Between(Event Player, Current Array Element)))); // 8 elements
-        //__label_if_29__:
+        //__label_if_28__:
         Set Player Variable At Index(Event Player, _extendedPlayerCollection, 10, If-Then-Else(Compare((Event Player).zombieTarget, ==, Null), 9999, Distance Between(Event Player, (Event Player).zombieTarget))); // 15 elements
         If(Compare((Event Player).zombieTarget, ==, Null)); // 6 elements
             Set Player Variable(Event Player, pfDestination, Null); // 1 element
@@ -5462,7 +5419,7 @@ rule ("Zombie chase: straight at you, pathfinding only when stuck or you are abo
                 End; // 1 element
                 Skip If((Event Player).pfIsPathfinding, True); // 3 elements
                 Start Throttle In Direction(Event Player, Direction Towards(Position Of(Event Player), Position Of((Event Player).zombieTarget)), 1, To World, Replace existing throttle, Direction and Magnitude); // 8 elements
-                //__label_if_30__:
+                //__label_if_29__:
             End; // 1 element
             Set Player Variable(Event Player, zombieSpeedBoost, If-Then-Else(Value In Array(Global._extendedGlobalCollection, 21), Add(True, Min(Multiply(Max(Subtract((Event Player).zombieFlatDistance, 15), False), 0.04), 0.6)), 1)); // 24 elements
             Set Player Variable(Event Player, zombieSpeedBoost, Divide(Round To Integer(Multiply((Event Player).zombieSpeedBoost, 10), Down), 10)); // 11 elements
@@ -5512,7 +5469,7 @@ rule ("【PF Decompress】Decompress map") {
                 Modify Global Variable(pfLoadedMap_nodes, Append To Array, Vector(Divide(Subtract(Add(Multiply(Index Of String Char(Global.pfcompressionTable, Char In String(Value In Array(First Of(Global.pfDecompress), Global.pfI1), Global.pfI2)), 1024), Index Of String Char(Global.pfcompressionTable, Char In String(Value In Array(First Of(Global.pfDecompress), Global.pfI1), Add(Global.pfI2, True)))), 524288), 100), Divide(Subtract(Add(Multiply(Index Of String Char(Global.pfcompressionTable, Char In String(Value In Array(First Of(Global.pfDecompress), Global.pfI1), Add(Global.pfI2, 2))), 1024), Index Of String Char(Global.pfcompressionTable, Char In String(Value In Array(First Of(Global.pfDecompress), Global.pfI1), Add(Global.pfI2, 3)))), 524288), 100), Divide(Subtract(Add(Multiply(Index Of String Char(Global.pfcompressionTable, Char In String(Value In Array(First Of(Global.pfDecompress), Global.pfI1), Add(Global.pfI2, 4))), 1024), Index Of String Char(Global.pfcompressionTable, Char In String(Value In Array(First Of(Global.pfDecompress), Global.pfI1), Add(Global.pfI2, 5)))), 524288), 100))); // 117 elements
                 Skip If(Modulo(Global.pfI2, 24), True); // 5 elements
                 Call Subroutine(LoadingPause); // 1 element
-                //__label_if_31__:
+                //__label_if_30__:
             End; // 1 element
         End; // 1 element
         Set Global Variable At Index(_extendedGlobalCollection, 17, Null); // 2 elements
@@ -5537,7 +5494,7 @@ rule ("【PF Decompress】Decompress map") {
                 End; // 1 element
                 Skip If(Modulo(Global.pfI2, 20), True); // 5 elements
                 Call Subroutine(LoadingPause); // 1 element
-                //__label_if_32__:
+                //__label_if_31__:
             End; // 1 element
             Call Subroutine(LoadingPause); // 1 element
         End; // 1 element
@@ -5546,7 +5503,7 @@ rule ("【PF Decompress】Decompress map") {
             Modify Global Variable(pfNodeComponent, Append To Array, Index Of String Char(Global.pfcompressionTable, Char In String(Value In Array(Value In Array(Global.pfDecompress, 3), Round To Integer(Divide(Global.pfI1, 42), Down)), Add(Multiply(Modulo(Global.pfI1, 42), 3), 2)))); // 28 elements
             Skip If(Modulo(Global.pfI1, 20), True); // 5 elements
             Call Subroutine(LoadingPause); // 1 element
-            //__label_if_33__:
+            //__label_if_32__:
         End; // 1 element
         Set Global Variable At Index(_extendedGlobalCollection, 18, Mapped Array(Global.pfLoadedMap_nodes, Current Array Index)); // 5 elements
         Set Global Variable At Index(_extendedGlobalCollection, 19, Empty Array); // 2 elements
@@ -5597,7 +5554,7 @@ rule ("【PF Core】Update & Execute") {
     actions {
         Skip If(Global.pfMapReady, True); // 2 elements
         Wait Until(Global.pfMapReady, 99999); // 3 elements
-        //__label_if_34__:
+        //__label_if_33__:
         Wait(Random Real(0, 0.3), Ignore Condition); // 5 elements
         Set Player Variable(Event Player, pfSavedTarget, (Event Player).pfDestination); // 3 elements
         If(Or(Not((Event Player).pfIsPathfinding), Compare((Event Player).pfCurrentNodeIndex, ==, -1))); // 12 elements
@@ -5642,7 +5599,7 @@ rule ("【PF Core Subroutine】☞ Look up next hop (Floyd-Warshall, RLE base 10
             Modify Player Variable At Index(Event Player, _extendedPlayerCollection, 6, Add, True); // 2 elements
             Skip If(Compare(Modulo(Value In Array((Event Player)._extendedPlayerCollection, 6), 25), !=, Null), True); // 12 elements
             Wait(False, Ignore Condition); // 1 element
-            //__label_if_35__:
+            //__label_if_34__:
         End; // 1 element
         Set Player Variable At Index(Event Player, _extendedPlayerCollection, 7, Round To Integer(Divide((Event Player).pfHopChar, 128), Down)); // 9 elements
     }
@@ -5820,10 +5777,10 @@ rule ("destroy door effects") {
     actions {
         Skip If(Compare(Value In Array(Global.allDoors_BeamA, Global.doorIndex), ==, Null), True); // 8 elements
         Destroy Effect(Value In Array(Global.allDoors_BeamA, Global.doorIndex)); // 5 elements
-        //__label_if_36__:
+        //__label_if_35__:
         Skip If(Compare(Value In Array(Global.allDoors_BeamB, Global.doorIndex), ==, Null), True); // 8 elements
         Destroy Effect(Value In Array(Global.allDoors_BeamB, Global.doorIndex)); // 5 elements
-        //__label_if_37__:
+        //__label_if_36__:
         Set Global Variable At Index(allDoors_BeamA, Global.doorIndex, Null); // 2 elements
         Set Global Variable At Index(allDoors_BeamB, Global.doorIndex, Null); // 2 elements
     }
@@ -5889,12 +5846,12 @@ rule ("Collision Logic") {
                         Set Player Variable At Index(Event Player, active_wall, Global.z, 1); // 3 elements
                         Skip If(Compare(Value In Array(Global._extendedGlobalCollection, True), !=, False), True); // 7 elements
                         Set Gravity(Event Player, 100); // 2 elements
-                        //__label_if_38__:
+                        //__label_if_37__:
                     End; // 1 element
                     Apply Impulse(Event Player, Multiply(Direction Towards((Event Player).filterpos, (Event Player).fullbodypos), Vector(True, Empty Array, True)), 1, To World, Cancel Contrary Motion); // 13 elements
                     Skip If(Compare((Event Player).doorNotif, !=, Null), True); // 6 elements
                     Set Player Variable(Event Player, doorNotif, 1); // 2 elements
-                    //__label_if_39__:
+                    //__label_if_38__:
                     If(And(Is Button Held(Event Player, Button(Interact)), Compare((Event Player).points, >=, Subtract(Multiply(Multiply(1000, Global.costmultiplier), Value In Array(Array(1, 0.5, 0.4, 0.3), Value In Array((Event Player).perk, 3))), (Event Player).creditcardlimit)))); // 37 elements
                         Play Effect(All Players(All Teams), Good Explosion, Color(White), Value In Array(Global.allDoors_Center, Global.z), 50); // 9 elements
                         Play Effect(All Players(All Teams), Lúcio Sound Barrier Cast Sound, Color(White), Value In Array(Global.allDoors_Center, Global.z), 100); // 9 elements
@@ -5966,7 +5923,7 @@ rule ("make the door effects") {
                 Set Global Variable At Index(allDoors_BeamB, Global.dooreffectsequencer, Last Created Entity); // 2 elements
                 Skip If(Modulo(Global.dooreffectsequencer, 3), True); // 5 elements
                 Call Subroutine(LoadingPause); // 1 element
-                //__label_if_40__:
+                //__label_if_39__:
             End; // 1 element
             Modify Global Variable(dooreffectsequencer, Add, True); // 1 element
         End; // 1 element
@@ -6105,7 +6062,7 @@ rule ("Subroutine decompressNSub") {
                 Modify Global Variable(decodeOut, Append To Array, Divide(Add(Add(Add(Index Of String Char(Global.decodeTable, Char In String(Value In Array(Value In Array(Global.decodeIn, 3), Global.decodeString), Global.decodePosition)), If-Then-Else(Compare(First Of(Global.decodeIn), >, 1), Multiply(Index Of String Char(Global.decodeTable, Char In String(Value In Array(Value In Array(Global.decodeIn, 3), Global.decodeString), Add(Global.decodePosition, True))), 1024), Null)), If-Then-Else(Compare(First Of(Global.decodeIn), >, 2), Multiply(Index Of String Char(Global.decodeTable, Char In String(Value In Array(Value In Array(Global.decodeIn, 3), Global.decodeString), Add(Global.decodePosition, 2))), 1048576), Null)), Value In Array(Global.decodeIn, 2)), Value In Array(Global.decodeIn, True))); // 84 elements
                 Skip If(Modulo(Count Of(Global.decodeOut), 20), True); // 6 elements
                 Call Subroutine(LoadingPause); // 1 element
-                //__label_if_41__:
+                //__label_if_40__:
                 Modify Global Variable(decodePosition, Add, First Of(Global.decodeIn)); // 3 elements
             End; // 1 element
         End; // 1 element
@@ -6171,7 +6128,7 @@ rule ("load core data") {
         For Global Variable(decodeIndex, 0, Count Of(Global.decodeOut), True); // 4 elements
             Set Global Variable At Index(creditCardTiers_InterestRate, Global.decodeIndex, Value In Array(Global.decodeOut, Global.decodeIndex)); // 6 elements
         End; // 1 element
-        Set Global Variable At Index(_extendedGlobalCollection, 49, String Split(Custom String("¶¶¶¶ ¶!¶#¶$¶%¶&¶'¶(¶)¶*¶+¶,¶-¶.¶/¶0¶1¶2¶3¶4¶5¶6¶7¶8¶9¶:¶;¶=¶?¶@¶A¶B¶C¶D¶E¶F¶G¶H¶I¶J¶K¶L¶M¶N¶O¶P¶Q¶R¶S¶T¶U¶V¶W¶X¶Y¶Z¶[¶]¶_¶a¶{0}", Custom String("b¶c¶d¶e¶f¶g¶h¶i¶j¶k¶l¶m¶n¶o¶p¶q¶r¶s¶t¶u¶v¶w¶x¶y¶z¶|¶–¶—¶‘¶’¶“¶”¶…¶e s  tinret thouerhe aorr on pn es sisenan fo  m wng iy  c{0}", Custom String("nt bveitd tistno otsotal dtohih teme.  ellpol eeed r hearoatyofolemourndneg ha yeta oiarmaunut lomliu gee.Nose nowdece  amch{0}", Custom String("s.ilgh, ri ghowiugtapeaciremiocoraYoieecck: rynsiclof wanct.fiofbeussielapctwebidoav’sooolkecaevlammshm ef uy.aieptyboThn’im{0}", Custom String("k viadaglyiaivasff Ndrquuir.dsftostrmirmniayp igssbuplpa I’trsd.cisut!goTropfueqrnakblifrtpr! I  Ymb RReru Tptwodiulcrna% o.{0}", Custom String("cuexgiMyOuttlde!htdaspodrgfenno!nlmpsoksocabs!ues,rdZoWhpsysrkvalun.Hesce:uplt 1wheiclmyw muEvfrkiI’grg.ba 2Daoe v'st’ SgaCo{0}", Custom String("Pahrfa100%5%wnufucp.rrobHo H ASebrDiu’Was: Dd!Itn!StDo kh.255//50 0.rvoxuyms 3puidawxpgyAm? ehTo’m… nusnpiovsyPrgse,eg ( Zmn{0}", Custom String("Juggauoaaf0/20lfnvbynkfludlstcyehuwsny—n BBa—b’ldyMasatuHaa!iky:5) 05 o:EEog C50ib' ew zzookgurw My! Pm.Sct—Razi jknBotnppBe{0}", Custom String("c e—gtrcSugl’rDee?a.Getly, E15 Ws)e-NuQuSpa-ubx /200 535ip3 xtA uaduGoekWey—Sip’ GGuw.az Owrn'g,l.jeizAcMoFavoFr—yo,Eabj Fsw{0}", Custom String("nfybo’s?eEEeuhCrrln--UUpk--a-PPuaxTi2//33:t:/1r,60/xumyth,u''rn,mlp!xe 'skrf..ixtp'mxhd—CaDrlrh—l!jusqAls——gw?'td,zat,Fek.cq{0}", Custom String("r!BltmrpVeKaPejoWrr—xck’u.lvGre…t…XPP m:.32 InebWon:.ctbb!g!x!twhySoae-h(STam!n?) pyu!wuzeOvbs1 188022%,05077/11Onf--r/6/770{0}", Custom String("Ab xx22..5x5x1s'yi ““ii g”kt'gd'h'lmxaNeMLLGI'THHRROOWWIINNGm’yl—fCl[fs]MuSyi'’vSnw’y?—tlgNa[as;; y]l—xiahh!’ g’Ofa’Ruo——IPo{0}", Custom String("r’d…kldlnmp?l,t'ddpgdv—iejjah…ao—sLiVidgp…I.ArBu—oohymph—eA--mi--zy’p—*ss** d:wtLuGag:(11/(2(33/ V(44/Ex(5Brrbr'Fu.445366 52{0}", Custom String(" 6 77230.2.1x,m,eyk::ws//cc//bbvvziu|  |lpSaShwy(f(a(mdtx.:2244. 44::5577.l’hbPOOTTG QQ!yuSwka ‘‘eoyCuLeh)ACC!o?e’c!Chf!Yeeo{0}", Custom String("Ag-fs…g?hdy…k!By-b(Pe)t?TuDDDOOSRGGBB!Ah LLa-vWulhpcWi –– Zayaw…c.gncc . ! ’ , : — q / ? - % ) … J U [ ] K * X 8 ” ;eueNeTeY{0}", Custom String("eIeSeDe5e0eWeMeHeRePeOeAe/e'eBe2eGeCe1e%ezeZe3e(eFeJeLeQe7e4e6eVeUe[e]eKe*eXe|e8e“e”e;e‘e–oNoToYoIoSoDo5o0oWoMoHoRoPoEoOoAoq{0}", Custom String("o/o'oBo2oGoCo1o-o%ozoZo3o(o)o…oFojoJoLoQo7o4o6oVoUo[o]oKo*oXo|o8"))))))))))))))))), Custom String(""))); // 76 elements
+        Set Global Variable At Index(_extendedGlobalCollection, 49, String Split(Custom String("¶¶¶¶ ¶!¶#¶$¶%¶&¶'¶(¶)¶*¶+¶,¶-¶.¶/¶0¶1¶2¶3¶4¶5¶6¶7¶8¶9¶:¶;¶=¶?¶@¶A¶B¶C¶D¶E¶F¶G¶H¶I¶J¶K¶L¶M¶N¶O¶P¶Q¶R¶S¶T¶U¶V¶W¶X¶Y¶Z¶[¶]¶_¶a¶{0}", Custom String("b¶c¶d¶e¶f¶g¶h¶i¶j¶k¶l¶m¶n¶o¶p¶q¶r¶s¶t¶u¶v¶w¶x¶y¶z¶|¶–¶—¶‘¶’¶“¶”¶…¶e s  tinret thouerhe aorr on pn es sisenan mo  f wng iy  c{0}", Custom String("nt bveitstd ti onotsot daltohih  eme. tellpol  hea rroleeeedatfoyourg nendmohaeta oi yarma lunutome.ligeu Noseow ndece  amch{0}", Custom String("s., ghilri ghowiugtaacemiocorairpeYoryieecck: nsict.f lowancfiofbeussielapctwedoav’sevookebicaagshlammolm ef uy.aieptyboThn’{0}", Custom String("imk viadlyiaivasff Ndrquuidsftostrminir.ayrmblp igssbuplpa I’trsd.cisut!goTropfueqrnReakdiifrtpr! I  Ymb Rru Tptwoulcrnacuex{0}", Custom String("giMyOuttlde!htda% spodrgo.fenno!nlmpsoksocabs!ues,rdZoWhpsga 1ysrkvalun.Hesce:upltwhclmyw muEvfrkiI’grDog.ba 20.Daoe vei'st’{0}", Custom String(" SMaPahr100% 0wnufucp.rrobHo H ASebrDiu’Was: Dd!Itn!St M kzih./50 rvoxuyms 3puidawxpgyAm? ehTo’m… nusnpiovsyPrgse,eg (5% Zfa{0}", Custom String("mnJuggubauaz255/af20lfnvoabynkfludlstcyehuwsny—n BBa—b’ldysatuHaa!ikCoy:5)5 o:EEog0/ib3 ' ew zzookgurwy! Pm.Sct—Ra jknBotnpp{0}", Custom String("Bec e—gtrcSugl’rDee?a.Getly, E15 Ws)e-NuQua-x 50/200.3ipxtA uaduGoekWey—Sip’ GGuw. Owrn'g,l.jeizAcMoFavoFr—yo,Eabj Fswnfybo’{0}", Custom String("s?eEEeuhCrrln--UUpk--a-PPuaxTi2/3:t:/1r,601/.4/xumyth,u''rn,mlp!xe 'skrf..ixtp'mxhd—CaDrlrh—l!jusqAls——gw?'td,zat,Fek.cqr!Bl{0}", Custom String("tmrpVeKaPejoWrr—xck’u.lvGre…t…XPP m:35 52 InebWon:.ctbb!g!x!twhySoae-h(STam!n?) pyu!wuze COvbs/3Sp1 188022%,05077/11Onf--r/6{0}", Custom String("/7702,4  xx22..5x5x1s'yi ““ii g”kt'gd'h'lmxaNeMLLGI'THHRROOWWIINNGm’yl—fCl[fs]MuSyi'’vSnw’y?—tlgNa[as;; y]l—xiahh!’ g’Ofa’Ru{0}", Custom String("o——IPor’d…kldlnmp?l,t'ddpgdv—iejjah…ao—sLiVidgp…I.ArBu—oohymph—eA--mi--zy’p—*ss** d:wtLuGag:(1(2(33/ V(44/Ex(5Brrbr'Fu45366 {0}", Custom String("52 6 77230.2.1x,m,eyk::ws//cc//bbvvziu|  |lpSaShwy(f(a(mdtx.:2244. 44::5577.l’hbPOOTTG QQ!yuSwka ‘‘eoyCuLeh)ACC!o?e’c!Chf!Ye{0}", Custom String("eoAg-fs…g?hdy…k!By-b(Pe)t?TuDDDOOSRGGBB!Ah LLa-vWulhpcWi –– Zayaw…c.gncc . ! ’ , : — q / ? - % ) … J U [ ] K * X 8 ” ;eueNeT{0}", Custom String("eYeIeSeDe0eWe5eMeHeRePeOe'eAeBe2e/eGe1ezeCe%eZe3e(eFeJe4eLeQe7e6eVeUe[e]eKe*eXe|e8e“e”e;e‘e–oNoToYoIoSoDo0oWo5oMoHoRoPoEoOoq{0}", Custom String("o'oAoBo2o/oGo1o-ozoCo%oZo3o(o)o…oFojoJo4oLoQo7o6oVoUo[o]oKo*oXo|"))))))))))))))))), Custom String(""))); // 76 elements
         Set Global Variable At Index(_extendedGlobalCollection, 50, String Slice(First Of(Value In Array(Global._extendedGlobalCollection, 49)), 0, 1)); // 12 elements
         Set Global Variable(decodeIn, Array(2, 1, 500, String Split(Custom String("ް!৆!ް!ް!ް!ް!ް!͡#͡#৆!͡#ް!৆!!!͡#͡#͡#͡#͡#͡#͡#৆!৆!੘৆!ް!ް!ް!ް!͡#͡#͡#ް!৆!͡#৆!͡#৆!৆!৆!৆!ް!ް!৆!৆!৆!৆!৆!৆!৆!"), First Of(Null)))); // 16 elements
         Call Subroutine(decompressNSub); // 1 element
@@ -6200,7 +6157,7 @@ rule ("Subroutine decompressVSub") {
                 Modify Global Variable(decodeOut, Append To Array, Vector(Divide(Add(Add(Add(Index Of String Char(Global.decodeTable, Char In String(Value In Array(Value In Array(Global.decodeIn, 3), Global.decodeString), Global.decodePosition)), If-Then-Else(Compare(First Of(Global.decodeIn), >, 1), Multiply(Index Of String Char(Global.decodeTable, Char In String(Value In Array(Value In Array(Global.decodeIn, 3), Global.decodeString), Add(Global.decodePosition, True))), 1024), Null)), If-Then-Else(Compare(First Of(Global.decodeIn), >, 2), Multiply(Index Of String Char(Global.decodeTable, Char In String(Value In Array(Value In Array(Global.decodeIn, 3), Global.decodeString), Add(Global.decodePosition, 2))), 1048576), Null)), Value In Array(Global.decodeIn, 2)), Value In Array(Global.decodeIn, True)), Divide(Add(Add(Add(Index Of String Char(Global.decodeTable, Char In String(Value In Array(Value In Array(Global.decodeIn, 3), Global.decodeString), Add(Global.decodePosition, First Of(Global.decodeIn)))), If-Then-Else(Compare(First Of(Global.decodeIn), >, 1), Multiply(Index Of String Char(Global.decodeTable, Char In String(Value In Array(Value In Array(Global.decodeIn, 3), Global.decodeString), Add(Add(Global.decodePosition, First Of(Global.decodeIn)), True))), 1024), Null)), If-Then-Else(Compare(First Of(Global.decodeIn), >, 2), Multiply(Index Of String Char(Global.decodeTable, Char In String(Value In Array(Value In Array(Global.decodeIn, 3), Global.decodeString), Add(Add(Global.decodePosition, First Of(Global.decodeIn)), 2))), 1048576), Null)), Value In Array(Global.decodeIn, 2)), Value In Array(Global.decodeIn, True)), Divide(Add(Add(Add(Index Of String Char(Global.decodeTable, Char In String(Value In Array(Value In Array(Global.decodeIn, 3), Global.decodeString), Add(Global.decodePosition, Multiply(2, First Of(Global.decodeIn))))), If-Then-Else(Compare(First Of(Global.decodeIn), >, 1), Multiply(Index Of String Char(Global.decodeTable, Char In String(Value In Array(Value In Array(Global.decodeIn, 3), Global.decodeString), Add(Add(Global.decodePosition, Multiply(2, First Of(Global.decodeIn))), True))), 1024), Null)), If-Then-Else(Compare(First Of(Global.decodeIn), >, 2), Multiply(Index Of String Char(Global.decodeTable, Char In String(Value In Array(Value In Array(Global.decodeIn, 3), Global.decodeString), Add(Add(Global.decodePosition, Multiply(2, First Of(Global.decodeIn))), 2))), 1048576), Null)), Value In Array(Global.decodeIn, 2)), Value In Array(Global.decodeIn, True)))); // 286 elements
                 Skip If(Modulo(Count Of(Global.decodeOut), 20), True); // 6 elements
                 Call Subroutine(LoadingPause); // 1 element
-                //__label_if_42__:
+                //__label_if_41__:
                 Modify Global Variable(decodePosition, Add, Multiply(3, First Of(Global.decodeIn))); // 6 elements
             End; // 1 element
         End; // 1 element
@@ -6237,7 +6194,7 @@ rule ("load map data") {
         Set Global Variable(decodeIn, Array(1, 1, 1, String Split(Custom String("!#$"), First Of(Null)))); // 16 elements
         Call Subroutine(decompressNSub); // 1 element
         Set Global Variable At Index(_extendedGlobalCollection, 58, Global.decodeOut); // 3 elements
-        Set Global Variable(decodeIn, Array(2, 1, 2000, String Split(Custom String("୔$ް!ް!ஂ#܈$!!"), First Of(Null)))); // 16 elements
+        Set Global Variable(decodeIn, Array(2, 1, 1500, String Split(Custom String("ா!ް!!!ް!ܿ#ް!"), First Of(Null)))); // 16 elements
         Call Subroutine(decompressNSub); // 1 element
         Set Global Variable(perkcosts, Global.decodeOut); // 2 elements
         Set Global Variable(decodeIn, Array(1, 1, Null, String Split(Custom String("'!!$##!!,#'!!$#*$!;$'!!$#-!!*%'!!$#$!!,#'!!$#$!!,&!!!!#!!!!#$!,@$#!,@$!!!!#!!!!#!!!!#!!!!#"), First Of(Null)))); // 15 elements
@@ -6252,13 +6209,13 @@ rule ("load map data") {
         Set Global Variable(decodeIn, Array(1, 100, 50, String Split(Custom String("˜`,!"), First Of(Null)))); // 16 elements
         Call Subroutine(decompressNSub); // 1 element
         Set Global Variable At Index(_extendedGlobalCollection, 114, Global.decodeOut); // 3 elements
-        Set Global Variable(decodeIn, String Split(Custom String("ۤۧ˟̂¦!̷ُ˚࠼°!߫͑΃֣΄˽!ِ˧̧®!߬̒˿؊ͩ!؋͍࠿̸̨࡙!"), First Of(Null))); // 8 elements
+        Set Global Variable(decodeIn, String Split(Custom String("ۧۨ˟̃¦!̷ِ˚࠹°!߬͑΄֚΅˽!؀˧̧®!؀۩ّ̖ͨ!؍͎࠼࠽̸̩!"), First Of(Null))); // 8 elements
         Call Subroutine(decompressTextSub); // 1 element
         Set Global Variable At Index(_extendedGlobalCollection, 142, Global.decodeOut); // 3 elements
-        Set Global Variable(decodeIn, String Split(Custom String("ۤۧ˟ّ̩֫̒׊̢˞̃˫̙̝˳͖̒$!̷ُ˚࠼՝ͦ͸˘ּ̙̭֤˚؀$!߫͑΃֣΄˽̣̾˘̙̭؁͍˸˫˝˗̻͖͗$!ِ˧̧˫̢̮̄˞˙،˞̻˳˧̪˭̹$!߬̒˿؊ͩ˵֙˭̢˞̔͜۩˿؍́˟̍!؋͍࠿̸̨࡙˪̳˟˘׮̢˞˨ַ̧̮̍!"), First Of(Null))); // 8 elements
+        Set Global Variable(decodeIn, String Split(Custom String("ۧۨ˟ْ̪̗֫׊̥˞̂˫̛̜˵̗͒$!̷ِ˚࠹՞ͥ͹˘ּ̛̯֥˚؁$!߬͑΄֚΅˽̢̾˘̛̯؂͎˸˫˝˗̻͗͒$!؀˧̧˫̮̥̄˞˙؎˞̻˵˧̨˭̹$!؀۩ّ̖ͨ˳֛˭̋˽͋˳ͨ۫˚˗ͪ˿̍!؍͎࠼࠽̸̩˪̲˟˘״̥˞˨ֵ̧̮̍!"), First Of(Null))); // 8 elements
         Call Subroutine(decompressTextSub); // 1 element
         Set Global Variable At Index(_extendedGlobalCollection, 121, Global.decodeOut); // 3 elements
-        Set Global Variable(decodeIn, String Split(Custom String("ِ̛߮˵࡛̖̕׳ْ֥͋˨࡝࡟̖ٕٖ̑ٓ̕˥̆˝״ٖ̱͈̞˘۪̋˨̤͖̉!߬̒˿։֎˜̚˨̱͈̞࣪˶˥˫̉࡫״࣮࣬߰߱߰۬˙˥˫؎ٔ؎ࣱࣲ؏˯̓̓;!ࣳ˗̱ۭࣵͨ΢˗̓˨̀˟̼̀˝״ٖ̱͈̞˘͘˸۽˚֐̬͠͹;!ܼࣶ͓۫ࣸ֬ͨ͘˟˹͡˧;!ࣹ̺˾͋˘͚{0}", Custom String("0˗ܼ࡞ٔٓ֬͘˙˥̲ͅ˧̷̧̜̑;!؃̧̮ࣺࣼٔࣾ࡯؎;!")), First Of(Null))); // 12 elements
+        Set Global Variable(decodeIn, String Split(Custom String("؀۩̖˳࠿̒̓׵֦ٔ͌˨࡚࡛ٕٖ̒̓̑۬˥̇˝׌ٖ̱̟͆˘۽̎˨̣̉͒!̗࣫̀֊֏˜̚˨̱̟࣬͆˶˥˫̉࡜׌࣮߰߱߰۾ࣰ˙˥˫؏ۭ؏ࣳࣴؐ˯͉̘;!ࣵ˗̱܀ࣷͣ΢˗͉˨́˟̺̀˝׌ٖ̱̟͆˘͘˸܁˚֑̭ͦ;;!ֶܾࣺ͓߯ࣸͣ͘˟˹͠˧;!͔֚·˚̝͚{0}", Custom String("0˭׌̺߰؄ࣼ˧̧߲͓̣ؑ̂׋̞ٓ;!؅̧̮ۭࣽࣿँ࡭؏;!")), First Of(Null))); // 12 elements
         Call Subroutine(decompressTextSub); // 1 element
         Set Global Variable At Index(_extendedGlobalCollection, 144, Global.decodeOut); // 3 elements
         Set Global Variable At Index(_extendedGlobalCollection, 143, Array(Ability Icon String(Hero(Cassidy), Button(Ability 1)), Icon String(Heart), Icon String(Fire), Icon String(Diamond), Icon String(Eye), Icon String(Halo))); // 18 elements
@@ -6529,7 +6486,7 @@ rule ("build the zone's doors") {
         While(Compare(Global.doorBuildIndex, <, Count Of(Global.doorVectors))); // 7 elements
             Skip If(Modulo(Global.doorBuildIndex, 2), True); // 5 elements
             Call Subroutine(LoadingPause); // 1 element
-            //__label_if_43__:
+            //__label_if_42__:
             Modify Global Variable(allDoors_Corner, Append To Array, Array(Value In Array(Global.doorVectors, Global.doorBuildIndex))); // 7 elements
             Modify Global Variable(allDoors_OppositeCorner, Append To Array, Array(Null)); // 3 elements
             Modify Global Variable(allDoors_Center, Append To Array, Array(Null)); // 3 elements
@@ -6678,19 +6635,19 @@ rule ("clear zone markers") {
             Destroy Effect(Value In Array(Global.zoneEffects, Global.zoneMarkerIndex)); // 5 elements
             Skip If(Compare(Modulo(Global.zoneMarkerIndex, 10), !=, 9), True); // 9 elements
             Call Subroutine(LoadingPause); // 1 element
-            //__label_if_44__:
+            //__label_if_43__:
         End; // 1 element
         For Global Variable(zoneMarkerIndex, 0, Count Of(Global.zoneTexts), True); // 4 elements
             Destroy In-World Text(Value In Array(Global.zoneTexts, Global.zoneMarkerIndex)); // 5 elements
             Skip If(Compare(Modulo(Global.zoneMarkerIndex, 10), !=, 9), True); // 9 elements
             Call Subroutine(LoadingPause); // 1 element
-            //__label_if_45__:
+            //__label_if_44__:
         End; // 1 element
         For Global Variable(zoneMarkerIndex, 0, Count Of(Value In Array(Global._extendedGlobalCollection, 129)), True); // 7 elements
             Destroy Icon(Value In Array(Value In Array(Global._extendedGlobalCollection, 129), Global.zoneMarkerIndex)); // 8 elements
             Skip If(Compare(Modulo(Global.zoneMarkerIndex, 10), !=, 9), True); // 9 elements
             Call Subroutine(LoadingPause); // 1 element
-            //__label_if_46__:
+            //__label_if_45__:
         End; // 1 element
         Set Global Variable(zoneEffects, Empty Array); // 1 element
         Set Global Variable(zoneTexts, Empty Array); // 1 element
@@ -6745,7 +6702,7 @@ rule ("draw zone markers") {
             End; // 1 element
             Skip If(Compare(Modulo(Global.zoneMarkerIndex, 6), !=, 5), True); // 9 elements
             Call Subroutine(LoadingPause); // 1 element
-            //__label_if_47__:
+            //__label_if_46__:
         End; // 1 element
         For Global Variable(zoneMarkerIndex, 0, Count Of(Global.bossbuypositions), True); // 4 elements
             If(Compare(Index Of Array Value(Global.teleporterpositions, First Of(Sorted Array(Global.teleporterpositions, Distance Between(Value In Array(Global.bossbuypositions, Global.zoneMarkerIndex), Current Array Element)))), ==, Global.telespot)); // 18 elements
@@ -6832,7 +6789,7 @@ rule ("fire sale boxes") {
         For Global Variable(fireSaleIndex, 0, Count Of(Global.mysterylocations), True); // 4 elements
             Skip If(Compare(Index Of Array Value(Global.teleporterpositions, First Of(Sorted Array(Global.teleporterpositions, Distance Between(Value In Array(Global.mysterylocations, Global.fireSaleIndex), Current Array Element)))), !=, Global.telespot), True); // 18 elements
             Modify Global Variable(fireSaleBoxes, Append To Array, Value In Array(Global.mysterylocations, Global.fireSaleIndex)); // 5 elements
-            //__label_if_48__:
+            //__label_if_47__:
             If(And(Compare(Index Of Array Value(Global.teleporterpositions, First Of(Sorted Array(Global.teleporterpositions, Distance Between(Value In Array(Global.mysterylocations, Global.fireSaleIndex), Current Array Element)))), ==, Global.telespot), Compare(Value In Array(Global.mysterylocations, Global.fireSaleIndex), !=, Global.rngbox))); // 28 elements
                 Create Effect(Local Player, Ring, Color(Purple), Value In Array(Global.mysterylocations, Evaluate Once(Global.fireSaleIndex)), 2, Visible To); // 9 elements
                 Modify Global Variable At Index(_extendedGlobalCollection, 130, Append To Array, Last Created Entity); // 2 elements
@@ -6987,7 +6944,7 @@ rule ("Purchase Mystery Box message") {
     }
 }
 
-//112 elements
+//116 elements
 rule ("Purchase perk machine message") {
     event {
         Ongoing - Each Player;
@@ -6997,7 +6954,7 @@ rule ("Purchase perk machine message") {
     conditions {
         (Event Player).perkBuyMessTimer == False; // 3 elements
         (Event Player).outofpsawn == 1; // 4 elements
-        Is True For Any(Global.buyperks, Compare(Distance Between(Event Player, Current Array Element), <, 2)) == True; // 10 elements
+        Is True For Any(Array Slice(Global.buyperks, False, 7), Compare(Distance Between(Event Player, Current Array Element), <, 2)) == True; // 14 elements
     }
     actions {
         Wait(0.1, Ignore Condition); // 2 elements
@@ -7142,7 +7099,7 @@ rule ("Info UI") {
         For Player Variable(Event Player, infoUIIndex, 0, 18, True); // 3 elements
             Skip If(Compare((Event Player).infoUIIndex, <=, Null), True); // 6 elements
             Call Subroutine(LoadingPause); // 1 element
-            //__label_if_49__:
+            //__label_if_48__:
             If(Array Contains(Array(Null, 7, 10, 14), (Event Player).infoUIIndex)); // 13 elements
                 Create HUD Text(If-Then-Else(Compare(Global.settingsViewers, ==, Null), Event Player, Null), Null, Null, Custom String("{0} {1}", Evaluate Once(Value In Array(Array(Icon String(Checkmark), Icon String(Bolt), Icon String(Diamond), Icon String(Heart)), Index Of Array Value(Array(Null, 7, 10, 14), (Event Player).infoUIIndex))), Value In Array(Global.infoText, Evaluate Once((Event Player).infoUIIndex))), Left, Add(10, (Event Player).infoUIIndex), Null, Null, Color(Yellow), Visible To and String, Default Visibility); // 50 elements
             Else If(Compare((Event Player).infoUIIndex, ==, 5)); // 7 elements
@@ -7385,7 +7342,7 @@ rule ("Dialogue - Text scrolling Function") {
         Modify Global Variable(Character_Nr, Add, True); // 1 element
         Skip If(Modulo(Global.Character_Nr, 3), True); // 5 elements
         Play Effect(All Players(All Teams), Sombra Translocator Reappear Sound, First Of(All Players(All Teams)), Eye Position(First Of(All Players(All Teams))), 100); // 11 elements
-        //__label_if_50__:
+        //__label_if_49__:
         Wait(If-Then-Else(Array Contains(String Split(Custom String(".0!0?0-"), First Of(Null)), Char In String(Value In Array(Global._extendedGlobalCollection, 123), Global.Character_Nr)), 0.35, 0.05), Ignore Condition); // 22 elements
         Wait Until(Compare(Global.Character_Nr, <=, String Length(Value In Array(Global._extendedGlobalCollection, 123))), 99999); // 11 elements
         Loop If Condition Is True; // 1 element

@@ -1,0 +1,38 @@
+{
+  "Mode Name": "Zombies Antarctic Peninsula",
+  "Modes": {
+    "Assault": {
+      "Enabled": false
+    },
+    "Capture The Flag": {
+      "Enabled": false
+    },
+    "Control": {
+      "Enabled": true,
+      "Enabled Maps": [
+        "Antarctic Peninsula"
+      ]
+    },
+    "Control Balanced Overwatch": {
+      "Enabled": false
+    },
+    "Deathmatch": {
+      "Enabled": false
+    },
+    "Elimination": {
+      "Enabled": false
+    },
+    "Escort": {
+      "Enabled": false
+    },
+    "Hybrid": {
+      "Enabled": false
+    },
+    "Skirmish": {
+      "Enabled": false
+    },
+    "Team Deathmatch": {
+      "Enabled": false
+    }
+  }
+}

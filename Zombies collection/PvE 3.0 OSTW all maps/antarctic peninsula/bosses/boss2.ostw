@@ -34,8 +34,8 @@ Event.OngoingPlayer
 Team.Team2
 Player.Bastion
 if (Bosssequencer == 2)
-if (IsDummyBot(EventPlayer()) == true)
 if (Part == BossPart.Minigun)
+if (IsDummyBot(EventPlayer()) == true)
 {
     Wait(0.25, WaitBehavior.AbortWhenFalse);
     SetProjectileSpeed(EventPlayer(), 125);
@@ -68,8 +68,8 @@ Event.OngoingPlayer
 Team.Team2
 Player.WreckingBall
 if (Bosssequencer == 2)
-if (IsDummyBot(EventPlayer()) == true)
 if (Part == BossPart.ArmConnector)
+if (IsDummyBot(EventPlayer()) == true)
 {
     SetHealingReceived(EventPlayer(), 0);
     SetMaxHealth(EventPlayer(), 500);
@@ -89,8 +89,8 @@ rule: "277 Colossal charger dies"
 Event.OnDamageTaken
 Team.Team2
 Player.Reinhardt
-if (Health(EventPlayer()) == 1)
 if (Bosssequencer == 2)
+if (Health(EventPlayer()) == 1)
 {
     SetStatus(PlayersWithinRadius(EventPlayer(), 3, TeamOf(EventPlayer()), RadiusLOS.Off), null, Status.Stunned, 6);
     Wait(3, WaitBehavior.IgnoreCondition);
@@ -159,8 +159,8 @@ Event.OngoingPlayer
 Team.Team2
 Player.Bastion
 if (Bosssequencer == 2)
-if (IsButtonHeld(FirstOf(PlayersOnHero(Hero.Reinhardt, Team.Team2)), Button.PrimaryFire) == true)
 if (Part == BossPart.Minigun)
+if (IsButtonHeld(FirstOf(PlayersOnHero(Hero.Reinhardt, Team.Team2)), Button.PrimaryFire) == true)
 {
     PressButton(EventPlayer(), Button.SecondaryFire);
     Wait(0.05, WaitBehavior.IgnoreCondition);

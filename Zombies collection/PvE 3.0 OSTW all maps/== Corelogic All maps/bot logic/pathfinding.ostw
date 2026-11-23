@@ -3,13 +3,13 @@ Number ZombieBaseSpeed(): roundnumber <= 6 ? 80 + 8 * roundnumber : 128;
 rule: "137  bots too far away"
 Event.OngoingPlayer
 Team.Team2
+if (zombieTargetDistance > 90)
+
 if (IsAlive(EventPlayer()) == true)
 
 if (IsInSpawnRoom(EventPlayer()) == false)
 
 if (IsBossBot(EventPlayer()) == false)
-
-if (zombieTargetDistance > 90)
 {
 
     Wait(6 + SlotOf(EventPlayer()) * 0.032, WaitBehavior.AbortWhenFalse);

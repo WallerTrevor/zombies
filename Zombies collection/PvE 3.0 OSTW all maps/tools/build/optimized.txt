@@ -246,9 +246,8 @@ variables {
         118: healvariable
         119: damagevariable
         120: healthmax
-        121: doublemag
-        122: index
-        123: index_0
+        121: index
+        122: index_0
 }
 
 subroutines {
@@ -378,35 +377,35 @@ rule ("load text and hero lists") {
         Wait Until(And(And(Compare(Global.mapDataLoaded, ==, True), Compare(Global.pfMapReady, ==, True)), Compare(Global.zoneLoading, ==, False)), 90);
         Wait Until(Compare(Global.mapDataLoaded, ==, True), 60);
         Set Global Variable At Index(_extendedGlobalCollection, 53, True);
-        Set Global Variable(decodeIn, String Split(Custom String("ؗ׹΀˰˵ֹ˗֧׌؟!̜́˶͢˭˦˛̲˧̧̑݁֡͋׆˼̩̔˲͡ࡶ˹͍ۚ̓˶͢˭˶̡̺̑˽˺̡̏˱̮¶!֔˹̈˪̗׿˭˘˲˿֑٘΢˗۾˯̀܄̉˷̕˟԰̼̦́̀˷̕˟԰̇˴̛՟̷̇·۟˸͐̋΅˵̒͜˳˧˼˩̷͚̇·ֵ!˚˙˥˵͝˙˥˛˸˘̤׸́˟˹;ੈ˯{0}", Custom String("0ͨ˟̆˪˟ׁ̢̼֛˞̢̇͋˞̪԰˗˝̼͆֯׷܂˚̠؋͍˦˪̸̨!࣑˯ͥ˴֊՜̼̙̭̮˜߷̬˽׆̳ͨ̕˟˸˫̢͈֕˞˺˲̔ͨ΢˗̸̖̃˝˟!ִؗ˯֋̵؁˨̚˨̓׌˸࠲࠭˦̞̱ͮ˺̗ؓ̊̈˯̀܄̊˥̗̹!̭͊̀̏̃־˹̮˜̙̝ͮ׳΂̘˗˩̵˪˟˶۟ͮ͢{0}", Custom String("̱0˸˜̱̀΋%!؊ּ͌˜˝˗̐͟´!׉˱̢˞˺˩̟͞˙˥˪̳˟˵֙˗֑˛̲˴݁֡͋˘̦˗̦˞̞˦˘˝੊˶̧̺̑֩̀̋!؊ּ͌̀˷˙˥˪̳˟˦̳̏˘̙̭̈˼ٚ˪˟ׁ˦̞˪̈́΃ْ̤͕ٝ!ؗ׹̐˚̄˶˧ੋ!݉˧˗˚˙˥˼̻͖̅̈ͬ̽˪̵̽˘ָ֨ͩ܅˿˚̾{0}", Custom String("̷̯0˪˛՟˸˻˟̈́˜̈˼ٚ!ͫͤ̀˷˙˥˯̷˗݁֡͋˸˫͈֕̾΢˭˼˩͚˪̥˻¶!̡̭͊˽̪΂˾̓˦֢ͪ࠭͜۩֨˷˙،̳˘ٟ՜̢˞˨ͥ˿̧؉݌̟!࣓׌ͫ֕֌࠲˧̧̀˩~!׈֡͋˘͈̏͌̀˩ੌ˧̴੍ׁ͈̿ؔ੏ੑ݌׮!̭͊ͧ˫̞͗˙˥̪̘˭˜˽֎͇˫˩{0}", Custom String("޼˧ׁ0̴͈̿ؔ˘̴̧˼˹҄֕˝̘͙̘!੔̶ُ̦˜˝˗̴̜˙˴̴̉˙˥˸͐՗ؓ̀˩˘̶˃!"))))), First Of(Null)));
+        Set Global Variable(decodeIn, String Split(Custom String("ؘ׹΁˰˳ָ˗֨׎ً!̠˿˶͡˭˦˛̳˧̧݄֣̑͌׆˼̪̔˲͠ࡴ˹͎̘ۙ˶͡˭˶̡̼̑˽˺̡̏˱̮¶!֕˹̈˪̕׿˭˘˲̀֒ٗ΢˗܃˯̀܈̉˷̒˟҉̺˿̦́˷̒˟҉̆˴̖։̷̆ͨ۞˸͐̎·˳̗͜˵˧˼˩̷ֳ͚̆ͨ!˚˙˥˳͝˙˥˛˸˘̣׸˿˟˹΀੉˯{0}", Custom String("0ͣ˟̇˪˟ׁ̺̥֝˞̥̆͌˞̨҉˗˝̺֭̈́׷܆˚̝؍͎˦˪̸̩!࣐˯ͬ˴֋՛̛̺̯̮˜̭݀˽׆̲̒ͣ˟˸˫֖̥͆˞˺˲̔ͣ΢˗̸̓̂˝˟!ֲؘ˯֌̵؂˨̚˨͉׎˸࠯ࠪ˦̟̱ͯ˺ؔ̊̈̕˯̀܈̊˥̹̕!̯͊̀̏̂־˹̮˜̛̜ͯ׵΃̙˗˩̵˪˟˶͡۞ͯ{0}", Custom String("̱0˸˜̱̀΋%!ּܷ͍˜˝˗̐͟´!׉˱̥˞˺˩̞͞˙˥˪̲˟˳֛˗֒˛̳˴݄֣͌˘̦˗̦˞̟˦˘˝ੋ˶̧̼̑֩́̎!ּܷ͍́˷˙˥˪̲˟˦̲̏˘̛̯̈˼ٙ˪˟ׁ˦̟˪̓΄̣ٜ͖ٔ!ؘ׹̐˚̄˶˧ੌ!݋˧˗˚˙˥˼̻̅̈ͭ̽͒˪̵̽˘ַ֜ͪ܉̀˚̾{0}", Custom String("̷̬0˪˛։˸˻˟̓˜̈˼ٙ!ͩͤ́˷˙˥˯̷˗݄֣͌˸˫֖͆̾΢˭˼˩͚˪̤˻¶!̡̯͊˽̨΃˾̘˦֤ͫࠪ͜܂֜˷˙؎̲˘ٞ՛̥˞˨̧ͬ̀׋̞ٓ!࣒׎֖ͩ֍࠯˧̧́˩~!׈֣͌˘͍͆̏́˩੍˧̴ׁ̿ؕ͆੎੐੒ٓ״!̯͊ͧ˫̟͗˙˥̨̙˭˜˽֏ͅ˫˩{0}", Custom String("޽˧ׁ0̴̿ؕ͆˘̴̧˼˹֖҄˝̙͙̙!੕̶ِ̦˜˝˗̴̠˙˴̴̉˙˥˸͐԰ؔ́˩˘̶˃!"))))), First Of(Null)));
         Call Subroutine(decompressTextSub);
         Set Global Variable(infoText, Global.decodeOut);
         Set Global Variable At Index(_extendedGlobalCollection, 53, False);
-        Set Global Variable(decodeIn, String Split(Custom String("̛̌˗̈˺˩֑̪̌˭˘̷̜%!˛͒΅̃־˹׵˱̢˞˨׷߶˸˘֦͆˹̈˺˩̱٘˗̷̜!̢̙̭̱͒˞˨˥̗˸͓̂˜˛΄˽˿̘̞͓̎̃˝˗̨̗£!۪̋˨̤֊՜˝̗́ࡲ̢˞ّ̒՝̆̑˝˗˥̗˭̢˞˼˞̻·!͙̘˚̠˝˗;՟ܾ˰˶֧̑֜̊͜˝˗̐˚̄˸͓̙̭̦{0}", Custom String("0˗׮˙˴˝˗̸̛̆˷¤!˾˘̸̖̓˨̱̈ͮ˙˥˵׋̋͏˼ٙ˙̡˫։ँ˷˦̲ܿ̕˟¯!̳̏̚˟˘́՜˶˾̢̙̭̊̀̏˞ࡴ˗ؑ̓͡!׀̌˺͚̈ͬ˾͆˘ͧ˫͙̱ͮ˿۾˺̫׺՛ͧ̀˷ंऺ̟̖̬̓̕˷˕!˝˟˗˰ٜ݀˩˭˙˴֊՜˸ࡵ̎̈́̊̀˝˸̄̃ؑ˼԰¶!{0}", Custom String("̓0׌˘˲˿˥ׂ̗̪̘͇̘͐̔̅˗͉̞̫΋̎̈́̊֊՜˝̗́̊˩؅̣˟˲˦̞̎߸˛̌!̐˚̄̇͸˱˿˩˶̣̿̾˘˝˗ͩ́̕˾%!׻˟˹̷̋˺˲˼˱ͭ˾˳ֹ̛̗̤̖ͬ֓̕´!߹͂܀˸˘׍׎׃̛˳˧˙˥̝̇ͅ׃̺˾˹̈˙˥˙̖­!֋͍˦˪̸̨̾΢˭̲ܿ˦͠{0}", Custom String("̬̀0˭%!")))), First Of(Null)));
+        Set Global Variable(decodeIn, String Split(Custom String("̖̌˗̈˺˩̨֒̌˭˘̷̠%!˛͔·̂־˹׶˱̥˞˨׷߳˸˘֧̈́˹̈˺˩̱ٗ˗̷̠!̛̯͔̱̥˞˨˥̕˸͓̃˜˛΅˽̙̟͓̀̋̂˝˗̩̕£!۽̎˨̣֋՛˝́̕ࡰ̥˞ْ̗՞̇̑˝˗˥̕˭̥˞˼˞̻·!͙̙˚̝˝˗΀։݁˰˶̑֨֞̊͜˝˗̐˚̄˸̛͓̯̦{0}", Custom String("0˗״˙˴˝˗̸̖̇˷¤!˾˘̸͉̓˨̱̈ͯ˙˥˳׍̎͋˼٘˙̡˫֊ऺ˷˦̳݂̒˟¯!̲̏̚˟˘˿՛˶˾̛̯̥̊́̏˞ࡲ˗̘ؒ͠!׀̌˺͚̈ͭ˾̈́˘ͧ˫͙̱ͯ̀܃˺̫׺՘ͧ́˷ऻा̞̘̭̒̓˷˕!˝˟˗˰ٛ݃˩˭˙˴֋՛˸ࡳ̋̓̊̀˝˸̄̂ؒ˼҉¶!{0}", Custom String("͉0׎˘˲̀˥ׂ̨̙̙͐̔̅̕ͅ˗͇̟̫΋̋̓̊֋՛˝́̊̕˩؇̢˟˲˦̟̋߶˛̌!̐˚̄̆͹˱̀˩˶̢̿̾˘˝˗ͪ˿̒˾%!׻˟˹̷̎˺˲˼˱ͮ˾˵ָ̣̖ͭ֔̒̓̕´!߷͂܄˸˘׏׫׃̖˵˧˙˥͈̜̆׃̼˾˹̈˙˥˙̓­!֌͎˦˪̸̩̾΢˭̳݂˦ͦ{0}", Custom String("̭́0˭%!")))), First Of(Null)));
         Call Subroutine(decompressTextSub);
         Set Global Variable At Index(_extendedGlobalCollection, 59, Global.decodeOut);
-        Set Global Variable(decodeIn, String Split(Custom String("߽˜˛़!̌˜˝׶˨˱£!݂̈˦̇ͅ˜֫ࡷ!֓˜̳̟£!؆̛̔ͭࡸ˘͟˛̪̈́׽˷!؆ࡹࡹְ˜݃ि˯׽̏˘͟˛˸͐ؒ͗֐˱·!؆˺׎܄ी˪˟̚՚˲̵˶϶ࡼ̴̨݄̍˥ु˚¦!؆˯׽̏˸՟ׅ˶϶˙ְ͉ͧ̏˹ͨٞ˱·!؆̪ؓ΃̱͆̓˙˴̡˽̨̩̔̃!̴̜͐՗{0}", Custom String("0̘̓˦˪̨̗̚˿ָ͍͓̘ͩ̃΍ٟ̦̑˱˭̹!֯̓̽˱̵˿̤̱˽˛˺϶˗͘˙̦̮˜͗ू̀˩!")), First Of(Null)));
+        Set Global Variable(decodeIn, String Split(Custom String("߻˜˛ी!̌˜˝؈˨˱£!̈݅˦͈̆˜֫ࡵ!֔˜̲̞£!؉̖̔ͮࡶ˘͟˛̨̓׽˷!؉ࡷࡷ֮˜݆ू˯׽̏˘͟˛˸֑͐ؓ͗˱·!؉˺׫܈ृ˪˟̚՜˲̵˶϶ࡺ̴̩̍݇˥ॄ˚¦!؉˯׽̏˸։ׅ˶϶˙͇֮ͧ̏˹ͣٝ˱·!؉̨ؔ΄̱̘̈́˙˴̡˽̩̪̔̂!̴̠͐԰{0}", Custom String("0̙̘˦˪ַ̩͎͓̙̀ͪ̂̕̚΍̦̑ٞ˱˭̹!͉֭̽˱̵̣̱̀˽˛˺϶˗͘˙̦̮˜͗ॅ́˩!")), First Of(Null)));
         Call Subroutine(decompressTextSub);
         Set Global Variable At Index(_extendedGlobalCollection, 60, Global.decodeOut);
-        Set Global Variable(decodeIn, String Split(Custom String("߽˜˞ࡾͩ܅£!ृ̓˘̤܆¦!̰˜׀݅ॅ!ॆͬेॉो्!"), First Of(Null)));
+        Set Global Variable(decodeIn, String Split(Custom String("߻˜˞ࡼͪ܉£!ॆ̘˘̣܊¦!̰˜׀ّै!ॉͭॊौॎ॑!"), First Of(Null)));
         Call Subroutine(decompressTextSub);
         Set Global Variable At Index(_extendedGlobalCollection, 61, Global.decodeOut);
-        Set Global Variable(decodeIn, String Split(Custom String("ֿׁ֔̈́̎͹̰֞˵˧˗͙̘˘̗̈̇ؔ!̰˦̳ؕ˘˛̧˚̍֟׺́˶͵͖!ֱ̦̜̕܈˸˘ָ˱͖֌˵͚˜˛́˧˗˾;!߿͝˩̇͏܉̅̉˷̪ͭ֒!̴̦ࠗॎ˘֦͆ͯ܊̈́΃̖̬̈̕˷;!ׂ̰̔ͦ̄̍؋ॏ۩˿̡͚֯̋֏!߿̏˙̡؇˘̤߼ࢁ̂˯̪̿̄ͭ֒!ֱ˶̖̐˫{0}", Custom String("0˰˯̓˻֣̍֊˱˰̉˷̴̲̒֏!߿͝˩˘҄ࠖ͗́˘̀̏̕͢˗֭̈̇!॒߶ֿͣ̎͹̰̍˝˚̛̠҉%!֤͉॓́̋˿͙͸˘˲˿׵॔ͅ!̰˯˥̏˘̛҉̍ࠛ͐˦˛̇͏;!ֱ˼̴ͩ˘̦˗̂˜˝˗̛݈֝ؖ݅˹̷̜˸̹!ֲֳ̤։̣̹֥̏̉˘˰˦˪̗֚͆;!ࢂּ˩̇{0}", Custom String("͏0̍ॕֺ̡̯́̔͌!ࠛ΁˘֦͆ͯ҃̅̉˷̪ͭ˜̈˳̯ͅ!̰˦ͪ˴̛҉֞ॖ́͆˘҄ͯ!ִؗ̃˫ॗͬ˞˜͘˺ֺ̡˭%!̷ֱ̌̕˨̟˽˨֤͐̇͏܌̩˵˹ּͧ˩̇؄̹!͉݉࠘˘̟֓̍׾˽̲̾̅̅̉˷̪͖ͭ!ֱ˶̖̐˫˰̩̃܉˴˱˟٫̔͆͵͐;!٬׺՛̀˩̇{0}", Custom String("͸̛0̋֏҃̅̉˷̪ͭ˜͉̈̇ࠜ!ֱ˯̈˛˘̦˗҄͵̟֏֌܍̟̑̓˵˧̯!ॣ̨̳̩̰ͣ̔̃֞˝˚̛̠҉%!ֲ˜͘˦ֽͪ!ࢃ˹̆˛΅॥ؘٰ॰΂˗̣̈̾˪˟׀֫ࢆ!݋̺݃΁˘҄ͯ҃˴̸̦̮̔͆͵՛˷;!ংַ̪͖֥ͭ̅̆΋ֿ̎͹%!ࠛ͐˦˛̩̰̃֞˝˚̛̠{0}", Custom String("҉%!0܏؉݌ֿ̟̎͹̷̍֟̇͏;!̰ަ̵̪҆ͭ݊̂˝˚̠̈̾΢̯!ঃ˷͏˯ׁ̖҅঍݃͐˺ֿ̬͍̎͹!֣̱٘˭̇͸̛̋֏҃̅̉˷̔͆͵͐;!ֲ˜͘˯̋͜܌̴ͩ˘׺́˶͵͖!۔঒͐̎ࢀ̰ۨ́̓̍˝˚̛̠҉˙˴։֘;!ֱ˶̖̐΁˘ָ˱ֺؙ͖̟̏̎˹˰̾{0}", Custom String("˩̯!܋0঱̩ࠞ͂̔˞̞ࢊ֓˜̂˝˚঳̛҉%!ֱ˪̣̆˘̦˗ָ˱݊̂˝˚̠˛̧˚̹!܏঴˘֦͆ͯ҃̅̉˷̪ͭ˜˚̴͛;!঵܂঺˘̟̰֓̍˝˚̠̜˛˙˴ְ˽;!঻ּ˚̠͒ࢌ়҃׾ͬ˞͖!ࢃ̺܃̇͏̍ি͟ী˘̟֓;!ֲֳ̛̤΅ۗ̂˝˚̛̠҉˼ّ̛̩͍̹ۘ{0}", Custom String("!ֱ˶͉˝0˸˘˱ৃ˭׆̎˽˫̀˝˞˜̷׺՛̀˩;!ֲ˜͘˦ֽͪ!ֲ˜͘˦ֽͪ!ֲ˜͘˦ֽͪ!ֲ˜͘˦ֽͪ!ֲ˜͘˦ֽͪ!ֲ˜͘˦ֽͪ!"))))))), First Of(Null)));
+        Set Global Variable(decodeIn, String Split(Custom String("ֿׁ֕̓̋;̰֠˳˧˗͙̙˘̈̆ؕ̕!̰˦̲ؖ˘˛̧˚̍֡׺˿˶͸͒!̦̠֯̒܌˸˘ַ˱͒֍˳͚˜˛˿˧˗˾;!߽͝˩̆͋܍̅̉˷̨ͮ֓!߿̴̦॒˘֧̈́͵܎̓΄̭̈̒̓˷;!ׂ̰̔ͥ̄̍؍॓܂̡͚֭̀̎֐!߽̏˙̡؊˘̣߹ࡿ̃˯̨̿̄ͮ֓!֯˶̓̐˫{0}", Custom String("0˰˯͉˻֚̍֋˱˰̉˷̴̳̗֐!߽͝˩˘҄߾͗˿˘̀̏̒͡˗ֺ̈̆!ॕֿ߳̋͢;̰̍˝˚̝̖҈%!ॖ֥˿͇͙̎̀͹˘˲̀׶͈ॗ!̰˯˥̏˘̖҈̍࠘͐˦˛̆͋;!֯˼̴ͪ˘̦˗̃˜˝˗ّ̖֟ؗ݊˹̷̠˸̹!ְֱ̣֊̢̹֦̏̉˘˰˦˪̕՝̈́;!ࢀּ˩̆{0}", Custom String("͋0̍ॢ˿ֹ̡͍̬̔!࠘΂˘֧̈́͵҃̅̉˷̨ͮ˜̈˵͈̬!̰˦ͫ˴̖҈֠ॣ˿̈́˘҄͵!ֲؘ̂˫।ͭ˞˜͘˺ֹ̡˭%!̷֯̒̌˨̞˽˨ܑ֥̪͐̆͋˳˹ּͧ˩̆؆̹!݋͇ࠖ˘̞֔̍׾˽̳̾̅̅̉˷̨ͮ͒!֯˶̓̐˫˰̪̂܍˴˱˟٪̔̈́͸͐;!٫׺՘́˩̆{0}", Custom String("͹̖0̎֐҃̅̉˷̨ͮ˜͇̈̆࠙!֯˯̈˛˘̦˗҄͸̞֐֍̞̘ܰ̑˳˧̬!॰̲̩̪̰̔̂֠͢˝˚̝̖҈%!ְ˜͘˦ֽͫ!ࢁ˹̇˛·ংؙ٭ঃ΃˗̢̈̾˪˟׀֫ࢄ!ަ̼݆΂˘҄͵҃˴̸̦̮̔̈́͸՘˷;!঍ֵ̨֦ͮ͒̅̇΋ֿ̋;%!࠘͐˦˛̪̰̂֠˝˚̝̖{0}", Custom String("҈%!0،׋ֿ̞ٓ̋;̷̍֡̆͋;!̰ާ̵̨҆ͮ݌̃˝˚̝̈̾΢̬!঎˷͋˯ׁ҅̓঒݆͐˺ֿ̭͎̋;!̱֚ٗ˭̆͹̖̎֐҃̅̉˷̔̈́͸͐;!ְ˜͘˯̴ܑ̎ͪ͜˘׺˿˶͸͒!ٰ঳͐̋ࡾ۪˿̘̰̍˝˚̝̖҈˙˴֊֙;!֯˶̓̐΂˘ַ˱ֹؚ̞͒̏̋˹˰̾{0}", Custom String("˩̬!܏0঵̪ࠛ͂̔˞̟࢈֔˜̃˝˚঺̖҈%!֯˪̢̇˘̦˗ַ˱݌̃˝˚̝˛̧˚̹!،঻˘֧̈́͵҃̅̉˷̨ͮ˜˚̴͛;!়܆া˘̞̰֔̍˝˚̝̠˛˙˴֮˽;!িּ˚̝͔ࢊ҃ী׾ͭ˞͒!ࢁ̼܇̆͋̍ূ͟ৃ˘̞֔;!ְֱ̣̖·ۖ̃˝˚̝̖҈˼ْ̪͎̖̹ۗ{0}", Custom String("!֯˶͇˝0˸˘˱৆˭׆̋˽˫̀˝˞˜̷׺՘́˩;!ְ˜͘˦ֽͫ!ְ˜͘˦ֽͫ!ְ˜͘˦ֽͫ!ְ˜͘˦ֽͫ!ְ˜͘˦ֽͫ!ְ˜͘˦ֽͫ!"))))))), First Of(Null)));
         Call Subroutine(decompressTextSub);
         Set Global Variable At Index(_extendedGlobalCollection, 63, Global.decodeOut);
-        Set Global Variable(decodeIn, String Split(Custom String("΀˗͙̘̗̇׊̼։˜˝˗͔̣̏̇؄ۙࢍ;!̭͊˛҅ͅ˗̜˛˪̥˻˘̈˳ׅ̑˝˗҄·˩؆˳̝ͯ!ֿ̝̟͊̎̀՟̕˚̴֎̝̃˪̘̊̈̎־՞ֶ˱̌˻;!̝͊˵˰͛˩̔֗҆˛˘΅֗߻̋˳̨֨˷̼׀ִ͋҇!̝͊̔˭˟˽˘̦˗̴֊̣̼̓˲̮ࠢ!֣֖͜˙˥ަ̣֋͍{0}", Custom String("0˶˾̜̊˛˪̥˻׆˺̧̫̞˟;!̝͊̎٪͒͛˽˪ͩ͐̔֗҆˛˵˧˗̐˚̄;!ࢉ͒ͧ̋˵˧˗̐˚̄˳˧˙˥̖̬̔࢏̀˩͓̃˝˰؅˰͇׏!ֲ˨֋˝˙˴͡՘͕֫˗˰˼͍͒̓˼˹˚֑҂͑͋˻˳̨҈;!۔̖̑̕˲˿֝̅͌࢐˶˗˛҅ͅ˗֑́˱˲̵;!ި֕˼̒՝{0}", Custom String(";0֕!࢑̓˙̉˘ַ׌̟՟˶˾̜̊˛˪̥˻̹!̝͊˯ۚ̽˜˰˯՗˩ࠡ˼̢̩˞˨؁͕ͩ˗˰˶̖࢒؈̒΃̐˚̄;!΀˰̕׶́̔֗҆˛˘̜˛˺͝˾̼̆֋̟֜҇!ࠦ҅ͅ˗̜˛˪̥˻˘̈˳ׅ̙̝̑˪̳˟;!̰˯֪͝˵̣̆˶˾̩̿˪̥˻׆̢˞ّ̂ࢌ!ࠧ˛˪̥˻{0}", Custom String("׆̃0˨˾؆̷̾˗ۛ˟%!ࠩ˝˟˶˞ִ˼˗ܑ֨ު̥˻̓;!ޫ˟%!ֱ˳˧̨̮̔˘ִ͈˶˾̩̿˳ׅ¬!ֲ˨׿͢˾̘͇֫̑֯̓̽̌˻˘˛҅ͅ˗΅֨̀˩ֺ̟̆̎ͯ!̝͊˯׋̋ٛ̔֗҆˛ͮ৉̴͉̹!ࠦ҅ͅ˗̜˛˪̥˻˘̚˨׬͋˻֛͑˦৊˲̵̌˻;!ֱ̎٪˟΂{0}", Custom String("˱̄̔0֗҆˛˵˧˗֪̙̮՛ެ˱˟٫;!̰˜˱˞̻˪̥˻˘̚˨˝˰˳ͥ͒҇͟!܏̤́͡΁˜̻͗˜̚˨׼̒܌̽˷˵˧˗̐˚̄;!۝͌˰͇˫͗˛̐͟˨̴̧̞˘̜˛˙̡˫͍̣̐˺̡˷̯!ؚ֪̣˘͈́˵˧˗˝˲˙̉ࢊ̮˜̐˚̄;!࢕˚΃˚̈˦҂˧ַ̬͠͹˳ͅ{0}", Custom String("́;!؋0̀˱̵ׅ̍֔˪˛֐͛˩˸˘֯̓͐΢̯!׻˱˦˯֐˱̀́˺˲֍˳̨˿˝˰˪ͩ˫̀˝˞˜̐˚̄;!ࠧ̌˻ࡰ̇˱͋ࢁ˚֑҂͑͋˻˳̨֨˷;!׻̩͇ͥ˫˛҅ͅ˭̾˛̘˟˸۽˭࢖˱͖!ࠫৌ̤̟̓˘̜˛˯՗˱ޮ৏˦̞˵˧˗̐˚̄;!ܱ࢏ׇ̔֗҆˛˘̜˛{0}", Custom String("̔˭˞ޯ˭0˙˴̨̛϶̸̊৐̹!ް־՞ֶ˼̫͒˘˩΋˶˾̜̊˛̃҂˟˚۞;!߫̒͐̇˩֍˳՞ֶ˳˧˳˛ޭ̳ͫ̔˭̓͞˶˾̊̐˚̄;!৒ֻ̇͆˲҈̾˛̘˟˯̵̈́̽͗˙̡˫˝˰;!ۤ̂˶͵̄˳˧˙̱̿˶̿˸۽˭˜̜˛;!׻˱˙˥˺̛˽˨̟߯̓̚˘̜˛̃҂{0}", Custom String("˟˚۞;!৓0͛˩̔֗҆˛˘֖̞˚ࠡ˯̡ࢗͫͤ̋҇!࢘˻̝˗̴͸˟̃־˹׵˱̢˞˺˲˦҂˧˿˾;!߹;̨͹̨̋̕˨̟̓˘̤ۧ͠˟˯͂ͦ;!ֱ˯՗́޲˗͈˻˚ׅ׆˼̩̲̅˶˾̩̿˪̥˻̹!̰˜˱˞̻˪̥˻˘̚˨˝˰˳ͥ͒҇͟!̰˜˱˞̻˪̥˻˘̚˨˝˰{0}", Custom String("˳ͥ͒҇͟!̰0˜˱˞̻˪̥˻˘̚˨˝˰˳ͥ͒҇͟!̰˜˱˞̻˪̥˻˘̚˨˝˰˳ͥ͒҇͟!̰˜˱˞̻˪̥˻˘̚˨˝˰˳ͥ͒҇͟!̰˜˱˞̻˪̥˻˘̚˨˝˰˳ͥ͒҇͟!"))))))))), First Of(Null)));
+        Set Global Variable(decodeIn, String Split(Custom String("΁˗͙̙̆̕׊̺֊˜˝˗̢͕̏̆؆ۘࢋ;!̯͊˛͈҅˗̠˛˪̤˻˘̈˵ׅ̑˝˗҄ͨ˩؉˵̜͵!ֿ̜̞͊̋́։̒˚̴֏̜̂˪̙̊̈̋־՟ִ˱̌˻;!̜͊˳˰͛˩̔֘҆˛˘·֘߸̎˵̩֜˷̺׀ֲ͌՚!̜͊̔˭˟˽˘̦˗̴֋̢̘̺˲̮ࠟ!֚֗͜˙˥ާ̢֌͎{0}", Custom String("0˶˾̠̊˛˪̤˻׆˺̧̫̟˟;!̜ٟ͔͊̋͛˽˪ͪ͐̔֘҆˛˳˧˗̐˚̄;!ࢇ͔ͧ̎˳˧˗̐˚̄˵˧˙˥̭̔̓ࢍ́˩͓̂˝˰؇˰ͅ׬!ְ˨֌˝˙˴͠՗͖֫˗˰˼͔͎̘˼˹˚֒҂͑͌˻˵̩҇;!ٰ̒̓̑˲͍̀֟̅ࢎ˶˗˛͈҅˗֒˿˱˲̵;!ީ֖˼̗՞{0}", Custom String("΀0֖!࢏̘˙̉˘ֵ׎̞։˶˾̠̊˛˪̤˻̹!̜͊˯ۙ̽˜˰˯԰˩ࠞ˼̪̥˞˨؂͖ͪ˗˰˶̓࢐؋̗΄̐˚̄;!΁˰̒؈˿̔֘҆˛˘̠˛˺͝˾̺̇֌̞֞՚!͈ࠢ҅˗̠˛˪̤˻˘̈˵̛ׅ̜̑˪̲˟;!̰˯֪͝˳̢̇˶˾̪̿˪̤˻׆̥˞ْ̃ࢊ!ࠣ˛˪̤˻{0}", Custom String("׆̂0˨˾؉̷̾˗ۚ˟%!ࠥ˝˟˶˞ֲ˼˗֜ܲޫ̤˻̘;!ެ˟%!֯˵˧̮̩̔˘ֲ͆˶˾̪̿˵ׅ¬!ְ˨׿͡˾̙͉֭֫̑̽̌ͅ˻˘˛͈҅˗·֜́˩ֹ̞̇̋͵!̜͊˯׍̎ٚ̔֘҆˛ͯৌ̴͇̹!͈ࠢ҅˗̠˛˪̤˻˘̚˨׮͌˻֝͑˦্˲̵̌˻;!ٟ֯̋˟΃{0}", Custom String("˱̄̔0֘҆˛˳˧˗̛֪̮՘ޭ˱˟٪;!̰˜˱˞̻˪̤˻˘̚˨˝˰˵͔ͬ͟՚!،̣́͠΂˜̻͗˜̚˨׼ܑ̗̽˷˳˧˗̐˚̄;!͍ۜ˰ͅ˫͗˛̐͟˨̴̧̟˘̠˛˙̡˫̢͎̐˺̡˷̬!؛̢֪˘͆˿˳˧˗˝˲˙̉࢈̮˜̐˚̄;!࢓˚΄˚̈˦҂˧ֵ̭ͦ;˵͈{0}", Custom String("˿;!؍0́˱̵ׅ̍֕˪˛֑͛˩˸˘͉֭͐΢̬!׻˱˦˯֑˱́˿˺˲֎˵̩̀˝˰˪ͪ˫̀˝˞˜̐˚̄;!ࠣ̌˻࡮̆˱͌ࡿ˚֒҂͑͌˻˵̩֜˷;!׻̪ͬͅ˫˛͈҅˭̾˛̙˟˸܁˭࢔˱͒!ࠧ৐̣̞̘˘̠˛˯԰˱ޯ৒˦̟˳˧˗̐˚̄;!ܴࢍׇ̔֘҆˛˘̠˛{0}", Custom String("̔˭˞ް˭0˙˴̩̖϶̸̊৓̹!޲־՟ִ˼͔̫˘˩΋˶˾̠̊˛̂҂˟˚۝;!̗߬͐̆˩֎˵՟ִ˵˧˵˛ޮ̲ͩ̔˭͉͞˶˾̊̐˚̄;!৕ֻ̆̈́˲҇̾˛̙˟˯̵̓̽͗˙̡˫˝˰;!ۧ̃˶͸̄˵˧˙̱̿˶̿˸܁˭˜̠˛;!׻˱˙˥˺̖˽˨̞̘߮̚˘̠˛̂҂{0}", Custom String("˟˚۝;!৖0͛˩̔֘҆˛˘̟֗˚ࠞ˯̡࢕ͩͤ̎՚!࢖˻̜˗̴͹˟̂־˹׶˱̥˞˺˲˦҂˧̀˾;!߷΀̩;̩̒̎˨̞̘˘̣ͦۨ˟˯͂ͥ;!֯˯԰́޳˗͆˻˚ׅ׆˼̪̳̅˶˾̪̿˪̤˻̹!̰˜˱˞̻˪̤˻˘̚˨˝˰˵͔ͬ͟՚!̰˜˱˞̻˪̤˻˘̚˨˝˰{0}", Custom String("˵͔ͬ͟՚!̰0˜˱˞̻˪̤˻˘̚˨˝˰˵͔ͬ͟՚!̰˜˱˞̻˪̤˻˘̚˨˝˰˵͔ͬ͟՚!̰˜˱˞̻˪̤˻˘̚˨˝˰˵͔ͬ͟՚!̰˜˱˞̻˪̤˻˘̚˨˝˰˵͔ͬ͟՚!"))))))))), First Of(Null)));
         Call Subroutine(decompressTextSub);
         Set Global Variable At Index(_extendedGlobalCollection, 65, Global.decodeOut);
-        Set Global Variable(decodeIn, String Split(Custom String("ࢂࠠ˜҄֕˙˥˼̖˜̀˝˞˜˝˗̐˚̄%!؜׬߶̬̟˺̫˭˦˜̤̻̉˟˪̵̽;!܋͕ͩ˗ּͧ̅˼˗;ֶ́˯˴̸̖֊ͯ!̰˜˱˞̻˳ͅ͸̳˟˸˫̙̝˪ׂ͖ͦ!׫̆˚̠͡˭΁˜͈̌̃˫̤։৔̣;!͊؝̲̏̒˿̜˛̪֛˜̈˳΋˶˾̊̌;!࢙;̫˘͡΁˜͈̌{0}", Custom String("0˳˛۟˵ֵ̘!࢚ࡻ͌̀˩̔֗҆˛˘׿̖̋˨˚˽́̌˻;!΀˰˳˰˜͔˘ֺ̓̚˶˾̜̊˛˙̡˫͍̣̐˺̡˷̯!̰˙͍̽˘˝˰˙΂ޭ̙؝˛˯̿֜̃˫̐˚̄;!΀˗ׇ͠˯˚۞̃־˹̚˨˝԰˗׵˴֋ͯ!޴̘̊͡˭΁˜͈̌˺˥ۗ͝˲˿̟˾˥˨͡֌;!͊؝̲̏{0}", Custom String("̒0˿̜˛˙̡˫ָ̦˗̸˲̮˙˴࢛˚˵̯!࢜˩̠ͅ˩̼֋̟̙֜࢝؝˛˙ͤ˼̗ͦ;!ُ˛˷˝͓̃̀̏˸ۙ֍̎̂́ࢅ؛˚̠̐˚̄;!͉݉࠘˘͒ࠜ֠˞˺˲֍˦҂˧˿̌;!ܱ̭֞͊˝˞̻˜˝˰˶϶˳˛˗̴̜!ৗ̜˨̬ͦ˙̉˘͡˭΁˜͈̌˳˧˳˛̯!৘˹̌˦{0}", Custom String("˪˚0˜͗֎݊৚̼˲˿̜˛˪̥˻̹!؊̝·˗̆˩˗֧΁˜։˹̌;!΀˗ֿۜ̿܈͓͈̃˚˘˰˵˰͛˷˦̲̯̅!۝̅͌̀˩̇͆˲҈˵˧˗˝˲̢˞̯̕͢!͕݉͋˗͔˾˘̚˨̟̂̃ৢ࢞͸˜̙̝˶̛͖̆!ৣ̌৥݌˷˺԰̄̎߸͉̍޷˜̜˛˪̥˻ׄ!̰˜˱˞̻˪̥{0}", Custom String("˻˘̚0˨˝˰̕˟֭!߹̌ޯ˱̦৳˘ֻ̬̇˩֍˺̫˗̸̖ؔ!ؗ̂˨˰΁˜̸̖৺؛˚̠̜˛˙˴֝ۛ˗˾;!̰˜˱˞̻˳̨҈˙˴׍՛ͫ˸˻˴˝˗ͫ΅̳̹!࢕˚࢟˘˩˺ִ̳ͤ˫̢̀̏˞˺˲˪՜ͮؔ!۝͌˰͇˫̬ͦ˵˚޵֥ͤ̔͑̊̚˨̙ࢵ!׻˱˦˯֐˱̲̀́{0}", Custom String("̒҈˳̨0֨˷̰̼̲̍֟̅͡˶˲˜̤؁֫֫;!৻҅̒׽˷̲̥̱৽̕˗ܑ͎ٞ޷˜̜˛˪̥˻̹!̰˜˱˞̻˪̥˻˘̚˨˝˰̕˟֭!֣׀ࣈ˗̬ͦ˵˚˗͂ͦ˘̜˛˙̡˫˝˰;!̰˜˱˞̻˪̥˻˘̚˨˝˰̕˟֭!۝͌˰͇˫̬ͦ˵˚˗˰˺԰޸ͯ!ި̞˘̦˗ֺ̓̚{0}", Custom String("˶˾̜̊˛0˙̡˫׬͉׊;!ࣉ̳˝̔֗҆˛˘ܑ֪֛͑࣊˦̞˵˧˗̐˚̄;!̰˜˱˞̻˪̥˻˘̚˨˝˰̕˟֭!͊؝̲̏̒˿̤؛͢˟˯ۚ̽࣋˦̞˦̖̕΄˟˪̝̱;!ُ͉̋٫̔֗҆˛˘ֳ͙˟̔˭˞ޯ˭˙̡˫˝˭̯!̰˜˱˞̻˪̥˻˘̚˨˝˰̕˟֭!ਁ͍ͣ̔{0}", Custom String("̨̇͏̼֋֜0̟̙̭࢝͡΁˜̡˽˙˥˯͂ͦ;!ُ˛˷˝˯ؓ̊϶˵˚˗˰̦̟̎ࢎ̲̅˼˞̻͖!̰˜˱˞̻˪̥˻˘̚˨˝˰̕˟֭!̰˜˱˞̻˪̥˻˘̚˨˝˰̕˟֭!̰˜˱˞̻˪̥˻˘̚˨˝˰̕˟֭!̰˜˱˞̻˪̥˻˘̚˨˝˰̕˟֭!̰˜˱˞̻˪̥˻˘̚˨{0}", Custom String("˝˰̕˟֭!̰0˜˱˞̻˪̥˻˘̚˨˝˰̕˟֭!"))))))))), First Of(Null)));
+        Set Global Variable(decodeIn, String Split(Custom String("ࢀࠝ˜֖҄˙˥˼̓˜̀˝˞˜˝˗̐˚̄%!؝׮̭̞߳˺̫˭˦˜̣̻̉˟˪̵̽;!܏͖ͪ˗ּͧ̅˼˗΀ִ́˯˴̸̓֋͵!̰˜˱˞̻˵͈͹̲˟˸˫̛̜˪ׂͥ͒!׭̇˚̝͠˭΂˜͆̌̂˫̣֊ৗ̢;!͊؞̳̗̠̏̀˛̨֝˜̈˵΋˶˾̊̌;!ࢗ΀̫˘͠΂˜͆̌{0}", Custom String("0˵˛۞˳ֳ̙!࢘ࡹ͍́˩̔֘҆˛˘׿̓̎˨˚˽˿̌˻;!΁˰˵˰˜͕˘ֹ̘̚˶˾̠̊˛˙̡˫̢͎̐˺̡˷̬!̰˙͎̽˘˝˰˙΃ޮ̛؞˛˯̿֞̂˫̐˚̄;!΁˗ׇͦ˯˚۝̂־˹̚˨˝҉˗׶˴֌͵!޵̙̊͠˭΂˜͆̌˺˥ۖ͝˲̞̀˾˥˨͠֍;!͊؞̳̏{0}", Custom String("̗0̠̀˛˙̡˫ַ̦˗̸˲̮˙˴࢙˚˳̬!࢚˩̝͈˩̺֌̛̞࢛֞؞˛˙ͤ˼ͥ̕;!ِ˛˷˝͓̂̀̏˸ۘ֎̋̃́ࢃ؜˚̝̐˚̄;!݋͇ࠖ˘͔֢࠙˞˺˲֎˦҂˧̀̌;!ܴ̯֠͊˝˞̻˜˝˰˶϶˵˛˗̴̠!৚̠˨̭ͥ˙̉˘͠˭΂˜͆̌˵˧˵˛̬!৛˹̌˦{0}", Custom String("˪˚0˜͗֏݌ৢ̺˲̠̀˛˪̤˻̹!ܷ̜ͨ˗̇˩˗֨΂˜֊˹̌;!΁˗ֿۛ̿܌͓̂͆˚˘˰˳˰͛˷˦̳̬̅!͍ۜ̅́˩̆̈́˲҇˳˧˗˝˲̥˞̬̒͡!݋͖͌˗͕˾˘̚˨̞̃̂৥࢜͹˜̛̜˶̖̇͒!৲̌৺ٓ˷˺҉̄̋߶͇̍޸˜̠˛˪̤˻ׄ!̰˜˱˞̻˪̤{0}", Custom String("˻˘̚0˨˝˰̒˟ֺ!߷̌ް˱̦৽˘ֻ̭̆˩֎˺̫˗̸̓ؕ!ؘ̃˨˰΂˜̸̓৾؜˚̝̠˛˙˴֟ۚ˗˾;!̰˜˱˞̻˵̩҇˙˴׏՘ͩ˸˻˴˝˗ͩ·̲̹!࢓˚࢝˘˩˺ֲ̲ͤ˫̥́̏˞˺˲˪՛ͯؕ!͍ۜ˰ͅ˫̭ͥ˳˚޶֦ͤ̔͑̊̚˨̛࢞!׻˱˦˯֑˱́˿̳{0}", Custom String("̗҇˵̩0֜˷̰̺̳̍֡̅͠˶˲˜̣؂֫֫;!৿̗҅׽˷̳̤̱਀̒˗ܲٝ͏޸˜̠˛˪̤˻̹!̰˜˱˞̻˪̤˻˘̚˨˝˰̒˟ֺ!֚׀࢟˗̭ͥ˳˚˗͂ͥ˘̠˛˙̡˫˝˰;!̰˜˱˞̻˪̤˻˘̚˨˝˰̒˟ֺ!͍ۜ˰ͅ˫̭ͥ˳˚˗˰˺҉޹͵!ީ̟˘̦˗ֹ̘̚{0}", Custom String("˶˾̠̊˛0˙̡˫׮͇׊;!ࢵ̲˝̔֘҆˛˘֪ܲ֝͑ࣈ˦̟˳˧˗̐˚̄;!̰˜˱˞̻˪̤˻˘̚˨˝˰̒˟ֺ!͊؞̳̗̣̏̀؜͡˟˯ۙ̽ࣉ˦̟˦̒̓΅˟˪̜̱;!ِ͇̎٪̔֘҆˛˘ֱ͙˟̔˭˞ް˭˙̡˫˝˭̬!̰˜˱˞̻˪̤˻˘̚˨˝˰̒˟ֺ!਄͎̔͢{0}", Custom String("̩̺̆͋֌֞0̛̞࢛̯͠΂˜̡˽˙˥˯͂ͥ;!ِ˛˷˝˯ؔ̊϶˳˚˗˰̦̞̋ࢌ̳̅˼˞̻͒!̰˜˱˞̻˪̤˻˘̚˨˝˰̒˟ֺ!̰˜˱˞̻˪̤˻˘̚˨˝˰̒˟ֺ!̰˜˱˞̻˪̤˻˘̚˨˝˰̒˟ֺ!̰˜˱˞̻˪̤˻˘̚˨˝˰̒˟ֺ!̰˜˱˞̻˪̤˻˘̚˨{0}", Custom String("˝˰̒˟ֺ!̰0˜˱˞̻˪̤˻˘̚˨˝˰̒˟ֺ!"))))))))), First Of(Null)));
         Call Subroutine(decompressTextSub);
         Set Global Variable At Index(_extendedGlobalCollection, 64, Global.decodeOut);
-        Set Global Variable(decodeIn, String Split(Custom String("֔΍̑!̍΀˗֋˝˙˴̤̟׹֧࠺˿ְ͙͐;!#΀˰˙΂ؚ۟҃֩̑͞˧˶̺̑̂˜͙̇˱͋֏!!#֔΍̑!̍؃͂˸͐ؒ͗֐˱͖!#ް࠯͌࡫ࠞ˽̸݄̘̍΀˰˙̽̆˶̴̺̑̋՚˚˗˝׶˨؍̋;!!#؊ͪ˱֐˷֥̽̆$!;!#ް࠯͎͌̄޴̋̓̍֔͞΍̑!˼۠˚{0}", Custom String("0̹!#؋˝̣̝͑̍͊̇ͭ΍͕˗˩΋̇͜՜˘˝˗˚ͨ˾׃̛;!!#֔΍̧̨ۭ͇̑͞˫̴̋̓̍ࣨ͞˟׷ׂ׽˷˯׋̺̝̋ٛ̍ࠩ˗˰̲̅˦˫֕̀˩;!!#̢̭͊ͧ̏˞֎͜˽˘˥̗˭٭͊ࡳ˛˵˟͜˹׍̽׃̛˘˚˵˹֗߻̀˩;!!#̝͊̔˭˰͕͂˗˰˳̩̺̯҃{0}", Custom String("֩0ؚ̑͞˧˶̺̑֝ͨ͵ࠢ!!#֔΍̑!˸՛̘̭̀̓̍͊́͸˶̺̬˷΋˸˻˴̙̝̞̥̃ؑͮ˷;!#̝͊̎˽͏̎҂˧˜ֻ̓˘˝˗˚ͨ˾׃̺˾˹͘˵˹̴͛૱;!!#΀˗֧࠺˿̀̏˼˗˛;֘˸˫˧̴࡭˦̢̞˞˶̺͙͙̑̔͆͆˛˿˩΋˦˘̤͔֘˚؀!!#֔΍{0}", Custom String("̑!0˼۠˚̹޺̈́̊́͸˳˧ׇ͔˼˚҈̢˞˙՞ֶ˟˙˴̙̝˳̘̯!#ּ̭͊ͧ̅̔˭˰˜˝˗̴̀̍޿̏؈͌̈˨̱̽׆˦̢̞˞˦˛˯֦͟˦͔ͯ!!#̱֟ؖ٘˗̙̝̇ͭ΍̢͕̣۟֌ّ̂׹˾˼˱҈˙̳̦˿֑ؕ˱̴҇!!#֔΍̑!̞ͮ˟͔֢ͯ˭˰͕͂˗̌϶̝˭{0}", Custom String("˦˜̟0޲՞̛ܽ˪̗؁̬͠͹;!#̷֟˙˥˯̡͓̜̳̭̦̓̃̈ؕ̍͊˗˝˗͓̤͌̿̃؍̺̓˦̮;!!#΀˰˙̽̆˶̢̺̱̑֯̐˞˨׼·̺˾޹̢˞˨̺׎͛˩˘͘˯՗˱ޮْ!!#֔΍̑!˪̵̗̹̓֠˞˨̴́˚˹̵̛͉̈́̋˘ׇ͔̈˺˩׷͚͇׏!#΀˗֖ܰ˛{0}", Custom String("˺˲̂˜0ֳ͙̔ܿ̽˱ٍ̍̕϶˦ࢄ̖܎˺̱̿˫̌;!!#࢑͜˙˥˶׶̻˜͘˵˹֑҂˟˚̠՘ؕ˧̓ͮ̐˫̙ࢵ!!#֔΍̑!ͮ࠲ͥ҈̍࠮̸̖͙̘֜̕˼̽˷˘̙̭׷԰˟˙˴̛͕̯͛!#֟˱߼˛̎̋֘̆΋̭̦̍͊˗։˜܁̒̀˷˯̡͡܇˸˫˝˗́˧݈!!#΀˰{0}", Custom String("˶˧ִ˸˘0׷՜̼͔˾˚̠̈˼˗˛̷̝̲ͫ̓̍͊͝˭˶̺̑̂˜͙˺̦˽˿˚̈˸͖!!#֔΍̑!̕϶˺̫͕̝̞̌̓̍͊̎˸˘̂˜̸˲̵̼։˜̵֜͵˻ͯ!#΀˟˗˰̲˴˭̭̦ͧ̓̍͊˗̀ީ˭͛˷˙˥ٟ̇˫ؚ҃֩̑͘͞˧;!!#޴͗˲̵˸˘։˜˝˗͗֫̑ࣚ{0}", Custom String("˾̸͓̃˝˗0ؖ׀̛̋;!!#֔΍̑!˺˩̀ۘ˭֣̍͛́˲̵̔۠˰̋֎˦˘̤̘́˰̀ͧ̑˟̗҇!#̷֟̎ࠪ׎̀˩˵΅˗̧՛ֻ̭̦́̍͊˗˲̫̆͋˘̈˼˗ֺٝ̓;!!#")))))))), First Of(Null)));
+        Set Global Variable(decodeIn, String Split(Custom String("֕΍̑!̍΁˗֌˝˙˴̣̞׹֨࠷͙֮̀͐;!#΁˰˙΃۞҃֩̑؛͞˧˶̼̑̃˜͙̆˱͌֐!!#֕΍̑!̍؅͂˸֑͐ؓ͗˱͒!#޲͍ࠬ࡜ࠛ˽̸̙݇̍΁˰˙̽̇˶̴̼̑̎՜˚˗˝؈˨ۣ̎;!!#ܷͫ˱֑˷֦̽̇$!;!#޲͍ࠬ̄͏޵̘̎̍֕͞΍̑!˼۟˚{0}", Custom String("0̹!#؍˝̢̜͑̍͊̆ͮ΍͖˗˩΋̆͜՛˘˝˗˚ͣ˾׃̖;!!#֕΍̧̑܀̩͞ͅ˫̴̘̎̍ࣨ͞˟׷ׂ׽˷˯׍̼̜̎ٚ̍ࠥ˗˰̳̅˦˫֖́˩;!!#̯̥͊ͧ̏˞֏͜˽˘˥̕˭٬͊ࡱ˛˳˟͜˹׏̽׃̖˘˚˳˹֘߸́˩;!!#̜͊̔˭˰͖͂˗˰˵̪̼̬҃{0}", Custom String("֩0̑؛͞˧˶̼̑֟ͣ͸ࠟ!!#֕΍̑!˸՘̙̘̯́̍͊˿͹˶̼̭˷΋˸˻˴̛̜̟̤̂ؒͯ˷;!#̜͊̋˽͋̋҂˧˜ֻ̘˘˝˗˚ͣ˾׃̼˾˹͘˳˹̴͛૲;!!#΁˗֨࠷̀̀̏˼˗˛΀֙˸˫˧̴࡞˦̟̥˞˶̼͙͙̑̔̈́̈́˛̀˩΋˦˘̣͕֙˚؁!!#֕΍{0}", Custom String("̑!0˼۟˚̹޻̓̊˿͹˵˧ׇ͕˼˚̥҇˞˙՟ִ˟˙˴̛̜˵̙̬!#ּ̯͊ͧ̅̔˭˰˜˝˗̴́̍߫̏؋͍̈˨̱̽׆˦̟̥˞˦˛˯֧͟˦͕͵!!#̱֡ؗٗ˗̛̜̆ͮ΍͖۞̢̥֍ْ̃׹˾˼˱҇˙̲̦̀֒ؖ˱̴՚!!#֕΍̑!̟ͯ˟͕͵֤˭˰͖͂˗̌϶̜˭{0}", Custom String("˦˜̞0޳՟̖ܿ˪̕؂̭ͦ;;!#̷֡˙˥˯̡͉͓̠̲̯̦̂̈ؖ̍͊˗˝˗͍͓̣ۣ̼̘̿̂˦̮;!!#΁˰˙̽̇˶̼̱̥֭̑̐˞˨׼̼ͨ˾޺̥˞˨̼׫͛˩˘͘˯԰˱ޯٔ!!#֕΍̑!˪̵̘̹֢̕˞˨̴˿˚˹̵̖͇̓̎˘ׇ͕̈˺˩׷͚ͅ׬!#΁˗֗ܳ˛{0}", Custom String("˺˲̃˜0ֱ͙݂̔̽˱َ̍̒϶˦ࢂܱ̓˺̱̿˫̌;!!#࢏͜˙˥˶؈̻˜͘˳˹֒҂˟˚̝՗ؖ˧̘ͯ̐˫̛࢞!!#֕΍̑!ͯ࠯̸͙̙ͬ҇̍ࠫ̒̓֞˼̽˷˘̛̯׷҉˟˙˴̖͖̬͛!#֡˱߹˛̋̎֙̇΋̯̦̍͊˗֊˜܅̗́˷˯̡͠܋˸˫˝˗˿˧݊!!#΁˰{0}", Custom String("˶˧ֲ˸˘0׷՛̺͕˾˚̝̈˼˗˛̷̘̜̳ͩ̍͊͝˭˶̼̑̃˜͙˺̦˽̀˚̈˸͒!!#֕΍̑!̒϶˺̫͖̘̜̟̌̍͊̋˸˘̃˜̸˲̵̺֊˜̵֞͸˻͵!#΁˟˗˰̳˴˭͉̯̦ͧ̍͊˗̀ު˭͛˷˙˥̆ٞ˫҃֩̑͘؛͞˧;!!#޵͗˲̵˸˘֊˜˝˗͗֫̑ࣙ{0}", Custom String("˾̸͓̂˝˗0ؗ׀̖̎;!!#֕΍̑!˺˩́ۗ˭֚̍͛˿˲̵̔۟˰̎֏˦˘̣˿̙˰́ͧ̑˟̕՚!#̷֡̋ࠦ׫́˩˳·˗̧՘ֻ˿̯̦̍͊˗˲̫̇͌˘̈˼˗ֹٜ̘;!!#")))))))), First Of(Null)));
         Call Subroutine(decompressTextSub);
         Set Global Variable(dialogueLines, Global.decodeOut);
-        Set Global Variable(decodeIn, String Split(Custom String("߽̣̾˙˥̮ͬ̀҇!ؗ̓˙̉˘˥੖ׄ!##ࠫ̓֞֟̌˲܊ِؖ֞˯̫̣̉˷%!޷˜˚˙˥˛࠰˛ٌ֌˵̖˫ިࣗ!#΀˰˶˩֍̝͖֥ͤ̕˵ْؓ!੗˹̸̱̒%!׻˟࠳ֹ˹ͫͤ˜˝̗́̊˝˗;֥ࣙ،˞̻˙˥˼ٙ%!੘ͤ˜˝̗́̊˝˗̠͠޲̳˹˝˚؀!#੟ܺ̕˧{0}", Custom String("0˫͙͸޽!੠̕ͅ˧˫͙͸޽!੡͚͑̆˼̒׊,!#̵ࠩ˵˹̵̧̍܏̵˙˴˝˗؍̵%!܏̵˙˴˝˗̵̧˙˴˝˗̵̧˙˴˝˗̵̧˙˴˝˗؍̵%!#ٍͣ˙֧˸˫˝˗̜֘˚˓!ٍͣ˪϶˜̙̝˼̓̀̌;!ٍ͓ͣ̆̕֋́˯ࡽ;!ٍٜͣ੤ੰ!ٍͣੱ੶੸!ٍͣ˦˺˞{0}", Custom String("˻0͏˵˚̩˗ͫ˹͘˙˥̸̨̺̪̇ͨͣ؛̖࢒!#࢚͸˙̉˘੻੽!۝˭͛˷੾%!ࣜؕ˹؃޾̨ࣛ%!##̭͊ͧ΁˜̮˜̌%!׉ֵ̒̒̒!#׾ֳ͙ͬ˟˙̡˫̙̭̘˖!###ׇ֧̲̥̱ࣟ޽!࣠͂ંֵ!#ࠗެ઄ͬ;׋%!̰ۣ̫ۣ̫ۣ̫̂̂%!׉࠴˘ֹ̤͉֓̇֓{0}", Custom String("࣢޼0̿ͣ˦̾ͤ˿҄·˩!####઒˜֮˜֮˜֮˜֮˜֮˜֮֒!׻˟࠳ֹ˹݂͒˦˜׸˦ࡸ%!#׻˟̙̟˯̞͂؅˟˹̺́ࢆ!׉࠴˘͚˚̠̤̀˛٭̰˜̌֞˥˥ِ̊΁˜֧݆ؕ!##ޫ̬ͨ˗˾%!ۤ́˦΂˳˧˙˥ٌ̖̕!##઩؇˘̮˜̤̂˰˗΄َ̘͇ͥ!׉{0}", Custom String("˴͔˻0˘̤͇̏͠˫̉˜̐˚̄!##ࣟ՞઱֌ۖ˙̝՛˷̃˫˝˗઴%!ࠦ̀׍̀˷˺׶̬˷˳˲%!#ࠧ˝˳˧̧̀˩ֽ̾!࡜̌˙˴ּ͈͌˜˝˗̄͡%!ِ֌̕͢˗̈!##̡̡࢙̌̌%!׫˛ͣ˙˥˺͉͑%!׾̏˯̿׹̙̭̌͂%!#િ͌΃̙̝̱ۭ̃˨ࠟ͌΃̙{0}", Custom String("̝̱ۭ%0!ુ޾̡׹̴ֽ̗!#ۤ́͑˗͉˚˘׼̫˙˥ٌ̨̗̾!֔˹˲˿ͫͤ˜̭֧̌֞͊΁֒!݋˚ަ̵͚̀˘̚՚˦;˽%!̢ؗ̓˞̪ܳ˗̗͍̣ׄ!#ૃ˩˹˰͉̾̓ૄ̝ͩࠪ̓%!̭͊̀̏˯ֻؒ˨϶֌̷֢̘՗̡̤˽˯ֻؒ˛ٌ֠˞˨̈՚˱˜̩̀̏̃ͩ́˙˥˯{0}", Custom String("͂֎˖!׉0˴͔˻˘̛̤ٝࢗ́̕!#ܱު˹̡ު˹֜͠ે՜˖!׉ܹܹ̒̒̒࠷̒࠶ܹ̒̒˖!#ܱ˽˦˯̖֒!׫˛˺̫˭˙˥˼˩ૉ!#̭̮͊˜׬͉ؔ֠˞̣̾˯֪͝;!׻˟࠳ֹ˹̮̄˯֪͝%!΀˰̪˾޸˗ۚۧ˹̨̢̀̏̔˞̃˽҇!#΀˗̨΢˟̱˯˚۞˙˴̌{0}", Custom String("%!׉̘˦˛0˙̱̿!#૊޾۾˗؁˿݃׋%!΀̘˯͂֜˘˝˱֞ૌ̱ࣣۨ׉̘!#׉˴݂̈˵˹̴˻̝˭!૏֘˙̡˜ַۣ˵َ͚̳͑̇!؞˨˰˦̷̾˗˲˿׾͚ͬ˚̸̠̖̄%!#޷˜૑૓̓%!۝֕·˲ַ˸˘͚͜˭ׄ!׾ͬ˚%!#̷֟˼͍͒˚̠̙ࣥ!ް̓̽{0}", Custom String("˧˙˴૔૖!΀0˰˶̆̑˰˸͕˛֚֨˹̬֒!#૗͆̍૙૚ܲ!΀˗܁ͤ˨˰̪͢޶!#૛ࣦࣦ̊̊̊׵۩%!̠̙࣠؝˛˸֒!###׫ֽ̏֌˺˲˯̢̒˞%!؞̡͍̏˘˚˾΍̬ࣧ֏!׾̧ͬ׽˷˪͈֕֘;!#૞َ͐̈!#؊̏͌˜˝˗ֳ̛̬˼̆܃˙˴̀˫̤̯֝ࠥ!{0}", Custom String("ޫִ̿˙˥˺ִ̉0˛˫͘޼˛͍˚̠܋̏;!##ࣉ˞՝܆ࣘ!̰˜̤֑̤̓֘ۛૢ̤ૣ͏˲ۛ޶!࠹͚̊࠹͚̊࠹ْ͚!#޴̆˶˾̊˾;!͊؝˛˸۽˚֐̯̳֚҃ۗͫͤ˜˝͆%!ޫ͈̌ͮ܀̺̯֚ͩ؈̫˗͈̞˾͇͐˵՜˦ު΋!#")))))))))), First Of(Null)));
+        Set Global Variable(decodeIn, String Split(Custom String("߻̢̾˙˥̮ͭ́՚!ؘ͉˙̉˘˥੗ׄ!##̘ࠧ֠֡̌˲܎ؗ֠؀˯̢̫̉˷%!޸˜˚˙˥˛࠭˛ٍ֍˳̓˫ީࣖ!#΁˰˶˩֎̜֦̒͒ͤ˳ؔٔ!੘˹̸̗̱%!׻˟࠰ָ˹ͩͤ˜˝́̊̕˝˗΀֦ࣘ؎˞̻˙˥˼٘%!੝ͤ˜˝́̊̕˝˗̝ͦ޳̲˹˝˚؁!#੠ܽ̒˧{0}", Custom String("0˫͙͹޾!੡͈̒˧˫͙͹޾!੢͚͑̇˼̗׊,!#̵ࠥ˳˹̵̧̍،̵˙˴˝˗̵ۣ%!،̵˙˴˝˗̵̧˙˴˝˗̵̧˙˴˝˗̵̧˙˴˝˗̵ۣ%!#َ͢˙֨˸˫˝˗̠֙˚˓!َ͢˪϶˜̛̜˼̘́̌;!َ͓̒̇͢֌˿˯ࡻ;!َٛ͢੥ੱ!َ͢ੵ੷੹!َ͢˦˺˞{0}", Custom String("˻0͋˳˚̪˗ͩ˹͘˙˥̸̨̼̩̆ͣ͢؜̓࢐!#࢘͹˙̉˘੼੾!ۜ˭͛˷੿%!ࣛؖ˹؅޿̩ࣚ%!##̯͊ͧ΂˜̮˜̌%!׉ֳ̗̗̗!#׾ֱ͙ͭ˟˙̡˫̛̯̙˖!###ׇ̳̤̱ࣞ֨޾!ࣟ͂ઃֳ!#߿ޭ઎ͭ΀׍%!̰̫̫̫ۤ̃ۤ̃ۤ%!׉࠱˘ָ̣͇֔̆֔{0}", Custom String("࣡޽0̿͢˦̾ͤ̀҄ͨ˩!####઩˜֬˜֬˜֬˜֬˜֬˜֬֓!׻˟࠰ָ˹͔݅˦˜׸˦ࡶ%!#׻˟̛̞˯̟͂؇˟˹˿̼ࢄ!׉࠱˘͚˚̝̣́˛٬̰˜̌֠˥˥̊؀΂˜݈֨ؖ!##ެ̭ͣ˗˾%!ۧ˿˦΃˵˧˙˥ٍ̒̓!##઱؊˘̮˜̣̃˰˗΅ُ̙ͬͅ!׉{0}", Custom String("˴͕˻0˘̣ͦ̏ͅ˫̉˜̐˚̄!##ࣞ՟઴֍۔˙̜՘˷̂˫˝˗઺%!ࠢ́׏́˷˺؈̭˷˵˲%!#ࠣ˝˵˧̧́˩ֽ̾!࡙̌˙˴ּ͍͆˜˝˗̄͠%!؀֍̒͡˗̈!##̡̡ࢗ̌̌%!׭˛͢˙˥˺͇͑%!׾̏˯̿׹̛̯̌͂%!#ી͍΄̛̜̱܀̂˨͍ࠜ΄̛{0}", Custom String("̜̱܀%0!ૂ޿̡׹̴ֽ̕!#ۧ˿͑˗͇˚˘׼̫˙˥ٍ̩̾̕!֕˹˲̀ͩͤ˜̯̌֠͊֨΂֓!ަ˚ާ̵͚́˘̚՜˦΀˽%!ؘ͉̥˞̨ܶ˗̢͎ׄ̕!#ૄ˩˹˰͇͉̾ૅ̜̘ͪࠦ%!̯͊̀̏˯ֻؓ˨϶֍̷֤̙԰̡̣˽˯ֻؓ˛ٍ֢˞˨̈՜˱˜̪̀̏̂ͪ˿˙˥˯{0}", Custom String("͂֏˖!׉0˴͕˻˘̣ٜ࢕̖̒́!#ܴޫ˹̡ޫ˹ͦ֞ૈ՛˖!׉̗ܼ̗̗ܼ࠴̗࠳ܼ̗̗˖!#ܴ˽˦˯̓֓!׭˛˺̫˭˙˥˼˩૊!#̯̮͊˜׮͇֢ؕ˞̢̾˯֪͝;!׻˟࠰ָ˹̮̄˯֪͝%!΁˰̨˾޹˗ۙۨ˹̩̥̀̏̔˞̂˽՚!#΁˗̩΢˟̱˯˚۝˙˴̌{0}", Custom String("%!׉̙˦˛0˙̱̿!#ો޿܃˗؂݆̀׍%!΁̙˯͂֞˘˝˱્۪̱֠࣢׉̙!#׉˴̈݅˳˹̴˻̜˭!૑֙˙̡˜ֵۤ˳ُ͚̲͑̆!؟˨˰˦̷̾˗˲̀׾͚ͭ˚̸̝̓̄%!#޸˜૒૔̘%!֖ۜͨ˲ֵ˸˘͚͜˭ׄ!׾ͭ˚%!#̷֡˼͔͎˚̛̝ࣤ!޲͉̽{0}", Custom String("˧˙˴૕૗!΁0˰˶̇̑˰˸͖˛֜՝˹̭֓!#૘̈́̍૚૛ܵ!΁˗܅ͤ˨˰̨͡޷!#૜̊ࣥ̊ࣥ̊׶܂%!̛̝ࣟ؞˛˸֓!###׭ֽ̏֍˺˲˯̗̥˞%!؟̡͎̏˘˚˾΍̭ࣦ֐!׾̧ͭ׽˷˪֖͆֙;!#૟ُ͐̈!#ܷ͍̏˜˝˗ֱ̭̖˼̇܇˙˴̀˫̣̬֟ࠡ!{0}", Custom String("ެֲ̿˙˥˺ֲ̉0˛˫͘޽˛͎˚̝܏̏;!##ࢵ˞՞܊ࣗ!̰˜̣͉̣֒֙ۚૣ̣૤͋˲ۚ޷!࠶͚̊࠶͚̊࠶͚ٔ!#޵̇˶˾̊˾;!͊؞˛˸܁˚֑՝̬̲҃ۖͩͤ˜˝̈́%!ެ͆̌ͯ܄̼ͪ՝̬؋̫˗̟͆˾͐ͅ˳՛˦ޫ΋!#")))))))))), First Of(Null)));
         Call Subroutine(decompressTextSub);
         Set Global Variable At Index(_extendedGlobalCollection, 124, Global.decodeOut);
-        Set Global Variable(decodeIn, String Split(Custom String("ਂ̌˯̣̀˷¶!˲̙̟˺˲˺̡˷˗˝˭˗͙̚˛˙˥̷̾˗̦́̄!܋͍!͵̘ͬ˦˯̣̀˷͎֝΂̦˹͗˛˙˴̸˲̮˸࢐˯͌˩ַ͏˳ͅ˗̈̾˴؁͍˦˯̋°!؜҂͑֩͹͎࠮ۜۡ਋ܵ!؜҂͑֩͹͎̰՚̆ۡ࡝ܵ!؜҂͑֩͹ׇ͎ܱۡ਎ܵ!؜҂͑֩͹͎͉࢘̋˫਒ٕ,{0}", Custom String("0!؜҂͑֩͹͎਱՗͆˗਴ٕ,!؞˽؟܊ְֳ̽¤!؞˽؟֥˧࠯˧®!؞˽؟֢˲ͬ͡˥̗˭!؞˽؟ً͌̈ͅ਻˘֮·!؞˽؟࠰֩΋̔˲͡­!࣌˯׋̋࣎̃҂!࣌˯׋̋࣎̃®!؃̧̮˙֙˱״̶ؘ̖̬ؐ˷̶ٜ̫ؐۢ͠˗˛̈́̀˩ܶ਽ܷ¶!׈֡͋˘̓˨͔˽͎ਿ̶֢{0}", Custom String("ͨ0΢˗͎̪̀̌̂΂˾̶ؙܸͪͮ־΂˾̓!؃̧̮˙֙˱؂̶ؘ̖̬ؐ˷؂̶̫ؐۢ͠˗˛̈́̀˩࣏ܷܶ¶!׈֡͋˘̓˨͔˽͎ੁ̶֢ͨ΢˗͎̀̌࡮˯̶ؙܸ̲ͪ˧̧¬!؃̧̮˙֙˱߲؏̶ؘ̖̬˷؂̶̫ؐۢ͠˗˛̈́̀˩࣏ܶ˯!׈֡͋˘̓˨͔˽͎੄̶֢ͨ΢˗͎̀̌{0}", Custom String("੅˯0̶ؙܸ̲ͪ˧̧¬!؃̧̮˙֙˱״̶߱֬׫̆˚̶̠۬֬׈̖͇֡͋̔͞˫ٗٓ˯!׈֡͋˘̓˨͔˽͎̪̂΂˾̶֢ͨ΢˗͎̀̌۬˯̶ؙܸ̲ͪ˧̧¬!؃̧̮˙֙˱؂̶߱֬׫̆˚̠޻̶֬׈̖͇֡͋̔͞˫ٗ޻˯!׈֡͋˘̓˨͔˽͎̪̂΂˾̶֢ͨ΢˗͎̀̌޻˯{0}", Custom String("̶ؙͪ0ܸ̪̳!"))))), First Of(Null)));
+        Set Global Variable(decodeIn, String Split(Custom String("਋̌˯̢́˷¶!˲̛̞˺˲˺̡˷˗˝˭˗͙̚˛˙˥̷̾˗˿̦̄!܏͎!͸̙ͭ˦˯̢́˷͏֟΃̦˹͗˛˙˴̸˲̮˸ࢎ˯͍˩ֵ͋˵͈˗̈̾˴؂͎˦˯̎°!؝҂͑֩;͏ࠫۛ۠࡫ܹ!؝҂͑֩;͏̰՜࡚ܹ̇۠!؝҂͑֩;͏ׇܴ۠਒ܹ!؝҂͑֩;͏࢖͇̎˫਱ٕ,{0}", Custom String("0!؝҂͑֩;͏਷԰̈́˗਺ٕ,!؟˽ً܎ֱ֮̽¤!؟˽ً֦˧ࠬ˧®!؟˽ً֤˲ͭ͠˥̕˭!؟˽ًٌ͈͍̈਽˘֬·!؟˽ً࠭֩΋̔˲͠­!࣊˯׍̎࣌̂҂!࣊˯׍̎࣌̂®!؅̧̮˙֛˱׌̶ؙ̭ۡ̓˷̶̫ٛۡۢͦ˗˛̓́˩ؑ࡬ܺ¶!׈֣͌˘͉˨͕˽͏ੀ̶֤{0}", Custom String("ͣ0΢˗́̌͏̨̃΃˾̶ؚܻͫͯ־΃˾̘!؅̧̮˙֛˱؃̶ؙ̭ۡ̓˷؃̶̫ۡۢͦ˗˛̓́˩߲ؑܺ¶!׈֣͌˘͉˨͕˽͏ੂ̶֤ͣ΢˗́̌͏࡟˯̶ؚܻ̳ͫ˧̧¬!؅̧̮˙֛˱̶ؙ̭࣎ؐ̓˷؃̶̫ۡۢͦ˗˛̓́˩߲ؑ˯!׈֣͌˘͉˨͕˽͏੅̶֤ͣ΢˗́̌͏{0}", Custom String("੆˯0̶ؚܻ̳ͫ˧̧¬!؅̧̮˙֛˱׌̶ֶ߱׭̇˚̝۾̶ֶ׈֣͌̔̓͞ͅ˫؄۬˯!׈֣͌˘͉˨͕˽͏̨̃΃˾̶֤ͣ΢˗́̌͏۾˯̶ؚܻ̳ͫ˧̧¬!؅̧̮˙֛˱؃̶ֶ߱׭̇˚̝޼̶ֶ׈֣͌̔̓͞ͅ˫؄޼˯!׈֣͌˘͉˨͕˽͏̨̃΃˾̶֤ͣ΢˗́̌͏޼˯{0}", Custom String("̶ؚͫ0̨ܻ̲!"))))), First Of(Null)));
         Call Subroutine(decompressTextSub);
         Set Global Variable At Index(_extendedGlobalCollection, 10, Global.decodeOut);
         Set Global Variable(textListsLoaded, True);
@@ -951,7 +950,7 @@ rule ("soft restart: reset each player") {
         Set Healing Dealt(Event Player, 100);
         Set Max Health(Event Player, 100);
         Set Move Speed(Event Player, 100);
-        Set Player Variable(Event Player, doublemag, False);
+        Set Player Variable At Index(Event Player, perk, 4, False);
         Set Player Variable At Index(Event Player, _extendedPlayerCollection, 52, False);
         Set Player Variable At Index(Event Player, _extendedPlayerCollection, 48, False);
         Set Player Variable(Event Player, magazines, Array(5, 5));
@@ -1679,7 +1678,7 @@ rule ("160 orisa ammo") {
     }
 }
 
-rule ("105 specific hero ammo and double mag") {
+rule ("105 specific hero ammo") {
     event {
         Ongoing - Each Player;
         Team 1;
@@ -1691,31 +1690,29 @@ rule ("105 specific hero ammo and double mag") {
     actions {
         If(Is Button Held(Event Player, Button(Secondary Fire)));
             Skip(Value In Array(Array(3, Null), Add(Index Of Array Value(Array(Hero(Moira)), Hero Of(Event Player)), True)));
-            Modify Player Variable(Event Player, currentmagazines, Subtract, Multiply(0.05, Value In Array(Array(1, 0.5, 0.35, 0.25), Value In Array((Event Player).perk, 4))));
+            Modify Player Variable(Event Player, currentmagazines, Subtract, 0.05);
             Wait(0.25, Ignore Condition);
             Loop If Condition Is True;
         End;
         If(Is Button Held(Event Player, Button(Primary Fire)));
-            Skip(Value In Array(Array(19, Null, 6, 12, 14), Add(Index Of Array Value(Array(Hero(Doomfist), Hero(D.Va), Hero(Hanzo), Hero(Sigma)), Hero Of(Event Player)), True)));
-            If(Compare(Value In Array((Event Player).perk, 4), ==, False));
-                Modify Player Variable(Event Player, currentmagazines, Subtract, 0.25);
-                Wait(0.25, Ignore Condition);
-                Loop If Condition Is True;
-            End;
+            Skip(Value In Array(Array(17, Null, 4, 10, 12), Add(Index Of Array Value(Array(Hero(Doomfist), Hero(D.Va), Hero(Hanzo), Hero(Sigma)), Hero Of(Event Player)), True)));
+            Modify Player Variable(Event Player, currentmagazines, Subtract, 0.25);
+            Wait(0.25, Ignore Condition);
+            Loop If Condition Is True;
             Skip(13);
             Skip If(Is In Alternate Form(Event Player), 3);
-            Modify Player Variable(Event Player, currentmagazines, Subtract, Multiply(0.05, Value In Array(Array(1, 0.5, 0.35, 0.25), Value In Array((Event Player).perk, 4))));
+            Modify Player Variable(Event Player, currentmagazines, Subtract, 0.05);
             Wait(0.15, Ignore Condition);
             Loop If Condition Is True;
             //__label_if_8__:
             "pass"
             disabled Abort;
             Skip(7);
-            Modify Player Variable(Event Player, currentmagazines, Subtract, Multiply(0.25, Value In Array(Array(1, 0.5, 0.35, 0.25), Value In Array((Event Player).perk, 4))));
+            Modify Player Variable(Event Player, currentmagazines, Subtract, 0.25);
             Skip(5);
-            Modify Player Variable(Event Player, currentmagazines, Subtract, Multiply(0.05, Value In Array(Array(1, 0.5, 0.35, 0.25), Value In Array((Event Player).perk, 4))));
+            Modify Player Variable(Event Player, currentmagazines, Subtract, 0.05);
             Wait(0.1, Ignore Condition);
-            Modify Player Variable(Event Player, currentmagazines, Subtract, Multiply(0.05, Value In Array(Array(1, 0.5, 0.35, 0.25), Value In Array((Event Player).perk, 4))));
+            Modify Player Variable(Event Player, currentmagazines, Subtract, 0.05);
             Wait(1.5, Ignore Condition);
             Loop If Condition Is True;
             //lbl_0:
@@ -1733,29 +1730,10 @@ rule ("105 specific hero ammo and double mag") {
             End;
             Skip(3);
             If(Is Using Ability 2(Event Player));
-                Modify Player Variable(Event Player, currentmagazines, Subtract, Multiply(0.25, Value In Array(Array(1, 0.5, 0.35, 0.25), Value In Array((Event Player).perk, 4))));
+                Modify Player Variable(Event Player, currentmagazines, Subtract, 0.25);
             End;
             //lbl_3:
             //lbl_4:
-    }
-}
-
-rule ("136  dva ammo double mag") {
-    event {
-        Ongoing - Each Player;
-        Team 1;
-        D.Va;
-    }
-    conditions {
-        (Event Player).doublemag == 1;
-        Is Button Held(Event Player, Button(Primary Fire)) == True;
-    }
-    actions {
-        Skip If(Is In Alternate Form(Event Player), 3);
-        Modify Player Variable(Event Player, currentmagazines, Subtract, 0.025);
-        Wait(0.15, Ignore Condition);
-        Loop If Condition Is True;
-        //__label_if_9__:
     }
 }
 
@@ -1782,14 +1760,13 @@ rule ("112  hanzo ammo") {
     }
     conditions {
         Is Firing Primary(Event Player) == True;
-        (Event Player).doublemag == False;
     }
     actions {
         Modify Player Variable(Event Player, currentmagazines, Subtract, 0.25);
     }
 }
 
-rule ("84 reloading all heros without doublemag") {
+rule ("84 reloading uses a magazine") {
     event {
         Ongoing - Each Player;
         Team 1;
@@ -1797,10 +1774,9 @@ rule ("84 reloading all heros without doublemag") {
     }
     conditions {
         Is Reloading(Event Player) == True;
-        (Event Player).doublemag == False;
     }
     actions {
-        Modify Player Variable(Event Player, currentmagazines, Subtract, True);
+        Modify Player Variable(Event Player, currentmagazines, Subtract, Value In Array(Array(1, 0.5, 0.4, 0.3), Value In Array((Event Player).perk, 4)));
     }
 }
 
@@ -1909,21 +1885,6 @@ rule ("97 torb disable gun if no ammo") {
     }
     actions {
         Set Weapon(Event Player, 2);
-    }
-}
-
-rule ("98  reloading with doublemag") {
-    event {
-        Ongoing - Each Player;
-        All;
-        All;
-    }
-    conditions {
-        Is Reloading(Event Player) == True;
-        (Event Player).doublemag == 1;
-    }
-    actions {
-        Modify Player Variable(Event Player, currentmagazines, Subtract, 0.5);
     }
 }
 
@@ -2040,7 +2001,7 @@ rule ("172 FOLLOWERS  winston Omnic bomb") {
         Wait(0.5, Ignore Condition);
         Skip If(Compare(Players In Slot((Event Player).monkeyBombSlot, Team 1), !=, (Event Player).monkeyBomb), True);
         Destroy Dummy Bot(Team 1, (Event Player).monkeyBombSlot);
-        //__label_if_10__:
+        //__label_if_9__:
         Set Player Variable(Event Player, monkeyBomb, Null);
         If(And(Value In Array((Event Player)._extendedPlayerCollection, 21), Is Alive(Event Player)));
             Wait(0.1, Ignore Condition);
@@ -2071,7 +2032,7 @@ rule ("352 FOLLOWERS attack nearest zombie") {
                 Skip If((Event Player).followerFiring, 2);
                 Start Facing(Event Player, Direction Towards(Eye Position(Event Player), Eye Position((Event Player).followerTarget)), 720, To World, Direction and Turn Rate);
                 Set Player Variable(Event Player, followerFiring, True);
-                //__label_if_11__:
+                //__label_if_10__:
                 Start Holding Button(Event Player, Button(Primary Fire));
             Else If((Event Player).followerFiring);
                 Stop Holding Button(Event Player, Button(Primary Fire));
@@ -2245,7 +2206,7 @@ rule ("Pack a punch Ongoing - player") {
         Else If(Is Using Ability 1(Event Player));
             Skip If(Compare(Hero Of(Event Player), !=, Hero(Sojourn)), True);
             Set Status(Players Within Radius(Event Player, 3, Team 2, Off), Event Player, Knocked Down, 4);
-            //__label_if_12__:
+            //__label_if_11__:
         Else If(Is Using Ability 2(Event Player));
             If(Compare(Hero Of(Event Player), ==, Hero(Tracer)));
                 Set Status(Players Within Radius(Evaluate Once(Position Of(Event Player)), 5, Team 2, Off), Event Player, Stunned, 4);
@@ -2728,7 +2689,7 @@ rule ("393 POINTS Omnic kill (final hit)") {
         Chase Player Variable At Rate(Event Player, points2, Multiply(Evaluate Once((Event Player).points), (Event Player).H), Value In Array(Array(1000, 1000, 250), (Event Player).killKind), Destination and Rate);
         Skip If(Compare((Event Player).H, ==, 1), True);
         Modify Global Variable At Index(_extendedGlobalCollection, 118, Add, Multiply(Value In Array(Array(100, 200, 120), (Event Player).killKind), (Event Player).H));
-        //__label_if_13__:
+        //__label_if_12__:
         Modify Player Variable At Index(Event Player, xp, (Event Player).currentheroxp, Add, Value In Array(Array(5, 10, 6), (Event Player).killKind));
         Set Ultimate Charge(Event Player, Add(Ultimate Charge Percent(Event Player), Divide(Multiply(Value In Array(Global.difficultyStats, 5), If-Then-Else(Array Contains(All Support Heroes, Hero Of(Event Player)), 1.5, If-Then-Else(Array Contains(All Tank Heroes, Hero Of(Event Player)), 1.25, 1))), 2)));
     }
@@ -2754,10 +2715,10 @@ rule ("396 POINTS Omnic kill (elimination)") {
         Modify Global Variable At Index(_extendedGlobalCollection, 47, Add, (Event Player).killPoints);
         Skip If(Compare((Event Player).killKind, !=, 2), True);
         Chase Player Variable At Rate(Event Player, points2, Multiply(Evaluate Once((Event Player).points), (Event Player).H), 250, Destination and Rate);
-        //__label_if_14__:
+        //__label_if_13__:
         Skip If(Compare((Event Player).H, ==, 1), True);
         Modify Global Variable At Index(_extendedGlobalCollection, 118, Add, Multiply(Value In Array(Array(80, 160, 70), (Event Player).killKind), (Event Player).H));
-        //__label_if_15__:
+        //__label_if_14__:
         Modify Player Variable At Index(Event Player, xp, (Event Player).currentheroxp, Add, Value In Array(Array(5, 10, 7), (Event Player).killKind));
         Set Ultimate Charge(Event Player, Add(Ultimate Charge Percent(Event Player), Divide(Multiply(Value In Array(Global.difficultyStats, 5), If-Then-Else(Array Contains(All Support Heroes, Hero Of(Event Player)), 1.5, If-Then-Else(Array Contains(All Tank Heroes, Hero Of(Event Player)), 1.25, 1))), 2)));
     }
@@ -3090,7 +3051,7 @@ rule ("80 player died without maniac") {
         Set Player Variable(Event Player, healvariable, 100);
         Wait(0.1, Ignore Condition);
         Set Healing Dealt(Event Player, 100);
-        Set Player Variable(Event Player, doublemag, False);
+        Set Player Variable At Index(Event Player, perk, 4, False);
         Wait(0.1, Ignore Condition);
         Set Player Variable At Index(Event Player, _extendedPlayerCollection, 52, False);
         Destroy Dummy Bot(Team 1, Add(Slot Of(Event Player), 4));
@@ -3579,7 +3540,7 @@ rule ("202 Purchase Follower action") {
                     Wait(0.25, Ignore Condition);
                     Communicate(Event Player, Emote Up);
                     Call Subroutine(PurchaseFreezeAfterEmote);
-                    //__label_if_16__:
+                    //__label_if_15__:
                 Else;
                     Set Player Variable(Event Player, messageSpot, Global.i);
                     Small Message(Event Player, Custom String("{0} {1}", Hero Icon String(Value In Array(Global.hero, (Event Player).messageSpot)), Value In Array(Value In Array(Global._extendedGlobalCollection, 65), (Event Player).messageSpot)));
@@ -3618,7 +3579,7 @@ rule ("Purchase Mystery Follower action") {
             Wait(0.25, Ignore Condition);
             Communicate(Event Player, Emote Up);
             Call Subroutine(PurchaseFreezeAfterEmote);
-            //__label_if_17__:
+            //__label_if_16__:
         Else;
             Small Message(Event Player, Custom String("{0} {1}", Hero Icon String(First Of(Global.hero)), First Of(Value In Array(Global._extendedGlobalCollection, 65))));
     }
@@ -3632,7 +3593,7 @@ rule ("229 buy perks and power activate") {
     }
     conditions {
         Is Button Held(Event Player, Button(Interact)) == True;
-        Is True For Any(Global.buyperks, Compare(Distance Between(Event Player, Current Array Element), <, 2)) == True;
+        Is True For Any(Array Slice(Global.buyperks, False, 6), Compare(Distance Between(Event Player, Current Array Element), <, 2)) == True;
     }
     actions {
         Wait Until(Compare(Server Load, <, 230), 3);
@@ -3747,7 +3708,7 @@ rule ("202 Purchase hero actions") {
                         Attach Players(Players In Slot(Add(Slot Of(Event Player), 4), Team 1), Event Player, Vector(-0.5, 1.8, -0.2));
                         Skip If(Array Contains((Event Player).allowedheroes, Hero Of(Event Player)), True);
                         Modify Player Variable(Event Player, allowedheroes, Append To Array, Hero Of(Event Player));
-                        //__label_if_18__:
+                        //__label_if_17__:
                         Set Player Variable(Event Player, currentmagazines, If-Then-Else(Compare(Global.Difficulty, ==, 5), 6, 10));
                     Else;
                         Small Message(Event Player, Custom String("{0} {1}", Hero Icon String(Value In Array(Global.hero, (Event Player).buySpot)), Value In Array(Value In Array(Global._extendedGlobalCollection, 64), (Event Player).buySpot)));
@@ -3801,7 +3762,7 @@ rule ("ending reward for each player") {
         Set Player Variable At Index(Event Player, _extendedPlayerCollection, 25, False);
         Skip If(Array Contains((Event Player).endingHeroes, Hero Of(Event Player)), True);
         Modify Player Variable(Event Player, endingHeroes, Append To Array, Hero Of(Event Player));
-        //__label_if_19__:
+        //__label_if_18__:
         Small Message(Event Player, Custom String("{0} now has tier 3 Pack-a-Punch in every playthrough.", Hero Icon String(Hero Of(Event Player))));
     }
 }
@@ -3901,7 +3862,7 @@ rule ("53  mystery box") {
             Set Player Variable At Index(Event Player, heroiconswap, (Event Player).currentswap, Hero Icon String(Hero Of(Event Player)));
             Skip If(Array Contains((Event Player).allowedheroes, Hero Of(Event Player)), True);
             Modify Player Variable(Event Player, allowedheroes, Append To Array, Hero Of(Event Player));
-            //__label_if_20__:
+            //__label_if_19__:
             Set Player Variable(Event Player, currentmagazines, If-Then-Else(Compare(Global.Difficulty, ==, 5), 6, 10));
             Modify Global Variable At Index(_extendedGlobalCollection, 34, Add, True);
             Wait(True, Ignore Condition);
@@ -4065,7 +4026,7 @@ rule ("Ramattra coins: walking away cancels the uses") {
         Set Player Variable(Event Player, coinPrice, If-Then-Else(Or(Or(Is True For Any(Global.buyheros, Compare(Distance Between(Event Player, Current Array Element), <, 2)), Is True For Any(Global.bossbuypositions, Compare(Distance Between(Event Player, Current Array Element), <, 2))), And(And(Compare(Global.start, ==, 1), Compare(Global.rngbox, !=, Null)), Or(Compare(Distance Between(Event Player, Global.rngbox), <=, 2), And(Compare(Global.fireSale, ==, True), Is True For Any(Global.fireSaleBoxes, Compare(Distance Between(Event Player, Current Array Element), <=, 2)))))), 1, If-Then-Else(Compare(Distance Between(Event Player, Value In Array(Global.buyperks, 5)), <, 2), 5, If-Then-Else(Is True For Any(Array Slice(Global.buyperks, False, 5), Compare(Distance Between(Event Player, Current Array Element), <, 2)), 3, Null))));
         Skip If(Compare((Event Player).coinPrice, !=, Null), True);
         Set Player Variable(Event Player, coinUses, Null);
-        //__label_if_21__:
+        //__label_if_20__:
         Loop If Condition Is True;
     }
 }
@@ -4098,7 +4059,7 @@ rule ("arcade: the secret code") {
     actions {
         Skip If(Compare(Subtract(Total Time Elapsed, Value In Array((Event Player)._extendedPlayerCollection, 14)), <=, 1), True);
         Set Player Variable(Event Player, arcadeCodeStep, Null);
-        //__label_if_22__:
+        //__label_if_21__:
         Set Player Variable At Index(Event Player, _extendedPlayerCollection, 14, Total Time Elapsed);
         If(Compare(Is Button Held(Event Player, Button(Primary Fire)), ==, Compare(Modulo((Event Player).arcadeCodeStep, 2), ==, Null)));
             Modify Player Variable(Event Player, arcadeCodeStep, Add, True);
@@ -4130,7 +4091,7 @@ rule ("arcade: Soldier, aimbot and overhead camera") {
                 Start Camera(Event Player, Subtract(Ray Cast Hit Position(Eye Position(Event Player), Add(Eye Position(Event Player), Vector(0.778, 14.866, -7.117)), Null, Event Player, False), Vector(0.024, 0.451, -0.216)), Eye Position(Event Player), 20);
                 Skip If(Compare(Hero Of(Event Player), ==, Hero(Soldier: 76)), True);
                 Set Ultimate Charge(Event Player, Add(Ultimate Charge Percent(Event Player), 40));
-                //__label_if_23__:
+                //__label_if_22__:
             End;
             Wait(2, Ignore Condition);
         End;
@@ -4269,7 +4230,7 @@ rule ("137  get out of spawn bots") {
             End;
             Skip If(Compare(Value In Array(Global.globalActiveBreachHealth, (Event Player).breachPick), >, Null), True);
             Play Effect(All Players(All Teams), Bad Explosion, Color(Orange), Value In Array(Global.globalActiveBreaches, (Event Player).breachPick), 3);
-            //__label_if_24__:
+            //__label_if_23__:
             Wait(1.5, Abort When False);
         Else;
             Start Forcing Player Outlines(Event Player, All Players(Team 1), True, Custom Color(Random Integer(False, 255), Random Integer(False, 255), Random Integer(False, 255), 255), Default);
@@ -4532,7 +4493,7 @@ rule ("set bot amount subroutine") {
         Set Global Variable(botamount, Min(Subtract(Add(5, Global.roundnumber), If-Then-Else(Compare(Count Of(Filtered Array(All Players(Team 1), Not(Is Dummy Bot(Current Array Element)))), ==, 1), 2, Null)), Subtract(10, Count Of(Filtered Array(All Players(Team 1), Not(Is Dummy Bot(Current Array Element)))))));
         Skip If(Compare(Global.botamount, >=, 1), True);
         Set Global Variable(botamount, 1);
-        //__label_if_25__:
+        //__label_if_24__:
     }
 }
 
@@ -4568,7 +4529,7 @@ rule ("518 spawn bots subroutine") {
         Wait Until(Compare(Global.zoneLoading, ==, False), 99999);
         Skip If(Compare(Players In Slot(False, Team 2), !=, Null), True);
         Create Dummy Bot(Value In Array(Value In Array(Global._extendedGlobalCollection, 7), Global.g), Team 2, False, First Of(Spawn Points(Team 2)), Null);
-        //__label_if_26__:
+        //__label_if_25__:
         Set Global Variable At Index(omnicspawn, False, Slot Of(Players In Slot(False, Team 2)));
         Set Global Variable At Index(_extendedGlobalCollection, 8, Players In Slot(False, Team 2));
         Set Global Variable At Index(_extendedGlobalCollection, 40, Null);
@@ -4607,7 +4568,7 @@ rule ("519 Spawn wave director") {
     actions {
         Skip If(Compare(Global.spawntype, >=, 3), True);
         Set Global Variable(g, False);
-        //__label_if_27__:
+        //__label_if_26__:
         Skip(Value In Array(Array(15, Null, 4, 8, 12), Add(Index Of Array Value(Array(False, 1, 2, 3), Global.spawntype), True)));
         Set Global Variable At Index(_extendedGlobalCollection, 7, Array(Null));
         Set Global Variable(bot1spawn, Array(Hero(Brigitte)));
@@ -4668,7 +4629,7 @@ rule ("use ability loop") {
             Set Player Variable At Index(Event Player, _extendedPlayerCollection, 26, Value In Array(Value In Array(Global._extendedGlobalCollection, 54), Add(Multiply(Multiply(Value In Array(Global.hero, Value In Array(Global._extendedGlobalCollection, 16)), 10), Global.Difficulty), Global.idx)));
             Skip If(Compare(Value In Array((Event Player)._extendedPlayerCollection, 26), <=, Null), True);
             Press Button(Event Player, Value In Array(Value In Array(Global._extendedGlobalCollection, 70), Subtract(Value In Array((Event Player)._extendedPlayerCollection, 26), True)));
-            //__label_if_28__:
+            //__label_if_27__:
             Wait(True, Ignore Condition);
         End;
     }
@@ -4900,7 +4861,7 @@ rule ("Zombie chase: straight at you, pathfinding only when stuck or you are abo
         Set Player Variable(Event Player, zombieTarget, First Of(Sorted Array(Filtered Array(All Living Players(Team 1), Compare((Current Array Element).p_T, ==, Null)), Distance Between(Event Player, Current Array Element))));
         Skip If(Compare((Event Player).zombieTarget, !=, Null), True);
         Set Player Variable(Event Player, zombieTarget, First Of(Sorted Array(All Living Players(Team 1), Distance Between(Event Player, Current Array Element))));
-        //__label_if_29__:
+        //__label_if_28__:
         Set Player Variable At Index(Event Player, _extendedPlayerCollection, 10, If-Then-Else(Compare((Event Player).zombieTarget, ==, Null), 9999, Distance Between(Event Player, (Event Player).zombieTarget)));
         If(Compare((Event Player).zombieTarget, ==, Null));
             Set Player Variable(Event Player, pfDestination, Null);
@@ -4943,7 +4904,7 @@ rule ("Zombie chase: straight at you, pathfinding only when stuck or you are abo
                 End;
                 Skip If((Event Player).pfIsPathfinding, True);
                 Start Throttle In Direction(Event Player, Direction Towards(Position Of(Event Player), Position Of((Event Player).zombieTarget)), 1, To World, Replace existing throttle, Direction and Magnitude);
-                //__label_if_30__:
+                //__label_if_29__:
             End;
             Set Player Variable(Event Player, zombieSpeedBoost, If-Then-Else(Value In Array(Global._extendedGlobalCollection, 21), Add(True, Min(Multiply(Max(Subtract((Event Player).zombieFlatDistance, 15), False), 0.04), 0.6)), 1));
             Set Player Variable(Event Player, zombieSpeedBoost, Divide(Round To Integer(Multiply((Event Player).zombieSpeedBoost, 10), Down), 10));
@@ -4991,7 +4952,7 @@ rule ("【PF Decompress】Decompress map") {
                 Modify Global Variable(pfLoadedMap_nodes, Append To Array, Vector(Divide(Subtract(Add(Multiply(Index Of String Char(Global.pfcompressionTable, Char In String(Value In Array(First Of(Global.pfDecompress), Global.pfI1), Global.pfI2)), 1024), Index Of String Char(Global.pfcompressionTable, Char In String(Value In Array(First Of(Global.pfDecompress), Global.pfI1), Add(Global.pfI2, True)))), 524288), 100), Divide(Subtract(Add(Multiply(Index Of String Char(Global.pfcompressionTable, Char In String(Value In Array(First Of(Global.pfDecompress), Global.pfI1), Add(Global.pfI2, 2))), 1024), Index Of String Char(Global.pfcompressionTable, Char In String(Value In Array(First Of(Global.pfDecompress), Global.pfI1), Add(Global.pfI2, 3)))), 524288), 100), Divide(Subtract(Add(Multiply(Index Of String Char(Global.pfcompressionTable, Char In String(Value In Array(First Of(Global.pfDecompress), Global.pfI1), Add(Global.pfI2, 4))), 1024), Index Of String Char(Global.pfcompressionTable, Char In String(Value In Array(First Of(Global.pfDecompress), Global.pfI1), Add(Global.pfI2, 5)))), 524288), 100)));
                 Skip If(Modulo(Global.pfI2, 24), True);
                 Call Subroutine(LoadingPause);
-                //__label_if_31__:
+                //__label_if_30__:
             End;
         End;
         Set Global Variable At Index(_extendedGlobalCollection, 17, Null);
@@ -5016,7 +4977,7 @@ rule ("【PF Decompress】Decompress map") {
                 End;
                 Skip If(Modulo(Global.pfI2, 20), True);
                 Call Subroutine(LoadingPause);
-                //__label_if_32__:
+                //__label_if_31__:
             End;
             Call Subroutine(LoadingPause);
         End;
@@ -5025,7 +4986,7 @@ rule ("【PF Decompress】Decompress map") {
             Modify Global Variable(pfNodeComponent, Append To Array, Index Of String Char(Global.pfcompressionTable, Char In String(Value In Array(Value In Array(Global.pfDecompress, 3), Round To Integer(Divide(Global.pfI1, 42), Down)), Add(Multiply(Modulo(Global.pfI1, 42), 3), 2))));
             Skip If(Modulo(Global.pfI1, 20), True);
             Call Subroutine(LoadingPause);
-            //__label_if_33__:
+            //__label_if_32__:
         End;
         Set Global Variable At Index(_extendedGlobalCollection, 18, Mapped Array(Global.pfLoadedMap_nodes, Current Array Index));
         Set Global Variable At Index(_extendedGlobalCollection, 19, Empty Array);
@@ -5073,7 +5034,7 @@ rule ("【PF Core】Update & Execute") {
     actions {
         Skip If(Global.pfMapReady, True);
         Wait Until(Global.pfMapReady, 99999);
-        //__label_if_34__:
+        //__label_if_33__:
         Wait(Random Real(0, 0.3), Ignore Condition);
         Set Player Variable(Event Player, pfSavedTarget, (Event Player).pfDestination);
         If(Or(Not((Event Player).pfIsPathfinding), Compare((Event Player).pfCurrentNodeIndex, ==, -1)));
@@ -5116,7 +5077,7 @@ rule ("【PF Core Subroutine】☞ Look up next hop (Floyd-Warshall, RLE base 10
             Modify Player Variable At Index(Event Player, _extendedPlayerCollection, 6, Add, True);
             Skip If(Compare(Modulo(Value In Array((Event Player)._extendedPlayerCollection, 6), 25), !=, Null), True);
             Wait(False, Ignore Condition);
-            //__label_if_35__:
+            //__label_if_34__:
         End;
         Set Player Variable At Index(Event Player, _extendedPlayerCollection, 7, Round To Integer(Divide((Event Player).pfHopChar, 128), Down));
     }
@@ -5286,10 +5247,10 @@ rule ("destroy door effects") {
     actions {
         Skip If(Compare(Value In Array(Global.allDoors_BeamA, Global.doorIndex), ==, Null), True);
         Destroy Effect(Value In Array(Global.allDoors_BeamA, Global.doorIndex));
-        //__label_if_36__:
+        //__label_if_35__:
         Skip If(Compare(Value In Array(Global.allDoors_BeamB, Global.doorIndex), ==, Null), True);
         Destroy Effect(Value In Array(Global.allDoors_BeamB, Global.doorIndex));
-        //__label_if_37__:
+        //__label_if_36__:
         Set Global Variable At Index(allDoors_BeamA, Global.doorIndex, Null);
         Set Global Variable At Index(allDoors_BeamB, Global.doorIndex, Null);
     }
@@ -5354,12 +5315,12 @@ rule ("Collision Logic") {
                         Set Player Variable At Index(Event Player, active_wall, Global.z, 1);
                         Skip If(Compare(Value In Array(Global._extendedGlobalCollection, True), !=, False), True);
                         Set Gravity(Event Player, 100);
-                        //__label_if_38__:
+                        //__label_if_37__:
                     End;
                     Apply Impulse(Event Player, Multiply(Direction Towards((Event Player).filterpos, (Event Player).fullbodypos), Vector(True, Empty Array, True)), 1, To World, Cancel Contrary Motion);
                     Skip If(Compare((Event Player).doorNotif, !=, Null), True);
                     Set Player Variable(Event Player, doorNotif, 1);
-                    //__label_if_39__:
+                    //__label_if_38__:
                     If(And(Is Button Held(Event Player, Button(Interact)), Compare((Event Player).points, >=, Subtract(Multiply(Multiply(1000, Global.costmultiplier), Value In Array(Array(1, 0.5, 0.4, 0.3), Value In Array((Event Player).perk, 3))), (Event Player).creditcardlimit))));
                         Play Effect(All Players(All Teams), Good Explosion, Color(White), Value In Array(Global.allDoors_Center, Global.z), 50);
                         Play Effect(All Players(All Teams), Lúcio Sound Barrier Cast Sound, Color(White), Value In Array(Global.allDoors_Center, Global.z), 100);
@@ -5429,7 +5390,7 @@ rule ("make the door effects") {
                 Set Global Variable At Index(allDoors_BeamB, Global.dooreffectsequencer, Last Created Entity);
                 Skip If(Modulo(Global.dooreffectsequencer, 3), True);
                 Call Subroutine(LoadingPause);
-                //__label_if_40__:
+                //__label_if_39__:
             End;
             Modify Global Variable(dooreffectsequencer, Add, True);
         End;
@@ -5560,7 +5521,7 @@ rule ("Subroutine decompressNSub") {
                 Modify Global Variable(decodeOut, Append To Array, Divide(Add(Add(Add(Index Of String Char(Global.decodeTable, Char In String(Value In Array(Value In Array(Global.decodeIn, 3), Global.decodeString), Global.decodePosition)), If-Then-Else(Compare(First Of(Global.decodeIn), >, 1), Multiply(Index Of String Char(Global.decodeTable, Char In String(Value In Array(Value In Array(Global.decodeIn, 3), Global.decodeString), Add(Global.decodePosition, True))), 1024), Null)), If-Then-Else(Compare(First Of(Global.decodeIn), >, 2), Multiply(Index Of String Char(Global.decodeTable, Char In String(Value In Array(Value In Array(Global.decodeIn, 3), Global.decodeString), Add(Global.decodePosition, 2))), 1048576), Null)), Value In Array(Global.decodeIn, 2)), Value In Array(Global.decodeIn, True)));
                 Skip If(Modulo(Count Of(Global.decodeOut), 20), True);
                 Call Subroutine(LoadingPause);
-                //__label_if_41__:
+                //__label_if_40__:
                 Modify Global Variable(decodePosition, Add, First Of(Global.decodeIn));
             End;
         End;
@@ -5625,7 +5586,7 @@ rule ("load core data") {
         For Global Variable(decodeIndex, 0, Count Of(Global.decodeOut), True);
             Set Global Variable At Index(creditCardTiers_InterestRate, Global.decodeIndex, Value In Array(Global.decodeOut, Global.decodeIndex));
         End;
-        Set Global Variable At Index(_extendedGlobalCollection, 49, String Split(Custom String("¶¶¶¶ ¶!¶#¶$¶%¶&¶'¶(¶)¶*¶+¶,¶-¶.¶/¶0¶1¶2¶3¶4¶5¶6¶7¶8¶9¶:¶;¶=¶?¶@¶A¶B¶C¶D¶E¶F¶G¶H¶I¶J¶K¶L¶M¶N¶O¶P¶Q¶R¶S¶T¶U¶V¶W¶X¶Y¶Z¶[¶]¶_¶a¶{0}", Custom String("b¶c¶d¶e¶f¶g¶h¶i¶j¶k¶l¶m¶n¶o¶p¶q¶r¶s¶t¶u¶v¶w¶x¶y¶z¶|¶–¶—¶‘¶’¶“¶”¶…¶e s  tinret thouerhe aorr on pn es sisenan fo  m wng iy  c{0}", Custom String("nt bveitd tistno otsotal dtohih teme.  ellpol eeed r hearoatyofolemourndneg ha yeta oiarmaunut lomliu gee.Nose nowdece  amch{0}", Custom String("s.ilgh, ri ghowiugtapeaciremiocoraYoieecck: rynsiclof wanct.fiofbeussielapctwebidoav’sooolkecaevlammshm ef uy.aieptyboThn’im{0}", Custom String("k viadaglyiaivasff Ndrquuir.dsftostrmirmniayp igssbuplpa I’trsd.cisut!goTropfueqrnakblifrtpr! I  Ymb RReru Tptwodiulcrna% o.{0}", Custom String("cuexgiMyOuttlde!htdaspodrgfenno!nlmpsoksocabs!ues,rdZoWhpsysrkvalun.Hesce:uplt 1wheiclmyw muEvfrkiI’grg.ba 2Daoe v'st’ SgaCo{0}", Custom String("Pahrfa100%5%wnufucp.rrobHo H ASebrDiu’Was: Dd!Itn!StDo kh.255//50 0.rvoxuyms 3puidawxpgyAm? ehTo’m… nusnpiovsyPrgse,eg ( Zmn{0}", Custom String("Juggauoaaf0/20lfnvbynkfludlstcyehuwsny—n BBa—b’ldyMasatuHaa!iky:5) 05 o:EEog C50ib' ew zzookgurw My! Pm.Sct—Razi jknBotnppBe{0}", Custom String("c e—gtrcSugl’rDee?a.Getly, E15 Ws)e-NuQuSpa-ubx /200 535ip3 xtA uaduGoekWey—Sip’ GGuw.az Owrn'g,l.jeizAcMoFavoFr—yo,Eabj Fsw{0}", Custom String("nfybo’s?eEEeuhCrrln--UUpk--a-PPuaxTi2//33:t:/1r,60/xumyth,u''rn,mlp!xe 'skrf..ixtp'mxhd—CaDrlrh—l!jusqAls——gw?'td,zat,Fek.cq{0}", Custom String("r!BltmrpVeKaPejoWrr—xck’u.lvGre…t…XPP m:.32 InebWon:.ctbb!g!x!twhySoae-h(STam!n?) pyu!wuzeOvbs1 188022%,05077/11Onf--r/6/770{0}", Custom String("Ab xx22..5x5x1s'yi ““ii g”kt'gd'h'lmxaNeMLLGI'THHRROOWWIINNGm’yl—fCl[fs]MuSyi'’vSnw’y?—tlgNa[as;; y]l—xiahh!’ g’Ofa’Ruo——IPo{0}", Custom String("r’d…kldlnmp?l,t'ddpgdv—iejjah…ao—sLiVidgp…I.ArBu—oohymph—eA--mi--zy’p—*ss** d:wtLuGag:(11/(2(33/ V(44/Ex(5Brrbr'Fu.445366 52{0}", Custom String(" 6 77230.2.1x,m,eyk::ws//cc//bbvvziu|  |lpSaShwy(f(a(mdtx.:2244. 44::5577.l’hbPOOTTG QQ!yuSwka ‘‘eoyCuLeh)ACC!o?e’c!Chf!Yeeo{0}", Custom String("Ag-fs…g?hdy…k!By-b(Pe)t?TuDDDOOSRGGBB!Ah LLa-vWulhpcWi –– Zayaw…c.gncc . ! ’ , : — q / ? - % ) … J U [ ] K * X 8 ” ;eueNeTeY{0}", Custom String("eIeSeDe5e0eWeMeHeRePeOeAe/e'eBe2eGeCe1e%ezeZe3e(eFeJeLeQe7e4e6eVeUe[e]eKe*eXe|e8e“e”e;e‘e–oNoToYoIoSoDo5o0oWoMoHoRoPoEoOoAoq{0}", Custom String("o/o'oBo2oGoCo1o-o%ozoZo3o(o)o…oFojoJoLoQo7o4o6oVoUo[o]oKo*oXo|o8"))))))))))))))))), Custom String("")));
+        Set Global Variable At Index(_extendedGlobalCollection, 49, String Split(Custom String("¶¶¶¶ ¶!¶#¶$¶%¶&¶'¶(¶)¶*¶+¶,¶-¶.¶/¶0¶1¶2¶3¶4¶5¶6¶7¶8¶9¶:¶;¶=¶?¶@¶A¶B¶C¶D¶E¶F¶G¶H¶I¶J¶K¶L¶M¶N¶O¶P¶Q¶R¶S¶T¶U¶V¶W¶X¶Y¶Z¶[¶]¶_¶a¶{0}", Custom String("b¶c¶d¶e¶f¶g¶h¶i¶j¶k¶l¶m¶n¶o¶p¶q¶r¶s¶t¶u¶v¶w¶x¶y¶z¶|¶–¶—¶‘¶’¶“¶”¶…¶e s  tinret thouerhe aorr on pn es sisenan mo  f wng iy  c{0}", Custom String("nt bveitstd ti onotsot daltohih  eme. tellpol  hea rroleeeedatfoyourg nendmohaeta oi yarma lunutome.ligeu Noseow ndece  amch{0}", Custom String("s., ghilri ghowiugtaacemiocorairpeYoryieecck: nsict.f lowancfiofbeussielapctwedoav’sevookebicaagshlammolm ef uy.aieptyboThn’{0}", Custom String("imk viadlyiaivasff Ndrquuidsftostrminir.ayrmblp igssbuplpa I’trsd.cisut!goTropfueqrnReakdiifrtpr! I  Ymb Rru Tptwoulcrnacuex{0}", Custom String("giMyOuttlde!htda% spodrgo.fenno!nlmpsoksocabs!ues,rdZoWhpsga 1ysrkvalun.Hesce:upltwhclmyw muEvfrkiI’grDog.ba 20.Daoe vei'st’{0}", Custom String(" SMaPahr100% 0wnufucp.rrobHo H ASebrDiu’Was: Dd!Itn!St M kzih./50 rvoxuyms 3puidawxpgyAm? ehTo’m… nusnpiovsyPrgse,eg (5% Zfa{0}", Custom String("mnJuggubauaz255/af20lfnvoabynkfludlstcyehuwsny—n BBa—b’ldysatuHaa!ikCoy:5)5 o:EEog0/ib3 ' ew zzookgurwy! Pm.Sct—Ra jknBotnpp{0}", Custom String("Bec e—gtrcSugl’rDee?a.Getly, E15 Ws)e-NuQua-x 50/200.3ipxtA uaduGoekWey—Sip’ GGuw. Owrn'g,l.jeizAcMoFavoFr—yo,Eabj Fswnfybo’{0}", Custom String("s?eEEeuhCrrln--UUpk--a-PPuaxTi2/3:t:/1r,601/.4/xumyth,u''rn,mlp!xe 'skrf..ixtp'mxhd—CaDrlrh—l!jusqAls——gw?'td,zat,Fek.cqr!Bl{0}", Custom String("tmrpVeKaPejoWrr—xck’u.lvGre…t…XPP m:35 52 InebWon:.ctbb!g!x!twhySoae-h(STam!n?) pyu!wuze COvbs/3Sp1 188022%,05077/11Onf--r/6{0}", Custom String("/7702,4  xx22..5x5x1s'yi ““ii g”kt'gd'h'lmxaNeMLLGI'THHRROOWWIINNGm’yl—fCl[fs]MuSyi'’vSnw’y?—tlgNa[as;; y]l—xiahh!’ g’Ofa’Ru{0}", Custom String("o——IPor’d…kldlnmp?l,t'ddpgdv—iejjah…ao—sLiVidgp…I.ArBu—oohymph—eA--mi--zy’p—*ss** d:wtLuGag:(1(2(33/ V(44/Ex(5Brrbr'Fu45366 {0}", Custom String("52 6 77230.2.1x,m,eyk::ws//cc//bbvvziu|  |lpSaShwy(f(a(mdtx.:2244. 44::5577.l’hbPOOTTG QQ!yuSwka ‘‘eoyCuLeh)ACC!o?e’c!Chf!Ye{0}", Custom String("eoAg-fs…g?hdy…k!By-b(Pe)t?TuDDDOOSRGGBB!Ah LLa-vWulhpcWi –– Zayaw…c.gncc . ! ’ , : — q / ? - % ) … J U [ ] K * X 8 ” ;eueNeT{0}", Custom String("eYeIeSeDe0eWe5eMeHeRePeOe'eAeBe2e/eGe1ezeCe%eZe3e(eFeJe4eLeQe7e6eVeUe[e]eKe*eXe|e8e“e”e;e‘e–oNoToYoIoSoDo0oWo5oMoHoRoPoEoOoq{0}", Custom String("o'oAoBo2o/oGo1o-ozoCo%oZo3o(o)o…oFojoJo4oLoQo7o6oVoUo[o]oKo*oXo|"))))))))))))))))), Custom String("")));
         Set Global Variable At Index(_extendedGlobalCollection, 50, String Slice(First Of(Value In Array(Global._extendedGlobalCollection, 49)), 0, 1));
         Set Global Variable(decodeIn, Array(2, 1, 500, String Split(Custom String("ް!৆!ް!ް!ް!ް!ް!͡#͡#৆!͡#ް!৆!!!͡#͡#͡#͡#͡#͡#͡#৆!৆!੘৆!ް!ް!ް!ް!͡#͡#͡#ް!৆!͡#৆!͡#৆!৆!৆!৆!ް!ް!৆!৆!৆!৆!৆!৆!৆!"), First Of(Null))));
         Call Subroutine(decompressNSub);
@@ -5653,7 +5614,7 @@ rule ("Subroutine decompressVSub") {
                 Modify Global Variable(decodeOut, Append To Array, Vector(Divide(Add(Add(Add(Index Of String Char(Global.decodeTable, Char In String(Value In Array(Value In Array(Global.decodeIn, 3), Global.decodeString), Global.decodePosition)), If-Then-Else(Compare(First Of(Global.decodeIn), >, 1), Multiply(Index Of String Char(Global.decodeTable, Char In String(Value In Array(Value In Array(Global.decodeIn, 3), Global.decodeString), Add(Global.decodePosition, True))), 1024), Null)), If-Then-Else(Compare(First Of(Global.decodeIn), >, 2), Multiply(Index Of String Char(Global.decodeTable, Char In String(Value In Array(Value In Array(Global.decodeIn, 3), Global.decodeString), Add(Global.decodePosition, 2))), 1048576), Null)), Value In Array(Global.decodeIn, 2)), Value In Array(Global.decodeIn, True)), Divide(Add(Add(Add(Index Of String Char(Global.decodeTable, Char In String(Value In Array(Value In Array(Global.decodeIn, 3), Global.decodeString), Add(Global.decodePosition, First Of(Global.decodeIn)))), If-Then-Else(Compare(First Of(Global.decodeIn), >, 1), Multiply(Index Of String Char(Global.decodeTable, Char In String(Value In Array(Value In Array(Global.decodeIn, 3), Global.decodeString), Add(Add(Global.decodePosition, First Of(Global.decodeIn)), True))), 1024), Null)), If-Then-Else(Compare(First Of(Global.decodeIn), >, 2), Multiply(Index Of String Char(Global.decodeTable, Char In String(Value In Array(Value In Array(Global.decodeIn, 3), Global.decodeString), Add(Add(Global.decodePosition, First Of(Global.decodeIn)), 2))), 1048576), Null)), Value In Array(Global.decodeIn, 2)), Value In Array(Global.decodeIn, True)), Divide(Add(Add(Add(Index Of String Char(Global.decodeTable, Char In String(Value In Array(Value In Array(Global.decodeIn, 3), Global.decodeString), Add(Global.decodePosition, Multiply(2, First Of(Global.decodeIn))))), If-Then-Else(Compare(First Of(Global.decodeIn), >, 1), Multiply(Index Of String Char(Global.decodeTable, Char In String(Value In Array(Value In Array(Global.decodeIn, 3), Global.decodeString), Add(Add(Global.decodePosition, Multiply(2, First Of(Global.decodeIn))), True))), 1024), Null)), If-Then-Else(Compare(First Of(Global.decodeIn), >, 2), Multiply(Index Of String Char(Global.decodeTable, Char In String(Value In Array(Value In Array(Global.decodeIn, 3), Global.decodeString), Add(Add(Global.decodePosition, Multiply(2, First Of(Global.decodeIn))), 2))), 1048576), Null)), Value In Array(Global.decodeIn, 2)), Value In Array(Global.decodeIn, True))));
                 Skip If(Modulo(Count Of(Global.decodeOut), 20), True);
                 Call Subroutine(LoadingPause);
-                //__label_if_42__:
+                //__label_if_41__:
                 Modify Global Variable(decodePosition, Add, Multiply(3, First Of(Global.decodeIn)));
             End;
         End;
@@ -5689,7 +5650,7 @@ rule ("load map data") {
         Set Global Variable(decodeIn, Array(1, 1, 1, String Split(Custom String("!#$"), First Of(Null))));
         Call Subroutine(decompressNSub);
         Set Global Variable At Index(_extendedGlobalCollection, 58, Global.decodeOut);
-        Set Global Variable(decodeIn, Array(2, 1, 2000, String Split(Custom String("୔$ް!ް!ஂ#܈$!!"), First Of(Null))));
+        Set Global Variable(decodeIn, Array(2, 1, 1500, String Split(Custom String("ா!ް!!!ް!ܿ#ް!"), First Of(Null))));
         Call Subroutine(decompressNSub);
         Set Global Variable(perkcosts, Global.decodeOut);
         Set Global Variable(decodeIn, Array(1, 1, Null, String Split(Custom String("'!!$##!!,#'!!$#*$!;$'!!$#-!!*%'!!$#$!!,#'!!$#$!!,&!!!!#!!!!#$!,@$#!,@$!!!!#!!!!#!!!!#!!!!#"), First Of(Null))));
@@ -5704,13 +5665,13 @@ rule ("load map data") {
         Set Global Variable(decodeIn, Array(1, 100, 50, String Split(Custom String("˜`,!"), First Of(Null))));
         Call Subroutine(decompressNSub);
         Set Global Variable At Index(_extendedGlobalCollection, 114, Global.decodeOut);
-        Set Global Variable(decodeIn, String Split(Custom String("ۤۧ˟̂¦!̷ُ˚࠼°!߫͑΃֣΄˽!ِ˧̧®!߬̒˿؊ͩ!؋͍࠿̸̨࡙!"), First Of(Null)));
+        Set Global Variable(decodeIn, String Split(Custom String("ۧۨ˟̃¦!̷ِ˚࠹°!߬͑΄֚΅˽!؀˧̧®!؀۩ّ̖ͨ!؍͎࠼࠽̸̩!"), First Of(Null)));
         Call Subroutine(decompressTextSub);
         Set Global Variable At Index(_extendedGlobalCollection, 142, Global.decodeOut);
-        Set Global Variable(decodeIn, String Split(Custom String("ۤۧ˟ّ̩֫̒׊̢˞̃˫̙̝˳͖̒$!̷ُ˚࠼՝ͦ͸˘ּ̙̭֤˚؀$!߫͑΃֣΄˽̣̾˘̙̭؁͍˸˫˝˗̻͖͗$!ِ˧̧˫̢̮̄˞˙،˞̻˳˧̪˭̹$!߬̒˿؊ͩ˵֙˭̢˞̔͜۩˿؍́˟̍!؋͍࠿̸̨࡙˪̳˟˘׮̢˞˨ַ̧̮̍!"), First Of(Null)));
+        Set Global Variable(decodeIn, String Split(Custom String("ۧۨ˟ْ̪̗֫׊̥˞̂˫̛̜˵̗͒$!̷ِ˚࠹՞ͥ͹˘ּ̛̯֥˚؁$!߬͑΄֚΅˽̢̾˘̛̯؂͎˸˫˝˗̻͗͒$!؀˧̧˫̮̥̄˞˙؎˞̻˵˧̨˭̹$!؀۩ّ̖ͨ˳֛˭̋˽͋˳ͨ۫˚˗ͪ˿̍!؍͎࠼࠽̸̩˪̲˟˘״̥˞˨ֵ̧̮̍!"), First Of(Null)));
         Call Subroutine(decompressTextSub);
         Set Global Variable At Index(_extendedGlobalCollection, 121, Global.decodeOut);
-        Set Global Variable(decodeIn, String Split(Custom String("ِ̛߮˵࡛̖̕׳ْ֥͋˨࡝࡟̖ٕٖ̑ٓ̕˥̆˝״ٖ̱͈̞˘۪̋˨̤͖̉!߬̒˿։֎˜̚˨̱͈̞࣪˶˥˫̉࡫״࣮࣬߰߱߰۬˙˥˫؎ٔ؎ࣱࣲ؏˯̓̓;!ࣳ˗̱ۭࣵͨ΢˗̓˨̀˟̼̀˝״ٖ̱͈̞˘͘˸۽˚֐̬͠͹;!ܼࣶ͓۫ࣸ֬ͨ͘˟˹͡˧;!ࣹ̺˾͋˘͚{0}", Custom String("0˗ܼ࡞ٔٓ֬͘˙˥̲ͅ˧̷̧̜̑;!؃̧̮ࣺࣼٔࣾ࡯؎;!")), First Of(Null)));
+        Set Global Variable(decodeIn, String Split(Custom String("؀۩̖˳࠿̒̓׵֦ٔ͌˨࡚࡛ٕٖ̒̓̑۬˥̇˝׌ٖ̱̟͆˘۽̎˨̣̉͒!̗࣫̀֊֏˜̚˨̱̟࣬͆˶˥˫̉࡜׌࣮߰߱߰۾ࣰ˙˥˫؏ۭ؏ࣳࣴؐ˯͉̘;!ࣵ˗̱܀ࣷͣ΢˗͉˨́˟̺̀˝׌ٖ̱̟͆˘͘˸܁˚֑̭ͦ;;!ֶܾࣺ͓߯ࣸͣ͘˟˹͠˧;!͔֚·˚̝͚{0}", Custom String("0˭׌̺߰؄ࣼ˧̧߲͓̣ؑ̂׋̞ٓ;!؅̧̮ۭࣽࣿँ࡭؏;!")), First Of(Null)));
         Call Subroutine(decompressTextSub);
         Set Global Variable At Index(_extendedGlobalCollection, 144, Global.decodeOut);
         Set Global Variable At Index(_extendedGlobalCollection, 143, Array(Ability Icon String(Hero(Cassidy), Button(Ability 1)), Icon String(Heart), Icon String(Fire), Icon String(Diamond), Icon String(Eye), Icon String(Halo)));
@@ -5970,7 +5931,7 @@ rule ("build the zone's doors") {
         While(Compare(Global.doorBuildIndex, <, Count Of(Global.doorVectors)));
             Skip If(Modulo(Global.doorBuildIndex, 2), True);
             Call Subroutine(LoadingPause);
-            //__label_if_43__:
+            //__label_if_42__:
             Modify Global Variable(allDoors_Corner, Append To Array, Array(Value In Array(Global.doorVectors, Global.doorBuildIndex)));
             Modify Global Variable(allDoors_OppositeCorner, Append To Array, Array(Null));
             Modify Global Variable(allDoors_Center, Append To Array, Array(Null));
@@ -6115,19 +6076,19 @@ rule ("clear zone markers") {
             Destroy Effect(Value In Array(Global.zoneEffects, Global.zoneMarkerIndex));
             Skip If(Compare(Modulo(Global.zoneMarkerIndex, 10), !=, 9), True);
             Call Subroutine(LoadingPause);
-            //__label_if_44__:
+            //__label_if_43__:
         End;
         For Global Variable(zoneMarkerIndex, 0, Count Of(Global.zoneTexts), True);
             Destroy In-World Text(Value In Array(Global.zoneTexts, Global.zoneMarkerIndex));
             Skip If(Compare(Modulo(Global.zoneMarkerIndex, 10), !=, 9), True);
             Call Subroutine(LoadingPause);
-            //__label_if_45__:
+            //__label_if_44__:
         End;
         For Global Variable(zoneMarkerIndex, 0, Count Of(Value In Array(Global._extendedGlobalCollection, 129)), True);
             Destroy Icon(Value In Array(Value In Array(Global._extendedGlobalCollection, 129), Global.zoneMarkerIndex));
             Skip If(Compare(Modulo(Global.zoneMarkerIndex, 10), !=, 9), True);
             Call Subroutine(LoadingPause);
-            //__label_if_46__:
+            //__label_if_45__:
         End;
         Set Global Variable(zoneEffects, Empty Array);
         Set Global Variable(zoneTexts, Empty Array);
@@ -6181,7 +6142,7 @@ rule ("draw zone markers") {
             End;
             Skip If(Compare(Modulo(Global.zoneMarkerIndex, 6), !=, 5), True);
             Call Subroutine(LoadingPause);
-            //__label_if_47__:
+            //__label_if_46__:
         End;
         For Global Variable(zoneMarkerIndex, 0, Count Of(Global.bossbuypositions), True);
             If(Compare(Index Of Array Value(Global.teleporterpositions, First Of(Sorted Array(Global.teleporterpositions, Distance Between(Value In Array(Global.bossbuypositions, Global.zoneMarkerIndex), Current Array Element)))), ==, Global.telespot));
@@ -6266,7 +6227,7 @@ rule ("fire sale boxes") {
         For Global Variable(fireSaleIndex, 0, Count Of(Global.mysterylocations), True);
             Skip If(Compare(Index Of Array Value(Global.teleporterpositions, First Of(Sorted Array(Global.teleporterpositions, Distance Between(Value In Array(Global.mysterylocations, Global.fireSaleIndex), Current Array Element)))), !=, Global.telespot), True);
             Modify Global Variable(fireSaleBoxes, Append To Array, Value In Array(Global.mysterylocations, Global.fireSaleIndex));
-            //__label_if_48__:
+            //__label_if_47__:
             If(And(Compare(Index Of Array Value(Global.teleporterpositions, First Of(Sorted Array(Global.teleporterpositions, Distance Between(Value In Array(Global.mysterylocations, Global.fireSaleIndex), Current Array Element)))), ==, Global.telespot), Compare(Value In Array(Global.mysterylocations, Global.fireSaleIndex), !=, Global.rngbox)));
                 Create Effect(Local Player, Ring, Color(Purple), Value In Array(Global.mysterylocations, Evaluate Once(Global.fireSaleIndex)), 2, Visible To);
                 Modify Global Variable At Index(_extendedGlobalCollection, 130, Append To Array, Last Created Entity);
@@ -6423,7 +6384,7 @@ rule ("Purchase perk machine message") {
     conditions {
         (Event Player).perkBuyMessTimer == False;
         (Event Player).outofpsawn == 1;
-        Is True For Any(Global.buyperks, Compare(Distance Between(Event Player, Current Array Element), <, 2)) == True;
+        Is True For Any(Array Slice(Global.buyperks, False, 7), Compare(Distance Between(Event Player, Current Array Element), <, 2)) == True;
     }
     actions {
         Wait(0.1, Ignore Condition);
@@ -6562,7 +6523,7 @@ rule ("Info UI") {
         For Player Variable(Event Player, infoUIIndex, 0, 18, True);
             Skip If(Compare((Event Player).infoUIIndex, <=, Null), True);
             Call Subroutine(LoadingPause);
-            //__label_if_49__:
+            //__label_if_48__:
             If(Array Contains(Array(Null, 7, 10, 14), (Event Player).infoUIIndex));
                 Create HUD Text(If-Then-Else(Compare(Global.settingsViewers, ==, Null), Event Player, Null), Null, Null, Custom String("{0} {1}", Evaluate Once(Value In Array(Array(Icon String(Checkmark), Icon String(Bolt), Icon String(Diamond), Icon String(Heart)), Index Of Array Value(Array(Null, 7, 10, 14), (Event Player).infoUIIndex))), Value In Array(Global.infoText, Evaluate Once((Event Player).infoUIIndex))), Left, Add(10, (Event Player).infoUIIndex), Null, Null, Color(Yellow), Visible To and String, Default Visibility);
             Else If(Compare((Event Player).infoUIIndex, ==, 5));
@@ -6794,7 +6755,7 @@ rule ("Dialogue - Text scrolling Function") {
         Modify Global Variable(Character_Nr, Add, True);
         Skip If(Modulo(Global.Character_Nr, 3), True);
         Play Effect(All Players(All Teams), Sombra Translocator Reappear Sound, First Of(All Players(All Teams)), Eye Position(First Of(All Players(All Teams))), 100);
-        //__label_if_50__:
+        //__label_if_49__:
         Wait(If-Then-Else(Array Contains(String Split(Custom String(".0!0?0-"), First Of(Null)), Char In String(Value In Array(Global._extendedGlobalCollection, 123), Global.Character_Nr)), 0.35, 0.05), Ignore Condition);
         Wait Until(Compare(Global.Character_Nr, <=, String Length(Value In Array(Global._extendedGlobalCollection, 123))), 99999);
         Loop If Condition Is True;

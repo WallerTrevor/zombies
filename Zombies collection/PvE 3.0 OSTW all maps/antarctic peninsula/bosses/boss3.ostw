@@ -63,8 +63,8 @@ Event.OngoingPlayer
 Team.Team2
 Player.Bastion
 if (Bosssequencer == 3)
-if (IsDummyBot(EventPlayer()) == true)
 if (Part == BossPart.MachineGun)
+if (IsDummyBot(EventPlayer()) == true)
 {
     SetDamageDealt(EventPlayer(), 100);
     StartScalingPlayer(EventPlayer(), 1.25 * BossScale(), true);
@@ -97,8 +97,8 @@ Team.Team2
 Player.Bastion
 if (Bosssequencer == 3)
 if (Part == BossPart.MachineGun)
-if (IsButtonHeld(FirstOf(PlayersOnHero(Hero.Dva, Team.Team2)), Button.PrimaryFire) == true)
 if (IsDummyBot(EventPlayer()) == true)
+if (IsButtonHeld(FirstOf(PlayersOnHero(Hero.Dva, Team.Team2)), Button.PrimaryFire) == true)
 {
     StartHoldingButton(EventPlayer(), Button.PrimaryFire);
     Wait(2, WaitBehavior.IgnoreCondition);
@@ -111,9 +111,9 @@ rule: "289 Imperial warmech set attacks"
 Event.OngoingPlayer
 Team.Team2
 Player.Dva
+if (IsButtonHeld(EventPlayer(), Button.PrimaryFire) == true)
 if (Bosssequencer == 3)
 if (EventPlayer() == bossBody)
-if (IsButtonHeld(EventPlayer(), Button.PrimaryFire) == true)
 if (IsAlive(EventPlayer()) == true)
 {
     EventPlayer().Major_Attacks = RandomInteger(2, 6);
@@ -211,9 +211,9 @@ rule: "293 Imperial warmech destroyed"
 Event.OngoingPlayer
 Team.Team2
 Player.Dva
+if (IsInAlternateForm(EventPlayer()) == true)
 if (Bosssequencer == 3)
 if (EventPlayer() == bossBody)
-if (IsInAlternateForm(EventPlayer()) == true)
 {
     Wait(0.1, WaitBehavior.AbortWhenFalse);
     Kill(PlayersWithinRadius(EventPlayer(), 7, TeamOf(EventPlayer()), RadiusLOS.Off), null);
@@ -248,8 +248,8 @@ rule: "295 Laser function"
 Event.OngoingPlayer
 Team.Team2
 Player.Moira
-if (IsDummyBot(EventPlayer()) == true)
 if (Bosssequencer == 3)
+if (IsDummyBot(EventPlayer()) == true)
 {
     SetHealingDealt(EventPlayer(), 0);
     SetDamageDealt(EventPlayer(), 200);

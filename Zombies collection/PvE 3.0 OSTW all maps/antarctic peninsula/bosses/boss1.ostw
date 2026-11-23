@@ -84,8 +84,8 @@ Event.OngoingPlayer
 Team.Team2
 Player.Bastion
 if (Bosssequencer == 1)
-if (IsUsingAbility1(EventPlayer()) == false)
 if (Part == BossPart.Cannon)
+if (IsUsingAbility1(EventPlayer()) == false)
 {
     PressButton(EventPlayer(), Button.Ability1);
     Wait(0.25, WaitBehavior.IgnoreCondition);
@@ -137,8 +137,8 @@ Event.OngoingPlayer
 Team.Team2
 Player.Bastion
 if (Bosssequencer == 1)
-if (IsButtonHeld(FirstOf(PlayersOnHero(Hero.Orisa, Team.Team2)), Button.PrimaryFire) == true)
 if (Part == BossPart.Cannon)
+if (IsButtonHeld(FirstOf(PlayersOnHero(Hero.Orisa, Team.Team2)), Button.PrimaryFire) == true)
 {
     PressButton(EventPlayer(), Button.SecondaryFire);
     Wait(0.1, WaitBehavior.IgnoreCondition);
@@ -153,9 +153,9 @@ Event.OngoingPlayer
 Team.Team2
 Player.WreckingBall
 if (Bosssequencer == 1)
-if (IsButtonHeld(FirstOf(PlayersOnHero(Hero.Orisa, Team.Team2)), Button.PrimaryFire) == true)
-if (IsAlive(EventPlayer()) == true)
 if (Part == BossPart.RocketLauncher)
+if (IsAlive(EventPlayer()) == true)
+if (IsButtonHeld(FirstOf(PlayersOnHero(Hero.Orisa, Team.Team2)), Button.PrimaryFire) == true)
 {
     PlayEffect(AllPlayers(Team.All), PlayEffect.DvaMicroMissilesExplosionSound, Color.White, EyePosition(EventPlayer()), 200);
     PlayEffect(AllPlayers(Team.All), PlayEffect.DvaMicroMissilesExplosionEffect, Color.White, EventPlayer(), 1);
@@ -169,8 +169,8 @@ rule: "272 Unleash fire breath shoot"
 Event.OngoingPlayer
 Team.Team2
 Player.Orisa
-if (Bosssequencer == 1)
 if (IsUsingAbility2(EventPlayer()) == true)
+if (Bosssequencer == 1)
 {
     CreateProjectile(ProjectileType.ReinhardtFireStrike, EventPlayer(), null, null, Relative.ToWorld, ModifyHealthType.Damage, OppositeTeamOf(TeamOf(EventPlayer())), 50, 1, 0, PlayEffect.ReinhardtFireStrikeTargetImpactEffect, PlayEffect.ReinhardtFireStrikeTargetImpactSound, 0.1, 50, 5, 0, 0, 0);
     Wait(0.05, WaitBehavior.IgnoreCondition);

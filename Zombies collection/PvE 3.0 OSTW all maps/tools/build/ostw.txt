@@ -247,9 +247,8 @@ variables
         118: healvariable
         119: damagevariable
         120: healthmax
-        121: doublemag
-        122: index
-        123: index_0
+        121: index
+        122: index_0
 }
 
 // Extended collection variables:
@@ -601,35 +600,35 @@ rule("load text and hero lists")
         Wait Until(And(And(Compare(Global Variable(mapDataLoaded), ==, True), Compare(Global Variable(pfMapReady), ==, True)), Compare(Global Variable(zoneLoading), ==, False)), 90);
         Wait Until(Compare(Global Variable(mapDataLoaded), ==, True), 60);
         Set Global Variable At Index(_extendedGlobalCollection, 53, True);
-        Set Global Variable(decodeIn, Array(Custom String("ؗ׹΀˰˵ֹ˗֧׌؟!̜́˶͢˭˦˛̲˧̧̑݁֡͋׆˼̩̔˲͡ࡶ˹͍ۚ̓˶͢˭˶̡̺̑˽˺̡̏˱̮¶!֔˹̈˪̗׿˭˘˲˿֑٘΢˗۾˯̀܄̉˷̕˟԰̼̦́̀˷̕˟԰̇˴̛՟̷̇·۟˸͐̋΅˵̒͜˳˧˼˩̷͚̇·ֵ!˚˙˥˵͝˙˥˛˸˘̤׸́˟˹;ੈ˯"), Custom String("ͨ˟̆˪˟ׁ̢̼֛˞̢̇͋˞̪԰˗˝̼͆֯׷܂˚̠؋͍˦˪̸̨!࣑˯ͥ˴֊՜̼̙̭̮˜߷̬˽׆̳ͨ̕˟˸˫̢͈֕˞˺˲̔ͨ΢˗̸̖̃˝˟!ִؗ˯֋̵؁˨̚˨̓׌˸࠲࠭˦̞̱ͮ˺̗ؓ̊̈˯̀܄̊˥̗̹!̭͊̀̏̃־˹̮˜̙̝ͮ׳΂̘˗˩̵˪˟˶̱۟ͮ͢"), Custom String("˸˜̱̀΋%!؊ּ͌˜˝˗̐͟´!׉˱̢˞˺˩̟͞˙˥˪̳˟˵֙˗֑˛̲˴݁֡͋˘̦˗̦˞̞˦˘˝੊˶̧̺̑֩̀̋!؊ּ͌̀˷˙˥˪̳˟˦̳̏˘̙̭̈˼ٚ˪˟ׁ˦̞˪̈́΃ْ̤͕ٝ!ؗ׹̐˚̄˶˧ੋ!݉˧˗˚˙˥˼̻͖̅̈ͬ̽˪̵̽˘ָ֨ͩ܅˿˚̷̯̾"), Custom String("˪˛՟˸˻˟̈́˜̈˼ٚ!ͫͤ̀˷˙˥˯̷˗݁֡͋˸˫͈֕̾΢˭˼˩͚˪̥˻¶!̡̭͊˽̪΂˾̓˦֢ͪ࠭͜۩֨˷˙،̳˘ٟ՜̢˞˨ͥ˿̧؉݌̟!࣓׌ͫ֕֌࠲˧̧̀˩~!׈֡͋˘͈̏͌̀˩ੌ˧̴੍ׁ͈̿ؔ੏ੑ݌׮!̭͊ͧ˫̞͗˙˥̪̘˭˜˽֎͇˫˩޼˧ׁ"), Custom String("̴͈̿ؔ˘̴̧˼˹҄֕˝̘͙̘!੔̶ُ̦˜˝˗̴̜˙˴̴̉˙˥˸͐՗ؓ̀˩˘̶˃!")));
+        Set Global Variable(decodeIn, Array(Custom String("ؘ׹΁˰˳ָ˗֨׎ً!̠˿˶͡˭˦˛̳˧̧݄֣̑͌׆˼̪̔˲͠ࡴ˹͎̘ۙ˶͡˭˶̡̼̑˽˺̡̏˱̮¶!֕˹̈˪̕׿˭˘˲̀֒ٗ΢˗܃˯̀܈̉˷̒˟҉̺˿̦́˷̒˟҉̆˴̖։̷̆ͨ۞˸͐̎·˳̗͜˵˧˼˩̷ֳ͚̆ͨ!˚˙˥˳͝˙˥˛˸˘̣׸˿˟˹΀੉˯"), Custom String("ͣ˟̇˪˟ׁ̺̥֝˞̥̆͌˞̨҉˗˝̺֭̈́׷܆˚̝؍͎˦˪̸̩!࣐˯ͬ˴֋՛̛̺̯̮˜̭݀˽׆̲̒ͣ˟˸˫֖̥͆˞˺˲̔ͣ΢˗̸̓̂˝˟!ֲؘ˯֌̵؂˨̚˨͉׎˸࠯ࠪ˦̟̱ͯ˺ؔ̊̈̕˯̀܈̊˥̹̕!̯͊̀̏̂־˹̮˜̛̜ͯ׵΃̙˗˩̵˪˟˶͡۞̱ͯ"), Custom String("˸˜̱̀΋%!ּܷ͍˜˝˗̐͟´!׉˱̥˞˺˩̞͞˙˥˪̲˟˳֛˗֒˛̳˴݄֣͌˘̦˗̦˞̟˦˘˝ੋ˶̧̼̑֩́̎!ּܷ͍́˷˙˥˪̲˟˦̲̏˘̛̯̈˼ٙ˪˟ׁ˦̟˪̓΄̣ٜ͖ٔ!ؘ׹̐˚̄˶˧ੌ!݋˧˗˚˙˥˼̻̅̈ͭ̽͒˪̵̽˘ַ֜ͪ܉̀˚̷̬̾"), Custom String("˪˛։˸˻˟̓˜̈˼ٙ!ͩͤ́˷˙˥˯̷˗݄֣͌˸˫֖͆̾΢˭˼˩͚˪̤˻¶!̡̯͊˽̨΃˾̘˦֤ͫࠪ͜܂֜˷˙؎̲˘ٞ՛̥˞˨̧ͬ̀׋̞ٓ!࣒׎֖ͩ֍࠯˧̧́˩~!׈֣͌˘͍͆̏́˩੍˧̴ׁ̿ؕ͆੎੐੒ٓ״!̯͊ͧ˫̟͗˙˥̨̙˭˜˽֏ͅ˫˩޽˧ׁ"), Custom String("̴̿ؕ͆˘̴̧˼˹֖҄˝̙͙̙!੕̶ِ̦˜˝˗̴̠˙˴̴̉˙˥˸͐԰ؔ́˩˘̶˃!")));
         Call Subroutine(decompressTextSub);
         Set Global Variable(infoText, Global Variable(decodeOut));
         Set Global Variable At Index(_extendedGlobalCollection, 53, False);
-        Set Global Variable(decodeIn, Array(Custom String("̛̌˗̈˺˩֑̪̌˭˘̷̜%!˛͒΅̃־˹׵˱̢˞˨׷߶˸˘֦͆˹̈˺˩̱٘˗̷̜!̢̙̭̱͒˞˨˥̗˸͓̂˜˛΄˽˿̘̞͓̎̃˝˗̨̗£!۪̋˨̤֊՜˝̗́ࡲ̢˞ّ̒՝̆̑˝˗˥̗˭̢˞˼˞̻·!͙̘˚̠˝˗;՟ܾ˰˶֧̑֜̊͜˝˗̐˚̄˸͓̙̭̦"), Custom String("˗׮˙˴˝˗̸̛̆˷¤!˾˘̸̖̓˨̱̈ͮ˙˥˵׋̋͏˼ٙ˙̡˫։ँ˷˦̲ܿ̕˟¯!̳̏̚˟˘́՜˶˾̢̙̭̊̀̏˞ࡴ˗ؑ̓͡!׀̌˺͚̈ͬ˾͆˘ͧ˫͙̱ͮ˿۾˺̫׺՛ͧ̀˷ंऺ̟̖̬̓̕˷˕!˝˟˗˰ٜ݀˩˭˙˴֊՜˸ࡵ̎̈́̊̀˝˸̄̃ؑ˼԰¶!̓"), Custom String("׌˘˲˿˥ׂ̗̪̘͇̘͐̔̅˗͉̞̫΋̎̈́̊֊՜˝̗́̊˩؅̣˟˲˦̞̎߸˛̌!̐˚̄̇͸˱˿˩˶̣̿̾˘˝˗ͩ́̕˾%!׻˟˹̷̋˺˲˼˱ͭ˾˳ֹ̛̗̤̖ͬ֓̕´!߹͂܀˸˘׍׎׃̛˳˧˙˥̝̇ͅ׃̺˾˹̈˙˥˙̖­!֋͍˦˪̸̨̾΢˭̲ܿ˦̬̀͠"), Custom String("˭%!")));
+        Set Global Variable(decodeIn, Array(Custom String("̖̌˗̈˺˩̨֒̌˭˘̷̠%!˛͔·̂־˹׶˱̥˞˨׷߳˸˘֧̈́˹̈˺˩̱ٗ˗̷̠!̛̯͔̱̥˞˨˥̕˸͓̃˜˛΅˽̙̟͓̀̋̂˝˗̩̕£!۽̎˨̣֋՛˝́̕ࡰ̥˞ْ̗՞̇̑˝˗˥̕˭̥˞˼˞̻·!͙̙˚̝˝˗΀։݁˰˶̑֨֞̊͜˝˗̐˚̄˸̛͓̯̦"), Custom String("˗״˙˴˝˗̸̖̇˷¤!˾˘̸͉̓˨̱̈ͯ˙˥˳׍̎͋˼٘˙̡˫֊ऺ˷˦̳݂̒˟¯!̲̏̚˟˘˿՛˶˾̛̯̥̊́̏˞ࡲ˗̘ؒ͠!׀̌˺͚̈ͭ˾̈́˘ͧ˫͙̱ͯ̀܃˺̫׺՘ͧ́˷ऻा̞̘̭̒̓˷˕!˝˟˗˰ٛ݃˩˭˙˴֋՛˸ࡳ̋̓̊̀˝˸̄̂ؒ˼҉¶!͉"), Custom String("׎˘˲̀˥ׂ̨̙̙͐̔̅̕ͅ˗͇̟̫΋̋̓̊֋՛˝́̊̕˩؇̢˟˲˦̟̋߶˛̌!̐˚̄̆͹˱̀˩˶̢̿̾˘˝˗ͪ˿̒˾%!׻˟˹̷̎˺˲˼˱ͮ˾˵ָ̣̖ͭ֔̒̓̕´!߷͂܄˸˘׏׫׃̖˵˧˙˥͈̜̆׃̼˾˹̈˙˥˙̓­!֌͎˦˪̸̩̾΢˭̳݂˦̭ͦ́"), Custom String("˭%!")));
         Call Subroutine(decompressTextSub);
         Set Global Variable At Index(_extendedGlobalCollection, 59, Global Variable(decodeOut));
-        Set Global Variable(decodeIn, Array(Custom String("߽˜˛़!̌˜˝׶˨˱£!݂̈˦̇ͅ˜֫ࡷ!֓˜̳̟£!؆̛̔ͭࡸ˘͟˛̪̈́׽˷!؆ࡹࡹְ˜݃ि˯׽̏˘͟˛˸͐ؒ͗֐˱·!؆˺׎܄ी˪˟̚՚˲̵˶϶ࡼ̴̨݄̍˥ु˚¦!؆˯׽̏˸՟ׅ˶϶˙ְ͉ͧ̏˹ͨٞ˱·!؆̪ؓ΃̱͆̓˙˴̡˽̨̩̔̃!̴̜͐՗"), Custom String("̘̓˦˪̨̗̚˿ָ͍͓̘ͩ̃΍ٟ̦̑˱˭̹!֯̓̽˱̵˿̤̱˽˛˺϶˗͘˙̦̮˜͗ू̀˩!")));
+        Set Global Variable(decodeIn, Array(Custom String("߻˜˛ी!̌˜˝؈˨˱£!̈݅˦͈̆˜֫ࡵ!֔˜̲̞£!؉̖̔ͮࡶ˘͟˛̨̓׽˷!؉ࡷࡷ֮˜݆ू˯׽̏˘͟˛˸֑͐ؓ͗˱·!؉˺׫܈ृ˪˟̚՜˲̵˶϶ࡺ̴̩̍݇˥ॄ˚¦!؉˯׽̏˸։ׅ˶϶˙͇֮ͧ̏˹ͣٝ˱·!؉̨ؔ΄̱̘̈́˙˴̡˽̩̪̔̂!̴̠͐԰"), Custom String("̙̘˦˪ַ̩͎͓̙̀ͪ̂̕̚΍̦̑ٞ˱˭̹!͉֭̽˱̵̣̱̀˽˛˺϶˗͘˙̦̮˜͗ॅ́˩!")));
         Call Subroutine(decompressTextSub);
         Set Global Variable At Index(_extendedGlobalCollection, 60, Global Variable(decodeOut));
-        Set Global Variable(decodeIn, Array(Custom String("߽˜˞ࡾͩ܅£!ृ̓˘̤܆¦!̰˜׀݅ॅ!ॆͬेॉो्!")));
+        Set Global Variable(decodeIn, Array(Custom String("߻˜˞ࡼͪ܉£!ॆ̘˘̣܊¦!̰˜׀ّै!ॉͭॊौॎ॑!")));
         Call Subroutine(decompressTextSub);
         Set Global Variable At Index(_extendedGlobalCollection, 61, Global Variable(decodeOut));
-        Set Global Variable(decodeIn, Array(Custom String("ֿׁ֔̈́̎͹̰֞˵˧˗͙̘˘̗̈̇ؔ!̰˦̳ؕ˘˛̧˚̍֟׺́˶͵͖!ֱ̦̜̕܈˸˘ָ˱͖֌˵͚˜˛́˧˗˾;!߿͝˩̇͏܉̅̉˷̪ͭ֒!̴̦ࠗॎ˘֦͆ͯ܊̈́΃̖̬̈̕˷;!ׂ̰̔ͦ̄̍؋ॏ۩˿̡͚֯̋֏!߿̏˙̡؇˘̤߼ࢁ̂˯̪̿̄ͭ֒!ֱ˶̖̐˫"), Custom String("˰˯̓˻֣̍֊˱˰̉˷̴̲̒֏!߿͝˩˘҄ࠖ͗́˘̀̏̕͢˗֭̈̇!॒߶ֿͣ̎͹̰̍˝˚̛̠҉%!֤͉॓́̋˿͙͸˘˲˿׵॔ͅ!̰˯˥̏˘̛҉̍ࠛ͐˦˛̇͏;!ֱ˼̴ͩ˘̦˗̂˜˝˗̛݈֝ؖ݅˹̷̜˸̹!ֲֳ̤։̣̹֥̏̉˘˰˦˪̗֚͆;!ࢂּ˩̇͏"), Custom String("̍ॕֺ̡̯́̔͌!ࠛ΁˘֦͆ͯ҃̅̉˷̪ͭ˜̈˳̯ͅ!̰˦ͪ˴̛҉֞ॖ́͆˘҄ͯ!ִؗ̃˫ॗͬ˞˜͘˺ֺ̡˭%!̷ֱ̌̕˨̟˽˨֤͐̇͏܌̩˵˹ּͧ˩̇؄̹!͉݉࠘˘̟֓̍׾˽̲̾̅̅̉˷̪͖ͭ!ֱ˶̖̐˫˰̩̃܉˴˱˟٫̔͆͵͐;!٬׺՛̀˩̇͸̛"), Custom String("̋֏҃̅̉˷̪ͭ˜͉̈̇ࠜ!ֱ˯̈˛˘̦˗҄͵̟֏֌܍̟̑̓˵˧̯!ॣ̨̳̩̰ͣ̔̃֞˝˚̛̠҉%!ֲ˜͘˦ֽͪ!ࢃ˹̆˛΅॥ؘٰ॰΂˗̣̈̾˪˟׀֫ࢆ!݋̺݃΁˘҄ͯ҃˴̸̦̮̔͆͵՛˷;!ংַ̪͖֥ͭ̅̆΋ֿ̎͹%!ࠛ͐˦˛̩̰̃֞˝˚̛̠҉%!"), Custom String("܏؉݌ֿ̟̎͹̷̍֟̇͏;!̰ަ̵̪҆ͭ݊̂˝˚̠̈̾΢̯!ঃ˷͏˯ׁ̖҅঍݃͐˺ֿ̬͍̎͹!֣̱٘˭̇͸̛̋֏҃̅̉˷̔͆͵͐;!ֲ˜͘˯̋͜܌̴ͩ˘׺́˶͵͖!۔঒͐̎ࢀ̰ۨ́̓̍˝˚̛̠҉˙˴։֘;!ֱ˶̖̐΁˘ָ˱ֺؙ͖̟̏̎˹˰̾˩̯!܋"), Custom String("঱̩ࠞ͂̔˞̞ࢊ֓˜̂˝˚঳̛҉%!ֱ˪̣̆˘̦˗ָ˱݊̂˝˚̠˛̧˚̹!܏঴˘֦͆ͯ҃̅̉˷̪ͭ˜˚̴͛;!঵܂঺˘̟̰֓̍˝˚̠̜˛˙˴ְ˽;!঻ּ˚̠͒ࢌ়҃׾ͬ˞͖!ࢃ̺܃̇͏̍ি͟ী˘̟֓;!ֲֳ̛̤΅ۗ̂˝˚̛̠҉˼ّ̛̩͍̹ۘ!ֱ˶͉˝"), Custom String("˸˘˱ৃ˭׆̎˽˫̀˝˞˜̷׺՛̀˩;!ֲ˜͘˦ֽͪ!ֲ˜͘˦ֽͪ!ֲ˜͘˦ֽͪ!ֲ˜͘˦ֽͪ!ֲ˜͘˦ֽͪ!ֲ˜͘˦ֽͪ!")));
+        Set Global Variable(decodeIn, Array(Custom String("ֿׁ֕̓̋;̰֠˳˧˗͙̙˘̈̆ؕ̕!̰˦̲ؖ˘˛̧˚̍֡׺˿˶͸͒!̦̠֯̒܌˸˘ַ˱͒֍˳͚˜˛˿˧˗˾;!߽͝˩̆͋܍̅̉˷̨ͮ֓!߿̴̦॒˘֧̈́͵܎̓΄̭̈̒̓˷;!ׂ̰̔ͥ̄̍؍॓܂̡͚֭̀̎֐!߽̏˙̡؊˘̣߹ࡿ̃˯̨̿̄ͮ֓!֯˶̓̐˫"), Custom String("˰˯͉˻֚̍֋˱˰̉˷̴̳̗֐!߽͝˩˘҄߾͗˿˘̀̏̒͡˗ֺ̈̆!ॕֿ߳̋͢;̰̍˝˚̝̖҈%!ॖ֥˿͇͙̎̀͹˘˲̀׶͈ॗ!̰˯˥̏˘̖҈̍࠘͐˦˛̆͋;!֯˼̴ͪ˘̦˗̃˜˝˗ّ̖֟ؗ݊˹̷̠˸̹!ְֱ̣֊̢̹֦̏̉˘˰˦˪̕՝̈́;!ࢀּ˩̆͋"), Custom String("̍ॢ˿ֹ̡͍̬̔!࠘΂˘֧̈́͵҃̅̉˷̨ͮ˜̈˵͈̬!̰˦ͫ˴̖҈֠ॣ˿̈́˘҄͵!ֲؘ̂˫।ͭ˞˜͘˺ֹ̡˭%!̷֯̒̌˨̞˽˨ܑ֥̪͐̆͋˳˹ּͧ˩̆؆̹!݋͇ࠖ˘̞֔̍׾˽̳̾̅̅̉˷̨ͮ͒!֯˶̓̐˫˰̪̂܍˴˱˟٪̔̈́͸͐;!٫׺՘́˩̆͹̖"), Custom String("̎֐҃̅̉˷̨ͮ˜͇̈̆࠙!֯˯̈˛˘̦˗҄͸̞֐֍̞̘ܰ̑˳˧̬!॰̲̩̪̰̔̂֠͢˝˚̝̖҈%!ְ˜͘˦ֽͫ!ࢁ˹̇˛·ংؙ٭ঃ΃˗̢̈̾˪˟׀֫ࢄ!ަ̼݆΂˘҄͵҃˴̸̦̮̔̈́͸՘˷;!঍ֵ̨֦ͮ͒̅̇΋ֿ̋;%!࠘͐˦˛̪̰̂֠˝˚̝̖҈%!"), Custom String("،׋ֿ̞ٓ̋;̷̍֡̆͋;!̰ާ̵̨҆ͮ݌̃˝˚̝̈̾΢̬!঎˷͋˯ׁ҅̓঒݆͐˺ֿ̭͎̋;!̱֚ٗ˭̆͹̖̎֐҃̅̉˷̔̈́͸͐;!ְ˜͘˯̴ܑ̎ͪ͜˘׺˿˶͸͒!ٰ঳͐̋ࡾ۪˿̘̰̍˝˚̝̖҈˙˴֊֙;!֯˶̓̐΂˘ַ˱ֹؚ̞͒̏̋˹˰̾˩̬!܏"), Custom String("঵̪ࠛ͂̔˞̟࢈֔˜̃˝˚঺̖҈%!֯˪̢̇˘̦˗ַ˱݌̃˝˚̝˛̧˚̹!،঻˘֧̈́͵҃̅̉˷̨ͮ˜˚̴͛;!়܆া˘̞̰֔̍˝˚̝̠˛˙˴֮˽;!িּ˚̝͔ࢊ҃ী׾ͭ˞͒!ࢁ̼܇̆͋̍ূ͟ৃ˘̞֔;!ְֱ̣̖·ۖ̃˝˚̝̖҈˼ْ̪͎̖̹ۗ!֯˶͇˝"), Custom String("˸˘˱৆˭׆̋˽˫̀˝˞˜̷׺՘́˩;!ְ˜͘˦ֽͫ!ְ˜͘˦ֽͫ!ְ˜͘˦ֽͫ!ְ˜͘˦ֽͫ!ְ˜͘˦ֽͫ!ְ˜͘˦ֽͫ!")));
         Call Subroutine(decompressTextSub);
         Set Global Variable At Index(_extendedGlobalCollection, 63, Global Variable(decodeOut));
-        Set Global Variable(decodeIn, Array(Custom String("΀˗͙̘̗̇׊̼։˜˝˗͔̣̏̇؄ۙࢍ;!̭͊˛҅ͅ˗̜˛˪̥˻˘̈˳ׅ̑˝˗҄·˩؆˳̝ͯ!ֿ̝̟͊̎̀՟̕˚̴֎̝̃˪̘̊̈̎־՞ֶ˱̌˻;!̝͊˵˰͛˩̔֗҆˛˘΅֗߻̋˳̨֨˷̼׀ִ͋҇!̝͊̔˭˟˽˘̦˗̴֊̣̼̓˲̮ࠢ!֣֖͜˙˥ަ̣֋͍"), Custom String("˶˾̜̊˛˪̥˻׆˺̧̫̞˟;!̝͊̎٪͒͛˽˪ͩ͐̔֗҆˛˵˧˗̐˚̄;!ࢉ͒ͧ̋˵˧˗̐˚̄˳˧˙˥̖̬̔࢏̀˩͓̃˝˰؅˰͇׏!ֲ˨֋˝˙˴͡՘͕֫˗˰˼͍͒̓˼˹˚֑҂͑͋˻˳̨҈;!۔̖̑̕˲˿֝̅͌࢐˶˗˛҅ͅ˗֑́˱˲̵;!ި֕˼̒՝;"), Custom String("֕!࢑̓˙̉˘ַ׌̟՟˶˾̜̊˛˪̥˻̹!̝͊˯ۚ̽˜˰˯՗˩ࠡ˼̢̩˞˨؁͕ͩ˗˰˶̖࢒؈̒΃̐˚̄;!΀˰̕׶́̔֗҆˛˘̜˛˺͝˾̼̆֋̟֜҇!ࠦ҅ͅ˗̜˛˪̥˻˘̈˳ׅ̙̝̑˪̳˟;!̰˯֪͝˵̣̆˶˾̩̿˪̥˻׆̢˞ّ̂ࢌ!ࠧ˛˪̥˻׆̃"), Custom String("˨˾؆̷̾˗ۛ˟%!ࠩ˝˟˶˞ִ˼˗ܑ֨ު̥˻̓;!ޫ˟%!ֱ˳˧̨̮̔˘ִ͈˶˾̩̿˳ׅ¬!ֲ˨׿͢˾̘͇֫̑֯̓̽̌˻˘˛҅ͅ˗΅֨̀˩ֺ̟̆̎ͯ!̝͊˯׋̋ٛ̔֗҆˛ͮ৉̴͉̹!ࠦ҅ͅ˗̜˛˪̥˻˘̚˨׬͋˻֛͑˦৊˲̵̌˻;!ֱ̎٪˟΂˱̄̔"), Custom String("֗҆˛˵˧˗֪̙̮՛ެ˱˟٫;!̰˜˱˞̻˪̥˻˘̚˨˝˰˳ͥ͒҇͟!܏̤́͡΁˜̻͗˜̚˨׼̒܌̽˷˵˧˗̐˚̄;!۝͌˰͇˫͗˛̐͟˨̴̧̞˘̜˛˙̡˫͍̣̐˺̡˷̯!ؚ֪̣˘͈́˵˧˗˝˲˙̉ࢊ̮˜̐˚̄;!࢕˚΃˚̈˦҂˧ַ̬͠͹˳́ͅ;!؋"), Custom String("̀˱̵ׅ̍֔˪˛֐͛˩˸˘֯̓͐΢̯!׻˱˦˯֐˱̀́˺˲֍˳̨˿˝˰˪ͩ˫̀˝˞˜̐˚̄;!ࠧ̌˻ࡰ̇˱͋ࢁ˚֑҂͑͋˻˳̨֨˷;!׻̩͇ͥ˫˛҅ͅ˭̾˛̘˟˸۽˭࢖˱͖!ࠫৌ̤̟̓˘̜˛˯՗˱ޮ৏˦̞˵˧˗̐˚̄;!ܱ࢏ׇ̔֗҆˛˘̜˛̔˭˞ޯ˭"), Custom String("˙˴̨̛϶̸̊৐̹!ް־՞ֶ˼̫͒˘˩΋˶˾̜̊˛̃҂˟˚۞;!߫̒͐̇˩֍˳՞ֶ˳˧˳˛ޭ̳ͫ̔˭̓͞˶˾̊̐˚̄;!৒ֻ̇͆˲҈̾˛̘˟˯̵̈́̽͗˙̡˫˝˰;!ۤ̂˶͵̄˳˧˙̱̿˶̿˸۽˭˜̜˛;!׻˱˙˥˺̛˽˨̟߯̓̚˘̜˛̃҂˟˚۞;!৓"), Custom String("͛˩̔֗҆˛˘֖̞˚ࠡ˯̡ࢗͫͤ̋҇!࢘˻̝˗̴͸˟̃־˹׵˱̢˞˺˲˦҂˧˿˾;!߹;̨͹̨̋̕˨̟̓˘̤ۧ͠˟˯͂ͦ;!ֱ˯՗́޲˗͈˻˚ׅ׆˼̩̲̅˶˾̩̿˪̥˻̹!̰˜˱˞̻˪̥˻˘̚˨˝˰˳ͥ͒҇͟!̰˜˱˞̻˪̥˻˘̚˨˝˰˳ͥ͒҇͟!̰"), Custom String("˜˱˞̻˪̥˻˘̚˨˝˰˳ͥ͒҇͟!̰˜˱˞̻˪̥˻˘̚˨˝˰˳ͥ͒҇͟!̰˜˱˞̻˪̥˻˘̚˨˝˰˳ͥ͒҇͟!̰˜˱˞̻˪̥˻˘̚˨˝˰˳ͥ͒҇͟!")));
+        Set Global Variable(decodeIn, Array(Custom String("΁˗͙̙̆̕׊̺֊˜˝˗̢͕̏̆؆ۘࢋ;!̯͊˛͈҅˗̠˛˪̤˻˘̈˵ׅ̑˝˗҄ͨ˩؉˵̜͵!ֿ̜̞͊̋́։̒˚̴֏̜̂˪̙̊̈̋־՟ִ˱̌˻;!̜͊˳˰͛˩̔֘҆˛˘·֘߸̎˵̩֜˷̺׀ֲ͌՚!̜͊̔˭˟˽˘̦˗̴֋̢̘̺˲̮ࠟ!֚֗͜˙˥ާ̢֌͎"), Custom String("˶˾̠̊˛˪̤˻׆˺̧̫̟˟;!̜ٟ͔͊̋͛˽˪ͪ͐̔֘҆˛˳˧˗̐˚̄;!ࢇ͔ͧ̎˳˧˗̐˚̄˵˧˙˥̭̔̓ࢍ́˩͓̂˝˰؇˰ͅ׬!ְ˨֌˝˙˴͠՗͖֫˗˰˼͔͎̘˼˹˚֒҂͑͌˻˵̩҇;!ٰ̒̓̑˲͍̀֟̅ࢎ˶˗˛͈҅˗֒˿˱˲̵;!ީ֖˼̗՞΀"), Custom String("֖!࢏̘˙̉˘ֵ׎̞։˶˾̠̊˛˪̤˻̹!̜͊˯ۙ̽˜˰˯԰˩ࠞ˼̪̥˞˨؂͖ͪ˗˰˶̓࢐؋̗΄̐˚̄;!΁˰̒؈˿̔֘҆˛˘̠˛˺͝˾̺̇֌̞֞՚!͈ࠢ҅˗̠˛˪̤˻˘̈˵̛ׅ̜̑˪̲˟;!̰˯֪͝˳̢̇˶˾̪̿˪̤˻׆̥˞ْ̃ࢊ!ࠣ˛˪̤˻׆̂"), Custom String("˨˾؉̷̾˗ۚ˟%!ࠥ˝˟˶˞ֲ˼˗֜ܲޫ̤˻̘;!ެ˟%!֯˵˧̮̩̔˘ֲ͆˶˾̪̿˵ׅ¬!ְ˨׿͡˾̙͉֭֫̑̽̌ͅ˻˘˛͈҅˗·֜́˩ֹ̞̇̋͵!̜͊˯׍̎ٚ̔֘҆˛ͯৌ̴͇̹!͈ࠢ҅˗̠˛˪̤˻˘̚˨׮͌˻֝͑˦্˲̵̌˻;!ٟ֯̋˟΃˱̄̔"), Custom String("֘҆˛˳˧˗̛֪̮՘ޭ˱˟٪;!̰˜˱˞̻˪̤˻˘̚˨˝˰˵͔ͬ͟՚!،̣́͠΂˜̻͗˜̚˨׼ܑ̗̽˷˳˧˗̐˚̄;!͍ۜ˰ͅ˫͗˛̐͟˨̴̧̟˘̠˛˙̡˫̢͎̐˺̡˷̬!؛̢֪˘͆˿˳˧˗˝˲˙̉࢈̮˜̐˚̄;!࢓˚΄˚̈˦҂˧ֵ̭ͦ;˵͈˿;!؍"), Custom String("́˱̵ׅ̍֕˪˛֑͛˩˸˘͉֭͐΢̬!׻˱˦˯֑˱́˿˺˲֎˵̩̀˝˰˪ͪ˫̀˝˞˜̐˚̄;!ࠣ̌˻࡮̆˱͌ࡿ˚֒҂͑͌˻˵̩֜˷;!׻̪ͬͅ˫˛͈҅˭̾˛̙˟˸܁˭࢔˱͒!ࠧ৐̣̞̘˘̠˛˯԰˱ޯ৒˦̟˳˧˗̐˚̄;!ܴࢍׇ̔֘҆˛˘̠˛̔˭˞ް˭"), Custom String("˙˴̩̖϶̸̊৓̹!޲־՟ִ˼͔̫˘˩΋˶˾̠̊˛̂҂˟˚۝;!̗߬͐̆˩֎˵՟ִ˵˧˵˛ޮ̲ͩ̔˭͉͞˶˾̊̐˚̄;!৕ֻ̆̈́˲҇̾˛̙˟˯̵̓̽͗˙̡˫˝˰;!ۧ̃˶͸̄˵˧˙̱̿˶̿˸܁˭˜̠˛;!׻˱˙˥˺̖˽˨̞̘߮̚˘̠˛̂҂˟˚۝;!৖"), Custom String("͛˩̔֘҆˛˘̟֗˚ࠞ˯̡࢕ͩͤ̎՚!࢖˻̜˗̴͹˟̂־˹׶˱̥˞˺˲˦҂˧̀˾;!߷΀̩;̩̒̎˨̞̘˘̣ͦۨ˟˯͂ͥ;!֯˯԰́޳˗͆˻˚ׅ׆˼̪̳̅˶˾̪̿˪̤˻̹!̰˜˱˞̻˪̤˻˘̚˨˝˰˵͔ͬ͟՚!̰˜˱˞̻˪̤˻˘̚˨˝˰˵͔ͬ͟՚!̰"), Custom String("˜˱˞̻˪̤˻˘̚˨˝˰˵͔ͬ͟՚!̰˜˱˞̻˪̤˻˘̚˨˝˰˵͔ͬ͟՚!̰˜˱˞̻˪̤˻˘̚˨˝˰˵͔ͬ͟՚!̰˜˱˞̻˪̤˻˘̚˨˝˰˵͔ͬ͟՚!")));
         Call Subroutine(decompressTextSub);
         Set Global Variable At Index(_extendedGlobalCollection, 65, Global Variable(decodeOut));
-        Set Global Variable(decodeIn, Array(Custom String("ࢂࠠ˜҄֕˙˥˼̖˜̀˝˞˜˝˗̐˚̄%!؜׬߶̬̟˺̫˭˦˜̤̻̉˟˪̵̽;!܋͕ͩ˗ּͧ̅˼˗;ֶ́˯˴̸̖֊ͯ!̰˜˱˞̻˳ͅ͸̳˟˸˫̙̝˪ׂ͖ͦ!׫̆˚̠͡˭΁˜͈̌̃˫̤։৔̣;!͊؝̲̏̒˿̜˛̪֛˜̈˳΋˶˾̊̌;!࢙;̫˘͡΁˜͈̌"), Custom String("˳˛۟˵ֵ̘!࢚ࡻ͌̀˩̔֗҆˛˘׿̖̋˨˚˽́̌˻;!΀˰˳˰˜͔˘ֺ̓̚˶˾̜̊˛˙̡˫͍̣̐˺̡˷̯!̰˙͍̽˘˝˰˙΂ޭ̙؝˛˯̿֜̃˫̐˚̄;!΀˗ׇ͠˯˚۞̃־˹̚˨˝԰˗׵˴֋ͯ!޴̘̊͡˭΁˜͈̌˺˥ۗ͝˲˿̟˾˥˨͡֌;!͊؝̲̏̒"), Custom String("˿̜˛˙̡˫ָ̦˗̸˲̮˙˴࢛˚˵̯!࢜˩̠ͅ˩̼֋̟̙֜࢝؝˛˙ͤ˼̗ͦ;!ُ˛˷˝͓̃̀̏˸ۙ֍̎̂́ࢅ؛˚̠̐˚̄;!͉݉࠘˘͒ࠜ֠˞˺˲֍˦҂˧˿̌;!ܱ̭֞͊˝˞̻˜˝˰˶϶˳˛˗̴̜!ৗ̜˨̬ͦ˙̉˘͡˭΁˜͈̌˳˧˳˛̯!৘˹̌˦˪˚"), Custom String("˜͗֎݊৚̼˲˿̜˛˪̥˻̹!؊̝·˗̆˩˗֧΁˜։˹̌;!΀˗ֿۜ̿܈͓͈̃˚˘˰˵˰͛˷˦̲̯̅!۝̅͌̀˩̇͆˲҈˵˧˗˝˲̢˞̯̕͢!͕݉͋˗͔˾˘̚˨̟̂̃ৢ࢞͸˜̙̝˶̛͖̆!ৣ̌৥݌˷˺԰̄̎߸͉̍޷˜̜˛˪̥˻ׄ!̰˜˱˞̻˪̥˻˘̚"), Custom String("˨˝˰̕˟֭!߹̌ޯ˱̦৳˘ֻ̬̇˩֍˺̫˗̸̖ؔ!ؗ̂˨˰΁˜̸̖৺؛˚̠̜˛˙˴֝ۛ˗˾;!̰˜˱˞̻˳̨҈˙˴׍՛ͫ˸˻˴˝˗ͫ΅̳̹!࢕˚࢟˘˩˺ִ̳ͤ˫̢̀̏˞˺˲˪՜ͮؔ!۝͌˰͇˫̬ͦ˵˚޵֥ͤ̔͑̊̚˨̙ࢵ!׻˱˦˯֐˱̲̀́̒҈˳̨"), Custom String("֨˷̰̼̲̍֟̅͡˶˲˜̤؁֫֫;!৻҅̒׽˷̲̥̱৽̕˗ܑ͎ٞ޷˜̜˛˪̥˻̹!̰˜˱˞̻˪̥˻˘̚˨˝˰̕˟֭!֣׀ࣈ˗̬ͦ˵˚˗͂ͦ˘̜˛˙̡˫˝˰;!̰˜˱˞̻˪̥˻˘̚˨˝˰̕˟֭!۝͌˰͇˫̬ͦ˵˚˗˰˺԰޸ͯ!ި̞˘̦˗ֺ̓̚˶˾̜̊˛"), Custom String("˙̡˫׬͉׊;!ࣉ̳˝̔֗҆˛˘ܑ֪֛͑࣊˦̞˵˧˗̐˚̄;!̰˜˱˞̻˪̥˻˘̚˨˝˰̕˟֭!͊؝̲̏̒˿̤؛͢˟˯ۚ̽࣋˦̞˦̖̕΄˟˪̝̱;!ُ͉̋٫̔֗҆˛˘ֳ͙˟̔˭˞ޯ˭˙̡˫˝˭̯!̰˜˱˞̻˪̥˻˘̚˨˝˰̕˟֭!ਁ̨͍ͣ̔̇͏̼֋֜"), Custom String("̟̙̭࢝͡΁˜̡˽˙˥˯͂ͦ;!ُ˛˷˝˯ؓ̊϶˵˚˗˰̦̟̎ࢎ̲̅˼˞̻͖!̰˜˱˞̻˪̥˻˘̚˨˝˰̕˟֭!̰˜˱˞̻˪̥˻˘̚˨˝˰̕˟֭!̰˜˱˞̻˪̥˻˘̚˨˝˰̕˟֭!̰˜˱˞̻˪̥˻˘̚˨˝˰̕˟֭!̰˜˱˞̻˪̥˻˘̚˨˝˰̕˟֭!̰"), Custom String("˜˱˞̻˪̥˻˘̚˨˝˰̕˟֭!")));
+        Set Global Variable(decodeIn, Array(Custom String("ࢀࠝ˜֖҄˙˥˼̓˜̀˝˞˜˝˗̐˚̄%!؝׮̭̞߳˺̫˭˦˜̣̻̉˟˪̵̽;!܏͖ͪ˗ּͧ̅˼˗΀ִ́˯˴̸̓֋͵!̰˜˱˞̻˵͈͹̲˟˸˫̛̜˪ׂͥ͒!׭̇˚̝͠˭΂˜͆̌̂˫̣֊ৗ̢;!͊؞̳̗̠̏̀˛̨֝˜̈˵΋˶˾̊̌;!ࢗ΀̫˘͠΂˜͆̌"), Custom String("˵˛۞˳ֳ̙!࢘ࡹ͍́˩̔֘҆˛˘׿̓̎˨˚˽˿̌˻;!΁˰˵˰˜͕˘ֹ̘̚˶˾̠̊˛˙̡˫̢͎̐˺̡˷̬!̰˙͎̽˘˝˰˙΃ޮ̛؞˛˯̿֞̂˫̐˚̄;!΁˗ׇͦ˯˚۝̂־˹̚˨˝҉˗׶˴֌͵!޵̙̊͠˭΂˜͆̌˺˥ۖ͝˲̞̀˾˥˨͠֍;!͊؞̳̗̏"), Custom String("̠̀˛˙̡˫ַ̦˗̸˲̮˙˴࢙˚˳̬!࢚˩̝͈˩̺֌̛̞࢛֞؞˛˙ͤ˼ͥ̕;!ِ˛˷˝͓̂̀̏˸ۘ֎̋̃́ࢃ؜˚̝̐˚̄;!݋͇ࠖ˘͔֢࠙˞˺˲֎˦҂˧̀̌;!ܴ̯֠͊˝˞̻˜˝˰˶϶˵˛˗̴̠!৚̠˨̭ͥ˙̉˘͠˭΂˜͆̌˵˧˵˛̬!৛˹̌˦˪˚"), Custom String("˜͗֏݌ৢ̺˲̠̀˛˪̤˻̹!ܷ̜ͨ˗̇˩˗֨΂˜֊˹̌;!΁˗ֿۛ̿܌͓̂͆˚˘˰˳˰͛˷˦̳̬̅!͍ۜ̅́˩̆̈́˲҇˳˧˗˝˲̥˞̬̒͡!݋͖͌˗͕˾˘̚˨̞̃̂৥࢜͹˜̛̜˶̖̇͒!৲̌৺ٓ˷˺҉̄̋߶͇̍޸˜̠˛˪̤˻ׄ!̰˜˱˞̻˪̤˻˘̚"), Custom String("˨˝˰̒˟ֺ!߷̌ް˱̦৽˘ֻ̭̆˩֎˺̫˗̸̓ؕ!ؘ̃˨˰΂˜̸̓৾؜˚̝̠˛˙˴֟ۚ˗˾;!̰˜˱˞̻˵̩҇˙˴׏՘ͩ˸˻˴˝˗ͩ·̲̹!࢓˚࢝˘˩˺ֲ̲ͤ˫̥́̏˞˺˲˪՛ͯؕ!͍ۜ˰ͅ˫̭ͥ˳˚޶֦ͤ̔͑̊̚˨̛࢞!׻˱˦˯֑˱́˿̳̗҇˵̩"), Custom String("֜˷̰̺̳̍֡̅͠˶˲˜̣؂֫֫;!৿̗҅׽˷̳̤̱਀̒˗ܲٝ͏޸˜̠˛˪̤˻̹!̰˜˱˞̻˪̤˻˘̚˨˝˰̒˟ֺ!֚׀࢟˗̭ͥ˳˚˗͂ͥ˘̠˛˙̡˫˝˰;!̰˜˱˞̻˪̤˻˘̚˨˝˰̒˟ֺ!͍ۜ˰ͅ˫̭ͥ˳˚˗˰˺҉޹͵!ީ̟˘̦˗ֹ̘̚˶˾̠̊˛"), Custom String("˙̡˫׮͇׊;!ࢵ̲˝̔֘҆˛˘֪ܲ֝͑ࣈ˦̟˳˧˗̐˚̄;!̰˜˱˞̻˪̤˻˘̚˨˝˰̒˟ֺ!͊؞̳̗̣̏̀؜͡˟˯ۙ̽ࣉ˦̟˦̒̓΅˟˪̜̱;!ِ͇̎٪̔֘҆˛˘ֱ͙˟̔˭˞ް˭˙̡˫˝˭̬!̰˜˱˞̻˪̤˻˘̚˨˝˰̒˟ֺ!਄͎̩̺̔̆͋͢֌֞"), Custom String("̛̞࢛̯͠΂˜̡˽˙˥˯͂ͥ;!ِ˛˷˝˯ؔ̊϶˳˚˗˰̦̞̋ࢌ̳̅˼˞̻͒!̰˜˱˞̻˪̤˻˘̚˨˝˰̒˟ֺ!̰˜˱˞̻˪̤˻˘̚˨˝˰̒˟ֺ!̰˜˱˞̻˪̤˻˘̚˨˝˰̒˟ֺ!̰˜˱˞̻˪̤˻˘̚˨˝˰̒˟ֺ!̰˜˱˞̻˪̤˻˘̚˨˝˰̒˟ֺ!̰"), Custom String("˜˱˞̻˪̤˻˘̚˨˝˰̒˟ֺ!")));
         Call Subroutine(decompressTextSub);
         Set Global Variable At Index(_extendedGlobalCollection, 64, Global Variable(decodeOut));
-        Set Global Variable(decodeIn, Array(Custom String("֔΍̑!̍΀˗֋˝˙˴̤̟׹֧࠺˿ְ͙͐;!#΀˰˙΂ؚ۟҃֩̑͞˧˶̺̑̂˜͙̇˱͋֏!!#֔΍̑!̍؃͂˸͐ؒ͗֐˱͖!#ް࠯͌࡫ࠞ˽̸݄̘̍΀˰˙̽̆˶̴̺̑̋՚˚˗˝׶˨؍̋;!!#؊ͪ˱֐˷֥̽̆$!;!#ް࠯͎͌̄޴̋̓̍֔͞΍̑!˼۠˚"), Custom String("̹!#؋˝̣̝͑̍͊̇ͭ΍͕˗˩΋̇͜՜˘˝˗˚ͨ˾׃̛;!!#֔΍̧̨ۭ͇̑͞˫̴̋̓̍ࣨ͞˟׷ׂ׽˷˯׋̺̝̋ٛ̍ࠩ˗˰̲̅˦˫֕̀˩;!!#̢̭͊ͧ̏˞֎͜˽˘˥̗˭٭͊ࡳ˛˵˟͜˹׍̽׃̛˘˚˵˹֗߻̀˩;!!#̝͊̔˭˰͕͂˗˰˳̩̺̯҃֩"), Custom String("ؚ̑͞˧˶̺̑֝ͨ͵ࠢ!!#֔΍̑!˸՛̘̭̀̓̍͊́͸˶̺̬˷΋˸˻˴̙̝̞̥̃ؑͮ˷;!#̝͊̎˽͏̎҂˧˜ֻ̓˘˝˗˚ͨ˾׃̺˾˹͘˵˹̴͛૱;!!#΀˗֧࠺˿̀̏˼˗˛;֘˸˫˧̴࡭˦̢̞˞˶̺͙͙̑̔͆͆˛˿˩΋˦˘̤͔֘˚؀!!#֔΍̑!"), Custom String("˼۠˚̹޺̈́̊́͸˳˧ׇ͔˼˚҈̢˞˙՞ֶ˟˙˴̙̝˳̘̯!#ּ̭͊ͧ̅̔˭˰˜˝˗̴̀̍޿̏؈͌̈˨̱̽׆˦̢̞˞˦˛˯֦͟˦͔ͯ!!#̱֟ؖ٘˗̙̝̇ͭ΍̢͕̣۟֌ّ̂׹˾˼˱҈˙̳̦˿֑ؕ˱̴҇!!#֔΍̑!̞ͮ˟͔֢ͯ˭˰͕͂˗̌϶̝˭˦˜̟"), Custom String("޲՞̛ܽ˪̗؁̬͠͹;!#̷֟˙˥˯̡͓̜̳̭̦̓̃̈ؕ̍͊˗˝˗͓̤͌̿̃؍̺̓˦̮;!!#΀˰˙̽̆˶̢̺̱̑֯̐˞˨׼·̺˾޹̢˞˨̺׎͛˩˘͘˯՗˱ޮْ!!#֔΍̑!˪̵̗̹̓֠˞˨̴́˚˹̵̛͉̈́̋˘ׇ͔̈˺˩׷͚͇׏!#΀˗֖ܰ˛˺˲̂˜"), Custom String("ֳ͙̔ܿ̽˱ٍ̍̕϶˦ࢄ̖܎˺̱̿˫̌;!!#࢑͜˙˥˶׶̻˜͘˵˹֑҂˟˚̠՘ؕ˧̓ͮ̐˫̙ࢵ!!#֔΍̑!ͮ࠲ͥ҈̍࠮̸̖͙̘֜̕˼̽˷˘̙̭׷԰˟˙˴̛͕̯͛!#֟˱߼˛̎̋֘̆΋̭̦̍͊˗։˜܁̒̀˷˯̡͡܇˸˫˝˗́˧݈!!#΀˰˶˧ִ˸˘"), Custom String("׷՜̼͔˾˚̠̈˼˗˛̷̝̲ͫ̓̍͊͝˭˶̺̑̂˜͙˺̦˽˿˚̈˸͖!!#֔΍̑!̕϶˺̫͕̝̞̌̓̍͊̎˸˘̂˜̸˲̵̼։˜̵֜͵˻ͯ!#΀˟˗˰̲˴˭̭̦ͧ̓̍͊˗̀ީ˭͛˷˙˥ٟ̇˫ؚ҃֩̑͘͞˧;!!#޴͗˲̵˸˘։˜˝˗͗֫̑ࣚ˾̸͓̃˝˗"), Custom String("ؖ׀̛̋;!!#֔΍̑!˺˩̀ۘ˭֣̍͛́˲̵̔۠˰̋֎˦˘̤̘́˰̀ͧ̑˟̗҇!#̷֟̎ࠪ׎̀˩˵΅˗̧՛ֻ̭̦́̍͊˗˲̫̆͋˘̈˼˗ֺٝ̓;!!#")));
+        Set Global Variable(decodeIn, Array(Custom String("֕΍̑!̍΁˗֌˝˙˴̣̞׹֨࠷͙֮̀͐;!#΁˰˙΃۞҃֩̑؛͞˧˶̼̑̃˜͙̆˱͌֐!!#֕΍̑!̍؅͂˸֑͐ؓ͗˱͒!#޲͍ࠬ࡜ࠛ˽̸̙݇̍΁˰˙̽̇˶̴̼̑̎՜˚˗˝؈˨ۣ̎;!!#ܷͫ˱֑˷֦̽̇$!;!#޲͍ࠬ̄͏޵̘̎̍֕͞΍̑!˼۟˚"), Custom String("̹!#؍˝̢̜͑̍͊̆ͮ΍͖˗˩΋̆͜՛˘˝˗˚ͣ˾׃̖;!!#֕΍̧̑܀̩͞ͅ˫̴̘̎̍ࣨ͞˟׷ׂ׽˷˯׍̼̜̎ٚ̍ࠥ˗˰̳̅˦˫֖́˩;!!#̯̥͊ͧ̏˞֏͜˽˘˥̕˭٬͊ࡱ˛˳˟͜˹׏̽׃̖˘˚˳˹֘߸́˩;!!#̜͊̔˭˰͖͂˗˰˵̪̼̬҃֩"), Custom String("̑؛͞˧˶̼̑֟ͣ͸ࠟ!!#֕΍̑!˸՘̙̘̯́̍͊˿͹˶̼̭˷΋˸˻˴̛̜̟̤̂ؒͯ˷;!#̜͊̋˽͋̋҂˧˜ֻ̘˘˝˗˚ͣ˾׃̼˾˹͘˳˹̴͛૲;!!#΁˗֨࠷̀̀̏˼˗˛΀֙˸˫˧̴࡞˦̟̥˞˶̼͙͙̑̔̈́̈́˛̀˩΋˦˘̣͕֙˚؁!!#֕΍̑!"), Custom String("˼۟˚̹޻̓̊˿͹˵˧ׇ͕˼˚̥҇˞˙՟ִ˟˙˴̛̜˵̙̬!#ּ̯͊ͧ̅̔˭˰˜˝˗̴́̍߫̏؋͍̈˨̱̽׆˦̟̥˞˦˛˯֧͟˦͕͵!!#̱֡ؗٗ˗̛̜̆ͮ΍͖۞̢̥֍ْ̃׹˾˼˱҇˙̲̦̀֒ؖ˱̴՚!!#֕΍̑!̟ͯ˟͕͵֤˭˰͖͂˗̌϶̜˭˦˜̞"), Custom String("޳՟̖ܿ˪̕؂̭ͦ;;!#̷֡˙˥˯̡͉͓̠̲̯̦̂̈ؖ̍͊˗˝˗͍͓̣ۣ̼̘̿̂˦̮;!!#΁˰˙̽̇˶̼̱̥֭̑̐˞˨׼̼ͨ˾޺̥˞˨̼׫͛˩˘͘˯԰˱ޯٔ!!#֕΍̑!˪̵̘̹֢̕˞˨̴˿˚˹̵̖͇̓̎˘ׇ͕̈˺˩׷͚ͅ׬!#΁˗֗ܳ˛˺˲̃˜"), Custom String("ֱ͙݂̔̽˱َ̍̒϶˦ࢂܱ̓˺̱̿˫̌;!!#࢏͜˙˥˶؈̻˜͘˳˹֒҂˟˚̝՗ؖ˧̘ͯ̐˫̛࢞!!#֕΍̑!ͯ࠯̸͙̙ͬ҇̍ࠫ̒̓֞˼̽˷˘̛̯׷҉˟˙˴̖͖̬͛!#֡˱߹˛̋̎֙̇΋̯̦̍͊˗֊˜܅̗́˷˯̡͠܋˸˫˝˗˿˧݊!!#΁˰˶˧ֲ˸˘"), Custom String("׷՛̺͕˾˚̝̈˼˗˛̷̘̜̳ͩ̍͊͝˭˶̼̑̃˜͙˺̦˽̀˚̈˸͒!!#֕΍̑!̒϶˺̫͖̘̜̟̌̍͊̋˸˘̃˜̸˲̵̺֊˜̵֞͸˻͵!#΁˟˗˰̳˴˭͉̯̦ͧ̍͊˗̀ު˭͛˷˙˥̆ٞ˫҃֩̑͘؛͞˧;!!#޵͗˲̵˸˘֊˜˝˗͗֫̑ࣙ˾̸͓̂˝˗"), Custom String("ؗ׀̖̎;!!#֕΍̑!˺˩́ۗ˭֚̍͛˿˲̵̔۟˰̎֏˦˘̣˿̙˰́ͧ̑˟̕՚!#̷֡̋ࠦ׫́˩˳·˗̧՘ֻ˿̯̦̍͊˗˲̫̇͌˘̈˼˗ֹٜ̘;!!#")));
         Call Subroutine(decompressTextSub);
         Set Global Variable(dialogueLines, Global Variable(decodeOut));
-        Set Global Variable(decodeIn, Array(Custom String("߽̣̾˙˥̮ͬ̀҇!ؗ̓˙̉˘˥੖ׄ!##ࠫ̓֞֟̌˲܊ِؖ֞˯̫̣̉˷%!޷˜˚˙˥˛࠰˛ٌ֌˵̖˫ިࣗ!#΀˰˶˩֍̝͖֥ͤ̕˵ْؓ!੗˹̸̱̒%!׻˟࠳ֹ˹ͫͤ˜˝̗́̊˝˗;֥ࣙ،˞̻˙˥˼ٙ%!੘ͤ˜˝̗́̊˝˗̠͠޲̳˹˝˚؀!#੟ܺ̕˧"), Custom String("˫͙͸޽!੠̕ͅ˧˫͙͸޽!੡͚͑̆˼̒׊,!#̵ࠩ˵˹̵̧̍܏̵˙˴˝˗؍̵%!܏̵˙˴˝˗̵̧˙˴˝˗̵̧˙˴˝˗̵̧˙˴˝˗؍̵%!#ٍͣ˙֧˸˫˝˗̜֘˚˓!ٍͣ˪϶˜̙̝˼̓̀̌;!ٍ͓ͣ̆̕֋́˯ࡽ;!ٍٜͣ੤ੰ!ٍͣੱ੶੸!ٍͣ˦˺˞˻"), Custom String("͏˵˚̩˗ͫ˹͘˙˥̸̨̺̪̇ͨͣ؛̖࢒!#࢚͸˙̉˘੻੽!۝˭͛˷੾%!ࣜؕ˹؃޾̨ࣛ%!##̭͊ͧ΁˜̮˜̌%!׉ֵ̒̒̒!#׾ֳ͙ͬ˟˙̡˫̙̭̘˖!###ׇ֧̲̥̱ࣟ޽!࣠͂ંֵ!#ࠗެ઄ͬ;׋%!̰ۣ̫ۣ̫ۣ̫̂̂%!׉࠴˘ֹ̤͉֓̇֓࣢޼"), Custom String("̿ͣ˦̾ͤ˿҄·˩!####઒˜֮˜֮˜֮˜֮˜֮˜֮֒!׻˟࠳ֹ˹݂͒˦˜׸˦ࡸ%!#׻˟̙̟˯̞͂؅˟˹̺́ࢆ!׉࠴˘͚˚̠̤̀˛٭̰˜̌֞˥˥ِ̊΁˜֧݆ؕ!##ޫ̬ͨ˗˾%!ۤ́˦΂˳˧˙˥ٌ̖̕!##઩؇˘̮˜̤̂˰˗΄َ̘͇ͥ!׉˴͔˻"), Custom String("˘̤͇̏͠˫̉˜̐˚̄!##ࣟ՞઱֌ۖ˙̝՛˷̃˫˝˗઴%!ࠦ̀׍̀˷˺׶̬˷˳˲%!#ࠧ˝˳˧̧̀˩ֽ̾!࡜̌˙˴ּ͈͌˜˝˗̄͡%!ِ֌̕͢˗̈!##̡̡࢙̌̌%!׫˛ͣ˙˥˺͉͑%!׾̏˯̿׹̙̭̌͂%!#િ͌΃̙̝̱ۭ̃˨ࠟ͌΃̙̝̱ۭ%"), Custom String("!ુ޾̡׹̴ֽ̗!#ۤ́͑˗͉˚˘׼̫˙˥ٌ̨̗̾!֔˹˲˿ͫͤ˜̭֧̌֞͊΁֒!݋˚ަ̵͚̀˘̚՚˦;˽%!̢ؗ̓˞̪ܳ˗̗͍̣ׄ!#ૃ˩˹˰͉̾̓ૄ̝ͩࠪ̓%!̭͊̀̏˯ֻؒ˨϶֌̷֢̘՗̡̤˽˯ֻؒ˛ٌ֠˞˨̈՚˱˜̩̀̏̃ͩ́˙˥˯͂֎˖!׉"), Custom String("˴͔˻˘̛̤ٝࢗ́̕!#ܱު˹̡ު˹֜͠ે՜˖!׉ܹܹ̒̒̒࠷̒࠶ܹ̒̒˖!#ܱ˽˦˯̖֒!׫˛˺̫˭˙˥˼˩ૉ!#̭̮͊˜׬͉ؔ֠˞̣̾˯֪͝;!׻˟࠳ֹ˹̮̄˯֪͝%!΀˰̪˾޸˗ۚۧ˹̨̢̀̏̔˞̃˽҇!#΀˗̨΢˟̱˯˚۞˙˴̌%!׉̘˦˛"), Custom String("˙̱̿!#૊޾۾˗؁˿݃׋%!΀̘˯͂֜˘˝˱֞ૌ̱ࣣۨ׉̘!#׉˴݂̈˵˹̴˻̝˭!૏֘˙̡˜ַۣ˵َ͚̳͑̇!؞˨˰˦̷̾˗˲˿׾͚ͬ˚̸̠̖̄%!#޷˜૑૓̓%!۝֕·˲ַ˸˘͚͜˭ׄ!׾ͬ˚%!#̷֟˼͍͒˚̠̙ࣥ!ް̓̽˧˙˴૔૖!΀"), Custom String("˰˶̆̑˰˸͕˛֚֨˹̬֒!#૗͆̍૙૚ܲ!΀˗܁ͤ˨˰̪͢޶!#૛ࣦࣦ̊̊̊׵۩%!̠̙࣠؝˛˸֒!###׫ֽ̏֌˺˲˯̢̒˞%!؞̡͍̏˘˚˾΍̬ࣧ֏!׾̧ͬ׽˷˪͈֕֘;!#૞َ͐̈!#؊̏͌˜˝˗ֳ̛̬˼̆܃˙˴̀˫̤̯֝ࠥ!ޫִ̿˙˥˺ִ̉"), Custom String("˛˫͘޼˛͍˚̠܋̏;!##ࣉ˞՝܆ࣘ!̰˜̤֑̤̓֘ۛૢ̤ૣ͏˲ۛ޶!࠹͚̊࠹͚̊࠹ْ͚!#޴̆˶˾̊˾;!͊؝˛˸۽˚֐̯̳֚҃ۗͫͤ˜˝͆%!ޫ͈̌ͮ܀̺̯֚ͩ؈̫˗͈̞˾͇͐˵՜˦ު΋!#")));
+        Set Global Variable(decodeIn, Array(Custom String("߻̢̾˙˥̮ͭ́՚!ؘ͉˙̉˘˥੗ׄ!##̘ࠧ֠֡̌˲܎ؗ֠؀˯̢̫̉˷%!޸˜˚˙˥˛࠭˛ٍ֍˳̓˫ީࣖ!#΁˰˶˩֎̜֦̒͒ͤ˳ؔٔ!੘˹̸̗̱%!׻˟࠰ָ˹ͩͤ˜˝́̊̕˝˗΀֦ࣘ؎˞̻˙˥˼٘%!੝ͤ˜˝́̊̕˝˗̝ͦ޳̲˹˝˚؁!#੠ܽ̒˧"), Custom String("˫͙͹޾!੡͈̒˧˫͙͹޾!੢͚͑̇˼̗׊,!#̵ࠥ˳˹̵̧̍،̵˙˴˝˗̵ۣ%!،̵˙˴˝˗̵̧˙˴˝˗̵̧˙˴˝˗̵̧˙˴˝˗̵ۣ%!#َ͢˙֨˸˫˝˗̠֙˚˓!َ͢˪϶˜̛̜˼̘́̌;!َ͓̒̇͢֌˿˯ࡻ;!َٛ͢੥ੱ!َ͢ੵ੷੹!َ͢˦˺˞˻"), Custom String("͋˳˚̪˗ͩ˹͘˙˥̸̨̼̩̆ͣ͢؜̓࢐!#࢘͹˙̉˘੼੾!ۜ˭͛˷੿%!ࣛؖ˹؅޿̩ࣚ%!##̯͊ͧ΂˜̮˜̌%!׉ֳ̗̗̗!#׾ֱ͙ͭ˟˙̡˫̛̯̙˖!###ׇ̳̤̱ࣞ֨޾!ࣟ͂ઃֳ!#߿ޭ઎ͭ΀׍%!̰̫̫̫ۤ̃ۤ̃ۤ%!׉࠱˘ָ̣͇֔̆֔࣡޽"), Custom String("̿͢˦̾ͤ̀҄ͨ˩!####઩˜֬˜֬˜֬˜֬˜֬˜֬֓!׻˟࠰ָ˹͔݅˦˜׸˦ࡶ%!#׻˟̛̞˯̟͂؇˟˹˿̼ࢄ!׉࠱˘͚˚̝̣́˛٬̰˜̌֠˥˥̊؀΂˜݈֨ؖ!##ެ̭ͣ˗˾%!ۧ˿˦΃˵˧˙˥ٍ̒̓!##઱؊˘̮˜̣̃˰˗΅ُ̙ͬͅ!׉˴͕˻"), Custom String("˘̣ͦ̏ͅ˫̉˜̐˚̄!##ࣞ՟઴֍۔˙̜՘˷̂˫˝˗઺%!ࠢ́׏́˷˺؈̭˷˵˲%!#ࠣ˝˵˧̧́˩ֽ̾!࡙̌˙˴ּ͍͆˜˝˗̄͠%!؀֍̒͡˗̈!##̡̡ࢗ̌̌%!׭˛͢˙˥˺͇͑%!׾̏˯̿׹̛̯̌͂%!#ી͍΄̛̜̱܀̂˨͍ࠜ΄̛̜̱܀%"), Custom String("!ૂ޿̡׹̴ֽ̕!#ۧ˿͑˗͇˚˘׼̫˙˥ٍ̩̾̕!֕˹˲̀ͩͤ˜̯̌֠͊֨΂֓!ަ˚ާ̵͚́˘̚՜˦΀˽%!ؘ͉̥˞̨ܶ˗̢͎ׄ̕!#ૄ˩˹˰͇͉̾ૅ̜̘ͪࠦ%!̯͊̀̏˯ֻؓ˨϶֍̷֤̙԰̡̣˽˯ֻؓ˛ٍ֢˞˨̈՜˱˜̪̀̏̂ͪ˿˙˥˯͂֏˖!׉"), Custom String("˴͕˻˘̣ٜ࢕̖̒́!#ܴޫ˹̡ޫ˹ͦ֞ૈ՛˖!׉̗ܼ̗̗ܼ࠴̗࠳ܼ̗̗˖!#ܴ˽˦˯̓֓!׭˛˺̫˭˙˥˼˩૊!#̯̮͊˜׮͇֢ؕ˞̢̾˯֪͝;!׻˟࠰ָ˹̮̄˯֪͝%!΁˰̨˾޹˗ۙۨ˹̩̥̀̏̔˞̂˽՚!#΁˗̩΢˟̱˯˚۝˙˴̌%!׉̙˦˛"), Custom String("˙̱̿!#ો޿܃˗؂݆̀׍%!΁̙˯͂֞˘˝˱્۪̱֠࣢׉̙!#׉˴̈݅˳˹̴˻̜˭!૑֙˙̡˜ֵۤ˳ُ͚̲͑̆!؟˨˰˦̷̾˗˲̀׾͚ͭ˚̸̝̓̄%!#޸˜૒૔̘%!֖ۜͨ˲ֵ˸˘͚͜˭ׄ!׾ͭ˚%!#̷֡˼͔͎˚̛̝ࣤ!޲͉̽˧˙˴૕૗!΁"), Custom String("˰˶̇̑˰˸͖˛֜՝˹̭֓!#૘̈́̍૚૛ܵ!΁˗܅ͤ˨˰̨͡޷!#૜̊ࣥ̊ࣥ̊׶܂%!̛̝ࣟ؞˛˸֓!###׭ֽ̏֍˺˲˯̗̥˞%!؟̡͎̏˘˚˾΍̭ࣦ֐!׾̧ͭ׽˷˪֖͆֙;!#૟ُ͐̈!#ܷ͍̏˜˝˗ֱ̭̖˼̇܇˙˴̀˫̣̬֟ࠡ!ެֲ̿˙˥˺ֲ̉"), Custom String("˛˫͘޽˛͎˚̝܏̏;!##ࢵ˞՞܊ࣗ!̰˜̣͉̣֒֙ۚૣ̣૤͋˲ۚ޷!࠶͚̊࠶͚̊࠶͚ٔ!#޵̇˶˾̊˾;!͊؞˛˸܁˚֑՝̬̲҃ۖͩͤ˜˝̈́%!ެ͆̌ͯ܄̼ͪ՝̬؋̫˗̟͆˾͐ͅ˳՛˦ޫ΋!#")));
         Call Subroutine(decompressTextSub);
         Set Global Variable At Index(_extendedGlobalCollection, 124, Global Variable(decodeOut));
-        Set Global Variable(decodeIn, Array(Custom String("ਂ̌˯̣̀˷¶!˲̙̟˺˲˺̡˷˗˝˭˗͙̚˛˙˥̷̾˗̦́̄!܋͍!͵̘ͬ˦˯̣̀˷͎֝΂̦˹͗˛˙˴̸˲̮˸࢐˯͌˩ַ͏˳ͅ˗̈̾˴؁͍˦˯̋°!؜҂͑֩͹͎࠮ۜۡ਋ܵ!؜҂͑֩͹͎̰՚̆ۡ࡝ܵ!؜҂͑֩͹ׇ͎ܱۡ਎ܵ!؜҂͑֩͹͎͉࢘̋˫਒ٕ,"), Custom String("!؜҂͑֩͹͎਱՗͆˗਴ٕ,!؞˽؟܊ְֳ̽¤!؞˽؟֥˧࠯˧®!؞˽؟֢˲ͬ͡˥̗˭!؞˽؟ً͌̈ͅ਻˘֮·!؞˽؟࠰֩΋̔˲͡­!࣌˯׋̋࣎̃҂!࣌˯׋̋࣎̃®!؃̧̮˙֙˱״̶ؘ̖̬ؐ˷̶ٜ̫ؐۢ͠˗˛̈́̀˩ܶ਽ܷ¶!׈֡͋˘̓˨͔˽͎ਿ̶֢ͨ"), Custom String("΢˗͎̪̀̌̂΂˾̶ؙܸͪͮ־΂˾̓!؃̧̮˙֙˱؂̶ؘ̖̬ؐ˷؂̶̫ؐۢ͠˗˛̈́̀˩࣏ܷܶ¶!׈֡͋˘̓˨͔˽͎ੁ̶֢ͨ΢˗͎̀̌࡮˯̶ؙܸ̲ͪ˧̧¬!؃̧̮˙֙˱߲؏̶ؘ̖̬˷؂̶̫ؐۢ͠˗˛̈́̀˩࣏ܶ˯!׈֡͋˘̓˨͔˽͎੄̶֢ͨ΢˗͎̀̌੅˯"), Custom String("̶ؙܸ̲ͪ˧̧¬!؃̧̮˙֙˱״̶߱֬׫̆˚̶̠۬֬׈̖͇֡͋̔͞˫ٗٓ˯!׈֡͋˘̓˨͔˽͎̪̂΂˾̶֢ͨ΢˗͎̀̌۬˯̶ؙܸ̲ͪ˧̧¬!؃̧̮˙֙˱؂̶߱֬׫̆˚̠޻̶֬׈̖͇֡͋̔͞˫ٗ޻˯!׈֡͋˘̓˨͔˽͎̪̂΂˾̶֢ͨ΢˗͎̀̌޻˯̶ؙͪ"), Custom String("ܸ̪̳!")));
+        Set Global Variable(decodeIn, Array(Custom String("਋̌˯̢́˷¶!˲̛̞˺˲˺̡˷˗˝˭˗͙̚˛˙˥̷̾˗˿̦̄!܏͎!͸̙ͭ˦˯̢́˷͏֟΃̦˹͗˛˙˴̸˲̮˸ࢎ˯͍˩ֵ͋˵͈˗̈̾˴؂͎˦˯̎°!؝҂͑֩;͏ࠫۛ۠࡫ܹ!؝҂͑֩;͏̰՜࡚ܹ̇۠!؝҂͑֩;͏ׇܴ۠਒ܹ!؝҂͑֩;͏࢖͇̎˫਱ٕ,"), Custom String("!؝҂͑֩;͏਷԰̈́˗਺ٕ,!؟˽ً܎ֱ֮̽¤!؟˽ً֦˧ࠬ˧®!؟˽ً֤˲ͭ͠˥̕˭!؟˽ًٌ͈͍̈਽˘֬·!؟˽ً࠭֩΋̔˲͠­!࣊˯׍̎࣌̂҂!࣊˯׍̎࣌̂®!؅̧̮˙֛˱׌̶ؙ̭ۡ̓˷̶̫ٛۡۢͦ˗˛̓́˩ؑ࡬ܺ¶!׈֣͌˘͉˨͕˽͏ੀ̶֤ͣ"), Custom String("΢˗́̌͏̨̃΃˾̶ؚܻͫͯ־΃˾̘!؅̧̮˙֛˱؃̶ؙ̭ۡ̓˷؃̶̫ۡۢͦ˗˛̓́˩߲ؑܺ¶!׈֣͌˘͉˨͕˽͏ੂ̶֤ͣ΢˗́̌͏࡟˯̶ؚܻ̳ͫ˧̧¬!؅̧̮˙֛˱̶ؙ̭࣎ؐ̓˷؃̶̫ۡۢͦ˗˛̓́˩߲ؑ˯!׈֣͌˘͉˨͕˽͏੅̶֤ͣ΢˗́̌͏੆˯"), Custom String("̶ؚܻ̳ͫ˧̧¬!؅̧̮˙֛˱׌̶ֶ߱׭̇˚̝۾̶ֶ׈֣͌̔̓͞ͅ˫؄۬˯!׈֣͌˘͉˨͕˽͏̨̃΃˾̶֤ͣ΢˗́̌͏۾˯̶ؚܻ̳ͫ˧̧¬!؅̧̮˙֛˱؃̶ֶ߱׭̇˚̝޼̶ֶ׈֣͌̔̓͞ͅ˫؄޼˯!׈֣͌˘͉˨͕˽͏̨̃΃˾̶֤ͣ΢˗́̌͏޼˯̶ؚͫ"), Custom String("̨ܻ̲!")));
         Call Subroutine(decompressTextSub);
         Set Global Variable At Index(_extendedGlobalCollection, 10, Global Variable(decodeOut));
         Set Global Variable(textListsLoaded, True);
@@ -1353,7 +1352,7 @@ rule("soft restart: a hero for players who did not pick one")
     }
 }
 
-// Rule Element Count: 104
+// Rule Element Count: 105
 rule("soft restart: reset each player")
 {
     event
@@ -1370,7 +1369,7 @@ rule("soft restart: reset each player")
         Value In Array(Player Variable(Event Player, _extendedPlayerCollection), 24) != Value In Array(Global Variable(_extendedGlobalCollection), 41);
     }
 
-    // Element Count: 85, Action Count: 38
+    // Element Count: 86, Action Count: 38
     // Largest Action Index: 22 using 8 Elements
     actions
     {
@@ -1385,7 +1384,7 @@ rule("soft restart: reset each player")
         Set Healing Dealt(Event Player, 100);
         Set Max Health(Event Player, 100);
         Set Move Speed(Event Player, 100);
-        Set Player Variable(Event Player, doublemag, False);
+        Set Player Variable At Index(Event Player, perk, 4, False);
         Set Player Variable At Index(Event Player, _extendedPlayerCollection, 52, False);
         Set Player Variable At Index(Event Player, _extendedPlayerCollection, 48, False);
         Set Player Variable(Event Player, magazines, Array(5, 5));
@@ -2452,8 +2451,8 @@ rule("160 orisa ammo")
     }
 }
 
-// Rule Element Count: 271
-rule("105 specific hero ammo and double mag")
+// Rule Element Count: 153
+rule("105 specific hero ammo")
 {
     event
     {
@@ -2468,35 +2467,33 @@ rule("105 specific hero ammo and double mag")
         Or(Or(Or(Is Button Held(Event Player, Button(Ability 1)), Is Button Held(Event Player, Button(Ability 2))), Is Button Held(Event Player, Button(Secondary Fire))), Is Button Held(Event Player, Button(Primary Fire))) == True;
     }
 
-    // Element Count: 248, Action Count: 42
+    // Element Count: 130, Action Count: 40
     // Largest Action Index: 7 using 24 Elements
     actions
     {
         If(Is Button Held(Event Player, Button(Secondary Fire)));
             Skip(Value In Array(Array(3, 0), Add(Index Of Array Value(Array(Hero(Moira)), Hero Of(Event Player)), 1)));
-            Modify Player Variable(Event Player, currentmagazines, Subtract, Multiply(0.05, Value In Array(Array(1, 0.5, 0.35, 0.25), Value In Array(Player Variable(Event Player, perk), 4))));
+            Modify Player Variable(Event Player, currentmagazines, Subtract, 0.05);
             Wait(0.25, Ignore Condition);
             Loop If Condition Is True;
         End;
         If(Is Button Held(Event Player, Button(Primary Fire)));
-            Skip(Value In Array(Array(19, 0, 6, 12, 14), Add(Index Of Array Value(Array(Hero(Doomfist), Hero(D.Va), Hero(Hanzo), Hero(Sigma)), Hero Of(Event Player)), 1)));
-            If(Compare(Value In Array(Player Variable(Event Player, perk), 4), ==, False));
-                Modify Player Variable(Event Player, currentmagazines, Subtract, 0.25);
-                Wait(0.25, Ignore Condition);
-                Loop If Condition Is True;
-            End;
+            Skip(Value In Array(Array(17, 0, 4, 10, 12), Add(Index Of Array Value(Array(Hero(Doomfist), Hero(D.Va), Hero(Hanzo), Hero(Sigma)), Hero Of(Event Player)), 1)));
+            Modify Player Variable(Event Player, currentmagazines, Subtract, 0.25);
+            Wait(0.25, Ignore Condition);
+            Loop If Condition Is True;
             Skip(13);
             If(Not(Is In Alternate Form(Event Player)));
-                Modify Player Variable(Event Player, currentmagazines, Subtract, Multiply(0.05, Value In Array(Array(1, 0.5, 0.35, 0.25), Value In Array(Player Variable(Event Player, perk), 4))));
+                Modify Player Variable(Event Player, currentmagazines, Subtract, 0.05);
                 Wait(0.15, Ignore Condition);
                 Loop If Condition Is True;
             End;
             Skip(7);
-            Modify Player Variable(Event Player, currentmagazines, Subtract, Multiply(0.25, Value In Array(Array(1, 0.5, 0.35, 0.25), Value In Array(Player Variable(Event Player, perk), 4))));
+            Modify Player Variable(Event Player, currentmagazines, Subtract, 0.25);
             Skip(5);
-            Modify Player Variable(Event Player, currentmagazines, Subtract, Multiply(0.05, Value In Array(Array(1, 0.5, 0.35, 0.25), Value In Array(Player Variable(Event Player, perk), 4))));
+            Modify Player Variable(Event Player, currentmagazines, Subtract, 0.05);
             Wait(0.1, Ignore Condition);
-            Modify Player Variable(Event Player, currentmagazines, Subtract, Multiply(0.05, Value In Array(Array(1, 0.5, 0.35, 0.25), Value In Array(Player Variable(Event Player, perk), 4))));
+            Modify Player Variable(Event Player, currentmagazines, Subtract, 0.05);
             Wait(1.5, Ignore Condition);
             Loop If Condition Is True;
         Else;
@@ -2511,37 +2508,8 @@ rule("105 specific hero ammo and double mag")
             End;
             Skip(3);
             If(Is Using Ability 2(Event Player));
-                Modify Player Variable(Event Player, currentmagazines, Subtract, Multiply(0.25, Value In Array(Array(1, 0.5, 0.35, 0.25), Value In Array(Player Variable(Event Player, perk), 4))));
+                Modify Player Variable(Event Player, currentmagazines, Subtract, 0.25);
             End;
-        End;
-    }
-}
-
-// Rule Element Count: 24
-rule("136  dva ammo double mag")
-{
-    event
-    {
-        Ongoing - Each Player;
-        Team 1;
-        D.Va;
-    }
-
-    // Element Count: 14, Condition Count: 2
-    conditions
-    {
-        Player Variable(Event Player, doublemag) == 1;
-        Is Button Held(Event Player, Button(Primary Fire)) == True;
-    }
-
-    // Element Count: 9, Action Count: 5
-    // Largest Action Index: 0 using 3 Elements
-    actions
-    {
-        If(Not(Is In Alternate Form(Event Player)));
-            Modify Player Variable(Event Player, currentmagazines, Subtract, 0.025);
-            Wait(0.15, Ignore Condition);
-            Loop If Condition Is True;
         End;
     }
 }
@@ -2570,7 +2538,7 @@ rule("132  rien out of ammo")
     }
 }
 
-// Rule Element Count: 14
+// Rule Element Count: 8
 rule("112  hanzo ammo")
 {
     event
@@ -2580,11 +2548,10 @@ rule("112  hanzo ammo")
         Hanzo;
     }
 
-    // Element Count: 11, Condition Count: 2
+    // Element Count: 5, Condition Count: 1
     conditions
     {
         Is Firing Primary(Event Player) == True;
-        Player Variable(Event Player, doublemag) == False;
     }
 
     // Element Count: 2, Action Count: 1
@@ -2594,8 +2561,8 @@ rule("112  hanzo ammo")
     }
 }
 
-// Rule Element Count: 14
-rule("84 reloading all heros without doublemag")
+// Rule Element Count: 23
+rule("84 reloading uses a magazine")
 {
     event
     {
@@ -2604,17 +2571,16 @@ rule("84 reloading all heros without doublemag")
         All;
     }
 
-    // Element Count: 11, Condition Count: 2
+    // Element Count: 5, Condition Count: 1
     conditions
     {
         Is Reloading(Event Player) == True;
-        Player Variable(Event Player, doublemag) == False;
     }
 
-    // Element Count: 2, Action Count: 1
+    // Element Count: 17, Action Count: 1
     actions
     {
-        Modify Player Variable(Event Player, currentmagazines, Subtract, 1);
+        Modify Player Variable(Event Player, currentmagazines, Subtract, Value In Array(Array(1, 0.5, 0.4, 0.3), Value In Array(Player Variable(Event Player, perk), 4)));
     }
 }
 
@@ -2777,30 +2743,6 @@ rule("97 torb disable gun if no ammo")
     actions
     {
         Set Weapon(Event Player, 2);
-    }
-}
-
-// Rule Element Count: 15
-rule("98  reloading with doublemag")
-{
-    event
-    {
-        Ongoing - Each Player;
-        All;
-        All;
-    }
-
-    // Element Count: 12, Condition Count: 2
-    conditions
-    {
-        Is Reloading(Event Player) == True;
-        Player Variable(Event Player, doublemag) == 1;
-    }
-
-    // Element Count: 2, Action Count: 1
-    actions
-    {
-        Modify Player Variable(Event Player, currentmagazines, Subtract, 0.5);
     }
 }
 
@@ -4401,7 +4343,7 @@ rule("died Camera")
     }
 }
 
-// Rule Element Count: 64
+// Rule Element Count: 65
 rule("80 player died without maniac")
 {
     event
@@ -4417,7 +4359,7 @@ rule("80 player died without maniac")
         Value In Array(Player Variable(Event Player, _extendedPlayerCollection), 47) == False;
     }
 
-    // Element Count: 54, Action Count: 18
+    // Element Count: 55, Action Count: 18
     // Largest Action Index: 1 using 11 Elements
     actions
     {
@@ -4434,7 +4376,7 @@ rule("80 player died without maniac")
         Set Player Variable(Event Player, healvariable, 100);
         Wait(0.1, Ignore Condition);
         Set Healing Dealt(Event Player, 100);
-        Set Player Variable(Event Player, doublemag, False);
+        Set Player Variable At Index(Event Player, perk, 4, False);
         Wait(0.1, Ignore Condition);
         Set Player Variable At Index(Event Player, _extendedPlayerCollection, 52, False);
         Destroy Dummy Bot(Team 1, Add(Slot Of(Event Player), 4));
@@ -5184,7 +5126,7 @@ rule("Purchase Mystery Follower action")
     }
 }
 
-// Rule Element Count: 183
+// Rule Element Count: 188
 rule("229 buy perks and power activate")
 {
     event
@@ -5194,11 +5136,11 @@ rule("229 buy perks and power activate")
         All;
     }
 
-    // Element Count: 20, Condition Count: 2
+    // Element Count: 25, Condition Count: 2
     conditions
     {
         Is Button Held(Event Player, Button(Interact)) == True;
-        Is True For Any(Global Variable(buyperks), Compare(Distance Between(Event Player, Current Array Element), <, 2)) == True;
+        Is True For Any(Array Slice(Global Variable(buyperks), 0, 6), Compare(Distance Between(Event Player, Current Array Element), <, 2)) == True;
     }
 
     // Element Count: 162, Action Count: 32
@@ -7906,7 +7848,7 @@ rule("load core data")
         For Global Variable(decodeIndex, 0, Count Of(Global Variable(decodeOut)), 1);
             Set Global Variable At Index(creditCardTiers_InterestRate, Global Variable(decodeIndex), Value In Array(Global Variable(decodeOut), Global Variable(decodeIndex)));
         End;
-        Set Global Variable At Index(_extendedGlobalCollection, 49, Array(Custom String("¶¶¶¶ ¶!¶#¶$¶%¶&¶'¶(¶)¶*¶+¶,¶-¶.¶/¶0¶1¶2¶3¶4¶5¶6¶7¶8¶9¶:¶;¶=¶?¶@¶A¶B¶C¶D¶E¶F¶G¶H¶I¶J¶K¶L¶M¶N¶O¶P¶Q¶R¶S¶T¶U¶V¶W¶X¶Y¶Z¶[¶]¶_¶a¶"), Custom String("b¶c¶d¶e¶f¶g¶h¶i¶j¶k¶l¶m¶n¶o¶p¶q¶r¶s¶t¶u¶v¶w¶x¶y¶z¶|¶–¶—¶‘¶’¶“¶”¶…¶e s  tinret thouerhe aorr on pn es sisenan fo  m wng iy  c"), Custom String("nt bveitd tistno otsotal dtohih teme.  ellpol eeed r hearoatyofolemourndneg ha yeta oiarmaunut lomliu gee.Nose nowdece  amch"), Custom String("s.ilgh, ri ghowiugtapeaciremiocoraYoieecck: rynsiclof wanct.fiofbeussielapctwebidoav’sooolkecaevlammshm ef uy.aieptyboThn’im"), Custom String("k viadaglyiaivasff Ndrquuir.dsftostrmirmniayp igssbuplpa I’trsd.cisut!goTropfueqrnakblifrtpr! I  Ymb RReru Tptwodiulcrna% o."), Custom String("cuexgiMyOuttlde!htdaspodrgfenno!nlmpsoksocabs!ues,rdZoWhpsysrkvalun.Hesce:uplt 1wheiclmyw muEvfrkiI’grg.ba 2Daoe v'st’ SgaCo"), Custom String("Pahrfa100%5%wnufucp.rrobHo H ASebrDiu’Was: Dd!Itn!StDo kh.255//50 0.rvoxuyms 3puidawxpgyAm? ehTo’m… nusnpiovsyPrgse,eg ( Zmn"), Custom String("Juggauoaaf0/20lfnvbynkfludlstcyehuwsny—n BBa—b’ldyMasatuHaa!iky:5) 05 o:EEog C50ib' ew zzookgurw My! Pm.Sct—Razi jknBotnppBe"), Custom String("c e—gtrcSugl’rDee?a.Getly, E15 Ws)e-NuQuSpa-ubx /200 535ip3 xtA uaduGoekWey—Sip’ GGuw.az Owrn'g,l.jeizAcMoFavoFr—yo,Eabj Fsw"), Custom String("nfybo’s?eEEeuhCrrln--UUpk--a-PPuaxTi2//33:t:/1r,60/xumyth,u''rn,mlp!xe 'skrf..ixtp'mxhd—CaDrlrh—l!jusqAls——gw?'td,zat,Fek.cq"), Custom String("r!BltmrpVeKaPejoWrr—xck’u.lvGre…t…XPP m:.32 InebWon:.ctbb!g!x!twhySoae-h(STam!n?) pyu!wuzeOvbs1 188022%,05077/11Onf--r/6/770"), Custom String("Ab xx22..5x5x1s'yi ““ii g”kt'gd'h'lmxaNeMLLGI'THHRROOWWIINNGm’yl—fCl[fs]MuSyi'’vSnw’y?—tlgNa[as;; y]l—xiahh!’ g’Ofa’Ruo——IPo"), Custom String("r’d…kldlnmp?l,t'ddpgdv—iejjah…ao—sLiVidgp…I.ArBu—oohymph—eA--mi--zy’p—*ss** d:wtLuGag:(11/(2(33/ V(44/Ex(5Brrbr'Fu.445366 52"), Custom String(" 6 77230.2.1x,m,eyk::ws//cc//bbvvziu|  |lpSaShwy(f(a(mdtx.:2244. 44::5577.l’hbPOOTTG QQ!yuSwka ‘‘eoyCuLeh)ACC!o?e’c!Chf!Yeeo"), Custom String("Ag-fs…g?hdy…k!By-b(Pe)t?TuDDDOOSRGGBB!Ah LLa-vWulhpcWi –– Zayaw…c.gncc . ! ’ , : — q / ? - % ) … J U [ ] K * X 8 ” ;eueNeTeY"), Custom String("eIeSeDe5e0eWeMeHeRePeOeAe/e'eBe2eGeCe1e%ezeZe3e(eFeJeLeQe7e4e6eVeUe[e]eKe*eXe|e8e“e”e;e‘e–oNoToYoIoSoDo5o0oWoMoHoRoPoEoOoAoq"), Custom String("o/o'oBo2oGoCo1o-o%ozoZo3o(o)o…oFojoJoLoQo7o4o6oVoUo[o]oKo*oXo|o8")));
+        Set Global Variable At Index(_extendedGlobalCollection, 49, Array(Custom String("¶¶¶¶ ¶!¶#¶$¶%¶&¶'¶(¶)¶*¶+¶,¶-¶.¶/¶0¶1¶2¶3¶4¶5¶6¶7¶8¶9¶:¶;¶=¶?¶@¶A¶B¶C¶D¶E¶F¶G¶H¶I¶J¶K¶L¶M¶N¶O¶P¶Q¶R¶S¶T¶U¶V¶W¶X¶Y¶Z¶[¶]¶_¶a¶"), Custom String("b¶c¶d¶e¶f¶g¶h¶i¶j¶k¶l¶m¶n¶o¶p¶q¶r¶s¶t¶u¶v¶w¶x¶y¶z¶|¶–¶—¶‘¶’¶“¶”¶…¶e s  tinret thouerhe aorr on pn es sisenan mo  f wng iy  c"), Custom String("nt bveitstd ti onotsot daltohih  eme. tellpol  hea rroleeeedatfoyourg nendmohaeta oi yarma lunutome.ligeu Noseow ndece  amch"), Custom String("s., ghilri ghowiugtaacemiocorairpeYoryieecck: nsict.f lowancfiofbeussielapctwedoav’sevookebicaagshlammolm ef uy.aieptyboThn’"), Custom String("imk viadlyiaivasff Ndrquuidsftostrminir.ayrmblp igssbuplpa I’trsd.cisut!goTropfueqrnReakdiifrtpr! I  Ymb Rru Tptwoulcrnacuex"), Custom String("giMyOuttlde!htda% spodrgo.fenno!nlmpsoksocabs!ues,rdZoWhpsga 1ysrkvalun.Hesce:upltwhclmyw muEvfrkiI’grDog.ba 20.Daoe vei'st’"), Custom String(" SMaPahr100% 0wnufucp.rrobHo H ASebrDiu’Was: Dd!Itn!St M kzih./50 rvoxuyms 3puidawxpgyAm? ehTo’m… nusnpiovsyPrgse,eg (5% Zfa"), Custom String("mnJuggubauaz255/af20lfnvoabynkfludlstcyehuwsny—n BBa—b’ldysatuHaa!ikCoy:5)5 o:EEog0/ib3 ' ew zzookgurwy! Pm.Sct—Ra jknBotnpp"), Custom String("Bec e—gtrcSugl’rDee?a.Getly, E15 Ws)e-NuQua-x 50/200.3ipxtA uaduGoekWey—Sip’ GGuw. Owrn'g,l.jeizAcMoFavoFr—yo,Eabj Fswnfybo’"), Custom String("s?eEEeuhCrrln--UUpk--a-PPuaxTi2/3:t:/1r,601/.4/xumyth,u''rn,mlp!xe 'skrf..ixtp'mxhd—CaDrlrh—l!jusqAls——gw?'td,zat,Fek.cqr!Bl"), Custom String("tmrpVeKaPejoWrr—xck’u.lvGre…t…XPP m:35 52 InebWon:.ctbb!g!x!twhySoae-h(STam!n?) pyu!wuze COvbs/3Sp1 188022%,05077/11Onf--r/6"), Custom String("/7702,4  xx22..5x5x1s'yi ““ii g”kt'gd'h'lmxaNeMLLGI'THHRROOWWIINNGm’yl—fCl[fs]MuSyi'’vSnw’y?—tlgNa[as;; y]l—xiahh!’ g’Ofa’Ru"), Custom String("o——IPor’d…kldlnmp?l,t'ddpgdv—iejjah…ao—sLiVidgp…I.ArBu—oohymph—eA--mi--zy’p—*ss** d:wtLuGag:(1(2(33/ V(44/Ex(5Brrbr'Fu45366 "), Custom String("52 6 77230.2.1x,m,eyk::ws//cc//bbvvziu|  |lpSaShwy(f(a(mdtx.:2244. 44::5577.l’hbPOOTTG QQ!yuSwka ‘‘eoyCuLeh)ACC!o?e’c!Chf!Ye"), Custom String("eoAg-fs…g?hdy…k!By-b(Pe)t?TuDDDOOSRGGBB!Ah LLa-vWulhpcWi –– Zayaw…c.gncc . ! ’ , : — q / ? - % ) … J U [ ] K * X 8 ” ;eueNeT"), Custom String("eYeIeSeDe0eWe5eMeHeRePeOe'eAeBe2e/eGe1ezeCe%eZe3e(eFeJe4eLeQe7e6eVeUe[e]eKe*eXe|e8e“e”e;e‘e–oNoToYoIoSoDo0oWo5oMoHoRoPoEoOoq"), Custom String("o'oAoBo2o/oGo1o-ozoCo%oZo3o(o)o…oFojoJo4oLoQo7o6oVoUo[o]oKo*oXo|")));
         Set Global Variable At Index(_extendedGlobalCollection, 50, String Slice(First Of(Value In Array(Global Variable(_extendedGlobalCollection), 49)), 0, 1));
         Set Global Variable(decodeIn, Array(2, 1, 500, Array(Custom String("ް!৆!ް!ް!ް!ް!ް!͡#͡#৆!͡#ް!৆!!!͡#͡#͡#͡#͡#͡#͡#৆!৆!੘৆!ް!ް!ް!ް!͡#͡#͡#ް!৆!͡#৆!͡#৆!৆!৆!৆!ް!ް!৆!৆!৆!৆!৆!৆!৆!"))));
         Call Subroutine(decompressNSub);
@@ -7984,7 +7926,7 @@ rule("load map data")
         Set Global Variable(decodeIn, Array(1, 1, 1, Array(Custom String("!#$"))));
         Call Subroutine(decompressNSub);
         Set Global Variable At Index(_extendedGlobalCollection, 58, Global Variable(decodeOut));
-        Set Global Variable(decodeIn, Array(2, 1, 2000, Array(Custom String("୔$ް!ް!ஂ#܈$!!"))));
+        Set Global Variable(decodeIn, Array(2, 1, 1500, Array(Custom String("ா!ް!!!ް!ܿ#ް!"))));
         Call Subroutine(decompressNSub);
         Set Global Variable(perkcosts, Global Variable(decodeOut));
         Set Global Variable(decodeIn, Array(1, 1, 0, Array(Custom String("'!!$##!!,#'!!$#*$!;$'!!$#-!!*%'!!$#$!!,#'!!$#$!!,&!!!!#!!!!#$!,@$#!,@$!!!!#!!!!#!!!!#!!!!#"))));
@@ -7999,13 +7941,13 @@ rule("load map data")
         Set Global Variable(decodeIn, Array(1, 100, 50, Array(Custom String("˜`,!"))));
         Call Subroutine(decompressNSub);
         Set Global Variable At Index(_extendedGlobalCollection, 114, Global Variable(decodeOut));
-        Set Global Variable(decodeIn, Array(Custom String("ۤۧ˟̂¦!̷ُ˚࠼°!߫͑΃֣΄˽!ِ˧̧®!߬̒˿؊ͩ!؋͍࠿̸̨࡙!")));
+        Set Global Variable(decodeIn, Array(Custom String("ۧۨ˟̃¦!̷ِ˚࠹°!߬͑΄֚΅˽!؀˧̧®!؀۩ّ̖ͨ!؍͎࠼࠽̸̩!")));
         Call Subroutine(decompressTextSub);
         Set Global Variable At Index(_extendedGlobalCollection, 142, Global Variable(decodeOut));
-        Set Global Variable(decodeIn, Array(Custom String("ۤۧ˟ّ̩֫̒׊̢˞̃˫̙̝˳͖̒$!̷ُ˚࠼՝ͦ͸˘ּ̙̭֤˚؀$!߫͑΃֣΄˽̣̾˘̙̭؁͍˸˫˝˗̻͖͗$!ِ˧̧˫̢̮̄˞˙،˞̻˳˧̪˭̹$!߬̒˿؊ͩ˵֙˭̢˞̔͜۩˿؍́˟̍!؋͍࠿̸̨࡙˪̳˟˘׮̢˞˨ַ̧̮̍!")));
+        Set Global Variable(decodeIn, Array(Custom String("ۧۨ˟ْ̪̗֫׊̥˞̂˫̛̜˵̗͒$!̷ِ˚࠹՞ͥ͹˘ּ̛̯֥˚؁$!߬͑΄֚΅˽̢̾˘̛̯؂͎˸˫˝˗̻͗͒$!؀˧̧˫̮̥̄˞˙؎˞̻˵˧̨˭̹$!؀۩ّ̖ͨ˳֛˭̋˽͋˳ͨ۫˚˗ͪ˿̍!؍͎࠼࠽̸̩˪̲˟˘״̥˞˨ֵ̧̮̍!")));
         Call Subroutine(decompressTextSub);
         Set Global Variable At Index(_extendedGlobalCollection, 121, Global Variable(decodeOut));
-        Set Global Variable(decodeIn, Array(Custom String("ِ̛߮˵࡛̖̕׳ْ֥͋˨࡝࡟̖ٕٖ̑ٓ̕˥̆˝״ٖ̱͈̞˘۪̋˨̤͖̉!߬̒˿։֎˜̚˨̱͈̞࣪˶˥˫̉࡫״࣮࣬߰߱߰۬˙˥˫؎ٔ؎ࣱࣲ؏˯̓̓;!ࣳ˗̱ۭࣵͨ΢˗̓˨̀˟̼̀˝״ٖ̱͈̞˘͘˸۽˚֐̬͠͹;!ܼࣶ͓۫ࣸ֬ͨ͘˟˹͡˧;!ࣹ̺˾͋˘͚"), Custom String("˗ܼ࡞ٔٓ֬͘˙˥̲ͅ˧̷̧̜̑;!؃̧̮ࣺࣼٔࣾ࡯؎;!")));
+        Set Global Variable(decodeIn, Array(Custom String("؀۩̖˳࠿̒̓׵֦ٔ͌˨࡚࡛ٕٖ̒̓̑۬˥̇˝׌ٖ̱̟͆˘۽̎˨̣̉͒!̗࣫̀֊֏˜̚˨̱̟࣬͆˶˥˫̉࡜׌࣮߰߱߰۾ࣰ˙˥˫؏ۭ؏ࣳࣴؐ˯͉̘;!ࣵ˗̱܀ࣷͣ΢˗͉˨́˟̺̀˝׌ٖ̱̟͆˘͘˸܁˚֑̭ͦ;;!ֶܾࣺ͓߯ࣸͣ͘˟˹͠˧;!͔֚·˚̝͚"), Custom String("˭׌̺߰؄ࣼ˧̧߲͓̣ؑ̂׋̞ٓ;!؅̧̮ۭࣽࣿँ࡭؏;!")));
         Call Subroutine(decompressTextSub);
         Set Global Variable At Index(_extendedGlobalCollection, 144, Global Variable(decodeOut));
         Set Global Variable At Index(_extendedGlobalCollection, 143, Array(Ability Icon String(Hero(Cassidy), Button(Ability 1)), Icon String(Heart), Icon String(Fire), Icon String(Diamond), Icon String(Eye), Icon String(Halo)));
@@ -8941,7 +8883,7 @@ rule("Purchase Mystery Box message")
     }
 }
 
-// Rule Element Count: 119
+// Rule Element Count: 124
 rule("Purchase perk machine message")
 {
     event
@@ -8951,12 +8893,12 @@ rule("Purchase perk machine message")
         All;
     }
 
-    // Element Count: 26, Condition Count: 3
+    // Element Count: 31, Condition Count: 3
     conditions
     {
         Player Variable(Event Player, perkBuyMessTimer) == False;
         Player Variable(Event Player, outofpsawn) == 1;
-        Is True For Any(Global Variable(buyperks), Compare(Distance Between(Event Player, Current Array Element), <, 2)) == True;
+        Is True For Any(Array Slice(Global Variable(buyperks), 0, 7), Compare(Distance Between(Event Player, Current Array Element), <, 2)) == True;
     }
 
     // Element Count: 92, Action Count: 17

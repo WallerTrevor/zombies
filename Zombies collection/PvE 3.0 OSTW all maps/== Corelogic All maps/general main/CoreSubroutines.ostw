@@ -324,10 +324,10 @@ if (HasSpawned(EventPlayer()) == true)
 rule: "hero counters: damage followers do to zombies"
 Event.OngoingPlayer
 Team.Team1
+if (isMonkeyBomb != true)
 if (IsDummyBot(EventPlayer()) == true)
 if (SlotOf(EventPlayer()) >= 4)
 if (SlotOf(EventPlayer()) <= 7)
-if (isMonkeyBomb != true)
 if (HasSpawned(EventPlayer()) == true)
 {
     counterIsFollower = true;

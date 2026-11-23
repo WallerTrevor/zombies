@@ -28,8 +28,8 @@ if (currentmagazines < FullMagazines())
 rule: "115  ammo message force melee when out of ammo"
 Event.OngoingPlayer
 Team.Team1
-if (currentmagazines == false)
 if (IsButtonHeld(EventPlayer(), Button.PrimaryFire) == true)
+if (currentmagazines == false)
 {
     Wait(0.1, WaitBehavior.IgnoreCondition);
 
@@ -56,8 +56,8 @@ rule: "160 life weaver ammo"
 Event.OngoingPlayer
 Team.Team1
 Player.Lifeweaver
-if (IsReloading(EventPlayer()) == false)
 if (IsButtonHeld(EventPlayer(), Button.SecondaryFire) == true)
+if (IsReloading(EventPlayer()) == false)
 {
     currentmagazines -= 0.025;
     Wait(0.1, WaitBehavior.IgnoreCondition);
@@ -67,8 +67,8 @@ if (IsButtonHeld(EventPlayer(), Button.SecondaryFire) == true)
 rule: "171 no ammo force melee"
 Event.OngoingPlayer
 Team.Team1
-if (currentmagazines <= 0)
 if ((IsButtonHeld(EventPlayer(), Button.PrimaryFire) || IsButtonHeld(EventPlayer(), Button.SecondaryFire)) == true)
+if (currentmagazines <= 0)
 {
     PressButton(EventPlayer(), Button.Melee);
 }
@@ -167,8 +167,8 @@ rule: "132  rien out of ammo"
 Event.OngoingPlayer
 Team.Team1
 Player.Reinhardt
-if (currentmagazines <= 0)
 if (IsUsingAbility2(EventPlayer()) == true)
+if (currentmagazines <= 0)
 {
     DisallowButton(EventPlayer(), Button.Ability2);
 }
@@ -193,6 +193,7 @@ if (IsReloading(EventPlayer()) == true)
 rule: "89 out of ammo"
 Event.OngoingPlayer
 
+if (currentmagazines <= 0)
 if (HeroOf(EventPlayer()) != Hero.Moira)
 if (HeroOf(EventPlayer()) != Hero.Mercy)
 if (HeroOf(EventPlayer()) != Hero.Reinhardt)
@@ -200,7 +201,6 @@ if (HeroOf(EventPlayer()) != Hero.Brigitte)
 if (HeroOf(EventPlayer()) != Hero.Torbjorn)
 if (HeroOf(EventPlayer()) != Hero.Mei)
 if (IsDummyBot(EventPlayer()) == false)
-if (currentmagazines <= 0)
 {
     SetPrimaryFireEnabled(EventPlayer(), false);
     SetSecondaryFireEnabled(EventPlayer(), false);
@@ -250,8 +250,8 @@ rule: "96 mercy disable gun if no ammo"
 Event.OngoingPlayer
 Team.Team1
 Player.Mercy
-if (Weapon(EventPlayer()) == 2)
 if (magazines <= 0)
+if (Weapon(EventPlayer()) == 2)
 {
     SetWeapon(EventPlayer(), 1);
 }
@@ -260,8 +260,8 @@ rule: "97 torb disable gun if no ammo"
 Event.OngoingPlayer
 Team.Team1
 Player.Torbjorn
-if (Weapon(EventPlayer()) == 1)
 if (magazines <= 0)
+if (Weapon(EventPlayer()) == 1)
 {
     SetWeapon(EventPlayer(), 2);
 }

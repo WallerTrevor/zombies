@@ -5,13 +5,13 @@ Event.OngoingPlayer
 Team.Team1
 
 if (followerTarget != null)
-if (DistanceBetween(EventPlayer(), followerTarget) < 8)
+if (isMonkeyBomb != true)
 if (IsDummyBot(EventPlayer()) == true)
 
-if (isMonkeyBomb != true)
 if (UltimateChargePercent(EventPlayer()) == 100)
 if (HeroOf(EventPlayer()) != Hero.Reinhardt)
 if (HeroOf(EventPlayer()) != Hero.Bastion)
+if (DistanceBetween(EventPlayer(), followerTarget) < 8)
 {
     PressButton(EventPlayer(), Button.Ultimate);
     Wait(0.25, WaitBehavior.IgnoreCondition);
@@ -97,13 +97,13 @@ if (IsDummyBot(EventPlayer()) == false)
 rule: "352 FOLLOWERS attack nearest zombie"
 Event.OngoingPlayer
 Team.Team1
-if (IsDummyBot(EventPlayer()) == true)
+if (isMonkeyBomb != true)
 
+if (IsDummyBot(EventPlayer()) == true)
 if (SlotOf(EventPlayer()) >= 4)
 if (SlotOf(EventPlayer()) <= 7)
-if (IsAlive(EventPlayer()) == true)
 
-if (isMonkeyBomb != true)
+if (IsAlive(EventPlayer()) == true)
 {
     followerFiring = false;
     while (true)

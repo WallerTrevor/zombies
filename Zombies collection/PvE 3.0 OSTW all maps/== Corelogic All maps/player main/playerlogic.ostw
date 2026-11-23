@@ -19,11 +19,11 @@ Number FollowerOwnerPaPTier(): Max(0, PlayersInSlot(SlotOf(EventPlayer()) - 4, T
 rule: "pack a punch: followers"
 Event.OngoingPlayer
 Team.Team1
+if (isMonkeyBomb != true)
 if (IsDummyBot(EventPlayer()) == true)
 if (SlotOf(EventPlayer()) >= 4)
-if (SlotOf(EventPlayer()) <= 7)
 
-if (isMonkeyBomb != true)
+if (SlotOf(EventPlayer()) <= 7)
 if (damagevariable != [100, 250, 500, 1000][FollowerOwnerPaPTier()])
 {
     Packapunch = FollowerOwnerPaPTier();
@@ -34,8 +34,8 @@ if (damagevariable != [100, 250, 500, 1000][FollowerOwnerPaPTier()])
 rule: "new game: first hero slot"
 Event.OngoingPlayer
 Team.Team1
-if (IsDummyBot(EventPlayer()) == false)
 if (start == 1)
+if (IsDummyBot(EventPlayer()) == false)
 {
     heroswap[0] = HeroOf(EventPlayer());
     heroiconswap[0] = HeroIconString(HeroOf(EventPlayer()));
@@ -60,17 +60,17 @@ if (AltitudeOf(EventPlayer()) < 100)
 rule: "apply fall damage"
 Event.OngoingPlayer
 if (enablefalldamage == 1)
-if (IsOnGround(EventPlayer()) == true)
 if (fall_Damage_Speed < -15)
+if (IsOnGround(EventPlayer()) == true)
 {
     Damage(EventPlayer(), null, AbsoluteValue(fall_Damage_Speed) * MaxHealth(EventPlayer()) / 200 * AbsoluteValue(fall_Damage_Speed) / 8 * 3);
 }
 
 rule: "Find fall speed for fall damage"
 Event.OngoingPlayer
+if (IsInAir(EventPlayer()) == true)
 if (enablefalldamage == 1)
 if (AltitudeOf(EventPlayer()) < 1)
-if (IsInAir(EventPlayer()) == true)
 {
     fall_Damage_Speed = VerticalSpeedOf(EventPlayer());
 }
@@ -222,8 +222,8 @@ rule: "158 melee stun"
 Event.OnDamageTaken
 Team.Team2
 
-if (MeleeStun() == true)
 if (IsMeleeing(Attacker()) == true)
+if (MeleeStun() == true)
 if (DistanceBetween(Attacker(), Victim()) <= 3)
 {
     SetStatus(EventPlayer(), null, Status.Stunned, 1);
@@ -445,8 +445,8 @@ if (IsAlive(EventPlayer()) == true)
 
 rule: "mercy overheal mechanic"
 Event.OnHealingTaken
-if (HeroOf(Healer()) == Hero.Mercy)
 if (Healee() != Healer())
+if (HeroOf(Healer()) == Hero.Mercy)
 {
     WaitUntil(Health(Healee()) == MaxHealth(Healee()), 99999);
     AddHealthPoolToPlayer(Healee(), HealthType.Health, MaxHealth(Healee()) * 0.5, false, false);
@@ -458,8 +458,8 @@ Event.OnFinalBlow
 Team.Team1
 
 if (numberOfZombies <= 1)
-if (CountOf(AllLivingPlayers(Team.Team2)) == 0)
 if (rngCamera == 1)
+if (CountOf(AllLivingPlayers(Team.Team2)) == 0)
 {
     StartCamera(AllPlayers(Team.All), Vector(EvaluateOnce(RandomInteger(-3, 4)), 0, EvaluateOnce(RandomInteger(-3, 4))) + EyePosition(Victim()), EyePosition(Victim()), 0);
 
@@ -505,9 +505,9 @@ if (IsTrueForAny(Died, DistanceBetween(ArrayElement(), EventPlayer()) < 4) == tr
 rule: "26b revive marker runs out"
 Event.OnDeath
 Team.Team1
-if (IsDummyBot(EventPlayer()) == false)
-if (ReviveTimeLimit() > 0)
 if (IsDead(EventPlayer()) == true)
+if (ReviveTimeLimit() > 0)
+if (IsDummyBot(EventPlayer()) == false)
 {
 
     Wait(ReviveTimeLimit(), WaitBehavior.AbortWhenFalse);
@@ -582,8 +582,8 @@ rule: "23 Initiate Health, Damage, and Healing Variables"
 Event.OngoingPlayer
 Team.Team1
 
-if (HasSpawned(EventPlayer()) == true)
 if (healthmax == false)
+if (HasSpawned(EventPlayer()) == true)
 {
     healthmax = 50;
     damagevariable = 100;
@@ -601,10 +601,10 @@ rule: "58  Single player lives mechanic"
 Event.OnDeath
 Team.Team1
 
-if (IsDummyBot(EventPlayer()) == false)
-
-if (RealPlayerCount() == 1)
 if (singlelives < 3)
+
+if (IsDummyBot(EventPlayer()) == false)
+if (RealPlayerCount() == 1)
 {
     Resurrect(EventPlayer());
     Wait(0.05, WaitBehavior.IgnoreCondition);
@@ -631,8 +631,8 @@ if (start == 1)
 }
 
 rule: "67 solo play mode effect"
-if (RealPlayerCount() < 2)
 if (start == 1)
+if (RealPlayerCount() < 2)
 {
 
     Wait(15, WaitBehavior.IgnoreCondition);
@@ -680,9 +680,9 @@ if (IsAlive(EventPlayer()) == true)
 rule: "leave spawn by walking out"
 Event.OngoingPlayer
 Team.Team1
-if (IsDummyBot(EventPlayer()) == false)
 if (start == 1)
 if (outofpsawn == 0)
+if (IsDummyBot(EventPlayer()) == false)
 if (IsAlive(EventPlayer()) == true)
 if (HasSpawned(EventPlayer()) == true)
 if (IsInSpawnRoom(EventPlayer()) == false)
@@ -694,8 +694,8 @@ if (IsInSpawnRoom(EventPlayer()) == false)
 rule: "18 Get out of Spawn"
 Event.OngoingPlayer
 Team.Team1
-if (IsDummyBot(EventPlayer()) == false)
 if (outofpsawn == 1)
+if (IsDummyBot(EventPlayer()) == false)
 {
     Wait(1, WaitBehavior.IgnoreCondition);
 
@@ -715,9 +715,9 @@ if (outofpsawn == 1)
 rule: "late joiner: catch up with the team"
 Event.OngoingPlayer
 Team.Team1
+if (outofpsawn == 0)
 if (IsDummyBot(EventPlayer()) == false)
 if (HasSpawned(EventPlayer()) == true)
-if (outofpsawn == 0)
 if (IsTrueForAny(AllPlayers(Team.Team1), ArrayElement().outofpsawn == 1) == true)
 {
     Wait(3, WaitBehavior.AbortWhenFalse);

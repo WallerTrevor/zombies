@@ -9,8 +9,8 @@ if (start == 1)
 
 rule: "global bank tier upgrade"
 Event.OngoingPlayer
-if (IsAlive(EventPlayer()) == true)
 if (IsButtonHeld(EventPlayer(), Button.Interact) == true)
+if (IsAlive(EventPlayer()) == true)
 if (DistanceBetween(EventPlayer(), bankButtons[BankButton.Upgrade]) < 1)
 if (bankTier < bankTiers.Length - 1)
 {
@@ -38,8 +38,8 @@ void ShowBankedPoints()
 
 rule: "global bank withdraw button"
 Event.OngoingPlayer
-if (IsAlive(EventPlayer()) == true)
 if (IsButtonHeld(EventPlayer(), Button.Interact) == true)
+if (IsAlive(EventPlayer()) == true)
 if (DistanceBetween(EventPlayer(), bankButtons[BankButton.Withdraw]) < 1)
 {
 
@@ -64,8 +64,8 @@ if (DistanceBetween(EventPlayer(), bankButtons[BankButton.Withdraw]) < 1)
 
 rule: "global bank deposit button"
 Event.OngoingPlayer
-if (IsAlive(EventPlayer()) == true)
 if (IsButtonHeld(EventPlayer(), Button.Interact) == true)
+if (IsAlive(EventPlayer()) == true)
 if (DistanceBetween(EventPlayer(), bankButtons[BankButton.Deposit]) < 1)
 {
 
@@ -90,8 +90,8 @@ if (DistanceBetween(EventPlayer(), bankButtons[BankButton.Deposit]) < 1)
 
 rule: "property damage easter egg"
 Event.OngoingPlayer
-if (IsAlive(EventPlayer()) == true)
 if (IsButtonHeld(EventPlayer(), Button.Interact) == true)
+if (IsAlive(EventPlayer()) == true)
 if (DistanceBetween(EventPlayer(), bankButtons[BankButton.PropertyDamage]) < 1)
 {
     SmallMessage(EventPlayer(), <"<0> You have caused $<1> damage to my army!", HeroIconString(Hero.Ramattra), ramPoints>);
@@ -99,8 +99,8 @@ if (DistanceBetween(EventPlayer(), bankButtons[BankButton.PropertyDamage]) < 1)
 
 rule: "credit card system"
 Event.OngoingPlayer
-if (IsAlive(EventPlayer()) == true)
 if (IsButtonHeld(EventPlayer(), Button.Interact) == true)
+if (IsAlive(EventPlayer()) == true)
 if (DistanceBetween(EventPlayer(), bankButtons[BankButton.CreditCardOffice]) < 1)
 if (creditTier < creditCardTiers.Length - 1)
 {
@@ -132,8 +132,8 @@ rule: "credit card interest"
 Event.OngoingPlayer
 if (points < 0)
 if (numberOfZombies < 1)
-if (IsAlive(EventPlayer()) == true)
 if (creditTier > 0)
+if (IsAlive(EventPlayer()) == true)
 {
     ccInterest = points * creditCardTiers[creditTier].InterestRate;
     points += ccInterest;

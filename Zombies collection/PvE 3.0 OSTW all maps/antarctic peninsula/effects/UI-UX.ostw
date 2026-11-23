@@ -94,7 +94,9 @@ if (IsDummyBot(EventPlayer()) == false)
         CreateHudText(EventPlayer().perk[EvaluateOnce(EventPlayer().perkHudIndex)] > 0 ? EventPlayer() : null, null, null, EventPlayer().perkinfo == 2 ? <"<0> <1>: <2>", perkIcons[EvaluateOnce(EventPlayer().perkHudIndex)], perkNames[EvaluateOnce(EventPlayer().perkHudIndex)], perkInfo[EvaluateOnce(EventPlayer().perkHudIndex)]> : perkIcons[EvaluateOnce(EventPlayer().perkHudIndex)], Location.Left, 3, null, null, [Color.White, Color.Blue, Color.Orange, Color.Red][EventPlayer().perk[EvaluateOnce(EventPlayer().perkHudIndex)]], HudTextRev.VisibleToStringAndColor, Spectators.DefaultVisibility);
     }
     CreateHudText(EventPlayer().papAppliedTier > 0 ? EventPlayer() : null, null, null, EventPlayer().perkinfo == 2 ? <"\n\n\n<0> <1>: <2>", perkNames[Perk.packapunch], EventPlayer().papAppliedTier, perkInfo[Perk.packapunch]> : <"\n\n\n<0>", EventPlayer().papAppliedTier>, Location.Left, 9, null, null, [Color.White, Color.Blue, Color.Orange, Color.Red][EventPlayer().papAppliedTier], HudTextRev.VisibleToStringAndColor, Spectators.DefaultVisibility);
-    CreateEffect(EventPlayer().papAppliedTier > 0 ? AllPlayers(Team.Team1) : null, Effect.BaptisteImmortalityFieldProtectedEffect, Color.White, EventPlayer(), 1, EffectRev.VisibleToPositionAndRadius);
+    CreateEffect(EventPlayer().papAppliedTier == 1 ? AllPlayers(Team.Team1) : null, Effect.BaptisteImmortalityFieldProtectedEffect, Color.White, EventPlayer(), 1, EffectRev.VisibleToPositionAndRadius);
+    CreateEffect(EventPlayer().papAppliedTier == 2 ? AllPlayers(Team.Team1) : null, Effect.AnaNanoBoostedEffect, Color.Team2, EventPlayer(), 1, EffectRev.VisibleToPositionAndRadius);
+    CreateEffect(EventPlayer().papAppliedTier == 3 ? AllPlayers(Team.Team1) : null, Effect.EchoCloningEffect, Color.White, EventPlayer(), 1, EffectRev.VisibleToPositionAndRadius);
 }
 
 rule: "all the effects (local player huds)"
@@ -188,8 +190,8 @@ if (start == false)
 rule: "toggle perk info"
 Event.OngoingPlayer
 Team.Team1
-if (perkinfo == false)
 if (IsButtonHeld(EventPlayer(), Button.Jump) == true)
+if (perkinfo == false)
 {
     Wait(2, WaitBehavior.AbortWhenFalse);
     perkinfo = 1;
@@ -206,9 +208,9 @@ define SettingsRowText(Number row): [SettingsText.GameSettings, SettingsText.Any
 rule: "settings menu: open and close with Melee"
 Event.OngoingPlayer
 Team.Team1
+if (IsButtonHeld(EventPlayer(), Button.Melee) == true)
 if (start == false)
 if (textListsLoaded == true)
-if (IsButtonHeld(EventPlayer(), Button.Melee) == true)
 {
 
     settingsViewers = settingsViewers == null ? AllPlayers(Team.Team1) : null;
@@ -245,8 +247,8 @@ if (mapDataLoaded == true)
 rule: "settings menu: click a setting"
 Event.OngoingPlayer
 Team.Team1
-if (settingsViewers != null)
 if ((IsButtonHeld(EventPlayer(), Button.PrimaryFire) || IsButtonHeld(EventPlayer(), Button.SecondaryFire)) == true)
+if (settingsViewers != null)
 {
     menuStep = IsButtonHeld(EventPlayer(), Button.PrimaryFire) ? 1 : -1;
     menuPick = RoundToInteger(2 - 16 * DotProduct(FacingDirectionOf(EventPlayer()), settingsCamera[2]), Rounding.Nearest);

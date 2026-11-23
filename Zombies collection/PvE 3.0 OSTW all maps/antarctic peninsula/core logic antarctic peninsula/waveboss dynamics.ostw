@@ -65,8 +65,8 @@ if (HasSpawned(EventPlayer()) == true)
 rule: "wave boss: timed sequence"
 Event.OngoingPlayer
 Team.Team2
-if (IsAlive(EventPlayer()) == true)
 if (smRow > 0)
+if (IsAlive(EventPlayer()) == true)
 {
     for (smSlot = 0; 6; 1)
     {

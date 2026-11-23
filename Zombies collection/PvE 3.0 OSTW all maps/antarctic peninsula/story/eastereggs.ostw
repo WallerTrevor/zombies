@@ -2,9 +2,9 @@
 
 rule: "509 bot name singleplayer"
 
-if (RealPlayerCount() == 1)
 if (roundnumber > 0)
 if (aprilrng == 50)
+if (RealPlayerCount() == 1)
 {
     botNames = ["01000111 01100101","01110100 00100000","01101111 01110101","01110100 00100000","01101111 01100110","00100000 01101000","01100101 01110010","01100101 00101110"];
 
@@ -18,9 +18,9 @@ if (aprilrng == 50)
 }
 
 rule: "510 bot name coop"
-if (RealPlayerCount() > 1)
 if (aprilrng == 50)
 if (roundnumber > 0)
+if (RealPlayerCount() > 1)
 {
     botNames = ["77 6F 72 6B 69","6E 67 20 74 6F","67 65 74 68 65","72 20 69 73","20 66 75 74","69 6C 65 21"];
     for (i = 0; i < CountOf(botNames); 1)

@@ -126,8 +126,8 @@ if (IsAssemblingHeroes() == true)
 }
 
 rule: "5 Time manager: the objective never unlocks"
+if (teamOutOfSpawn == false)
 if (IsGameInProgress() == true)
-if (start == false)
 {
     SetMatchTime(3599);
     PauseMatchTime();
@@ -229,10 +229,10 @@ if (IsTrueForAll(FilteredArray(AllPlayers(Team.Team1), !IsDummyBot(ArrayElement(
 rule: "soft restart: a hero for players who did not pick one"
 Event.OngoingPlayer
 Team.Team1
-if (IsDummyBot(EventPlayer()) == false)
+if (HasSpawned(EventPlayer()) == false)
 if (gameNumber > 0)
 if (IsAssemblingHeroes() == false)
-if (HasSpawned(EventPlayer()) == false)
+if (IsDummyBot(EventPlayer()) == false)
 {
 
     Wait(0.016, WaitBehavior.AbortWhenFalse);
@@ -243,8 +243,8 @@ if (HasSpawned(EventPlayer()) == false)
 rule: "soft restart: reset each player"
 Event.OngoingPlayer
 Team.Team1
-if (IsDummyBot(EventPlayer()) == false)
 if (playerGameNumber != gameNumber)
+if (IsDummyBot(EventPlayer()) == false)
 {
     playerGameNumber = gameNumber;
 
@@ -303,9 +303,9 @@ Team.Team2
 
 rule: "8 respawn bots"
 if (numberOfZombies >= 1)
-if (NumberOfLivingPlayers(Team.Team2) < numberOfZombies)
-
 if (Bosssequencer == 0)
+
+if (NumberOfLivingPlayers(Team.Team2) < numberOfZombies)
 
 if (IsTrueForAny(AllDeadPlayers(Team.Team2), ArrayElement() != waveBoss) == true)
 {
@@ -318,9 +318,9 @@ if (IsTrueForAny(AllDeadPlayers(Team.Team2), ArrayElement() != waveBoss) == true
 rule: "36 Pickup perk drops(should be able to write this as one rule)"
 Event.OngoingPlayer
 Team.Team1
+if (roundnumber >= 1)
 if (DistanceBetween(EventPlayer(), M[1]) <= 1.5)
 if (AllPlayers(Team.Team1).G[1] == false)
-if (roundnumber >= 1)
 if (IsTrueForAny(M, DistanceBetween(ArrayElement(), EventPlayer()) < 4) == true)
 {
     M[1] = Vector(500, 25, 500);
@@ -337,9 +337,9 @@ if (IsTrueForAny(M, DistanceBetween(ArrayElement(), EventPlayer()) < 4) == true)
 rule: "37 Pickup slowmotion"
 Event.OngoingPlayer
 Team.Team1
+if (roundnumber >= 1)
 if (DistanceBetween(EventPlayer(), M[2]) <= 1.5)
 if (AllPlayers(Team.Team1).G[2] == false)
-if (roundnumber >= 1)
 {
     M[2] = Vector(500, 25, 500);
     AllPlayers(Team.Team1).G[2] = true;
@@ -356,9 +356,9 @@ if (roundnumber >= 1)
 rule: "38 Pickup insta kill"
 Event.OngoingPlayer
 Team.Team1
+if (roundnumber >= 1)
 if (DistanceBetween(EventPlayer(), M[4]) <= 1.5)
 if (AllPlayers(Team.Team1).G[4] == false)
-if (roundnumber >= 1)
 {
     M[4] = Vector(500, 25, 500);
     AllPlayers(Team.Team1).G[4] = true;
@@ -380,9 +380,9 @@ if (roundnumber >= 1)
 rule: "39 Pickup InstaUlt"
 Event.OngoingPlayer
 Team.Team1
+if (roundnumber >= 1)
 if (DistanceBetween(EventPlayer(), FirstOf(M)) <= 1.5)
 if (FirstOf(AllPlayers(Team.Team1).G) == false)
-if (roundnumber >= 1)
 {
     M[0] = Vector(500, 25, 500);
     AllPlayers(Team.Team1).G[0] = true;
@@ -396,9 +396,9 @@ if (roundnumber >= 1)
 rule: "Pickup fire sale"
 Event.OngoingPlayer
 Team.Team1
+if (roundnumber >= 1)
 if (DistanceBetween(EventPlayer(), M[6]) <= 1.5)
 if (AllPlayers(Team.Team1).G[6] == false)
-if (roundnumber >= 1)
 {
     M[6] = Vector(500, 25, 500);
     AllPlayers(Team.Team1).G[6] = true;
@@ -437,12 +437,12 @@ if (IsInSpawnRoom(EventPlayer()) == false)
 rule: "no going back into spawn"
 Event.OngoingPlayer
 Team.Team1
-if (outofpsawn == 1)
-if (IsDummyBot(EventPlayer()) == false)
-if (IsAlive(EventPlayer()) == true)
 if (IsInSpawnRoom(EventPlayer()) == true)
-
+if (outofpsawn == 1)
 if (lastOutsideSpawn != null)
+if (IsDummyBot(EventPlayer()) == false)
+
+if (IsAlive(EventPlayer()) == true)
 {
     Teleport(EventPlayer(), lastOutsideSpawn);
 
@@ -498,8 +498,8 @@ Event.OnPlayerJoin
 rule: "start screen: the hero does nothing"
 Event.OngoingPlayer
 Team.Team1
-if (IsDummyBot(EventPlayer()) == false)
 if (start == false)
+if (IsDummyBot(EventPlayer()) == false)
 {
     DisallowButton(EventPlayer(), Button.PrimaryFire);
     DisallowButton(EventPlayer(), Button.SecondaryFire);
@@ -645,9 +645,9 @@ if (doormessage == 1)
 rule: "143 DIFFICULTY damage taken, healing and XP system"
 Event.OngoingPlayer
 Team.Team1
-if (HasSpawned(EventPlayer()) == true)
-
 if (start == 1)
+
+if (HasSpawned(EventPlayer()) == true)
 {
 
     SetDamageReceived(EventPlayer(), WorkshopSettingToggle("Cheats", "God mode", false, 3) ? 0 : DifficultyDamageTaken());
@@ -694,8 +694,8 @@ if (trapeffect == true)
 rule: "299 out of bounce boundry"
 Event.OngoingPlayer
 Team.Team1
-if (PlayersWithinRadius(Vector(-109.55, -151.893, -6.832), 2.5, Team.Team1, RadiusLOS.Off) == true)
 if (start == 1)
+if (PlayersWithinRadius(Vector(-109.55, -151.893, -6.832), 2.5, Team.Team1, RadiusLOS.Off) == true)
 {
     Teleport(EventPlayer(), Vector(-104.638, -150.413, -15.437));
 }
@@ -724,18 +724,24 @@ if (chwaveinterval >= 4)
 }
 
 rule: "235 the match timer in a game"
+if (teamOutOfSpawn == true)
 if (IsGameInProgress() == true)
-if (start == 1)
 {
     SetMatchTime(3599);
     UnpauseMatchTime();
-    Wait(5, WaitBehavior.AbortWhenFalse);
-    SmallMessage(FilteredArray(AllPlayers(Team.Team1), ArrayElement().outofpsawn == 0), "Leave the spawn room to start!");
     while (true)
     {
         Wait(3000, WaitBehavior.AbortWhenFalse);
         SetMatchTime(3599);
     }
+}
+
+rule: "leave spawn reminder"
+if (start == 1)
+if (teamOutOfSpawn == false)
+{
+    Wait(5, WaitBehavior.AbortWhenFalse);
+    SmallMessage(FilteredArray(AllPlayers(Team.Team1), ArrayElement().outofpsawn == 0), "Leave the spawn room to start!");
 }
 
 rule: "teleporter timer"

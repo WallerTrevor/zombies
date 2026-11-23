@@ -1,8 +1,8 @@
 rule: "68 player joined invincible"
 Event.OnPlayerJoin
 Team.Team1
-if (HasSpawned(EventPlayer()) == true)
 if (start == 1)
+if (HasSpawned(EventPlayer()) == true)
 {
     SetStatus(EventPlayer(), null, Status.PhasedOut, 30);
 
