@@ -562,7 +562,7 @@ if (Maniac == false)
     healvariable = 100;
     Wait(0.1, WaitBehavior.IgnoreCondition);
     SetHealingDealt(EventPlayer(), 100);
-    doublemag = false;
+    perk[Perk.DoubleMag] = false;
     Wait(0.1, WaitBehavior.IgnoreCondition);
     sprintburstperk = false;
     DestroyDummyBot(Team.Team1, SlotOf(EventPlayer()) + 4);

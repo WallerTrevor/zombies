@@ -1,0 +1,803 @@
+[
+ {
+  "name": "Lúcio",
+  "role": "support",
+  "cost": 1000,
+  "lobby": [
+   [
+    "Healing Dealt",
+    "250%"
+   ]
+  ]
+ },
+ {
+  "name": "Hanzo",
+  "role": "damage",
+  "cost": 1250,
+  "lobby": [
+   [
+    "Damage Dealt",
+    "300%"
+   ],
+   [
+    "Sonic Arrow Cooldown",
+    "50%"
+   ],
+   [
+    "Storm Arrows Cooldown",
+    "50%"
+   ],
+   [
+    "Storm Arrows Quantity",
+    "6"
+   ]
+  ]
+ },
+ {
+  "name": "Zenyatta",
+  "role": "support",
+  "cost": 1000,
+  "lobby": [
+   [
+    "Damage Dealt",
+    "150%"
+   ],
+   [
+    "Healing Dealt",
+    "150%"
+   ]
+  ]
+ },
+ {
+  "name": "Soldier: 76",
+  "role": "damage",
+  "cost": 1000,
+  "lobby": [
+   [
+    "Clip Size Scalar",
+    "82%"
+   ]
+  ]
+ },
+ {
+  "name": "Mercy",
+  "role": "support",
+  "cost": 1000,
+  "lobby": []
+ },
+ {
+  "name": "Pharah",
+  "role": "damage",
+  "cost": 1000,
+  "lobby": [
+   [
+    "Damage Dealt",
+    "250%"
+   ],
+   [
+    "Clip Size Scalar",
+    "200%"
+   ],
+   [
+    "Concussive Blast Cooldown",
+    "50%"
+   ],
+   [
+    "Hover Charge Rate",
+    "5%"
+   ],
+   [
+    "Jump Jet Cooldown",
+    "300%"
+   ]
+  ]
+ },
+ {
+  "name": "Junkrat",
+  "role": "damage",
+  "cost": 1000,
+  "lobby": [
+   [
+    "Damage Dealt",
+    "250%"
+   ],
+   [
+    "Concussion Mine Cooldown",
+    "50%"
+   ],
+   [
+    "Steel Trap Cooldown",
+    "25%"
+   ],
+   [
+    "Concussion/Frag Knockback",
+    "25%"
+   ],
+   [
+    "Ult Duration",
+    "25%"
+   ]
+  ]
+ },
+ {
+  "name": "Symmetra",
+  "role": "damage",
+  "cost": 1750,
+  "lobby": [
+   [
+    "Damage Dealt",
+    "70%"
+   ],
+   [
+    "Sentry Turret Cooldown",
+    "200%"
+   ]
+  ]
+ },
+ {
+  "name": "Doomfist",
+  "role": "tank",
+  "cost": 1750,
+  "lobby": [
+   [
+    "Damage Dealt",
+    "60%"
+   ],
+   [
+    "Health",
+    "40% (team1) / 250% (team2)"
+   ],
+   [
+    "No Ammo Requirement",
+    "On"
+   ],
+   [
+    "Power Block/Rocket Punch/Seismic Slam CD",
+    "50%"
+   ]
+  ]
+ },
+ {
+  "name": "Baptiste",
+  "role": "support",
+  "cost": 1250,
+  "lobby": [
+   [
+    "Damage Dealt",
+    "160%"
+   ],
+   [
+    "Healing Dealt",
+    "150%"
+   ],
+   [
+    "Regenerative Burst Cooldown",
+    "25%"
+   ],
+   [
+    "Clip Size Scalar",
+    "50%"
+   ]
+  ]
+ },
+ {
+  "name": "Bastion",
+  "role": "damage",
+  "cost": 1750,
+  "lobby": []
+ },
+ {
+  "name": "Reaper",
+  "role": "damage",
+  "cost": 1000,
+  "lobby": [
+   [
+    "Shadow Step Cooldown",
+    "50%"
+   ]
+  ]
+ },
+ {
+  "name": "Genji",
+  "role": "damage",
+  "cost": 1250,
+  "lobby": [
+   [
+    "Damage Dealt",
+    "40%"
+   ]
+  ]
+ },
+ {
+  "name": "Ashe",
+  "role": "damage",
+  "cost": 500,
+  "lobby": [
+   [
+    "Damage Dealt",
+    "125%"
+   ],
+   [
+    "Coach Gun Cooldown",
+    "35%"
+   ],
+   [
+    "Dynamite Cooldown",
+    "50%"
+   ]
+  ]
+ },
+ {
+  "name": "Zarya",
+  "role": "tank",
+  "cost": 1750,
+  "lobby": [
+   [
+    "Health",
+    "38%"
+   ],
+   [
+    "Damage Dealt",
+    "420%"
+   ],
+   [
+    "Clip Size Scalar",
+    "200%"
+   ],
+   [
+    "Particle / Projected Barrier CD",
+    "40% / 40%"
+   ],
+   [
+    "Spawn with Ultimate",
+    "Enabled (team1)"
+   ]
+  ]
+ },
+ {
+  "name": "Roadhog",
+  "role": "tank",
+  "cost": 1750,
+  "lobby": [
+   [
+    "Health",
+    "23%–20%"
+   ],
+   [
+    "Damage Dealt",
+    "105% (team1) / 50% (team2)"
+   ],
+   [
+    "Chain Hook CD",
+    "0%"
+   ],
+   [
+    "Healing Received",
+    "33%"
+   ]
+  ]
+ },
+ {
+  "name": "D.Va",
+  "role": "tank",
+  "cost": 1750,
+  "lobby": [
+   [
+    "Health",
+    "26% (team 1) / 26% (team 2 mech)"
+   ],
+   [
+    "Boosters Cooldown",
+    "200%"
+   ],
+   [
+    "Self-Destruct",
+    "Disabled (Team 1 Ult)"
+   ]
+  ]
+ },
+ {
+  "name": "Brigitte",
+  "role": "support",
+  "cost": 1750,
+  "lobby": [
+   [
+    "Healing Dealt",
+    "40%"
+   ],
+   [
+    "Barrier Shield Cooldown",
+    "50%"
+   ],
+   [
+    "Repair Pack Cooldown",
+    "50%"
+   ],
+   [
+    "Shield Bash Cooldown",
+    "50%"
+   ]
+  ]
+ },
+ {
+  "name": "Reinhardt",
+  "role": "tank",
+  "cost": 1750,
+  "lobby": [
+   [
+    "Health",
+    "27%–25%"
+   ],
+   [
+    "Damage Dealt",
+    "65%"
+   ],
+   [
+    "Charge CD",
+    "50%"
+   ],
+   [
+    "Fire Strike CD",
+    "10%"
+   ],
+   [
+    "Barrier Field Recharge",
+    "300%"
+   ],
+   [
+    "Earthshatter Gen",
+    "165% (+combat variants)"
+   ]
+  ]
+ },
+ {
+  "name": "Torbjörn",
+  "role": "damage",
+  "cost": 1750,
+  "lobby": [
+   [
+    "Damage Dealt",
+    "70%"
+   ],
+   [
+    "Deploy Turret Cooldown",
+    "25%"
+   ],
+   [
+    "Overload Cooldown",
+    "40%"
+   ],
+   [
+    "Ult Gen (Molten Core)",
+    "220%"
+   ]
+  ]
+ },
+ {
+  "name": "Sigma",
+  "role": "tank",
+  "cost": 1750,
+  "lobby": [
+   [
+    "Health",
+    "32%–38%"
+   ],
+   [
+    "Damage Dealt",
+    "420%"
+   ],
+   [
+    "Accretion Knockback",
+    "300% (CD 25% team2)"
+   ],
+   [
+    "Barrier: CD / Recharge",
+    "0% / 300%"
+   ],
+   [
+    "Kinetic Grasp CD",
+    "0% (team2)"
+   ]
+  ]
+ },
+ {
+  "name": "Orisa",
+  "role": "tank",
+  "cost": 1250,
+  "lobby": [
+   [
+    "Damage Dealt",
+    "20%"
+   ],
+   [
+    "Health",
+    "32%–34%"
+   ],
+   [
+    "Javelin Spin CD",
+    "25%"
+   ],
+   [
+    "Energy Javelin/Fortify CD",
+    "50% / 75%"
+   ],
+   [
+    "Projectile Speed",
+    "10%"
+   ]
+  ]
+ },
+ {
+  "name": "Moira",
+  "role": "support",
+  "cost": 1250,
+  "lobby": [
+   [
+    "Healing Dealt",
+    "150%"
+   ],
+   [
+    "Damage Dealt",
+    "150%"
+   ],
+   [
+    "Fade Cooldown",
+    "200%"
+   ],
+   [
+    "Biotic Orb Cooldown",
+    "25%"
+   ],
+   [
+    "Health",
+    "50%"
+   ]
+  ]
+ },
+ {
+  "name": "Mei",
+  "role": "damage",
+  "cost": 30000,
+  "lobby": [
+   [
+    "Damage Dealt",
+    "500%"
+   ],
+   [
+    "Clip Size Scalar",
+    "300%"
+   ],
+   [
+    "Cryo-Freeze Cooldown",
+    "75%"
+   ],
+   [
+    "Ice Wall Cooldown",
+    "25%"
+   ],
+   [
+    "Freeze Stacking",
+    "Enabled"
+   ],
+   [
+    "Health",
+    "40%"
+   ],
+   [
+    "Min Freeze",
+    "100%"
+   ]
+  ]
+ },
+ {
+  "name": "Anran",
+  "role": "damage",
+  "cost": 1250,
+  "lobby": []
+ },
+ {
+  "name": "Mauga",
+  "role": "tank",
+  "cost": 1000,
+  "lobby": []
+ },
+ {
+  "name": "Sojourn",
+  "role": "damage",
+  "cost": 1000,
+  "lobby": []
+ },
+ {
+  "name": "Sombra",
+  "role": "damage",
+  "cost": 1000,
+  "lobby": [
+   [
+    "Clip Size Scalar",
+    "150%"
+   ],
+   [
+    "Damage Dealt",
+    "200%–250% (team variants)"
+   ],
+   [
+    "Hack Cooldown",
+    "25%"
+   ],
+   [
+    "Translocator Cooldown",
+    "75%"
+   ],
+   [
+    "Virus Cooldown",
+    "300%"
+   ],
+   [
+    "Projectile Speed",
+    "10%"
+   ]
+  ]
+ },
+ {
+  "name": "Tracer",
+  "role": "damage",
+  "cost": 1000,
+  "lobby": [
+   [
+    "Damage Dealt",
+    "260%"
+   ],
+   [
+    "Health",
+    "67%"
+   ]
+  ]
+ },
+ {
+  "name": "Widowmaker",
+  "role": "damage",
+  "cost": 1750,
+  "lobby": [
+   [
+    "Damage Dealt",
+    "500%"
+   ],
+   [
+    "Grappling Hook Cooldown",
+    "35%"
+   ],
+   [
+    "Health",
+    "58%"
+   ],
+   [
+    "Venom Mine Cooldown",
+    "0%"
+   ]
+  ]
+ },
+ {
+  "name": "Winston",
+  "role": "tank",
+  "cost": 1750,
+  "lobby": [
+   [
+    "Health",
+    "32%–10%"
+   ],
+   [
+    "Damage Dealt",
+    "70%"
+   ],
+   [
+    "Barrier Projector",
+    "20% CD (team1) / Disabled (team2)"
+   ],
+   [
+    "Jump Vertical Speed",
+    "80%"
+   ],
+   [
+    "Ult Duration",
+    "500% (team2)"
+   ]
+  ]
+ },
+ {
+  "name": "Wrecking Ball",
+  "role": "tank",
+  "cost": 1750,
+  "lobby": [
+   [
+    "Health",
+    "24%–25%"
+   ],
+   [
+    "Damage Dealt",
+    "200%"
+   ],
+   [
+    "Grappling Claw CD",
+    "250%"
+   ],
+   [
+    "Healing Received",
+    "50%"
+   ],
+   [
+    "Movement Speed",
+    "50% (team2)"
+   ]
+  ]
+ },
+ {
+  "name": "Echo",
+  "role": "damage",
+  "cost": 1000,
+  "lobby": [
+   [
+    "Focusing Beam Cooldown",
+    "50%"
+   ],
+   [
+    "Flight Cooldown",
+    "500%"
+   ]
+  ]
+ },
+ {
+  "name": "Freja",
+  "role": "damage",
+  "cost": 1250,
+  "lobby": []
+ },
+ {
+  "name": "Hazard",
+  "role": "tank",
+  "cost": 1750,
+  "lobby": []
+ },
+ {
+  "name": "Illari",
+  "role": "support",
+  "cost": 1250,
+  "lobby": []
+ },
+ {
+  "name": "Junker Queen",
+  "role": "tank",
+  "cost": 1750,
+  "lobby": [
+   [
+    "Health",
+    "50%"
+   ],
+   [
+    "Healing Received",
+    "50%"
+   ],
+   [
+    "Projectile Speed",
+    "15%"
+   ]
+  ]
+ },
+ {
+  "name": "Lifeweaver",
+  "role": "support",
+  "cost": 1250,
+  "lobby": []
+ },
+ {
+  "name": "Juno",
+  "role": "support",
+  "cost": 1250,
+  "lobby": []
+ },
+ {
+  "name": "Kiriko",
+  "role": "support",
+  "cost": 1250,
+  "lobby": [
+   [
+    "Damage Dealt",
+    "150%"
+   ]
+  ]
+ },
+ {
+  "name": "Ana",
+  "role": "support",
+  "cost": 1250,
+  "lobby": [
+   [
+    "Damage Dealt",
+    "300%"
+   ],
+   [
+    "Biotic Grenade Cooldown",
+    "50%"
+   ],
+   [
+    "Sleep Dart Cooldown",
+    "0%"
+   ]
+  ]
+ },
+ {
+  "name": "Venture",
+  "role": "damage",
+  "cost": 1000,
+  "lobby": []
+ },
+ {
+  "name": "Cassidy",
+  "role": "damage",
+  "cost": 1000,
+  "lobby": [
+   [
+    "Combat Roll Cooldown",
+    "35%"
+   ],
+   [
+    "Flashbang Cooldown",
+    "15%"
+   ]
+  ]
+ },
+ {
+  "name": "Ramattra",
+  "role": "tank",
+  "cost": 1250,
+  "lobby": [
+   [
+    "Health",
+    "40%–50%"
+   ],
+   [
+    "Nemesis Form CD",
+    "0%"
+   ],
+   [
+    "Healing Received",
+    "50%"
+   ]
+  ]
+ },
+ {
+  "name": "Domina",
+  "role": "tank",
+  "cost": 1250,
+  "lobby": []
+ },
+ {
+  "name": "Emre",
+  "role": "damage",
+  "cost": 1250,
+  "lobby": []
+ },
+ {
+  "name": "Jetpack Cat",
+  "role": "support",
+  "cost": 1250,
+  "lobby": []
+ },
+ {
+  "name": "Mizuki",
+  "role": "support",
+  "cost": 1250,
+  "lobby": []
+ },
+ {
+  "name": "Vendetta",
+  "role": "damage",
+  "cost": 1250,
+  "lobby": []
+ },
+ {
+  "name": "Wuyang",
+  "role": "support",
+  "cost": 1250,
+  "lobby": []
+ }
+]

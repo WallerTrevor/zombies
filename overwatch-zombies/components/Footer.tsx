@@ -4,7 +4,6 @@ export default function Footer() {
   return (
     <footer>
       <div className="wrap footer__inner">
-        {/* Resolve the year at render time so the copyright label stays current without a yearly edit. */}
         <div>
           © {new Date().getFullYear()} Zombie Survival • A Fan Made Overwatch
           Workshop Gamemode

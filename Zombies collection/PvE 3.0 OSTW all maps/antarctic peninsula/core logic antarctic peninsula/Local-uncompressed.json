@@ -96,7 +96,7 @@
   },
   "twoDnumbersArray2": {
     "teleradiusef": [1, 2, 3],
-    "perkcosts": [5000, 2500, 2500, 4000, 4500, 2000]
+    "perkcosts": [2500, 2000, 1500, 2000, 3000, 2000]
   },
   "doors": {
     "zone1Vectors": [
@@ -239,7 +239,7 @@
       "Stamin-Up",
       "Quick Revive",
       "Doorman",
-      "Speed Cola",
+      "Double Mag",
       "Pack-a-Punch"
     ],
     "perkmessages": [
@@ -247,7 +247,7 @@
       "Stamin-Up keeps you running. ",
       "Quick Revive gets you back in the fight. ",
       "Doorman gets you through for less. ",
-      "Speed Cola makes you reload faster. ",
+      "Double Mag makes every magazine last. ",
       "Pack-a-Punch powers up your damage. "
     ],
     "perkInfo": [
@@ -255,7 +255,7 @@
       "Speed burst for 1 second when hit: 180/200/220%, then 105/107/110% speed.",
       "One self-revive per tier, with 10 seconds of invincibility.",
       "50/60/70% off every door.",
-      "Abilities use 50/35/25% of their normal ammo.",
+      "Reloading uses 1/2, 0.4 or 0.3 of a magazine.",
       "Damage x2.5/x5/x10."
     ]
   }

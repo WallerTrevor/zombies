@@ -62,5 +62,4 @@ playervar define healvariable;
 playervar define damagevariable;
 playervar define healthmax;
 playervar define sprintburstperk!;
-playervar define doublemag;
 playervar define currentdamgindex!;

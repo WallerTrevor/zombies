@@ -1,6 +1,5 @@
 import Link from "next/link";
 
-// Both desktop navigation and the disclosure menu map the same route list.
 const links = [
   ["Home", "/"],
   ["Comics", "/comics"],
@@ -28,7 +27,6 @@ export default function Navbar() {
             Donations
           </Link>
         </nav>
-        {/* Native details/summary provides the compact menu without separate open-state logic. */}
         <details className="mobile-menu">
           <summary className="nav__btn">☰</summary>
           <nav className="nav__panel">

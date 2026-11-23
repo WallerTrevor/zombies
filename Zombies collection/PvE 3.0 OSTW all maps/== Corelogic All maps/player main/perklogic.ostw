@@ -6,7 +6,7 @@ Number StaminUpAfter(): [100, 105, 107, 110][perk[Perk.Sprintboost]];
 
 Number JuggernogHeal(): [0, 0, 25, 50][perk[Perk.Juggernaut]];
 
-Number SpeedColaAmmo(): [1, 0.5, 0.35, 0.25][perk[Perk.SpeedCola]];
+Number ReloadCost(): [1, 0.5, 0.4, 0.3][perk[Perk.DoubleMag]];
 
 rule: "jugg tier 2 and 3"
 Event.OnDamageTaken
@@ -63,7 +63,7 @@ if (perk[Perk.Doorman] >= 1)
     MinWait();
     healvariable = 100;
     SetHealingDealt(EventPlayer(), 100);
-    perk[Perk.SpeedCola] = false;
+    perk[Perk.DoubleMag] = false;
     Wait(0.1, WaitBehavior.IgnoreCondition);
     perk[Perk.Sprintboost] = false;
     SetAllowedHeroes(EventPlayer(), allowedheroes);

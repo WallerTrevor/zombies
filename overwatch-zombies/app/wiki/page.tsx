@@ -1,546 +1,107 @@
- "use client";
-import {useMemo,useState} from "react";
+"use client";
+import { useMemo, useState } from "react";
+import heroes from "./heroes.json";
 
-// Hero rows share core and Pack-A-Punch key/value lists; optional notes capture exceptions to those baselines.
-const HEROES = [
-  // ---- General note (applies to all) ----
-  { name:"All Heroes", role:"all",
-core: [
-  ["Starting HP", "DPS/Support 100 • Tank 150"]
-],
-pap: [
-  ["Pack-A-Punch", "Unlocks extra ability and bonus damage (varies by hero)"]
-],
-notes: "Global baselines for Zombies mode."
-  },
+type Role = "damage" | "tank" | "support";
+type Hero = { name: string; role: Role; cost: number; lobby: [string, string][] };
 
-  // ---- Support examples from your settings & table ----
-  { name:"Ana", role:"support",
-core: [
-  ["Damage Dealt", "300%"],
-  ["Biotic Grenade Cooldown", "50%"],
-  ["Sleep Dart Cooldown", "0%"]
-],
-pap: [
-  ["Nano Boost", "Gives target teammate insta-kill (PAP)"]
-]
-  },
-  { name:"Baptiste", role:"support",
-core: [
-  ["Damage Dealt","160%"],
-  ["Healing Dealt","150%"],
-  ["Regenerative Burst Cooldown","25%"],
-  ["Clip Size Scalar","50%"]
-],
-pap: [
-  ["Regenerative Burst","Also grants extra temporary HP to self"]
-]
-  },
-  { name:"Brigitte", role:"support",
-core: [
-  ["Healing Dealt","40%"],
-  ["Barrier Shield Cooldown","50%"],
-  ["Repair Pack Cooldown","50%"],
-  ["Shield Bash Cooldown","50%"]
-],
-pap: [
-  ["Rally (Ult)","1.5× larger aura + +1000 temp HP; Shield Bash knocks down"]
-]
-  },
-  { name:"Kiriko", role:"support",
-core: [
-  ["Damage Dealt","150%"]
-],
-pap: [
-  ["Kitsune Rush","Enemies slow inside your rush field"]
-]
-  },
-  { name:"Lúcio", role:"support",
-core: [
-  ["Healing Dealt","250%"]
-],
-pap: [
-  ["Sound Barrier","All enemies in radius are rooted on cast"]
-]
-  },
-  { name:"Moira", role:"support",
-core: [
-  ["Healing Dealt","150%"],
-  ["Damage Dealt","150%"],
-  ["Fade Cooldown","200%"],
-  ["Biotic Orb Cooldown","25%"],
-  ["Health","50%"]
-],
-pap: [
-  ["—","(design TBD)"]
-]
-  },
-  { name:"Zenyatta", role:"support",
-core: [
-  ["Damage Dealt","150%"],
-  ["Healing Dealt","150%"]
-],
-pap: [
-  ["—","(design TBD)"]
-]
-  },
+const PAP: Record<string, string> = {
+  Baptiste: "Regenerative Burst also gives you 100 extra health.",
+  Bastion: "Firing in Assault configuration launches homing rockets.",
+  "Torbjörn": "Say “I need healing” to drop a dispenser that heals and refills magazines for 30 seconds (90 second cooldown).",
+  Roadhog: "Take a Breather also heals teammates within 5 metres.",
+  "Soldier: 76": "Helix Rockets also launch a homing rocket.",
+  Echo: "Secondary fire shoots homing sticky bombs.",
+  Juno: "Secondary fire shoots homing sticky bombs.",
+  Winston: "Primal Rage makes you unkillable for 10 seconds.",
+  Symmetra: "Your ultimate phases you out for 10 seconds.",
+  Brigitte: "Rally makes you 1.5× bigger with 1,000 extra health for 8 seconds, and Shield Bash knocks stunned zombies down.",
+  Zenyatta: "Transcendence deals 300 damage a second to zombies within 10 metres.",
+  Zarya: "Barriers used during Graviton Surge come straight back.",
+  Widowmaker: "Infra-Sight makes zombies ignore you for 4 seconds (16 in co-op).",
+  "Lúcio": "Sound Barrier roots zombies within 3 metres for 3 seconds.",
+  Ramattra: "Annihilation gives every living player 1,000 points and 5 magazines.",
+  Genji: "Swinging Dragonblade also throws a fire strike.",
+  Orisa: "Your ultimate makes you twice as big with 10× damage for 8 seconds.",
+  Kiriko: "Kitsune Rush slows zombies within 15 metres to half speed for 8 seconds.",
+  Sojourn: "Power Slide knocks down zombies within 3 metres for 4 seconds.",
+  Tracer: "Recall stuns zombies within 5 metres for 4 seconds.",
+  Sombra: "Ability 2 makes zombies ignore you for 4 seconds.",
+  "D.Va": "Micro Missiles also fire a homing rocket.",
+  Lifeweaver: "Ability 2 gives teammates in front of you 100 extra health.",
+  Pharah: "Ability 2 fires a stream of homing rockets.",
+  Cassidy: "Primary fire shots explode for 420 damage around the target.",
+  Sigma: "Hits explode for 200 damage around the target, and kills give 50 extra points.",
+  Junkrat: "Hits explode for 300 damage around the target.",
+  Moira: "Coalescence roots the zombies it hits for 4 seconds.",
+  Venture: "Melee kills explode for 800 damage around the target.",
+  Mauga: "Kills reset your ability cooldowns.",
+};
 
-  // ---- Damage from settings/table ----
-  { name:"Ashe", role:"damage",
-core: [
-  ["Damage Dealt","125%"],
-  ["Coach Gun Cooldown","35%"],
-  ["Dynamite Cooldown","50%"]
-],
-pap: [
-  ["Headshots","Apply burn damage"]
-]
-  },
-  { name:"Cassidy", role:"damage",
-core: [
-  ["Combat Roll Cooldown","35%"],
-  ["Flashbang Cooldown","15%"],
-  ["Notes","Roll refills half a magazine"]
-],
-pap: [
-  ["Rounds","Explosive rounds"],
-  ["Deadeye","Low gravity if you jump right before using it"]
-],
-notes: "Starting hero — weaker early, huge payoff when PAP’d."
-  },
-  { name:"Echo", role:"damage",
-core: [
-  ["Focusing Beam Cooldown","50%"],
-  ["Flight Cooldown","500%"]
-],
-pap: [
-  ["Volley","Explosive volley shoots homing rockets"]
-]
-  },
-  { name:"Genji", role:"damage",
-core: [
-  ["Damage Dealt","40%"]
-],
-pap: [
-  ["Dragonblade","Sword swipes launch fire strikes"]
-]
-  },
-  { name:"Hanzo", role:"damage",
-core: [
-  ["Damage Dealt","300%"],
-  ["Sonic Arrow Cooldown","50%"],
-  ["Storm Arrows Cooldown","50%"],
-  ["Storm Arrows Quantity","6"]
-],
-pap: [
-  ["Storm Arrows","Knock enemies down ~8s"]
-]
-  },
-  { name:"Junkrat", role:"damage",
-core: [
-  ["Damage Dealt","250%"],
-  ["Concussion Mine Cooldown","50%"],
-  ["Steel Trap Cooldown","25%"],
-  ["Concussion/Frag Knockback","25%"],
-  ["Ult Duration","25%"]
-],
-pap: [
-  ["RIP-Tire","User is phased (invuln) during ult"],
-  ["Explosives","~4× blast radius"]
-]
-  },
-  { name:"Mei", role:"damage",
-core: [
-  ["Damage Dealt","500%"],
-  ["Clip Size Scalar","300%"],
-  ["Cryo-Freeze Cooldown","75%"],
-  ["Ice Wall Cooldown","25%"],
-  ["Freeze Stacking","Enabled"],
-  ["Health","40%"],
-  ["Min Freeze","100%"]
-],
-pap: [
-  ["—","(design TBD)"]
-]
-  },
-  { name:"Pharah", role:"damage",
-core: [
-  ["Damage Dealt","250%"],
-  ["Clip Size Scalar","200%"],
-  ["Concussive Blast Cooldown","50%"],
-  ["Hover Charge Rate","5%"],
-  ["Jump Jet Cooldown","300%"]
-],
-pap: [
-  ["—","(design TBD)"]
-]
-  },
-  { name:"Reaper", role:"damage",
-core: [
-  ["Shadow Step Cooldown","50%"]
-],
-pap: [
-  ["—","(design TBD)"]
-]
-  },
-  { name:"Soldier: 76", role:"damage",
-core: [
-  ["Clip Size Scalar","82%"]
-],
-pap: [
-  ["—","(design TBD)"]
-]
-  },
-  { name:"Sombra", role:"damage",
-core: [
-  ["Clip Size Scalar","150%"],
-  ["Damage Dealt","200%–250% (team variants)"],
-  ["Hack Cooldown","25%"],
-  ["Translocator Cooldown","75%"],
-  ["Virus Cooldown","300%"],
-  ["Projectile Speed","10%"]
-],
-pap: [
-  ["—","(design TBD)"]
-]
-  },
-  { name:"Symmetra", role:"damage",
-core: [
-  ["Damage Dealt","70%"],
-  ["Sentry Turret Cooldown","200%"]
-],
-pap: [
-  ["—","(design TBD)"]
-]
-  },
-  { name:"Torbjörn", role:"damage",
-core: [
-  ["Damage Dealt","70%"],
-  ["Deploy Turret Cooldown","25%"],
-  ["Overload Cooldown","40%"],
-  ["Ult Gen (Molten Core)","220%"]
-],
-pap: [
-  ["Molten Core","Super-stacking lava output (design expand)"]
-]
-  },
-  { name:"Tracer", role:"damage",
-core: [
-  ["Damage Dealt","260%"],
-  ["Health","67%"]
-],
-pap: [
-  ["—","(design TBD)"]
-]
-  },
-  { name:"Widowmaker", role:"damage",
-core: [
-  ["Damage Dealt","500%"],
-  ["Grappling Hook Cooldown","35%"],
-  ["Health","58%"],
-  ["Venom Mine Cooldown","0%"]
-],
-pap: [
-  ["—","(design TBD)"]
-]
-  },
-
-  // ---- Tanks from settings/table ----
-  { name:"D.Va", role:"tank",
-core: [
-  ["Health","26% (team 1) / 26% (team 2 mech)"],
-  ["Boosters Cooldown","200%"],
-  ["Self-Destruct","Disabled (Team 1 Ult)"],
-  ["Notes","Gains an ability shield after using ‘shield’ ability (design note)"]
-],
-pap: [
-  ["Micro Missiles","Fires big rockets that deal massive damage"],
-  ["Deploy","+100 HP when deploying shield"]
-]
-  },
-  { name:"Doomfist", role:"tank",
-core: [
-  ["Damage Dealt","60%"],
-  ["Health","40% (team1) / 250% (team2)"],
-  ["No Ammo Requirement","On"],
-  ["Power Block/Rocket Punch/Seismic Slam CD","50%"]
-],
-pap: [
-  ["Seismic Slam","Knocks down enemies"]
-]
-  },
-  { name:"Junker Queen", role:"tank",
-core: [
-  ["Health","50%"],
-  ["Healing Received","50%"],
-  ["Projectile Speed","15%"]
-],
-pap: [
-  ["Jagged Blade / Axe","Axe swing roots enemies ~4s"]
-]
-  },
-  { name:"Orisa", role:"tank",
-core: [
-  ["Damage Dealt","20%"],
-  ["Health","32%–34%"],
-  ["Javelin Spin CD","25%"],
-  ["Energy Javelin/Fortify CD","50% / 75%"],
-  ["Projectile Speed","10%"]
-],
-pap: [
-  ["—","(design TBD)"]
-]
-  },
-  { name:"Ramattra", role:"tank",
-core: [
-  ["Health","40%–50%"],
-  ["Nemesis Form CD","0%"],
-  ["Healing Received","50%"]
-],
-pap: [
-  ["—","(design TBD)"]
-]
-  },
-  { name:"Reinhardt", role:"tank",
-core: [
-  ["Health","27%–25%"],
-  ["Damage Dealt","65%"],
-  ["Charge CD","50%"],
-  ["Fire Strike CD","10%"],
-  ["Barrier Field Recharge","300%"],
-  ["Earthshatter Gen","165% (+combat variants)"]
-],
-pap: [
-  ["—","(design TBD)"]
-]
-  },
-  { name:"Roadhog", role:"tank",
-core: [
-  ["Health","23%–20%"],
-  ["Damage Dealt","105% (team1) / 50% (team2)"],
-  ["Chain Hook CD","0%"],
-  ["Healing Received","33%"]
-],
-pap: [
-  ["—","(design TBD)"]
-]
-  },
-  { name:"Sigma", role:"tank",
-core: [
-  ["Health","32%–38%"],
-  ["Damage Dealt","420%"],
-  ["Accretion Knockback","300% (CD 25% team2)"],
-  ["Barrier: CD / Recharge","0% / 300%"],
-  ["Kinetic Grasp CD","0% (team2)"]
-],
-pap: [
-  ["—","(design TBD)"]
-]
-  },
-  { name:"Winston", role:"tank",
-core: [
-  ["Health","32%–10%"],
-  ["Damage Dealt","70%"],
-  ["Barrier Projector","20% CD (team1) / Disabled (team2)"],
-  ["Jump Vertical Speed","80%"],
-  ["Ult Duration","500% (team2)"]
-],
-pap: [
-  ["—","(design TBD)"]
-]
-  },
-  { name:"Wrecking Ball", role:"tank",
-core: [
-  ["Health","24%–25%"],
-  ["Damage Dealt","200%"],
-  ["Grappling Claw CD","250%"],
-  ["Healing Received","50%"],
-  ["Movement Speed","50% (team2)"]
-],
-pap: [
-  ["—","(design TBD)"]
-]
-  },
-  { name:"Zarya", role:"tank",
-core: [
-  ["Health","38%"],
-  ["Damage Dealt","420%"],
-  ["Clip Size Scalar","200%"],
-  ["Particle / Projected Barrier CD","40% / 40%"],
-  ["Spawn with Ultimate","Enabled (team1)"]
-],
-pap: [
-  ["—","(design TBD)"]
-]
-  }
+const DIFFICULTIES = [
+  ["Easy", "15%", "35%", "0.45 s", "36", "No limit", "Unlimited"],
+  ["Normal", "25%", "25%", "0.35 s", "52", "60 s", "Normal"],
+  ["Hard", "50%", "25%", "0.3 s", "72", "30 s", "Normal"],
+  ["Veteran", "100%", "20%", "0.25 s", "No limit", "20 s", "Normal"],
+  ["Extreme", "200%", "15%", "0.15 s", "No limit", "15 s", "Low"],
 ];
 
-// Perks use a three-column shape: name, base effect, and tier progression.
 const PERKS = [
-  ["Juggernaut", "Gain double health", "+25 temp HP after 10s no damage per tier"],
-  [
-    "Sprint Burst",
-    "Stronger sprint when hit by enemy",
-    "+2.5% MS + extra 5% on hit per tier",
-  ],
-  [
-    "Healing Dealt & Regen",
-    "Greatly increases healing dealt",
-    "Regen delay −20% per tier",
-  ],
-  [
-    "Double-Mag",
-    "Reloading consumes ½ a magazine",
-    "10% (T1) → 30% (T3) chance reload uses no ammo",
-  ],
-  [
-    "Quick Revive",
-    "Self-revive in solo; faster revives in co-op",
-    "Stacks in solo; revive time −15% per tier",
-  ],
-  [
-    "Headshot Maniac",
-    "HS ramp up damage; body shots ramp down",
-    "Higher ceiling & floor per tier",
-  ],
-  [
-    "Pack-a-Punch",
-    "Unlocks extra abilities + bonus damage",
-    "+100% extra damage per tier (show HUD badge)",
-  ],
-  ["Electric Cherry", "Shock AoE on reload", "+30% radius per tier"],
-  ["Bandolier Bandit", "Increased ammo stock", "More stock per tier"],
-  [
-    "PHD Flopper",
-    "Fall-damage slam explodes for high damage",
-    "Higher damage per tier",
-  ],
-  [
-    "Follower’s Enchantment",
-    "Follower swaps heroes every 60s",
-    "−10s per tier",
-  ],
-  [
-    "Second Wind",
-    "Temp HP regen burst on elimination",
-    "Faster regen per tier",
-  ],
-  [
-    "Banker’s Luck",
-    "Each round: −5% to +15% points delta",
-    "+2.5% to the positive bound per tier",
-  ],
-  ["Pack Rat", "Increase max monkey grenades", "+1 per tier"],
-  ["Ultimate Stacker", "Hold multiple ult charges", "+1 charge per tier"],
-  [
-    "Bullet Broker",
-    "Reload spends points instead of ammo",
-    "−100 points cost per tier",
-  ],
-  [
-    "Time Warden",
-    "1×/round: hold interact 3s to slow time 10s",
-    "+2s duration per tier; lower CD",
-  ],
-  [
-    "Space Warden",
-    "Hold interact 3s to random-teleport ≤40m",
-    "Lower cooldown per tier",
-  ],
-  [
-    "Glass Cannon",
-    "Half max HP; increased damage +5% MS",
-    "More damage +2% MS per tier",
-  ],
-  [
-    "Insta Reload",
-    "Instantly refills clip on reload",
-    "Also refills HP bar; +25 points per tier",
-  ],
-  [
-    "Pack Leader",
-    "Buff ally damage at your expense",
-    "Higher ally buff per tier",
-  ],
-  [
-    "Slow ’n Steady",
-    "−10% MS; melee stuns longer",
-    "−2.5% MS for +0.5s stun per tier",
-  ],
-  ["Door Man", "Doors 10% cheaper", "Then +25%, then +50%"],
-  [
-    "Mystery Man",
-    "Box won’t teleport once (consumes perk)",
-    "+1 non-teleport use per tier (lose a tier each use)",
-  ],
-  [
-    "Twisted Cowboy",
-    "Body shots cause weak explosions",
-    "Explosion damage ↑ per tier",
-  ],
-  [
-    "Omnic Technician",
-    "Shows next zombie type",
-    "More intel (e.g., HP) per tier",
-  ],
-  [
-    "Speed Runner",
-    "2× movement speed between rounds",
-    "+50% per tier",
-  ],
-  [
-    "Biker’s Tequila",
-    "Summon a bike; run over zombies",
-    "Bike HP ↑ + 50% more dmg per tier",
-  ],
-  [
-    "Faulty Augment",
-    "Replace HP with decaying overhealth (start 25 +25 per final blow)",
-    "+10 per final blow per tier",
-  ],
-  [
-    "Fairy Exchange",
-    "Ride follower’s shoulder; insta-kill for 10s (60s CD)",
-    "+5s duration per tier",
-  ],
+  ["Juggernog", "2,500", "Double max health. Tier 2/3: heal 25/50 health 10 seconds after a hit."],
+  ["Stamin-Up", "2,000", "Speed burst for 1 second when hit: 180/200/220%, then 105/107/110% speed."],
+  ["Quick Revive", "1,500", "One self-revive per tier, with 10 seconds of invincibility."],
+  ["Doorman", "2,000", "50/60/70% off every door."],
+  ["Double Mag", "3,000", "A reload uses half a magazine instead of a whole one. Tier 2/3: 0.4/0.3 of a magazine."],
 ];
+
+const POWER_UPS = [
+  ["Double Points", "Every kill is worth twice as much for 60 seconds."],
+  ["Insta-Kill", "Every hit kills for 30 seconds."],
+  ["Max Ammo", "Refills everyone's magazines."],
+  ["Vaporize", "Kills every zombie on the map."],
+  ["Time Freeze", "Slows time down for 10 seconds."],
+  ["Unlimited Ultimate", "Ultimates recharge instantly for 15 seconds."],
+  ["Fire Sale", "Every Mystery Box in the zone costs 10 points for 30 seconds."],
+];
+
+const SECTIONS = [
+  ["overview", "Overview"],
+  ["how-to-play", "How to play"],
+  ["settings", "Game settings"],
+  ["points", "Points & prices"],
+  ["perks", "Perks"],
+  ["pack-a-punch", "Pack-a-Punch"],
+  ["heroes", "Heroes"],
+  ["power-ups", "Power-ups"],
+  ["map", "Antarctic Peninsula"],
+  ["bosses", "Bosses"],
+  ["coins", "Ramattra coins"],
+  ["going-down", "Going down"],
+  ["faq", "FAQ"],
+];
+
+const ROLE_LABEL: Record<Role, string> = { damage: "Damage", tank: "Tank", support: "Support" };
 
 export default function Wiki() {
-  const [q, setQ] = useState("");
-  const [selected, setSelected] = useState("All Heroes");
+  const list = heroes as Hero[];
+  const [query, setQuery] = useState("");
+  const [selected, setSelected] = useState(list[0].name);
 
-  // The query filters the selectable hero directory; the selected entry supplies the detail panel.
   const filtered = useMemo(
-    () =>
-      HEROES.filter((h: any) =>
-        (h.name + " " + (h.role || "")).toLowerCase().includes(q.toLowerCase()),
-      ),
-    [q],
+    () => list.filter((h) => `${h.name} ${h.role}`.toLowerCase().includes(query.toLowerCase())),
+    [list, query],
   );
-  const h = HEROES.find((x: any) => x.name === selected) || HEROES[0];
-  const rows = (a: any[]) =>
-    a?.map((r: any[]) => (
-      <div className="kv" key={r[0]}>
-        <b>{r[0]}</b>
-        <code>{r[1]}</code>
-      </div>
-    ));
+  const hero = list.find((h) => h.name === selected) ?? list[0];
 
   return (
     <main>
-      {/* The table of contents and anchored cards form one long reference page, with hero details selected in-place. */}
       <section className="page-hero">
-        <div className="page-hero__bg">
-          <video autoPlay muted loop playsInline>
-            <source src="/videos/hero.webm" type="video/webm" />
-          </video>
-        </div>
         <div className="wrap page-hero__content">
-          <div className="eyebrow">Documentation</div>
-          <h1>Wiki</h1>
+          <div className="eyebrow">Wiki</div>
+          <h1>How Zombies works</h1>
           <p>
-            Everything you need to play (and master) Zombies: Complete Series:
-            fundamentals, perks, wonder weapons, zones, bosses, and more.
+            Everything in the current version of the mode: settings, points, perks, Pack-a-Punch, every hero,
+            the map and its bosses.
           </p>
         </div>
       </section>
@@ -549,274 +110,316 @@ export default function Wiki() {
         <div className="wrap wiki-layout">
           <aside className="toc">
             <h3>On this page</h3>
-            {[
-              "overview",
-              "getting-started",
-              "perks",
-              "wonder-weapons",
-              "heroes",
-              "zones",
-              "bosses",
-              "faq",
-              "changelog",
-            ].map((x) => (
-              <a key={x} href={"#" + x}>
-                {x.replaceAll("-", " ")}
+            {SECTIONS.map(([id, label]) => (
+              <a key={id} href={`#${id}`}>
+                {label}
               </a>
             ))}
           </aside>
 
           <div className="wiki-content">
-            <div className="toolbar">
-              <input
-                value={q}
-                onChange={(e) => setQ(e.target.value)}
-                placeholder="Search the wiki… perks, bosses, heroes, zones"
-              />
-              {["perks", "boss", "weapon", "zone", "code"].map((x) => (
-                <button
-                  className="pill"
-                  key={x}
-                  onClick={() => setQ(x)}
-                >
-                  {x}
-                </button>
-              ))}
-            </div>
-
             <article className="card" id="overview">
               <h2>Overview</h2>
               <p>
-                Survive escalating waves of zomnics, unlock buyable areas,
-                connect power, and roll the Mystery Box for stronger kits.
-                Bosses gate key progression. Coordination, route knowledge, and
-                perk economy determine late-game survival.
+                Ramattra has turned the omnics into zombies. Up to four players hold out against endless waves on
+                Antarctic Peninsula: earn points, open doors, buy heroes and perks, turn on the power and take on
+                his champions. Each wave is bigger than the last.
               </p>
-              <ul>
-                <li>
-                  <strong>Players:</strong> 1–4 Co-op
-                </li>
-                <li>
-                  <strong>Goals:</strong> Survive waves • Open routes • Complete
-                  boss checks • Optimize perks
-                </li>
-                <li>
-                  <strong>Economy:</strong> Earn from kills/objectives • Spend
-                  on doors/perks/box • Risk vs. reward
-                </li>
-              </ul>
             </article>
 
-            <article className="card" id="getting-started">
-              <h2>Getting Started</h2>
+            <article className="card" id="how-to-play">
+              <h2>How to play</h2>
               <ol>
                 <li>
-                  Load a code from <a href="/mapcodes">Map Codes</a> and start a
-                  custom game.
+                  Copy the code from <a href="/mapcodes">Map Codes</a>, create a custom game and import it in the
+                  Workshop settings.
                 </li>
-                <li>
-                  Open early routes: prioritize safe loops and a perk station.
-                </li>
-                <li>
-                  Connect power when your squad has breathing room.
-                </li>
-                <li>Roll the Box sparingly; secure perks first.</li>
-                <li>
-                  Boss prep: have escapes, burst damage, and revives planned.
-                </li>
+                <li>Wait for the start screen to finish loading. Press Melee to open the game settings.</li>
+                <li>Press Jump to start, then walk out of the spawn room. The first wave starts once someone is out.</li>
+                <li>Zombies come in through the barricades. Hold Reload at one to repair it for 10 points.</li>
+                <li>Spend your points on doors, heroes and the Mystery Box. Find the power switch to unlock perks.</li>
               </ol>
+              <p>
+                Ashe and D.Va are the starting heroes. You carry two heroes at a time: Crouch swaps between them,
+                and each keeps its own ultimate charge and Pack-a-Punch tier.
+              </p>
             </article>
 
-            <article className="card" id="perks">
-              <h2>Perk Details (Tiers)</h2>
+            <article className="card" id="settings">
+              <h2>Game settings</h2>
+              <p>
+                Anyone can change these on the start screen (Melee). Everyone sees the same settings screen.
+              </p>
+              <h3>Difficulty</h3>
               <div className="table-wrap">
                 <table className="data-table">
                   <thead>
                     <tr>
-                      <th>Perk</th>
-                      <th>Base Effect</th>
-                      <th>Tier Bonuses (max T3)</th>
+                      <th>Difficulty</th>
+                      <th>Damage taken</th>
+                      <th>Healing</th>
+                      <th>Zombie reaction</th>
+                      <th>Zombies per wave</th>
+                      <th>Revive time</th>
+                      <th>Ammo</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {PERKS.map((r: any[]) => (
-                      <tr key={r[0]}>
-                        {r.map((v: any, i: number) => (
-                          <td key={i}>{v}</td>
+                    {DIFFICULTIES.map((row) => (
+                      <tr key={row[0]}>
+                        {row.map((cell, i) => (
+                          <td key={i}>{cell}</td>
                         ))}
                       </tr>
                     ))}
                   </tbody>
                 </table>
               </div>
-              <p style={{ marginTop: 12 }}>
-                All perks are one-time purchases unless the player dies. Max
-                tier is 3.
+              <p>
+                On Veteran and Extreme the hero buy spots and perk machines swap places every game. Melee stuns
+                zombies only on Easy.
+              </p>
+              <h3>Waves</h3>
+              <ul>
+                <li><strong>Brigitte:</strong> every zombie is a Brigitte.</li>
+                <li><strong>Torbjörn:</strong> every zombie is a Torbjörn.</li>
+                <li><strong>Random heroes:</strong> two random heroes each wave, with a wave boss from round 5.</li>
+                <li><strong>Director&apos;s cut:</strong> a set mix of heroes that changes every three rounds, each with its own wave boss.</li>
+                <li><strong>Fully random:</strong> every zombie is a random hero, and there is no wave boss.</li>
+              </ul>
+              <h3>XP system</h3>
+              <p>
+                Off by default. Each hero levels up on its own (100 XP a level, 10 to 20 XP a kill) and unlocks its
+                kit as it goes: secondary fire at level 5, ability 1 at 10, ability 2 at 15 and the ultimate at
+                20. Levels are kept between games for as long as the lobby stays open.
               </p>
             </article>
 
-            <article className="card" id="wonder-weapons">
-              <h2>Wonder Weapons</h2>
+            <article className="card" id="points">
+              <h2>Points &amp; prices</h2>
               <p>
-                Rare pulls from the Mystery Box that redefine your kit: big
-                crowd control, burst, or utility spikes. Save resources for
-                perks before high-rolling.
+                You start with 500 points. A kill is worth about 90 points, more for headshots and melee kills,
+                plus a bonus for your hero&apos;s role, and kills are worth a little more every round. Reviving a
+                teammate gives 100 points.
               </p>
-              <ul>
-                <li>
-                  <strong>Drop rate:</strong> Rare
-                </li>
-                <li>
-                  <strong>Role:</strong> Boss burn • Wave clear • Escape tools
-                </li>
-              </ul>
+              <div className="table-wrap">
+                <table className="data-table">
+                  <tbody>
+                    <tr><td>Door</td><td>1,000 (doors in a group all open together)</td></tr>
+                    <tr><td>Hero</td><td>500 to 1,750 at its buy spot (Interact); Mei is 30,000</td></tr>
+                    <tr><td>Follower</td><td>A third of the hero&apos;s price (hold Reload at its buy spot)</td></tr>
+                    <tr><td>Magazine refill</td><td>Half the hero&apos;s price, at the spot of the hero you are playing</td></tr>
+                    <tr><td>Mystery Box</td><td>950 for a random hero (10 during a Fire Sale)</td></tr>
+                    <tr><td>Monkey bomb</td><td>2,500, needs the power on</td></tr>
+                    <tr><td>Bastion trap</td><td>1,000, lasts 22 seconds</td></tr>
+                    <tr><td>Champion fight</td><td>15,000</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <h3>Bank</h3>
+              <p>
+                The team shares a bank. Deposit and withdraw at it, and upgrade it for 5,000, 10,000 and 20,000
+                bank points to earn 3%, 4% and then 6% interest at the end of every round. When the team goes
+                down, three quarters of everyone&apos;s points go into the bank, and the bank carries over to the
+                next game.
+              </p>
+              <h3>Credit card</h3>
+              <p>
+                The credit card office sells three tiers of card (1,000, 2,000 and 4,000 points). A card lets you
+                spend into debt, up to 2,000, 10,000 or 20,000 points, gives 1%, 5% or 15% off everything, and
+                charges 30%, 20% or 15% interest on your debt each round.
+              </p>
+            </article>
+
+            <article className="card" id="perks">
+              <h2>Perks</h2>
+              <p>
+                Perk machines only work once the power is on. Each perk can be bought up to tier 3, paying its price
+                again for each tier. You lose your perks when you go down.
+              </p>
+              <div className="table-wrap">
+                <table className="data-table">
+                  <thead>
+                    <tr>
+                      <th>Perk</th>
+                      <th>Price per tier</th>
+                      <th>What it does</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {PERKS.map((row) => (
+                      <tr key={row[0]}>
+                        {row.map((cell, i) => (
+                          <td key={i}>{cell}</td>
+                        ))}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </article>
+
+            <article className="card" id="pack-a-punch">
+              <h2>Pack-a-Punch</h2>
+              <p>
+                Pack-a-Punch upgrades the hero you are playing, not you: 2,000 points a tier, up to tier 3, for
+                2.5×, 5× and then 10× damage. Many heroes also get a special ability, listed under
+                Heroes below. Your tier shows next to your hero portrait, and a Pack-a-Punched hero glows.
+              </p>
+              <p>
+                Each of your two heroes keeps its own tier when you swap. Trading a hero away (the Mystery Box or
+                a hero buy spot) loses its tier, and so does going down without being revived by the end of the
+                round. Your follower gets the same tier as the hero you are playing.
+              </p>
+              <p>
+                Explosions from Pack-a-Punch abilities and the monkey bomb don&apos;t give points for the zombies
+                they kill.
+              </p>
             </article>
 
             <article className="card" id="heroes">
-              <h2>Survivor Changes</h2>
+              <h2>Heroes</h2>
               <p>
-                Every hero has Zombies-specific tuning plus a unique
-                Pack-A-Punch upgrade.
+                Every hero can be bought at a buy spot on the map, rolled from the Mystery Box, or hired as a
+                follower who rides along and shoots the nearest zombie. A follower does 50% more damage when its
+                hero works well with yours. Damage heroes beat tanks, tanks beat supports and supports beat
+                damage heroes: you deal more damage to the zombies your role beats, and less to the ones that beat
+                it.
               </p>
+              <div className="toolbar">
+                <input
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  placeholder="Search heroes or a role"
+                />
+              </div>
               <div className="hero-dir">
                 <aside className="card">
                   <div className="hero-list">
-                    {filtered.map((x: any) => (
+                    {filtered.map((h) => (
                       <button
-                        className={
-                          "hero-item " +
-                          (x.name === selected ? "active" : "")
-                        }
-                        key={x.name}
-                        onClick={() => setSelected(x.name)}
+                        className={`hero-item ${h.name === selected ? "active" : ""}`}
+                        key={h.name}
+                        onClick={() => setSelected(h.name)}
                       >
-                        {x.name}
+                        {h.name}
                       </button>
                     ))}
                   </div>
                 </aside>
                 <article className="card">
-                  <h3>{h?.name}</h3>
+                  <h3>{hero.name}</h3>
                   <div className="stat-grid">
                     <div>
-                      <h4>Core Tweaks</h4>
-                      {rows(h?.core)}
+                      <h4>Prices</h4>
+                      <div className="kv"><b>Role</b><code>{ROLE_LABEL[hero.role]}</code></div>
+                      <div className="kv"><b>Hero</b><code>{hero.cost.toLocaleString()}</code></div>
+                      <div className="kv"><b>Follower</b><code>{Math.round(hero.cost / 3).toLocaleString()}</code></div>
+                      <div className="kv"><b>Magazine refill</b><code>{Math.round(hero.cost / 2).toLocaleString()}</code></div>
                     </div>
                     <div>
-                      <h4>Pack-A-Punch</h4>
-                      {rows(h?.pap)}
+                      <h4>Pack-a-Punch</h4>
+                      <p>{PAP[hero.name] ?? "Damage boost only."}</p>
                     </div>
                   </div>
-                  <p style={{ marginTop: 16 }}>{h?.notes || "—"}</p>
+                  {hero.lobby.length > 0 && (
+                    <>
+                      <h4 style={{ marginTop: 16 }}>Hero settings</h4>
+                      {hero.lobby.map(([k, v]) => (
+                        <div className="kv" key={k}>
+                          <b>{k}</b>
+                          <code>{v}</code>
+                        </div>
+                      ))}
+                    </>
+                  )}
                 </article>
               </div>
             </article>
 
-            <article className="card" id="zones">
-              <h2>Zones &amp; Routes</h2>
-              <div className="grid-2">
-                {[
-                  [
-                    "Urban District",
-                    "Fast rotations, relay routes, mid-tier density.",
-                    "Orisa",
-                    "Standard",
-                  ],
-                  [
-                    "Radiated Omnic Temple",
-                    "Tight corridors and corruption spikes.",
-                    "Ramattra",
-                    "Hard",
-                  ],
-                  [
-                    "Harbor Docks",
-                    "Beginner-friendly lanes, generous buyables, and clear sightlines.",
-                    "Reinhardt",
-                    "Beginner",
-                  ],
-                  [
-                    "Arcology Spire",
-                    "Verticality with teleporter doors. For squads chasing high-wave milestones.",
-                    "D.Va",
-                    "Endgame",
-                  ],
-                ].map((x) => (
-                  <div className="card" key={x[0]}>
-                    <h3>{x[0]}</h3>
-                    <p>{x[1]}</p>
-                    <div className="meta">
-                      <span className="pill">Boss: {x[2]}</span>
-                      <span className="pill">Tier: {x[3]}</span>
-                    </div>
-                  </div>
-                ))}
+            <article className="card" id="power-ups">
+              <h2>Power-ups</h2>
+              <p>From round 4, zombies sometimes drop a power-up when they die. Walk over it to pick it up.</p>
+              <div className="table-wrap">
+                <table className="data-table">
+                  <tbody>
+                    {POWER_UPS.map(([name, text]) => (
+                      <tr key={name}>
+                        <td>{name}</td>
+                        <td>{text}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </div>
+            </article>
+
+            <article className="card" id="map">
+              <h2>Antarctic Peninsula</h2>
+              <p>
+                The map is three zones joined by a teleporter. The whole team has to stand on it, and it needs 60
+                seconds to recharge after each use. It takes the team on to the next zone, and from the third
+                back to the first.
+              </p>
+              <ul>
+                <li><strong>Power switch:</strong> turn it on to unlock the perks. Every zombie on the map uses its ultimate when you do.</li>
+                <li><strong>Mystery Box:</strong> one box per game, in a random spot. Hold Reload at it for a follower.</li>
+                <li><strong>Monkey bomb:</strong> a tiny Winston you throw with the Ultimate Status voice line. Zombies chase it until it explodes. Three throws a round.</li>
+                <li><strong>Barricades:</strong> zombies break in through them. From round 6, new barricades start broken.</li>
+                <li><strong>Bastion trap:</strong> calls in Bastions to hold a corridor.</li>
+                <li><strong>The ending:</strong> 50,000 points. The heroes you have out keep Pack-a-Punch tier 3 for every game after.</li>
+              </ul>
             </article>
 
             <article className="card" id="bosses">
               <h2>Bosses</h2>
-              <div className="grid-2">
-                {[
-                  [
-                    "Orisa — Sentry Protocol",
-                    "Telegraphed fortify windows, line-break charges, and lane denial.",
-                  ],
-                  [
-                    "D.Va — Mech Overclock",
-                    "Burst windows around micro missile volleys; punish eject timings.",
-                  ],
-                  [
-                    "Reinhardt — Shieldbreaker",
-                    "Cone swings with gap-closers; bait charges into terrain.",
-                  ],
-                  ["Ramattra — Corruption", "Phase spikes with adds and area denial."],
-                ].map((x) => (
-                  <details key={x[0]} open>
-                    <summary>{x[0]}</summary>
-                    <p>{x[1]}</p>
-                  </details>
-                ))}
-              </div>
+              <h3>Wave bosses</h3>
+              <p>
+                Most wave styles send one wave boss each wave: a tougher zombie hero with its own moves. It does not
+                come back once it dies.
+              </p>
+              <h3>Ramattra&apos;s champions</h3>
+              <p>
+                Each zone has a boss spot. Paying 15,000 points there clears the wave and brings out that
+                zone&apos;s champion. Beating it gives every living player 20,000 points and a Ramattra coin, then
+                the next wave starts. Teleporting away calls the fight off.
+              </p>
+              <ul>
+                <li><strong>Zone 1, the Devastator:</strong> a giant Orisa with rocket launchers and cannons.</li>
+                <li><strong>Zone 2, the Colossal Charger:</strong> a giant Reinhardt with a minigun arm.</li>
+                <li><strong>Zone 3, the Imperial Warmech:</strong> a giant D.Va with cannons, machine guns and attack squads.</li>
+              </ul>
+            </article>
+
+            <article className="card" id="coins">
+              <h2>Ramattra coins</h2>
+              <p>
+                You earn one coin for every champion you beat. Say &ldquo;I need healing&rdquo; at a buy spot to
+                use coins on it: each use halves the price, up to three times. A use costs 1 coin at a hero spot,
+                the Mystery Box or a boss spot, 3 at a perk machine and 5 at Pack-a-Punch. Coins are yours alone
+                and stay with your name for as long as the lobby stays open.
+              </p>
+            </article>
+
+            <article className="card" id="going-down">
+              <h2>Going down</h2>
+              <p>
+                Playing solo, you get three lives. In co-op, stand next to a downed teammate for 2 seconds to
+                revive them (2 seconds longer for each revive already done that round), before their revive time
+                runs out. Anyone not revived comes back at the start of the next round, next to a teammate, as
+                their starting hero, without their Pack-a-Punch. When the whole team is down, the game restarts.
+              </p>
             </article>
 
             <article className="card" id="faq">
               <h2>FAQ</h2>
               <details open>
-                <summary>Do donations unlock in-game benefits?</summary>
-                <p>
-                  No. To respect Blizzard’s policies, donations don’t provide
-                  gameplay advantages or exclusive items.
-                </p>
+                <summary>Do donations unlock anything in game?</summary>
+                <p>No. Donations never give gameplay advantages or exclusive items.</p>
               </details>
               <details>
                 <summary>Where do I report bugs or balance feedback?</summary>
-                <p>Use the survey on the home page or open an issue on GitHub.</p>
-              </details>
-              <details>
-                <summary>Performance tips?</summary>
-                <p>
-                  Reduce particle clutter, stick to clean loops, and avoid
-                  cross-pulling waves during power spikes.
-                </p>
-              </details>
-            </article>
-
-            <article className="card" id="changelog">
-              <h2>Changelog</h2>
-              <details open>
-                <summary>v0.7.8</summary>
-                <ul>
-                  <li>Balance: adjusted Orisa lane denial timings.</li>
-                  <li>Economy: perk cost smoothing for early routes.</li>
-                  <li>Fixes: box teleporter edge case on Urban District.</li>
-                </ul>
-              </details>
-              <details>
-                <summary>v0.7.7</summary>
-                <ul>
-                  <li>Temple corruption spike tuning.</li>
-                  <li>Minor UI polish on overlay captions.</li>
-                </ul>
+                <p>Use the survey on the home page.</p>
               </details>
             </article>
           </div>

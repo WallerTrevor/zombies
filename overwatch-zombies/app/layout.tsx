@@ -5,7 +5,6 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import GoatCounter from "./GoatCounter";
 
-// Shared metadata supplies defaults for every route, including social-card previews.
 export const metadata: Metadata = {
   metadataBase: new URL("https://owzombies.com"),
 
@@ -49,7 +48,6 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <GoatCounter />
-        {/* Route content is framed by the same site navigation and footer. */}
         <Navbar />
 
         {children}

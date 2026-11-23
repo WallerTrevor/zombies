@@ -1,169 +1,93 @@
- "use client";
+"use client";
 
-import React, { useMemo, useState } from "react";
+import { useState } from "react";
 import { trackGoatCounterEvent } from "../goatcounter-events";
 
 type MapEntry = {
   title: string;
   image: string | null;
-  difficulty: string;
-  boss: string;
-  description: string;
+  description: string | null;
   code: string;
-  tags: string;
 };
 
-// Map metadata is the source for card content and the searchable code/difficulty/boss fields.
 const MAPS: MapEntry[] = [
   {
     title: "Antarctic Peninsula",
     image: "/assets/images/map-antarcticp.jpg",
-    difficulty: "Standard",
-    boss: "Orisa",
     description:
-      "City core with fast rotations, power relays, and mid‑tier wave density. Great for new squads learning perks.",
+      "Three zones joined by a teleporter, each with a champion boss: the Devastator, the Colossal Charger and the Imperial Warmech.",
     code: "T5M30",
-    tags: "standard urban orisa utilities",
   },
   {
-    title: "shambali Monastery",
+    title: "Shambali Monastery",
     image: "/assets/images/map-shambalimonastery.jpg",
-    difficulty: "Hard",
-    boss: "Ramattra",
-    description:
-      "Tight corridors, corrupted nodes, and unpredictable wave spikes. Bring a coordinated team.",
+    description: null,
     code: "57RS2",
-    tags: "hard temple ramattra origins",
   },
   {
     title: "Hanamura",
     image: null,
-    difficulty: "Beginner",
-    boss: "Reinhardt",
-    description:
-      "Open sightlines and generous buyable areas. Strong starter map for perk/weapon flow.",
+    description: null,
     code: "C6R00",
-    tags: "beginner docks reinhardt",
   },
   {
     title: "Kings Row",
     image: "/assets/images/map-kingsrow.jpg",
-    difficulty: "Endgame",
-    boss: "D.Va",
-    description:
-      "Vertical lanes, teleporter doors, and scaling elite variants. For squads chasing leaderboards.",
+    description: null,
     code: "JPSXJ",
-    tags: "endgame arcology dva",
   },
 ];
 
-const DIFFICULTIES = ["All", "Beginner", "Standard", "Hard", "Endgame"];
-
-function useFilteredMaps(query: string) {
-  // Keep filtering derived from the query, avoiding a second list that could drift out of sync.
-  return useMemo(() => {
-    const q = query.trim().toLowerCase();
-    if (!q) return MAPS;
-    return MAPS.filter((m) =>
-      [m.title, m.difficulty, m.boss, m.description, m.tags, m.code]
-        .join(" ")
-        .toLowerCase()
-        .includes(q)
-    );
-  }, [query]);
-}
-
 function MapCard({ map, onCopy }: { map: MapEntry; onCopy: (code: string) => void }) {
   return (
-    <article className="card" key={map.title}>
+    <article className="card">
       <div className="media">
         {map.image ? (
           <img src={map.image} alt={map.title} />
         ) : (
-          <div className="media__placeholder">Map artwork coming soon</div>
+          <div className="media__placeholder">{map.title}</div>
         )}
       </div>
       <h2>{map.title}</h2>
-      <div className="meta">
-        <span className="pill">{map.difficulty}</span>
-        <span className="pill">Boss: {map.boss}</span>
-        <span className="pill">v0.8.4</span>
-      </div>
-      <p>{map.description}</p>
+      {map.description && <p>{map.description}</p>}
       <div className="card-actions">
         <button className="btn btn--primary" onClick={() => onCopy(map.code)}>
           Copy {map.code}
         </button>
-        <a className="btn" href="https://workshop.codes/ZBWIKI" target="_blank" rel="noreferrer">
-          Wiki ↗
-        </a>
       </div>
     </article>
   );
 }
 
 export default function MapCodes() {
-  const [query, setQuery] = useState("");
   const [copied, setCopied] = useState("");
-
-  const filtered = useFilteredMaps(query);
 
   async function copyToClipboard(code: string) {
     trackGoatCounterEvent(`copy-code/${code.toLowerCase()}`);
-
-    // navigator.clipboard may be unavailable in some environments; guard defensively
-    if (navigator.clipboard?.writeText) {
-      try {
-        await navigator.clipboard.writeText(code);
-      } catch (err) {
-        // swallow errors silently to preserve UX parity with original
-      }
-    }
-
-    // The notice is intentionally independent of clipboard success to preserve the original feedback flow.
+    try {
+      await navigator.clipboard?.writeText(code);
+    } catch {}
     setCopied(code);
     setTimeout(() => setCopied(""), 1400);
   }
 
   return (
     <main>
-      {/* Search and difficulty shortcuts feed the same filtered card grid; copied codes share one transient notice. */}
       <section className="page-hero">
-        <div className="page-hero__bg">
-          <video autoPlay muted loop playsInline>
-            <source src="/media/hero-loop.webm" type="video/webm" />
-          </video>
-        </div>
-
         <div className="wrap page-hero__content">
-          <div className="eyebrow">Play the Mode</div>
+          <div className="eyebrow">Play the mode</div>
           <h1>Map Codes</h1>
-          <p>Grab the latest Overwatch Workshop codes for each map/zone. Copy, share, and jump in with your squad.</p>
+          <p>
+            In Overwatch, go to Play, Custom Games and Create, then Settings, and import the code. Up to four
+            players.
+          </p>
         </div>
       </section>
 
       <section className="content-section">
         <div className="wrap">
-          <div className="toolbar">
-            <input
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search by map, zone, boss, tag…"
-            />
-
-            {DIFFICULTIES.map((d) => (
-              <button
-                className="pill"
-                key={d}
-                onClick={() => setQuery(d === "All" ? "" : d)}
-              >
-                {d}
-              </button>
-            ))}
-          </div>
-
           <div className="grid-2">
-            {filtered.map((m) => (
+            {MAPS.map((m) => (
               <MapCard key={m.title} map={m} onCopy={copyToClipboard} />
             ))}
           </div>

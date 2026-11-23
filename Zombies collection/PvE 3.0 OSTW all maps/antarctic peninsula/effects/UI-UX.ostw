@@ -41,7 +41,7 @@ if (perkBuyMessTimer == false)
 
 if (outofpsawn == 1)
 
-if (IsTrueForAny(buyperks, DistanceToEventPlayer(ArrayElement()) < 2) == true)
+if (IsTrueForAny(ArraySlice(buyperks, 0, Buyable.Power + 1), DistanceToEventPlayer(ArrayElement()) < 2) == true)
 {
 
     Wait(0.1, WaitBehavior.IgnoreCondition);
@@ -89,7 +89,7 @@ Team.Team1
 if (start == 1)
 if (IsDummyBot(EventPlayer()) == false)
 {
-    for (EventPlayer().perkHudIndex = Perk.Juggernaut; Perk.SpeedCola + 1; 1)
+    for (EventPlayer().perkHudIndex = Perk.Juggernaut; Perk.DoubleMag + 1; 1)
     {
         CreateHudText(EventPlayer().perk[EvaluateOnce(EventPlayer().perkHudIndex)] > 0 ? EventPlayer() : null, null, null, EventPlayer().perkinfo == 2 ? <"<0> <1>: <2>", perkIcons[EvaluateOnce(EventPlayer().perkHudIndex)], perkNames[EvaluateOnce(EventPlayer().perkHudIndex)], perkInfo[EvaluateOnce(EventPlayer().perkHudIndex)]> : perkIcons[EvaluateOnce(EventPlayer().perkHudIndex)], Location.Left, 3, null, null, [Color.White, Color.Blue, Color.Orange, Color.Red][EventPlayer().perk[EvaluateOnce(EventPlayer().perkHudIndex)]], HudTextRev.VisibleToStringAndColor, Spectators.DefaultVisibility);
     }

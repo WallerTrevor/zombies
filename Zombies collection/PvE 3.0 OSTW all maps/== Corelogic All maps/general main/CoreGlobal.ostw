@@ -6,7 +6,7 @@ enum Perk
     Sprintboost = 1,
     selfrevive = 2,
     Doorman = 3,
-    SpeedCola = 4,
+    DoubleMag = 4,
     packapunch = 5
 }
 
@@ -16,7 +16,7 @@ enum Buyable
     Sprintboost = 1,
     SelfRevive = 2,
     Doorman = 3,
-    SpeedCola = 4,
+    DoubleMag = 4,
     packapunch = 5,
     Power = 6,
     SprintBurst = 7,

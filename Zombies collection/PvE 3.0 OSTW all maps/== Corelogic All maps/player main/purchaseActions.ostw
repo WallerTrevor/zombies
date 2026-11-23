@@ -68,7 +68,7 @@ Event.OngoingPlayer
 Team.Team1
 if (IsButtonHeld(EventPlayer(), Button.Interact) == true)
 
-if (IsTrueForAny(buyperks, DistanceToEventPlayer(ArrayElement()) < 2) == true)
+if (IsTrueForAny(ArraySlice(buyperks, 0, Buyable.packapunch + 1), DistanceToEventPlayer(ArrayElement()) < 2) == true)
 {
 
     WaitUntil(ServerLoad() < 230, 3);

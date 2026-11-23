@@ -84,7 +84,7 @@ if (IsButtonHeld(EventPlayer(), Button.PrimaryFire) == true)
     LoopIfConditionIsTrue();
 }
 
-rule: "105 specific hero ammo and double mag"
+rule: "105 specific hero ammo"
 Event.OngoingPlayer
 Team.Team1
 if ((IsButtonHeld(EventPlayer(), Button.Ability1) || IsButtonHeld(EventPlayer(), Button.Ability2) || IsButtonHeld(EventPlayer(), Button.SecondaryFire) || IsButtonHeld(EventPlayer(), Button.PrimaryFire)) == true)
@@ -95,7 +95,7 @@ if ((IsButtonHeld(EventPlayer(), Button.Ability1) || IsButtonHeld(EventPlayer(),
         {
             case Hero.Moira:
 
-                currentmagazines -= 0.05 * SpeedColaAmmo();
+                currentmagazines -= 0.05;
                 Wait(0.25, WaitBehavior.IgnoreCondition);
                 LoopIfConditionIsTrue();
                 break;
@@ -107,31 +107,28 @@ if ((IsButtonHeld(EventPlayer(), Button.Ability1) || IsButtonHeld(EventPlayer(),
         switch (HeroOf(EventPlayer()))
         {
             case Hero.Doomfist:
-                if (perk[Perk.SpeedCola] == false)
-                {
-                    currentmagazines -= 0.25;
-                    Wait(0.25, WaitBehavior.IgnoreCondition);
-                    LoopIfConditionIsTrue();
-                }
+                currentmagazines -= 0.25;
+                Wait(0.25, WaitBehavior.IgnoreCondition);
+                LoopIfConditionIsTrue();
                 break;
 
             case Hero.Dva:
                 if (!IsInAlternateForm(EventPlayer()))
                 {
-                    currentmagazines -= 0.05 * SpeedColaAmmo();
+                    currentmagazines -= 0.05;
                     Wait(0.15, WaitBehavior.IgnoreCondition);
                     LoopIfConditionIsTrue();
                 }
                 break;
 
             case Hero.Hanzo:
-                currentmagazines -= 0.25 * SpeedColaAmmo();
+                currentmagazines -= 0.25;
                 break;
 
             case Hero.Sigma:
-                currentmagazines -= 0.05 * SpeedColaAmmo();
+                currentmagazines -= 0.05;
                 Wait(0.1, WaitBehavior.IgnoreCondition);
-                currentmagazines -= 0.05 * SpeedColaAmmo();
+                currentmagazines -= 0.05;
                 Wait(1.5, WaitBehavior.IgnoreCondition);
                 LoopIfConditionIsTrue();
                 break;
@@ -159,25 +156,10 @@ if ((IsButtonHeld(EventPlayer(), Button.Ability1) || IsButtonHeld(EventPlayer(),
             case Hero.Reinhardt:
                 if (IsUsingAbility2(EventPlayer()))
                 {
-                    currentmagazines -= 0.25 * SpeedColaAmmo();
+                    currentmagazines -= 0.25;
                 }
                 break;
         }
-    }
-}
-
-rule: "136  dva ammo double mag"
-Event.OngoingPlayer
-Team.Team1
-Player.Dva
-if (doublemag == 1)
-if (IsButtonHeld(EventPlayer(), Button.PrimaryFire) == true)
-{
-    if (!IsInAlternateForm(EventPlayer()))
-    {
-        currentmagazines -= 0.025;
-        Wait(0.15, WaitBehavior.IgnoreCondition);
-        LoopIfConditionIsTrue();
     }
 }
 
@@ -196,19 +178,16 @@ Event.OngoingPlayer
 Team.Team1
 Player.Hanzo
 if (IsFiringPrimary(EventPlayer()) == true)
-if (doublemag == false)
 {
     currentmagazines -= 0.25;
 }
 
-rule: "84 reloading all heros without doublemag"
+rule: "84 reloading uses a magazine"
 Event.OngoingPlayer
 Team.Team1
-
 if (IsReloading(EventPlayer()) == true)
-if (doublemag == false)
 {
-    currentmagazines -= 1;
+    currentmagazines -= ReloadCost();
 }
 
 rule: "89 out of ammo"
@@ -285,14 +264,6 @@ if (Weapon(EventPlayer()) == 1)
 if (magazines <= 0)
 {
     SetWeapon(EventPlayer(), 2);
-}
-
-rule: "98  reloading with doublemag"
-Event.OngoingPlayer
-if (IsReloading(EventPlayer()) == true)
-if (doublemag == 1)
-{
-    currentmagazines -= 0.5;
 }
 
 rule: "103  remove less than zero issue on ammo"

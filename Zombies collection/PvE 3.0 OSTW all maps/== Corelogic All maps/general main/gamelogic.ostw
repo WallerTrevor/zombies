@@ -258,7 +258,7 @@ if (playerGameNumber != gameNumber)
     SetHealingDealt(EventPlayer(), 100);
     SetMaxHealth(EventPlayer(), 100);
     SetMoveSpeed(EventPlayer(), 100);
-    doublemag = false;
+    perk[Perk.DoubleMag] = false;
     sprintburstperk = false;
     Jugg = false;
 

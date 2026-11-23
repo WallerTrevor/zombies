@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Oxanium:wght@400;600;700&display=swap');
 
-/* Shared palette and sizing tokens keep the site-wide visual system configurable in one place. */
 :root {
   --orange: #f9a51a;
   --orange-bright: #ffb547;
@@ -31,7 +30,6 @@ h1,h2,h3 { font-family: Oxanium, sans-serif; line-height: 1.08; margin: 0; lette
 p { margin: 0; }
 .wrap { width: min(var(--max), calc(100% - 40px)); margin-inline: auto; }
 
-/* Fixed site navigation and its compact disclosure-menu presentation. */
 .nav {
   position: fixed;
   inset: 0 0 auto;
@@ -88,7 +86,6 @@ p { margin: 0; }
 }
 .nav__panel .chip { display: block; text-align: center; margin: 5px; }
 
-/* Home-page hero, calls to action, and feature-card styling. */
 .hero {
   min-height: 720px;
   padding-top: 74px;
@@ -216,7 +213,6 @@ footer { padding: 45px 0; color: var(--muted); font-size: 12px; text-align: cent
 }
 
 
-/* Reusable internal-page header and content-card primitives. */
 .page-hero {
   position: relative;
   min-height: 390px;
@@ -394,7 +390,6 @@ footer { padding: 45px 0; color: var(--muted); font-size: 12px; text-align: cent
   background: #11171f;
 }
 
-/* Wiki reference layout and hero-directory details. */
 .wiki-layout {
   display: grid;
   grid-template-columns: 250px 1fr;
@@ -479,7 +474,6 @@ footer { padding: 45px 0; color: var(--muted); font-size: 12px; text-align: cent
   gap: 12px;
 }
 
-/* Shared overlays and the radio console's instrument-like controls. */
 .lightbox {
   position: fixed;
   inset: 0;
@@ -565,7 +559,6 @@ footer { padding: 45px 0; color: var(--muted); font-size: 12px; text-align: cent
   box-shadow: 0 22px 55px rgba(0,0,0,.35),inset 0 1px rgba(255,255,255,.14);
 }
 
-/* Radio console station display, tuning dial, player, and track queue. */
 .radio-console__topline {
   display: flex;
   justify-content: space-between;
@@ -782,7 +775,6 @@ footer { padding: 45px 0; color: var(--muted); font-size: 12px; text-align: cent
   font-size: 13px;
 }
 
-/* Collapse multi-column reference and radio layouts as the viewport narrows. */
 @media (max-width:900px) {
   .wiki-layout,.hero-dir,.grid-2,.stat-grid {
     grid-template-columns: 1fr;
