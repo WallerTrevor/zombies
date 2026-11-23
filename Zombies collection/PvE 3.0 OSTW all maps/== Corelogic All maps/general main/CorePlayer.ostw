@@ -80,5 +80,6 @@ playervar define playerGameNumber!;
 playervar define endingHeroes;
 playervar define endingRewardPending!;
 playervar define papAppliedTier;
+playervar define arcadeCameraFocus;
 playervar define abilityFlag!;
 playervar define healCounter!;

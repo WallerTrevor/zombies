@@ -40,11 +40,17 @@ if (IsDummyBot(EventPlayer()) == false)
     heroiconswap[0] = HeroIconString(Hero.Soldier76);
     StartFacing(EventPlayer(), DirectionTowards(EyePosition(EventPlayer()), EyePosition(FirstOf(SortedArray(FilteredArray(AllLivingPlayers(Team.Team2), !IsInSpawnRoom(ArrayElement())), DistanceBetween(EventPlayer(), ArrayElement()))))), 800, Relative.ToWorld, FacingRev.DirectionAndTurnRate);
     StartTransformingThrottle(EventPlayer(), 1, 1, Vector(-0.109, 0, 0.994));
+    DisableHeroHud(EventPlayer());
+    WaitUntil(teamOutOfSpawn == true || start != 1, 99999);
+    Wait(1.5, WaitBehavior.IgnoreCondition);
+    arcadeCameraFocus = PositionOf(EventPlayer());
+    ChaseVariableAtRate(arcadeCameraFocus, IsAlive(EventPlayer()) && HasSpawned(EventPlayer()) ? PositionOf(EventPlayer()) : arcadeCameraFocus, 0.5 + 4 * DistanceBetween(arcadeCameraFocus, PositionOf(EventPlayer())), RateChaseReevaluation.DestinationAndRate);
     while (start == 1)
     {
         if (IsAlive(EventPlayer()))
         {
-            StartCamera(EventPlayer(), RayCastHitPosition(EyePosition(EventPlayer()), EyePosition(EventPlayer()) + Vector(0.778, 14.866, -7.117), null, EventPlayer(), false) - Vector(0.024, 0.451, -0.216), EyePosition(EventPlayer()), 20);
+            StartCamera(EventPlayer(), RayCastHitPosition(arcadeCameraFocus, arcadeCameraFocus + Vector(0.778, 14.866, -7.117), null, EventPlayer(), false) - Vector(0.024, 0.451, -0.216), arcadeCameraFocus, 6);
+            DisableHeroHud(EventPlayer());
             if (HeroOf(EventPlayer()) != Hero.Soldier76)
             {
                 SetUltimateCharge(EventPlayer(), UltimateChargePercent(EventPlayer()) + 40);
@@ -52,8 +58,16 @@ if (IsDummyBot(EventPlayer()) == false)
         }
         Wait(2, WaitBehavior.IgnoreCondition);
     }
+    StopChasingVariable(arcadeCameraFocus);
     StopFacing(EventPlayer());
     StopTransformingThrottle(EventPlayer());
+}
+
+rule: "arcade: ultimate charge bar"
+if (arcadeMode == true)
+if (start == 1)
+{
+    CreateProgressBarHudText(arcadeMode == true && start == 1 ? AllPlayers(Team.Team1) : null, UltimateChargePercent(LocalPlayer()), <"<0> <1>%", AbilityIconString(HeroOf(LocalPlayer()), Button.Ultimate), RoundToInteger(UltimateChargePercent(LocalPlayer()), Rounding.Down)>, Location.Top, 1, UltimateChargePercent(LocalPlayer()) >= 100 ? Color.Orange : Color.White, Color.White, ProgressBarHudEvaluation.VisibleToValuesAndColor, Spectators.DefaultVisibility);
 }
 
 rule: "arcade: Soldier's ultimate changes your hero"

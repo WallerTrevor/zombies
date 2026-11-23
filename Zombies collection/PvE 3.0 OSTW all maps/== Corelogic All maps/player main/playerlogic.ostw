@@ -39,6 +39,11 @@ if (IsDummyBot(EventPlayer()) == false)
 {
     heroswap[0] = HeroOf(EventPlayer());
     heroiconswap[0] = HeroIconString(HeroOf(EventPlayer()));
+    if (heroswap[1] == heroswap[0])
+    {
+        heroswap[1] = heroswap[0] == Hero.Ashe ? Hero.Dva : Hero.Ashe;
+        heroiconswap[1] = HeroIconString(heroswap[1]);
+    }
 }
 
 rule: "stop jetpack cat from flying too long"
@@ -566,7 +571,10 @@ if (Maniac == false)
     Wait(0.1, WaitBehavior.IgnoreCondition);
     sprintburstperk = false;
     DestroyDummyBot(Team.Team1, SlotOf(EventPlayer()) + 4);
-    SetAllowedHeroes(EventPlayer(), allowedheroes);
+    if (arcadeMode != true)
+    {
+        SetAllowedHeroes(EventPlayer(), allowedheroes);
+    }
 }
 
 rule: "81 Died Low points Bonus"
@@ -644,6 +652,7 @@ rule: "switch between 2 heros (needs ultimates, followers, ammo, systems working
 Event.OngoingPlayer
 Team.Team1
 if (IsButtonHeld(EventPlayer(), Button.Crouch) == true)
+if (arcadeMode != true)
 if (IsAlive(EventPlayer()) == true)
 {
 
@@ -682,6 +691,7 @@ Event.OngoingPlayer
 Team.Team1
 if (start == 1)
 if (outofpsawn == 0)
+if (IsGameInProgress() == true)
 if (IsDummyBot(EventPlayer()) == false)
 if (IsAlive(EventPlayer()) == true)
 if (HasSpawned(EventPlayer()) == true)

@@ -300,7 +300,7 @@ export default function Wiki() {
             <article className="card" id="pack-a-punch">
               <h2>Pack-a-Punch</h2>
               <p>
-                Pack-a-Punch upgrades the hero you are playing, not you: 2,000 points a tier, up to tier 3, for
+                Pack-a-Punch upgrades the hero you are playing, not you: 5,000 points a tier, up to tier 3, for
                 2.5×, 5× and then 10× damage. Many heroes also get a special ability, listed under
                 Heroes below. Your tier shows next to your hero portrait, and a Pack-a-Punched hero glows.
               </p>

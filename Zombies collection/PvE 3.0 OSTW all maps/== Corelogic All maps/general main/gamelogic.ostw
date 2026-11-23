@@ -63,9 +63,9 @@ if (start == 1)
 if (IsTrueForAny(AllPlayers(Team.Team1), ArrayElement().outofpsawn == 1) == true)
 {
     Wait(0.16, WaitBehavior.IgnoreCondition);
-    for (forindex = 0; CountOf(omnicspawn); 1)
+    for (forindex = 0; 12; 1)
     {
-        DestroyDummyBot(Team.Team2, omnicspawn[forindex]);
+        DestroyDummyBot(Team.Team2, forindex);
     }
     roundnumber += 1;
     Z = 1;
@@ -122,7 +122,7 @@ if (Z == 1)
 rule: "5 Time manager"
 if (IsAssemblingHeroes() == true)
 {
-    SetMatchTime(5);
+    SetMatchTime(start == 1 ? 15 : 5);
 }
 
 rule: "5 Time manager: the objective never unlocks"
@@ -162,14 +162,17 @@ if (IsTrueForAll(FilteredArray(AllPlayers(Team.Team1), !IsDummyBot(ArrayElement(
         PlayersInSlot(forindex, Team.Team1).allowedheroes = Append([Hero.Ashe, Hero.Dva], RemoveFromArray(PlayersInSlot(forindex, Team.Team1).allowedheroes, [Hero.Ashe, Hero.Dva]));
         SetAllowedHeroes(PlayersInSlot(forindex, Team.Team1), PlayersInSlot(forindex, Team.Team1).allowedheroes);
     }
+    AllPlayers(Team.Team1).outofpsawn = false;
+    AllPlayers(Team.Team1).lastOutsideSpawn = null;
+    teamOutOfSpawn = false;
+    StopForcingHero(AllPlayers(Team.Team1));
     GoToAssembleHeroes();
 
     Resurrect(AllPlayers(Team.Team1));
     Wait(2, WaitBehavior.IgnoreCondition);
     bankPoints += AllPlayers(Team.Team1).points * 0.75;
-    AllPlayers(Team.Team1).outofpsawn = false;
-    teamOutOfSpawn = false;
     roundnumber = 0;
+    aprilrng = 0;
     start = false;
 
     romanNcounter = 0;
@@ -235,9 +238,9 @@ if (IsAssemblingHeroes() == false)
 if (IsDummyBot(EventPlayer()) == false)
 {
 
-    Wait(0.016, WaitBehavior.AbortWhenFalse);
+    Wait(1.5, WaitBehavior.AbortWhenFalse);
 
-    ForcePlayerHero(EventPlayer(), RandomValueInArray(Append([Hero.Ashe, Hero.Dva], allowedheroes)));
+    ForcePlayerHero(EventPlayer(), ArrayContains(allowedheroes, HeroOf(EventPlayer())) ? HeroOf(EventPlayer()) : RandomValueInArray(Append([Hero.Ashe, Hero.Dva], allowedheroes)));
 }
 
 rule: "soft restart: reset each player"
@@ -247,6 +250,8 @@ if (playerGameNumber != gameNumber)
 if (IsDummyBot(EventPlayer()) == false)
 {
     playerGameNumber = gameNumber;
+    StopChasingVariable(points2);
+    points2 = points;
 
     perk = [];
     papAppliedTier = -1;
@@ -425,6 +430,7 @@ rule: "no going back into spawn: remember the last spot outside"
 Event.OngoingPlayer
 Team.Team1
 if (outofpsawn == 1)
+if (IsGameInProgress() == true)
 if (IsDummyBot(EventPlayer()) == false)
 if (IsAlive(EventPlayer()) == true)
 if (IsInSpawnRoom(EventPlayer()) == false)
@@ -439,17 +445,31 @@ Event.OngoingPlayer
 Team.Team1
 if (IsInSpawnRoom(EventPlayer()) == true)
 if (outofpsawn == 1)
-if (lastOutsideSpawn != null)
+if (teamOutOfSpawn == true)
+if (IsGameInProgress() == true)
 if (IsDummyBot(EventPlayer()) == false)
-
 if (IsAlive(EventPlayer()) == true)
 {
-    Teleport(EventPlayer(), lastOutsideSpawn);
-
+    Wait(1, WaitBehavior.AbortWhenFalse);
+    if (lastOutsideSpawn != null)
+    {
+        Teleport(EventPlayer(), lastOutsideSpawn);
+        SmallMessage(EventPlayer(), <"<0> No going back!", HeroIconString(Hero.Ramattra)>);
+    }
+    else if (IsTrueForAny(AllLivingPlayers(Team.Team1), !IsDummyBot(ArrayElement()) && !IsInSpawnRoom(ArrayElement())))
+    {
+        Teleport(EventPlayer(), PositionOf(FirstOf(FilteredArray(AllLivingPlayers(Team.Team1), !IsDummyBot(ArrayElement()) && !IsInSpawnRoom(ArrayElement())))));
+    }
     doorSkipCheck = true;
-    SmallMessage(EventPlayer(), <"<0> No going back!", HeroIconString(Hero.Ramattra)>);
-    Wait(0.5, WaitBehavior.IgnoreCondition);
     LoopIfConditionIsTrue();
+}
+
+rule: "cutscene slow motion safety"
+if (slowmoCutscene != 0)
+{
+    Wait(4, WaitBehavior.AbortWhenFalse);
+    slowmoCutscene = 0;
+    StopCamera(AllPlayers(Team.All));
 }
 
 rule: "48 WORKSHOP SETTINGS"
@@ -492,7 +512,7 @@ Event.OnPlayerJoin
     F = false;
     H = 1;
     Wait(10, WaitBehavior.IgnoreCondition);
-    allowedheroes = [FirstOf(heroswap), heroswap[1]];
+    allowedheroes = [Hero.Ashe, Hero.Dva];
 }
 
 rule: "start screen: the hero does nothing"
@@ -595,6 +615,7 @@ if ((IsButtonHeld(EventPlayer(), Button.Jump) || arcadeCodeStep >= 6) == true)
 
     if (arcadeMode)
     {
+        buyheros = [];
         Difficulty = 1;
         difficultyStats = ArraySlice(difficultyTable, 0, 6);
     }
@@ -607,7 +628,7 @@ if ((IsButtonHeld(EventPlayer(), Button.Jump) || arcadeCodeStep >= 6) == true)
     heroswap[0] = HeroOf(EventPlayer());
     Wait(1, WaitBehavior.IgnoreCondition);
     EnableMusic();
-    rngbox = RandomValueInArray(mysterylocations);
+    rngbox = arcadeMode == true ? null : RandomValueInArray(mysterylocations);
     StartCamera(AllPlayers(Team.All), Vector(283.872, 1.875, 118.717), Vector(282.782, 1.329, 109.203), 0);
     CreateInWorldText(AllPlayers(Team.All), "Good Luck...", Vector(282.782, 1.329, 109.203), 5, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleToPositionAndString, Color.White, Spectators.DefaultVisibility);
     Wait(4, WaitBehavior.IgnoreCondition);
@@ -617,7 +638,7 @@ if ((IsButtonHeld(EventPlayer(), Button.Jump) || arcadeCodeStep >= 6) == true)
 
     startingPoints = WorkshopSettingInteger("Cheats", "Starting points", 500, 500, 1000000, 0);
     AllPlayers(Team.All).points = startingPoints;
-    AllPlayers(Team.All).points2 = AllPlayers(Team.All).points;
+    AllPlayers(Team.All).points2 = startingPoints;
     AllPlayers(Team.All).cashback = 1;
 }
 

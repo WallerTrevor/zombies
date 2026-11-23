@@ -104,10 +104,6 @@ if (start == 1)
 {
 
     Wait(4, WaitBehavior.IgnoreCondition);
-    Died[0] = Vector(500, 0, 500);
-    Died[1] = Vector(500, 0, 500);
-    Died[2] = Vector(500, 0, 500);
-    Died[3] = Vector(500, 0, 500);
 
     CreateHudText(LocalPlayer(), null, null, <"lives used: <0>", LocalPlayer().singlelives>, Location.Right, 0, null, null, Color.White, HudTextRev.VisibleToAndString, Spectators.DefaultVisibility);
     CreateHudText(LocalPlayer(), null, null, <"Magazines <0>", Difficulty == 1 ? "unlimited" : LocalPlayer().currentmagazines>, Location.Right, 7, null, null, Color.White, HudTextRev.VisibleToAndString, Spectators.DefaultVisibility);

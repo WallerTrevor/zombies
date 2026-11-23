@@ -14,20 +14,20 @@ if (start == 1)
     }
     Wait(1, WaitBehavior.IgnoreCondition);
 
-    for (forindex = 0; 3; 1)
+    for (forindex = 0; 4; 1)
     {
-        CreateEffect(LocalPlayer(), Effect.Ring, Color.Red, Died[EvaluateOnce(forindex)], 4, EffectRev.VisibleToPositionAndRadius);
-        CreateEffect(LocalPlayer(), Effect.Sphere, Color.White, Died[EvaluateOnce(forindex)], PlayersInSlot(EvaluateOnce(forindex), Team.Team1).sea, EffectRev.VisibleToPositionAndRadius);
-        CreateInWorldText(LocalPlayer(), <"<0>", EvaluateOnce(RandomValueInArray(diedtext))>, Died[EvaluateOnce(forindex)], 3, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleToPositionAndString, Color.White, Spectators.DefaultVisibility);
+        CreateEffect(teamOutOfSpawn ? LocalPlayer() : null, Effect.Ring, Color.Red, Died[EvaluateOnce(forindex)], 4, EffectRev.VisibleToPositionAndRadius);
+        CreateEffect(teamOutOfSpawn ? LocalPlayer() : null, Effect.Sphere, Color.White, Died[EvaluateOnce(forindex)], PlayersInSlot(EvaluateOnce(forindex), Team.Team1).sea, EffectRev.VisibleToPositionAndRadius);
+        CreateInWorldText(teamOutOfSpawn ? LocalPlayer() : null, <"<0>", EvaluateOnce(RandomValueInArray(diedtext))>, Died[EvaluateOnce(forindex)], 3, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleToPositionAndString, Color.White, Spectators.DefaultVisibility);
     }
 
-    CreateEffect(LocalPlayer(), Effect.Ring, Color.Purple, rngbox, 2, EffectRev.VisibleToPositionAndRadius);
-    CreateEffect(LocalPlayer(), Effect.LightShaft, Color.SkyBlue, Vector(0, 10, 0) + rngbox, 1, EffectRev.VisibleToPositionAndRadius);
-    CreateEffect(LocalPlayer(), Effect.LightShaft, Color.SkyBlue, Vector(0, 25, 0) + rngbox, 1, EffectRev.VisibleToPositionAndRadius);
-    CreateEffect(LocalPlayer(), Effect.LightShaft, Color.SkyBlue, Vector(0, 40, 0) + rngbox, 1, EffectRev.VisibleToPositionAndRadius);
-    CreateInWorldText(LocalPlayer(), IconString(Icon.QuestionMark), Vector(0, 2, 0) + rngbox, 2.25, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleToPositionAndString, Color.Purple, Spectators.DefaultVisibility);
-    CreateEffect(LocalPlayer(), Effect.Sparkles, Color.Yellow, rngbox, 2, EffectRev.VisibleToPositionAndRadius);
-    CreateProjectileEffect(LocalPlayer(), ProjectileType.SymmetraPhotonProjector, null, Up() + rngbox, Up(), 0.1, ProjectileEffectReeval.VisibleToFriendlyTo);
+    CreateEffect(rngbox != null ? LocalPlayer() : null, Effect.Ring, Color.Purple, rngbox, 2, EffectRev.VisibleToPositionAndRadius);
+    CreateEffect(rngbox != null ? LocalPlayer() : null, Effect.LightShaft, Color.SkyBlue, Vector(0, 10, 0) + rngbox, 1, EffectRev.VisibleToPositionAndRadius);
+    CreateEffect(rngbox != null ? LocalPlayer() : null, Effect.LightShaft, Color.SkyBlue, Vector(0, 25, 0) + rngbox, 1, EffectRev.VisibleToPositionAndRadius);
+    CreateEffect(rngbox != null ? LocalPlayer() : null, Effect.LightShaft, Color.SkyBlue, Vector(0, 40, 0) + rngbox, 1, EffectRev.VisibleToPositionAndRadius);
+    CreateInWorldText(rngbox != null ? LocalPlayer() : null, IconString(Icon.QuestionMark), Vector(0, 2, 0) + rngbox, 2.25, Clipping.ClipAgainstSurfaces, InworldTextRev.VisibleToPositionAndString, Color.Purple, Spectators.DefaultVisibility);
+    CreateEffect(rngbox != null ? LocalPlayer() : null, Effect.Sparkles, Color.Yellow, rngbox, 2, EffectRev.VisibleToPositionAndRadius);
+    CreateProjectileEffect(rngbox != null ? LocalPlayer() : null, ProjectileType.SymmetraPhotonProjector, null, Up() + rngbox, Up(), 0.1, ProjectileEffectReeval.VisibleToFriendlyTo);
 }
 
 void ClearZoneMarkers() "clear zone markers"
@@ -199,6 +199,7 @@ if (zoneMarkersZone != telespot)
 
 rule: "fire sale boxes"
 if (start == 1)
+if (rngbox != null)
 if (fireSale == true)
 {
     fireSaleEffects = [];

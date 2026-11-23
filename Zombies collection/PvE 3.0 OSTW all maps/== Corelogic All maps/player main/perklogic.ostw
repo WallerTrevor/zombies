@@ -51,7 +51,10 @@ if (perk[Perk.Doorman] >= 1)
     BigMessage(AllPlayers(Team.All), <"<0> <1>", EventPlayer(), RandomValueInArray(diedphrase)>);
     E[SlotOf(EventPlayer())] = true;
     SetMaxHealth(EventPlayer(), 100);
-    StopForcingHero(EventPlayer());
+    if (arcadeMode != true)
+    {
+        StopForcingHero(EventPlayer());
+    }
     MinWait();
     perk[Perk.Juggernaut] = false;
     MinWait();
@@ -66,7 +69,10 @@ if (perk[Perk.Doorman] >= 1)
     perk[Perk.DoubleMag] = false;
     Wait(0.1, WaitBehavior.IgnoreCondition);
     perk[Perk.Sprintboost] = false;
-    SetAllowedHeroes(EventPlayer(), allowedheroes);
+    if (arcadeMode != true)
+    {
+        SetAllowedHeroes(EventPlayer(), allowedheroes);
+    }
 }
 
 rule: "77 multiplayer extra life Perk"

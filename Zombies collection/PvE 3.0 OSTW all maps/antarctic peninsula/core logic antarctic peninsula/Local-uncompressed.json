@@ -96,7 +96,7 @@
   },
   "twoDnumbersArray2": {
     "teleradiusef": [1, 2, 3],
-    "perkcosts": [2500, 2000, 1500, 2000, 3000, 2000]
+    "perkcosts": [2500, 2000, 1500, 2000, 3000, 5000]
   },
   "doors": {
     "zone1Vectors": [

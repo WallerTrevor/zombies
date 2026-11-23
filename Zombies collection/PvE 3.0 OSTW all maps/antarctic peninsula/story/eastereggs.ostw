@@ -30,14 +30,15 @@ if (RealPlayerCount() > 1)
 }
 
 rule: "glitch in the system"
-if (roundnumber < 10)
 if (aprilrng == 25)
+if (start == 1)
+if (roundnumber < 10)
 {
     for (forindex = 0; forindex < 4; 1)
     {
-        romanNcounter += 12;
+        romanNcounter = roundnumber + 12;
         Wait(0.4, WaitBehavior.IgnoreCondition);
-        romanNcounter -= 12;
+        romanNcounter = roundnumber;
         Wait(0.4, WaitBehavior.IgnoreCondition);
     }
     LoopIfConditionIsTrue();

@@ -406,7 +406,7 @@ if (DistanceToEventPlayer(Vector(-83.799, -160.001, 64.224)) <= 2)
         WaitUntil(ServerLoad() < 230, 3);
         trapeffect = 1;
         PlayEffect(AllPlayers(Team.Team1), PlayEffect.BuffImpactSound, Color.White, EventPlayer(), 70);
-        points -= 2000;
+        points -= 1000;
         Wait(22, WaitBehavior.IgnoreCondition);
         trapeffect = false;
     }
